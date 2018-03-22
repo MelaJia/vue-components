@@ -1,0 +1,134 @@
+<template>
+    <section>
+        <el-table
+        :data="tableData5"
+        show-summary
+        sum-text="本页合计"
+        style="width: 100%"
+        :row-class-name="tableRowClassName" @expand-change="expendhandle">
+        <el-table-column type="expand">
+        <template slot-scope="props">
+            <el-form label-position="left" inline class="demo-table-expand">
+            <el-form-item label="AR单号">
+                <span>{{ props.row.id }}</span>
+            </el-form-item>
+            <el-form-item label="付款单位">
+                <span>{{ props.row.come }}</span>
+            </el-form-item>
+            <el-form-item label="授让单位">
+                <span>{{ props.row.company }}</span>
+            </el-form-item>
+            <el-form-item label="交易流水号">
+                <span>{{ props.row.fid }}</span>
+            </el-form-item>
+            <el-form-item label="状态">
+                <span>{{ props.row.status }}</span>
+            </el-form-item>
+            <el-form-item label="币别">
+                <span>{{ props.row.moneyType }}</span>
+            </el-form-item>
+            <el-form-item label="票面金额">
+                <span>{{ props.row.money }}</span>
+            </el-form-item>
+            <el-form-item label="转让日期">
+                <span>{{ props.row.money_can }}</span>
+            </el-form-item>
+            <el-form-item label="预计回款日期">
+                <span>{{ props.row.arriveDate }}</span>
+            </el-form-item>
+            </el-form>
+        </template>
+        </el-table-column>
+        <el-table-column
+        type="index"
+        label="序号"
+        >
+        </el-table-column>
+        <el-table-column
+        label="AR单号"
+        prop="id"
+        width="130">
+        </el-table-column>
+        <el-table-column
+        label="付款单位"
+        prop="come"
+        >
+        </el-table-column>
+        <el-table-column
+        label="状态"
+        prop="status"
+        >
+        </el-table-column>
+        <el-table-column
+        label="票面金额"
+        prop="money"
+        >
+        </el-table-column><el-table-column
+        label="转让日期"
+        prop="money_can"
+        width="100">
+        </el-table-column>
+        <el-table-column
+        label="操作"
+        width='230px'
+        >
+        <template slot-scope="scope" >
+            <el-button
+            size="mini"
+            type="primary"
+            @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+            <el-button
+            size="mini"
+            type="primary"
+            @click="handleDelete(scope.$index, scope.row)">取消授让</el-button>
+        </template>
+        </el-table-column>
+    </el-table>
+    </section>
+</template>
+
+  <script>
+    import ListMinxIn from '@/mixins/Ar/List'
+    export default {
+      mixins:[ListMinxIn],
+      data() {
+        return {
+          tableData5: [{
+          pend:false,
+          id: 'A205322625122',
+          fid:'B10023',
+          come: '富金机',
+          company: '大诚制造',
+          status: '已授让',
+          moneyType: '人民币',
+          money: '20000',
+          money_can: '2017-9-26',
+          arriveDate: '2017-9-26',
+          tableData: []
+        },{
+          id: 'A205322625123',
+          fid:'B10023',
+          come: '富金机',
+          company: '大诚制造',
+          status: '已授让',
+          moneyType: '人民币',
+          money: '20000',
+          money_can: '2017-9-26',
+          arriveDate: '2017-9-26',
+        }]
+        }
+      },
+    }
+  </script>
+  <style>
+  .demo-table-expand label {
+    width: 100px;
+    color: #99a9bf;
+  }
+  .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 50%;
+  }
+  </style>
+  
