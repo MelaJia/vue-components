@@ -36,44 +36,44 @@
       <el-table-column
         align="center"
         prop="id"
-        :width="widthArr.id">
+        :min-width="widthArr.id">
       </el-table-column>
       <el-table-column
         align="center"
         prop="come"
-        :width="widthArr.come">
+        :min-width="widthArr.come">
         >
       </el-table-column>
       <el-table-column
         align="center"
         prop="company"
-        :width="widthArr.company">
+        :min-width="widthArr.company">
       </el-table-column>
       <el-table-column
         align="center"
         prop="status"
-        :width="widthArr.status">        
+        :min-width="widthArr.status">        
       </el-table-column>
       <el-table-column
         align="center"
         prop="moneyType"
-        :width="widthArr.moneyType">
+        :min-width="widthArr.moneyType">
       </el-table-column>
       <el-table-column
         align="center"
         prop="money"
-        :width="widthArr.money"
+        :min-width="widthArr.money"
         >
       </el-table-column><el-table-column
         align="center"
         prop="money_can"
-        :width="widthArr.money_can"
+        :min-width="widthArr.money_can"
         >
       </el-table-column>
       <el-table-column
         align="center"
         prop="arriveDate"
-        :width="widthArr.arriveDate"
+        :min-width="widthArr.arriveDate"
         >
       </el-table-column>
       <el-table-column
