@@ -44,7 +44,6 @@
 }
 .right{
     margin-left: 200px;
-    width: 80%;
 }
 .top{
     height: 100px;
