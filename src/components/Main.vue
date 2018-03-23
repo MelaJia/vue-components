@@ -13,7 +13,7 @@
                 <el-header style="background-color:rgb(242,242,242)">
                         <header-section></header-section>
                     </el-header>
-                    <el-main style="background-color:rgb(242,242,242)">
+                    <el-main :style="'background-color:rgb(242,242,242);'+'height:'+(height-80)+'px'">
                         <router-view></router-view>
                     </el-main>
             </div>
