@@ -16,7 +16,7 @@
     border
     style="width: 100%"
     @selection-change="handleSelectionChange"
-    :row-class-name="tableRowClassName" @expand-change="expendhandle">
+    :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle">
       <el-table-column type="expand" fixed>
         <template slot-scope="props">
           <el-table
@@ -36,40 +36,44 @@
       <el-table-column
         align="center"
         prop="id"
-        width="100">
+        :width="widthArr.id">
       </el-table-column>
       <el-table-column
         align="center"
-        prop="come">
+        prop="come"
+        :width="widthArr.come">
+        >
       </el-table-column>
       <el-table-column
         align="center"
         prop="company"
-        width="150">
+        :width="widthArr.company">
       </el-table-column>
       <el-table-column
         align="center"
         prop="status"
-        >
+        :width="widthArr.status">        
       </el-table-column>
       <el-table-column
         align="center"
         prop="moneyType"
-        >
+        :width="widthArr.moneyType">
       </el-table-column>
       <el-table-column
         align="center"
         prop="money"
+        :width="widthArr.money"
         >
       </el-table-column><el-table-column
         align="center"
         prop="money_can"
+        :width="widthArr.money_can"
         >
       </el-table-column>
       <el-table-column
         align="center"
         prop="arriveDate"
-        width="120"
+        :width="widthArr.arriveDate"
         >
       </el-table-column>
       <el-table-column
@@ -189,6 +193,17 @@
       },
       data(){
         return {
+          widthArr:{
+            id: '100',
+            come: '',
+            company: '150',
+            status: '',
+            moneyType: '',
+            money: '',
+            money_can: '',
+            money_cash: '',
+            arriveDate: '120',
+          },
           dialogConfirmVisible: false, //控制确认窗
           dialogTransferVisible: false, //控制转账窗
           dialogWithdrawVisible:false, //控制提现窗
@@ -207,6 +222,9 @@
           
           this.details=val;
           this.dialogInfoVisible=true;
+        },
+        widthHandle(newWidth, oldWidth, column, event){
+          this.widthArr[column.property]=newWidth;
         }
       }
     }

@@ -3,8 +3,9 @@
   <el-table
     :data="tableData5"
     show-summary
+    border
     style="width: 100%"
-    :row-class-name="tableRowClassName" @expand-change="expendhandle">
+    :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle">
     <el-table-column type="expand">
       <template slot-scope="props">
         <el-table
@@ -17,33 +18,38 @@
     </el-table-column>
       <el-table-column
       prop="id"
-      width="100">
+      :width="widthArr.id">
     </el-table-column>
     <el-table-column
-      prop="come">
+      prop="come"
+      :width="widthArr.come">
     </el-table-column>
     <el-table-column
       prop="company"
-      width="150">
+      :width="widthArr.company">
     </el-table-column>
     <el-table-column
       prop="status"
+      :width="widthArr.status"
       >
     </el-table-column>
     <el-table-column
       prop="moneyType"
+      :width="widthArr.moneyType"
       >
     </el-table-column>
     <el-table-column
       prop="money"
+      :width="widthArr.money"
       >
     </el-table-column><el-table-column
-      prop="money_can"
+      prop="money_cash"
+      :width="widthArr.money_cash"
       >
     </el-table-column>
     <el-table-column
       prop="arriveDate"
-      width="120"
+      :width="widthArr.arriveDate"
       >
     </el-table-column>
     <el-table-column

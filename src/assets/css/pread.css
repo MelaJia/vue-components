@@ -62,7 +62,7 @@ body{ background-color: #f6f6f6; }
 .bigPicture .wrapper .register .ipt-group .imgviste img{ width: 100px; height: 48px; border:1px solid #e5e5e5; -webkit-border-radius:5px; border-radius: 5px;}
 .bigPicture .wrapper .register .ipt-group .imgviste span{font-size: 12px; color: #666; cursor: pointer; display: block; margin-top: 10px; }
 .bigPicture .wrapper .register .ipt-group .imgviste span:hover{ color: #FF3D4B; }
-.bigPicture .wrapper .register .iptChoose{ font-size: 14px; margin-top: 20px;  color: #666; text-indent: 20px;}
+.bigPicture .wrapper .register .iptChoose{ font-size: 14px; margin-top: 20px;  color: #666; text-indent: 0px;}
 .bigPicture .wrapper .register .iptChoose input[type =checkbox]{ /* display: inline-block; width: 15px; height: 15px; -webkit-border-radius:3px; border-radius: 3px; background-color: #f23d34; border: 1px solid #f23d34; */ display: inline-block; margin-right: 5px; border:none; position: absolute; z-index: -99; /* visibility: hidden; visibility: visible\9; */}
 
 .bigPicture .wrapper .register .iptChoose input[type=checkbox]+i{ content: ""; position: absolute; top: 310px; left: 19px; width: 13px; height: 13px; -webkit-border-radius:3px; border-radius: 3px; background-color: #fff; border: 1px solid #ffafab; *background: no-repeat; *border:none;}

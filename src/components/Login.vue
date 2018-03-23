@@ -6,7 +6,7 @@
           <a href="#" class="logo"><img src="@/assets/img/login/pread_03.png" alt=""></a>
           <div class="phone">
             <!--<a href="#" class="backhome">返回首页</a>-->
-                    <a  href="#">拿钱热线：<big class="hotLine">0755-462315</big></a>
+                    <p>拿钱热线：<span class="hotLine">0755-462315</span></p>
           </div>
         </div>
       </div>
@@ -47,14 +47,14 @@
                             <div class="ipt-group picture">
                                 <input type="text" class="text iptviste" name="ipt_renewal" id="ipt_renewal" onKeyDown="if(event.keyCode===32) return false" placeholder="图形验证" maxlength="5">
                                 <div class="imgviste">
-                                    <img class="renewal" src="" id="imgCode" alt="点击刷新">
+                                    <img class="renewal" src="@/assets/img/login/yanzhen.png" id="imgCode" alt="点击刷新">
                                     <span class="renewal">看不清，换一张</span>
                                 </div>
                                 <em class="error"></em>
                             </div>
                             <div class="iptChoose">
                                 <label for="agree">
-                                    <input id="agree" name="agree" checked="" type="checkbox" class="choose" value=""><i></i>&nbsp;我已阅读并同意<a href="javascript:void (0)?userfrom=sem%7cbaidu%7cpc%7c89171" id="agreement" class="red">《钜信网服务协议》</a>
+                                  <el-checkbox v-model="checked"></el-checkbox>&nbsp;我已阅读并同意<a href="javascript:void (0)?userfrom=sem%7cbaidu%7cpc%7c89171" id="agreement" class="red">《钜信网服务协议》</a>
 
                                     <em class="error"></em>
                                 </label>
@@ -149,6 +149,7 @@ export default {
   data(){
       return {
         showReg:false,
+        checked:false,
         ruleForm: {
           phone: '',
           pass: '',
