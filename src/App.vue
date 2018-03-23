@@ -20,7 +20,7 @@ export default {
 body{
   margin: 0px;
 }
-html,body,#app,#app>div,#app>div>main,.main-section,.main-section>div,.main-section>div>div{
+html,body,#app,#app>div,#app>div>main,.main-section,.main-section>div{
   height: 100%;
 }
 </style>

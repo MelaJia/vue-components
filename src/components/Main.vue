@@ -3,22 +3,21 @@
     <header>
     </header>
     <main>
-        <div class="main-section">
-            <el-container :style="'height:'+height+'px'">
-                <el-aside width="200px" style="background-color:#bc3335">
-                    <div class="top">
-                    </div>
-                    <nav-t></nav-t>
-                </el-aside>
-                <el-container>
-                    <el-header style="background-color:rgb(242,242,242)">
+        <div class="main-section" :style="'height:'+height+'px'">
+            <div class="left" width="200px" style="background-color:#bc3335">
+                <div class="top">
+                </div>
+                <nav-t></nav-t>
+            </div>
+            <div class="right" style="background-color:rgb(242,242,242)" >
+                <el-header style="background-color:rgb(242,242,242)">
                         <header-section></header-section>
                     </el-header>
                     <el-main style="background-color:rgb(242,242,242)">
                         <router-view></router-view>
                     </el-main>
-                </el-container>
-            </el-container>
+            </div>
+            
             <!-- <el-row >
                 <el-col :span="4">
                     <div class="top">
@@ -39,6 +38,17 @@
 </div>  
 </template>
 <style lang="less">
+.left{
+    width: 200px;
+    float: left;
+}
+.right{
+    margin-left: 200px;
+    width: 80%;
+}
+.top{
+    height: 100px;
+}
     .jt span:after{
         position: relative;
         display: block;
