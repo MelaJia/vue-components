@@ -6,7 +6,7 @@
         sum-text="本页合计"
         style="width: 100%"
         :row-class-name="tableRowClassName" @expand-change="expendhandle">
-        <el-table-column type="expand">
+        <el-table-column align="center" type="expand" fixed>
         <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="AR单号">
@@ -39,36 +39,64 @@
             </el-form>
         </template>
         </el-table-column>
-        <el-table-column
+        <el-table-column align="center"
+        fixed
         type="index"
         label="序号"
         >
         </el-table-column>
-        <el-table-column
+        <el-table-column align="center"
+        fixed
         label="AR单号"
         prop="id"
-        width="130">
+        sortable
+        min-width="130">
         </el-table-column>
-        <el-table-column
+        <el-table-column align="center"
         label="付款单位"
         prop="come"
         >
         </el-table-column>
-        <el-table-column
+        <el-table-column align="center"
+        label="授让单位"
+        prop="company"
+        >
+        </el-table-column>
+        <el-table-column align="center"
+        label="交易流水号"
+        sortable
+        min-width="120"
+        prop="fid"
+        >
+        </el-table-column>
+        <el-table-column align="center"
         label="状态"
         prop="status"
         >
         </el-table-column>
-        <el-table-column
+        <el-table-column align="center"
+        label="币别"
+        prop="moneyType"
+        >
+        </el-table-column>
+        <el-table-column align="center"
         label="票面金额"
         prop="money"
         >
-        </el-table-column><el-table-column
+        </el-table-column><el-table-column align="center"
         label="转让日期"
+        sortable
         prop="money_can"
-        width="100">
+        min-width="100">
         </el-table-column>
-        <el-table-column
+        <el-table-column align="center"
+        label="预计回款日期"
+        prop="arriveDate"
+        min-width="120"
+        >
+        </el-table-column>
+        <el-table-column align="center"
+        fixed="right"
         label="操作"
         width='230px'
         >

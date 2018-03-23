@@ -10,9 +10,6 @@
   </div>
   <div class="body">
     <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <img src="~@/assets/img/juxin_11.png" alt="我的AR"><span>我的AR</span>
-      </div>
       <ar-table></ar-table>
     </el-card>
   </div>

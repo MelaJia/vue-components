@@ -103,8 +103,9 @@
         align="center"
         label="AR单号"
         fixed
+        sortable
         prop="id"
-        width="100"
+        min-width="100"
         >
       </el-table-column>
       <el-table-column
@@ -117,7 +118,7 @@
         align="center"
         label="付款单位/对手单位"
         prop="company"
-        width="150"
+        min-width="150"
       >
       </el-table-column>
       <el-table-column
@@ -147,7 +148,7 @@
         align="center"
         label="预计回款日期"
         prop="arriveDate"
-        width="120"
+        min-width="120"
         >
       </el-table-column>
       <el-table-column
@@ -193,17 +194,6 @@
       },
       data(){
         return {
-          widthArr:{
-            id: '100',
-            come: '',
-            company: '150',
-            status: '',
-            moneyType: '',
-            money: '',
-            money_can: '',
-            money_cash: '',
-            arriveDate: '120',
-          },
           dialogConfirmVisible: false, //控制确认窗
           dialogTransferVisible: false, //控制转账窗
           dialogWithdrawVisible:false, //控制提现窗
@@ -223,9 +213,6 @@
           this.details=val;
           this.dialogInfoVisible=true;
         },
-        widthHandle(newWidth, oldWidth, column, event){
-          this.widthArr[column.property]=newWidth;
-        }
       }
     }
   </script>

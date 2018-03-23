@@ -10,9 +10,6 @@
         </div>
     <div class="body">
         <el-card class="box-card">
-        <div slot="header" class="clearfix">
-            <img src="~@/assets/img/juxin_11.png" alt="取消转让"><span>取消转让</span>
-        </div>
         <ar-list></ar-list>
         </el-card>
     </div>

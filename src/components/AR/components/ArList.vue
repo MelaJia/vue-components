@@ -7,57 +7,62 @@
             sum-text="本页合计"
             style="width: 100%"
             :row-class-name="tableRowClassName" @expand-change="expendhandle">
-            <el-table-column
+            <el-table-column align="center"
             fixed
             type="index"
             label="序号"
+            width="60"
             >
             </el-table-column>
-            <el-table-column
+            <el-table-column align="center"
              fixed     
+             sortable
             label="AR单号"
             prop="id"
             width="130">
             </el-table-column>
-            <el-table-column
+            <el-table-column align="center"
             label="付款单位"
             prop="come"
             >
             </el-table-column>
-            <el-table-column
+            <el-table-column align="center"
             label="授让单位"
             prop="company"
             >
             </el-table-column>
-            <el-table-column
+            <el-table-column align="center"
+            sortable
             label="交易流水号"
             prop="fid"
+            min-width="120"
             >
             </el-table-column>
-            <el-table-column
+            <el-table-column align="center"
             label="状态"
             prop="status"
             >
             </el-table-column>
-            <el-table-column
+            <el-table-column align="center"
             label="币别"
             prop="moneyType"
             >
             </el-table-column>
-            <el-table-column
+            <el-table-column align="center"
             label="票面金额"
             prop="money"
             >
-            </el-table-column><el-table-column
+            </el-table-column><el-table-column align="center"
             label="转让日期"
+            sortable
             prop="money_can"
-            width="100">
-            </el-table-column><el-table-column
+            min-width="120">
+            </el-table-column><el-table-column align="center"
             label="预计回款日期"
             prop="arriveDate"
-            width="100">
+            min-width="120">
             </el-table-column>
-            <el-table-column
+            <el-table-column align="center"
             label="操作"
             width='230px'
             fixed="right"
