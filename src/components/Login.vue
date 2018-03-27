@@ -33,7 +33,7 @@
         </div>
         <!-- index_focus end -->
             <div class="wrapper">
-                <form action="https://www.iqianbang.com/Activity-getnewers?userfrom=sem%7cbaidu%7cpc%7c89171#" id="register_form">
+                <form action="https://www.iqianbang.com/Activity-getnewers?userfrom=sem%7cbaidu%7cpc%7c89171#" ref="ruleForm" id="register_form">
                     <div class="register" id="div_register1">
                         <p class="title">登录</p>
                         <div class="iptContext">
@@ -41,8 +41,7 @@
                                 <input-phone v-model="ruleForm.phone" :classes="'text iptphone'"></input-phone>
                             </div>
                             <div class="ipt-group">
-                                <input type="password" class="text iptpassword" name="password" v-model="ruleForm.pass" d="password" onKeyDown="if(event.keyCode===32) return false" placeholder="8-20位数字与字母组合的密码" maxlength="20">
-                                <em class="error"></em>
+                                <input-pass v-model="ruleForm.pass" :classes="'text iptpassword'"></input-pass>
                             </div>
                             <div class="ipt-group picture">
                                 <input type="text" class="text iptviste" name="ipt_renewal" id="ipt_renewal" onKeyDown="if(event.keyCode===32) return false" placeholder="图形验证" maxlength="5">
@@ -60,7 +59,7 @@
                                 </label>
                             </div>
                             <div class="btnGroup">
-                                <button type="button" id="register" class="btn btnRed">登录</button>
+                                <button type="button" id="register" class="btn btnRed" @click.stop.self="submitForm('ruleForm')">登录</button>
                             </div>
                             <p class="account">如果没有账号，请<a @click="showReg=true" class="red"> 注册</a></p>
                         </div>
@@ -145,6 +144,8 @@ import "../assets/css/pread.css" ;
 import"../assets/css/slide.css";
 import '../assets/css/style.css'; //引入全局less文件
 import InputPhone from './Items/InputPhone'
+import InputPass from './Items/InputPass'
+import Valid from '@/mixins/Login/Validate'
 export default {
   data(){
       return {
@@ -157,23 +158,22 @@ export default {
       };
   },
   components:{
-    InputPhone
+    InputPhone,
+    InputPass
   },
   methods: {
       submitForm(formName) {
         let _this=this
-        this.$refs[formName].validate((valid) => { 
-          if (valid) {
+        if (Valid.checkPhone(this.ruleForm.phone)&&Valid.checkPass(this.ruleForm.pass)) {
             this.$store.commit(types.LOGIN,'123456')
             let redirect=decodeURIComponent(this.$route.query.redirect||'/')
             this.$router.push({
                 path:redirect
             })
-          } else {
+        } else {
             console.log('error submit!!');
             return false;
-          }
-        });
+        }
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();

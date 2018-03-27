@@ -11,7 +11,7 @@ export default new Vuex.Store({
       mutations: {
         [types.LOGIN]: (state,data)=> {
             localStorage.token=data
-          state.token=data
+            state.token=data
         },
         [types.LOGOUT]: (state,data)=> {
             localStorage.removeItem('token')

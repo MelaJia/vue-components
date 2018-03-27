@@ -3,42 +3,10 @@
         <el-table
         :data="tableData5"
         show-summary
+        border
         sum-text="本页合计"
         style="width: 100%"
         :row-class-name="tableRowClassName" @expand-change="expendhandle">
-        <el-table-column align="center" type="expand" fixed>
-        <template slot-scope="props">
-            <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="AR单号">
-                <span>{{ props.row.id }}</span>
-            </el-form-item>
-            <el-form-item label="付款单位">
-                <span>{{ props.row.come }}</span>
-            </el-form-item>
-            <el-form-item label="授让单位">
-                <span>{{ props.row.company }}</span>
-            </el-form-item>
-            <el-form-item label="交易流水号">
-                <span>{{ props.row.fid }}</span>
-            </el-form-item>
-            <el-form-item label="状态">
-                <span>{{ props.row.status }}</span>
-            </el-form-item>
-            <el-form-item label="币别">
-                <span>{{ props.row.moneyType }}</span>
-            </el-form-item>
-            <el-form-item label="票面金额">
-                <span>{{ props.row.money }}</span>
-            </el-form-item>
-            <el-form-item label="转让日期">
-                <span>{{ props.row.money_can }}</span>
-            </el-form-item>
-            <el-form-item label="预计回款日期">
-                <span>{{ props.row.arriveDate }}</span>
-            </el-form-item>
-            </el-form>
-        </template>
-        </el-table-column>
         <el-table-column align="center"
         fixed
         type="index"

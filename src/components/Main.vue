@@ -38,16 +38,16 @@
 </div>  
 </template>
 <style lang="less">
-.left{
-    width: 200px;
-    float: left;
-}
-.right{
-    margin-left: 200px;
-}
-.top{
-    height: 100px;
-}
+    .left{
+        width: 200px;
+        float: left;
+    }
+    .right{
+        margin-left: 200px;
+    }
+    .top{
+        height: 100px;
+    }
     .jt span:after{
         position: relative;
         display: block;
@@ -93,7 +93,7 @@
     .main>.body{
         margin: 10px 0px;
     }
-    .clearfix{
+    .el-card__header>.clearfix{
         display: flex;
         align-items: center;
         img{
@@ -113,7 +113,7 @@
 <script>
 import Nav from './Nav'
 import ComponentsInit from "@/mixins/Ar/ComponentsInit"
-export default {
+ export default {
   mixins:[ComponentsInit],
   data(){
       return{
@@ -131,6 +131,9 @@ export default {
             winHeight = document.body.clientHeight;
         }
         this.height=winHeight;
+        window.onresize = () =>{
+            this.height = document.body.clientHeight;
+        };
   }
 }
 </script>

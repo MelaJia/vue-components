@@ -1,6 +1,30 @@
 <template>
   <nav class="nav-menu">
       <el-menu :default-active="activeIndex" :router="true" class="el-menu-demo" mode="vertical" @select="handleSelect">
+      <section v-for="item in navItems" :key="item.idx">
+        <el-submenu v-if="item.childrens" :index="item.idx">
+          <template slot="title">
+            <div :class="item.lClass"></div>
+            <div :class="item.hClass"></div>
+            <span>{{item.text}}</span>
+          </template>
+            <el-menu-item  v-for="item in item.childrens" :key="item.idx" :index="item.idx">
+              <template slot="title">
+                <div :class="item.lClass"></div>
+                <div :class="item.hClass"></div>
+                <span>{{item.text}}</span>
+            </template>
+          </el-menu-item>
+        </el-submenu>
+        <el-menu-item v-else :index="item.idx" :disabled="item.disabled">
+          <template slot="title">
+            <div :class="item.lClass"></div>
+                <div :class="item.hClass"></div>
+                <span>{{item.text}}</span>
+          </template>
+        </el-menu-item>
+      </section>
+<!--       
       <el-submenu index="1">
         <template slot="title">
           <div class="start-line"></div>
@@ -72,12 +96,12 @@
           </el-menu-item>
           <el-menu-item index="3-2" disabled>
              <template slot="title">
-              <div class="line"></div>
+              <div class="end-line"></div>
               <div class="circle"></div>
               <span>密码修改</span>
             </template>
           </el-menu-item>
-      </el-submenu>
+      </el-submenu> -->
       </el-menu>
   </nav>
 </template>
@@ -124,14 +148,14 @@
   }
   .end-line{
     .line;
-    bottom:20px;
+    bottom:25px;
   }
-  .is-opened .end-line{
+  .is-opened>div>.end-line{
     .line;
     bottom:0px;
   }
   .circle{
-    border: 1px solid #c0c4cc;
+    border: 1px solid white;
     border-radius: 50%;
     width: 10px;
     height: 10px;
@@ -178,6 +202,87 @@ export default {
   name: "Nav",
   data(){
     return {
+      navItems:[
+        {
+          idx:'1',
+          text:'AR管理',
+          disabled:false,
+          lClass:'start-line',
+          hClass:'header-circle bg-icon-1',
+          childrens:[
+            {
+              idx:'myar',
+              text:'我的AR',
+              disabled:false,
+              lClass:'line',
+              hClass:'circle'
+            },
+            {
+              idx:'getar',
+              text:'待收AR',
+              disabled:false,
+              lClass:'line',
+              hClass:'circle'
+            },{
+              idx:'cancelar',
+              text:'取消转让',
+              disabled:false,
+              lClass:'line',
+              hClass:'circle'
+            },
+            {
+              idx:'historyar',
+              text:'历史AR',
+              disabled:false,
+              lClass:'line',
+              hClass:'circle'
+            }
+          ]
+        },
+        {
+          idx:'plan',
+          text:'资金管理',
+          disabled:false,
+          lClass:'line',
+          hClass:'header-circle bg-icon-2'
+        },
+        {
+          idx:'2',
+          text:'消息中心',
+          disabled:false,
+          lClass:'line',
+          hClass:'header-circle bg-icon-2'
+        },
+        {
+          idx:'3',
+          text:'账户管理',
+          disabled:false,
+          lClass:'end-line',
+          hClass:'header-circle bg-icon-3',
+          childrens:[
+            {
+              idx:'3-1',
+              text:'基本信息',
+              disabled:false,
+              lClass:'line',
+              hClass:'circle'
+            },
+            {
+              idx:'3-2',
+              text:'银行卡管理',
+              disabled:false,
+              lClass:'line',
+              hClass:'circle'
+            },{
+              idx:'3-3',
+              text:'密码修改',
+              disabled:false,
+              lClass:'end-line',
+              hClass:'circle'
+            }
+          ]
+        }
+      ],
       activeIndex: 'myar',
       
     }

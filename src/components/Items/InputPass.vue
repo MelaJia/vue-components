@@ -1,6 +1,6 @@
 <template>
     <section>
-        <input type="text" maxlength="11" v-bind:value="value" v-bind:class="classes" @input="updateValue($event.target.value)" @blur="checkForm($event.target.value)">
+        <input type="password" maxlength="20" v-bind:class="classes" ref="input"  @input="updateValue($event.target.value)" @blur="checkForm($event.target.value)" onKeyDown="if(event.keyCode===32) return false" placeholder="8-20位数字与字母组合的密码" >
         <em class="error">{{msg}}</em>
     </section>
 </template>
@@ -29,10 +29,10 @@ export default {
       this.$emit('input', formattedValue)
     }, 
     checkForm(){
-        if(Valid.checkPhone(this.value)){
+        if(Valid.checkPass(this.value)){
                     this.msg='';
             }else{
-                    this.msg='请输入正确的手机号码';
+                    this.msg='8-20位数字与字母组合的密码';
             }
         
     }

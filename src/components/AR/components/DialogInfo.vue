@@ -4,7 +4,9 @@
         <p>
             <span>最终付款单位:{{this.detailsP.company}}</span>
             <span>最终付款账户：{{this.detailsP.bankCompaney}}</span>
-            <span>最终付款账号:{{this.detailsP.bankAccount}}</span>
+            <el-tooltip :content="'最终付款账号:'+this.detailsP.bankAccount" placement="bottom" effect="light">
+                <span>最终付款账号:{{this.detailsP.bankAccount}}</span>
+            </el-tooltip>
         </p>
         <p>
             <span>AR来源:{{this.detailsP.come}}</span>
@@ -27,6 +29,13 @@
 <style scoped>
     footer{
         text-align: center;
+    }
+    p>span{
+        width: 30%;
+        display: inline-block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
 </style>
 

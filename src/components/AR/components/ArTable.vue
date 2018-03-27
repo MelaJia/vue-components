@@ -84,7 +84,7 @@
           <el-button
             size="mini"
             type="primary"
-            @click="handleEdit(scope.$index, scope.row)">详情</el-button>
+            @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           <el-button
             size="mini"
             type="primary"
@@ -180,17 +180,13 @@
 
   <script>
     import TableMixIn from '@/mixins/Ar/Table'
-    import DialogConfirm from './DialogConfirm'
-    import DialogTransfer from './DialogTransfer'
-    import DialogWithdraw from './DialogWithdraw'
-    import DialogInfo from './DialogInfo'
     export default {
       mixins:[TableMixIn],
       components:{
-        'dialog-confirm':DialogConfirm,
-        'dialog-transfer':DialogTransfer,
-        DialogInfo,
-        DialogWithdraw,
+        'dialog-confirm':()=>import(/* webpackChunkName: 'Dialog'*/ './DialogConfirm'),
+        'dialog-transfer':()=>import(/* webpackChunkName: 'Dialog'*/ './DialogTransfer'),
+        'dialog-withdraw':()=>import(/* webpackChunkName: 'Dialog'*/ './DialogWithdraw'),
+        'dialog-info':()=>import(/* webpackChunkName: 'Dialog'*/ './DialogInfo'),
       },
       data(){
         return {

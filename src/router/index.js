@@ -2,14 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store'
 import * as types from '@/store/types'
-import HelloWorld from '@/components/HelloWorld'
-import Login from '@/components/Login'
-import Main from '@/components/Main'
-import MyAr from '@/components/AR/MyAr'
-import GetAr from '@/components/AR/GetAr'
-import CancelAr from '@/components/AR/CancelAr'
-import HistoryAr from '@/components/AR/HistoryAr'
-
+// import HelloWorld from '@/components/HelloWorld'
+// import Login from '@/components/Login'
+// import Main from '@/components/Main'
+// import MyAr from '@/components/AR/MyAr'
+// import GetAr from '@/components/AR/GetAr'
+// import CancelAr from '@/components/AR/CancelAr'
+// import HistoryAr from '@/components/AR/HistoryAr'
 Vue.use(Router)
 
 const routes=[
@@ -19,7 +18,7 @@ const routes=[
   },
   {
     path: '/main',
-    component: Main,
+    component: () => import('@/components/Main'),
     children:[
       {
         path: '/',
@@ -36,29 +35,32 @@ const routes=[
       {
         path: 'myar',
         name: '我的AR',
-        component: MyAr
+        component: () => import(/* webpackChunkName: 'AR'*/ '@/components/AR/MyAr'),
+        meta:{
+               requireAuth:true //需要登录验证
+        }
       },
       {
         path: 'getar',
         name: '待收AR',
-        component: GetAr
+        component: () => import(/* webpackChunkName: 'AR'*/ '@/components/AR/GetAr')
       },
       {
         path: 'cancelar',
         name: '取消转让',
-        component: CancelAr
+        component: () => import(/* webpackChunkName: 'AR'*/ '@/components/AR/CancelAr')
       },
       {
         path: 'historyar',
         name: '历史AR',
-        component: HistoryAr
+        component: () => import(/* webpackChunkName: 'AR'*/ '@/components/AR/HistoryAr')
       },
     ]
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: () => import('@/components/Login')
   },
 ];
 //页面刷新，重新设置token
