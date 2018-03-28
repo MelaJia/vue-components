@@ -40,44 +40,44 @@
       <el-table-column
         align="center"
         prop="id"
-        :min-width="widthArr.id">
+        :width="widthArr.id">
       </el-table-column>
       <el-table-column
         align="center"
         prop="come"
-        :min-width="widthArr.come">
+        :width="widthArr.come">
         >
       </el-table-column>
       <el-table-column
         align="center"
         prop="company"
-        :min-width="widthArr.company">
+        :width="widthArr.company">
       </el-table-column>
       <el-table-column
         align="center"
         prop="status"
-        :min-width="widthArr.status">        
+        :width="widthArr.status">        
       </el-table-column>
       <el-table-column
         align="center"
         prop="moneyType"
-        :min-width="widthArr.moneyType">
+        :width="widthArr.moneyType">
       </el-table-column>
       <el-table-column
         align="center"
         prop="money"
-        :min-width="widthArr.money"
+        :width="widthArr.money"
         >
       </el-table-column><el-table-column
         align="center"
         prop="money_can"
-        :min-width="widthArr.money_can"
+        :width="widthArr.money_can"
         >
       </el-table-column>
       <el-table-column
         align="center"
         prop="arriveDate"
-        :min-width="widthArr.arriveDate"
+        :width="widthArr.arriveDate"
         >
       </el-table-column>
       <el-table-column
@@ -109,7 +109,7 @@
         fixed
         sortable
         prop="id"
-        min-width="100"
+        width="100"
         >
       </el-table-column>
       <el-table-column
@@ -122,7 +122,7 @@
         align="center"
         label="付款单位/对手单位"
         prop="company"
-        min-width="150"
+        width="150"
       >
       </el-table-column>
       <el-table-column
@@ -152,7 +152,7 @@
         align="center"
         label="预计回款日期"
         prop="arriveDate"
-        min-width="120"
+        width="120"
         >
       </el-table-column>
       <el-table-column
