@@ -10,12 +10,14 @@
                 <nav-t></nav-t>
             </div>
             <div class="right" style="background-color:rgb(242,242,242)" >
-                <el-header style="background-color:rgb(242,242,242)">
+                <header style="background-color:rgb(242,242,242);padding-top:10px">
                         <header-section></header-section>
-                    </el-header>
-                    <el-main :style="'background-color:rgb(242,242,242);'+'height:'+(height-80)+'px'">
+                        
+                </header>
+                    <tags ref="nav" class="nav"></tags>
+                    <main :style="'overflow: auto;background-color:rgb(242,242,242);'+'height:'+(height-120)+'px'">
                         <router-view></router-view>
-                    </el-main>
+                    </main>
             </div>
             
             <!-- <el-row >
@@ -88,10 +90,10 @@
     }
    }
    .main{
-        padding: 0px 20px;
+        padding: 0px 10px;
     } 
     .main>.body{
-        margin: 10px 0px;
+        margin: 0px 0px 10px 0px;
     }
     .el-card__header>.clearfix{
         display: flex;
@@ -113,6 +115,7 @@
 <script>
 import Nav from './Nav'
 import ComponentsInit from "@/mixins/Ar/ComponentsInit"
+import Tags from './tags'
  export default {
   mixins:[ComponentsInit],
   data(){
@@ -121,7 +124,8 @@ import ComponentsInit from "@/mixins/Ar/ComponentsInit"
       }
   },
   components:{
-      'nav-t':Nav
+      'nav-t':Nav,
+      Tags
   },
   created(){
       var winHeight = 0;

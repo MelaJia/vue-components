@@ -16,6 +16,9 @@
     .header-section{
         display: flex;
         justify-content: space-between;
+        margin: 0 10px;
+        background: #fff;
+        border-radius: 5px;
     }
     .header-section{
         font-size: 14px;
@@ -25,7 +28,8 @@
         align-items: center;
     }
     .header-left{
-        padding-top: 40px;
+        padding-top: 20px;
+        padding-left: 20px;
     }
     .header-right img{
       width: 60px;

@@ -1,21 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'Vuex'
-import * as types from './types'
-
+import user from './modules/user'
+import common from './modules/common'
+import tags from './modules/tags'
+import errLog from './modules/errLog'
+import getters from './getters'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {
-        token: null,
+    modules: {
+        user,
+        common,
+        errLog,
+        tags
       },
-      mutations: {
-        [types.LOGIN]: (state,data)=> {
-            localStorage.token=data
-            state.token=data
-        },
-        [types.LOGOUT]: (state,data)=> {
-            localStorage.removeItem('token')
-            state.token=null
-          }
-      }
+      getters,
 })

@@ -8,8 +8,8 @@ import router from './router'
 import ElementUI from 'element-ui'
 //import 'element-ui/lib/theme-chalk/index.css'
 import './assets/element/index.css'
-import './assets/font_1/iconfont.css'
-
+import '~static/cnd/font_1/iconfont.css'
+import '@/assets/css/tags.less'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 /* eslint-disable no-new */
