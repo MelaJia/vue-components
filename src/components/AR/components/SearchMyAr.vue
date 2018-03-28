@@ -85,7 +85,7 @@ export default {
     },
     methods: {
       onSubmit() {
-          console.log(this.$route);
+          this.$emit('searchSubmit',this.formInline)
         console.log('submit!');
       }
     }

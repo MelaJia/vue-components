@@ -7,7 +7,8 @@
         </el-breadcrumb>
         </div>
         <div class="header-right">
-        <span>早安，李先生</span><img src="~@/assets/img/juxin_18.png" alt="">
+        <el-button type="danger" size="medium" :class="'process'" icon="el-icon-caret-right">您的工作进度</el-button>
+        <span>早安，李先生</span><img src="../../../assets/img/juxin_18.png" alt="">
         </div>
   </div>
 </template>
@@ -16,30 +17,33 @@
         display: flex;
         justify-content: space-between;
     }
+    .header-section{
+        font-size: 14px;
+    }
     .header-right{
         display: flex;
         align-items: center;
-        margin-left: 80%\9\0;
-    }
-    :root .header-left{
-        float: left;
     }
     .header-left{
-        float: left \9\0;
-        width: 200px\9\0;
         padding-top: 40px;
     }
-    img{
+    .header-right img{
       width: 60px;
       height: 60px;
     }
-    .left>div>span{
+    .header-left>div>span{
       height: 17px;
       line-height: 17px;
     }
-    .el-breadcrumb{
-        height: 17px;
-        line-height: 17px;
+    .header-right .process{
+        background: rgb(220, 45, 55);
+        color: white;
+        align-items: center;
+        margin-right: 50px;
+    }
+    .header-right .process>img{
+        width: 32px;
+        height: 32px;
     }
 </style>
 

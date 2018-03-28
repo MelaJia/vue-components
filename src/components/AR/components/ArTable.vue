@@ -11,7 +11,11 @@
   <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" :options="Options"></dialog-info>
   <section>
     <el-table
-    :data="tableData5"
+    :data="dataTable"
+    v-loading="dataLoading"
+    element-loading-text="拼命加载中"
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
     show-summary
     border
     style="width: 100%"
@@ -181,6 +185,7 @@
   <script>
     import TableMixIn from '@/mixins/Ar/Table'
     export default {
+      props:['dataLoading','dataTable'],
       mixins:[TableMixIn],
       components:{
         'dialog-confirm':()=>import(/* webpackChunkName: 'Dialog'*/ './DialogConfirm'),
