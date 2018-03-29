@@ -140,11 +140,11 @@
 
 <script>
 import * as types from '@/store/types'
-import "../assets/css/pread.css" ;
-import"../assets/css/slide.css";
-import '../assets/css/style.css'; //引入全局less文件
-import InputPhone from './Items/InputPhone'
-import InputPass from './Items/InputPass'
+import "@/assets/css/pread.css" ;
+import"@/assets/css/slide.css";
+import '@/assets/css/style.css'; //引入全局less文件
+import InputPhone from '@/components/Items/InputPhone'
+import InputPass from '@/components/Items/InputPass'
 import Valid from '@/mixins/Login/Validate'
 export default {
   data(){
@@ -152,8 +152,8 @@ export default {
         showReg:false,
         checked:false,
         ruleForm: {
-          phone: '',
-          pass: '',
+          phone: '15112345678',
+          pass: 'asd123456',
         },
       };
   },

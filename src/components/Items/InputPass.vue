@@ -1,6 +1,6 @@
 <template>
     <section>
-        <input type="password" maxlength="20" v-bind:class="classes" ref="input"  @input="updateValue($event.target.value)" @blur="checkForm($event.target.value)" onKeyDown="if(event.keyCode===32) return false" placeholder="8-20位数字与字母组合的密码" >
+        <input type="password" maxlength="20" v-bind:value="value" v-bind:class="classes" ref="input"  @input="updateValue($event.target.value)" @blur="checkForm($event.target.value)" onKeyDown="if(event.keyCode===32) return false" placeholder="8-20位数字与字母组合的密码" >
         <em class="error">{{msg}}</em>
     </section>
 </template>

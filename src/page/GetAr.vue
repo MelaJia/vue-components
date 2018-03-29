@@ -18,8 +18,8 @@
 </template>
 
   <script>
-  import ArList from "./components/ArList"
-  import Search from "./components/SearchGet"
+  import ArList from "@/components/Ar/ArList"
+  import Search from "@/components/Ar/SearchGet"
     export default {
       components:{
       'ar-list':ArList,

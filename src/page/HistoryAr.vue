@@ -7,10 +7,10 @@
         </div>        
         <search></search>
         </el-card> 
-        </div>
+    </div>
     <div class="body">
         <el-card class="box-card">
-        <ar-list></ar-list>
+        <ar-table></ar-table>
         </el-card>
     </div>
 </div>
@@ -18,13 +18,12 @@
 </template>
 
   <script>
-    import ArList from "./components/ArListCancel"
-    import Search from "./components/SearchCancel"
+  import ArTable from "@/components/Ar/ArTableHistory"
+  import Search from "@/components/Ar/SearchMyAr"
     export default {
       components:{
-      'ar-list':ArList,
+      'ar-table':ArTable,
       'search':Search
   }
     }
   </script>
-  

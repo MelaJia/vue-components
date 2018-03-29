@@ -22,7 +22,7 @@ const routes=[
   },
   {
     path: '/main',
-    component: () => import('@/components/Main'),
+    component: () => import('@/layout/Main'),
     children:[
       {
         path: '/',
@@ -39,7 +39,7 @@ const routes=[
       {
         path: 'myar',
         name: '我的AR',
-        component: () => import(/* webpackChunkName: 'AR'*/ '@/components/AR/MyAr'),
+        component: () => import(/* webpackChunkName: 'AR'*/ '@/page/MyAr'),
         meta:{
                requireAuth:true //需要登录验证
         }
@@ -47,24 +47,24 @@ const routes=[
       {
         path: 'getar',
         name: '待收AR',
-        component: () => import(/* webpackChunkName: 'AR'*/ '@/components/AR/GetAr')
+        component: () => import(/* webpackChunkName: 'AR'*/ '@/page/GetAr')
       },
       {
         path: 'cancelar',
         name: '取消转让',
-        component: () => import(/* webpackChunkName: 'AR'*/ '@/components/AR/CancelAr')
+        component: () => import(/* webpackChunkName: 'AR'*/ '@/page/CancelAr')
       },
       {
         path: 'historyar',
         name: '历史AR',
-        component: () => import(/* webpackChunkName: 'AR'*/ '@/components/AR/HistoryAr')
+        component: () => import(/* webpackChunkName: 'AR'*/ '@/page/HistoryAr')
       },
     ]
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/components/Login')
+    component: () => import('@/page/Login')
   },
 ];
 //页面刷新，重新设置token

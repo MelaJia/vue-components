@@ -28,15 +28,15 @@
 </style>
 
   <script>
-  import ArTable from "./components/arTable"
-  import Search from "./components/SearchMyAr"
+  import ArTable from "@/components/Ar/arTable"
+  import Search from "@/components/Ar/SearchMyAr"
   import ComponentsInit from "@/mixins/Ar/ComponentsInit"
   import DataInit from '@/mixins/Ar/DataInit'
     export default {
       mixins:[ComponentsInit,DataInit],
       data(){
         return{
-          loading:true
+          loading:false
         }
       },
       components:{
@@ -44,9 +44,7 @@
         'search':Search
       },
       mounted(){
-        setTimeout(()=>{
-          this.loading=false;
-        },3000)
+        
       },
       methods:{
         searchSubmit(val){
