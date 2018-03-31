@@ -44,7 +44,7 @@
         'search':Search
       },
       mounted(){
-        
+        console.log(this)
       },
       methods:{
         searchSubmit(val){

@@ -10,6 +10,8 @@ import ElementUI from 'element-ui'
 import './assets/element/index.css'
 import '~static/cnd/font_1/iconfont.css'
 import '@/assets/css/tags.less'
+import 'animate.css'
+import '@/assets/css/animate.css'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 /* eslint-disable no-new */

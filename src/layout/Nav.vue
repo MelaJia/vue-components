@@ -1,6 +1,6 @@
 <template>
   <nav class="nav-menu">
-      <el-menu :default-active="activeIndex" :router="true" class="el-menu-demo" mode="vertical" @select="handleSelect">
+      <el-menu :default-active="activeidx" :router="true" text-color="#fff" active-text-color="#000" class="el-menu-demo" mode="vertical" @select="handleSelect">
       <section v-for="item in navItems" :key="item.idx">
         <el-submenu v-if="item.childrens" :index="item.idx">
           <template slot="title">
@@ -24,84 +24,6 @@
           </template>
         </el-menu-item>
       </section>
-<!--       
-      <el-submenu index="1">
-        <template slot="title">
-          <div class="start-line"></div>
-          <div class="header-circle bg-icon-1"></div>
-          <span>AR管理</span>
-        </template>
-          <el-menu-item index="myar">
-            <template slot="title">
-              <div class="line"></div>
-              <div class="circle"></div>
-              <span>我的AR</span>
-            </template>
-          </el-menu-item>
-          <el-menu-item index="getar">
-            <template slot="title">
-              <div class="line"></div>
-              <div class="circle"></div>
-              <span>待收AR</span>
-            </template>
-          </el-menu-item>
-          <el-menu-item index="cancelar">
-            <template slot="title">
-              <div class="line"></div>
-              <div class="circle"></div>
-              <span>取消转让</span>
-            </template>
-          </el-menu-item>
-          <el-menu-item index="historyar">
-            <template slot="title">
-              <div class="line"></div>
-              <div class="circle"></div>
-              <span>历史AR</span>
-            </template>
-          </el-menu-item>
-      </el-submenu>
-      <el-menu-item index="plan" disabled>
-        <template slot="title">
-          <div class="line"></div>
-          <div class="header-circle bg-icon-2"></div>
-          <span>资金管理</span>
-        </template>
-      </el-menu-item>
-      <el-menu-item index="2" disabled>
-        <template slot="title">
-          <div class="line"></div>
-          <div class="header-circle bg-icon-2"></div>
-          <span>消息中心</span>
-        </template>
-      </el-menu-item>
-      <el-submenu index="3" >
-        <template slot="title">
-          <div class="end-line"></div>
-          <div class="header-circle bg-icon-3"></div>
-          <span>账户管理</span>
-        </template>
-          <el-menu-item index="3-1" disabled>
-             <template slot="title">
-              <div class="line"></div>
-              <div class="circle"></div>
-              <span>基本信息</span>
-            </template>
-          </el-menu-item>
-          <el-menu-item index="3-2" disabled>
-             <template slot="title">
-              <div class="line"></div>
-              <div class="circle"></div>
-              <span>银行卡管理</span>
-            </template>
-          </el-menu-item>
-          <el-menu-item index="3-2" disabled>
-             <template slot="title">
-              <div class="end-line"></div>
-              <div class="circle"></div>
-              <span>密码修改</span>
-            </template>
-          </el-menu-item>
-      </el-submenu> -->
       </el-menu>
   </nav>
 </template>
@@ -114,14 +36,16 @@
         background: #bc3335;
         border-right: none;
   }
-  ul li span{
-    color: #fff;
-  }
   ul li.el-menu-item.is-active{
     background: #e06d5c;
-    span{
-        color: black;
-      }
+  >.circle{
+  -webkit-animation-name: custom-rubberBand;
+    animation-name: custom-rubberBand;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
   } 
   .el-submenu__title:hover, .el-menu-item:hover{
     background: #ee5c5e;
@@ -198,6 +122,7 @@
 </style>
 
 <script>
+import { mapGetters } from "Vuex";
 export default {
   name: "Nav",
   data(){
@@ -240,41 +165,41 @@ export default {
           ]
         },
         {
-          idx:'plan',
+          idx:'2',
           text:'资金管理',
           disabled:false,
           lClass:'line',
           hClass:'header-circle bg-icon-2'
         },
         {
-          idx:'2',
+          idx:'3',
           text:'消息中心',
           disabled:false,
           lClass:'line',
           hClass:'header-circle bg-icon-2'
         },
         {
-          idx:'3',
+          idx:'4',
           text:'账户管理',
           disabled:false,
           lClass:'end-line',
           hClass:'header-circle bg-icon-3',
           childrens:[
             {
-              idx:'3-1',
+              idx:'4-1',
               text:'基本信息',
               disabled:false,
               lClass:'line',
               hClass:'circle'
             },
             {
-              idx:'3-2',
+              idx:'4-2',
               text:'银行卡管理',
               disabled:false,
               lClass:'line',
               hClass:'circle'
             },{
-              idx:'3-3',
+              idx:'4-3',
               text:'密码修改',
               disabled:false,
               lClass:'end-line',
@@ -287,9 +212,12 @@ export default {
       
     }
   },
+  computed:{
+    ...mapGetters(["activeidx"])
+  },
   methods:{
     handleSelect(key, keyPath) {
-        //console.log(key, keyPath);
+        console.log(key, keyPath);
       }
   }
 }

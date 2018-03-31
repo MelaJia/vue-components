@@ -3,11 +3,17 @@
     <!-- tag盒子 -->
     <div class="tags-box" ref="tagBox">
       <div class="tags-list" ref="tagsList" @mousewheel="hadelMousewheel" @mouseup="hadelMouseUp" @mousemove="hadelMouse" @mousedown="hadelMousestart" @touchup="hadelMouseUp" @touchmove="hadelMouse" @touchstart="hadelMousestart">
-        <div ref="tagsPageOpened" class="tag-item" :name="item.value" @contextmenu.prevent="openMenu(item,$event)" v-for="(item,index) in tagList" :key="index" @click="openUrl(item)">
-          <span class="iconfont icon-yuan tag-item-icon" :class="{'is-active':nowTagValue==item.value}"></span>
-          <span class="tag-text">{{item.label}}</span>
-          <i class="el-icon-close tag-close" @click.stop="closeTag(item)" v-if="item.close"></i>
-        </div>
+        <transition-group name="list" 
+        enter-active-class="animated rollIn"
+        leave-active-class="animated hinge"
+        tag="div">
+          <div ref="tagsPageOpened" class="tag-item" :class="{'is-active':nowTagValue==item.value}" :name="item.value" @contextmenu.prevent="openMenu(item,$event)" v-for="item in tagList" :key="item.value" @click="openUrl(item)">
+            <span class="iconfont icon-yuan tag-item-icon" :class="{'is-active':nowTagValue==item.value}"></span>
+            <span class="tag-text">{{item.label}}</span>
+            <i class="el-icon-close tag-close" @click.stop="closeTag(item)" v-if="item.close"></i>
+          </div>
+        </transition-group>
+        
       </div>
       <!-- <el-dropdown class="tags-menu pull-right">
         <el-button type="primary" size="mini">
@@ -200,6 +206,7 @@ export default {
       return -1;
     },
     closeTag(item) {
+      console.log('单击')
       const key = this.eachTag(item);
       let tag;
       this.$store.commit("DEL_TAG", item);
@@ -212,7 +219,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-
+.list-move {
+  transition: transform 1s;
+}
 </style>
 
 
