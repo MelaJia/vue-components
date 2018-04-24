@@ -47,11 +47,31 @@
     animation-fill-mode: both;
   }
   } 
-  .el-submenu__title:hover, .el-menu-item:hover{
+  .el-submenu__title::before, 
+  .el-menu-item::before{
+    content: " ";
     background: #ee5c5e;
+    height: 100%;
+    width: 3px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: width 0.2s ease-in;
   }
+  .el-menu-item:focus,
+  .el-menu-item:hover{
+    background-color: transparent;
+  }
+  .el-submenu__title:hover::before,
+  .el-menu-item:hover::before{
+    width: 100%;
+  }
+  .el-submenu__title,
   .el-menu-item{
     padding-left: 55px !important;
+    span{
+      position: relative;
+    }
   }
   .el-submenu .el-menu-item{
     min-width: 100px;
@@ -85,7 +105,8 @@
     height: 10px;
     position: absolute;
     left: 26px;
-    top: 14px;
+    top: 50%;
+    margin-top: -5px;
     .bg-color-pink;
   }
   .header-circle{
@@ -172,7 +193,7 @@ export default {
           hClass:'header-circle bg-icon-2'
         },
         {
-          idx:'3',
+          idx:'data',
           text:'消息中心',
           disabled:false,
           lClass:'line',

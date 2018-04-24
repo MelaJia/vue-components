@@ -59,6 +59,11 @@ const routes=[
         name: '历史AR',
         component: () => import(/* webpackChunkName: 'AR'*/ '@/page/HistoryAr')
       },
+      {
+        path: 'data',
+        name: '数据信息',
+        component: () => import(/* webpackChunkName: 'AR'*/ '@/page/data')
+      },
     ]
   },
   {
@@ -76,6 +81,8 @@ const router=new Router({
 });
 router.beforeEach((to,from,next)=>{
   NProgress.start() // start progress bar
+  console.log(to.query.name)
+  console.log(to.name)
     const value = to.query.src ? to.query.src : to.path;
     const label = to.query.name ? to.query.name : to.name;
     if (whiteList.indexOf(value) == -1) {

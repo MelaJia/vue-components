@@ -1,15 +1,21 @@
 <template>
   <div class="header-section">
-      <div class="header-left">
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/' }"><i class="iconfont icon-ai-home"></i>首页</el-breadcrumb-item>
-            <el-breadcrumb-item>{{$route.name}}</el-breadcrumb-item>
-        </el-breadcrumb>
+        <div class="width-50">
+            <div class="header-left">
+                <el-breadcrumb separator-class="el-icon-arrow-right">
+                    <el-breadcrumb-item :to="{ path: '/' }"><i class="iconfont icon-ai-home"></i>首页</el-breadcrumb-item>
+                    <el-breadcrumb-item>{{$route.name}}</el-breadcrumb-item>
+                </el-breadcrumb>
+            </div>
         </div>
-        <div class="header-right">
-        <el-button type="danger" size="medium" :class="'process'" icon="el-icon-caret-right">您的工作进度</el-button>
-        <span>早安，李先生</span><img src="@/assets/img/juxin_18.png" alt="">
+        <div class="width-50">
+            <div class="header-right">
+                <el-button type="danger" size="medium" :class="'process'" icon="el-icon-caret-right">您的工作进度</el-button>
+                <span>早安，李先生</span><img src="@/assets/img/juxin_18.png" alt="">
+            </div>
         </div>
+        
+        
   </div>
 </template>
 <style scoped>
@@ -20,12 +26,17 @@
         background: #fff;
         border-radius: 5px;
     }
+    .width-50{
+        display: inline-block;
+        width: 49.8%;
+    }
     .header-section{
         font-size: 14px;
     }
     .header-right{
         display: flex;
         align-items: center;
+        float: right;
     }
     .header-left{
         padding-top: 20px;

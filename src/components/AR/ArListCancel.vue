@@ -55,7 +55,7 @@
         label="转让日期"
         sortable
         prop="money_can"
-        min-width="100">
+        min-width="120">
         </el-table-column>
         <el-table-column align="center"
         label="预计回款日期"

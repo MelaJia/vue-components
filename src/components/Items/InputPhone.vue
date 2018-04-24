@@ -1,6 +1,6 @@
 <template>
     <section>
-        <input type="text" maxlength="11" v-bind:value="value" v-bind:class="classes" @input="updateValue($event.target.value)" @blur="checkForm($event.target.value)">
+        <input ref="input" type="text" maxlength="11" v-bind:value="value" v-bind:class="classes" @input="updateValue($event.target.value)" @blur="checkForm($event.target.value)" placeholder="请输入手机号">
         <em class="error">{{msg}}</em>
     </section>
 </template>

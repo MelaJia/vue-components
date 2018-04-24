@@ -44,12 +44,7 @@
                                 <input-pass v-model="ruleForm.pass" :classes="'text iptpassword'"></input-pass>
                             </div>
                             <div class="ipt-group picture">
-                                <input type="text" class="text iptviste" name="ipt_renewal" id="ipt_renewal" onKeyDown="if(event.keyCode===32) return false" placeholder="图形验证" maxlength="5">
-                                <div class="imgviste">
-                                    <img class="renewal" src="@/assets/img/login/yanzhen.png" id="imgCode" alt="点击刷新">
-                                    <span class="renewal">看不清，换一张</span>
-                                </div>
-                                <em class="error"></em>
+                                <verify></verify>
                             </div>
                             <div class="iptChoose">
                                 <label for="agree">
@@ -145,6 +140,7 @@ import"@/assets/css/slide.css";
 import '@/assets/css/style.css'; //引入全局less文件
 import InputPhone from '@/components/Items/InputPhone'
 import InputPass from '@/components/Items/InputPass'
+import Verify from '@/components/Items/Verify'
 import Valid from '@/mixins/Login/Validate'
 export default {
   data(){
@@ -159,7 +155,8 @@ export default {
   },
   components:{
     InputPhone,
-    InputPass
+    InputPass,
+    Verify
   },
   methods: {
       submitForm(formName) {
