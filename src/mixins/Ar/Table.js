@@ -1,5 +1,5 @@
 export default {
-  data() {
+  data () {
     return {
       Options: [{
         value: '大吉制造',
@@ -21,37 +21,37 @@ export default {
         money: '',
         money_can: '',
         money_cash: '',
-        arriveDate: '120',
+        arriveDate: '120'
       }
     }
   },
   methods: {
-    tableRowClassName({
+    tableRowClassName ({
       row,
       rowIndex
     }) {
       if (row.pend) {
-        return 'warning-row';
+        return 'warning-row'
       }
-      return '';
+      return ''
     },
-    expendhandle(row, expandedRows) {
+    expendhandle (row, expandedRows) {
       console.log(expandedRows)
-      row.pend = !row.pend;
+      row.pend = !row.pend
     },
-    getPendedColor({
+    getPendedColor ({
       row,
       rowIndex
     }) {
-      return 'expendcolor';
+      return 'expendcolor'
     },
-    handleInfo(rowIndex, row) {
+    handleInfo (rowIndex, row) {
       console.log(rowIndex)
       console.log(row)
     },
     // 父table控制子table宽度控制
-    widthHandle(newWidth, oldWidth, column, event) {
-      this.widthArr[column.property] = newWidth;
+    widthHandle (newWidth, oldWidth, column, event) {
+      this.widthArr[column.property] = newWidth
     }
-  },
+  }
 }

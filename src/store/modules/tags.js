@@ -3,7 +3,7 @@ import {
   getStore,
   removeStore
 } from '@/util/store'
-import { validatenull } from '@/util/validate'
+import { validatenull } from '@/util/validate' // eslint-disable-line
 const tagObj = {
   label: '',
   value: '',

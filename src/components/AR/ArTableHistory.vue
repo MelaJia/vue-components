@@ -59,8 +59,9 @@
 
 <script>
 import TableMixIn from '@/mixins/Ar/Table'
+import MixData from '@/mixins/Ar/DataInit'
 export default {
-  mixins: [TableMixIn]
+  mixins: [MixData, TableMixIn]
 }
 
 </script>

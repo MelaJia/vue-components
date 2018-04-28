@@ -208,7 +208,7 @@ export default {
       let tag
       this.$store.commit('DEL_TAG', item)
       if (item.value === this.tag.value) {
-        tag = this.tagList[key === 0 ? key : key - 1]
+        tag = this.tagList[parseInt(key) === 0 ? key : key - 1]
         this.openUrl(tag)
       }
     }

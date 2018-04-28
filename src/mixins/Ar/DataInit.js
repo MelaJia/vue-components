@@ -1,5 +1,5 @@
 export default {
-  data() {
+  data () {
     return {
       Options: [{
         value: '大吉制造',
@@ -11,7 +11,7 @@ export default {
         value: '大利制造',
         label: '大利制造'
       }],
-      // 宽度控制
+      //  宽度控制
       widthArr: {
         id: '100',
         come: '',
@@ -21,7 +21,7 @@ export default {
         money: '',
         money_can: '',
         money_cash: '',
-        arriveDate: '120',
+        arriveDate: '120'
       },
       navItems: [{
         idx: '1',
@@ -102,7 +102,7 @@ export default {
       }
       ],
       tableData5: [{
-        pend: false, //父节点展开属性 默认false
+        pend: false, // 父节点展开属性 默认false
         id: '12987122',
         come: '自有',
         company: '大诚制造',
@@ -114,7 +114,7 @@ export default {
         arriveDate: '2017-9-26',
         bankAccount: '2000300040005000',
         bankCompaney: '招商',
-        tableData: [{ //子节点
+        tableData: [{ // 子节点
           id: '12987122-1',
           come: '自有',
           company: '大吉制造',
@@ -125,7 +125,7 @@ export default {
           money_cash: '20000',
           arriveDate: '2017-9-26',
           bankAccount: '2000300040005000',
-          bankCompaney: '招商',
+          bankCompaney: '招商'
         }, {
           id: '12987122-2',
           come: '自有',
@@ -137,7 +137,7 @@ export default {
           money_cash: '20000',
           arriveDate: '2017-9-26',
           bankAccount: '2000300040005000',
-          bankCompaney: '招商',
+          bankCompaney: '招商'
         }, {
           id: '12987122-3',
           come: '自有',
@@ -149,10 +149,10 @@ export default {
           money_cash: '20000',
           arriveDate: '2017-9-26',
           bankAccount: '2000300040005000',
-          bankCompaney: '招商',
+          bankCompaney: '招商'
         }]
       }, {
-        pend: false, //父节点展开属性
+        pend: false, // 父节点展开属性
         id: '12987123',
         come: '自有',
         company: '大诚制造',
@@ -164,7 +164,7 @@ export default {
         arriveDate: '2017-9-26',
         bankAccount: '2000300040005000',
         bankCompaney: '招商',
-        tableData: [{ //子节点
+        tableData: [{ //  子节点
           id: '12987122-1',
           come: '自有',
           company: '大吉制造',
@@ -175,7 +175,7 @@ export default {
           money_cash: '20000',
           arriveDate: '2017-9-26',
           bankAccount: '2000300040005000',
-          bankCompaney: '招商',
+          bankCompaney: '招商'
         }]
       }]
     }

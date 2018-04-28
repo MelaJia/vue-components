@@ -8,11 +8,11 @@ import getters from './getters'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    modules: {
-        user,
-        common,
-        errLog,
-        tags
-      },
-      getters,
+  modules: {
+    user,
+    common,
+    errLog,
+    tags
+  },
+  getters
 })
