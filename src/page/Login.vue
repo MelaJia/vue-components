@@ -143,7 +143,7 @@
   </section>
 
 </template>
-<style lang="less">
+<style lang="scss">
 .section-login {
   margin: 100px 50px;
 }

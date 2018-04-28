@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Notification, Message } from 'element-ui';
 /**
  * 获取url参数
