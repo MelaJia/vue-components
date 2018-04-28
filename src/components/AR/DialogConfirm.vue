@@ -1,5 +1,5 @@
 <template>
-   <el-dialog title="批量AR确认" :visible.sync="visibleP" :before-close="handleClose">
+  <el-dialog title="批量AR确认" :visible.sync="visibleP" :before-close="handleClose">
     <el-table :data="multipleSelectionP" style="width: 100%">
       <el-table-column property="id" label="AR单号" min-width="150"></el-table-column>
       <el-table-column property="money" label="金额" min-width="180"></el-table-column>
@@ -16,23 +16,24 @@
   </el-dialog>
 </template>
 <style scoped>
-    footer{
-        text-align: center;
-    }
+footer {
+  text-align: center;
+}
 </style>
 
 <script>
 import DialogClose from '@/mixins/Ar/DialogClose'
 export default {
-  props:['visibleP','multipleSelectionP'],
-  mixins:[DialogClose],
-  data(){
-      return {
-          radio2:3,
-      }
+  props: ['visibleP', 'multipleSelectionP'],
+  mixins: [DialogClose],
+  data () {
+    return {
+      radio2: 3
+    }
   },
-  methods:{
-      
+  methods: {
+
   }
 }
+
 </script>

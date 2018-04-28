@@ -3,103 +3,20 @@
     <section>
         <header>myar数据</header>
         <el-card>
-            datas:{{tableData5}}
+            {{tableData5}}
         </el-card>
     </section>
     <section>
         <header>nav数据</header>
         <el-card>
-            navItems:[
-        {
-          idx:'1',
-          text:'AR管理',
-          disabled:false,
-          lClass:'start-line',
-          hClass:'header-circle bg-icon-1',
-          childrens:[
-            {
-              idx:'myar',
-              text:'我的AR',
-              disabled:false,
-              lClass:'line',
-              hClass:'circle'
-            },
-            {
-              idx:'getar',
-              text:'待收AR',
-              disabled:false,
-              lClass:'line',
-              hClass:'circle'
-            },{
-              idx:'cancelar',
-              text:'取消转让',
-              disabled:false,
-              lClass:'line',
-              hClass:'circle'
-            },
-            {
-              idx:'historyar',
-              text:'历史AR',
-              disabled:false,
-              lClass:'line',
-              hClass:'circle'
-            }
-          ]
-        },
-        {
-          idx:'2',
-          text:'资金管理',
-          disabled:false,
-          lClass:'line',
-          hClass:'header-circle bg-icon-2'
-        },
-        {
-          idx:'data',
-          text:'消息中心',
-          disabled:false,
-          lClass:'line',
-          hClass:'header-circle bg-icon-2'
-        },
-        {
-          idx:'4',
-          text:'账户管理',
-          disabled:false,
-          lClass:'end-line',
-          hClass:'header-circle bg-icon-3',
-          childrens:[
-            {
-              idx:'4-1',
-              text:'基本信息',
-              disabled:false,
-              lClass:'line',
-              hClass:'circle'
-            },
-            {
-              idx:'4-2',
-              text:'银行卡管理',
-              disabled:false,
-              lClass:'line',
-              hClass:'circle'
-            },{
-              idx:'4-3',
-              text:'密码修改',
-              disabled:false,
-              lClass:'end-line',
-              hClass:'circle'
-            }
-          ]
-        }
-      ]
+            {{navItems}}
         </el-card>
     </section>
-    
-
 </article>
-  
 </template>
 <script>
-import mixTabel from '../mixins/Ar/Table'
+import mixTabel from '../mixins/Ar/DataInit'
 export default {
-  mixins:[mixTabel]
+  mixins: [mixTabel]
 }
 </script>

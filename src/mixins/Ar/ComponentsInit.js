@@ -1,6 +1,6 @@
-import HeaderSection from "@/components/HeaderSection"
-export default{
-    components:{
-        HeaderSection
-    }
+import HeaderSection from '@/components/HeaderSection'
+export default {
+  components: {
+    HeaderSection
+  }
 }

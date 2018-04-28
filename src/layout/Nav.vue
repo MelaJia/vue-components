@@ -27,17 +27,18 @@
       </el-menu>
   </nav>
 </template>
-<style lang="less">
+<style lang="scss">
+  @import "../assets/css/base";
   .nav-menu{
     li i[class*='el-icon-arrow-down']:before{
     content: none;
   }
   ul{
-        background: #bc3335;
+        background: $navbg;
         border-right: none;
   }
   ul li.el-menu-item.is-active{
-    background: #e06d5c;
+    background: $navbg-item-active;
   >.circle{
   -webkit-animation-name: custom-rubberBand;
     animation-name: custom-rubberBand;
@@ -50,7 +51,7 @@
   .el-submenu__title::before, 
   .el-menu-item::before{
     content: " ";
-    background: #ee5c5e;
+    background: $navbg-item-hover;
     height: 100%;
     width: 3px;
     position: absolute;
@@ -77,25 +78,25 @@
     min-width: 100px;
     
   }
-  .line{
+ .line{
     width: 1px;
     top: 0;
     bottom: 0;
     left: 32px;
     position: absolute;
     border-color: inherit;
-    background-color: #c0c4cc;
+    background-color: $navbg-line-color;
   }
   .start-line{
-    .line;
+    @extend .line;
     top:20px;
   }
   .end-line{
-    .line;
+    @extend .line;;
     bottom:25px;
   }
   .is-opened>div>.end-line{
-    .line;
+    @extend .line;;
     bottom:0px;
   }
   .circle{
@@ -107,139 +108,49 @@
     left: 26px;
     top: 50%;
     margin-top: -5px;
-    .bg-color-pink;
+    background:$navbg-circle;;
   }
   .header-circle{
-    .circle;
+    @extend .circle;
     left:20px;
     width: 20px;
     height: 20px;
-  }
-  .bg-color-pink{
-    background-color: rgb(251, 116, 121);
+    margin-top: -11px;
   }
   .bg-icon-1{
     background: url(~@/assets/img/juxin_13.png) center no-repeat;
-    .bg-color-pink;
+    background:$navbg-circle;
   }
   .bg-icon-2{
     background: url(~@/assets/img/juxin_14.png) center no-repeat;
-    .bg-color-pink;
+    background:$navbg-circle;
   }
   .bg-icon-3{
     background: url(~@/assets/img/juxin_15.png) center no-repeat;
-    .bg-color-pink;
-  }
-  .el-submenu__title{
-    padding-left: 55px !important;
-  }
-  .el-menu--inline{
-    li{
-      .el-submenu__title;   
-      padding: 0 0;
-    }
+    background:$navbg-circle;
   }
   } 
 </style>
 
 <script>
 import { mapGetters } from "Vuex";
+import mixinData from '@/mixins/Ar/DataInit'
 export default {
   name: "Nav",
-  data(){
+  mixins:[mixinData],
+  data () {
     return {
-      navItems:[
-        {
-          idx:'1',
-          text:'AR管理',
-          disabled:false,
-          lClass:'start-line',
-          hClass:'header-circle bg-icon-1',
-          childrens:[
-            {
-              idx:'myar',
-              text:'我的AR',
-              disabled:false,
-              lClass:'line',
-              hClass:'circle'
-            },
-            {
-              idx:'getar',
-              text:'待收AR',
-              disabled:false,
-              lClass:'line',
-              hClass:'circle'
-            },{
-              idx:'cancelar',
-              text:'取消转让',
-              disabled:false,
-              lClass:'line',
-              hClass:'circle'
-            },
-            {
-              idx:'historyar',
-              text:'历史AR',
-              disabled:false,
-              lClass:'line',
-              hClass:'circle'
-            }
-          ]
-        },
-        {
-          idx:'2',
-          text:'资金管理',
-          disabled:false,
-          lClass:'line',
-          hClass:'header-circle bg-icon-2'
-        },
-        {
-          idx:'data',
-          text:'消息中心',
-          disabled:false,
-          lClass:'line',
-          hClass:'header-circle bg-icon-2'
-        },
-        {
-          idx:'4',
-          text:'账户管理',
-          disabled:false,
-          lClass:'end-line',
-          hClass:'header-circle bg-icon-3',
-          childrens:[
-            {
-              idx:'4-1',
-              text:'基本信息',
-              disabled:false,
-              lClass:'line',
-              hClass:'circle'
-            },
-            {
-              idx:'4-2',
-              text:'银行卡管理',
-              disabled:false,
-              lClass:'line',
-              hClass:'circle'
-            },{
-              idx:'4-3',
-              text:'密码修改',
-              disabled:false,
-              lClass:'end-line',
-              hClass:'circle'
-            }
-          ]
-        }
-      ],
       activeIndex: 'myar',
-      
+
     }
   },
-  computed:{
+  computed: {
     ...mapGetters(["activeidx"])
   },
-  methods:{
-    handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      }
+  methods: {
+    handleSelect (key, keyPath) {
+      console.log(key, keyPath);
+    }
   }
 }
 </script>

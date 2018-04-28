@@ -83,48 +83,47 @@
     </section>
 </template>
 
-  <script>
-    import ListMinxIn from '@/mixins/Ar/List'
-    export default {
-      mixins:[ListMinxIn],
-      data() {
-        return {
-          tableData5: [{
-          pend:false,
-          id: 'A205322625122',
-          fid:'B10023',
-          come: '富金机',
-          company: '大诚制造',
-          status: '已授让',
-          moneyType: '人民币',
-          money: '20000',
-          money_can: '2017-9-26',
-          arriveDate: '2017-9-26',
-          tableData: []
-        },{
-          id: 'A205322625123',
-          fid:'B10023',
-          come: '富金机',
-          company: '大诚制造',
-          status: '已授让',
-          moneyType: '人民币',
-          money: '20000',
-          money_can: '2017-9-26',
-          arriveDate: '2017-9-26',
-        }]
-        }
-      },
+<script>
+import ListMinxIn from '@/mixins/Ar/List'
+export default {
+  mixins: [ListMinxIn],
+  data () {
+    return {
+      tableData5: [{
+        pend: false,
+        id: 'A205322625122',
+        fid: 'B10023',
+        come: '富金机',
+        company: '大诚制造',
+        status: '已授让',
+        moneyType: '人民币',
+        money: '20000',
+        money_can: '2017-9-26',
+        arriveDate: '2017-9-26',
+        tableData: []
+      }, {
+        id: 'A205322625123',
+        fid: 'B10023',
+        come: '富金机',
+        company: '大诚制造',
+        status: '已授让',
+        moneyType: '人民币',
+        money: '20000',
+        money_can: '2017-9-26',
+        arriveDate: '2017-9-26'
+      }]
     }
-  </script>
-  <style>
-  .demo-table-expand label {
-    width: 100px;
-    color: #99a9bf;
   }
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
-  }
-  </style>
-  
+}
+</script>
+<style>
+.demo-table-expand label {
+  width: 100px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
+</style>

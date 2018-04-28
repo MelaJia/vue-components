@@ -2,18 +2,17 @@
   <div class="tags-container">
     <!-- tag盒子 -->
     <div class="tags-box" ref="tagBox">
-      <div class="tags-list" ref="tagsList" @mousewheel="hadelMousewheel" @mouseup="hadelMouseUp" @mousemove="hadelMouse" @mousedown="hadelMousestart" @touchup="hadelMouseUp" @touchmove="hadelMouse" @touchstart="hadelMousestart">
-        <transition-group name="list" 
-        enter-active-class="animated rollIn"
-        leave-active-class="animated hinge"
-        tag="div">
-          <div ref="tagsPageOpened" class="tag-item" :class="{'is-active':nowTagValue==item.value}" :name="item.value" @contextmenu.prevent="openMenu(item,$event)" v-for="item in tagList" :key="item.value" @click="openUrl(item)">
+      <div class="tags-list" ref="tagsList" @mousewheel="hadelMousewheel" @mouseup="hadelMouseUp" @mousemove="hadelMouse" @mousedown="hadelMousestart"
+        @touchup="hadelMouseUp" @touchmove="hadelMouse" @touchstart="hadelMousestart">
+        <transition-group name="list" enter-active-class="animated rollIn" leave-active-class="animated hinge" tag="div">
+          <div ref="tagsPageOpened" class="tag-item" :class="{'is-active':nowTagValue==item.value}" :name="item.value" @contextmenu.prevent="openMenu(item,$event)"
+            v-for="item in tagList" :key="item.value" @click="openUrl(item)">
             <span class="iconfont icon-yuan tag-item-icon" :class="{'is-active':nowTagValue==item.value}"></span>
             <span class="tag-text">{{item.label}}</span>
             <i class="el-icon-close tag-close" @click.stop="closeTag(item)" v-if="item.close"></i>
           </div>
         </transition-group>
-        
+
       </div>
       <!-- <el-dropdown class="tags-menu pull-right">
         <el-button type="primary" size="mini">
@@ -34,11 +33,11 @@
   </div>
 </template>
 <script>
-import { resolveUrlPath, setUrlPath } from "@/util/util";
-import { mapState, mapGetters } from "Vuex";
+import {resolveUrlPath, setUrlPath} from '@/util/util'
+import {mapGetters} from 'Vuex'
 export default {
-  name: "tags",
-  data() {
+  name: 'tags',
+  data () {
     return {
       visible: false,
       tagBodyLeft: 0,
@@ -50,136 +49,134 @@ export default {
       top: 0,
       left: 0,
       selectedTag: {}
-    };
+    }
   },
-  created() {},
-  mounted() {
-    this.init();
+  created () { },
+  mounted () {
+    this.init()
   },
   watch: {
-    $route(to) {
-      this.init();
+    $route (to) {
+      this.init()
     },
-    visible(value) {
+    visible (value) {
       if (value) {
-        document.body.addEventListener("click", this.closeMenu);
+        document.body.addEventListener('click', this.closeMenu)
       } else {
-        document.body.removeEventListener("click", this.closeMenu);
+        document.body.removeEventListener('click', this.closeMenu)
       }
     },
-    tagBodyLeft(value) {
-      this.$refs.tagsList.style.left = value + "px";
+    tagBodyLeft (value) {
+      this.$refs.tagsList.style.left = value + 'px'
     }
   },
   computed: {
-    ...mapGetters(["tagWel", "tagList", "isCollapse", "tag"]),
-    nowTagValue: function() {
-      return setUrlPath(this.$route);
+    ...mapGetters(['tagWel', 'tagList', 'isCollapse', 'tag']),
+    nowTagValue: function () {
+      return setUrlPath(this.$route)
     },
-    tagListNum: function() {
-      return this.tagList.length != 0;
+    tagListNum: function () {
+      return this.tagList.length !== 0
     }
   },
   methods: {
-    init() {
-      this.refsTag = this.$refs.tagsPageOpened;
+    init () {
+      this.refsTag = this.$refs.tagsPageOpened
       setTimeout(() => {
         this.refsTag.forEach((item, index) => {
           if (this.tag.value === item.attributes.name.value) {
-            let tag = this.refsTag[index];
-            this.moveToView(tag);
+            let tag = this.refsTag[index]
+            this.moveToView(tag)
           }
-        });
-      }, 1);
+        })
+      }, 1)
     },
-    showCollapse() {
-      this.$store.commit("SET_COLLAPSE");
+    showCollapse () {
+      this.$store.commit('SET_COLLAPSE')
     },
-    hadelMouseUp(e) {
-      this.lock = false;
+    hadelMouseUp (e) {
+      this.lock = false
     },
-    hadelMousestart(e) {
-      this.lock = true;
+    hadelMousestart (e) {
+      this.lock = true
       if (e.clientX && e.clientY) {
-        this.startX = e.clientX;
-        this.startY = e.clientY;
+        this.startX = e.clientX
+        this.startY = e.clientY
       } else {
-        this.startX = e.changedTouches[0].pageX;
-        this.startY = e.changedTouches[0].pageY;
+        this.startX = e.changedTouches[0].pageX
+        this.startY = e.changedTouches[0].pageY
       }
     },
-    hadelMouse(e) {
-      const boundarystart = 0,
-        boundaryend =
-          this.$refs.tagsList.offsetWidth - this.$refs.tagBox.offsetWidth + 100;
+    hadelMouse (e) {
+      const boundarystart = 0
+      const boundaryend = this.$refs.tagsList.offsetWidth - this.$refs.tagBox.offsetWidth + 100
       if (!this.lock) {
-        return;
+        return
       }
-      //鼠标滑动
+      // 鼠标滑动
       if (e.clientX && e.clientY) {
-        this.endX = e.clientX;
-        this.endY = e.clientY;
-        //触摸屏滑动
+        this.endX = e.clientX
+        this.endY = e.clientY
+        // 触摸屏滑动
       } else {
-        //获取滑动屏幕时的X,Y
-        this.endX = e.changedTouches[0].pageX;
-        this.endY = e.changedTouches[0].pageY;
+        // 获取滑动屏幕时的X,Y
+        this.endX = e.changedTouches[0].pageX
+        this.endY = e.changedTouches[0].pageY
       }
-      //获取滑动距离
-      let distanceX = this.endX - this.startX;
-      let distanceY = this.endY - this.startY;
-      //判断滑动方向——向右滑动
-      distanceX = parseInt(distanceX * 0.8);
+      // 获取滑动距离
+      let distanceX = this.endX - this.startX
+      // let distanceY = this.endY - this.startY
+      // 判断滑动方向——向右滑动
+      distanceX = parseInt(distanceX * 0.8)
       if (distanceX > 0 && this.tagBodyLeft < boundarystart) {
-        this.tagBodyLeft = this.tagBodyLeft + distanceX;
-        //判断滑动方向——向左滑动
+        this.tagBodyLeft = this.tagBodyLeft + distanceX
+        // 判断滑动方向——向左滑动
       } else if (distanceX < 0 && this.tagBodyLeft >= -boundaryend) {
-        this.tagBodyLeft = this.tagBodyLeft + distanceX;
+        this.tagBodyLeft = this.tagBodyLeft + distanceX
       }
     },
-    hadelMousewheel(e) {
-      const step = 0.8 * 90; //一个tag长度
-      const boundarystart = 0,
-        boundaryend =
-          this.$refs.tagsList.offsetWidth - this.$refs.tagBox.offsetWidth + 100;
+    hadelMousewheel (e) {
+      const step = 0.8 * 90 // 一个tag长度
+      const boundarystart = 0
+      const boundaryend = this.$refs.tagsList.offsetWidth - this.$refs.tagBox.offsetWidth + 100
       // Y>0向左滑动
       if (e.deltaY > 0 && this.tagBodyLeft >= -boundaryend) {
-        this.tagBodyLeft = this.tagBodyLeft - step;
+        this.tagBodyLeft = this.tagBodyLeft - step
         // Y<0向右滑动
       } else if (e.deltaY < 0 && this.tagBodyLeft < boundarystart) {
-        this.tagBodyLeft = this.tagBodyLeft + step;
+        this.tagBodyLeft = this.tagBodyLeft + step
       }
     },
-    openMenu(tag, e) {
-      if (this.tagList.length == 1) {
-        return;
+    openMenu (tag, e) {
+      if (this.tagList.length === 1) {
+        return
       }
-      this.visible = true;
-      this.selectedTag = tag;
-      this.left = e.clientX;
-      this.top = e.clientY;
+      this.visible = true
+      this.selectedTag = tag
+      this.left = e.clientX
+      this.top = e.clientY
     },
-    closeOthersTags() {
-      this.$store.commit("DEL_TAG_OTHER");
+    closeOthersTags () {
+      this.$store.commit('DEL_TAG_OTHER')
     },
-    closeMenu() {
-      this.visible = false;
+    closeMenu () {
+      this.visible = false
     },
-    closeAllTags() {
-      this.$store.commit("DEL_ALL_TAG");
+    closeAllTags () {
+      this.$store.commit('DEL_ALL_TAG')
       this.$router.push({
         path: resolveUrlPath(this.tagWel.value),
         query: this.tagWel.query
-      });
+      })
     },
-    moveToView(tag) {
+    moveToView (tag) {
       if (tag.offsetLeft < -this.tagBodyLeft) {
         // 标签在可视区域左侧
-        this.tagBodyLeft = -tag.offsetLeft + 10;
+        this.tagBodyLeft = -tag.offsetLeft + 10
       } else if (
         tag.offsetLeft + 10 > -this.tagBodyLeft &&
         tag.offsetLeft + tag.offsetWidth <
-          -this.tagBodyLeft + this.$refs.tagBox.offsetWidth
+        -this.tagBodyLeft + this.$refs.tagBox.offsetWidth
       ) {
         // 标签在可视区域
       } else {
@@ -188,40 +185,39 @@ export default {
           tag.offsetLeft -
           (this.$refs.tagBox.offsetWidth - 100 - tag.offsetWidth) +
           20
-        );
+        )
       }
     },
-    openUrl(item) {
+    openUrl (item) {
       this.$router.push({
         path: resolveUrlPath(item.value, item.label),
         query: item.query
-      });
+      })
     },
-    eachTag(tag) {
+    eachTag (tag) {
       for (var key in this.tagList) {
-        if (this.tagList[key].value == tag.value) {
-          return key;
+        if (this.tagList[key].value === tag.value) {
+          return key
         }
       }
-      return -1;
+      return -1
     },
-    closeTag(item) {
+    closeTag (item) {
       console.log('单击')
-      const key = this.eachTag(item);
-      let tag;
-      this.$store.commit("DEL_TAG", item);
-      if (item.value == this.tag.value) {
-        tag = this.tagList[key == 0 ? key : key - 1];
-        this.openUrl(tag);
+      const key = this.eachTag(item)
+      let tag
+      this.$store.commit('DEL_TAG', item)
+      if (item.value === this.tag.value) {
+        tag = this.tagList[key === 0 ? key : key - 1]
+        this.openUrl(tag)
       }
     }
   }
-};
+}
+
 </script>
 <style lang="less" scoped>
 .list-move {
   transition: transform 1s;
 }
 </style>
-
-

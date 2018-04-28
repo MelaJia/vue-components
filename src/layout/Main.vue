@@ -39,7 +39,7 @@
     </footer>
 </div>  
 </template>
-<style lang="less">
+<style lang="scss">
     .left{
         width: 200px;
         float: left;
