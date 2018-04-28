@@ -1,6 +1,7 @@
 <template>
   <nav class="nav-menu">
-      <el-menu :default-active="activeidx" :router="true" text-color="#fff" active-text-color="#000" class="el-menu-demo" mode="vertical" @select="handleSelect">
+    <el-menu :default-active="activeidx" :router="true" text-color="#fff" active-text-color="#000" class="el-menu-demo" mode="vertical"
+      @select="handleSelect">
       <section v-for="item in navItems" :key="item.idx">
         <el-submenu v-if="item.childrens" :index="item.idx">
           <template slot="title">
@@ -8,48 +9,48 @@
             <div :class="item.hClass"></div>
             <span>{{item.text}}</span>
           </template>
-            <el-menu-item  v-for="item in item.childrens" :key="item.idx" :index="item.idx">
-              <template slot="title">
-                <div :class="item.lClass"></div>
-                <div :class="item.hClass"></div>
-                <span>{{item.text}}</span>
+          <el-menu-item v-for="item in item.childrens" :key="item.idx" :index="item.idx">
+            <template slot="title">
+              <div :class="item.lClass"></div>
+              <div :class="item.hClass"></div>
+              <span>{{item.text}}</span>
             </template>
           </el-menu-item>
         </el-submenu>
         <el-menu-item v-else :index="item.idx" :disabled="item.disabled">
           <template slot="title">
             <div :class="item.lClass"></div>
-                <div :class="item.hClass"></div>
-                <span>{{item.text}}</span>
+            <div :class="item.hClass"></div>
+            <span>{{item.text}}</span>
           </template>
         </el-menu-item>
       </section>
-      </el-menu>
+    </el-menu>
   </nav>
 </template>
 <style lang="scss">
-  @import "../assets/css/base";
-  .nav-menu{
-    li i[class*='el-icon-arrow-down']:before{
+@import "../assets/css/base";
+.nav-menu {
+  li i[class*="el-icon-arrow-down"]:before {
     content: none;
   }
-  ul{
-        background: $navbg;
-        border-right: none;
+  ul {
+    background: $navbg;
+    border-right: none;
   }
-  ul li.el-menu-item.is-active{
+  ul li.el-menu-item.is-active {
     background: $navbg-item-active;
-  >.circle{
-  -webkit-animation-name: custom-rubberBand;
-    animation-name: custom-rubberBand;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
+    > .circle {
+      -webkit-animation-name: custom-rubberBand;
+      animation-name: custom-rubberBand;
+      -webkit-animation-duration: 1s;
+      animation-duration: 1s;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+    }
   }
-  } 
-  .el-submenu__title::before, 
-  .el-menu-item::before{
+  .el-submenu__title::before,
+  .el-menu-item::before {
     content: " ";
     background: $navbg-item-hover;
     height: 100%;
@@ -60,25 +61,24 @@
     transition: width 0.2s ease-in;
   }
   .el-menu-item:focus,
-  .el-menu-item:hover{
+  .el-menu-item:hover {
     background-color: transparent;
   }
   .el-submenu__title:hover::before,
-  .el-menu-item:hover::before{
+  .el-menu-item:hover::before {
     width: 100%;
   }
   .el-submenu__title,
-  .el-menu-item{
+  .el-menu-item {
     padding-left: 55px !important;
-    span{
+    span {
       position: relative;
     }
   }
-  .el-submenu .el-menu-item{
+  .el-submenu .el-menu-item {
     min-width: 100px;
-    
   }
- .line{
+  .line {
     width: 1px;
     top: 0;
     bottom: 0;
@@ -87,19 +87,19 @@
     border-color: inherit;
     background-color: $navbg-line-color;
   }
-  .start-line{
+  .start-line {
     @extend .line;
-    top:20px;
+    top: 20px;
   }
-  .end-line{
-    @extend .line;;
-    bottom:25px;
+  .end-line {
+    @extend .line;
+    bottom: 25px;
   }
-  .is-opened>div>.end-line{
-    @extend .line;;
-    bottom:0px;
+  .is-opened > div > .end-line {
+    @extend .line;
+    bottom: 0px;
   }
-  .circle{
+  .circle {
     border: 1px solid white;
     border-radius: 50%;
     width: 10px;
@@ -108,49 +108,50 @@
     left: 26px;
     top: 50%;
     margin-top: -5px;
-    background:$navbg-circle;;
+    background: $navbg-circle;
   }
-  .header-circle{
+  .header-circle {
     @extend .circle;
-    left:20px;
+    left: 20px;
     width: 20px;
     height: 20px;
     margin-top: -11px;
   }
-  .bg-icon-1{
+  .bg-icon-1 {
     background: url(~@/assets/img/juxin_13.png) center no-repeat;
-    background:$navbg-circle;
+    background: $navbg-circle;
   }
-  .bg-icon-2{
+  .bg-icon-2 {
     background: url(~@/assets/img/juxin_14.png) center no-repeat;
-    background:$navbg-circle;
+    background: $navbg-circle;
   }
-  .bg-icon-3{
+  .bg-icon-3 {
     background: url(~@/assets/img/juxin_15.png) center no-repeat;
-    background:$navbg-circle;
+    background: $navbg-circle;
   }
-  } 
+}
 </style>
 
 <script>
-import { mapGetters } from "Vuex";
+import {mapGetters} from 'Vuex'
 import mixinData from '@/mixins/Ar/DataInit'
 export default {
-  name: "Nav",
-  mixins:[mixinData],
+  name: 'Nav',
+  mixins: [mixinData],
   data () {
     return {
-      activeIndex: 'myar',
+      activeIndex: 'myar'
 
     }
   },
   computed: {
-    ...mapGetters(["activeidx"])
+    ...mapGetters(['activeidx'])
   },
   methods: {
     handleSelect (key, keyPath) {
-      console.log(key, keyPath);
+      console.log(key, keyPath)
     }
   }
 }
+
 </script>
