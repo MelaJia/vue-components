@@ -38,7 +38,7 @@ const routes = [
       {
         path: 'myar',
         name: '我的AR',
-        component: () => import(/* webpackChunkName: 'AR' */ '@/page/MyAr'),
+        component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/MyAr'),
         meta: {
           requireAuth: true // 需要登录验证
         }
@@ -46,22 +46,27 @@ const routes = [
       {
         path: 'getar',
         name: '待收AR',
-        component: () => import(/* webpackChunkName: 'AR' */ '@/page/GetAr')
+        component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/GetAr')
       },
       {
         path: 'cancelar',
         name: '取消转让',
-        component: () => import(/* webpackChunkName: 'AR' */ '@/page/CancelAr')
+        component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/CancelAr')
       },
       {
         path: 'historyar',
         name: '历史AR',
-        component: () => import(/* webpackChunkName: 'AR' */ '@/page/HistoryAr')
+        component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/HistoryAr')
       },
       {
         path: 'data',
         name: '数据信息',
         component: () => import(/* webpackChunkName: 'AR' */ '@/page/data')
+      },
+      {
+        path: 'userinfo',
+        name: '基础信息',
+        component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/UserInfo')
       }
     ]
   },

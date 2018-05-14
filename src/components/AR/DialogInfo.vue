@@ -9,37 +9,44 @@
     <section>
       <ul>
         <li>
-          <span>最终付款单位:{{this.detailsP.company}}</span>
+          <span>付款单位:{{this.detailsP.companyName}}</span>
         </li>
         <li>
-          <span>最终付款账户：{{this.detailsP.bankCompaney}}</span>
+          <span>转让单位:{{this.detailsP.custFromName}}</span>
         </li>
         <li>
-          <el-tooltip :content="'最终付款账号:'+this.detailsP.bankAccount" placement="bottom" effect="light">
-            <span>最终付款账号:{{this.detailsP.bankAccount}}</span>
+          <span>状态:{{this.detailsP.arStatusTypeName}}</span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>预计回款日期:{{this.detailsP.billPayDate}}</span>
+        </li>
+        <li>
+          <span>转让日期:{{this.detailsP.transDate}}</span>
+        </li>
+        <li>
+          <span>转让金额:{{this.detailsP.transAmt}}</span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>币别:{{this.detailsP.currencyDesc}}</span>
+        </li>
+        <li>
+          <el-tooltip :content="'交易流水:'+this.detailsP.transSerialNo" placement="bottom" effect="light">
+            <span>交易流水:{{this.detailsP.transSerialNo}}</span>
           </el-tooltip>
         </li>
-      </ul>
-      <ul>
         <li>
-          <span>AR来源:{{this.detailsP.come}}</span>
-        </li>
-        <li>
-          <span>状态:{{this.detailsP.status}}</span>
-        </li>
-        <li>
-          <span>币别:{{this.detailsP.moneyType}}</span>
+          <span>预计回款日期:{{this.detailsP.billPayDate}}</span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>票面金额:{{this.detailsP.company}}</span>
-        </li>
-        <li>
-          <span>可用余额:{{this.detailsP.money_can}}</span>
-        </li>
-        <li>
-          <span>预计回款日期:{{this.detailsP.arriveDate}}</span>
+          <el-tooltip :content="'对应发票号:'+this.detailsP.bankAccount" placement="bottom" effect="light">
+              <span>对应发票号:{{this.detailsP.bankAccount}}</span>
+          </el-tooltip>
         </li>
       </ul>
       <!-- <p>
@@ -115,7 +122,7 @@ export default {
   },
   computed: {
     getTitle () {
-      return this.detailsP.id + '结报单号'
+      return this.detailsP.masterChainId + '详情'
     }
   },
   methods: {

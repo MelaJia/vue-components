@@ -11,7 +11,7 @@
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" :options="Options"></dialog-info>
     <section>
       <el-table :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
-        element-loading-background="rgba(0, 0, 0, 0.8)" show-summary :summary-method="getSummaries" border style="width: 100%"
+        element-loading-background="rgba(0, 0, 0, 0.8)" show-summary :summary-method="sumHandle([7,8])" border style="width: 100%"
         @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle">
         <el-table-column type="expand" fixed>
           <template slot-scope="props">
@@ -21,22 +21,24 @@
               </el-table-column>
               <el-table-column align="center" width="40">
               </el-table-column>
-              <el-table-column align="center" prop="id" :width="widthArr.id">
+              <el-table-column align="center" prop="masterChainId" :width="widthArr.masterChainId">
               </el-table-column>
-              <el-table-column align="center" prop="come" :width="widthArr.come">
+              <el-table-column align="center" prop="billId" :width="widthArr.billId">
+              </el-table-column>
+              <el-table-column align="center" prop="isMasterAr" :width="widthArr.isMasterAr">
                 >
               </el-table-column>
               <el-table-column align="center" prop="company" :width="widthArr.company">
               </el-table-column>
-              <el-table-column align="center" prop="status" :width="widthArr.status">
+              <el-table-column align="center" prop="arStatusTypeName" :width="widthArr.arStatusTypeName">
               </el-table-column>
-              <el-table-column align="center" prop="moneyType" :width="widthArr.moneyType">
+              <el-table-column align="center" prop="currencyDesc" :width="widthArr.currencyDesc">
               </el-table-column>
-              <el-table-column align="center" prop="money" :width="widthArr.money">
+              <el-table-column align="center" prop="billBookAmt" :width="widthArr.billBookAmt">
               </el-table-column>
-              <el-table-column align="center" prop="money_can" :width="widthArr.money_can">
+              <el-table-column align="center" prop="loanAmt" :width="widthArr.loanAmt">
               </el-table-column>
-              <el-table-column align="center" prop="arriveDate" :width="widthArr.arriveDate">
+              <el-table-column align="center" prop="billPayDate" :width="widthArr.billPayDate" :formatter="dateFormat">
               </el-table-column>
               <el-table-column align="center" width='200px'>
                 <template slot-scope="scope">
@@ -49,21 +51,23 @@
         </el-table-column>
         <el-table-column type="selection" fixed width="40">
         </el-table-column>
-        <el-table-column align="center" label="AR单号" fixed sortable prop="id" width="100">
+        <el-table-column align="center" label="AR单号" fixed sortable prop="masterChainId" width="150">
         </el-table-column>
-        <el-table-column align="center" label="AR来源" prop="come">
+        <el-table-column align="center" label="结报单号" prop="billId" width="150">
+        </el-table-column>
+        <el-table-column align="center" label="AR来源" prop="isMasterAr" :formatter="originFormat">
         </el-table-column>
         <el-table-column align="center" label="付款单位/对手单位" prop="company" width="150">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="status">
+        <el-table-column align="center" label="状态" prop="arStatusTypeName">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="moneyType">
+        <el-table-column align="center" label="币别" prop="currencyDesc">
         </el-table-column>
-        <el-table-column align="center" label="票面金额" prop="money">
+        <el-table-column align="center" label="票面金额" prop="billBookAmt">
         </el-table-column>
-        <el-table-column align="center" label="可用余额" prop="money_can">
+        <el-table-column align="center" label="可用余额" prop="loanAmt">
         </el-table-column>
-        <el-table-column align="center" label="预计回款日期" prop="arriveDate" width="120">
+        <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120">
         </el-table-column>
         <el-table-column align="center" label="操作" width='200px'>
           <template slot-scope="scope">
@@ -83,18 +87,19 @@ header {
 
 <script>
 import TableMixIn from '@/mixins/Ar/Table'
+import Common from '@/mixins/common'
 export default {
   props: ['dataLoading', 'dataTable'],
-  mixins: [TableMixIn],
+  mixins: [TableMixIn, Common],
   components: {
     'dialog-confirm': () =>
-      import(/* webpackChunkName: 'Dialog' */ './DialogConfirm'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/AR/DialogConfirm'),
     'dialog-transfer': () =>
-      import(/* webpackChunkName: 'Dialog' */ './DialogTransfer'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/AR/DialogTransfer'),
     'dialog-withdraw': () =>
-      import(/* webpackChunkName: 'Dialog' */ './DialogWithdraw'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/AR/DialogWithdraw'),
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ './DialogInfo')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/AR/DialogInfo')
   },
   data () {
     return {
@@ -113,39 +118,13 @@ export default {
     },
     handleInfo (idx, val) {
       console.log(val)
-
+      this.axios.post('/myAr2/queryAr', { masterChainId: 'AR20180503000001' }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
       this.details = val
       this.dialogInfoVisible = true
-    },
-    getSummaries (param) {
-      const { columns, data } = param
-      const sums = []
-      columns.forEach((column, index) => {
-        if (index === 2) {
-          sums[index] = '总价'
-          return
-        }
-        if (index === 0 || index === 1) {
-          sums[index] = ''
-          return
-        }
-        const values = data.map(item => Number(item[column.property]))
-        if (!values.every(value => isNaN(value))) {
-          sums[index] = values.reduce((prev, curr) => {
-            const value = Number(curr)
-            if (!isNaN(value)) {
-              return prev + curr
-            } else {
-              return prev
-            }
-          }, 0)
-          sums[index] += '元'
-        } else {
-          sums[index] = ''
-        }
-      })
-
-      return sums
     }
   }
 }

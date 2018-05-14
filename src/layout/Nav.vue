@@ -58,7 +58,7 @@
     position: absolute;
     left: 0;
     top: 0;
-    transition: width 0.2s ease-in;
+    transition: width 0.2s;
   }
   .el-menu-item:focus,
   .el-menu-item:hover {
@@ -119,15 +119,15 @@
   }
   .bg-icon-1 {
     background: url(~@/assets/img/juxin_13.png) center no-repeat;
-    background: $navbg-circle;
+    background-color: $navbg-circle;
   }
   .bg-icon-2 {
     background: url(~@/assets/img/juxin_14.png) center no-repeat;
-    background: $navbg-circle;
+    background-color: $navbg-circle;
   }
   .bg-icon-3 {
     background: url(~@/assets/img/juxin_15.png) center no-repeat;
-    background: $navbg-circle;
+    background-color: $navbg-circle;
   }
 }
 </style>

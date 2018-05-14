@@ -11,18 +11,6 @@ export default {
         value: '大利制造',
         label: '大利制造'
       }],
-      //  宽度控制
-      widthArr: {
-        id: '100',
-        come: '',
-        company: '150',
-        status: '',
-        moneyType: '',
-        money: '',
-        money_can: '',
-        money_cash: '',
-        arriveDate: '120'
-      },
       navItems: [{
         idx: '1',
         text: 'AR管理',
@@ -79,7 +67,7 @@ export default {
         lClass: 'end-line',
         hClass: 'header-circle bg-icon-3',
         childrens: [{
-          idx: '4-1',
+          idx: 'userinfo',
           text: '基本信息',
           disabled: false,
           lClass: 'line',

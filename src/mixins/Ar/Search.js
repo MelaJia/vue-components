@@ -4,20 +4,20 @@ export default {
       selectData: {
         origin: [{
           lable: '自有AR',
-          value: '自有AR'
+          value: 1
         }, {
           lable: '购入AR',
-          value: '购入AR'
+          value: 0
         }],
         status: [{
-          lable: '待确认',
-          value: '待确认'
+          lable: '貼現审核成功',
+          value: 21
         }, {
           lable: '可用',
-          value: '可用'
+          value: 2
         }, {
           lable: '不可用',
-          value: '不可用'
+          value: 99
         }],
         moneyType: [{
           lable: '人民币',
@@ -34,18 +34,21 @@ export default {
         }]
       },
       formInline: {
-        id: '',
-        department: '',
-        status: '',
-        moneyType: '',
-        moneyDate: []
+        masterChainId: '', // ar单号
+        isMasterAr: '', // ar来源
+        custFromName: '', // 转让单位
+        status: '', // 状态
+        billBookCurr: '', // 币别
+        invoiceNo: '', // 发票号
+        moneyDate: null, // 日期
+        transSerialNo: '' // 交易流水号
       }
     }
   },
   methods: {
     onSubmit () {
-      console.log(this.formInline)
       console.log('submit!')
+      this.$emit('handle-search', this.formInline)
     }
   }
 }
