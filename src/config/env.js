@@ -14,9 +14,8 @@ let iconfontVersion = ['567566_lgiis24af44bcsor']
 let iconfontUrl = `//at.alicdn.com/t/font_$key.css`
 let codeUrl = `${baseUrl}/code`
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = `http://localhost`
+  baseUrl = `https://jurongtest.foxconn.com/sit`
 } else if (process.env.NODE_ENV === 'production') {
-  baseUrl = `http://localhost`
+  baseUrl = `http://localhost:8080/sit`
 }
-
 export { baseUrl, iconfontUrl, iconfontVersion, codeUrl }

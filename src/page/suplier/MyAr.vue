@@ -32,8 +32,8 @@
 </style>
 
 <script>
-import ArTable from '@/components/Ar/arTable'
-import Search from '@/components/Ar/SearchMyAr'
+import ArTable from '@/components/suplier/Ar/arTable'
+import Search from '@/components/suplier/Ar/SearchMyAr'
 import ComponentsInit from '@/mixins/Ar/ComponentsInit'
 import DataInit from '@/mixins/Ar/DataInit'
 import Table from '@/mixins/Ar/Table'

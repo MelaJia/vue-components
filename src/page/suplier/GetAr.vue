@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import ArList from '@/components/Ar/ArList'
-import Search from '@/components/Ar/SearchGet'
+import ArList from '@/components/suplier/Ar/ArList'
+import Search from '@/components/suplier/Ar/SearchGet'
 import DataInit from '@/mixins/Ar/DataInit'
 import Table from '@/mixins/Ar/Table'
 export default {

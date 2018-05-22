@@ -12,37 +12,38 @@
           <el-col :span="12" :offset="4">
             <el-form-item label="开户省市:">
               <el-cascader
-  :options="options"
-  change-on-select
-></el-cascader>
+                :options="options"
+                v-model="bankProvinceCity"
+                change-on-select
+              ></el-cascader>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12" :offset="4">
             <el-form-item label="开户支行:">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="form.accountOpeningBranch"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12" :offset="4">
             <el-form-item label="银行名称:">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="form.bankName"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12" :offset="4">
             <el-form-item label="银行账号:">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="form.bankAccount"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12" :offset="4">
             <el-form-item label="账号名称:">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="form.bankShortName"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -66,7 +67,7 @@ export default {
   },
   data () {
     return {
-      select: ''
+      bankProvinceCity: []
     }
   },
   computed: {
@@ -76,7 +77,23 @@ export default {
   },
   methods: {
     subHandle () {
+      this.form.bankProvince = this.bankProvinceCity[0] | ''
+      this.form.bankCity = this.bankProvinceCity[1] | ''
       console.log(this.form)
+      this.axios.post('http://10.134.158.84:8080/JuXin/cust/updateBankInfo.do', this.form).then(res => {
+        let type = res.data.isAuthened === 'true' ? 'success' : 'error'
+        this.$message({
+          message: res.data.isAuthened,
+          type: type
+        })
+        this.$parent.fresh()
+        this.handleClose()
+      }).catch(err => {
+        this.$message({
+          type: 'info',
+          message: `操作失败${err}`
+        })
+      })
     }
   }
 }

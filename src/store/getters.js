@@ -13,6 +13,7 @@ const getters = {
   menu: state => state.user.menu,
   menuAll: state => state.user.menuAll,
   errLog: state => state.errLog.errLog,
-  activeidx: state => state.tags.tag.value.slice(state.tags.tag.value.lastIndexOf('/') + 1)
+  activeidx: state => state.tags.tag.value.slice(state.tags.tag.value.lastIndexOf('/') + 1),
+  ssoId: state => state.user.ssoId
 }
 export default getters

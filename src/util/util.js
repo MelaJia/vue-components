@@ -260,3 +260,14 @@ export const dateInit = () => {
     return fmt;
   }
 }
+/**
+ * 首字母大写
+ * @param {*} str 字符串
+ */
+export const firstToUpperCase = (str)=>{ // 正则法
+  // str = str.toLowerCase();
+  var reg = /\b(\w)|\s(\w)/g; //  \b判断边界\s判断空格
+  return str.replace(reg,function(m){ 
+   return m.toUpperCase()
+  });
+ }

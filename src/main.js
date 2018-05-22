@@ -13,8 +13,10 @@ import '@/assets/css/animate.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import {dateInit} from '@/util/util'
+import {baseUrl} from '@/config/env.js'
 dateInit() // 格式化日期注册
-axios.defaults.baseURL = 'https://jurongtest.foxconn.com/sit'
+console.log(baseUrl)
+axios.defaults.baseURL = baseUrl
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 Vue.use(ElementUI)

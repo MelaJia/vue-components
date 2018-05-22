@@ -11,8 +11,6 @@ export default {
   },
   methods: {
     handleInfo (idx, val) {
-      console.log(val)
-
       this.details = val
       this.dialogInfoVisible = true
     }

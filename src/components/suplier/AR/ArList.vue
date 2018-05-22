@@ -46,7 +46,7 @@ export default {
   mixins: [ListMinxIn, Common, Dialog],
   components: {
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/AR/DialogInfo')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogInfo')
   },
   methods: {
     handleAccept (idx, row) {

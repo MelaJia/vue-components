@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import ArList from '@/components/AR/ArListCancel'
-import Search from '@/components/AR/SearchCancel'
+import ArList from '@/components/suplier/Ar/ArListCancel'
+import Search from '@/components/suplier/Ar/SearchCancel'
 export default {
   components: {
     'ar-list': ArList,

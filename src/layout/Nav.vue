@@ -134,10 +134,9 @@
 
 <script>
 import {mapGetters} from 'Vuex'
-import mixinData from '@/mixins/Ar/DataInit'
 export default {
   name: 'Nav',
-  mixins: [mixinData],
+  props: ['navItems'],
   data () {
     return {
       activeIndex: 'myar'
