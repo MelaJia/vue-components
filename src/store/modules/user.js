@@ -1,7 +1,8 @@
 import * as types from '../types'
 export default {
   state: {
-    token: null
+    token: null,
+    ssoId: ''
   },
   mutations: {
     [types.LOGIN]: (state, data) => {
@@ -11,6 +12,9 @@ export default {
     [types.LOGOUT]: (state, data) => {
       localStorage.removeItem('token')
       state.token = null
+    },
+    setSsoId: (state, data) => {
+      state.ssoId = data
     }
   }
 }

@@ -8,7 +8,7 @@
         </a>
         <div class="phone">
           <!--<a href="#" class="backhome">返回首页</a>-->
-          <p>拿钱热线：
+          <p>财富热线：
             <span class="hotLine">0755-462315</span>
           </p>
         </div>
@@ -131,11 +131,12 @@
       </div>
     </div>
     <!-- 数据总览 end -->
-    <div class="activeFotter" style="background: rgb(159, 159, 159) ">
+    <div class="activeFotter" style="background: #03022e ">
       <p class="daBG">
-        <img src="@/assets/img/login/iconJY.png" />深圳钜信科技有限公司</p>
-      <p>深圳市龙华新区</p>
-      <p>服务热线：4006-777-518</p>
+        <span><img src="@/assets/img/login/iconJY.png" />深圳钜信科技有限公司</span>
+        <span>深圳市龙华新区</span>
+      <span>服务热线：4006-777-518</span>
+      </p>
 
     </div>
 

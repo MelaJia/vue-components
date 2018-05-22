@@ -8,6 +8,14 @@ export default {
       }
       return new Date(date).Format('yyyy-MM-dd HH:mm:ss')
     },
+    // 时间格式化
+    addPercent: function (row, column) {
+      var val = row[column.property]
+      if (val === undefined) {
+        return ''
+      }
+      return `${val}%`
+    },
     originFormat: function (row, column) {
       return row[column.property] === 1 ? '自有' : '购入'
     },
@@ -52,6 +60,36 @@ export default {
 
         return sums
       }
+    },
+    /**
+     * 取消基础请求
+     * @param {str} url 请求地址
+     * @param {str} id 请求参数(ar单号)
+     */
+    cancelBase (url, id) {
+      this.axios.post(url, {
+        masterChainId: id
+      }).then(res => {
+        let type = res.data.result === 'true' ? 'success' : 'error'
+        this.$message({
+          message: res.data.message,
+          type: type
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '操作失败'
+        })
+      })
+    }
+  },
+  // 过滤器
+  filters: {
+    dateFormat: function (value) {
+      return new Date(value).Format('yyyy-MM-dd HH:mm:ss')
+    },
+    originFormat: function (value) {
+      return value === 1 ? '自有' : '购入'
     }
   }
 }

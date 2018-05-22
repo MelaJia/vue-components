@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import ArTable from '@/components/Ar/ArTableHistory'
-import Search from '@/components/Ar/SearchMyAr'
+import ArTable from '@/components/suplier/Ar/ArTableHistory'
+import Search from '@/components/suplier/Ar/SearchMyAr'
 export default {
   components: {
     'ar-table': ArTable,

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <dialog-info :visible-p.sync="dialogInfoVisible" :form="details"></dialog-info>
+    <dialog-info :visible-p="dialogInfoVisible" :details="details"></dialog-info>
     <component v-bind:is="currentTabComponent" :visible-p.sync="dialogVisible" :form="details"></component>
     <el-table
-      :data="tableData"
+      :data="authArr"
       border
       style="width: 100%">
       <el-table-column
@@ -30,15 +30,28 @@
   </div>
 </template>
 <script>
+import InfoArr from '@/mixins/userInfo'
 export default {
+  mixins: [InfoArr],
   components: {
     'dialog-info': () =>
       import(/* webpackChunkName: 'Info' */ './DialogInfo'),
     'dialog-bank': () =>
       import(/* webpackChunkName: 'Info' */ './DialogBank'),
-    'dialog-email': () =>
+    'dialog-legal': () =>
+      import(/* webpackChunkName: 'Info' */ './DialogLegal'),
+    'dialog-legalphone': () =>
+      import(/* webpackChunkName: 'Info' */ './DialogLegalPhone'),
+    'dialog-legalemail': () =>
+      import(/* webpackChunkName: 'Info' */ './DialogEmail'),
+    'dialog-contact': () =>
+      import(/* webpackChunkName: 'Info' */ './DialogContact'),
+    'dialog-contactphone': () =>
+      import(/* webpackChunkName: 'Info' */ './DialogContactPhone'),
+    'dialog-contactemail': () =>
       import(/* webpackChunkName: 'Info' */ './DialogEmail')
   },
+  props: ['authArr'],
   data () {
     return {
       tableData: [{
@@ -75,19 +88,83 @@ export default {
         typeId: '8'
       }],
       currentTabComponent: 'dialog-info',
-      compArr: ['dialog-info', 'dialog-bank', 'dialog-info', 'dialog-info', 'dialog-email', 'dialog-info', 'dialog-info', 'dialog-info'],
+      compArr: ['dialog-info', 'dialog-bank', 'dialog-legal', 'dialog-legalphone', 'dialog-legalemail', 'dialog-contact', 'dialog-contactphone', 'dialog-contactemail'],
       dialogInfoVisible: false,
       dialogVisible: false,
       multipleSelection: [],
-      details: { name: '123', select: '1' } // 详情
+      details: null // 详情
+    }
+  },
+  computed: {
+    ssoId: {
+      get () {
+        return this.$store.state.user.ssoId
+      },
+      set (val) { }
     }
   },
   methods: {
     handleClick (index, row) {
-      console.log(row)
-      // this.dialogInfoVisible = true
+      console.log(index)
+      if (index === 4) {
+        let param = {
+          legalMail: '',
+          ssoId: this.ssoId
+        }
+        this.subEmail('http://10.134.158.84:8080/JuXin/cust/toAuthenticateLegalMail.do', param, 'legalMail')
+        return
+      }
+      if (index === 7) {
+        let param = {
+          contactMail: '',
+          ssoId: this.ssoId
+        }
+        this.subEmail('http://10.134.158.84:8080/JuXin/cust/toAuthenticateContractMail.do', param, 'contactMail')
+        return
+      }
       this.currentTabComponent = this.compArr[index]
+      this.ssoId = '1'
+      this.details = this.infoArrs[index]
+      this.details.ssoId = this.ssoId
       this.dialogVisible = true
+    },
+    // 刷新数据
+    fresh () {
+      this.$emit('refresh')
+    },
+    // 更改邮箱
+    subEmail (url, param, name) {
+      this.$prompt('请输入邮箱', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+        inputErrorMessage: '邮箱格式不正确'
+      }).then(({ value }) => {
+        // 上传到服务器
+        param[name] = value
+        this.axios.post(url, param).then(res => {
+          let type = res.data.status ? 'success' : 'error'
+          this.$message({
+            message: res.data.result,
+            type: type
+          })
+          if (res.data.status) {
+            this.$parent.fresh()
+            this.handleClose()
+          }
+        }).catch(err => {
+          this.$message({
+            type: 'info',
+            message: `操作失败${err}`
+          })
+        })
+        // 上传到服务器end
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消输入'
+        })
+      })
     }
   }
 }

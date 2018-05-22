@@ -41,7 +41,8 @@ export default {
         currencyDesc: '',
         billBookAmt: '',
         loanAmt: '',
-        billPayDate: '120'
+        billPayDate: '120',
+        operate: '200'
       }
     }
   },
@@ -91,15 +92,19 @@ export default {
       }).then(response => {
         let result = null
         if (response.data[that.dataStr] && response.data[that.dataStr].length > 0) {
+          // 遍历子节点
           response.data[that.dataStr].forEach(item => {
             if (item.tableData && item.tableData.length > 0) {
               item.tableData.map(val => {
-                val.company = val.isMasterAr ? val.companyName : val.custToName
+                val.company = val.isMasterAr ? val.companyName : val.custToName // 子节点受让公司对手公司处理
+                val.infoLoading = false // 添加详情按钮loading节点
               })
             }
           })
+          // 父节点处理
           response.data[that.dataStr].map(val => {
-            val.company = val.isMasterAr ? val.companyName : val.custToName
+            val.company = val.isMasterAr ? val.companyName : val.custToName // 父节点受让公司对手公司处理
+            val.infoLoading = false // 添加详情按钮loading节点
           })
           result = response
         }
@@ -138,6 +143,25 @@ export default {
         .catch(function (error) {
           console.log(error)
         })
+    },
+    /**
+     * 取消基础请求
+     * @param {str} url 请求地址
+     * @param {str} id 请求参数(ar单号)
+     */
+    cancelBase (url, id) {
+      this.axios.post(url, { masterChainId: id }).then(res => {
+        let type = res.data.result === 'true' ? 'success' : 'error'
+        this.$message({
+          message: res.data.message,
+          type: type
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '操作失败'
+        })
+      })
     }
   }
 }
