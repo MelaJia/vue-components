@@ -120,7 +120,7 @@
 </style>
 
 <script>
-import DialogClose from '@/mixins/Ar/DialogClose' // 关闭弹窗handleClose
+import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
 
 export default {
   props: ['visibleP', 'form'],

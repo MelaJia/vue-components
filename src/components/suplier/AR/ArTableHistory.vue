@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import TableMixIn from '@/mixins/Ar/Table'
-import MixData from '@/mixins/Ar/DataInit'
+import TableMixIn from '@/mixins/suplier/Ar/Table'
+import MixData from '@/mixins/suplier/Ar/DataInit'
 export default {
   mixins: [MixData, TableMixIn]
 }

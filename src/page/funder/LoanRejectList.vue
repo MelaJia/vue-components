@@ -30,7 +30,7 @@
 <script>
 import ArList from '@/components/Fund/Work/LoanRejectListTable'
 import Search from '@/components/Fund/Work/LoanRejectSearch'
-import Table from '@/mixins/Ar/Table'
+import Table from '@/mixins/suplier/Ar/Table'
 // import {Datas} from '@/monitorDatas/Fund/loanDatas'
 export default {
   // 拒绝放款列表页面

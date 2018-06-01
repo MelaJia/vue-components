@@ -55,7 +55,7 @@
 <script>
 import Nav from './Nav'
 import ComponentsInit from '@/mixins/ComponentsInit'
-import mixinData from '@/mixins/Ar/DataInit'
+import mixinData from '@/mixins/suplier/Ar/DataInit'
 import Tags from './tags'
 export default {
   mixins: [ComponentsInit, mixinData],

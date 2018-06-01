@@ -30,8 +30,8 @@
 <script>
 import ArList from '@/components/Fund/Work/LoanListTable'
 import Search from '@/components/Fund/Work/LoanSearch'
-import DataInit from '@/mixins/Ar/DataInit'
-import Table from '@/mixins/Ar/Table'
+import DataInit from '@/mixins/suplier/Ar/DataInit'
+import Table from '@/mixins/suplier/Ar/Table'
 // import {Datas} from '@/monitorDatas/Fund/loanDatas'
 export default {
   // 放款页面

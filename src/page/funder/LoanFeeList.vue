@@ -30,8 +30,8 @@
 <script>
 import ArList from '@/components/Fund/Work/LoanFeeListTable'
 import Search from '@/components/Fund/Work/LoanFeeSearch'
-import DataInit from '@/mixins/Ar/DataInit'
-import Table from '@/mixins/Ar/Table'
+import DataInit from '@/mixins/suplier/Ar/DataInit'
+import Table from '@/mixins/suplier/Ar/Table'
 // import {DataFee} from '@/monitorDatas/Fund/loanDatas'
 export default {
   name: 'loanfee', // 费率页面

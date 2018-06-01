@@ -30,7 +30,7 @@ form {
 </style>
 
 <script>
-import SearchMixIn from '@/mixins/Ar/Search'
+import SearchMixIn from '@/mixins/suplier/Ar/Search'
 export default {
   mixins: [SearchMixIn]
 }

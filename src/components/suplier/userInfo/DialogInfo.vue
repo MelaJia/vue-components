@@ -147,7 +147,7 @@
 </style>
 
 <script>
-import DialogClose from '@/mixins/Ar/DialogClose' // 关闭弹窗handleClose
+import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
 import MixInfos from '@/mixins/Infos'
 import commonDatas from '@/mixins/commonDatas'
 import Upload from '@/components/Items/upload'

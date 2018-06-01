@@ -43,7 +43,7 @@ form {
 </style>
 
 <script>
-import SearchMixIn from '@/mixins/Ar/Search'
+import SearchMixIn from '@/mixins/suplier/Ar/Search'
 import commonDatas from '@/mixins/commonDatas'
 export default {
   mixins: [SearchMixIn, commonDatas]

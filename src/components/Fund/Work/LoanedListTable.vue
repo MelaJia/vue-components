@@ -164,7 +164,7 @@ header {
 </style>
 
 <script>
-import TableMixIn from '@/mixins/Ar/Table'
+import TableMixIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common'
 import Width from '@/mixins/Fund/width'
 // import Mock from 'mockjs'

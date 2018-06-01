@@ -30,8 +30,8 @@
 <script>
 import ArList from '@/components/suplier/Ar/ArList'
 import Search from '@/components/suplier/Ar/SearchGet'
-import DataInit from '@/mixins/Ar/DataInit'
-import Table from '@/mixins/Ar/Table'
+import DataInit from '@/mixins/suplier/Ar/DataInit'
+import Table from '@/mixins/suplier/Ar/Table'
 export default {
   mixins: [DataInit, Table],
   data () {

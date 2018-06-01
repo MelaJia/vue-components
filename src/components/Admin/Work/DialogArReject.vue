@@ -48,7 +48,7 @@
 </style>
 
 <script>
-import DialogClose from '@/mixins/Ar/DialogClose'
+import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
 
 export default {

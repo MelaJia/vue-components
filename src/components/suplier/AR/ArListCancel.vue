@@ -87,9 +87,9 @@
 </template>
 
 <script>
-import ListMinxIn from '@/mixins/Ar/List'
+import ListMinxIn from '@/mixins/suplier/Ar/List'
 import Common from '@/mixins/common'
-import Dialog from '@/mixins/Ar/Dialog'
+import Dialog from '@/mixins/suplier/Ar/Dialog'
 export default {
   mixins: [Common, ListMinxIn, Dialog],
   components: {

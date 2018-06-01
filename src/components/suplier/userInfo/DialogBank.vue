@@ -56,7 +56,7 @@
   </el-dialog>
 </template>
 <script>
-import DialogClose from '@/mixins/Ar/DialogClose' // 关闭弹窗handleClose
+import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
 import CityData from '@/mixins/CityData' // 关闭弹窗handleClose
 import citys from './city'
 export default {

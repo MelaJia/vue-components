@@ -15,7 +15,7 @@
 </article>
 </template>
 <script>
-import mixTabel from '../mixins/Ar/DataInit'
+import mixTabel from '../mixins/suplier/Ar/DataInit'
 export default {
   mixins: [mixTabel]
 }

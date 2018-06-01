@@ -135,7 +135,7 @@ header {
 </style>
 
 <script>
-import TableMixIn from '@/mixins/Ar/Table'
+import TableMixIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common'
 import { firstToUpperCase } from '@/util/util'
 export default {

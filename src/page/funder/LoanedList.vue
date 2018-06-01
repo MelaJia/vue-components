@@ -35,8 +35,8 @@
 import ArTable from '@/components/Fund/Work/LoanedListTable'
 import Search from '@/components/Fund/Work/LoanedSearch'
 import ComponentsInit from '@/mixins/ComponentsInit'
-import DataInit from '@/mixins/Ar/DataInit'
-import Table from '@/mixins/Ar/Table'
+import DataInit from '@/mixins/suplier/Ar/DataInit'
+import Table from '@/mixins/suplier/Ar/Table'
 // import { LoanedDatas } from '@/monitorDatas/Fund/loanDatas.js'
 export default {
   name: 'loaned', // 已放款页面
