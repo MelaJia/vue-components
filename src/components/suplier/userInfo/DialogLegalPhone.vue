@@ -58,7 +58,7 @@ export default {
   methods: {
     subHandle () {
       console.log(this.form)
-      this.axios.post('http://10.134.158.84:8080/JuXin/cust/updateLegalPhone.do', this.form).then(res => {
+      this.axios.post('/cust/updateLegalPhone.do', this.form).then(res => {
         let type = res.data.status ? 'success' : 'error'
         this.$message({
           message: res.data.result,
@@ -79,7 +79,7 @@ export default {
       if (this.isOvertime || !phoneRegExp.test(this.form.legalPhone)) {
         return false
       }
-      this.axios.post('http://10.134.158.84:8080/JuXin/cust/toverificationCode.do', { ssoId: 'a11c0b29d53794b2ecf1986ca3ad41d58803724b491121fa59aa0d85f5c46e7e', contactPhone: this.form.legalPhone }).then(res => {
+      this.axios.post('/cust/toverificationCode.do', { ssoId: 'a11c0b29d53794b2ecf1986ca3ad41d58803724b491121fa59aa0d85f5c46e7e', contactPhone: this.form.legalPhone }).then(res => {
         console.log(res)
       })
       let that = this

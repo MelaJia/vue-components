@@ -16,7 +16,7 @@
     <!-- 详情 -->
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-info>
     <section>
-      <el-table :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+      <el-table :data="comDatas" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)" show-summary :summary-method="sumHandle([7,8])" border style="width: 100%"
         @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle">
         <el-table-column type="expand" fixed>
@@ -31,7 +31,7 @@
               </el-table-column>
               <el-table-column align="center" prop="billId" :width="widthArr.billId">
               </el-table-column>
-              <el-table-column align="center" prop="isMasterAr" :width="widthArr.isMasterAr">
+              <el-table-column align="center" prop="isMasterAr" :width="widthArr.isMasterAr" :formatter="originFormat">
                 >
               </el-table-column>
               <el-table-column align="center" prop="company" :width="widthArr.company">
@@ -48,8 +48,15 @@
               </el-table-column>
               <el-table-column align="center" width='200px'>
                 <template slot-scope="scope">
-                  <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-                  <el-button size="mini" type="primary" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                  <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)" :loading="scope.row.infoLoading">详情</el-button>
+                  <el-dropdown :hide-on-click="false">
+                    <span class="el-dropdown-link">
+                      更多<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" :loading="item.isLoading">{{item.name}}</el-button></el-dropdown-item>
+                    </el-dropdown-menu>
+                  </el-dropdown>
                 </template>
               </el-table-column>
             </el-table>
@@ -83,7 +90,7 @@
     更多<i class="el-icon-arrow-down el-icon--right"></i>
   </span>
   <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item v-for="(item, index) in operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" :loading="item.isLoading">{{item.name}}</el-button></el-dropdown-item>
+    <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" :loading="item.isLoading">{{item.name}}</el-button></el-dropdown-item>
     <!-- <el-dropdown-item v-for="(item, index) in operateArr" :key="index" :command="{key:item.key, idx:scope.$index, val:scope.row}">{{item.name}}</el-dropdown-item> -->
   </el-dropdown-menu>
 </el-dropdown>
@@ -112,7 +119,7 @@ header {
 }
 .el-dropdown-link {
   cursor: pointer;
-  color: #ff6040;
+  color: #033c81;
 }
 .el-icon-arrow-down {
   font-size: 12px;
@@ -152,7 +159,20 @@ export default {
       dialogInfoVisible: false,
       multipleSelection: [], // 选择的数据
       details: {}, // 详情数据
-      operateArr: [{ key: 'trans', name: '转让', isLoading: false }, { key: 'cancleDiscount', name: '取消', isLoading: false }, { key: 'initiateDiscount', name: '贴现', isLoading: false }, { key: 'contract', name: '合同确认', isLoading: false }, { key: 'cancleTrans', name: '取消授让', isLoading: false }, { key: 'apply', name: '贴现审核申请', isLoading: false }] // 操作数据
+      operateArr: [
+        { key: 'trans', name: '转让', isLoading: false },
+        { key: 'cancleDiscount', name: '取消', isLoading: false },
+        { key: 'initiateDiscount', name: '贴现', isLoading: false },
+        { key: 'contract', name: '合同确认', isLoading: false },
+        { key: 'cancleTrans', name: '取消授让', isLoading: false },
+        { key: 'apply', name: '贴现审核申请', isLoading: false }
+      ] // 操作数据
+    }
+  },
+  computed: {
+    comDatas: function () {
+      const datas = this.getOpera(this.dataTable)
+      return datas
     }
   },
   methods: {
@@ -305,6 +325,65 @@ export default {
       data.invoiceList = list
       data.invoiceListSelected = listSelected
       return data
+    },
+    /* 按钮菜单显隐处理
+    ** val 节点数据
+    ** ischild 是否是子数据
+    */
+    getOpera: function (val) {
+      const datas = val
+      datas.forEach((item) => {
+        const operateArr = []
+        /* 子节点菜单处理 start */
+        if (item.tableData && item.tableData.length > 0) { // 子节点菜单处理
+          const childs = item.tableData
+          childs.map((itemc) => {
+            const operateChild = []
+            switch (itemc.checkedStatus) {
+              case 3:
+                operateChild.push(this.operateArr[4])
+                break
+              case 22:
+                operateChild.push(this.operateArr[1])
+                break
+              case 23:
+                operateChild.push(this.operateArr[3])
+                break
+              default:
+                break
+            }
+            itemc.operateArr = operateChild
+          })
+        }
+        /* 子节点菜单处理 end */
+        switch (item.checkedStatus) {
+          case 2:
+            operateArr.push(this.operateArr[0])
+            if (item.isNeedDiscountAudit === 0 && item.discountAuditStatus === 1) {
+              operateArr.push(this.operateArr[2])
+            }
+            if (item.isNeedDiscountAudit === 0 && (item.discountAuditStatus === 2 || item.discountAuditStatus === 9)) {
+              operateArr.push(this.operateArr[5])
+            }
+            if (item.isNeedDiscountAudit === 1 && item.discountAuditStatus === -1) {
+              operateArr.push(this.operateArr[5])
+            }
+            break
+          case 3:
+            operateArr.push(this.operateArr[4])
+            break
+          case 22:
+            operateArr.push(this.operateArr[1])
+            break
+          case 23:
+            operateArr.push(this.operateArr[3])
+            break
+          default:
+            break
+        }
+        item.operateArr = operateArr
+      })
+      return datas
     }
   }
 }

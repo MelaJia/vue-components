@@ -27,39 +27,48 @@ const routes = [
       path: 'loanreject',
       name: '拒绝放款查询',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/LoanRejectList')
+        import(/* webpackChunkName: 'AR' */ '@/page/funder/LoanRejectList'),
+      meta: {
+        requireAuth: true // 需要登录验证
+      }
     },
     {
       path: 'loaned',
       name: '已放款查询',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/LoanedList')
+        import(/* webpackChunkName: 'AR' */ '@/page/funder/LoanedList'),
+      meta: {
+        requireAuth: true // 需要登录验证
+      }
     },
     {
       path: 'loanfinish',
       name: '已完结查询',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/suplier/HistoryAr')
+        import(/* webpackChunkName: 'AR' */ '@/page/funder/LoanFinishList'),
+      meta: {
+        requireAuth: true // 需要登录验证
+      }
     },
     {
       path: 'cstLoanFee',
       name: '客户利率维护',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/LoanFeeList')
+        import(/* webpackChunkName: 'AR' */ '@/page/funder/LoanFeeList'),
+      meta: {
+        requireAuth: true // 需要登录验证
+      }
     },
     {
       path: 'lolanuserinfo',
       name: '个基础信息',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/UserInfo')
+        import(/* webpackChunkName: 'AR' */ '@/page/funder/UserInfo'),
+      meta: {
+        requireAuth: true // 需要登录验证
+      }
     }
     ]
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () =>
-      import('@/page/Login')
   }
 ]
 export default routes

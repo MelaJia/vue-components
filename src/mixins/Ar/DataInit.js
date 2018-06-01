@@ -49,14 +49,14 @@ export default {
       {
         idx: '2',
         text: '资金管理',
-        disabled: false,
+        disabled: true,
         lClass: 'line',
         hClass: 'header-circle bg-icon-2'
       },
       {
         idx: 'data',
         text: '消息中心',
-        disabled: false,
+        disabled: true,
         lClass: 'line',
         hClass: 'header-circle bg-icon-2'
       },
@@ -76,13 +76,13 @@ export default {
         {
           idx: '4-2',
           text: '银行卡管理',
-          disabled: false,
+          disabled: true,
           lClass: 'line',
           hClass: 'circle'
         }, {
           idx: '4-3',
           text: '密码修改',
-          disabled: false,
+          disabled: true,
           lClass: 'end-line',
           hClass: 'circle'
         }

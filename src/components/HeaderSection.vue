@@ -2,18 +2,18 @@
   <div class="header-section">
     <div class="width-50">
       <div class="header-left">
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/' }">
-            <i class="iconfont icon-ai-home"></i>首页</el-breadcrumb-item>
-          <el-breadcrumb-item>{{$route.name}}</el-breadcrumb-item>
-        </el-breadcrumb>
+        <img src="@/assets/img/juxin_03.png" alt="">
       </div>
     </div>
     <div class="width-50">
       <div class="header-right">
         <el-button type="danger" size="medium" :class="'process'" icon="el-icon-caret-right">您的工作进度</el-button>
-        <span>早安，李先生</span>
-        <img src="@/assets/img/juxin_18.png" alt="">
+        <el-dropdown @command="handleCommand">
+          <span>早安，李先生<img src="@/assets/img/juxin_18.png" alt=""></span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="logout">退出</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
     </div>
   </div>
@@ -23,7 +23,6 @@
   display: flex;
   justify-content: space-between;
   margin: 0 10px;
-  background: #fff;
   border-radius: 5px;
 }
 
@@ -40,16 +39,18 @@
   display: flex;
   align-items: center;
   float: right;
+  height: 100%;
 }
 
 .header-left {
-  padding-top: 20px;
-  padding-left: 20px;
 }
 
 .header-right img {
   width: 60px;
   height: 60px;
+}
+.header-right > span {
+  color: #fff;
 }
 
 .header-left > div > span {
@@ -58,7 +59,7 @@
 }
 
 .header-right .process {
-  background: rgb(220, 45, 55);
+  background: #ec960f;
   color: white;
   align-items: center;
   margin-right: 50px;
@@ -69,3 +70,36 @@
   height: 32px;
 }
 </style>
+<script>
+import * as types from '@/store/types'
+export default {
+  methods: {
+    handleCommand (command) {
+      if (command === 'logout') {
+        let param = {
+          ssoId: this.$store.getters.token
+        }
+        this.axios.post('/login/logout2', param).then(res => {
+          if (res.data.status) {
+            this.$message({
+              message: '恭喜你，登出成功',
+              type: 'success'
+            })
+          } else {
+            this.$message({
+              message: res.data.data,
+              type: 'success'
+            })
+          }
+        })
+        this.$store.commit(types.LOGOUT)
+        this.$store.commit('DEL_ALL_TAG')
+        this.$router.replace({
+          path: '/login',
+          query: { redirect: this.$router.currentRoute.fullPath }
+        })
+      }
+    }
+  }
+}
+</script>

@@ -1,3 +1,7 @@
+// 头部样式
+.el-header{
+  background:url("~@/assets/img/head_01.jpg");
+}
 .layout.flex .cell {
   display: flex;
 }
@@ -35,7 +39,7 @@
 .el-table thead {
   th,
   tr {
-    background: #931719;
+    background: #033c81;
   }
 }
 

@@ -73,6 +73,7 @@ export default {
     // 父table控制子table宽度控制
     widthHandle (newWidth, oldWidth, column, event) {
       this.widthArr[column.property] = newWidth
+      console.log(this.widthArr)
     },
     /**
      *
@@ -106,11 +107,12 @@ export default {
             val.company = val.isMasterAr ? val.companyName : val.custToName // 父节点受让公司对手公司处理
             val.infoLoading = false // 添加详情按钮loading节点
           })
-          result = response
         }
+        result = response
         this.loading = false // 关闭加载动画
         return result
       }).catch(err => {
+        this.loading = false // 关闭加载动画
         console.log(err)
       })
     },

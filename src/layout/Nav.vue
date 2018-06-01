@@ -1,6 +1,6 @@
 <template>
   <nav class="nav-menu">
-    <el-menu :default-active="activeidx" :router="true" text-color="#fff" active-text-color="#000" class="el-menu-demo" mode="vertical"
+    <el-menu :default-active="activeidx" :router="true" text-color="#000" active-text-color="#005ac8" class="el-menu-demo" mode="vertical"
       @select="handleSelect">
       <section v-for="item in navItems" :key="item.idx">
         <el-submenu v-if="item.childrens" :index="item.idx">
@@ -9,7 +9,7 @@
             <div :class="item.hClass"></div>
             <span>{{item.text}}</span>
           </template>
-          <el-menu-item v-for="item in item.childrens" :key="item.idx" :index="item.idx">
+          <el-menu-item v-for="item in item.childrens" :key="item.idx" :index="item.idx" :disabled="item.disabled">
             <template slot="title">
               <div :class="item.lClass"></div>
               <div :class="item.hClass"></div>
@@ -31,32 +31,36 @@
 <style lang="scss">
 @import "../assets/css/base";
 .nav-menu {
+  height: 100%;
   li i[class*="el-icon-arrow-down"]:before {
     content: none;
   }
   ul {
     background: $navbg;
     border-right: none;
+    height: 100%;
   }
   ul li.el-menu-item.is-active {
-    background: $navbg-item-active;
-    > .circle {
-      -webkit-animation-name: custom-rubberBand;
-      animation-name: custom-rubberBand;
-      -webkit-animation-duration: 1s;
-      animation-duration: 1s;
-      -webkit-animation-fill-mode: both;
-      animation-fill-mode: both;
+    &::before{
+      background: $navbg-item-hover;
+      width: 100%;
+    }
+    .circle {
+      border: 1px solid white;
+      width: 3px;
+      height: 100%;
+      position: absolute;
+      left: 30px;
+      background: $navbg-circle;
     }
   }
   .el-submenu__title::before,
   .el-menu-item::before {
     content: " ";
-    background: $navbg-item-hover;
     height: 100%;
     width: 3px;
     position: absolute;
-    left: 0;
+    left: 32px;
     top: 0;
     transition: width 0.2s;
   }
@@ -64,9 +68,20 @@
   .el-menu-item:hover {
     background-color: transparent;
   }
-  .el-submenu__title:hover::before,
-  .el-menu-item:hover::before {
-    width: 100%;
+  .el-submenu__title:hover,
+  .el-menu-item:hover{
+    &::before {
+      background: $navbg-item-hover;
+      width: 100%;
+    }
+    .circle {
+      border: 1px solid white;
+      width: 3px;
+      height: 100%;
+      position: absolute;
+      left: 30px;
+      background: $navbg-circle;
+    }
   }
   .el-submenu__title,
   .el-menu-item {
@@ -99,9 +114,8 @@
     @extend .line;
     bottom: 0px;
   }
-  .circle {
+  .header-circle {
     border: 1px solid white;
-    border-radius: 50%;
     width: 10px;
     height: 10px;
     position: absolute;
@@ -109,9 +123,6 @@
     top: 50%;
     margin-top: -5px;
     background: $navbg-circle;
-  }
-  .header-circle {
-    @extend .circle;
     left: 20px;
     width: 20px;
     height: 20px;
@@ -133,7 +144,7 @@
 </style>
 
 <script>
-import {mapGetters} from 'Vuex'
+import {mapGetters} from 'vuex'
 export default {
   name: 'Nav',
   props: ['navItems'],

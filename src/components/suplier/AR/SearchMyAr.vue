@@ -13,7 +13,7 @@
     </el-form-item>
     <el-form-item label="状态">
       <el-select v-model="formInline.status" clearable placeholder="状态">
-        <el-option v-for="(item,index) in selectData.status" :key="index" :label="item.lable" :value="item.value"></el-option>
+        <el-option v-for="(item,index) in arStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
       </el-select>
     </el-form-item>
     <el-form-item label="币别">
@@ -44,9 +44,9 @@ form {
 
 <script>
 import SearchMixIn from '@/mixins/Ar/Search'
-import MoneyTypeDatas from '@/mixins/moneyTypeData'
+import commonDatas from '@/mixins/commonDatas'
 export default {
-  mixins: [SearchMixIn, MoneyTypeDatas]
+  mixins: [SearchMixIn, commonDatas]
 }
 
 </script>

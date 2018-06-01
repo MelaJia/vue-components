@@ -1,7 +1,7 @@
 <template>
   <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini">
     <el-form-item label="AR单号">
-      <el-input v-model="formInline.masterChain" placeholder="AR单号"></el-input>
+      <el-input v-model="formInline.masterChainId" placeholder="AR单号"></el-input>
     </el-form-item>
     <el-form-item label="贴现客户">
       <el-input v-model="formInline.custFromName" placeholder="贴现客户"></el-input>
@@ -37,13 +37,13 @@ form {
 
 <script>
 import SearchMixIn from '@/mixins/Ar/Search'
-import MoneyTypeDatas from '@/mixins/moneyTypeData'
+import commonDatas from '@/mixins/commonDatas'
 export default {
-  mixins: [SearchMixIn, MoneyTypeDatas],
+  mixins: [SearchMixIn, commonDatas],
   data () {
     return {
       formInline: {
-        masterChain: '', // ar单号
+        masterChainId: '', // ar单号
         custFromName: '', // 贴现客户
         companyName: '', // 付款单位
         billBookCurr: '', // 币别

@@ -50,8 +50,12 @@ export default {
   methods: {
     // 详情
     handleInfo (idx, val) {
-      this.details = val
-      this.dialogInfoVisible = true
+      val.infoLoading = true
+      this.getLoanDetail('/loan2/queryLoanInfo.do', { masterChainId: val.masterChainId }).then(res => {
+        this.details = res
+        this.dialogInfoVisible = true
+        val.infoLoading = false
+      })
     }
   }
 }
@@ -74,7 +78,7 @@ export default {
 }
 .el-dropdown-link {
   cursor: pointer;
-  color: #ff6040;
+  color: #033c81;
 }
 .el-icon-arrow-down {
   font-size: 12px;

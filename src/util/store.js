@@ -1,6 +1,7 @@
 import { validatenull } from '@/util/validate'
 /**
  * 存储localStorage
+ * @param {name,content,type} params
  */
 export const setStore = (params) => {
   let { name, content, type } = params

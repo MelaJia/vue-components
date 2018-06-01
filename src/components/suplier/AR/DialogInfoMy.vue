@@ -31,7 +31,7 @@
       </ul>
       <ul>
         <li>
-          <span>票面金额:{{this.detailsP.company}}</span>
+          <span>票面金额:{{this.detailsP.billBookAmt}}</span>
         </li>
         <li>
           <el-tooltip :content="'交易流水:'+this.detailsP.transSerialNo" placement="bottom" effect="light">

@@ -43,25 +43,33 @@
             <p class="title">登录</p>
             <div class="iptContext">
               <div class="ipt-group">
-                <input-phone v-model="ruleForm.phone" :classes="'text iptphone'"></input-phone>
+                <input type="text" v-model="ruleForm.phone" class="text iptphone">
+                <!-- <input-phone v-model="ruleForm.phone" :classes="'text iptphone'"></input-phone> -->
               </div>
               <div class="ipt-group">
-                <input-pass v-model="ruleForm.pass" :classes="'text iptpassword'"></input-pass>
+                <input type="password" maxlength="20" v-model="ruleForm.pass" class="text iptpassword" ref="input" placeholder="8-20位数字与字母组合的密码">
+                <!-- <input-pass v-model="ruleForm.pass" :classes="'text iptpassword'"></input-pass> -->
               </div>
               <div class="ipt-group picture">
-                <verify></verify>
+                <verify :is-sure="isVerify" @verify-ok="handleVerify"></verify>
+                <el-alert v-if="sliderShow"
+                  title="请拖动滑块进行验证"
+                  type="error">
+                </el-alert>
               </div>
               <div class="iptChoose">
                 <label for="agree">
                   <el-checkbox v-model="checked"></el-checkbox>&nbsp;我已阅读并同意
                   <a href="javascript:void (0)?userfrom=sem%7cbaidu%7cpc%7c89171" id="agreement"
                     class="red">《钜信网服务协议》</a>
-
-                  <em class="error"></em>
+                <el-alert v-if="checkShow"
+                  title="请同意相关协议"
+                  type="error">
+                </el-alert>
                 </label>
               </div>
               <div class="btnGroup">
-                <button type="button" id="register" class="btn btnRed" @click.stop.self="submitForm('ruleForm')">登录</button>
+                <el-button type="button" id="register" class="btn btnRed" @click.stop="submitForm('ruleForm')" :loading="loginLoading">登录</el-button>
               </div>
               <p class="account">如果没有账号，请
                 <a @click="showReg=true" class="red"> 注册</a>
@@ -144,9 +152,13 @@
   </section>
 
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 .section-login {
   margin: 100px 50px;
+}
+.el-button:focus,
+.el-button:hover {
+  color: white;
 }
 </style>
 
@@ -158,15 +170,20 @@ import '@/assets/css/style.css' // 引入全局less文件
 import InputPhone from '@/components/Items/InputPhone'
 import InputPass from '@/components/Items/InputPass'
 import Verify from '@/components/Items/Verify'
-import Valid from '@/mixins/Login/Validate'
+// import Valid from '@/mixins/Login/Validate'
+import Roles from '@/config/roles'
 export default {
   data () {
     return {
       showReg: false,
-      checked: false,
+      checked: true,
+      isVerify: false,
+      sliderShow: false, // 滑块验证错误信息显示
+      checkShow: false, // 协议未勾选错误信息显示
+      loginLoading: false, // 登录加载中
       ruleForm: {
-        phone: '15112345678',
-        pass: 'asd123456'
+        phone: '',
+        pass: ''
       }
     }
   },
@@ -177,19 +194,79 @@ export default {
   },
   methods: {
     submitForm (formName) {
-      if (Valid.checkPhone(this.ruleForm.phone) && Valid.checkPass(this.ruleForm.pass)) {
-        this.$store.commit(types.LOGIN, '123456')
-        let redirect = decodeURIComponent(this.$route.query.redirect || '/')
-        this.$router.push({
-          path: redirect
-        })
-      } else {
-        console.log('error submit!!')
-        return false
+      if (!this.isVerify) {
+        this.sliderShow = true
+        return
       }
+      if (!this.checked) {
+        this.checkShow = true
+        return
+      }
+      // if (Valid.checkPass(this.ruleForm.pass)) {
+      // *************************分割线*************************
+      this.loginLoading = true // 登录中
+      let param = {
+        phone: this.ruleForm.phone,
+        password: this.ruleForm.pass
+      }
+      if (process.env.NODE_ENV === 'development') { // 调试环境
+        let res = {
+          data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 0 }
+        }
+        if (res.data.status) {
+          this.$store.commit(types.LOGIN, res.data.token)
+          this.$store.commit(types.SETROLE, res.data.custType)
+          this.$store.commit('SET_TAG_WEL', {
+            label: '首页',
+            value: Roles[res.data.custType].layout
+          })
+          let redirect = decodeURIComponent(this.$route.query.redirect || '/')
+          this.$router.push({
+            path: redirect
+          })
+        } else {
+          this.$message({
+            showClose: true,
+            message: res.data.msg,
+            type: 'error'
+          })
+        }
+      } else { // 正式环境
+        this.axios.post('/login/checkLogin2', param).then(res => {
+          this.loginLoading = false // 登录完成
+          if (res.data.status === '1') {
+            this.$store.commit(types.LOGIN, res.data.token)
+            this.$store.commit(types.SETROLE, res.data.custType)
+            this.$store.commit('SET_TAG_WEL', {
+              label: '首页',
+              value: Roles[res.data.custType].layout
+            })
+            let redirect = decodeURIComponent(this.$route.query.redirect || '/')
+            this.$router.push({
+              path: redirect
+            })
+          } else {
+            this.$message({
+              showClose: true,
+              message: res.data.msg,
+              type: 'error'
+            })
+          }
+        })
+      }
+      // *************************分割线*************************
+      // } else {
+      //   console.log('error submit!!')
+      //   return false
+      // }
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
+    },
+    // 验证条
+    handleVerify () {
+      this.isVerify = true
+      this.sliderShow = false
     }
   }
 }

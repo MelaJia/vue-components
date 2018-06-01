@@ -11,7 +11,7 @@
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-info>
     <section>
       <el-table :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
-        element-loading-background="rgba(0, 0, 0, 0.8)" show-summary :summary-method="sumHandle([7,8])" border style="width: 100%"
+        element-loading-background="rgba(0, 0, 0, 0.8)" show-summary :summary-method="sumHandle([6])" border style="width: 100%"
         @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle">
         <el-table-column type="expand" fixed>
           <template slot-scope="props">
@@ -25,20 +25,45 @@
               </el-table-column>
               <el-table-column align="center" prop="billId" :width="widthArr.billId">
               </el-table-column>
-              <el-table-column align="center" prop="isMasterAr" :width="widthArr.isMasterAr">
+              <el-table-column align="center" prop="companyName" :width="widthArr.companyName">
                 >
               </el-table-column>
-              <el-table-column align="center" prop="company" :width="widthArr.company">
-              </el-table-column>
-              <el-table-column align="center" prop="arStatusTypeName" :width="widthArr.arStatusTypeName">
-              </el-table-column>
-              <el-table-column align="center" prop="currencyDesc" :width="widthArr.currencyDesc">
+              <el-table-column align="center" prop="custFromName" :width="widthArr.custFromName">
               </el-table-column>
               <el-table-column align="center" prop="billBookAmt" :width="widthArr.billBookAmt">
               </el-table-column>
-              <el-table-column align="center" prop="loanAmt" :width="widthArr.loanAmt">
+              <el-table-column align="center" prop="currencyDesc" :width="widthArr.currencyDesc">
+              </el-table-column>
+              <el-table-column align="center" prop="repaymentType" :width="widthArr.repaymentType">
+              </el-table-column>
+              <el-table-column align="center" prop="fineGraceDays" :width="widthArr.fineGraceDays">
+              </el-table-column>
+              <el-table-column align="center" prop="payPrincipalAmt" :width="widthArr.payPrincipalAmt">
+              </el-table-column>
+              <el-table-column align="center" prop="payInterestAmt" :width="widthArr.payInterestAmt">
+              </el-table-column>
+              <el-table-column align="center" prop="payServiceAmt" :width="widthArr.payServiceAmt">
+              </el-table-column>
+              <el-table-column align="center" prop="payFineAmt" :width="widthArr.payFineAmt">
+              </el-table-column>
+              <el-table-column align="center" prop="payFineDays" :width="widthArr.payFineDays">
+              </el-table-column>
+              <el-table-column align="center" prop="prepayServiceAmt" :width="widthArr.prepayServiceAmt">
+              </el-table-column>
+              <el-table-column align="center" prop="payAmt" :width="widthArr.payAmt">
               </el-table-column>
               <el-table-column align="center" prop="billPayDate" :width="widthArr.billPayDate" :formatter="dateFormat">
+              </el-table-column>
+              <el-table-column align="center" prop="loanDate" :width="widthArr.loanDate" :formatter="dateFormat">
+              </el-table-column>
+              <el-table-column align="center" prop="defaultRepayDate" :width="widthArr.defaultRepayDate" :formatter="dateFormat">
+              </el-table-column>
+              <el-table-column align="center" :width="widthArr.billPayStatus">
+                <template slot-scope="scope">
+                  <el-tooltip class="item" effect="dark" content="会计确认->财务确认->财务已付款->付款单确认" placement="top">
+                    <span>{{scope.row.billPayStatus}}</span>
+                  </el-tooltip>
+                </template>
               </el-table-column>
               <el-table-column align="center" width='200px'>
                 <template slot-scope="scope">
@@ -55,42 +80,42 @@
         </el-table-column>
         <el-table-column align="center" label="结报单号" prop="billId" width="150">
         </el-table-column>
-        <el-table-column align="center" label="付款单位" prop="company" width="150">
+        <el-table-column align="center" label="付款单位" prop="companyName" width="150">
         </el-table-column>
-        <el-table-column align="center" label="贴现客户" prop="company" width="150">
+        <el-table-column align="center" label="贴现客户" prop="custFromName" width="150">
         </el-table-column>
-        <el-table-column align="center" label="贴现放款金额" prop="arStatusTypeName">
+        <el-table-column align="center" label="贴现放款金额" prop="billBookAmt">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyDesc">
         </el-table-column>
-        <el-table-column align="center" label="还款方式" prop="billBookAmt">
+        <el-table-column align="center" label="还款方式" prop="repaymentType">
         </el-table-column>
-        <el-table-column align="center" label="宽容天数" prop="loanAmt">
+        <el-table-column align="center" label="宽容天数" prop="fineGraceDays">
         </el-table-column>
-        <el-table-column align="center" label="还款本金" prop="loanAmt">
+        <el-table-column align="center" label="还款本金" prop="payPrincipalAmt">
         </el-table-column>
-        <el-table-column align="center" label="还款利息" prop="loanAmt">
+        <el-table-column align="center" label="还款利息" prop="payInterestAmt">
         </el-table-column>
-        <el-table-column align="center" label="还款手续费" prop="loanAmt">
+        <el-table-column align="center" label="还款手续费" prop="payServiceAmt">
         </el-table-column>
-        <el-table-column align="center" label="还款罚息" prop="loanAmt">
+        <el-table-column align="center" label="还款罚息" prop="payFineAmt">
         </el-table-column>
-        <el-table-column align="center" label="罚息天数" prop="loanAmt">
+        <el-table-column align="center" label="罚息天数" prop="payFineDays">
         </el-table-column>
-        <el-table-column align="center" label="提前还款手续费" prop="loanAmt">
+        <el-table-column align="center" label="提前还款手续费" prop="prepayServiceAmt">
         </el-table-column>
-        <el-table-column align="center" label="还款总计" prop="loanAmt">
+        <el-table-column align="center" label="还款总计" prop="payAmt">
         </el-table-column>
         <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="center" label="出借日期" prop="billPayDate" :formatter="dateFormat" width="120">
+        <el-table-column align="center" label="出借日期" prop="loanDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="center" label="预计还款日期" prop="billPayDate" :formatter="dateFormat" width="120">
+        <el-table-column align="center" label="预计还款日期" prop="defaultRepayDate" :formatter="dateFormat" width="120">
         </el-table-column>
         <el-table-column align="center" label="打款处理状态">
           <template slot-scope="scope">
             <el-tooltip class="item" effect="dark" content="会计确认->财务确认->财务已付款->付款单确认" placement="top">
-              <span>{{scope.row.loanAmt}}</span>
+              <span>{{scope.row.billPayStatus}}</span>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -123,7 +148,7 @@ header {
 }
 .el-dropdown-link {
   cursor: pointer;
-  color: #ff6040;
+  color: #033c81;
 }
 .el-icon-arrow-down {
   font-size: 12px;
@@ -141,9 +166,55 @@ header {
 <script>
 import TableMixIn from '@/mixins/Ar/Table'
 import Common from '@/mixins/common'
+import Width from '@/mixins/Fund/width'
+// import Mock from 'mockjs'
+// /* eslint-disable */
+// Mock.mock('https://jurongtest.foxconn.com/sit/loan2/queryLoanInfo.do', {
+//     "data": {
+//       "actualDiscountAmt": null,
+//       "actualDiscountTime": null,
+//       "actualLoanAmt": null,
+//       "actualLoanTime": null,
+//       "arAvailableAmt": null,
+//       "arSourceDesc": null,
+//       "arStatusTypeName": "已放款",
+//       "bankAccount": "ABC072600200102",
+//       "bankName": "中国银行",
+//       "billBookAmt": 5000,
+//       "checkedStatus": 26,
+//       "companyName": "河南鈞鼎電子科技發展股份有限公司",
+//       "contractList": null,
+//       "currencyDesc": "人民币",
+//       "currencyName": "RMB",
+//       "custFromId": "d62ac5a9-64e8-4fe1-bdc2-6dd_FTH003",
+//       "custFromName": "FTD",
+//       "custToId": "b4e0e5f6-f17d-4b7b-9ade-99fa8f06bac8",
+//       "custToName": "HLF",
+//       "interestRate": 23,
+//       "invoiceCustomList": null,
+//       "isMasterAr": 0,
+//       "l1Supplier": null,
+//       "masterChainId": "AR20170920000011",
+//       "overdueRate": 0,
+//       "parentChainId": "AR20170907000025",
+//       "payerBankAccount": "ABC0726002",
+//       "payerBankName": "中国银行",
+//       "poNumber": null,
+//       "rejectReason": null,
+//       "serviceFeeRate": null,
+//       "sourceChainId": null,
+//       "transSerial": "7fea065b-5be7-45b9-9052-d18a63140788",
+//       "transSerialNo": null,
+//       "transType": null,
+//       "vendorCodes": null
+//     },
+//     "msg": "返回结果正常",
+//     "status": 1
+//   })
+/* eslint-enable */
 export default {
   props: ['dataLoading', 'dataTable'],
-  mixins: [TableMixIn, Common],
+  mixins: [TableMixIn, Common, Width],
   components: {
     'dialog-info': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/DialogInfoLoaned')
@@ -163,53 +234,14 @@ export default {
       this.multipleSelection = val
       console.log(this.multipleSelection)
     },
-    getDetail (val) {
-      return this.axios.post('/myAr2/queryAr', { masterChainId: val.masterChainId }).then(res => {
-        console.log('获取到数据')
-        // 处理数据
-        let details = this.handleInvoiceListFormat(res.data)
-        details.masterChainId = val.masterChainId
-        return details
-      })
-    },
     // 详情
     handleInfo (idx, val) {
-      console.log(val)
       val.infoLoading = true
-      this.getDetail(val).then(res => {
-        console.log(res)
+      this.getLoanDetail('/loan2/queryLoanInfo.do', { masterChainId: val.masterChainId }).then(res => {
         this.details = res
         this.dialogInfoVisible = true
         val.infoLoading = false
-      }).catch(err => {
-        this.$alert(err, '标题名称', {
-          confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${action}`
-            })
-          }
-        })
       })
-    },
-    // 更多事件
-    /* 发票已选未选分离 */
-    handleInvoiceListFormat (oData) {
-      const data = oData
-      const list = []
-      const listSelected = []
-      data.invoiceCustomList.forEach(element => {
-        if (element.invoiceIsSelected) {
-          element.invoiceIsSelected = true
-          listSelected.push(element)
-        } else {
-          list.push(element)
-        }
-      })
-      data.invoiceList = list
-      data.invoiceListSelected = listSelected
-      return data
     }
   }
 }

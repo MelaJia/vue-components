@@ -80,7 +80,7 @@ export default {
       this.form.bankProvince = this.bankProvinceCity[0] | ''
       this.form.bankCity = this.bankProvinceCity[1] | ''
       console.log(this.form)
-      this.axios.post('http://10.134.158.84:8080/JuXin/cust/updateBankInfo.do', this.form).then(res => {
+      this.axios.post('/cust/updateBankInfo.do', this.form).then(res => {
         let type = res.data.isAuthened === 'true' ? 'success' : 'error'
         this.$message({
           message: res.data.isAuthened,

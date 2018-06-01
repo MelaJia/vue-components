@@ -33,9 +33,9 @@ form {
 
 <script>
 import SearchMixIn from '@/mixins/Ar/Search'
-import MoneyTypeDatas from '@/mixins/moneyTypeData'
+import commonDatas from '@/mixins/commonDatas'
 export default {
-  mixins: [SearchMixIn, MoneyTypeDatas],
+  mixins: [SearchMixIn, commonDatas],
   data () {
     return {
       formInline: {

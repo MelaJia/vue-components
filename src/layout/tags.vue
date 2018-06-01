@@ -34,7 +34,7 @@
 </template>
 <script>
 import {resolveUrlPath, setUrlPath} from '@/util/util'
-import {mapGetters} from 'Vuex'
+import {mapGetters} from 'vuex'
 export default {
   name: 'tags',
   data () {

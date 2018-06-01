@@ -48,7 +48,7 @@ export default {
   methods: {
     subHandle () {
       console.log(this.form)
-      this.axios.post('http://10.134.158.84:8080/JuXin/cust/updateLegalPerson.do', this.form).then(res => {
+      this.axios.post('/cust/updateLegalPerson.do', this.form).then(res => {
         let type = res.data.status ? 'success' : 'error'
         this.$message({
           message: res.data.result,

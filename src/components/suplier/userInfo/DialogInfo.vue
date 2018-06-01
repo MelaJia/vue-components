@@ -149,11 +149,11 @@
 <script>
 import DialogClose from '@/mixins/Ar/DialogClose' // 关闭弹窗handleClose
 import MixInfos from '@/mixins/Infos'
-import MoneyTypeDatas from '@/mixins/moneyTypeData'
+import commonDatas from '@/mixins/commonDatas'
 import Upload from '@/components/Items/upload'
 export default {
   props: ['visibleP', 'details'],
-  mixins: [DialogClose, MixInfos, MoneyTypeDatas],
+  mixins: [DialogClose, MixInfos, commonDatas],
   components: {Upload},
   data () {
     return {
@@ -168,7 +168,7 @@ export default {
   methods: {
     subHandle () {
       console.log(this.form)
-      this.axios.post('http://10.134.158.84:8080/JuXin/cust/toAuthenticateCompany.do', this.form).then(res => {
+      this.axios.post('/cust/toAuthenticateCompany.do', this.form).then(res => {
         let type = res.data.isAuthened === 'true' ? 'success' : 'error'
         this.$message({
           message: res.data.isAuthened,

@@ -42,7 +42,9 @@
       </ul>
       <ul>
           <span>已勾选发票:
-            <el-checkbox v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo" v-model="item.invoiceIsSelected">{{item.invoiceNo}}</el-checkbox>
+            <div class="el-check-group inline-block">
+            <el-checkbox v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}</el-checkbox>
+            </div>
           </span>
       </ul>
       <ul>
@@ -122,7 +124,7 @@ export default {
         masterChainId: this.detailsP.masterChainId,
         receiveCustId: this.receiveCustId,
         transAmt: this.transAmt,
-        transSelectedInvoice: this.checkList.join(',')
+        transferSelectedInvoice: this.checkList.join(',')
       }
       // 已勾选发票
       const arr = []
@@ -134,7 +136,6 @@ export default {
         }
       })
       arr.concat(...this.detailsP.invoiceListSelected)
-      console.log(arr)
       if (arr.length <= 0) {
         this.$message({
           type: 'error',
@@ -157,21 +158,20 @@ export default {
         this.transAmt = sum
         return
       }
-      console.log(data)
-      console.log(arr)
-      console.log(sum)
-      // this.axios.post('/myAr2/initiateTrans.do', data).then(res => {
-      //   let type = res.data.result === 'true' ? 'success' : 'error'
-      //   this.$message({
-      //     message: res.data.message,
-      //     type: type
-      //   })
-      // }).catch(() => {
-      //   this.$message({
-      //     type: 'info',
-      //     message: '操作失败'
-      //   })
-      // })
+      this.axios.post('/myAr2/initiateTrans.do', data).then(res => {
+        let type = res.data.result === 'true' ? 'success' : 'error'
+        this.$message({
+          message: res.data.message,
+          type: type
+        })
+        this.handleClose() // 关闭弹窗
+        this.$parent.fresh() // 刷新数据
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '操作失败'
+        })
+      })
     }
   }
 }

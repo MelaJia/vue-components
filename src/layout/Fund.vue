@@ -2,36 +2,25 @@
   <div>
     <header>
     </header>
-    <main>
-      <div class="main-section" :style="'height:'+height+'px'">
-        <div class="left" width="200px" style="background-color:#bc3335">
-          <div class="top">
-          </div>
-          <nav-t :nav-items="navItems"></nav-t>
-        </div>
-        <div class="right" style="background-color:rgb(242,242,242)">
-          <header style="background-color:rgb(242,242,242);padding-top:10px">
-            <header-section></header-section>
+    <el-container>
+      <el-header height="auto">
+        <header>
+          <header-section></header-section>
 
-          </header>
+        </header>
+      </el-header>
+      <el-container>
+        <el-aside width="200px">
+          <nav-t :nav-items="navItems"></nav-t>
+        </el-aside>
+        <el-main>
           <tags ref="nav" class="nav"></tags>
           <main :style="'overflow: auto;background-color:rgb(242,242,242);'+'height:'+(height-120)+'px'">
             <router-view></router-view>
           </main>
-        </div>
-
-        <!-- <el-row >
-                <el-col :span="4">
-                    <div class="top">
-                    </div>
-                    <nav-t></nav-t>
-                </el-col>
-                <el-col :span="20" :style="'background-color:rgb(242,242,242)'">
-                    <router-view></router-view>
-                </el-col>
-            </el-row> -->
-      </div>
-    </main>
+        </el-main>
+      </el-container>
+    </el-container>
     <footer>
       <!-- <div class="jt">
             <span>导航</span>
@@ -45,7 +34,7 @@
 
 <script>
 import Nav from './Nav'
-import ComponentsInit from '@/mixins/Ar/ComponentsInit'
+import ComponentsInit from '@/mixins/ComponentsInit'
 import Tags from './tags'
 export default {
   mixins: [ComponentsInit],
@@ -90,7 +79,7 @@ export default {
       {
         idx: '2',
         text: '客户资料',
-        disabled: false,
+        disabled: true,
         lClass: 'line',
         hClass: 'header-circle bg-icon-2'
       },
@@ -117,13 +106,13 @@ export default {
         {
           idx: '4-2',
           text: '银行卡管理',
-          disabled: false,
+          disabled: true,
           lClass: 'line',
           hClass: 'circle'
         }, {
           idx: '4-3',
           text: '密码修改',
-          disabled: false,
+          disabled: true,
           lClass: 'end-line',
           hClass: 'circle'
         }

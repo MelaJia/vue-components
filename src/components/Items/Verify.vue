@@ -2,7 +2,7 @@
   <div class="verify">
     <div id="verify_box">
       <div id="verify_xbox">
-        <section v-if="show">
+        <section v-if="isSure">
           验证通过
           <div id="btn">
             <img style="margin-top:8px" src="@/assets/img/login/kkkk.png" />
@@ -75,6 +75,7 @@ export default {
       show: false
     }
   },
+  props: ['isSure'],
   mounted () {
     /**
      * Created by Alone on 2017/11/6.
@@ -109,7 +110,7 @@ export default {
           l = o
         } else {
           l = b
-          _that.show = true
+          _that.$emit('verify-ok')
         }
         xbox.style.width = l + 'px'
         document.onmousemove = null

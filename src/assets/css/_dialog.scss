@@ -15,7 +15,7 @@ ul {
   margin: 0;
   border-right: .5px solid #931719;
   padding: 0;
-  height: 32px;
+  min-height: 32px;
 }
 
 ul:last-of-type {
@@ -30,11 +30,18 @@ li {
   overflow: hidden;
   white-space: nowrap;
   line-height: 32px;
-  text-align: center;
+  text-align: left;
+  padding-left: 5px;
 }
 li:not(:first-of-type){
   border-left: 0.5px solid #931719;
 }
 .inline-blox {
   display: inline-block;
+}
+ul>span{
+  padding-left: 5px;
+}
+.el-checkbox{
+  margin-left: 30px;
 }

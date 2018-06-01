@@ -11,7 +11,7 @@
     </div>
     <div class="body">
       <el-card class="box-card text-align-center">
-        <ar-table :data-loading="loading" :data-table="tableData5"></ar-table>
+        <ar-table :data-loading="loading" :data-table="tableData5" @refresh="handleRefresh"></ar-table>
         <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -34,7 +34,7 @@
 <script>
 import ArTable from '@/components/suplier/Ar/arTable'
 import Search from '@/components/suplier/Ar/SearchMyAr'
-import ComponentsInit from '@/mixins/Ar/ComponentsInit'
+import ComponentsInit from '@/mixins/ComponentsInit'
 import DataInit from '@/mixins/Ar/DataInit'
 import Table from '@/mixins/Ar/Table'
 export default {
@@ -91,6 +91,19 @@ export default {
           }
         })
       }
+    },
+    handleRefresh () {
+      const that = this
+      this.getdata(that.currentPage, that.psize)
+        .then(function (response) {
+          if (response) {
+            that.tableData5 = response.data[this.dataStr]
+            that.total = response.data[this.totalStr]
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     }
   }
 }

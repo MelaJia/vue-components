@@ -81,12 +81,34 @@ export default {
           message: '操作失败'
         })
       })
+    },
+    // 获取放款详情接口
+    getLoanDetail (url, param) {
+      return this.axios.post(url, param).then(res => {
+        if (res.data.status) {
+          return res.data.data
+        } else {
+          this.$message({
+            type: 'info',
+            message: '取消'
+          })
+        }
+      }).catch((err) => {
+        this.$message({
+          type: 'error',
+          message: err
+        })
+      })
+    },
+    // 刷新数据
+    fresh () {
+      this.$emit('refresh')
     }
   },
   // 过滤器
   filters: {
     dateFormat: function (value) {
-      return new Date(value).Format('yyyy-MM-dd HH:mm:ss')
+      return new Date(value).Format('yyyy-MM-dd')
     },
     originFormat: function (value) {
       return value === 1 ? '自有' : '购入'

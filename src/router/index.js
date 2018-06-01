@@ -6,6 +6,11 @@ import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import Main from './main'
 import Fund from './fundRoute'
+import Admin from './adminRoute'
+import Roles from '@/config/roles'
+import {
+  getStore
+} from '@/util/store'
 NProgress.configure({
   showSpinner: false
 }) // NProgress Configuration
@@ -19,33 +24,53 @@ NProgress.configure({
 Vue.use(Router)
 const whiteList = ['/login', '/404', '/401', '/lock']
 const routes = [
-  ...Main, ...Fund
+  ...Main, ...Fund, ...Admin
 ]
 // 页面刷新，重新设置token
-if (window.localStorage.getItem('token')) {
-  store.commit(types.LOGIN, window.localStorage.getItem('token'))
+if (getStore({name: 'token'})) {
+  store.commit(types.LOGIN, getStore({name: 'token'}))
+}
+// 页面刷新，重新设置角色
+if (getStore({name: 'roles'}) !== undefined && getStore({name: 'roles'}) !== null) {
+  store.commit(types.SETROLE, getStore({name: 'roles'}))
+}
+// 页面刷新，重新设置tag_wel
+if (getStore({name: 'tagWel'})) {
+  store.commit('SET_TAG_WEL', getStore({name: 'tagWel'}))
 }
 const router = new Router({
   routes
 })
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
-  console.log(to.query.name)
-  console.log(to.name)
   const value = to.query.src ? to.query.src : to.path
   const label = to.query.name ? to.query.name : to.name
-  if (whiteList.indexOf(value) === -1) {
-    store.commit('ADD_TAG', {
-      label: label,
-      value: value,
-      query: to.query
-    })
+  if (whiteList.indexOf(value) === -1 && store.getters.roles !== undefined && store.getters.roles !== null) {
+    if (Roles[store.getters.roles].layout === to.matched[0].path) {
+      store.commit('ADD_TAG', {
+        label: label,
+        value: value,
+        query: to.query
+      })
+    }
   }
   if (to.meta.requireAuth) { // 是否需要登录权限
-    if (store.getters.token) { // determine if there has token
+    if (store.getters.token && store.getters.roles !== undefined) { // determine if there has token
       /* has token */
-      next()
-      NProgress.done()
+      // 判断是否有权限
+      console.log('role', store.getters.roles)
+      console.log('roles', Roles)
+      if (Roles[store.getters.roles].layout === to.matched[0].path) {
+        console.log(2)
+        next()
+        NProgress.done()
+      } else {
+        console.log(3)
+        next({
+          path: Roles[store.getters.roles].layout
+        })
+        NProgress.done()
+      }
     } else {
       /* has no token */
       if (whiteList.indexOf(to.path) !== -1) {

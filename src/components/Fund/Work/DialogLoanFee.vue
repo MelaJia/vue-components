@@ -64,7 +64,6 @@ export default {
   },
   methods: {
     subHandle () {
-      console.log(this.form)
       const param = {
         custId: this.form.custId, // 客户id
         factoringCustId: this.form.factoringCustId, // 保理商Id
@@ -75,7 +74,7 @@ export default {
         fineGraceDayRate: this.form.fineGraceDayRate, // 罚息天利率
         prepaymentDeductRate: this.form.prepaymentDeductRate // 提前还款手续费
       }
-      this.axios.post('/loanFee/confirmCustLoanFee.do', param).then(res => {
+      this.axios.post('/loanFee2/confirmCustLoanFee.do', param).then(res => {
         let type = res.data.result === 'true' ? 'success' : 'error'
         this.$message({
           message: res.data.message,

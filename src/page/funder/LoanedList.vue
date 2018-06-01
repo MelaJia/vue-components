@@ -34,15 +34,17 @@
 <script>
 import ArTable from '@/components/Fund/Work/LoanedListTable'
 import Search from '@/components/Fund/Work/LoanedSearch'
-import ComponentsInit from '@/mixins/Ar/ComponentsInit'
+import ComponentsInit from '@/mixins/ComponentsInit'
 import DataInit from '@/mixins/Ar/DataInit'
 import Table from '@/mixins/Ar/Table'
+// import { LoanedDatas } from '@/monitorDatas/Fund/loanDatas.js'
 export default {
+  name: 'loaned', // 已放款页面
   mixins: [ComponentsInit, DataInit, Table],
   data () {
     return {
       loading: false,
-      postUrl: '/myAr2/getMyArListTable.do',
+      postUrl: '/loanQuery/loanQueryLOANEDManage.do',
       dataStr: 'aaData',
       totalStr: 'recordsTotal'
     }
@@ -52,6 +54,8 @@ export default {
     'search': Search
   },
   mounted () {
+    // this.tableData5 = LoanedDatas[this.dataStr]
+    // this.total = LoanedDatas[this.totalStr]
     const that = this
     this.getdata(1, 10)
       .then(function (response) {
@@ -71,7 +75,7 @@ export default {
       let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
       /* 修改请求参数 */
       this.param = {
-        masterChainId: val.masterChain, // ar单号
+        masterChainId: val.masterChainId, // ar单号
         custFromName: val.custFromName, // 贴现客户
         companyName: val.companyName, // 付款单位
         billBookCurr: val.billBookCurr, // 币别

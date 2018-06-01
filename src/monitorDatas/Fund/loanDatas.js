@@ -480,3 +480,101 @@ export const DataFee ={
   "recordsFiltered":13,
   "recordsTotal":13
 }
+export const LoanedDatas={
+  "aaData":[
+      {
+          "billBookAmt":6000,
+          "billId":"AAB-H90137",
+          "billPayDate":1506441600000,
+          "billPayStatus":null,
+          "companyName":"富士康(昆山)電腦接插件有限公司",
+          "currencyDesc":"人民币",
+          "custFromName":"昆山眾乘達電子科技有限公司",
+          "defaultRepayDate":null,
+          "fineGraceDays":null,
+          "loanDate":null,
+          "masterChainId":"AR20170921000181",
+          "payAmt":null,
+          "payFineAmt":null,
+          "payFineDays":null,
+          "payInterestAmt":null,
+          "payPrincipalAmt":null,
+          "payServiceAmt":null,
+          "prepayServiceAmt":null,
+          "repaymentType":null
+      },
+      {
+          "billBookAmt":2350,
+          "billId":"AAB-H90137-test",
+          "billPayDate":1506441600000,
+          "billPayStatus":null,
+          "companyName":"富士康(昆山)電腦接插件有限公司",
+          "currencyDesc":"人民币",
+          "custFromName":"昆山眾乘達電子科技有限公司",
+          "defaultRepayDate":null,
+          "fineGraceDays":null,
+          "loanDate":null,
+          "masterChainId":"AR20171010000004",
+          "payAmt":null,
+          "payFineAmt":null,
+          "payFineDays":null,
+          "payInterestAmt":null,
+          "payPrincipalAmt":null,
+          "payServiceAmt":null,
+          "prepayServiceAmt":null,
+          "repaymentType":null
+      }
+  ],
+  "draw":2,
+  "recordsFiltered":12,
+  "recordsTotal":12
+}
+export const dataDetails={
+        "data": {
+            "actualDiscountAmt": null, 
+            "actualDiscountTime": null, 
+            "actualLoanAmt": null, 
+            "actualLoanTime": null, 
+            "arAvailableAmt": null, 
+            "arSourceDesc": null, 
+            "arStatusTypeName": "已放款", 
+            "bankAccount": "ABC072600200102", 
+            "bankName": "中国银行", 
+            "billBookAmt": 5000, 
+            "checkedStatus": 26, 
+            "companyName": "河南鈞鼎電子科技發展股份有限公司", 
+            "contractList": null, 
+            "currencyDesc": "人民币", 
+            "currencyName": "RMB", 
+            "custFromId": "d62ac5a9-64e8-4fe1-bdc2-6dd_FTH003", 
+            "custFromName": "FTD", 
+            "custToId": "b4e0e5f6-f17d-4b7b-9ade-99fa8f06bac8", 
+            "custToName": "HLF", 
+            "interestRate": 23, 
+            "invoiceCustomList": null, 
+            "isMasterAr": 0, 
+            "l1Supplier": null, 
+            "masterChainId": "AR20170920000011", 
+            "overdueRate": 0, 
+            "parentChainId": "AR20170907000025", 
+            "payerBankAccount": "ABC0726002", 
+            "payerBankName": "中国银行", 
+            "poNumber": null, 
+            "rejectReason": null, 
+            "serviceFeeRate": null, 
+            "sourceChainId": null, 
+            "transSerial": "7fea065b-5be7-45b9-9052-d18a63140788", 
+            "transSerialNo": null, 
+            "transType": null, 
+            "vendorCodes": null
+        }, 
+        "msg": "返回结果正常", 
+        "status": 1
+}
+export const contract = {
+    "billBookAmt": 5000, 
+    "billDueDate": 1496592000000, 
+    "billPayDate": 1496592000000, 
+    "masterChainId": "AR20170920000017", 
+    "supplierCustId": "b4e0e5f6-f17d-4b7b-9ade-99fa8f06bac8"
+}

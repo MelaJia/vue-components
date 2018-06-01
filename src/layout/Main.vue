@@ -1,26 +1,35 @@
 <template>
   <div>
-    <header>
-    </header>
-    <main>
-      <div class="main-section" :style="'height:'+height+'px'">
-        <div class="left" width="200px" style="background-color:#bc3335">
-          <div class="top">
-          </div>
-          <nav-t :nav-items="navItems"></nav-t>
-        </div>
-        <div class="right" style="background-color:rgb(242,242,242)">
-          <header style="background-color:rgb(242,242,242);padding-top:10px">
-            <header-section></header-section>
+    <el-container>
+      <el-header height="auto">
+        <header>
+          <header-section></header-section>
 
-          </header>
+        </header>
+      </el-header>
+      <el-container>
+        <el-aside width="200px">
+          <nav-t :nav-items="navItems"></nav-t>
+        </el-aside>
+        <el-main>
           <tags ref="nav" class="nav"></tags>
           <main :style="'overflow: auto;background-color:rgb(242,242,242);'+'height:'+(height-120)+'px'">
             <router-view></router-view>
           </main>
-        </div>
+        </el-main>
+      </el-container>
+    </el-container>
 
-        <!-- <el-row >
+    <!-- <header>
+    </header>
+    <main>
+      <div class="main-section" :style="'height:'+height+'px'">
+        <div class="left" width="200px" style="background-color:#bc3335">
+        </div>
+        <div class="right" style="background-color:rgb(242,242,242)">
+        </div> -->
+
+    <!-- <el-row >
                 <el-col :span="4">
                     <div class="top">
                     </div>
@@ -30,8 +39,8 @@
                     <router-view></router-view>
                 </el-col>
             </el-row> -->
-      </div>
-    </main>
+    <!-- </div>
+    </main> -->
     <footer>
       <!-- <div class="jt">
             <span>导航</span>
@@ -45,7 +54,7 @@
 
 <script>
 import Nav from './Nav'
-import ComponentsInit from '@/mixins/Ar/ComponentsInit'
+import ComponentsInit from '@/mixins/ComponentsInit'
 import mixinData from '@/mixins/Ar/DataInit'
 import Tags from './tags'
 export default {

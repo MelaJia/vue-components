@@ -52,7 +52,13 @@ import ListMinxIn from '@/mixins/Ar/List'
 import Common from '@/mixins/common'
 import Dialog from '@/mixins/Ar/Dialog'
 import { firstToUpperCase } from '@/util/util' // 首字母大写
+import Mock from 'mockjs'
+Mock.mock('http://123.com', {
+  'name|3': 'fei', // 这个定义数据的模板形式下面会介绍
+  'age|20-30': 25
+})
 export default {
+  name: 'loan', // 放款列表页面
   props: ['dataLoading', 'dataTable'],
   data () {
     return {
@@ -73,36 +79,20 @@ export default {
       let key = `handle${firstToUpperCase(obj.key)}` // 方法为handle+ key首字母大写化组成
       this[key](obj.idx, obj.val)
     },
+    // 详情
     handleInfo (idx, val) {
-      this.details = val
-      this.dialogInfoVisible = true
+      this.getLoanDetail('/loan2/queryLoanInfo.do', { masterChainId: val.masterChainId }).then(res => {
+        this.details = res
+        this.dialogInfoVisible = true
+      })
     },
-    // handleAccept (idx, row) {
-    //   const that = this
-    //   this.axios.post('/onReceivingAr/receiveTranfer.do', { masterChainId: row.masterChainId })
-    //     .then(res => {
-    //       console.log(res.data)
-    //       that.$emit('handle-refresh')
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error)
-    //     })
-    // },
-    // handleReject (idx, row) {
-    //   const that = this
-    //   this.axios.post('/onReceivingAr/rejectTranfer.do', { masterChainId: row.masterChainId })
-    //     .then(res => {
-    //       console.log(res.data)
-    //       that.$emit('handle-refresh')
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error)
-    //     })
-    // },
     // 合同生成
     handleContrac (idx, val) {
-      this.details = val
-      this.dialogTransferVisible = true
+      this.axios.post('/loan2/showGenerateContract.do', { masterChainId: val.masterChainId }).then(res => {
+        console.log(res)
+        this.details = res.data
+        this.dialogTransferVisible = true
+      })
     },
     // 发起确认
     handleConfirm (idx, val) {
@@ -164,13 +154,13 @@ export default {
   margin-bottom: 0;
   width: 50%;
 }
- /* 更多菜单样式 */
+/* 更多菜单样式 */
 .el-dropdown {
   margin-left: 20px;
 }
 .el-dropdown-link {
   cursor: pointer;
-  color: #ff6040;
+  color: #033c81;
 }
 .el-icon-arrow-down {
   font-size: 12px;

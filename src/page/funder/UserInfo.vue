@@ -8,8 +8,9 @@
 import InfoList from '@/components/suplier/userInfo/InfoList'
 import InfoTable from '@/components/suplier/userInfo/InfoTable'
 import MixinsUserInfo from '@/mixins/Infos'
-import {mapGetters} from 'Vuex'
+import {mapGetters} from 'vuex'
 export default {
+  // 保理商信息页面
   mixins: [MixinsUserInfo],
   data () {
     return {
@@ -39,7 +40,7 @@ export default {
   },
   methods: {
     getData () {
-      this.axios.post('http://10.134.158.84:8080/JuXin/cust/customerDetailInfo.do', {
+      this.axios.post('/cust/customerDetailInfo.do', {
         ssoId: this.ssoId
       }).then(res => {
         if (res.data.status) {

@@ -78,6 +78,13 @@ const navs = {
         }
       })
     },
+    SET_TAG_WEL: (state, value) => {
+      state.tagWel = value
+      setStore({
+        name: 'tagWel',
+        content: state.tagWel
+      })
+    },
     DEL_ALL_TAG: (state, action) => {
       state.tag = tagObj
       state.tagList = []

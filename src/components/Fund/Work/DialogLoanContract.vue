@@ -8,29 +8,29 @@
     </header>
     <section class="layout form">
       <el-row>
-        <el-col :span="11" class="flex"><label>贴现金额:</label><el-input v-model.number="form.billBookAmt" placeholder="贴现金额"></el-input></el-col>
-        <el-col :span="11" :offset="1" class="flex"><label>实放金额:</label><el-input v-model.number="form.actualDiscountAmt" type="number" placeholder="实放金额"></el-input></el-col>
+        <el-col :span="11" class="flex"><label>贴现金额:</label><el-input v-model.number="getform.billBookAmt" placeholder="贴现金额"></el-input></el-col>
+        <el-col :span="11" :offset="1" class="flex"><label>实放金额:</label><el-input v-model.number="getform.actualDiscountAmt" type="number" placeholder="实放金额"></el-input></el-col>
       </el-row>
       <el-row>
-        <el-col :span="11" class="flex"><label>贴现利率:</label><el-input v-model.number="form.interestRate" placeholder="贴现利率"></el-input></el-col>
-        <el-col :span="11" :offset="1" class="flex"><label>贴现手续费：</label><el-input v-model.number="form.serviceFee" type="number" placeholder="贴现手续费"></el-input></el-col>
+        <el-col :span="11" class="flex"><label>贴现利率:</label><el-input v-model.number="getform.interestRate" placeholder="贴现利率"></el-input></el-col>
+        <el-col :span="11" :offset="1" class="flex"><label>贴现手续费：</label><el-input v-model.number="getform.serviceFee" type="number" placeholder="贴现手续费"></el-input></el-col>
       </el-row>
       <el-row>
-        <el-col :span="11" class="flex"><label>逾期利率:</label><el-input v-model.number="form.overdueRate" placeholder="逾期利率"></el-input></el-col>
-        <el-col :span="11" :offset="1" class="flex"><label>提前还款手续费:</label><el-input v-model.number="form.prepaymentDeductInterest" type="number" placeholder="提前还款手续费"></el-input></el-col>
+        <el-col :span="11" class="flex"><label>逾期利率:</label><el-input v-model.number="getform.overdueRate" placeholder="逾期利率"></el-input></el-col>
+        <el-col :span="11" :offset="1" class="flex"><label>提前还款手续费:</label><el-input v-model.number="getform.prepaymentDeductInterest" type="number" placeholder="提前还款手续费"></el-input></el-col>
       </el-row>
       <el-row>
         <el-col :span="11" class="flex"><label>还款方式:</label>
-          <el-select v-model="form.repaymentType" clearable placeholder="币别">
+          <el-select v-model="getform.repaymentType" clearable placeholder="币别">
             <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.RepaymentTypeName" :value="item.RepaymentType"></el-option>
           </el-select>
         </el-col>
-        <el-col :span="11" :offset="1" class="flex"><label>宽容天数:</label><el-input v-model.number="form.fineGraceDays" type="number" placeholder="宽容天数"></el-input></el-col>
+        <el-col :span="11" :offset="1" class="flex"><label>宽容天数:</label><el-input v-model.number="getform.fineGraceDays" type="number" placeholder="宽容天数"></el-input></el-col>
       </el-row>
       <el-row>
-        <el-col :span="11" class="flex"><label>预计回款日期:</label><span>2018-5-6</span></el-col>
+        <el-col :span="11" class="flex"><label>预计回款日期:</label><span>{{getform.billPayDate|dateFormat}}</span></el-col>
         <el-col :span="11" :offset="1" class="flex"><label>预计还款日期:</label><el-date-picker
-      v-model="form.billDueDate"
+      v-model="getform.billDueDate"
       type="date"
       placeholder="选择日期">
     </el-date-picker></el-col>
@@ -44,7 +44,7 @@
 <style scoped lang="scss">
 .layout.form {
   margin-top: 10px;
-  >.el-row {
+  > .el-row {
     margin-top: 10px;
   }
 }
@@ -55,11 +55,13 @@
     height: 40px;
     line-height: 40px;
   }
-  >span {
+  > span {
     height: 40px;
     line-height: 40px;
   }
-  >.el-select,>.el-date-editor.el-input, .el-date-editor.el-input__inner{
+  > .el-select,
+  > .el-date-editor.el-input,
+  .el-date-editor.el-input__inner {
     width: 100%;
   }
 }
@@ -74,19 +76,6 @@ export default {
   mixins: [DialogClose, Common],
   data () {
     return {
-      form: {
-        masterChainId: this.detailsP.masterChainId,
-        billBookAmt: '', // 贴现金额
-        actualDiscountAmt: '', // 实放金額
-        interestRate: '', // 贴现利率
-        serviceFee: '', // 贴现手续费
-        overdueRate: '', // 逾期利率
-        prepaymentDeductInterest: '', // 提前还款手续费
-        repaymentType: '', // 还款方式
-        fineGraceDays: '', // 宽容天数
-        billPayDate: '', // 预计回款日期
-        billDueDate: '' // 预计还款日期
-      },
       transAmt: 0,
       checkList: [],
       moneyTypes: [{
@@ -100,25 +89,45 @@ export default {
     }
   },
   computed: {
+    getform () {
+      return this.detailsP
+    },
     getTitle () {
       return this.detailsP.masterChainId + '合同利益确认'
+    },
+    getBillDueDate () {
+      return this.detailsP.billDueDate
     }
   },
   methods: {
     handleSubmit () {
-      console.log(this.form)
-      // this.axios.post('/loan2/generateContract.do', this.form).then(res => {
-      //   let type = res.data.result === 'true' ? 'success' : 'error'
-      //   this.$message({
-      //     message: res.data.message,
-      //     type: type
-      //   })
-      // }).catch(() => {
-      //   this.$message({
-      //     type: 'info',
-      //     message: '操作失败'
-      //   })
-      // })
+      const param = {
+        masterChainId: this.getform.masterChainId,
+        supplierCustId: this.getform.supplierCustId,
+        billBookAmt: this.getform.billBookAmt, // 贴现金额
+        actualDiscountAmt: this.getform.actualDiscountAmt || '', // 实放金額
+        interestRate: this.getform.interestRate || '', // 贴现利率
+        serviceFee: this.getform.serviceFee || '', // 贴现手续费
+        overdueRate: this.getform.overdueRate || '', // 逾期利率
+        prepaymentDeductInterest: this.getform.prepaymentDeductInterest || '', // 提前还款手续费
+        repaymentType: this.getform.repaymentType || '', // 还款方式
+        fineGraceDays: this.getform.fineGraceDays || '', // 宽容天数
+        billPayDate: this.getform.billPayDate, // 预计回款日期
+        billDueDate: this.getform.billDueDate // 预计还款日期
+      }
+      console.log(param)
+      this.axios.post('/loan2/generateContract.do', param).then(res => {
+        let type = res.data.status ? 'success' : 'error'
+        this.$message({
+          message: res.data.data.message,
+          type: type
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '操作失败'
+        })
+      })
     }
   }
 }

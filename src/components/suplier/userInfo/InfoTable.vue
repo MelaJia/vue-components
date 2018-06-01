@@ -111,7 +111,7 @@ export default {
           legalMail: '',
           ssoId: this.ssoId
         }
-        this.subEmail('http://10.134.158.84:8080/JuXin/cust/toAuthenticateLegalMail.do', param, 'legalMail')
+        this.subEmail('/cust/toAuthenticateLegalMail.do', param, 'legalMail')
         return
       }
       if (index === 7) {
@@ -119,7 +119,7 @@ export default {
           contactMail: '',
           ssoId: this.ssoId
         }
-        this.subEmail('http://10.134.158.84:8080/JuXin/cust/toAuthenticateContractMail.do', param, 'contactMail')
+        this.subEmail('/cust/toAuthenticateContractMail.do', param, 'contactMail')
         return
       }
       this.currentTabComponent = this.compArr[index]

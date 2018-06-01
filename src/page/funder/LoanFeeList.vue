@@ -32,12 +32,13 @@ import ArList from '@/components/Fund/Work/LoanFeeListTable'
 import Search from '@/components/Fund/Work/LoanFeeSearch'
 import DataInit from '@/mixins/Ar/DataInit'
 import Table from '@/mixins/Ar/Table'
-import {DataFee} from '@/monitorDatas/Fund/loanDatas'
+// import {DataFee} from '@/monitorDatas/Fund/loanDatas'
 export default {
+  name: 'loanfee', // 费率页面
   mixins: [DataInit, Table],
   data () {
     return {
-      postUrl: '/loanFee/getCustLoanFeeListTable.do', // 列表请求地址
+      postUrl: '/loanFee2/getCustLoanFeeListTable.do', // 列表请求地址
       totalStr: 'recordsTotal', // 服务器返回总数参数名
       dataStr: 'aaData' // 服务器返回数据参数名
     }
@@ -47,20 +48,20 @@ export default {
     'search': Search
   },
   mounted () {
-    this.tableData5 = DataFee.aaData
-    this.total = DataFee.recordsTotal
-    // const that = this
-    // this.getdata(1, 10)
-    //   .then(function (response) {
-    //     console.log(response)
-    //     if (response) {
-    //       that.tableData5 = response.data[that.dataStr]
-    //       that.total = response.data[that.totalStr]
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error)
-    //   })
+    // this.tableData5 = DataFee.aaData
+    // this.total = DataFee.recordsTotal
+    const that = this
+    this.getdata(1, 10)
+      .then(function (response) {
+        console.log(response)
+        if (response) {
+          that.tableData5 = response.data[that.dataStr]
+          that.total = response.data[that.totalStr]
+        }
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   },
   methods: {
     // 条件查询

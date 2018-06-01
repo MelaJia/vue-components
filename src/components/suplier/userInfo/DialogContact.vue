@@ -48,7 +48,7 @@ export default {
   methods: {
     subHandle () {
       console.log(this.form)
-      this.axios.post('http://10.134.158.84:8080/JuXin/cust/updateContractPerson.do', this.form).then(res => {
+      this.axios.post('/cust/updateContractPerson.do', this.form).then(res => {
         let type = res.data.isAuthened === 'true' ? 'success' : 'error'
         this.$message({
           message: res.data.isAuthened,

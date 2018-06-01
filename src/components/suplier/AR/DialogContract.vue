@@ -43,11 +43,13 @@ export default {
         this.$message({
           message: res.data.message,
           type: type
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '操作失败'
-          })
+        })
+        this.handleClose() // 关闭弹窗
+        this.$parent.fresh() // 刷新数据
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '操作失败'
         })
       })
     }

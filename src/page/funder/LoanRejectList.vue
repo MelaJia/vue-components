@@ -31,8 +31,9 @@
 import ArList from '@/components/Fund/Work/LoanRejectListTable'
 import Search from '@/components/Fund/Work/LoanRejectSearch'
 import Table from '@/mixins/Ar/Table'
-import {Datas} from '@/monitorDatas/Fund/loanDatas'
+// import {Datas} from '@/monitorDatas/Fund/loanDatas'
 export default {
+  // 拒绝放款列表页面
   mixins: [Table],
   data () {
     return {
@@ -46,20 +47,20 @@ export default {
     'search': Search
   },
   mounted () {
-    this.tableData5 = Datas.aaData
-    this.total = Datas.recordsTotal
-    // const that = this
-    // this.getdata(1, 10)
-    //   .then(function (response) {
-    //     console.log(response)
-    //     if (response) {
-    //       that.tableData5 = response.data[that.dataStr]
-    //       that.total = response.data[that.totalStr]
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error)
-    //   })
+    // this.tableData5 = Datas.aaData
+    // this.total = Datas.recordsTotal
+    const that = this
+    this.getdata(1, 10)
+      .then(function (response) {
+        console.log(response)
+        if (response) {
+          that.tableData5 = response.data[that.dataStr]
+          that.total = response.data[that.totalStr]
+        }
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   },
   methods: {
     // 条件查询
