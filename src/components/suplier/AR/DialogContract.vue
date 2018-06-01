@@ -21,6 +21,7 @@ footer {
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+/* 合同确认 */
 export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose],

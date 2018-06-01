@@ -102,7 +102,7 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
-
+/* 转让弹窗 */
 export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, Common],

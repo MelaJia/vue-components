@@ -35,6 +35,7 @@
   </div>
 </template>
 <script>
+/* 用户信息列表 */
 export default {
   props: ['infos']
 }

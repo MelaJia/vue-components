@@ -138,6 +138,7 @@ header {
 import TableMixIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common'
 import { firstToUpperCase } from '@/util/util'
+/* 我的Ar列表 */
 export default {
   props: ['dataLoading', 'dataTable'],
   mixins: [TableMixIn, Common],

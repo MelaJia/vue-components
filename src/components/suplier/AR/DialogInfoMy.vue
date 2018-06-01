@@ -44,12 +44,16 @@
       </ul>
       <ul>
         <span>未勾选发票:
+          <div class="el-check-group inline-block">
             <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}</el-checkbox>
+          </div>
         </span>
       </ul>
       <ul>
           <span>已勾选发票:
+            <div class="el-check-group inline-block">
             <el-checkbox v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}</el-checkbox>
+            </div>
           </span>
       </ul>
       <!-- <p>
@@ -82,7 +86,7 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
-
+/* 我的Ar详情 */
 export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, Common],

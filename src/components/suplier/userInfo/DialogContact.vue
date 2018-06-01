@@ -32,6 +32,7 @@
 </template>
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
+/* 修改企业联系人信息 */
 export default {
   props: ['visibleP', 'form'],
   mixins: [DialogClose],

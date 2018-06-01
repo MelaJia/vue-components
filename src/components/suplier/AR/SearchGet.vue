@@ -40,6 +40,7 @@ form {
 <script>
 import SearchMixIn from '@/mixins/suplier/Ar/Search'
 import commonDatas from '@/mixins/commonDatas'
+/* 待收Ar搜索 */
 export default {
   mixins: [SearchMixIn, commonDatas]
 }

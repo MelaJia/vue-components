@@ -31,6 +31,7 @@
 </template>
 <script>
 import InfoArr from '@/mixins/userInfo'
+/* 用户信息表格 */
 export default {
   mixins: [InfoArr],
   components: {

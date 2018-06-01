@@ -60,6 +60,7 @@
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table'
 import MixData from '@/mixins/suplier/Ar/DataInit'
+/* 历史Ar列表 */
 export default {
   mixins: [MixData, TableMixIn]
 }

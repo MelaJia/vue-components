@@ -31,6 +31,7 @@ form {
 
 <script>
 import SearchMixIn from '@/mixins/suplier/Ar/Search'
+/* 取消转让搜索 */
 export default {
   mixins: [SearchMixIn]
 }

@@ -121,7 +121,7 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
-
+/* 邮箱修改 */
 export default {
   props: ['visibleP', 'form'],
   mixins: [DialogClose],

@@ -59,6 +59,7 @@
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
 import CityData from '@/mixins/CityData' // 关闭弹窗handleClose
 import citys from './city'
+/* 修改银行信息 */
 export default {
   props: ['visibleP', 'form'],
   mixins: [DialogClose, CityData],

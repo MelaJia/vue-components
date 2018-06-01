@@ -90,6 +90,7 @@
 import ListMinxIn from '@/mixins/suplier/Ar/List'
 import Common from '@/mixins/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
+/* 取消转让列表 */
 export default {
   mixins: [Common, ListMinxIn, Dialog],
   components: {

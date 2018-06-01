@@ -151,6 +151,7 @@ import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleC
 import MixInfos from '@/mixins/Infos'
 import commonDatas from '@/mixins/commonDatas'
 import Upload from '@/components/Items/upload'
+/* 企业认证 */
 export default {
   props: ['visibleP', 'details'],
   mixins: [DialogClose, MixInfos, commonDatas],
