@@ -91,10 +91,10 @@ export default {
     refresh () {
       const that = this
       this.getdata(that.currentPage, that.psize)
-        .then(function (response) {
-          if (response) {
-            that.tableData5 = response.data.rows
-            that.total = response.data.total
+        .then(res => {
+          if (res) {
+            this.tableData5 = res.data[this.dataStr]
+            this.total = res.data[this.totalStr]
           }
         })
         .catch(function (error) {

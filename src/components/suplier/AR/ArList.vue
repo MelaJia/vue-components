@@ -28,8 +28,8 @@
       <el-table-column align="center" label="操作" width='230px' fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-          <el-button v-if="scope.checkedStatus==1" size="mini" type="primary" @click="handleAccept(scope.$index, scope.row)">接受</el-button>
-          <el-button v-if="scope.checkedStatus==1" size="mini" type="primary" @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
+          <el-button v-if="scope.row.checkedStatus==3" size="mini" type="primary" @click="handleAccept(scope.$index, scope.row)">接受</el-button>
+          <el-button v-if="scope.row.checkedStatus==3" size="mini" type="primary" @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -50,27 +50,33 @@ export default {
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogInfo')
   },
   methods: {
-    handleAccept (idx, row) {
-      const that = this
-      this.axios.post('/onReceivingAr/receiveTranfer.do', { masterChainId: row.masterChainId })
-        .then(res => {
-          console.log(res.data)
-          that.$emit('handle-refresh')
+    handleAccept (idx, val) {
+      this.$confirm(`单号为${val.masterChainId}的确认接授其转让?`, `${val.masterChainId}接收转让`, {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.cancelBase('/onReceivingAr/receiveTranfer.do', val.masterChainId)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消'
         })
-        .catch(function (error) {
-          console.log(error)
-        })
+      })
     },
-    handleReject (idx, row) {
-      const that = this
-      this.axios.post('/onReceivingAr/rejectTranfer.do', { masterChainId: row.masterChainId })
-        .then(res => {
-          console.log(res.data)
-          that.$emit('handle-refresh')
+    handleReject (idx, val) {
+      this.$confirm(`单号为${val.masterChainId}的确认拒绝其转让?`, `${val.masterChainId}拒绝转让`, {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.cancelBase('/onReceivingAr/rejectTranfer.do', val.masterChainId)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消'
         })
-        .catch(function (error) {
-          console.log(error)
-        })
+      })
     }
   }
 }

@@ -8,10 +8,10 @@
     </header>
     <section class="layout form">
       <el-row>
-        <el-col :span="11" :offset="1" class="flex"><span>确定拒绝{{detailsP.companyName}}公司的申请贴现请求？</span></el-col>
+        <el-col :span="22" :offset="1" class="flex"><span>确定拒绝{{detailsP.companyName}}公司的申请贴现请求？</span></el-col>
       </el-row>
       <el-row>
-        <el-col :span="11" :offset="1" class="flex"><label>拒绝理由:</label>
+        <el-col :span="22" :offset="1" class="flex"><label>拒绝理由:</label>
           <el-input v-model="form.rejectedReason"></el-input>
         </el-col>
       </el-row>
@@ -31,7 +31,7 @@
 .layout.form .flex {
   display: flex;
   > label {
-    width: 150px;
+    width: 80px;
     height: 40px;
     line-height: 40px;
   }
@@ -79,6 +79,8 @@ export default {
           message: res.data.message,
           type: type
         })
+        this.handleClose() // 关闭弹窗
+        this.$parent.fresh() // 刷新数据
       }).catch(() => {
         this.$message({
           type: 'info',

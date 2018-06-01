@@ -8,10 +8,10 @@
     </header>
     <section class="layout form">
       <el-row>
-        <el-col :span="11" :offset="1" class="flex"><label>付款单位:</label><span>{{detailsP.companyName}}</span></el-col>
+        <el-col :span="22" :offset="1" class="flex"><label>付款单位:</label><span>{{detailsP.companyName}}</span></el-col>
       </el-row>
       <el-row>
-        <el-col :span="11" :offset="1" class="flex"><label>保理单位:</label>
+        <el-col :span="22" :offset="1" class="flex"><label>保理单位:</label>
           <el-select v-model="form.factoringCustId" clearable placeholder="保理单位">
             <el-option v-for="(item,index) in factoringCusts" :key="index" :label="item.factoringApId" :value="item.factoringCustId"></el-option>
           </el-select>
@@ -41,11 +41,6 @@
     height: 40px;
     line-height: 40px;
   }
-  > .el-select,
-  > .el-date-editor.el-input,
-  .el-date-editor.el-input__inner {
-    width: 100%;
-  }
 }
 </style>
 
@@ -67,7 +62,7 @@ export default {
       checkList: [],
       factoringCusts: [{
         factoringCustId: 1,
-        factoringApId: ''
+        factoringApId: '获取数据失败'
       }]
     }
   },
@@ -90,17 +85,27 @@ export default {
   },
   methods: {
     handleSubmit () {
+      if (this.form.factoringCustId.length <= 0) {
+        this.$message({
+          type: 'warning',
+          message: '请选择保理单位'
+        })
+        return
+      }
       const param = {
         custId: this.detailsP.custId, // 客户Id
         buyerCustNo: this.detailsP.buyerCustNo, // 付款法人代码
         factoringCustId: this.form.factoringCustId // 保理单位
       }
+      console.log(param)
       this.axios.post('/discountAudit/approveDiscountAudit.do', param).then(res => {
         let type = res.data.result === 'true' ? 'success' : 'error'
         this.$message({
           message: res.data.message,
           type: type
         })
+        this.handleClose() // 关闭弹窗
+        this.$parent.fresh() // 刷新数据
       }).catch(() => {
         this.$message({
           type: 'info',
