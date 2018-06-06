@@ -37,26 +37,11 @@ import Nav from './Nav'
 import ComponentsInit from '@/mixins/ComponentsInit'
 import Tags from './tags'
 export default {
+  name: 'admin',
   mixins: [ComponentsInit],
   data () {
     return {
-      height: '900',
-      navItems: [{
-        idx: '1',
-        text: '业务处理',
-        disabled: false,
-        lClass: 'start-line',
-        hClass: 'header-circle bg-icon-1',
-        childrens: [{
-          idx: 'fenbo',
-          text: 'AR分拨',
-          disabled: false,
-          lClass: 'line',
-          hClass: 'circle'
-        }
-        ]
-      }
-      ]
+      height: '900'
     }
   },
   components: {
