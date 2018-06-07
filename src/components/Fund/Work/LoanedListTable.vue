@@ -67,7 +67,6 @@
               </el-table-column>
               <el-table-column align="center" width='200px'>
                 <template slot-scope="scope">
-                  <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
                   <el-button size="mini" type="primary" @click="handleDelete(scope.$index, scope.row)">还款</el-button>
                 </template>
               </el-table-column>
