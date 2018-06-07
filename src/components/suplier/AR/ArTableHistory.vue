@@ -4,7 +4,7 @@
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-info>
     <section>
       <el-table :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
-        element-loading-background="rgba(0, 0, 0, 0.8)" show-summary :summary-method="sumHandle([7,8])" border style="width: 100%"
+        element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%"
         :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle">
         <el-table-column type="expand" fixed>
           <template slot-scope="props">
@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     getDetail (val) {
-      return this.axios.post('/myAr2/queryAr', { masterChainId: val.masterChainId }).then(res => {
+      return this.axios.post('/myAr/queryAr', { masterChainId: val.masterChainId }).then(res => {
         console.log('获取到数据')
         // 处理数据
         let details = this.handleInvoiceListFormat(res.data)

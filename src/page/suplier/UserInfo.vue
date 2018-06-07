@@ -43,7 +43,7 @@ export default {
         ssoId: this.ssoId
       }).then(res => {
         if (res.data.status) {
-          const data = res.data.date
+          const data = res.data.data
           this.userInfo = data
           console.log('设置数据')
           const tableData = []

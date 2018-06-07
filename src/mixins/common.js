@@ -75,7 +75,7 @@ export default {
           message: res.data.message,
           type: type
         })
-        this.$emit('handle-refresh')
+        this.$emit('refresh')
       }).catch(() => {
         this.$message({
           type: 'info',

@@ -23,7 +23,7 @@
         align="center"
         label="操作">
         <template slot-scope="scope">
-        <el-button @click="handleClick(scope.$index,scope.row,scope.store)" type="text">查看</el-button>
+        <el-button @click="handleClick(scope.$index,scope.row,scope.store)" type="text">{{operaNames[scope.$index]}}</el-button>
       </template>
       </el-table-column>
     </el-table>
@@ -55,39 +55,7 @@ export default {
   props: ['authArr'],
   data () {
     return {
-      tableData: [{
-        idtType: '企业',
-        idtResult: '王小虎',
-        typeId: '1'
-      }, {
-        idtType: '企业银行信息',
-        idtResult: '平安深圳龙华支行 55523656563232',
-        typeId: '2'
-      }, {
-        idtType: '企业法人',
-        idtResult: '56525622**********66      吴人',
-        typeId: '3'
-      }, {
-        idtType: '企业法人手机',
-        idtResult: '135266546526',
-        typeId: '4'
-      }, {
-        idtType: '企业法人邮箱',
-        idtResult: '王小虎',
-        typeId: '5'
-      }, {
-        idtType: '企业联系人',
-        idtResult: '王小虎',
-        typeId: '6'
-      }, {
-        idtType: '企业联系人手机',
-        idtResult: '王小虎',
-        typeId: '7'
-      }, {
-        idtType: '企业联系人邮箱',
-        idtResult: '王小虎',
-        typeId: '8'
-      }],
+      operaNames: ['去认证', '修改', '修改', '修改', '去认证', '去认证', '去认证', '去认证'],
       currentTabComponent: 'dialog-info',
       compArr: ['dialog-info', 'dialog-bank', 'dialog-legal', 'dialog-legalphone', 'dialog-legalemail', 'dialog-contact', 'dialog-contactphone', 'dialog-contactemail'],
       dialogInfoVisible: false,
@@ -176,11 +144,11 @@ export default {
   min-width: 1200px;
 }
 
-.el-select .el-input {
+.user-info-dialog .el-select .el-input {
   width: 130px;
 }
 
-.my-dialog {
+.user-info-dialog {
   .el-input-group,
   .el-cascader,
   .el-date-editor.el-input,

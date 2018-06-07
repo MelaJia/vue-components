@@ -42,8 +42,8 @@ export default {
   data () {
     return {
       loading: false,
-      postUrl: '/myAr2/getMyArListTable.do',
-      dataStr: 'aaData',
+      postUrl: '/myAr/getMyArListTable.do',
+      dataStr: 'data',
       totalStr: 'recordsTotal'
     }
   },
@@ -52,13 +52,15 @@ export default {
     'search': Search
   },
   mounted () {
-    const that = this
     this.getdata(1, 10)
-      .then(function (response) {
-        console.log(response)
-        if (response) {
-          that.tableData5 = response.data[that.dataStr]
-          that.total = response.data[that.totalStr]
+      .then(res => {
+        if (res.data.status) {
+          this.tableData5 = res.data[this.dataStr]
+          this.total = res.data[this.totalStr]
+        } else {
+          this.tableData5 = []
+          this.total = 0
+          this.$message.error(res.data.msg)
         }
       })
       .catch(function (error) {
@@ -85,9 +87,13 @@ export default {
         this.total = 0 // 分页的当前页数变动会触发 从而获取数据
       } else {
         this.getdata(1, 10).then(res => {
-          if (res) {
+          if (res.data.status) {
             this.tableData5 = res.data[this.dataStr]
             this.total = res.data[this.totalStr]
+          } else {
+            this.tableData5 = []
+            this.total = 0
+            this.$message.error(res.data.msg)
           }
         })
       }
@@ -95,10 +101,14 @@ export default {
     handleRefresh () {
       const that = this
       this.getdata(that.currentPage, that.psize)
-        .then(function (response) {
-          if (response) {
-            that.tableData5 = response.data[this.dataStr]
-            that.total = response.data[this.totalStr]
+        .then(res => {
+          if (res.data.status) {
+            this.tableData5 = res.data[this.dataStr]
+            this.total = res.data[this.totalStr]
+          } else {
+            this.tableData5 = []
+            this.total = 0
+            this.$message.error(res.data.msg)
           }
         })
         .catch(function (error) {

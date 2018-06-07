@@ -4,8 +4,8 @@
     <dialog-accept :visible-p.sync="dialogTransferVisible" :details-p="details"></dialog-accept>
     <dialog-reject :visible-p.sync="dialogRejectVisible" :details-p="details"></dialog-reject>
     <section>
-    <el-table :data="dataTable" v-loading="dataLoading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
-        element-loading-background="rgba(0, 0, 0, 0.8)" border show-summary :summary-method="sumHandle([5,6])" sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
+    <el-table :data="comDatas" v-loading="dataLoading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 0, 0, 0.8)" border  :summary-method="sumHandle([5,6])" sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
       @expand-change="expendhandle">
       <el-table-column align="center" fixed type="index" label="序号" width="60">
       </el-table-column>
@@ -20,15 +20,15 @@
           <a :href="scope.row.riskPlatFormURL" target="_blank">信用报告</a>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="操作" width='230px' fixed="right">
+      <el-table-column align="left" header-align="center" label="操作" width='150px' fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-          <el-dropdown  :hide-on-click="false">
+          <el-dropdown  :hide-on-click="false" v-if="scope.row.operateArr.length!==0">
             <span class="el-dropdown-link">
               更多<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-for="(item, index) in operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" :loading="item.isLoading">{{item.name}}</el-button></el-dropdown-item>
+              <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" :loading="item.isLoading">{{item.name}}</el-button></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -60,6 +60,12 @@ export default {
       import(/* webpackChunkName: 'Dialog' */ '@/components/Admin/Work/DialogArAccept'),
     'dialog-reject': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/Admin/Work/DialogArReject')
+  },
+  computed: {
+    comDatas: function () {
+      const datas = this.getOpera(this.dataTable)
+      return datas
+    }
   },
   methods: {
     // 详情
@@ -100,6 +106,26 @@ export default {
     handleReject (idx, val) {
       this.details = val
       this.dialogRejectVisible = true
+    },
+    /* 按钮菜单显隐处理
+    ** val 节点数据
+    ** ischild 是否是子数据
+    */
+    getOpera: function (val) {
+      const datas = val
+      datas.forEach((item) => {
+        const operateArr = []
+        switch (item.isAudited) {
+          case 0:
+            operateArr.push(this.operateArr[0])
+            operateArr.push(this.operateArr[1])
+            break
+          default:
+            break
+        }
+        item.operateArr = operateArr
+      })
+      return datas
     }
   }
 }

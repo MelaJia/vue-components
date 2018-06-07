@@ -97,27 +97,6 @@
     </footer>
   </el-dialog>
 </template>
-<style lang="scss">
-.dia-width-70 {
-  min-width: 1200px;
-}
-
-.el-select .el-input {
-  width: 130px;
-}
-
-.my-dialog {
-  .el-input-group,
-  .el-date-editor.el-input,
-  .el-date-editor.el-input__inner,
-  .el-date-editor--daterange.el-input,
-  .el-date-editor--daterange.el-input__inner,
-  .el-date-editor--timerange.el-input,
-  .el-date-editor--timerange.el-input__inner {
-    width: 100%;
-  }
-}
-</style>
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
@@ -132,7 +111,7 @@ export default {
   },
   computed: {
     getTitle () {
-      return this.form + '邮箱认证'
+      return '邮箱认证'
     }
   },
   methods: {

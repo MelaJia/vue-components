@@ -59,9 +59,13 @@
         <li>
           <span>对应发票号:<label v-for="(item,index) in detailsP.invoiceCustom" :key="index">{{item.invoiceAfterTaxAmt}}</label></span>
         </li>
-        <li>
-         <a href="http://10.130.2.220" target="_blank">合同链接</a>
-        </li>
+      </ul>
+      <ul>
+          <span>合同:
+          <div class="a-link-group inline-block">
+            <a v-for="item in detailsP.contractList" :key="item.contractId" href="http://" @click.prevent="constractHandle(item.contractId)">{{item.contractName}}</a>
+          </div>
+        </span>
       </ul>
       <!-- <p>
             <span>最终付款单位:{{this.detailsP.company}}</span>
@@ -86,42 +90,8 @@
     </footer>
   </el-dialog>
 </template>
-<style scoped>
-#title {
-  color: #931719;
-  line-height: 24px;
-  font-size: 18px;
-}
-
-section {
-  padding: 0px 20px;
-}
-
-ul {
-  position: relative;
-  border-top: 0.5px solid #931719;
-  margin: 0;
-  border-right: 0.5px solid #931719;
-  padding: 0;
-  height: 32px;
-}
-
-ul:last-of-type {
-  border-bottom: 0.5px solid #931719;
-}
-
-li {
-  list-style: none;
-  width: 48%;
-  display: inline-block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  line-height: 32px;
-  border-left: 0.5px solid #931719;
-  text-align: left;
-  padding-left: 5px;
-}
+<style scoped lang="scss">
+@import "@/assets/css/_dialog.scss";
 </style>
 
 <script>

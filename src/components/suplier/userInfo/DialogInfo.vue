@@ -1,6 +1,6 @@
 <template>
 
-  <el-dialog custom-class="dia-width-70 my-dialog" :visible.sync="visibleP" :before-close="handleClose" center="">
+  <el-dialog custom-class="dia-width-70 user-info-dialog" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
       <span id="title">
         {{getTitle}}
@@ -124,27 +124,6 @@
     </footer>
   </el-dialog>
 </template>
-<style lang="scss">
-.dia-width-70 {
-  min-width: 1200px;
-}
-
-.el-select .el-input {
-  width: 130px;
-}
-
-.my-dialog {
-  .el-input-group,
-  .el-date-editor.el-input,
-  .el-date-editor.el-input__inner,
-  .el-date-editor--daterange.el-input,
-  .el-date-editor--daterange.el-input__inner,
-  .el-date-editor--timerange.el-input,
-  .el-date-editor--timerange.el-input__inner {
-    width: 100%;
-  }
-}
-</style>
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose

@@ -22,7 +22,7 @@
         </el-row>
         <el-row>
           <el-col :span="11">
-            <el-form-item label="还款手续费:">
+            <el-form-item label="服务费率:">
               <el-input v-model="form.serviceFeeRate"></el-input>
             </el-form-item>
           </el-col>
@@ -42,7 +42,7 @@
       </el-form>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="subHandle">提交</el-button>
+      <el-button type="primary" @click="subHandle" :loading="isLoading">修改</el-button>
       <el-button @click="handleClose">取消</el-button>
     </footer>
   </el-dialog>
@@ -54,7 +54,8 @@ export default {
   mixins: [DialogClose],
   data () {
     return {
-      bankProvinceCity: []
+      bankProvinceCity: [],
+      isLoading: false
     }
   },
   computed: {
@@ -64,6 +65,7 @@ export default {
   },
   methods: {
     subHandle () {
+      this.isLoading = true
       const param = {
         custId: this.form.custId, // 客户id
         factoringCustId: this.form.factoringCustId, // 保理商Id
@@ -80,6 +82,7 @@ export default {
           message: res.data.message,
           type: type
         })
+        this.isLoading = false
         if (res.data.status) {
           this.$parent.fresh()
           this.handleClose()

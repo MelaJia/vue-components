@@ -38,8 +38,8 @@ export default {
   data () {
     return {
       loading: false,
-      postUrl: '/myAr2/getMyArListTable.do',
-      dataStr: 'aaData',
+      postUrl: '/myAr/getMyArListTable.do',
+      dataStr: 'data',
       totalStr: 'recordsTotal'
     }
   },

@@ -12,7 +12,7 @@ export default {
       param: {
         iDisplayStart: 1, // 页数
         iDisplayLength: 10, // 每页数量
-        masterChain: '', // ar单号
+        masterChainId: '', // ar单号
         custFromName: '', // 转让单位
         billBookCurr: '', // 币别
         invoiceNo: '', // 发票号
@@ -42,6 +42,7 @@ export default {
         billBookAmt: '',
         loanAmt: '',
         billPayDate: '120',
+        billPayStatus: '',
         operate: '200'
       }
     }
@@ -123,9 +124,13 @@ export default {
       this.psize = val
       this.getdata(1, that.psize)
         .then(function (response) {
-          if (response) {
+          if (response.data.status) {
             that.tableData5 = response.data[that.dataStr]
             that.total = response.data[that.totalStr]
+          } else {
+            that.tableData5 = []
+            that.total = 0
+            that.$message.error(response.data.msg)
           }
         })
         .catch(function (error) {
@@ -137,9 +142,13 @@ export default {
       const that = this
       this.getdata(val, that.psize)
         .then(function (response) {
-          if (response) {
+          if (response.data.status) {
             that.tableData5 = response.data[that.dataStr]
             that.total = response.data[that.totalStr]
+          } else {
+            that.tableData5 = []
+            that.total = 0
+            that.$message.error(response.data.msg)
           }
         })
         .catch(function (error) {

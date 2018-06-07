@@ -80,7 +80,7 @@
       </el-row>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleSubmit">确认</el-button>
+      <el-button type="primary" @click="handleSubmit" :loading="isLoading">确认</el-button>
     </footer>
   </el-dialog>
 </template>
@@ -110,7 +110,8 @@ export default {
     return {
       receiveCustId: '',
       transAmt: 0,
-      checkList: []
+      checkList: [],
+      isLoading: false
     }
   },
   computed: {
@@ -120,6 +121,7 @@ export default {
   },
   methods: {
     handleSubmit () {
+      this.isLoading = true
       const data = {
         masterChainId: this.detailsP.masterChainId,
         receiveCustId: this.receiveCustId,
@@ -141,6 +143,7 @@ export default {
           type: 'error',
           message: '未勾选发票'
         })
+        this.isLoading = false
         return
       }
       let sum = arr.reduce((sum, currVal) => {
@@ -156,14 +159,17 @@ export default {
           message: '转让金额不得大于勾选发票总额'
         })
         this.transAmt = sum
+        this.isLoading = false
         return
       }
-      this.axios.post('/myAr2/initiateTrans.do', data).then(res => {
+      this.checkList = [] // 重置
+      this.axios.post('/myAr/initiateTrans.do', data).then(res => {
         let type = res.data.result === 'true' ? 'success' : 'error'
         this.$message({
           message: res.data.message,
           type: type
         })
+        this.isLoading = false
         this.handleClose() // 关闭弹窗
         this.$parent.fresh() // 刷新数据
       }).catch(() => {
@@ -171,6 +177,7 @@ export default {
           type: 'info',
           message: '操作失败'
         })
+        this.isLoading = false
       })
     }
   }

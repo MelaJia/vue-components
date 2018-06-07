@@ -16,8 +16,8 @@
     <!-- 详情 -->
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-info>
     <section>
-      <el-table :data="comDatas" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
-        element-loading-background="rgba(0, 0, 0, 0.8)" show-summary :summary-method="sumHandle([7,8])" border style="width: 100%"
+      <el-table ref="table" :data="comDatas" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%"
         @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle">
         <el-table-column type="expand" fixed>
           <template slot-scope="props">
@@ -46,10 +46,12 @@
               </el-table-column>
               <el-table-column align="center" prop="billPayDate" :width="widthArr.billPayDate" :formatter="dateFormat">
               </el-table-column>
+              <el-table-column align="center" prop="billPayStatus" :width="widthArr.billPayStatus">
+              </el-table-column>
               <el-table-column align="center" width='200px'>
                 <template slot-scope="scope">
                   <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)" :loading="scope.row.infoLoading">详情</el-button>
-                  <el-dropdown :hide-on-click="false">
+                  <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
                     <span class="el-dropdown-link">
                       更多<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
@@ -62,7 +64,12 @@
             </el-table>
           </template>
         </el-table-column>
-        <el-table-column type="selection" fixed width="40">
+        <!-- <el-table-column type="selection" fixed width="40">
+        </el-table-column> -->
+        <el-table-column
+          type="index"
+          label="序号"
+          fixed width="40">
         </el-table-column>
         <el-table-column align="center" label="AR单号" fixed sortable prop="masterChainId" width="150">
         </el-table-column>
@@ -82,10 +89,12 @@
         </el-table-column>
         <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120">
         </el-table-column>
+        <el-table-column align="center" label="打款处理状态" prop="billPayStatus">
+        </el-table-column>
         <el-table-column align="center" label="操作" width='200px' class-name="">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)" :loading="scope.row.infoLoading">详情</el-button>
-            <el-dropdown :hide-on-click="false">
+            <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
   <span class="el-dropdown-link">
     更多<i class="el-icon-arrow-down el-icon--right"></i>
   </span>
@@ -131,6 +140,11 @@ header {
   .full-width {
     width: 100%;
   }
+}
+</style>
+<style>
+.el-table__expanded-cell .el-table--scrollable-x .el-table__body-wrapper {
+  overflow-x: hidden;
 }
 </style>
 
@@ -182,12 +196,19 @@ export default {
       console.log(this.multipleSelection)
     },
     getDetail (val) {
-      return this.axios.post('/myAr2/queryAr', { masterChainId: val.masterChainId }).then(res => {
-        console.log('获取到数据')
+      return this.axios.post('/myAr/queryAr', { masterChainId: val.masterChainId }).then(res => {
         // 处理数据
-        let details = this.handleInvoiceListFormat(res.data)
-        details.masterChainId = val.masterChainId
-        return details
+        if (res.data.status) {
+          let details = this.handleInvoiceListFormat(res.data.data)
+          details.masterChainId = val.masterChainId
+          return details
+        } else {
+          this.$message({
+            type: 'info',
+            message: `请求出错`
+          })
+          return false
+        }
       })
     },
     // 详情
@@ -195,9 +216,10 @@ export default {
       console.log(val)
       val.infoLoading = true
       this.getDetail(val).then(res => {
-        console.log(res)
-        this.details = res
-        this.dialogInfoVisible = true
+        if (res) {
+          this.details = res
+          this.dialogInfoVisible = true
+        }
         val.infoLoading = false
       }).catch(err => {
         this.$alert(err, '标题名称', {
@@ -205,10 +227,11 @@ export default {
           callback: action => {
             this.$message({
               type: 'info',
-              message: `action: ${action}`
+              message: `网络错误`
             })
           }
         })
+        val.infoLoading = false
       })
     },
     // 更多事件
@@ -222,11 +245,14 @@ export default {
       this.operateArr[idx].isLoading = true
       this.getDetail(val).then(res => {
         console.log(res)
-        this.details = res
-        this.dialogTransferVisible = true
+        if (res) {
+          this.details = res
+          this.dialogTransferVisible = true
+        }
         this.operateArr[idx].isLoading = false
       }).catch(err => {
         console.log(err)
+        this.operateArr[idx].isLoading = false
       })
     },
     // 取消转让
@@ -236,7 +262,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.cancelBase('/myAr2/cancelTrans.do', val.masterChainId)
+        this.cancelBase('/myAr/cancelTrans.do', val.masterChainId)
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -249,11 +275,14 @@ export default {
       this.operateArr[idx].isLoading = true
       this.getDetail(val).then(res => {
         console.log(res)
-        this.details = res
-        this.dialogDiscountVisible = true
+        if (res) {
+          this.details = res
+          this.dialogDiscountVisible = true
+        }
         this.operateArr[idx].isLoading = false
       }).catch(err => {
         console.log(err)
+        this.operateArr[idx].isLoading = false
       })
     },
     // 取消贴现
@@ -263,8 +292,8 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.cancelBase('/myAr2/cancelDiscount.do', val.masterChainId)
-        // this.axios.post('/myAr2/cancelDiscount.do', { masterChainId: val.masterChainId }).then(res => {
+        this.cancelBase('/myAr/cancelDiscount.do', val.masterChainId)
+        // this.axios.post('/myAr/cancelDiscount.do', { masterChainId: val.masterChainId }).then(res => {
         //   let type = res.data.result === 'true' ? 'success' : 'error'
         //   this.$message({
         //     message: res.data.message,
@@ -288,11 +317,14 @@ export default {
       this.operateArr[idx].isLoading = true
       this.getDetail(val).then(res => {
         console.log(res)
-        this.details = res
-        this.dialogContractVisible = true
+        if (res) {
+          this.details = res
+          this.dialogContractVisible = true
+        }
         this.operateArr[idx].isLoading = false
       }).catch(err => {
         console.log(err)
+        this.operateArr[idx].isLoading = false
       })
     },
     // 审核申请
@@ -302,13 +334,17 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.cancelBase('/myAr2/auditApplyDiscount.do', val.masterChainId)
+        this.cancelBase('/myAr/auditApplyDiscount.do', val.masterChainId)
       }).catch(() => {
         this.$message({
           type: 'info',
           message: '取消'
         })
       })
+    },
+    // 刷新数据
+    fresh () {
+      this.$emit('refresh')
     },
     /* 发票已选未选分离 */
     handleInvoiceListFormat (oData) {

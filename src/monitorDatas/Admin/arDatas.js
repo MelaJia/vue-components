@@ -1,6 +1,6 @@
 /* eslint-disable */
 export const auditList = {
-  "aaData": [{
+  "data": [{
     "billId": "HOI-HB0014",
     "buyerCustNo": "A086440",
     "companyName": "晉城富泰華精密電子有限公司",

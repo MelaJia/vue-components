@@ -3,8 +3,8 @@
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-info>
     <dialog-contract :visible-p.sync="dialogTransferVisible" :details-p="details"></dialog-contract>
     <section>
-    <el-table :data="dataTable" v-loading="dataLoading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
-        element-loading-background="rgba(0, 0, 0, 0.8)" border show-summary :summary-method="sumHandle([5,6])" sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
+    <el-table :data="comDatas" v-loading="dataLoading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 0, 0, 0.8)" border  :summary-method="sumHandle([5,6])" sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
       @expand-change="expendhandle">
       <el-table-column align="center" fixed type="index" label="序号" width="60">
       </el-table-column>
@@ -32,12 +32,12 @@
       <el-table-column align="center" label="操作" width='230px' fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-          <el-dropdown :hide-on-click="false">
+          <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length!==0">
             <span class="el-dropdown-link">
               更多<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-for="(item, index) in operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" :loading="item.isLoading">{{item.name}}</el-button></el-dropdown-item>
+              <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" :loading="item.isLoading">{{item.name}}</el-button></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -52,11 +52,6 @@ import ListMinxIn from '@/mixins/suplier/Ar/List'
 import Common from '@/mixins/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 import { firstToUpperCase } from '@/util/util' // 首字母大写
-import Mock from 'mockjs'
-Mock.mock('http://123.com', {
-  'name|3': 'fei', // 这个定义数据的模板形式下面会介绍
-  'age|20-30': 25
-})
 export default {
   name: 'loan', // 放款列表页面
   props: ['dataLoading', 'dataTable'],
@@ -71,6 +66,12 @@ export default {
       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/DialogInfoLoan'),
     'dialog-contract': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/DialogLoanContract')
+  },
+  computed: {
+    comDatas: function () {
+      const datas = this.getOpera(this.dataTable)
+      return datas
+    }
   },
   methods: {
     // 更多事件
@@ -101,7 +102,22 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.cancelBase('/loan2/confirmInitiateSigning.do', val.masterChainId) // 调用common混合中公共方法
+        this.axios.post('/loan2/confirmInitiateSigning.do', {
+          masterChainId: val.masterChainId
+        }).then(res => {
+          let type = res.data.status ? 'success' : 'error'
+          this.$message({
+            message: res.data.data.message,
+            type: type
+          })
+          this.$emit('refresh')
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '操作失败'
+          })
+        })
+        // this.cancelBase('/loan2/confirmInitiateSigning.do', val.masterChainId) // 调用common混合中公共方法
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -138,6 +154,35 @@ export default {
           message: '取消'
         })
       })
+    },
+    // 刷新数据
+    fresh () {
+      this.$emit('refresh')
+    },
+    /* 按钮菜单显隐处理
+    ** val 节点数据
+    ** ischild 是否是子数据
+    */
+    getOpera: function (val) {
+      const datas = val
+      datas.forEach((item) => {
+        const operateArr = []
+        switch (item.checkedStatus) {
+          case 22:
+            operateArr.push(this.operateArr[0])
+            operateArr.push(this.operateArr[1])
+            break
+          case 24:
+            operateArr.push(this.operateArr[2])
+            break
+          default:
+            break
+        }
+        operateArr.push(this.operateArr[3])
+        item.operateArr = operateArr
+      })
+      console.log(datas)
+      return datas
     }
   }
 }

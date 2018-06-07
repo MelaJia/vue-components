@@ -11,7 +11,7 @@
     </div>
     <div class="body">
       <el-card class="box-card">
-        <ar-list :data-table="tableData5" :data-loading="loading"  @handle-refresh="refresh"></ar-list>
+        <ar-list :data-table="tableData5" :data-loading="loading" @refresh="handleRefresh"></ar-list>
         <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -40,7 +40,7 @@ export default {
     return {
       postUrl: '/loanFee2/getCustLoanFeeListTable.do', // 列表请求地址
       totalStr: 'recordsTotal', // 服务器返回总数参数名
-      dataStr: 'aaData' // 服务器返回数据参数名
+      dataStr: 'data' // 服务器返回数据参数名
     }
   },
   components: {
@@ -48,7 +48,7 @@ export default {
     'search': Search
   },
   mounted () {
-    // this.tableData5 = DataFee.aaData
+    // this.tableData5 = DataFee.data
     // this.total = DataFee.recordsTotal
     const that = this
     this.getdata(1, 10)
@@ -85,13 +85,13 @@ export default {
         })
       }
     },
-    refresh () {
+    handleRefresh () {
       const that = this
       this.getdata(that.currentPage, that.psize)
-        .then(function (response) {
-          if (response) {
-            that.tableData5 = response.data.rows
-            that.total = response.data.total
+        .then(res => {
+          if (res) {
+            this.tableData5 = res.data[this.dataStr]
+            this.total = res.data[this.totalStr]
           }
         })
         .catch(function (error) {

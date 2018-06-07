@@ -43,7 +43,7 @@ export default {
   },
   computed: {
     getTitle () {
-      return this.form + '企业法人信息'
+      return '企业法人信息修改'
     }
   },
   methods: {

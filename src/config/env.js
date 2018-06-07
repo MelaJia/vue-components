@@ -19,7 +19,7 @@ let basePath = getContextPath()
 if (process.env.NODE_ENV === 'development') {
   baseUrl = `https://jurongtest.foxconn.com/sit/`
 } else if (process.env.NODE_ENV === 'production') {
-  baseUrl = `${protocol}//${host}${basePath}`
+  baseUrl = `${protocol}//${host}${basePath}/openapi`
 }
 export { baseUrl, iconfontUrl, iconfontVersion, codeUrl }
 function getContextPath () {

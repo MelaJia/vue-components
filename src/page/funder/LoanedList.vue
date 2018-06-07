@@ -11,7 +11,7 @@
     </div>
     <div class="body">
       <el-card class="box-card text-align-center">
-        <ar-table :data-loading="loading" :data-table="tableData5"></ar-table>
+        <ar-table :data-loading="loading" :data-table="tableData5" @refresh="handleRefresh"></ar-table>
         <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -45,7 +45,7 @@ export default {
     return {
       loading: false,
       postUrl: '/loanQuery/loanQueryLOANEDManage.do',
-      dataStr: 'aaData',
+      dataStr: 'data',
       totalStr: 'recordsTotal'
     }
   },
@@ -80,8 +80,8 @@ export default {
         companyName: val.companyName, // 付款单位
         billBookCurr: val.billBookCurr, // 币别
         invoiceNo: val.invoiceNo, // 发票号
-        discountAmtFrom: val.discountAmtFrom, // 贴现金额起始
-        discountAmtTo: val.discountAmtTo, // 贴现金额结束
+        discountAmtScopeFrom: val.discountAmtScopeFrom, // 贴现金额起始
+        discountAmtScopeTo: val.discountAmtScopeTo, // 贴现金额结束
         from: form, // 日期
         to: to
       }
@@ -95,6 +95,19 @@ export default {
           }
         })
       }
+    },
+    handleRefresh () {
+      const that = this
+      this.getdata(that.currentPage, that.psize)
+        .then(res => {
+          if (res) {
+            this.tableData5 = res.data[this.dataStr]
+            this.total = res.data[this.totalStr]
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     }
   }
 }

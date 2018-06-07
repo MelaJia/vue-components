@@ -44,7 +44,7 @@ export default {
     return {
       loading: false,
       postUrl: '/discountAudit/getDiscountAuditListTable.do',
-      dataStr: 'aaData',
+      dataStr: 'data',
       totalStr: 'recordsTotal'
     }
   },

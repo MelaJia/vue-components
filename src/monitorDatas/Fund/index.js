@@ -1,7 +1,4 @@
-import Mock from 'mockjs'
-import { dataDetails } from './loanDatas'
 /* eslint-disable */
-const monitorInit = ()=>{
-  Mock.mock('https://jurongtest.foxconn.com/sit/loan2/queryLoanInfo.do', dataDetails)
-}
-export {monitorInit}
+const subData=
+{"data":{"result":true,"message":"操作成功"},"msg":"返回结果正常","recordsTotal":null,"status":1}
+export default subData

@@ -11,7 +11,7 @@
     </div>
     <div class="body">
       <el-card class="box-card">
-        <ar-list :data-table="tableData5" :data-loading="loading"  @handle-refresh="refresh"></ar-list>
+        <ar-list :data-table="tableData5" :data-loading="loading"  @refresh="handleRefresh"></ar-list>
         <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -64,7 +64,7 @@ export default {
       let form = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
       let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
       this.param = {
-        masterChain: val.masterChainId, // ar单号
+        masterChainId: val.masterChainId, // ar单号
         isMasterAr: val.isMasterAr, // ar来源
         companyName: val.companyName, // 付款单位
         checkedStatus: val.status, // 状态
@@ -74,12 +74,9 @@ export default {
         to: to,
         transSerialNo: val.transSerialNo // 交易流水号
       }
-      console.log('1')
       if (this.total && this.currentPage !== 1) {
-        console.log('2')
         this.total = 0 // 分页的当前页数变动会触发 从而获取数据
       } else {
-        console.log('3')
         this.getdata(1, 10).then(res => {
           if (res) {
             this.tableData5 = res.data[this.dataStr]
@@ -88,7 +85,7 @@ export default {
         })
       }
     },
-    refresh () {
+    handleRefresh () {
       const that = this
       this.getdata(that.currentPage, that.psize)
         .then(res => {

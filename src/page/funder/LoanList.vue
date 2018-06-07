@@ -11,7 +11,7 @@
     </div>
     <div class="body">
       <el-card class="box-card">
-        <ar-list :data-table="tableData5" :data-loading="loading"  @handle-refresh="refresh"></ar-list>
+        <ar-list :data-table="tableData5" :data-loading="loading"  @refresh="handleRefresh"></ar-list>
         <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -40,7 +40,7 @@ export default {
     return {
       postUrl: '/loan2/getLoanManagerListTable.do', // 列表请求地址
       totalStr: 'recordsTotal', // 服务器返回总数参数名
-      dataStr: 'aaData' // 服务器返回数据参数名
+      dataStr: 'data' // 服务器返回数据参数名
     }
   },
   components: {
@@ -48,7 +48,7 @@ export default {
     'search': Search
   },
   mounted () {
-    // this.tableData5 = Datas.aaData
+    // this.tableData5 = Datas.data
     // this.total = Datas.recordsTotal
     const that = this
     this.getdata(1, 10)
@@ -68,13 +68,13 @@ export default {
       let from = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
       let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
       this.param = {
-        masterChain: val.masterChain, // ar单号
+        masterChainId: val.masterChainId, // ar单号
         custFromName: val.custFromName, // 贴现客户
         checkedStatus: val.checkedStatus, // 状态
         billBookCurr: val.billBookCurr, // 币别
         invoiceNo: val.invoiceNo, // 发票号
-        discountAmtFrom: val.discountAmtFrom, // 贴现金额起始
-        discountAmtTo: val.discountAmtTo, // 贴现金额结束
+        discountAmtScopeFrom: val.discountAmtScopeFrom, // 贴现金额起始
+        discountAmtScopeTo: val.discountAmtScopeTo, // 贴现金额结束
         from: from, // 日期
         to: to,
         transSerialNo: val.transSerialNo // 交易流水号
@@ -93,13 +93,13 @@ export default {
         })
       }
     },
-    refresh () {
+    handleRefresh () {
       const that = this
       this.getdata(that.currentPage, that.psize)
-        .then(function (response) {
-          if (response) {
-            that.tableData5 = response.data.rows
-            that.total = response.data.total
+        .then(res => {
+          if (res) {
+            this.tableData5 = res.data[this.dataStr]
+            this.total = res.data[this.totalStr]
           }
         })
         .catch(function (error) {

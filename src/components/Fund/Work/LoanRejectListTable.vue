@@ -1,10 +1,9 @@
 <template>
   <div>
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-info>
-    <dialog-contract :visible-p.sync="dialogTransferVisible" :details-p="details"></dialog-contract>
     <section>
     <el-table :data="dataTable" v-loading="dataLoading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
-        element-loading-background="rgba(0, 0, 0, 0.8)" border show-summary :summary-method="sumHandle([5,6])" sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
+        element-loading-background="rgba(0, 0, 0, 0.8)" border  :summary-method="sumHandle([5,6])" sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
       @expand-change="expendhandle">
       <el-table-column align="center" fixed type="index" label="序号" width="60">
       </el-table-column>

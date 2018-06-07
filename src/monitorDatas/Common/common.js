@@ -3,7 +3,7 @@ const commonDatas = {
   moneyTypes: {
     "message":"查询成功",
     "recordsTotal":41,
-    "showData":[
+    "data":[
         {
             "currencyDesc":"人民币",
             "currencyId":1,
@@ -215,7 +215,7 @@ const commonDatas = {
   arStatus: {
     "message":"查询成功",
     "recordsTotal":14,
-    "showData":[
+    "data":[
         {
             "arStatusTypeEngName":"unconfirmed",
             "arStatusTypeId":1,
@@ -294,7 +294,7 @@ const commonDatas = {
     message: ' 操作成功'
  },
  arDatas:{
-    "aaData":[
+    "data":[
         {
             "arStatusTypeName":"已確認",
             "billBookAmt":18406.44,
@@ -304,7 +304,7 @@ const commonDatas = {
             "billPayDate":null,
             "billPayStatus":null,
             "billStartDate":1520870400000,
-            "buyerCustNo":null,
+            "buyerCustNo":"A086041",
             "checkedStatus":2,
             "companyName":"深圳富泰宏精密工業有限公司",
             "createtime":1522359044000,
@@ -324,33 +324,33 @@ const commonDatas = {
             "parentChainId":"",
             "tableData":[
                 {
-                    "arStatusTypeName":"放款拒絕",
-                    "billBookAmt":1000,
-                    "billBookCurr":1,
-                    "billDueDate":1509465600000,
-                    "billId":"HBA-H70010",
-                    "billPayDate":1509811200000,
-                    "billStartDate":1499443200000,
-                    "buyerCustNo":"A086348",
-                    "checkedStatus":23,
-                    "companyName":"福士瑞精密工業(鄭州)有限公司",
-                    "createtime":1505953973000,
-                    "currencyDesc":"人民币",
-                    "currencyName":"RMB",
+                    "arStatusTypeName":"貼現取消",
+                    "billBookAmt":18406.44,
+                    "billBookCurr":null,
+                    "billDueDate":1530288000000,
+                    "billId":"5100002408",
+                    "billPayDate":null,
+                    "billStartDate":1520870400000,
+                    "buyerCustNo":"A086041",
+                    "checkedStatus":27,
+                    "companyName":"深圳富泰宏精密工業有限公司",
+                    "createtime":1528163811000,
+                    "currencyDesc":null,
+                    "currencyName":null,
                     "custFromId":"09210827048265",
                     "custFromName":"深圳市新威達電子有限公司",
-                    "custId":"b4e0e5f6-f17d-4b7b-9ade-99fa8f06bac8",
-                    "custToId":"b4e0e5f6-f17d-4b7b-9ade-99fa8f06bac8",
-                    "custToName":"HLF",
-                    "isInterfaceMode":1,
+                    "custId":"11031049033568",
+                    "custToId":"11031049033568",
+                    "custToName":"富金富",
+                    "isInterfaceMode":0,
                     "isMasterAr":0,
                     "loanAmt":0,
-                    "masterChainId":"AR20170921000151",
-                    "parentChainId":"AR20170921000038",
-                    "transSerialNo":null,
-                    "transType":null,
-                    "vendorCode":"b4e0e5f6-f17d-4b7b-9ade-99fa8f06bac8",
-                    "vendorName":"HLF"
+                    "masterChainId":"AR20180605000001",
+                    "parentChainId":"AR20180330000003",
+                    "transSerialNo":"7c0ab60f-2997-4d89-8f6a-20c179f4dc77",
+                    "transType":"discount",
+                    "vendorCode":"VCN0018154",
+                    "vendorName":"深圳市新威達電子有限公司"
                 }
             ],
             "transSerialNo":"",
@@ -367,7 +367,7 @@ const commonDatas = {
             "billPayDate":null,
             "billPayStatus":null,
             "billStartDate":1523548800000,
-            "buyerCustNo":null,
+            "buyerCustNo":"A086041",
             "checkedStatus":2,
             "companyName":"深圳富泰宏精密工業有限公司",
             "createtime":1523655348000,
@@ -413,10 +413,10 @@ const commonDatas = {
             "custId":"09210827048265",
             "custToId":"",
             "custToName":"",
-            "discountAuditStatus":-1,
+            "discountAuditStatus":1,
             "isInterfaceMode":0,
             "isMasterAr":1,
-            "isNeedDiscountAudit":1,
+            "isNeedDiscountAudit":0,
             "loanAmt":2260.44,
             "masterChainId":"AR20171212000001",
             "parentChainId":"",
@@ -437,7 +437,7 @@ const commonDatas = {
             "billPayDate":null,
             "billPayStatus":null,
             "billStartDate":1515600000000,
-            "buyerCustNo":null,
+            "buyerCustNo":"A086041",
             "checkedStatus":2,
             "companyName":"深圳富泰宏精密工業有限公司",
             "createtime":1515706452000,
@@ -472,7 +472,7 @@ const commonDatas = {
             "billPayDate":null,
             "billPayStatus":null,
             "billStartDate":1515600000000,
-            "buyerCustNo":null,
+            "buyerCustNo":"A086041",
             "checkedStatus":2,
             "companyName":"深圳富泰宏精密工業有限公司",
             "createtime":1515706453000,
@@ -507,7 +507,7 @@ const commonDatas = {
             "billPayDate":null,
             "billPayStatus":null,
             "billStartDate":1516118400000,
-            "buyerCustNo":null,
+            "buyerCustNo":"A086041",
             "checkedStatus":2,
             "companyName":"深圳富泰宏精密工業有限公司",
             "createtime":1522359045000,
@@ -542,7 +542,7 @@ const commonDatas = {
             "billPayDate":null,
             "billPayStatus":null,
             "billStartDate":1516204800000,
-            "buyerCustNo":null,
+            "buyerCustNo":"A086041",
             "checkedStatus":2,
             "companyName":"深圳富泰宏精密工業有限公司",
             "createtime":1522359045000,
@@ -577,7 +577,7 @@ const commonDatas = {
             "billPayDate":null,
             "billPayStatus":null,
             "billStartDate":1517414400000,
-            "buyerCustNo":null,
+            "buyerCustNo":"A086041",
             "checkedStatus":2,
             "companyName":"深圳富泰宏精密工業有限公司",
             "createtime":1522359045000,
@@ -612,7 +612,7 @@ const commonDatas = {
             "billPayDate":null,
             "billPayStatus":null,
             "billStartDate":1517414400000,
-            "buyerCustNo":null,
+            "buyerCustNo":"A086041",
             "checkedStatus":2,
             "companyName":"深圳富泰宏精密工業有限公司",
             "createtime":1522359045000,
@@ -627,7 +627,7 @@ const commonDatas = {
             "isInterfaceMode":0,
             "isMasterAr":1,
             "isNeedDiscountAudit":0,
-            "loanAmt":2134.08,
+            "loanAmt":134.08,
             "masterChainId":"AR20180330000007",
             "parentChainId":"",
             "tableData":[
@@ -639,24 +639,24 @@ const commonDatas = {
                     "billId":"9300000896",
                     "billPayDate":null,
                     "billStartDate":1517414400000,
-                    "buyerCustNo":null,
+                    "buyerCustNo":"A086041",
                     "checkedStatus":99,
                     "companyName":"深圳富泰宏精密工業有限公司",
-                    "createtime":1527666255000,
+                    "createtime":1527745456000,
                     "currencyDesc":null,
                     "currencyName":null,
                     "custFromId":"09210827048265",
                     "custFromName":"深圳市新威達電子有限公司",
-                    "custId":"15c09de8-6600-42c5-8e5a-acfe1951f8b0",
-                    "custToId":"15c09de8-6600-42c5-8e5a-acfe1951f8b0",
-                    "custToName":"CF",
-                    "isInterfaceMode":1,
+                    "custId":"09201912016466",
+                    "custToId":"09201912016466",
+                    "custToName":"山西英和貿易有限公司",
+                    "isInterfaceMode":null,
                     "isMasterAr":0,
                     "loanAmt":0,
-                    "masterChainId":"AR20180530000005",
+                    "masterChainId":"AR20180531000002",
                     "parentChainId":"AR20180330000007",
-                    "transSerialNo":"63dd609c-7fd4-4f83-acc2-0a85758ae60b",
-                    "transType":"discount",
+                    "transSerialNo":"573b069e-af2a-4de7-b7bd-4b65e83efd03",
+                    "transType":"arpay",
                     "vendorCode":"VCN0018154",
                     "vendorName":"深圳市新威達電子有限公司"
                 }
@@ -665,575 +665,87 @@ const commonDatas = {
             "transType":"",
             "vendorCode":"VCN0018154",
             "vendorName":"深圳市新威達電子有限公司"
+        },
+        {
+            "arStatusTypeName":"已確認",
+            "billBookAmt":8292.96,
+            "billBookCurr":null,
+            "billDueDate":1530288000000,
+            "billId":"9300001502",
+            "billPayDate":null,
+            "billPayStatus":null,
+            "billStartDate":1520611200000,
+            "buyerCustNo":"A086041",
+            "checkedStatus":2,
+            "companyName":"深圳富泰宏精密工業有限公司",
+            "createtime":1522359045000,
+            "currencyDesc":null,
+            "currencyName":null,
+            "custFromId":"",
+            "custFromName":"",
+            "custId":"09210827048265",
+            "custToId":"",
+            "custToName":"",
+            "discountAuditStatus":1,
+            "isInterfaceMode":0,
+            "isMasterAr":1,
+            "isNeedDiscountAudit":0,
+            "loanAmt":8292.96,
+            "masterChainId":"AR20180330000008",
+            "parentChainId":"",
+            "tableData":[
+
+            ],
+            "transSerialNo":"",
+            "transType":"",
+            "vendorCode":"VCN0018154",
+            "vendorName":"深圳市新威達電子有限公司"
         }
     ],
-    "draw":0,
-    "recordsFiltered":436,
-    "recordsTotal":436
+    "msg":"请求成功",
+    "recordsTotal":416,
+    "status":1
 },
 arDetails:{
-    "arAvailableAmt":3205734.73,
-    "arSourceDesc":"自有",
-    "arStatusTypeName":"已確認",
-    "billBookAmt":3205734.73,
-    "billPayDate":1527609600000,
-    "checkedStatus":2,
-    "companyName":"鴻富泰精密電子(煙台)有限公司",
-    "contractList":[
+    "data":{
+        "arAvailableAmt":102070.8,
+        "arSourceDesc":"自有",
+        "arStatusTypeName":"已確認",
+        "billBookAmt":102070.8,
+        "billPayDate":1516809600000,
+        "checkedStatus":2,
+        "companyName":"富泰華工業(深圳)有限公司",
+        "contractList":[
 
-    ],
-    "currencyDesc":"美金",
-    "currencyName":"USD",
-    "custFromId":null,
-    "custFromName":null,
-    "custToId":null,
-    "custToName":null,
-    "invoiceCustomList":[
-        {
-            "invoiceAfterTaxAmt":12184.93,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517068800000,
-            "invoiceIsSelected":1,
-            "invoiceNo":"07008783"
-        },
-        {
-            "invoiceAfterTaxAmt":11533.36,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517068800000,
-            "invoiceIsSelected":1,
-            "invoiceNo":"07008784"
-        },
-        {
-            "invoiceAfterTaxAmt":8085.66,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517155200000,
-            "invoiceIsSelected":1,
-            "invoiceNo":"07008811"
-        },
-        {
-            "invoiceAfterTaxAmt":8340.48,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517155200000,
-            "invoiceIsSelected":1,
-            "invoiceNo":"07008809"
-        },
-        {
-            "invoiceAfterTaxAmt":5710.93,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517155200000,
-            "invoiceIsSelected":1,
-            "invoiceNo":"07008810"
-        },
-        {
-            "invoiceAfterTaxAmt":8340.48,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517155200000,
-            "invoiceIsSelected":1,
-            "invoiceNo":"07008808"
-        },
-        {
-            "invoiceAfterTaxAmt":5053.54,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517587200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008856"
-        },
-        {
-            "invoiceAfterTaxAmt":8340.48,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517587200000,
-            "invoiceIsSelected":1,
-            "invoiceNo":"07008857"
-        },
-        {
-            "invoiceAfterTaxAmt":444.31,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517587200000,
-            "invoiceIsSelected":1,
-            "invoiceNo":"07008864"
-        },
-        {
-            "invoiceAfterTaxAmt":5125.94,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517587200000,
-            "invoiceIsSelected":1,
-            "invoiceNo":"07008860"
-        },
-        {
-            "invoiceAfterTaxAmt":14521.99,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517587200000,
-            "invoiceIsSelected":1,
-            "invoiceNo":"07008858"
-        },
-        {
-            "invoiceAfterTaxAmt":8340.48,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517587200000,
-            "invoiceIsSelected":1,
-            "invoiceNo":"07008861"
-        },
-        {
-            "invoiceAfterTaxAmt":5963.87,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517587200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008865"
-        },
-        {
-            "invoiceAfterTaxAmt":10953.94,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517587200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008867"
-        },
-        {
-            "invoiceAfterTaxAmt":231.25,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517587200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008862"
-        },
-        {
-            "invoiceAfterTaxAmt":10903.45,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517587200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008859"
-        },
-        {
-            "invoiceAfterTaxAmt":9731.08,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517587200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008866"
-        },
-        {
-            "invoiceAfterTaxAmt":1495.89,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517587200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008863"
-        },
-        {
-            "invoiceAfterTaxAmt":11085.76,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517846400000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008892"
-        },
-        {
-            "invoiceAfterTaxAmt":10953.94,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517846400000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008886"
-        },
-        {
-            "invoiceAfterTaxAmt":8340.48,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517846400000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008888"
-        },
-        {
-            "invoiceAfterTaxAmt":15153.19,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517846400000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008884"
-        },
-        {
-            "invoiceAfterTaxAmt":724.72,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517846400000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008889"
-        },
-        {
-            "invoiceAfterTaxAmt":9204.16,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517846400000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008894"
-        },
-        {
-            "invoiceAfterTaxAmt":5927.04,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517846400000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008891"
-        },
-        {
-            "invoiceAfterTaxAmt":887.09,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517846400000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008883"
-        },
-        {
-            "invoiceAfterTaxAmt":333.9,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517846400000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008887"
-        },
-        {
-            "invoiceAfterTaxAmt":5049.42,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517846400000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008885"
-        },
-        {
-            "invoiceAfterTaxAmt":5317.83,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517846400000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008890"
-        },
-        {
-            "invoiceAfterTaxAmt":10953.94,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1517846400000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"07008893"
-        },
-        {
-            "invoiceAfterTaxAmt":5764.32,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993297"
-        },
-        {
-            "invoiceAfterTaxAmt":6257.71,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993294"
-        },
-        {
-            "invoiceAfterTaxAmt":9334.25,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993298"
-        },
-        {
-            "invoiceAfterTaxAmt":11055.25,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993305"
-        },
-        {
-            "invoiceAfterTaxAmt":1477.72,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993292"
-        },
-        {
-            "invoiceAfterTaxAmt":14974.65,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993299"
-        },
-        {
-            "invoiceAfterTaxAmt":16426.14,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993293"
-        },
-        {
-            "invoiceAfterTaxAmt":4323.24,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993302"
-        },
-        {
-            "invoiceAfterTaxAmt":10953.94,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993303"
-        },
-        {
-            "invoiceAfterTaxAmt":8829.39,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993289"
-        },
-        {
-            "invoiceAfterTaxAmt":16426.14,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993300"
-        },
-        {
-            "invoiceAfterTaxAmt":6672.38,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993306"
-        },
-        {
-            "invoiceAfterTaxAmt":6250.56,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993296"
-        },
-        {
-            "invoiceAfterTaxAmt":5764.32,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993295"
-        },
-        {
-            "invoiceAfterTaxAmt":15461.87,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993291"
-        },
-        {
-            "invoiceAfterTaxAmt":10008.58,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993304"
-        },
-        {
-            "invoiceAfterTaxAmt":10458.86,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993290"
-        },
-        {
-            "invoiceAfterTaxAmt":5576.44,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519315200000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993301"
-        },
-        {
-            "invoiceAfterTaxAmt":2781.21,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993347"
-        },
-        {
-            "invoiceAfterTaxAmt":7824.24,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993341"
-        },
-        {
-            "invoiceAfterTaxAmt":10008.58,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993345"
-        },
-        {
-            "invoiceAfterTaxAmt":8340.48,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993348"
-        },
-        {
-            "invoiceAfterTaxAmt":640.74,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993350"
-        },
-        {
-            "invoiceAfterTaxAmt":5143.04,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993342"
-        },
-        {
-            "invoiceAfterTaxAmt":5766.68,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993343"
-        },
-        {
-            "invoiceAfterTaxAmt":5562.41,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993354"
-        },
-        {
-            "invoiceAfterTaxAmt":5764.32,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993352"
-        },
-        {
-            "invoiceAfterTaxAmt":1498.22,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993351"
-        },
-        {
-            "invoiceAfterTaxAmt":12452.09,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993353"
-        },
-        {
-            "invoiceAfterTaxAmt":16836.18,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993355"
-        },
-        {
-            "invoiceAfterTaxAmt":7154.92,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993356"
-        },
-        {
-            "invoiceAfterTaxAmt":10953.94,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993346"
-        },
-        {
-            "invoiceAfterTaxAmt":5764.32,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519401600000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993344"
-        },
-        {
-            "invoiceAfterTaxAmt":9204.16,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519660800000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993383"
-        },
-        {
-            "invoiceAfterTaxAmt":5927.04,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519660800000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993384"
-        },
-        {
-            "invoiceAfterTaxAmt":2882.16,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519660800000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993385"
-        },
-        {
-            "invoiceAfterTaxAmt":130,
-            "invoiceCurrency":2,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1519920000000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"04993405"
-        }
-    ],
-    "isAvailableInvoice":0,
-    "isMasterAr":1,
-    "parentChainId":null,
-    "poNumber":null,
-    "sourceChainId":null,
-    "transSerial":null,
-    "transSerialNo":null,
-    "transType":null
+        ],
+        "currencyDesc":null,
+        "currencyName":null,
+        "custFromId":null,
+        "custFromName":null,
+        "custToId":null,
+        "custToName":null,
+        "invoiceCustomList":[
+            {
+                "invoiceAfterTaxAmt":102070.8,
+                "invoiceCurrency":null,
+                "invoiceCurrencyDesc":null,
+                "invoiceDate":1512576000000,
+                "invoiceIsSelected":0,
+                "invoiceNo":"33759495"
+            }
+        ],
+        "isAvailableInvoice":0,
+        "isMasterAr":1,
+        "parentChainId":null,
+        "poNumber":null,
+        "sourceChainId":null,
+        "transSerial":null,
+        "transSerialNo":null,
+        "transType":null
+    },
+    "msg":"请求成功",
+    "recordsTotal":1,
+    "status":1
 },
 factories:{
     "message":"查询成功",
@@ -1263,7 +775,7 @@ factories:{
     "status":1
 },
 fenboList:{
-    "aaData":[
+    "data":[
         {
             "billId":"HBA-H70010",
             "buyerCustNo":"A086348",
@@ -1316,6 +828,161 @@ fenboList:{
     "draw":2,
     "recordsFiltered":4,
     "recordsTotal":4
+},
+getArData:{
+    "datas":[
+        {
+            "arStatusTypeName":"已授讓",
+            "billId":"HPF-HB0431",
+            "billPayDate":1520179200000,
+            "checkedStatus":3,
+            "companyName":"富泰華工業(深圳)有限公司",
+            "currencyDesc":null,
+            "custFromName":"深圳市新威達電子有限公司",
+            "custToName":"山西英和貿易有限公司",
+            "invList":null,
+            "masterChainId":"AR20180606000001",
+            "transAmt":200,
+            "transDate":1528249037000,
+            "transSerialNo":"59fcc1cc-45c8-4407-8a99-40eac08b42fa"
+        },
+        {
+            "arStatusTypeName":"已授讓",
+            "billId":"HPF-HB0431",
+            "billPayDate":1520179200000,
+            "checkedStatus":3,
+            "companyName":"富泰華工業(深圳)有限公司",
+            "currencyDesc":null,
+            "custFromName":"深圳市新威達電子有限公司",
+            "custToName":"山西英和貿易有限公司",
+            "invList":null,
+            "masterChainId":"AR20180605000007",
+            "transAmt":100,
+            "transDate":1528185776000,
+            "transSerialNo":"28de0e69-4a35-4d6f-a945-3b917e100e69"
+        },
+        {
+            "arStatusTypeName":"已授讓",
+            "billId":"HPF-HB0431",
+            "billPayDate":1520179200000,
+            "checkedStatus":3,
+            "companyName":"富泰華工業(深圳)有限公司",
+            "currencyDesc":null,
+            "custFromName":"深圳市新威達電子有限公司",
+            "custToName":"山西英和貿易有限公司",
+            "invList":null,
+            "masterChainId":"AR20180605000006",
+            "transAmt":100,
+            "transDate":1528185774000,
+            "transSerialNo":"fae6f9eb-dfde-491f-b5ba-40f949a59b76"
+        },
+        {
+            "arStatusTypeName":"已授讓",
+            "billId":"HPF-HB0431",
+            "billPayDate":1520179200000,
+            "checkedStatus":3,
+            "companyName":"富泰華工業(深圳)有限公司",
+            "currencyDesc":null,
+            "custFromName":"深圳市新威達電子有限公司",
+            "custToName":"山西英和貿易有限公司",
+            "invList":null,
+            "masterChainId":"AR20180605000005",
+            "transAmt":100,
+            "transDate":1528185770000,
+            "transSerialNo":"33f7a1eb-8e7e-4132-86f0-94f7030995c2"
+        },
+        {
+            "arStatusTypeName":"已授讓",
+            "billId":"5100002408",
+            "billPayDate":null,
+            "checkedStatus":3,
+            "companyName":"深圳富泰宏精密工業有限公司",
+            "currencyDesc":null,
+            "custFromName":"深圳市新威達電子有限公司",
+            "custToName":"山西英和貿易有限公司",
+            "invList":null,
+            "masterChainId":"AR20180605000004",
+            "transAmt":100,
+            "transDate":1528179828000,
+            "transSerialNo":"faa8350b-0ea0-4b72-b17b-b6448c43d791"
+        },
+        {
+            "arStatusTypeName":"已授讓",
+            "billId":"HOI-HC0002",
+            "billPayDate":1515081600000,
+            "checkedStatus":3,
+            "companyName":"晉城富泰華精密電子有限公司",
+            "currencyDesc":null,
+            "custFromName":"VCN0000152公司名稱",
+            "custToName":"山西英和貿易有限公司",
+            "invList":null,
+            "masterChainId":"AR20180605000002",
+            "transAmt":5,
+            "transDate":1528165891000,
+            "transSerialNo":"511f735e-8797-4e3e-8474-10e5a6252672"
+        },
+        {
+            "arStatusTypeName":"已授讓",
+            "billId":"HOI-HB0014",
+            "billPayDate":1512662400000,
+            "checkedStatus":3,
+            "companyName":"晉城富泰華精密電子有限公司",
+            "currencyDesc":null,
+            "custFromName":"VCN0000152公司名稱",
+            "custToName":"山西英和貿易有限公司",
+            "invList":null,
+            "masterChainId":"AR20180601000003",
+            "transAmt":17,
+            "transDate":1527837585000,
+            "transSerialNo":"2c818c3c-5c9d-4743-a37a-b7149f0546f8"
+        },
+        {
+            "arStatusTypeName":"已授讓",
+            "billId":"9300000896",
+            "billPayDate":null,
+            "checkedStatus":3,
+            "companyName":"深圳富泰宏精密工業有限公司",
+            "currencyDesc":null,
+            "custFromName":"深圳市新威達電子有限公司",
+            "custToName":"山西英和貿易有限公司",
+            "invList":null,
+            "masterChainId":"AR20180531000003",
+            "transAmt":2000,
+            "transDate":1527746032000,
+            "transSerialNo":"f96e70c6-01be-4f99-80c8-863057d54e66"
+        },
+        {
+            "arStatusTypeName":"已授讓",
+            "billId":"JJB-HA0111",
+            "billPayDate":1517241600000,
+            "checkedStatus":3,
+            "companyName":"昆山富成科精密電子有限公司",
+            "currencyDesc":"人民币",
+            "custFromName":"KSYS",
+            "custToName":"山西英和貿易有限公司",
+            "invList":null,
+            "masterChainId":"AR20171111000001",
+            "transAmt":100,
+            "transDate":1510381677000,
+            "transSerialNo":"0909391d-63eb-44ff-b93a-93c18b6454bc"
+        },
+        {
+            "arStatusTypeName":"已授讓",
+            "billId":"JJB-H90123",
+            "billPayDate":1511971200000,
+            "checkedStatus":3,
+            "companyName":"昆山富成科精密電子有限公司",
+            "currencyDesc":"人民币",
+            "custFromName":"KSYS",
+            "custToName":"山西英和貿易有限公司",
+            "invList":null,
+            "masterChainId":"AR20171108000005",
+            "transAmt":100,
+            "transDate":1510118230000,
+            "transSerialNo":"5a50b00f-2240-455f-9593-12732beb6d24"
+        }
+    ],
+    "total":20
 }
 }
 

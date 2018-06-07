@@ -9,7 +9,7 @@
       <el-checkbox v-for="item in this.detailsP.contractList" :key="item.contractId" :label="item.contractId">{{item.contractName}}</el-checkbox>
     </el-checkbox-group>
     <footer>
-      <el-button @click="handleSubmit">确认</el-button>
+      <el-button @click="handleSubmit" :loading="isLoading">确认</el-button>
     </footer>
   </el-dialog>
 </template>
@@ -27,24 +27,28 @@ export default {
   mixins: [DialogClose],
   data () {
     return {
-      checkList: []
+      checkList: [],
+      isLoading: false
     }
   },
   methods: {
     handleSubmit () {
+      this.isLoading = true
       if (this.checkList.length !== this.detailsP.contractList.length) {
         this.$message({
           type: 'error',
           message: '合同未勾选'
         })
+        this.isLoading = false
         return
       }
-      this.axios.post('/myAr2/completeSigningDiscount.do', { masterChainId: this.detailsP.masterChainId }).then(res => {
+      this.axios.post('/myAr/completeSigningDiscount.do', { masterChainId: this.detailsP.masterChainId }).then(res => {
         let type = res.data.result === 'true' ? 'success' : 'error'
         this.$message({
           message: res.data.message,
           type: type
         })
+        this.isLoading = false
         this.handleClose() // 关闭弹窗
         this.$parent.fresh() // 刷新数据
       }).catch(() => {
@@ -52,6 +56,7 @@ export default {
           type: 'info',
           message: '操作失败'
         })
+        this.isLoading = false
       })
     }
   },

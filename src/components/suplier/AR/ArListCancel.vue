@@ -3,7 +3,6 @@
         <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-info>
         <el-table
         :data="dataTable"
-        show-summary
         border
         sum-text="本页合计"
         style="width: 100%"

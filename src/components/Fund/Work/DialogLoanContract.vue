@@ -13,7 +13,7 @@
       </el-row>
       <el-row>
         <el-col :span="11" class="flex"><label>贴现利率:</label><el-input v-model.number="getform.interestRate" placeholder="贴现利率"></el-input></el-col>
-        <el-col :span="11" :offset="1" class="flex"><label>贴现手续费：</label><el-input v-model.number="getform.serviceFee" type="number" placeholder="贴现手续费"></el-input></el-col>
+        <el-col :span="11" :offset="1" class="flex"><label>服务费率：</label><el-input v-model.number="getform.serviceFeeRate" type="number" placeholder="服务费率"></el-input></el-col>
       </el-row>
       <el-row>
         <el-col :span="11" class="flex"><label>逾期利率:</label><el-input v-model.number="getform.overdueRate" placeholder="逾期利率"></el-input></el-col>
@@ -37,7 +37,7 @@
       </el-row>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleSubmit">确认</el-button>
+      <el-button type="primary" @click="handleSubmit" :loading="isLoading">确认</el-button>
     </footer>
   </el-dialog>
 </template>
@@ -85,7 +85,8 @@ export default {
       {
         RepaymentType: 2,
         RepaymentTypeName: '一次还款本息'
-      }]
+      }],
+      isLoading: false
     }
   },
   computed: {
@@ -101,13 +102,14 @@ export default {
   },
   methods: {
     handleSubmit () {
+      this.isLoading = true
       const param = {
         masterChainId: this.getform.masterChainId,
         supplierCustId: this.getform.supplierCustId,
         billBookAmt: this.getform.billBookAmt, // 贴现金额
         actualDiscountAmt: this.getform.actualDiscountAmt || '', // 实放金額
         interestRate: this.getform.interestRate || '', // 贴现利率
-        serviceFee: this.getform.serviceFee || '', // 贴现手续费
+        serviceFeeRate: this.getform.serviceFeeRate || '', // 服务费率
         overdueRate: this.getform.overdueRate || '', // 逾期利率
         prepaymentDeductInterest: this.getform.prepaymentDeductInterest || '', // 提前还款手续费
         repaymentType: this.getform.repaymentType || '', // 还款方式
@@ -122,11 +124,13 @@ export default {
           message: res.data.data.message,
           type: type
         })
+        this.isLoading = false
       }).catch(() => {
         this.$message({
           type: 'info',
           message: '操作失败'
         })
+        this.isLoading = false
       })
     }
   }

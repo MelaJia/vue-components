@@ -18,7 +18,9 @@
       <el-input v-model="formInline.invoiceNo" placeholder="发票号"></el-input>
     </el-form-item>
     <el-form-item label="贴现金额">
-      <el-input v-model="formInline.discountAmtFrom" placeholder="起始金额"></el-input>-<el-input v-model="formInline.discountAmtTo" placeholder="结束金额"></el-input>
+      <el-col :span="11"><el-input v-model="formInline.discountAmtScopeFrom" placeholder="起始金额"></el-input></el-col>
+      <el-col class="line" :span="2">-</el-col>
+      <el-col :span="11"><el-input v-model="formInline.discountAmtScopeTo" placeholder="结束金额"></el-input></el-col>
     </el-form-item>
     <el-form-item label="预计回款日期">
       <el-date-picker v-model="formInline.moneyDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
@@ -29,10 +31,8 @@
     </el-form-item>
   </el-form>
 </template>
-<style scoped>
-form {
-  padding: 10px;
-}
+<style scoped lang="scss">
+@import "@/assets/css/_searchBase.scss";
 </style>
 
 <script>
@@ -48,8 +48,8 @@ export default {
         companyName: '', // 付款单位
         billBookCurr: '', // 币别
         invoiceNo: '', // 发票号
-        discountAmtFrom: '', // 贴现金额起始
-        discountAmtTo: '', // 贴现金额结束
+        discountAmtScopeFrom: '', // 贴现金额起始
+        discountAmtScopeTo: '', // 贴现金额结束
         moneyDate: null // 日期
       }
     }
