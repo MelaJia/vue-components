@@ -716,7 +716,21 @@ arDetails:{
         "checkedStatus":2,
         "companyName":"富泰華工業(深圳)有限公司",
         "contractList":[
-
+            {
+                "contractId":"c0b2b899-f047-4698-b3c2-84e44233d44f",
+                "contractName":"國內保理業務合同（有追索權）",
+                "contractStatus":2
+            },
+            {
+                "contractId":"cf5a23ec-8340-47f6-a0ef-44934dba9863",
+                "contractName":"應收賬款債權轉讓通知書（整體轉讓）",
+                "contractStatus":2
+            },
+            {
+                "contractId":"f9f53ca6-2d0c-46b1-8bd3-517af17d950f",
+                "contractName":"供應商信息暨銀行資料確認書",
+                "contractStatus":2
+            }
         ],
         "currencyDesc":null,
         "currencyName":null,
@@ -835,7 +849,7 @@ getArData:{
             "arStatusTypeName":"已授讓",
             "billId":"HPF-HB0431",
             "billPayDate":1520179200000,
-            "checkedStatus":3,
+            "checkedStatus":2,
             "companyName":"富泰華工業(深圳)有限公司",
             "currencyDesc":null,
             "custFromName":"深圳市新威達電子有限公司",
