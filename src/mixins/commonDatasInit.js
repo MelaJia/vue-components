@@ -9,7 +9,7 @@ export default {
       if (res.data.status) {
         setStore({
           name: 'moneyTypes',
-          content: res.data.showData,
+          content: res.data.data,
           type: true
         })
       } else {
@@ -21,7 +21,7 @@ export default {
       if (res.data.status) {
         setStore({
           name: 'arStatus',
-          content: res.data.showData,
+          content: res.data.data,
           type: true
         })
       } else {

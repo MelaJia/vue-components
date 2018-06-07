@@ -9,10 +9,14 @@
     <section>
       <ul>
         <li>
-          <span>付款单位:{{this.detailsP.companyName}}</span>
+          <el-tooltip :content="'付款单位:'+this.detailsP.companyName" placement="bottom" effect="light">
+            <span>付款单位:{{this.detailsP.companyName}}</span>
+          </el-tooltip>
         </li>
         <li>
-          <span>转让单位:{{this.detailsP.custFromName}}</span>
+          <el-tooltip :content="'转让单位:'+this.detailsP.custFromName" placement="bottom" effect="light">
+            <span>转让单位:{{this.detailsP.custFromName}}</span>
+          </el-tooltip>
         </li>
         <li>
           <span>状态:{{this.detailsP.arStatusTypeName}}</span>
@@ -20,10 +24,10 @@
       </ul>
       <ul>
         <li>
-          <span>预计回款日期:{{this.detailsP.billPayDate}}</span>
+          <span>预计回款日期:{{this.detailsP.billPayDate | dateFormat}}</span>
         </li>
         <li>
-          <span>转让日期:{{this.detailsP.transDate}}</span>
+          <span>转让日期:{{this.detailsP.transDate | dateFormat}}</span>
         </li>
         <li>
           <span>转让金额:{{this.detailsP.transAmt}}</span>
@@ -39,7 +43,7 @@
           </el-tooltip>
         </li>
         <li>
-          <span>预计回款日期:{{this.detailsP.billPayDate}}</span>
+          <span>预计回款日期:{{this.detailsP.billPayDate | dateFormat}}</span>
         </li>
       </ul>
       <ul>
@@ -78,10 +82,12 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+// 导入时间格式化过滤器
+import Common from '@/mixins/common'
 /* 待收Ar详情 */
 export default {
   props: ['visibleP', 'detailsP'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, Common],
   data () {
     return {
       radio2: 3

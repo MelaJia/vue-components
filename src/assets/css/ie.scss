@@ -1,0 +1,23 @@
+// Ie10兼容
+.ie10 {
+  .main {
+    max-width: 100%;
+  }
+  .tags-container {
+    width: 100%;
+    padding-left: 10px;
+  }
+  .el-container{
+    display:block;
+    height: 100%;    
+  }
+  .el-aside {
+    float: left;
+    height: 100%;
+    overflow: hidden;
+  }
+  .el-main {
+    display: block;
+    margin-left: 200px;
+  }
+}

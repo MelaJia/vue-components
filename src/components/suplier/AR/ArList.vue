@@ -9,9 +9,11 @@
       </el-table-column>
       <el-table-column align="center" fixed sortable label="AR单号" prop="masterChainId" width="130">
       </el-table-column>
+      <el-table-column align="center" fixed sortable label="结报单号" prop="billId" width="130">
+      </el-table-column>
       <el-table-column align="center" label="付款单位" prop="companyName">
       </el-table-column>
-      <el-table-column align="center" label="授让单位" prop="custFromName">
+      <el-table-column align="center" label="转让单位" prop="custFromName">
       </el-table-column>
       <el-table-column align="center" sortable label="交易流水号" prop="transSerialNo" min-width="120">
       </el-table-column>
@@ -19,7 +21,7 @@
       </el-table-column>
       <el-table-column align="center" label="币别" prop="currencyDesc">
       </el-table-column>
-      <el-table-column align="center" label="票面金额" prop="transAmt">
+      <el-table-column align="center" label="转让金额" prop="transAmt">
       </el-table-column>
       <el-table-column align="center" label="转让日期" sortable prop="transDate" min-width="120" :formatter="dateFormat">
       </el-table-column>

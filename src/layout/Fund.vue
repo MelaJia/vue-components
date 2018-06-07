@@ -15,7 +15,7 @@
         </el-aside>
         <el-main>
           <tags ref="nav" class="nav"></tags>
-          <main :style="'overflow: auto;background-color:rgb(242,242,242);'+'height:'+(height-120)+'px'">
+          <main :style="'overflow: auto;background-color:#fff;'+'height:'+(height-120)+'px'">
             <router-view></router-view>
           </main>
         </el-main>

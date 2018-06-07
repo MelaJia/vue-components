@@ -63,17 +63,26 @@ export default {
     handleSearch (val) {
       let form = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
       let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
-      this.param = {
-        masterChainId: val.masterChainId.trim(), // ar单号
-        isMasterAr: val.isMasterAr, // ar来源
-        companyName: val.companyName.trim(), // 付款单位
-        checkedStatus: val.status, // 状态
-        billBookCurr: val.billBookCurr, // 币别
-        invoiceNo: val.invoiceNo.trim(), // 发票号
-        from: form, // 日期
-        to: to,
-        transSerialNo: val.transSerialNo.trim() // 交易流水号
+      console.log(val.masterChainId.trim())
+      console.log(val.custFromName)
+      console.log(val.invoiceNo)
+      console.log(val.transSerialNo)
+      try {
+        this.param = {
+          masterChainId: val.masterChainId.trim(), // ar单号
+          isMasterAr: val.isMasterAr, // ar来源
+          custFromName: val.custFromName.trim(), // 转让单位
+          checkedStatus: val.status, // 状态
+          billBookCurr: val.billBookCurr, // 币别
+          invoiceNo: val.invoiceNo.trim(), // 发票号
+          from: form, // 日期
+          to: to,
+          transSerialNo: val.transSerialNo.trim() // 交易流水号
+        }
+      } catch (error) {
+        console.log(error)
       }
+
       if (this.total && this.currentPage !== 1) {
         this.total = 0 // 分页的当前页数变动会触发 从而获取数据
       } else {

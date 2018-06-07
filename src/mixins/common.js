@@ -108,6 +108,9 @@ export default {
   },
   // 过滤器
   filters: {
+    /**
+     * 时间戳转时间
+     */
     dateFormat: function (value) {
       return new Date(value).Format('yyyy-MM-dd')
     },
