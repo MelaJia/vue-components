@@ -118,7 +118,7 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="操作" width='200px' class-name="">
+        <el-table-column align="left" label-align="center" label="操作" width='200px' class-name="">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)" :loading="scope.row.infoLoading">详情</el-button>
             <!-- <el-dropdown>

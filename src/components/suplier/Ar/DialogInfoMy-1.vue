@@ -12,42 +12,44 @@
           <span>付款单位:{{this.detailsP.companyName}}</span>
         </li>
         <li>
-          <span>转让单位:{{this.detailsP.custFromName}}</span>
+          <span>对手单位:{{this.detailsP.custToName}}</span>
         </li>
+        <li>
+          <span>AR来源:{{this.detailsP.arSourceDesc}}</span>
+        </li>
+      </ul>
+      <ul>
         <li>
           <span>状态:{{this.detailsP.arStatusTypeName}}</span>
         </li>
-      </ul>
-      <ul>
-        <li>
-          <span>预计回款日期:{{this.detailsP.billPayDate}}</span>
-        </li>
-        <li>
-          <span>转让日期:{{this.detailsP.transDate}}</span>
-        </li>
-        <li>
-          <span>转让金额:{{this.detailsP.transAmt}}</span>
-        </li>
-      </ul>
-      <ul>
         <li>
           <span>币别:{{this.detailsP.currencyDesc}}</span>
         </li>
         <li>
-          <el-tooltip :content="'交易流水:'+this.detailsP.transSerialNo" placement="bottom" effect="light">
-            <span>交易流水:{{this.detailsP.transSerialNo}}</span>
-          </el-tooltip>
-        </li>
-        <li>
-          <span>预计回款日期:{{this.detailsP.billPayDate}}</span>
+          <span>预计回款日期:{{this.detailsP.billPayDate | dateFormat}}</span>
         </li>
       </ul>
       <ul>
         <li>
-          <el-tooltip :content="'对应发票号:'+this.detailsP.bankAccount" placement="bottom" effect="light">
-              <span>对应发票号:{{this.detailsP.bankAccount}}</span>
-          </el-tooltip>
+          <span>票面金额:{{this.detailsP.billBookAmt}}</span>
         </li>
+        <li>
+          <span>可用金额:{{this.detailsP.arAvailableAmt}}</span>
+        </li>
+      </ul>
+      <ul>
+          <span>已勾选发票:
+            <div class="el-check-group inline-block">
+            <el-checkbox v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}</el-checkbox>
+            </div>
+          </span>
+      </ul>
+      <ul>
+          <span>合同:
+          <div class="a-link-group inline-block">
+            <a v-for="item in detailsP.contractList" :key="item.contractId" href="http://" @click.prevent="constractHandle(item.contractId)">{{item.contractName}}</a>
+          </div>
+        </span>
       </ul>
       <!-- <p>
             <span>最终付款单位:{{this.detailsP.company}}</span>
@@ -78,10 +80,11 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-/* 待收Ar详情 */
+import Common from '@/mixins/common'
+/* 我的Ar详情 */
 export default {
   props: ['visibleP', 'detailsP'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, Common],
   data () {
     return {
       radio2: 3
@@ -93,7 +96,6 @@ export default {
     }
   },
   methods: {
-
   }
 }
 

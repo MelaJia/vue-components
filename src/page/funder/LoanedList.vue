@@ -74,11 +74,11 @@ export default {
       let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
       /* 修改请求参数 */
       this.param = {
-        masterChainId: val.masterChainId, // ar单号
-        custFromName: val.custFromName, // 贴现客户
-        companyName: val.companyName, // 付款单位
+        masterChainId: val.masterChainId.trim(), // ar单号
+        custFromName: val.custFromName.trim(), // 贴现客户
+        companyName: val.companyName.trim(), // 付款单位
         billBookCurr: val.billBookCurr, // 币别
-        invoiceNo: val.invoiceNo, // 发票号
+        invoiceNo: val.invoiceNo.trim(), // 发票号
         discountAmtScopeFrom: val.discountAmtScopeFrom, // 贴现金额起始
         discountAmtScopeTo: val.discountAmtScopeTo, // 贴现金额结束
         from: form, // 日期

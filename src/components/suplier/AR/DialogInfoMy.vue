@@ -12,9 +12,6 @@
           <span>付款单位:{{this.detailsP.companyName}}</span>
         </li>
         <li>
-          <span>对手单位:{{this.detailsP.custToName}}</span>
-        </li>
-        <li>
           <span>AR来源:{{this.detailsP.arSourceDesc}}</span>
         </li>
       </ul>
@@ -32,11 +29,6 @@
       <ul>
         <li>
           <span>票面金额:{{this.detailsP.billBookAmt}}</span>
-        </li>
-        <li>
-          <el-tooltip :content="'交易流水:'+this.detailsP.transSerialNo" placement="bottom" effect="light">
-            <span>交易流水:{{this.detailsP.transSerialNo}}</span>
-          </el-tooltip>
         </li>
         <li>
           <span>可用金额:{{this.detailsP.arAvailableAmt}}</span>

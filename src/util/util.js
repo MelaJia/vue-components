@@ -271,3 +271,18 @@ export const firstToUpperCase = (str)=>{ // 正则法
    return m.toUpperCase()
   });
  }
+ /**
+  * 清除字符串两端空格
+  */
+ export const trimInit = ()=>{
+  if (!String.prototype.trim){
+
+    /*---------------------------------------
+     * 清除字符串两端空格
+     *---------------------------------------*/
+    String.prototype.trim = function () { 
+     return this.replace(/(^\s*)|(\s*$)/g, "");
+    }
+    
+   }
+ }

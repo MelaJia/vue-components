@@ -14,13 +14,14 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import * as types from '@/store/types'
 import {
-  dateInit
+  dateInit, trimInit
 } from '@/util/util'
 import {
   baseUrl
 } from '@/config/env.js'
 import {monitorInit} from '@/monitorDatas'
 dateInit() // 格式化日期注册
+trimInit() // 去空格函数初始
 axios.defaults.baseURL = baseUrl
 if (process.env.NODE_ENV === 'development') {
   monitorInit() // 模拟数据初始化

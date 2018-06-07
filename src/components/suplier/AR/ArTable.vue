@@ -15,6 +15,8 @@
     <!-- <dialog-withdraw :visible-p.sync="dialogWithdrawVisible" :multiple-selection-p="multipleSelection" :options="Options"></dialog-withdraw> -->
     <!-- 详情 -->
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-info>
+    <!-- 子详情 -->
+    <dialog-info-1 :visible-p.sync="dialogChildInfoVisible" :details-p="details" ></dialog-info-1>
     <section>
       <el-table ref="table" :data="comDatas" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%"
@@ -48,9 +50,9 @@
               </el-table-column>
               <el-table-column align="center" prop="billPayStatus" :width="widthArr.billPayStatus">
               </el-table-column>
-              <el-table-column align="center" width='200px'>
+              <el-table-column align="left" label-align="center" width='200px'>
                 <template slot-scope="scope">
-                  <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)" :loading="scope.row.infoLoading">详情</el-button>
+                  <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row, true)" :loading="scope.row.infoLoading">详情</el-button>
                   <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
                     <span class="el-dropdown-link">
                       更多<i class="el-icon-arrow-down el-icon--right"></i>
@@ -91,7 +93,7 @@
         </el-table-column>
         <el-table-column align="center" label="打款处理状态" prop="billPayStatus">
         </el-table-column>
-        <el-table-column align="center" label="操作" width='200px' class-name="">
+        <el-table-column align="left" label-align="center" label="操作" width='200px' class-name="">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)" :loading="scope.row.infoLoading">详情</el-button>
             <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
@@ -164,7 +166,9 @@ export default {
     'dialog-discount': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogDiscount'),
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogInfoMy')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogInfoMy'),
+    'dialog-info-1': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogInfoMy-1')
   },
   data () {
     return {
@@ -172,6 +176,7 @@ export default {
       dialogTransferVisible: false, // 控制转账窗
       dialogDiscountVisible: false, // 控制贴现窗
       dialogInfoVisible: false,
+      dialogChildInfoVisible: false, // 子详情
       multipleSelection: [], // 选择的数据
       details: {}, // 详情数据
       operateArr: [
@@ -212,13 +217,17 @@ export default {
       })
     },
     // 详情
-    handleInfo (idx, val) {
+    handleInfo (idx, val, isChild = false) {
       console.log(val)
       val.infoLoading = true
       this.getDetail(val).then(res => {
         if (res) {
           this.details = res
-          this.dialogInfoVisible = true
+          if (isChild) {
+            this.dialogChildInfoVisible = true
+          } else {
+            this.dialogInfoVisible = true
+          }
         }
         val.infoLoading = false
       }).catch(err => {
