@@ -18,7 +18,7 @@ let protocol = document.location.protocol
 let host = document.location.host
 let basePath = getContextPath()
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = `https://jurongtest.foxconn.com/sit/`
+  baseUrl = `https://jurongtest.foxconn.com/sit`
   apiUrl = baseUrl
 } else if (process.env.NODE_ENV === 'production') {
   baseUrl = `${protocol}//${host}${basePath}`
