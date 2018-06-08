@@ -20,6 +20,8 @@
         sortable
         min-width="130">
         </el-table-column>
+        <el-table-column align="center" fixed sortable label="结报单号" prop="billId" width="130">
+      </el-table-column>
         <el-table-column align="center"
         label="付款单位"
         prop="come"
@@ -48,11 +50,11 @@
         >
         </el-table-column>
         <el-table-column align="center"
-        label="票面金额"
+        label="转让金额"
         prop="transAmt"
         >
         </el-table-column><el-table-column align="center"
-        label="转让日期"
+        label="授让日期"
         sortable
         prop="transDate"
         :formatter="dateFormat"

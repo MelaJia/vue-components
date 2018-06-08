@@ -9,10 +9,14 @@
     <section>
       <ul>
         <li>
-          <span>付款单位:{{this.detailsP.companyName}}</span>
+          <el-tooltip :content="'付款单位:'+this.detailsP.companyName" placement="bottom" effect="light">
+            <span>付款单位:{{this.detailsP.companyName}}</span>
+          </el-tooltip>
         </li>
         <li>
-          <span>转让单位:{{this.detailsP.custFromName}}</span>
+          <el-tooltip :content="'转让单位:'+this.detailsP.custFromName" placement="bottom" effect="light">
+            <span>转让单位:{{this.detailsP.custFromName}}</span>
+          </el-tooltip>
         </li>
         <li>
           <span>状态:{{this.detailsP.arStatusTypeName}}</span>

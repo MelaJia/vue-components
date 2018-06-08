@@ -76,12 +76,9 @@ export default {
         to: to,
         transSerialNo: val.transSerialNo.trim() // 交易流水号
       }
-      console.log('1')
       if (this.total && this.currentPage !== 1) {
-        console.log('2')
         this.total = 0 // 分页的当前页数变动会触发 从而获取数据
       } else {
-        console.log('3')
         this.getdata(1, 10).then(res => {
           if (res) {
             this.tableData5 = res.data[this.dataStr]

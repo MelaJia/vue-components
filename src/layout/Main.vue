@@ -13,7 +13,7 @@
         </el-aside>
         <el-main>
           <tags ref="nav" class="nav"></tags>
-          <main :style="'overflow: auto;background-color:#fff;'+'height:'+(height-120)+'px'">
+          <main :style="'overflow: auto;background-color:#fff;'+'height:auto'">
             <router-view></router-view>
           </main>
         </el-main>
@@ -69,16 +69,16 @@ export default {
     Tags
   },
   created () {
-    var winHeight = 0
-    if (window.innerHeight) {
-      winHeight = window.innerHeight
-    } else if ((document.body) && (document.body.clientHeight)) {
-      winHeight = document.body.clientHeight
-    }
-    this.height = winHeight
-    window.onresize = () => {
-      this.height = document.body.clientHeight
-    }
+    // var winHeight = 0
+    // if (window.innerHeight) {
+    //   winHeight = window.innerHeight
+    // } else if ((document.body) && (document.body.clientHeight)) {
+    //   winHeight = document.body.clientHeight
+    // }
+    // this.height = winHeight
+    // window.onresize = () => {
+    //   this.height = document.body.clientHeight
+    // }
   }
 }
 

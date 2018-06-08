@@ -6,7 +6,7 @@ export default {
       if (date === undefined) {
         return ''
       }
-      return new Date(date).Format('yyyy-MM-dd HH:mm:ss')
+      return new Date(date).Format('yyyy-MM-dd')
     },
     // 时间格式化
     addPercent: function (row, column) {
