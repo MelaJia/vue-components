@@ -2,9 +2,9 @@ import {
   setStore
 } from '@/util/store'
 export default {
-  mounted () {
+  created () {
     // 获取货币类型并保存
-    console.log('获取通用数据')
+    console.log('从服务器获取通用数据')
     this.axios.get('/commonAr/queryCurr.do').then(res => {
       if (res.data.status) {
         setStore({

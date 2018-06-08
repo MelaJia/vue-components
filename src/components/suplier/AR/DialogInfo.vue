@@ -47,11 +47,11 @@
         </li>
       </ul>
       <ul>
-        <li>
-          <el-tooltip :content="'对应发票号:'+this.detailsP.bankAccount" placement="bottom" effect="light">
-              <span>对应发票号:{{this.detailsP.bankAccount}}</span>
-          </el-tooltip>
-        </li>
+        <span>对应发票号:
+          <div class="a-link-group inline-block">
+            <label v-for="item in detailsP.invoiceCustomList" :key="item.invoiceNo">{{item.invoiceNo}}</label>
+          </div>
+        </span>
       </ul>
       <!-- <p>
             <span>最终付款单位:{{this.detailsP.company}}</span>

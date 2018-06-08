@@ -735,7 +735,7 @@ arDetails:{
         "currencyDesc":null,
         "currencyName":null,
         "custFromId":null,
-        "custFromName":null,
+        "custFromName": '转让单位',
         "custToId":null,
         "custToName":null,
         "invoiceCustomList":[
@@ -746,6 +746,22 @@ arDetails:{
                 "invoiceDate":1512576000000,
                 "invoiceIsSelected":0,
                 "invoiceNo":"33759495"
+            },
+            {
+                "invoiceAfterTaxAmt":102070.8,
+                "invoiceCurrency":null,
+                "invoiceCurrencyDesc":null,
+                "invoiceDate":1512576000000,
+                "invoiceIsSelected":0,
+                "invoiceNo":"33759496"
+            },
+            {
+                "invoiceAfterTaxAmt":102070.8,
+                "invoiceCurrency":null,
+                "invoiceCurrencyDesc":null,
+                "invoiceDate":1512576000000,
+                "invoiceIsSelected":0,
+                "invoiceNo":"33759497"
             }
         ],
         "isAvailableInvoice":0,

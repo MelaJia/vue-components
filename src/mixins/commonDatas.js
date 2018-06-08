@@ -9,6 +9,8 @@ export default {
     }
   },
   mounted () {
+    // 从storage获取通用数据
+    console.log('从storage获取通用数据')
     this.moneyTypes = getStore({
       name: 'moneyTypes'
     })

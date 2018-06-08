@@ -30,12 +30,13 @@
 <script>
 import ArList from '@/components/Fund/Work/LoanListTable'
 import Search from '@/components/Fund/Work/LoanSearch'
+import commonDatasInit from '@/mixins/commonDatasInit' // 公共数据初始化
 import DataInit from '@/mixins/suplier/Ar/DataInit'
 import Table from '@/mixins/suplier/Ar/Table'
 // import {Datas} from '@/monitorDatas/Fund/loanDatas'
 export default {
   // 放款页面
-  mixins: [DataInit, Table],
+  mixins: [commonDatasInit, DataInit, Table],
   data () {
     return {
       postUrl: '/loan2/getLoanManagerListTable.do', // 列表请求地址

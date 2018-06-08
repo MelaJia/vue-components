@@ -63,10 +63,6 @@ export default {
     handleSearch (val) {
       let form = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
       let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
-      console.log(val.masterChainId.trim())
-      console.log(val.custFromName)
-      console.log(val.invoiceNo)
-      console.log(val.transSerialNo)
       try {
         this.param = {
           masterChainId: val.masterChainId.trim(), // ar单号
