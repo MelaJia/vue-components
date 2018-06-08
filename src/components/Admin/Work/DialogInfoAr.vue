@@ -1,8 +1,8 @@
 <template>
 
-  <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
+  <el-dialog :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
-      <span id="title">
+      <span class="title">
         {{getTitle}}
       </span>
     </header>
@@ -32,8 +32,9 @@
         </li>
       </ul>
     </section>
-    <footer slot="footer" :style="'clear:both'">
+    <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
+      <el-button type="primary" @click="print(`.${detailsP.masterChainId}`)">打印</el-button>
     </footer>
   </el-dialog>
 </template>

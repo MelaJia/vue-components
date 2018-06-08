@@ -1,7 +1,7 @@
 <template>
   <el-dialog :visible.sync="visibleP" :before-close="handleClose">
      <header slot="title">
-      <span id="title">
+      <span class="title">
         {{getTitle}}
       </span>
     </header>

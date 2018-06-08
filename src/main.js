@@ -17,12 +17,12 @@ import {
   dateInit, trimInit
 } from '@/util/util'
 import {
-  baseUrl
+  apiUrl
 } from '@/config/env.js'
 import {monitorInit} from '@/monitorDatas'
 dateInit() // 格式化日期注册
 trimInit() // 去空格函数初始
-axios.defaults.baseURL = baseUrl
+axios.defaults.baseURL = apiUrl
 if (process.env.NODE_ENV === 'development') {
   monitorInit() // 模拟数据初始化
 }

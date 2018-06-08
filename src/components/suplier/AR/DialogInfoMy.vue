@@ -1,6 +1,6 @@
 <template>
 
-  <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
+  <el-dialog :custom-class="'dia-class p'+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
       <span id="title">
         {{getTitle}}
@@ -73,8 +73,9 @@
             <span>预计回款日期:{{this.detailsP.arriveDate}}</span>
         </p> -->
     </section>
-    <footer slot="footer" :style="'clear:both'">
+    <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
+      <el-button type="primary" @click="print(`.p${detailsP.masterChainId}`)">打印</el-button>
     </footer>
   </el-dialog>
 </template>

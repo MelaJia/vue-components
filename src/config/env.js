@@ -10,6 +10,7 @@
  *
  */
 let baseUrl = ''
+let apiUrl = `${baseUrl}/openapi`
 let iconfontVersion = ['567566_lgiis24af44bcsor']
 let iconfontUrl = `//at.alicdn.com/t/font_$key.css`
 let codeUrl = `${baseUrl}/code`
@@ -18,10 +19,12 @@ let host = document.location.host
 let basePath = getContextPath()
 if (process.env.NODE_ENV === 'development') {
   baseUrl = `https://jurongtest.foxconn.com/sit/`
+  apiUrl = baseUrl
 } else if (process.env.NODE_ENV === 'production') {
-  baseUrl = `${protocol}//${host}${basePath}/openapi`
+  baseUrl = `${protocol}//${host}${basePath}`
+  apiUrl = `${baseUrl}/openapi`
 }
-export { baseUrl, iconfontUrl, iconfontVersion, codeUrl }
+export { baseUrl, iconfontUrl, iconfontVersion, codeUrl, apiUrl }
 function getContextPath () {
   var pathName = document.location.pathname
   var index = pathName.substr(1).indexOf('/')

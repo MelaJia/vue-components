@@ -2,7 +2,7 @@
 
   <el-dialog custom-class="my-dialog" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
-      <span id="title">
+      <span class="title">
         {{getTitle}}
       </span>
     </header>
