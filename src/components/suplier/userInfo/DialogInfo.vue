@@ -149,13 +149,15 @@ export default {
     subHandle () {
       console.log(this.form)
       this.axios.post('/cust/toAuthenticateCompany.do', this.form).then(res => {
-        let type = res.data.isAuthened === 'true' ? 'success' : 'error'
+        let type = res.data.status ? 'success' : 'error'
         this.$message({
-          message: res.data.isAuthened,
+          message: res.data.msg,
           type: type
         })
-        this.$parent.fresh()
-        this.handleClose()
+        if (res.data.status) {
+          this.$parent.fresh()
+          this.handleClose()
+        }
       }).catch(err => {
         this.$message({
           type: 'info',

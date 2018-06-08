@@ -50,9 +50,9 @@ export default {
     subHandle () {
       console.log(this.form)
       this.axios.post('/cust/updateContractPerson.do', this.form).then(res => {
-        let type = res.data.isAuthened === 'true' ? 'success' : 'error'
+        let type = res.data.status ? 'success' : 'error'
         this.$message({
-          message: res.data.isAuthened,
+          message: res.data.msg,
           type: type
         })
         if (res.data.status) {

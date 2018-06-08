@@ -62,11 +62,13 @@ export default {
       this.axios.post('/cust/updateLegalPhone.do', this.form).then(res => {
         let type = res.data.status ? 'success' : 'error'
         this.$message({
-          message: res.data.result,
+          message: res.data.msg,
           type: type
         })
-        this.$parent.fresh()
-        this.handleClose()
+        if (res.data.status) {
+          this.$parent.fresh()
+          this.handleClose()
+        }
       }).catch(err => {
         this.$message({
           type: 'info',
