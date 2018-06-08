@@ -11,14 +11,14 @@
         <el-row>
           <el-col :span="12" :offset="4">
             <el-form-item label="企业联系人名称:">
-              <el-input v-model="form.legalPerson"></el-input>
+              <el-input v-model.trim="form.legalPerson"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12" :offset="4">
             <el-form-item label="企业联系人身份证:">
-              <el-input v-model="form.legalIdcardNum"></el-input>
+              <el-input v-model.trim="form.legalIdcardNum"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

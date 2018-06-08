@@ -1,7 +1,6 @@
 <template>
   <div>
-    <dialog-info :visible-p="dialogInfoVisible" :details="details"></dialog-info>
-    <component v-bind:is="currentTabComponent" :visible-p.sync="dialogVisible" :form="details"></component>
+    <component v-bind:is="currentTabComponent" :visible-p.sync="dialogVisible" :form="getDetails"></component>
     <el-table
       :data="authArr"
       border
@@ -52,13 +51,12 @@ export default {
     'dialog-contactemail': () =>
       import(/* webpackChunkName: 'Info' */ './DialogEmail')
   },
-  props: ['authArr'],
+  props: ['authArr', 'infos'],
   data () {
     return {
       operaNames: ['去认证', '修改', '修改', '修改', '去认证', '去认证', '去认证', '去认证'],
       currentTabComponent: 'dialog-info',
       compArr: ['dialog-info', 'dialog-bank', 'dialog-legal', 'dialog-legalphone', 'dialog-legalemail', 'dialog-contact', 'dialog-contactphone', 'dialog-contactemail'],
-      dialogInfoVisible: false,
       dialogVisible: false,
       multipleSelection: [],
       details: null // 详情
@@ -70,6 +68,9 @@ export default {
         return this.$store.state.user.ssoId
       },
       set (val) { }
+    },
+    getDetails () {
+      return this.infos
     }
   },
   methods: {
@@ -93,7 +94,7 @@ export default {
       }
       this.currentTabComponent = this.compArr[index]
       this.ssoId = '1'
-      this.details = this.infoArrs[index]
+      this.details = this.infos
       this.details.ssoId = this.ssoId
       this.dialogVisible = true
     },

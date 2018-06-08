@@ -1,6 +1,44 @@
 <template>
   <div>
-    <table>
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <span>企业基础信息</span>
+      </div>
+      <ul>
+        <li :span="8"><span>企业状态：</span>{{infos.isUsableDesc}}</li>
+        <li :span="8"><span>所属客户经理：</span>{{infos.sourceName}}</li>
+        <li :span="8">
+          <el-tooltip :content="'公司ID:'+infos.custId" placement="bottom" effect="light">
+            <span>公司ID: {{infos.custId}}</span>
+          </el-tooltip>
+        </li>
+      </ul>
+      <ul>
+        <li :span="8"><span>企业电话：</span>{{infos.companyPhone}}</li>
+        <li :span="8">
+          <el-tooltip :content="'企业地址:'+infos.companyAddress" placement="bottom" effect="light">
+            <span>企业地址: {{infos.companyAddress}}</span>
+          </el-tooltip>
+        </li>
+        <li :span="8"><span>统一社会信用代码: </span>{{infos.creditCode}}</li>
+      </ul>
+      <ul>
+        <li :span="8"><span>纳税人识別号：</span>{{infos.payTaxesNumber}}</li>
+        <li :span="8"><span>供应商代码：</span>{{infos.vendorCodes}}</li>
+        <li :span="8"><span>注册资本: </span>{{infos.registeredCapital}}</li>
+      </ul>
+      <ul>
+        <li :span="8"><span>实收资本：</span>{{infos.paidinCapital}}</li>
+        <li :span="8"><span>公司成立日期：</span>{{infos.establishDate | dateFormat}}</li>
+        <li :span="8"><span>营业执照开始日期：</span>{{infos.businessStartDate | dateFormat}}</li>
+      </ul>
+      <ul>
+        <li :span="8"><span>营业执照结束日期：</span>{{infos.businessEndDate | dateFormat}}</li>
+        <li :span="8"><span>公司登记日期：</span>{{infos.companyRegisterDate | dateFormat}}</li>
+        <li :span="8"><span>经营范围：</span>{{infos.mainProducts}}</li>
+      </ul>
+    </el-card>
+    <!-- <table>
       <tr>企业基础信息</tr>
       <tr>
         <td>企业状态：{{infos.isUsableDesc}}
@@ -31,22 +69,27 @@
       <tr>
         <td>经营范围 ：{{infos.mainProducts}}</td>
       </tr>
-    </table>
+    </table> -->
   </div>
 </template>
 <script>
 /* 用户信息列表 */
+import Common from '@/mixins/common'
 export default {
-  props: ['infos']
+  props: ['infos'],
+  mixins: [Common]
 }
 </script>
 <style lang="scss" scoped>
-table {
-  width: 100%;
-}
-div {
-  background: #fff;
-  border: solid 1px #ebeef5;
-  box-shadow: 0 1px 12px 0 rgba(0, 0, 0, 0.1);
-}
+ li{
+   list-style: none;
+    width: 31%;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 32px;
+    text-align: left;
+    padding-left: 5px;
+ }
 </style>

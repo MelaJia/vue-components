@@ -78,7 +78,7 @@ export default {
       } catch (error) {
         console.log(error)
       }
-
+      console.log(this.param)
       if (this.total && this.currentPage !== 1) {
         this.total = 0 // 分页的当前页数变动会触发 从而获取数据
       } else {

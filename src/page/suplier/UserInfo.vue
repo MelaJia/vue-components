@@ -1,7 +1,7 @@
 <template>
   <div class="user-info" style="padding: 0px 10px;">
     <info-list :infos="userInfo"></info-list>
-    <info-table :auth-arr="authArr" @refresh="handleRefresh"></info-table>
+    <info-table :auth-arr="authArr" :infos="userInfo" @refresh="handleRefresh"></info-table>
   </div>
 </template>
 <script>

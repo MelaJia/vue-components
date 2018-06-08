@@ -7,46 +7,46 @@
       </span>
     </header>
     <section>
-      <el-form ref="form" :model="form" label-width="130px">
+      <el-form ref="form" :model="getForm" label-width="130px">
         <el-row>
           <el-col :span="8">
             <el-form-item label="企业名称: ">
-              <el-input v-model="form.companyName"></el-input>
+              <el-input v-model="getForm.companyName"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="企业电话：">
-              <el-input v-model="form.companyPhone"></el-input>
+              <el-input v-model="getForm.companyPhone"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="企业地址：">
-              <el-input v-model="form.companyAddress"></el-input>
+              <el-input v-model="getForm.companyAddress"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="统一社会信用代码:">
-              <el-input v-model="form.creditCode"></el-input>
+              <el-input v-model="getForm.creditCode"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="纳税人识別号：">
-              <el-input v-model="form.payTaxesNumber"></el-input>
+              <el-input v-model="getForm.payTaxesNumber"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="供应商代码：">
-              <el-input v-model="form.vendorCodes"></el-input>
+              <el-input v-model="getForm.vendorCodes"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="注册资本：">
-              <el-input placeholder="请输入内容" v-model="form.registeredCapital" class="input-with-select">
-                <el-select v-model="form.registeredCurrencyType" slot="append" placeholder="请选择">
+              <el-input placeholder="请输入内容" v-model="getForm.registeredCapital" class="input-with-select">
+                <el-select v-model="getForm.registeredCurrencyType" slot="append" placeholder="请选择">
                   <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
                 </el-select>
               </el-input>
@@ -54,8 +54,8 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="实收资本：">
-              <el-input v-model="form.paidinCapital">
-                <el-select v-model="form.paidinCurrencyType" slot="append" placeholder="请选择">
+              <el-input v-model="getForm.paidinCapital">
+                <el-select v-model="getForm.paidinCurrencyType" slot="append" placeholder="请选择">
                   <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
                 </el-select>
               </el-input>
@@ -65,26 +65,26 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="公司成立日期:">
-              <el-date-picker v-model="form.establishDate" type="date" placeholder="选择日期">
+              <el-date-picker v-model="getForm.establishDate" type="date" placeholder="选择日期">
               </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="营业执照日期:">
-              <el-date-picker v-model="form.compuDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+              <el-date-picker v-model="getForm.compuDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
               </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="公司登记日期:">
-              <el-date-picker v-model="form.companyRegisterDate" type="date" placeholder="选择日期">
+              <el-date-picker v-model="getForm.companyRegisterDate" type="date" placeholder="选择日期">
               </el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-form-item label="经营范围">
-            <el-input type="textarea" v-model="form.mainProducts"></el-input>
+            <el-input type="textarea" v-model="getForm.mainProducts"></el-input>
           </el-form-item>
         </el-row>
         <el-row>
@@ -127,14 +127,14 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
-import MixInfos from '@/mixins/Infos'
+// import MixInfos from '@/mixins/Infos'
 import commonDatas from '@/mixins/commonDatas'
 import Upload from '@/components/Items/upload'
 /* 企业认证 */
 export default {
-  props: ['visibleP', 'details'],
-  mixins: [DialogClose, MixInfos, commonDatas],
-  components: {Upload},
+  props: ['visibleP', 'form'],
+  mixins: [DialogClose, commonDatas],
+  components: { Upload },
   data () {
     return {
       select: ''
@@ -143,6 +143,10 @@ export default {
   computed: {
     getTitle () {
       return '企业认证'
+    },
+    getForm () {
+      console.log(this.form)
+      return this.form
     }
   },
   methods: {

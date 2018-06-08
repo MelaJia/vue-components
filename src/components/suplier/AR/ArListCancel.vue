@@ -24,7 +24,7 @@
       </el-table-column>
         <el-table-column align="center"
         label="付款单位"
-        prop="come"
+        prop="custToName"
         >
         </el-table-column>
         <el-table-column align="center"
