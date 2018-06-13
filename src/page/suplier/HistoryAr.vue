@@ -30,11 +30,10 @@
 <script>
 import ArTable from '@/components/suplier/Ar/ArTableHistory'
 import Search from '@/components/suplier/Ar/SearchMyAr'
-import commonDatasInit from '@/mixins/commonDatasInit'
 import DataInit from '@/mixins/suplier/Ar/DataInit'
 import Table from '@/mixins/suplier/Ar/Table'
 export default {
-  mixins: [commonDatasInit, DataInit, Table],
+  mixins: [DataInit, Table],
   data () {
     return {
       loading: false,

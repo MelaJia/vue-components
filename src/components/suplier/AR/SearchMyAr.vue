@@ -76,6 +76,7 @@ import SearchMixIn from '@/mixins/suplier/Ar/Search'
 import commonDatas from '@/mixins/commonDatas'
 /* 我的Ar搜索 */
 export default {
+  name: 'myArPage',
   mixins: [SearchMixIn, commonDatas]
 }
 

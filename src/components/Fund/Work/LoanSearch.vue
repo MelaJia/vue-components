@@ -41,6 +41,7 @@
 import SearchMixIn from '@/mixins/suplier/Ar/Search'
 import commonDatas from '@/mixins/commonDatas'
 export default {
+  name: 'loanPage',
   mixins: [SearchMixIn, commonDatas],
   data () {
     return {
