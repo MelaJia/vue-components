@@ -37,8 +37,8 @@ export default {
   data () {
     return {
       postUrl: '/transferedAr/getTransferedArListTable.do',
-      totalStr: 'total', // 服务器返回总数参数名
-      dataStr: 'datas' // 服务器返回数据参数名
+      totalStr: 'recordsTotal', // 服务器返回总数参数名
+      dataStr: 'data' // 服务器返回数据参数名
     }
   },
   components: {

@@ -31,13 +31,14 @@
 import ArList from '@/components/suplier/Ar/ArList'
 import Search from '@/components/suplier/Ar/SearchGet'
 import DataInit from '@/mixins/suplier/Ar/DataInit'
-import Table from '@/mixins/suplier/Ar/Table'
+import Table from '@/mixins/suplier/Ar/Table'// handleCurrentChange
 export default {
   mixins: [DataInit, Table],
   data () {
     return {
-      totalStr: 'total', // 服务器返回总数参数名
-      dataStr: 'datas' // 服务器返回数据参数名
+      postUrl: '/onReceivingAr/getOnReceivingArListTable', // 请求地址
+      totalStr: 'recordsTotal', // 服务器返回总数参数名
+      dataStr: 'data' // 服务器返回数据参数名
     }
   },
   components: {
@@ -65,15 +66,15 @@ export default {
       let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
       try {
         this.param = {
-          masterChainId: val.masterChainId.trim(), // ar单号
+          masterChainId: val.masterChainId, // ar单号
           isMasterAr: val.isMasterAr, // ar来源
-          custFromName: val.custFromName.trim(), // 转让单位
+          custFromName: val.custFromName, // 转让单位
           checkedStatus: val.status, // 状态
           billBookCurr: val.billBookCurr, // 币别
-          invoiceNo: val.invoiceNo.trim(), // 发票号
+          invoiceNo: val.invoiceNo, // 发票号
           from: form, // 日期
           to: to,
-          transSerialNo: val.transSerialNo.trim() // 交易流水号
+          transSerialNo: val.transSerialNo // 交易流水号
         }
       } catch (error) {
         console.log(error)

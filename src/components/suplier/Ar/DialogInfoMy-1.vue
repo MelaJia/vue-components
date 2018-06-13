@@ -1,5 +1,5 @@
 <template>
-
+<section id="print">
   <el-dialog :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
       <span class="title">
@@ -18,14 +18,16 @@
            <span>对手单位:{{this.detailsP.custToName}}</span>
           </el-tooltip>
         </li>
-        <li>
-          <span>AR来源:{{this.detailsP.arSourceDesc}}</span>
-        </li>
       </ul>
       <ul>
+         <li>
+          <span>AR来源:{{this.detailsP.arSourceDesc}}</span>
+        </li>
         <li>
           <span>状态:{{this.detailsP.arStatusTypeName}}</span>
         </li>
+      </ul>
+      <ul>
         <li>
           <span>币别:{{this.detailsP.currencyDesc}}</span>
         </li>
@@ -75,9 +77,10 @@
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
-      <el-button type="primary" @click="print(`.${detailsP.masterChainId}`)">打印</el-button>
+      <el-button type="primary" @click="print($refs.print)">打印</el-button>
     </footer>
   </el-dialog>
+</section>
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";

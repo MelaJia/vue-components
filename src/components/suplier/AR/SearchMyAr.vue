@@ -10,12 +10,12 @@
       </el-col>
       <el-col :span="8">
         <el-form-item label="AR单号">
-          <el-input v-model="formInline.masterChainId" placeholder="AR单号"></el-input>
+          <el-input v-model.trim="formInline.masterChainId" placeholder="AR单号"></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="8">
         <el-form-item label="付款单位/对手单位">
-          <el-input v-model="formInline.companyName" placeholder="付款单位/对手单位"></el-input>
+          <el-input v-model.trim="formInline.companyName" placeholder="付款单位/对手单位"></el-input>
         </el-form-item>
       </el-col>
     </el-row>
@@ -36,7 +36,7 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="发票号">
-            <el-input v-model="formInline.invoiceNo" placeholder="发票号"></el-input>
+            <el-input v-model.trim="formInline.invoiceNo" placeholder="发票号"></el-input>
           </el-form-item>
         </el-col>
     </el-row>
@@ -49,7 +49,7 @@
         </el-col>
         <el-col :span="8" :offset="4">
             <el-form-item label="结报号">
-              <el-input v-model="formInline.billId" placeholder="结报号"></el-input>
+              <el-input v-model.trim="formInline.billId" placeholder="结报号"></el-input>
             </el-form-item>
         </el-col>
     </el-row>

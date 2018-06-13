@@ -272,21 +272,6 @@ export const firstToUpperCase = (str)=>{ // 正则法
   });
  }
  /**
-  * 清除字符串两端空格
-  */
- export const trimInit = ()=>{
-  if (!String.prototype.trim){
-
-    /*---------------------------------------
-     * 清除字符串两端空格
-     *---------------------------------------*/
-    String.prototype.trim = function () { 
-     return this.replace(/(^\s*)|(\s*$)/g, "");
-    }
-    
-   }
- }
- /**
   * 打印
   * @param {*} dom 
   * @param {*} options 

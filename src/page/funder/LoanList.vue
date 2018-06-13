@@ -69,16 +69,15 @@ export default {
       let from = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
       let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
       this.param = {
-        masterChainId: val.masterChainId.trim(), // ar单号
-        custFromName: val.custFromName.trim(), // 贴现客户
+        masterChainId: val.masterChainId, // ar单号
+        custFromName: val.custFromName, // 贴现客户
         checkedStatus: val.checkedStatus, // 状态
         billBookCurr: val.billBookCurr, // 币别
-        invoiceNo: val.invoiceNo.trim(), // 发票号
+        invoiceNo: val.invoiceNo, // 发票号
         discountAmtScopeFrom: val.discountAmtScopeFrom, // 贴现金额起始
         discountAmtScopeTo: val.discountAmtScopeTo, // 贴现金额结束
         from: from, // 日期
-        to: to,
-        transSerialNo: val.transSerialNo.trim() // 交易流水号
+        to: to
       }
       console.log(this.param)
       if (this.total && this.currentPage !== 1) {

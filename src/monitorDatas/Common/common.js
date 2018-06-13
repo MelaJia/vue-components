@@ -860,7 +860,7 @@ fenboList:{
     "recordsTotal":4
 },
 getArData:{
-    "datas":[
+    "data":[
         {
             "arStatusTypeName":"已授讓",
             "billId":"HPF-HB0431",
@@ -1012,7 +1012,9 @@ getArData:{
             "transSerialNo":"5a50b00f-2240-455f-9593-12732beb6d24"
         }
     ],
-    "total":20
+    "msg":"请求成功",
+    "recordsTotal":20,
+    "status":1
 }
 }
 

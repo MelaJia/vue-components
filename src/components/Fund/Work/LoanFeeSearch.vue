@@ -1,10 +1,10 @@
 <template>
   <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini">
     <el-form-item label="客户名称">
-      <el-input v-model="formInline.companyName" placeholder="客户名称"></el-input>
+      <el-input v-model.trim="formInline.companyName" placeholder="客户名称"></el-input>
     </el-form-item>
     <el-form-item label="供应商代码">
-      <el-input v-model="formInline.vendorCode" placeholder="供应商代码"></el-input>
+      <el-input v-model.trim="formInline.vendorCode" placeholder="供应商代码"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="onSubmit">查询</el-button>

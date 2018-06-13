@@ -23,7 +23,7 @@ export const Datas = {
     "loanAmt": 59312,
     "masterChainId": "AR20171120000008",
     "parentChainId": "AR20171020000004",
-    "riskPlatFormURL": "https://jurongtest.foxconn.com/report",
+    "riskPlatFormURL": "./openapi/loan2/riskReportShowApi?masterChainId=123",
     "riskPlatFormVendorApi": "vendor",
     "vendorCode": "15c09de8-6600-42c5-8e5a-acfe1951f8b0",
     "vendorName": "CF",
@@ -740,9 +740,13 @@ export const dataDetails={
         "status": 1
 }
 export const contract = {
-    "billBookAmt": 5000, 
-    "billDueDate": 1496592000000, 
-    "billPayDate": 1496592000000, 
-    "masterChainId": "AR20170920000017", 
-    "supplierCustId": "b4e0e5f6-f17d-4b7b-9ade-99fa8f06bac8"
+    "data":{
+        "billBookAmt": 5000, 
+        "billDueDate": 1496592000000, 
+        "billPayDate": 1496592000000, 
+        "masterChainId": "AR20170920000017", 
+        "supplierCustId": "b4e0e5f6-f17d-4b7b-9ade-99fa8f06bac8"
+    },
+    "msg": "返回结果正常", 
+        "status": 1
 }

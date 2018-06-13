@@ -86,8 +86,9 @@ export default {
       return '企业银行信息'
     },
     getBankAdd: {
-      get: () => {
+      get: function () {
         console.log(this)
+        console.log(this.form)
         let arr = []
         arr[0] = this.form.bankProvince
         arr[1] = this.form.bankCity

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component v-bind:is="currentTabComponent" :visible-p.sync="dialogVisible" :form="getDetails"></component>
+    <component v-bind:is="currentTabComponent" :visible-p.sync="dialogVisible" :form="getDetails" :param-name="paName"></component>
     <el-table
       :data="authArr"
       border
@@ -29,10 +29,8 @@
   </div>
 </template>
 <script>
-import InfoArr from '@/mixins/userInfo'
 /* 用户信息表格 */
 export default {
-  mixins: [InfoArr],
   components: {
     'dialog-info': () =>
       import(/* webpackChunkName: 'Info' */ './DialogInfo'),
@@ -59,17 +57,12 @@ export default {
       compArr: ['dialog-info', 'dialog-bank', 'dialog-legal', 'dialog-legalphone', 'dialog-legalemail', 'dialog-contact', 'dialog-contactphone', 'dialog-contactemail'],
       dialogVisible: false,
       multipleSelection: [],
-      details: null // 详情
+      paName: '' // 额外传参
     }
   },
   computed: {
-    ssoId: {
-      get () {
-        return this.$store.state.user.ssoId
-      },
-      set (val) { }
-    },
     getDetails () {
+      console.log(this.infos)
       return this.infos
     }
   },
@@ -77,25 +70,27 @@ export default {
     handleClick (index, row) {
       console.log(index)
       if (index === 4) {
-        let param = {
-          legalMail: '',
-          ssoId: this.ssoId
-        }
-        this.subEmail('/cust/toAuthenticateLegalMail.do', param, 'legalMail')
+        this.currentTabComponent = this.compArr[index]
+        this.paName = 'legalMail'
+        this.dialogVisible = true
+        // let param = {
+        //   legalMail: ''
+        // }
+        // this.subEmail('/cust/toAuthenticateLegalMail.do', param, 'legalMail', '企业法人邮箱认证')
         return
       }
       if (index === 7) {
-        let param = {
-          contactMail: '',
-          ssoId: this.ssoId
-        }
-        this.subEmail('/cust/toAuthenticateContractMail.do', param, 'contactMail')
+        this.currentTabComponent = this.compArr[index]
+        this.paName = 'contactMail'
+        this.dialogVisible = true
+        // let param = {
+        //   contactMail: ''
+        // }
+        // this.subEmail('/cust/toAuthenticateContractMail.do', param, 'contactMail', '企业联系人邮箱认证')
         return
       }
       this.currentTabComponent = this.compArr[index]
-      this.ssoId = '1'
-      this.details = this.infos
-      this.details.ssoId = this.ssoId
+      this.paName = this.compArr[index]
       this.dialogVisible = true
     },
     // 刷新数据
@@ -103,8 +98,8 @@ export default {
       this.$emit('refresh')
     },
     // 更改邮箱
-    subEmail (url, param, name) {
-      this.$prompt('请输入邮箱', '提示', {
+    subEmail (url, param, name, tilte) {
+      this.$prompt('请新邮箱地址', tilte, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,

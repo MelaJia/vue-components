@@ -3,7 +3,7 @@ export default {
     // 时间格式化
     dateFormat: function (row, column) {
       var date = row[column.property]
-      if (date === undefined) {
+      if (date === undefined || date === null) {
         return ''
       }
       return new Date(date).Format('yyyy-MM-dd')
@@ -70,9 +70,9 @@ export default {
       this.axios.post(url, {
         masterChainId: id
       }).then(res => {
-        let type = res.data.result === 'true' ? 'success' : 'error'
+        let type = res.data.status ? 'success' : 'error'
         this.$message({
-          message: res.data.message,
+          message: res.data.data.message,
           type: type
         })
         this.$emit('refresh')
@@ -90,8 +90,8 @@ export default {
           return res.data.data
         } else {
           this.$message({
-            type: 'info',
-            message: '取消'
+            type: 'error',
+            message: res.data.msg
           })
         }
       }).catch((err) => {
@@ -112,6 +112,9 @@ export default {
      * 时间戳转时间
      */
     dateFormat: function (value) {
+      if (value === null || value === undefined) {
+        return ' '
+      }
       return new Date(value).Format('yyyy-MM-dd')
     },
     originFormat: function (value) {

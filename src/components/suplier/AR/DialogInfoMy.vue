@@ -1,5 +1,5 @@
 <template>
-
+  <section id="print">
   <el-dialog :custom-class="'dia-class p'+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
       <span id="title">
@@ -24,14 +24,16 @@
         <li>
           <span>币别:{{this.detailsP.currencyDesc}}</span>
         </li>
-        <li>
-          <span>预计回款日期:{{this.detailsP.billPayDate | dateFormat}}</span>
-        </li>
       </ul>
       <ul>
+         <li>
+          <span>预计回款日期:{{this.detailsP.billPayDate | dateFormat}}</span>
+        </li>
         <li>
           <span>票面金额:{{this.detailsP.billBookAmt}}</span>
         </li>
+      </ul>
+      <ul>
         <li>
           <span>可用金额:{{this.detailsP.arAvailableAmt}}</span>
         </li>
@@ -77,9 +79,10 @@
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
-      <el-button type="primary" @click="print(`.p${detailsP.masterChainId}`)">打印</el-button>
+      <el-button type="primary" @click="print($refs.print)">打印</el-button>
     </footer>
   </el-dialog>
+  </section>
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";

@@ -1,6 +1,6 @@
 <template>
-
-  <el-dialog :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
+<section id="print">
+  <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
       <span class="title">
         {{getTitle}}
@@ -8,55 +8,55 @@
     </header>
     <section>
       <ul>
-        <li>
+        <li class="w-50">
           <span>付款单位:{{this.detailsP.companyName}}</span>
         </li>
-        <li>
+        <li class="w-50">
           <span>贴现客户:{{this.detailsP.custFromName}}</span>
         </li>
       </ul>
       <ul>
-        <li>
+        <li class="w-50">
           <span>付款银行名称:{{this.detailsP.payerBankName}}</span>
         </li>
-        <li>
+        <li class="w-50">
           <span>付款银款账号:{{this.detailsP.payerBankAccount}}</span>
         </li>
       </ul>
       <ul>
-        <li>
+        <li class="w-50">
           <span>贴现客户收款银行:{{this.detailsP.bankName}}</span>
         </li>
-        <li>
+        <li class="w-50">
           <span>贴现客户收款银行:{{this.detailsP.bankAccount}}</span>
         </li>
       </ul>
       <ul>
-        <li>
+        <li class="w-50">
           <span>贴现金额:{{this.detailsP.billBookAmt}}</span>
         </li>
-        <li>
+        <li class="w-50">
           <span>币别:{{this.detailsP.currencyDesc}}</span>
         </li>
       </ul>
       <ul>
-        <li>
+        <li class="w-50">
          <span>贴现利率:{{this.detailsP.interestRate}}</span>
         </li>
-        <li>
+        <li class="w-50">
          <span>逾期利率:{{this.detailsP.overdueRate}}</span>
         </li>
       </ul>
       <ul>
-        <li>
+        <li class="w-50">
           <span>实际放款金额:{{this.detailsP.actualDiscountAmt}}</span>
         </li>
-        <li>
+        <li class="w-50">
          <span>手续费:{{this.detailsP.overdueRate}}</span>
         </li>
       </ul>
       <ul>
-        <li>
+        <li class="w-50">
           <span>对应发票号:<label v-for="(item,index) in detailsP.invoiceCustom" :key="index">{{item.invoiceAfterTaxAmt}}</label></span>
         </li>
       </ul>
@@ -87,9 +87,10 @@
     </section>
     <footer class="no-print"  slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
-      <el-button type="primary" @click="print(`.${detailsP.masterChainId}`)">打印</el-button>
+      <el-button type="primary" @click="print($refs.print)">打印</el-button>
     </footer>
   </el-dialog>
+  </section>
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";

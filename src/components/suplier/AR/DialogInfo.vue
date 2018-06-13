@@ -1,6 +1,6 @@
 <template>
-
-  <el-dialog :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
+<section id="print">
+  <el-dialog  :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
       <span class="title">
         {{getTitle}}
@@ -10,46 +10,45 @@
       <ul>
         <li>
           <el-tooltip :content="'付款单位:'+this.detailsP.companyName" placement="bottom" effect="light">
-            <span>付款单位:{{this.detailsP.companyName}}</span>
+            <span>付款单位: {{this.detailsP.companyName}}</span>
           </el-tooltip>
         </li>
         <li>
           <el-tooltip :content="'转让单位:'+this.detailsP.custFromName" placement="bottom" effect="light">
-            <span>转让单位:{{this.detailsP.custFromName}}</span>
+            <span>转让单位: {{this.detailsP.custFromName}}</span>
           </el-tooltip>
         </li>
+      </ul>
+      <ul>
         <li>
-          <span>状态:{{this.detailsP.arStatusTypeName}}</span>
+          <span>状态: {{this.detailsP.arStatusTypeName}}</span>
+        </li>
+        <li>
+          <span>预计回款日期: {{this.detailsP.billPayDate | dateFormat}}</span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>预计回款日期:{{this.detailsP.billPayDate | dateFormat}}</span>
+          <span>转让日期: {{this.detailsP.transDate | dateFormat}}</span>
         </li>
         <li>
-          <span>转让日期:{{this.detailsP.transDate | dateFormat}}</span>
-        </li>
-        <li>
-          <span>转让金额:{{this.detailsP.transAmt}}</span>
+          <span>转让金额: {{this.detailsP.transAmt}}</span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>币别:{{this.detailsP.currencyDesc}}</span>
+          <span>币别: {{this.detailsP.currencyDesc}}</span>
         </li>
         <li>
           <el-tooltip :content="'交易流水:'+this.detailsP.transSerialNo" placement="bottom" effect="light">
-            <span>交易流水:{{this.detailsP.transSerialNo}}</span>
+            <span>交易流水: {{this.detailsP.transSerialNo}}</span>
           </el-tooltip>
-        </li>
-        <li>
-          <span>预计回款日期:{{this.detailsP.billPayDate | dateFormat}}</span>
         </li>
       </ul>
       <ul>
         <span>对应发票号:
           <div class="a-link-group inline-block">
-            <label v-for="item in detailsP.invoiceCustomList" :key="item.invoiceNo">{{item.invoiceNo}}</label>
+            <label v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo">{{item.invoiceNo}}</label>
           </div>
         </span>
       </ul>
@@ -73,9 +72,10 @@
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
-      <el-button type="primary" @click="print(`.${detailsP.masterChainId}`)">打印</el-button>
+      <el-button type="primary" @click="print('print')">打印</el-button>
     </footer>
   </el-dialog>
+</section>
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
@@ -100,7 +100,6 @@ export default {
     }
   },
   methods: {
-
   }
 }
 

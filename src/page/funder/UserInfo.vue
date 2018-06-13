@@ -1,19 +1,16 @@
 <template>
   <div class="user-info" style="padding: 0px 10px;">
     <info-list :infos="userInfo"></info-list>
-    <info-table :auth-arr="authArr" @refresh="handleRefresh"></info-table>
+    <info-table :auth-arr="authArr" :infos="userInfo" @refresh="handleRefresh"></info-table>
   </div>
 </template>
 <script>
 import InfoList from '@/components/suplier/userInfo/InfoList'
 import InfoTable from '@/components/suplier/userInfo/InfoTable'
-import MixinsUserInfo from '@/mixins/Infos'
-import {mapGetters} from 'vuex'
 export default {
-  // 保理商信息页面
-  mixins: [MixinsUserInfo],
   data () {
     return {
+      userInfo: {},
       types: [
         { typeId: '1', name: '企业', firstNode: 'companyAuthenticationInfo', node: 'companyName' },
         { typeId: '2', name: '企业银行信息', firstNode: 'companyAuthenticationInfo', node: 'bankName' },
@@ -32,34 +29,36 @@ export default {
     InfoTable
   },
   created () {
-    this.$store.commit('setSsoId', '82418b0d3a106c8ee638b0f52f4b07eae7e279a0c0c8698c95c6b5956319fcc4')
-    this.getData()
-  },
-  computed: {
-    ...mapGetters(['ssoId'])
+    const loading = this.$loading({
+      lock: true,
+      text: 'Loading',
+      spinner: 'el-icon-loading',
+      background: 'rgba(0, 0, 0, 0.7)'
+    })
+    this.getData(loading)
   },
   methods: {
-    getData () {
+    getData (loading) {
       this.axios.post('/cust/customerDetailInfo.do', {
-        ssoId: this.ssoId
       }).then(res => {
         if (res.data.status) {
           const data = res.data.data
+          data.registeredCurrencyType = parseInt(data.registeredCurrencyType)
+          data.paidinCurrencyType = parseInt(data.paidinCurrencyType)
           this.userInfo = data
-          console.log('设置数据')
           const tableData = []
           this.types.forEach(element => {
             tableData.push(this.getAuthArr(element.name, data[element.firstNode][element.node], element.typeId))
           })
           this.authArr = tableData
         } else {
-          console.log(res.data.msg)
           this.$message({
             showClose: true,
             message: res.data.msg,
             type: 'error'
           })
         }
+        loading.close()
       })
     },
     getAuthArr (type, name, typeId) {

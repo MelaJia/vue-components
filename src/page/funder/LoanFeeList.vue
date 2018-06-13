@@ -68,8 +68,8 @@ export default {
     handleSearch (val) {
       console.log(val)
       this.param = {
-        companyName: val.companyName.trim(), // 客户名称
-        vendorCode: val.vendorCode.trim() // 供应商代码
+        companyName: val.companyName, // 客户名称
+        vendorCode: val.vendorCode // 供应商代码
       }
       console.log(this.param)
       if (this.total && this.currentPage !== 1) {

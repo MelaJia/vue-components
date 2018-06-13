@@ -49,7 +49,7 @@
 
 <script>
 import ListMinxIn from '@/mixins/suplier/Ar/List'
-import Common from '@/mixins/common'
+import Common from '@/mixins/common' // getLoanDetail
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 import { firstToUpperCase } from '@/util/util' // 首字母大写
 export default {
@@ -91,8 +91,12 @@ export default {
     handleContrac (idx, val) {
       this.axios.post('/loan2/showGenerateContract.do', { masterChainId: val.masterChainId }).then(res => {
         console.log(res)
-        this.details = res.data
-        this.dialogTransferVisible = true
+        if (res.data.status) {
+          this.details = res.data.data
+          this.dialogTransferVisible = true
+        } else {
+          this.$message.error(res.data.msg)
+        }
       })
     },
     // 发起确认

@@ -19,5 +19,6 @@ const monitorInit = ()=>{
   Mock.mock('https://jurongtest.foxconn.com/sit/cust/customerDetailInfo.do', userInfo)
   Mock.mock('https://jurongtest.foxconn.com/sit/loan2/confirmInitiateSigning.do', subData)
   Mock.mock('https://jurongtest.foxconn.com/sit/onReceivingAr/getOnReceivingArListTable', commonDatas.getArData)
+  Mock.mock('https://jurongtest.foxconn.com/sit/transferedAr/getTransferedArListTable.do', commonDatas.getArData)
 }
 export {monitorInit}

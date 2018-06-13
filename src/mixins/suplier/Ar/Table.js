@@ -21,16 +21,6 @@ export default {
         transSerialNo: '' // 交易流水号
       },
       postUrl: '/onReceivingAr/getOnReceivingArListTable', // 请求地址
-      Options: [{
-        value: '大吉制造',
-        label: '大吉制造'
-      }, {
-        value: '大诚制造',
-        label: '大诚制造'
-      }, {
-        value: '大利制造',
-        label: '大利制造'
-      }],
       // 宽度控制
       widthArr: {
         masterChainId: '150',
@@ -142,6 +132,7 @@ export default {
       const that = this
       this.getdata(val, that.psize)
         .then(function (response) {
+          console.log(response)
           if (response.data.status) {
             that.tableData5 = response.data[that.dataStr]
             that.total = response.data[that.totalStr]

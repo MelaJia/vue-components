@@ -1,5 +1,5 @@
 <template>
-  <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" >
+  <el-upload class="avatar-uploader" :data="param" :headers="{'Authorization':token}" :action="uploadUrl" :show-file-list="false" :on-success="handleAvatarSuccess" >
     <img v-if="imgurl" :src="imgurl" class="avatar">
     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
   </el-upload>
@@ -31,18 +31,26 @@
 }
 </style>
 <script>
+import {
+  apiUrl
+} from '@/config/env.js'
+import {mapGetters} from 'vuex'
 export default {
+  props: ['param'],
   data () {
     return {
-      imgurl: ''
+      imgurl: '',
+      uploadUrl: apiUrl + '/cust/uploadPicture'
     }
+  },
+  computed: {
+    ...mapGetters(['token'])
   },
   methods: {
     // 图片上传
     handleAvatarSuccess (res, file) {
-      console.log(file)
       this.imgurl = URL.createObjectURL(file.raw)
-      this.$emit('get-url', this.imgurl) // 返回图片地址
+      this.$emit('get-url', res) // 返回图片地址
     }
   }
 }

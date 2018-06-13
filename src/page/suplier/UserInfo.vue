@@ -7,12 +7,10 @@
 <script>
 import InfoList from '@/components/suplier/userInfo/InfoList'
 import InfoTable from '@/components/suplier/userInfo/InfoTable'
-import MixinsUserInfo from '@/mixins/Infos'
-import {mapGetters} from 'vuex'
 export default {
-  mixins: [MixinsUserInfo],
   data () {
     return {
+      userInfo: {},
       types: [
         { typeId: '1', name: '企业', firstNode: 'companyAuthenticationInfo', node: 'companyName' },
         { typeId: '2', name: '企业银行信息', firstNode: 'companyAuthenticationInfo', node: 'bankName' },
@@ -31,34 +29,36 @@ export default {
     InfoTable
   },
   created () {
-    this.$store.commit('setSsoId', 'a11c0b29d53794b2ecf1986ca3ad41d58803724b491121fa59aa0d85f5c46e7e')
-    this.getData()
-  },
-  computed: {
-    ...mapGetters(['ssoId'])
+    const loading = this.$loading({
+      lock: true,
+      text: 'Loading',
+      spinner: 'el-icon-loading',
+      background: 'rgba(0, 0, 0, 0.7)'
+    })
+    this.getData(loading)
   },
   methods: {
-    getData () {
+    getData (loading) {
       this.axios.post('/cust/customerDetailInfo.do', {
-        ssoId: this.ssoId
       }).then(res => {
         if (res.data.status) {
           const data = res.data.data
+          data.registeredCurrencyType = parseInt(data.registeredCurrencyType)
+          data.paidinCurrencyType = parseInt(data.paidinCurrencyType)
           this.userInfo = data
-          console.log('设置数据')
           const tableData = []
           this.types.forEach(element => {
             tableData.push(this.getAuthArr(element.name, data[element.firstNode][element.node], element.typeId))
           })
           this.authArr = tableData
         } else {
-          console.log(res.data.msg)
           this.$message({
             showClose: true,
             message: res.data.msg,
             type: 'error'
           })
         }
+        loading.close()
       })
     },
     getAuthArr (type, name, typeId) {

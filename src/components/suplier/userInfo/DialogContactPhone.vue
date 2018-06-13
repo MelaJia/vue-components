@@ -7,7 +7,7 @@
       </span>
     </header>
     <section>
-      <el-form ref="form" :model="form" label-width="130px">
+      <el-form ref="phoneForm" :model="form" label-width="130px">
         <el-row>
           <el-col :span="12" :offset="4">
             <el-form-item
@@ -24,15 +24,20 @@
         </el-row>
         <el-row>
           <el-col :span="12" :offset="4">
-            <el-form-item label="验证码:">
-              <el-input v-model="form.verificationCode"></el-input><el-button :type="btntype" size="mini" @click="sendMessage">{{word}}</el-button>
+            <el-form-item label="验证码:"
+            prop="verificationCode"
+            :rules="[
+              { required: true, message: '请输入验证码', trigger: 'blur' }
+            ]"
+            >
+              <el-input v-model.trim="form.verificationCode"></el-input><el-button :type="btntype" size="mini" @click="sendMessage">{{word}}</el-button>
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="subHandle">提交</el-button>
+      <el-button type="primary" @click="subHandle('phoneForm')">提交</el-button>
       <el-button @click="handleClose">取消</el-button>
     </footer>
   </el-dialog>
@@ -57,23 +62,27 @@ export default {
     }
   },
   methods: {
-    subHandle () {
+    subHandle (formName) {
       console.log(this.form)
-      this.axios.post('/cust/updateContractPhone.do', this.form).then(res => {
-        let type = res.data.status ? 'success' : 'error'
-        this.$message({
-          message: res.data.msg,
-          type: type
-        })
-        if (res.data.status) {
-          this.$parent.fresh()
-          this.handleClose()
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.axios.post('/cust/updateContractPhone.do', this.form).then(res => {
+            let type = res.data.status ? 'success' : 'error'
+            this.$message({
+              message: res.data.msg,
+              type: type
+            })
+            if (res.data.status) {
+              this.$parent.fresh()
+              this.handleClose()
+            }
+          }).catch(err => {
+            this.$message({
+              type: 'info',
+              message: `操作失败${err}`
+            })
+          })
         }
-      }).catch(err => {
-        this.$message({
-          type: 'info',
-          message: `操作失败${err}`
-        })
       })
     },
     // 验证码

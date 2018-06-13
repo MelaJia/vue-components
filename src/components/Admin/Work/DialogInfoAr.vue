@@ -1,6 +1,6 @@
 <template>
-
-  <el-dialog :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
+<section id="print">
+  <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
       <span class="title">
         {{getTitle}}
@@ -34,9 +34,10 @@
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
-      <el-button type="primary" @click="print(`.${detailsP.masterChainId}`)">打印</el-button>
+      <el-button type="primary" @click="print($refs.print)">打印</el-button>
     </footer>
   </el-dialog>
+  </section>
 </template>
 <style scoped>
 #title {

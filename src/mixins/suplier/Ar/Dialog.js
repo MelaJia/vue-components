@@ -27,7 +27,6 @@ export default {
       })
     },
     handleInfo (idx, val) {
-      console.log(val)
       val.infoLoading = true
       this.getDetail(val).then(res => {
         if (res) {

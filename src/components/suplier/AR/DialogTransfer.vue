@@ -75,7 +75,7 @@
     </section>
     <section class="layout form">
       <el-row>
-        <el-col :span="8" class="flex"><label>授让公司Id</label><el-input v-model="receiveCustId" placeholder="请输入授让公司Id"></el-input></el-col>
+        <el-col :span="8" class="flex"><label>授让公司Id</label><el-input v-model.trim="receiveCustId" placeholder="请输入授让公司Id"></el-input></el-col>
         <el-col :span="8" :offset="8" class="flex"><label>转让金额：</label><el-input v-model.number="transAmt" type="number" placeholder="请输入转让金额："></el-input></el-col>
       </el-row>
     </section>

@@ -1,7 +1,7 @@
 import {
   baseUrl
 } from '@/config/env.js'
-import {Print} from '@/util/util'
+import Print from 'print-js'
 export default {
   methods: {
     handleClose (done) {
@@ -14,6 +14,13 @@ export default {
       let top = (window.innerHeight - height) / 2
       window.open(`${baseUrl}/static/pdfjs/web/viewer.html?contractNo=${id}`, 'newwindow', `height=${height}, width=${width}, top=${top}, left=${left}, toolbar=no, menubar=no, scrollbars=yes, resizable=yes,location=n o, status=no`)
     },
-    print: Print // 打印
+    print (val) { // 打印
+      Print({
+        printable: val,
+        type: 'html',
+        // 继承原来的所有样式
+        targetStyles: ['*']
+      })
+    }
   }
 }
