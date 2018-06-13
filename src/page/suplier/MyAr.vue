@@ -34,11 +34,10 @@
 <script>
 import ArTable from '@/components/suplier/Ar/arTable'
 import Search from '@/components/suplier/Ar/SearchMyAr'
-import commonDatasInit from '@/mixins/commonDatasInit' // 公共数据初始化
 import DataInit from '@/mixins/suplier/Ar/DataInit'
 import Table from '@/mixins/suplier/Ar/Table'
 export default {
-  mixins: [commonDatasInit, DataInit, Table],
+  mixins: [DataInit, Table],
   data () {
     return {
       loading: false,
