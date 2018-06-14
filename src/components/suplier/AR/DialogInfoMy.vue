@@ -6,7 +6,7 @@
         {{getTitle}}
       </span>
     </header>
-    <section>
+    <section ref="print">
       <ul>
         <li>
           <el-tooltip :content="'付款单位:'+this.detailsP.companyName" placement="bottom" effect="light">
@@ -79,7 +79,7 @@
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
-      <el-button type="primary" @click="print($refs.print)">打印</el-button>
+      <el-button type="primary" @click="print('print')">打印</el-button>
     </footer>
   </el-dialog>
   </section>

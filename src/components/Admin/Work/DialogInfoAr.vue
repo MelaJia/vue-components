@@ -9,32 +9,45 @@
     <section>
       <ul>
         <li>
-          <span>付款单位:{{this.detailsP.companyName}}</span>
+          <span>付款单位: {{this.detailsP.companyName}}</span>
         </li>
         <li>
-          <span>贴现单位:{{this.detailsP.custFromName}}</span>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <span>付款银行:{{this.detailsP.payBankName}}</span>
-        </li>
-        <li>
-          <span>付款银行账号:{{this.detailsP.payBankAccount}}</span>
+          <span>贴现单位: {{this.detailsP.custFromName}}</span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>收款银行:{{this.detailsP.receiveBankName}}</span>
+          <span>一级供应商: {{this.detailsP.companyNameOfL1}}</span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>付款银行: {{this.detailsP.payBankName}}</span>
         </li>
         <li>
-          <span>收款银行账号:{{this.detailsP.receiveBankAccount}}</span>
+          <span>付款银行账号: {{this.detailsP.payBankAccount}}</span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>收款银行: {{this.detailsP.receiveBankName}}</span>
+        </li>
+        <li>
+          <span>收款银行账号: {{this.detailsP.receiveBankAccount}}</span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>状态: {{this.detailsP.auditedTypeName}}</span>
+        </li>
+        <li>
+          <span>保理方: {{this.detailsP.custToName}}</span>
         </li>
       </ul>
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
-      <el-button type="primary" @click="print($refs.print)">打印</el-button>
+      <el-button type="primary" @click="print('print')">打印</el-button>
     </footer>
   </el-dialog>
   </section>

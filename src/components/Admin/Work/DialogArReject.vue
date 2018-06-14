@@ -8,16 +8,16 @@
     </header>
     <section class="layout form">
       <el-row>
-        <el-col :span="22" :offset="1" class="flex"><span>确定拒绝{{detailsP.companyName}}公司的申请贴现请求？</span></el-col>
+        <el-col :span="16" :offset="4" class="flex"><span>确定拒绝{{detailsP.companyName}}公司的申请贴现请求？</span></el-col>
       </el-row>
       <el-row>
-        <el-col :span="22" :offset="1" class="flex"><label>拒绝理由:</label>
-          <el-input v-model="form.rejectedReason"></el-input>
+        <el-col :span="16" :offset="4" class="flex"><label>拒绝理由:</label>
+          <el-input type="textarea" v-model="form.rejectedReason"></el-input>
         </el-col>
       </el-row>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleSubmit">确认</el-button>
+      <el-button type="primary" @click="handleSubmit" :loading="isLoading">确认</el-button>
     </footer>
   </el-dialog>
 </template>
@@ -38,6 +38,7 @@
   > span {
     height: 40px;
     line-height: 40px;
+    font-weight: 600;
   }
   > .el-select,
   > .el-date-editor.el-input,
@@ -58,7 +59,8 @@ export default {
     return {
       form: {
         rejectedReason: '' // 拒绝理由
-      }
+      },
+      isLoading: false // 请求数据中
     }
   },
   computed: {
@@ -73,12 +75,14 @@ export default {
         buyerCustNo: this.detailsP.buyerCustNo, // 付款法人代码
         rejectedReason: this.form.rejectedReason // 拒绝理由
       }
+      this.isLoading = true
       this.axios.post('/discountAudit/rejectDiscountAudit.do', param).then(res => {
-        let type = res.data.result === 'true' ? 'success' : 'error'
+        let type = res.data.data.result === 'true' ? 'success' : 'error'
         this.$message({
-          message: res.data.message,
+          message: res.data.data.message,
           type: type
         })
+        this.isLoading = true
         this.handleClose() // 关闭弹窗
         this.$parent.fresh() // 刷新数据
       }).catch(() => {
@@ -86,6 +90,7 @@ export default {
           type: 'info',
           message: '操作失败'
         })
+        this.isLoading = true
       })
     }
   }

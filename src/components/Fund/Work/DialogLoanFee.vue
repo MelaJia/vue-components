@@ -10,6 +10,19 @@
       <el-form ref="form" :model="form" label-width="130px" label-position="left">
         <el-row>
           <el-col :span="11">
+            <el-form-item label="放款比例:"
+            prop="loanPer"
+            :rules="[
+            { required: true, message: '请输入放款比例', trigger: 'blur' },
+            { type: 'number', message: '实放金额必须为数字值' }
+            ]"
+            >
+              <el-input v-model.number="form.loanPer"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="11">
             <el-form-item label="宽容天数:">
               <el-input v-model.number="form.fineGraceDays"></el-input>
             </el-form-item>
@@ -65,33 +78,39 @@ export default {
   },
   methods: {
     subHandle () {
-      this.isLoading = true
-      const param = {
-        custId: this.form.custId, // 客户id
-        factoringCustId: this.form.factoringCustId, // 保理商Id
-        vendorCode: this.form.vendorCode, // 供应商代码
-        fineGraceDays: this.form.fineGraceDays, // 宽容天数
-        interestRate: this.form.interestRate, // 年利率
-        serviceFeeRate: this.form.serviceFeeRate, // 还款手续费
-        fineGraceDayRate: this.form.fineGraceDayRate, // 罚息天利率
-        prepaymentDeductRate: this.form.prepaymentDeductRate // 提前还款手续费
-      }
-      this.axios.post('/loanFee2/confirmCustLoanFee.do', param).then(res => {
-        let type = res.data.result === 'true' ? 'success' : 'error'
-        this.$message({
-          message: res.data.message,
-          type: type
-        })
-        this.isLoading = false
-        if (res.data.status) {
-          this.$parent.fresh()
-          this.handleClose()
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          console.log(this.form)
+          this.isLoading = true
+          const param = {
+            custId: this.form.custId, // 客户id
+            factoringCustId: this.form.factoringCustId, // 保理商Id
+            vendorCode: this.form.vendorCode, // 供应商代码
+            loanPer: this.form.loanPer, // 放款比例
+            fineGraceDays: this.form.fineGraceDays, // 宽容天数
+            interestRate: this.form.interestRate, // 年利率
+            serviceFeeRate: this.form.serviceFeeRate, // 还款手续费
+            fineGraceDayRate: this.form.fineGraceDayRate, // 罚息天利率
+            prepaymentDeductRate: this.form.prepaymentDeductRate // 提前还款手续费
+          }
+          this.axios.post('/loanFee2/confirmCustLoanFee.do', param).then(res => {
+            let type = res.data.result === 'true' ? 'success' : 'error'
+            this.$message({
+              message: res.data.message,
+              type: type
+            })
+            this.isLoading = false
+            if (res.data.status) {
+              this.$parent.fresh()
+              this.handleClose()
+            }
+          }).catch(err => {
+            this.$message({
+              type: 'info',
+              message: `操作失败${err}`
+            })
+          })
         }
-      }).catch(err => {
-        this.$message({
-          type: 'info',
-          message: `操作失败${err}`
-        })
       })
     }
   }

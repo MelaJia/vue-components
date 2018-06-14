@@ -10,8 +10,8 @@ const userInfo=
         "bankName":"工行",
         "bankProvince":"广东",
         "bankShortName":null,
-        "businessEndDate":null,
-        "businessStartDate":null,
+        "businessEndDate":1457539300000,
+        "businessStartDate":1457539200000,
         "cId":null,
         "companyAddress":"衡陽市雁峰區白沙洲工業園工業大道9號科技研發中心四樓321室",
         "companyAuthenticationInfo":{

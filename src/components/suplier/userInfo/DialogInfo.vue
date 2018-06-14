@@ -192,10 +192,11 @@ export default {
   },
   methods: {
     subHandle (formName) {
+      console.log(this.form)
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          let businessStartDate = this.form.compuDate ? this.form.compuDate[0].Format('yyyy-MM-dd') : ''
-          let businessEndDate = this.form.compuDate ? this.form.compuDate[1].Format('yyyy-MM-dd') : ''
+          let businessStartDate = this.form.compuDate ? this.form.compuDate[0] : ''
+          let businessEndDate = this.form.compuDate ? this.form.compuDate[1] : ''
           const param = {
             custId: this.form.custId, // 公司ID
             companyName: this.form.companyName, // 企业名称

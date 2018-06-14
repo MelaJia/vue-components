@@ -11,14 +11,14 @@
         <el-row>
           <el-col :span="12" :offset="4">
             <el-form-item
-    prop="legalPhone"
+    prop="contactPhone"
     label="输入新手机号"
     :rules="[
       { required: true, message: '请输入手机号', trigger: 'blur' },
       {pattern: /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/, message: '手机号格式错误', trigger: ['blur', 'change']}
     ]"
   >
-    <el-input v-model="form.legalPhone"></el-input>
+    <el-input v-model="form.contactPhone"></el-input>
   </el-form-item>
           </el-col>
         </el-row>
@@ -88,10 +88,12 @@ export default {
     // 验证码
     sendMessage () {
       let phoneRegExp = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
-      if (this.isOvertime || !phoneRegExp.test(this.form.legalPhone)) {
+      if (this.isOvertime || !phoneRegExp.test(this.form.contactPhone)) {
+        this.$message.error('请输入正确的手机号')
+        console.log('请输入正确的手机号')
         return false
       }
-      this.axios.post('/cust/toverificationCode.do', { ssoId: 'a11c0b29d53794b2ecf1986ca3ad41d58803724b491121fa59aa0d85f5c46e7e', contactPhone: this.form.legalPhone }).then(res => {
+      this.axios.post('/cust/toverificationCode.do', { ssoId: 'a11c0b29d53794b2ecf1986ca3ad41d58803724b491121fa59aa0d85f5c46e7e', contactPhone: this.form.contactPhone }).then(res => {
         console.log(res)
       })
       let that = this

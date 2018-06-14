@@ -29,24 +29,29 @@ export default {
     InfoTable
   },
   created () {
-    const loading = this.$loading({
-      lock: true,
-      text: 'Loading',
-      spinner: 'el-icon-loading',
-      background: 'rgba(0, 0, 0, 0.7)'
-    })
-    this.getData(loading)
+    this.getData()
   },
   methods: {
-    getData (loading) {
+    getData () {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
       this.axios.post('/cust/customerDetailInfo.do', {
       }).then(res => {
         if (res.data.status) {
           const data = res.data.data
-          data.registeredCurrencyType = parseInt(data.registeredCurrencyType)
-          data.paidinCurrencyType = parseInt(data.paidinCurrencyType)
-          this.userInfo = data
           const tableData = []
+          const compuDate = [] // 营业执照日期
+          data.registeredCurrencyType = parseInt(data.registeredCurrencyType) // 货币类型数字转字符串
+          data.paidinCurrencyType = parseInt(data.paidinCurrencyType) // 货币类型数字转字符串
+          compuDate.push(data.businessStartDate)
+          compuDate.push(data.businessEndDate)
+          data.compuDate = compuDate
+          this.userInfo = data
+          console.log(this.userInfo)
           this.types.forEach(element => {
             tableData.push(this.getAuthArr(element.name, data[element.firstNode][element.node], element.typeId))
           })

@@ -29,10 +29,10 @@
       </ul>
       <ul>
         <li>
-          <span>转让日期: {{this.detailsP.transDate | dateFormat}}</span>
+          <span>转让日期: {{this.detailsP.arGenerateDate | dateFormat}}</span>
         </li>
         <li>
-          <span>转让金额: {{this.detailsP.transAmt}}</span>
+          <span>转让金额: {{this.detailsP.billBookAmt}}</span>
         </li>
       </ul>
       <ul>

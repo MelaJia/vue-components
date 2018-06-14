@@ -1075,6 +1075,25 @@ getArData:{
     "msg":"请求成功",
     "recordsTotal":20,
     "status":1
+},
+fenboStatus:{
+    "message": "查询成功", 
+    "recordsTotal": 5, 
+    "showData": [
+        {
+            "auditedTypeId": 0, 
+            "auditedTypeName": "待分拨"
+        }, 
+        {
+            " auditedTypeId ": 1, 
+            "auditedTypeName": "已分拨"
+        }, 
+        {
+            " auditedTypeId ": 2, 
+            "auditedTypeName": "拒绝"
+        }
+    ], 
+    "status": 1
 }
 }
 

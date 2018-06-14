@@ -89,6 +89,8 @@ export default {
     sendMessage () {
       let phoneRegExp = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
       if (this.isOvertime || !phoneRegExp.test(this.form.legalPhone)) {
+        this.$message.error('请输入正确的手机号')
+        console.log('请输入正确的手机号')
         return false
       }
       this.axios.post('/cust/toverificationCode.do', { ssoId: 'a11c0b29d53794b2ecf1986ca3ad41d58803724b491121fa59aa0d85f5c46e7e', contactPhone: this.form.legalPhone }).then(res => {

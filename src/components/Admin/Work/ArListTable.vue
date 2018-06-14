@@ -77,16 +77,16 @@ export default {
       this.details = auditDetail
       this.dialogInfoVisible = true
       this.axios.post('/discountAudit/queryDiscountAuditInfo.do', param).then(res => {
-        // if (res.data.status) {
-        this.details = res.data
-        this.dialogInfoVisible = true
-        // } else {
-        //   this.$message({
-        //     showClose: true,
-        //     message: '错了哦，这是一条错误消息',
-        //     type: 'error'
-        //   })
-        // }
+        if (res.data.status) {
+          this.details = res.data.data
+          this.dialogInfoVisible = true
+        } else {
+          this.$message({
+            showClose: true,
+            message: res.data.msg,
+            type: 'error'
+          })
+        }
       }).catch(function (error) {
         console.log(error)
       })

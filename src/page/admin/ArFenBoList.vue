@@ -71,9 +71,11 @@ export default {
     searchSubmit (val) {
       /* 修改请求参数 */
       this.param = {
-        masterChainId: val.masterChainId, // ar单号
         custFromName: val.custFromName, // 贴现客户
-        companyName: val.companyName // 付款单位
+        companyNameOfL1: val.companyNameOfL1, // 一级供应商
+        companyName: val.companyName, // 付款单位
+        custToName: val.custToName, // 保理方
+        auditedTypeId: val.auditedTypeId // 状态
       }
       if (this.total && this.currentPage !== 1) {
         this.total = 0 // 分页的当前页数变动会触发 从而获取数据

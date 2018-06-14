@@ -11,6 +11,8 @@
       </el-table-column>
       <el-table-column align="center" label="供应商代码" prop="vendorCode">
       </el-table-column>
+      <el-table-column align="center" label="放款比例" prop="loanPer" :formatter="addPercent">
+      </el-table-column>
       <el-table-column align="center" label="宽容天数" prop="fineGraceDays">
       </el-table-column>
       <el-table-column align="center" label="年利率" prop="interestRate" :formatter="addPercent">

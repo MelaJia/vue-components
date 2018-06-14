@@ -360,7 +360,8 @@ export const DataFee ={
            "vendorCode":"VCN001",
           "fineGraceDays":20,
           "fineGraceDayRate":0.02,
-          "prepaymentDeductRate":0.2
+          "prepaymentDeductRate":0.2,
+          "loanPer": 80
       },
       {
           "companyName":"VCN0015680簡稱",

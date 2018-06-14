@@ -29,10 +29,10 @@
       </ul>
       <ul>
         <li>
-          <span>转让日期:{{this.detailsP.transDate | dateFormat}}</span>
+          <span>转让日期:{{this.detailsP.arGenerateDate | dateFormat}}</span>
         </li>
         <li>
-          <span>金额:{{this.detailsP.transAmt}}</span>
+          <span>金额:{{this.detailsP.billBookAmt}}</span>
         </li>
       </ul>
       <ul>
@@ -78,7 +78,7 @@
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
-      <el-button type="primary" @click="print($refs.print)">打印</el-button>
+      <el-button type="primary" @click="print('print')">打印</el-button>
     </footer>
   </el-dialog>
 </section>

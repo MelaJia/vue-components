@@ -20,8 +20,8 @@ import {
   apiUrl
 } from '@/config/env.js'
 import {monitorInit} from '@/monitorDatas'
-// import Print from '@/plugs/print'
-// Vue.use(Print)
+import Print from '@/plugs/print'
+Vue.use(Print)
 dateInit() // 格式化日期注册
 axios.defaults.baseURL = apiUrl
 if (process.env.NODE_ENV === 'development') {

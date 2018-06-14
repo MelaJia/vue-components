@@ -8,7 +8,11 @@
     </header>
     <section class="layout form">
       <el-row>
-        <el-col :span="22" :offset="1" class="flex"><label>付款单位:</label><span>{{detailsP.companyName}}</span></el-col>
+        <el-col :span="11" :offset="1" class="flex"><label>付款单位:</label><span>{{detailsP.companyName}}</span></el-col>
+        <el-col :span="11" :offset="1" class="flex"><label>贴现客户:</label><span>{{detailsP.custFromName}}</span></el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="22" :offset="1" class="flex"><label>一级供应商:</label><span>{{detailsP.companyNameOfL1}}</span></el-col>
       </el-row>
       <el-row>
         <el-col :span="22" :offset="1" class="flex"><label>保理单位:</label>
@@ -19,7 +23,7 @@
       </el-row>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleSubmit">确认</el-button>
+      <el-button type="primary" @click="handleSubmit" :loading="isLoading">确认</el-button>
     </footer>
   </el-dialog>
 </template>
@@ -36,6 +40,9 @@
     width: 150px;
     height: 40px;
     line-height: 40px;
+    text-align: right;
+    padding-right: 20px;
+    font-weight: 600;
   }
   > span {
     height: 40px;
@@ -63,7 +70,8 @@ export default {
       factoringCusts: [{
         factoringCustId: 1,
         factoringApId: '获取数据失败'
-      }]
+      }],
+      isLoading: false // 请求数据中
     }
   },
   mounted () {
@@ -92,6 +100,7 @@ export default {
         })
         return
       }
+      this.isLoading = true
       const param = {
         custId: this.detailsP.custId, // 客户Id
         buyerCustNo: this.detailsP.buyerCustNo, // 付款法人代码
@@ -101,9 +110,10 @@ export default {
       this.axios.post('/discountAudit/approveDiscountAudit.do', param).then(res => {
         let type = res.data.result === 'true' ? 'success' : 'error'
         this.$message({
-          message: res.data.message,
+          message: res.data.data.message,
           type: type
         })
+        this.isLoading = false
         this.handleClose() // 关闭弹窗
         this.$parent.fresh() // 刷新数据
       }).catch(() => {
@@ -111,6 +121,7 @@ export default {
           type: 'info',
           message: '操作失败'
         })
+        this.isLoading = false
       })
     }
   }
