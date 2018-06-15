@@ -1,6 +1,6 @@
 /* eslint-disable */
 export const Datas = {
-  "data": [{
+  "aaData": [{
     "arStatusTypeName": "貼現申請中",
     "billBookAmt": 59312,
     "billBookCurr": 1,

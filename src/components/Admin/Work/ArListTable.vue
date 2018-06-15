@@ -11,14 +11,13 @@
       </el-table-column>
       <el-table-column align="center" fixed sortable label="贴现客户" prop="custFromName" width="130">
       </el-table-column>
-      <el-table-column align="center" label="L1供应商" prop="companyNameOfL1">
+      <el-table-column align="center" label="一级供应商" prop="companyNameOfL1">
       </el-table-column>
       <el-table-column align="center" label="付款单位" prop="companyName">
       </el-table-column>
-      <el-table-column align="center" label="信用报告">
-        <template slot-scope="scope">
-          <a :href="scope.row.riskPlatFormURL" target="_blank">信用报告</a>
-        </template>
+      <el-table-column align="center" label="保理方" prop="custToName">
+      </el-table-column>
+      <el-table-column align="center" label="状态" prop="auditedTypeName">
       </el-table-column>
       <el-table-column align="left" header-align="center" label="操作" width='150px' fixed="right">
         <template slot-scope="scope">

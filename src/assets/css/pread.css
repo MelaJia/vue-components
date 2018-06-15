@@ -113,8 +113,8 @@ a.red:hover {
 .btn {
   display: inline-block;
   width: 220px;
-  /* height: 50px;
-  line-height: 50px; */
+  height: 50px;
+  line-height: 50px;
   color: white;
   font-size: 20px;
   background-color: #ff3d4b;
@@ -243,7 +243,7 @@ body {
 }
 
 .bigPicture .wrapper .register .ipt-group input.text {
-  padding: 16px 15px;
+  padding: 17px 15px;
   border: 1px solid #e5e5e5;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -385,10 +385,6 @@ body {
   width: 139px !important;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
-}
-
-.bigPicture .wrapper .register .step2 button {
-  margin-top: 85px;
 }
 
 .bigPicture .index_focus .bd li {

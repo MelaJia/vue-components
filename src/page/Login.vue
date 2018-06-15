@@ -39,7 +39,7 @@
       <!-- index_focus end -->
       <div class="wrapper">
         <form action="" ref="ruleForm" id="register_form">
-          <div class="register" id="div_register1">
+          <div class="register" id="div_register1" v-show="!showReg">
             <p class="title">登录</p>
             <div class="iptContext">
               <div class="ipt-group">
@@ -69,7 +69,7 @@
                 </label>
               </div>
               <div class="btnGroup">
-                <el-button type="button" id="register" class="btn btnRed" @click.stop="submitForm('ruleForm')" :loading="loginLoading">登录</el-button>
+                <el-button type="button" id="register" class="btnRed" @click.stop="submitForm('ruleForm')" :loading="loginLoading">登录</el-button>
               </div>
               <p class="account">如果没有账号，请
                 <a @click="showReg=true" class="red"> 注册</a>
@@ -79,19 +79,18 @@
 
           <div class="register" v-show="showReg">
             <p class="title">注册</p>
-            <p class="step step1">为了确保账号可用，请填写您收到的手机动态码。</p>
-            <p class="step step2">如收不到短信验证码，可点击下面的获取语音验证码。</p>
             <div class="iptContext">
-              <div class="ipt-group phone">
-
-                <input type="text" id="viste" name="viste" class="text iptviste iptPhoneviste" onKeyDown="if(event.keyCode===32) return false"
-                  placeholder="手机验证" maxlength="6">
-                <button type="button" class="btn btnGray" id="getViste">获取手机验证码</button>
-                <em class="error"> </em>
+              <div class="ipt-group">
+                <input-phone v-model="ruleForm.phone" :classes="'text iptphone'"></input-phone>
               </div>
-              <p class="getSheepch" id="sheepch">
-                <img src="@/assets/img/login/icon_03.png" alt="">获取语音验证码
-              </p>
+              <div class="ipt-group">
+                <input-pass v-model="ruleForm.pass" :classes="'text iptpassword'"></input-pass>
+              </div>
+              <div class="ipt-group phone">
+                  <input type="text" id="viste" name="viste" class="text iptviste iptPhoneviste" onkeydown="if(event.keyCode===32) return false" placeholder="手机验证" maxlength="6">
+                  <button type="button" class="btn btnGray" id="getViste">获取手机验证码</button>
+                  <em class="error"> </em>
+              </div>
               <div class="btnGroup step2">
                 <button type="submit" id="register2" class="btn btnRed">注册领取</button>
               </div>
@@ -211,7 +210,7 @@ export default {
       }
       if (process.env.NODE_ENV === 'development') { // 调试环境
         let res = {
-          data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 3 }
+          data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 0 }
         }
         if (res.data.status) {
           this.$store.commit(types.LOGIN, res.data.token)
