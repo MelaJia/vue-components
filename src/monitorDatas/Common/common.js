@@ -287,10 +287,15 @@ const commonDatas = {
                     "arStatusTypeName":"不可用"
                 }
             ],
-            "pageName":"all"
+            "pageName":"arAllStatus"
         },
         {
             "arStatusList":[
+                {
+                    "arStatusTypeEngName":"all",
+                    "arStatusTypeId":null,
+                    "arStatusTypeName":"全部"
+                },
                 {
                     "arStatusTypeEngName":"confirmed",
                     "arStatusTypeId":2,
@@ -307,19 +312,24 @@ const commonDatas = {
         {
             "arStatusList":[
                 {
+                    "arStatusTypeEngName":"all",
+                    "arStatusTypeId":null,
+                    "arStatusTypeName":"全部"
+                },
+                {
                     "arStatusTypeEngName":"confirmed",
                     "arStatusTypeId":2,
                     "arStatusTypeName":"授让完成"
                 },
                 {
-                    "arStatusTypeEngName":"transfered",
-                    "arStatusTypeId":3,
-                    "arStatusTypeName":"已授讓"
-                },
-                {
                     "arStatusTypeEngName":"reject",
                     "arStatusTypeId":6,
                     "arStatusTypeName":"授讓拒絕"
+                },
+                {
+                    "arStatusTypeEngName":"transfered",
+                    "arStatusTypeId":3,
+                    "arStatusTypeName":"已授讓"
                 }
             ],
             "pageName":"onReceivingArPage"
@@ -327,19 +337,24 @@ const commonDatas = {
         {
             "arStatusList":[
                 {
+                    "arStatusTypeEngName":"all",
+                    "arStatusTypeId":null,
+                    "arStatusTypeName":"全部"
+                },
+                {
                     "arStatusTypeEngName":"discountApplying",
                     "arStatusTypeId":22,
                     "arStatusTypeName":"貼現申請中"
                 },
                 {
-                    "arStatusTypeEngName":"discountSigning",
-                    "arStatusTypeId":23,
-                    "arStatusTypeName":"贴现合同簽署中"
-                },
-                {
                     "arStatusTypeEngName":"discountAuditing",
                     "arStatusTypeId":24,
                     "arStatusTypeName":"放款核實"
+                },
+                {
+                    "arStatusTypeEngName":"discountSigning",
+                    "arStatusTypeId":23,
+                    "arStatusTypeName":"贴现合同簽署中"
                 }
             ],
             "pageName":"loanPage"

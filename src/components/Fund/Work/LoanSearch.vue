@@ -78,7 +78,7 @@ export default {
       formInline: {
         masterChainId: '', // ar单号
         custFromName: '', // 贴现客户
-        checkedStatus: '', // 状态
+        checkedStatus: null, // 状态
         billBookCurr: '', // 币别
         invoiceNo: '', // 发票号
         discountAmtScopeFrom: '', // 贴现金额起始

@@ -37,7 +37,7 @@ export default {
         masterChainId: '', // ar单号
         isMasterAr: '', // ar来源
         custFromName: '', // 转让单位
-        status: '', // 状态
+        status: null, // 状态
         billBookCurr: '', // 币别
         invoiceNo: '', // 发票号
         moneyDate: null, // 日期
