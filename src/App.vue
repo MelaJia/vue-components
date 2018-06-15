@@ -25,9 +25,7 @@ body{
 html,body,#app,#app>div,#app>div>main,.main-section,.main-section>div{
   height: 100%;
 }
-@media screen and (min-width:1357px) and (max-width: 1396px) {
-    .el-card__body {
-        width: 1030px;
+.el-card__body {
+        min-width: 950px;
     }
-}
 </style>

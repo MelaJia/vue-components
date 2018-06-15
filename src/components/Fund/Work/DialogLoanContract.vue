@@ -174,7 +174,7 @@ export default {
           { type: 'number', message: '宽容天数必须为数字值' }
         ],
         billDueDate: [
-          { type: 'date', required: true, message: '请输入预计还款日期', trigger: 'blur' }
+          { required: true, message: '请输入预计还款日期', trigger: 'blur' }
         ]
       }
     }

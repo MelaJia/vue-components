@@ -38,7 +38,7 @@
       </div>
       <!-- index_focus end -->
       <div class="wrapper">
-        <form action="https://www.iqianbang.com/Activity-getnewers?userfrom=sem%7cbaidu%7cpc%7c89171#" ref="ruleForm" id="register_form">
+        <form action="" ref="ruleForm" id="register_form">
           <div class="register" id="div_register1">
             <p class="title">登录</p>
             <div class="iptContext">

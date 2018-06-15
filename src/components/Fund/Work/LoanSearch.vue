@@ -54,9 +54,13 @@
         </el-form-item>
       </el-col>
     </el-row>
-     <el-form-item>
+    <el-row>
+      <el-col :span="2" :offset="11">
+        <el-form-item>
           <el-button type="primary" @click="onSubmit">查询</el-button>
         </el-form-item>
+      </el-col>
+    </el-row>
   </el-form>
 </template>
 <style scoped lang="scss">
