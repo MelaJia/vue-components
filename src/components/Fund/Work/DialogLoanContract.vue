@@ -24,8 +24,8 @@
         </el-row>
         <el-row>
           <el-col :span="11"  class="flex">
-            <el-form-item label="实放金额: " prop="actualDiscountAmt">
-             <el-input v-model.number="getform.actualDiscountAmt" type="number" placeholder="实放金额"></el-input>
+            <el-form-item label="实放金额: " prop="actualDiscountAmtA">
+             <el-input v-model.number="getform.actualDiscountAmtA" type="number" placeholder="实放金额"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -149,7 +149,7 @@ export default {
           { required: true, message: '请输入放款比例', trigger: 'blur' },
           { type: 'number', message: '放款比例必须为数字值' }
         ],
-        actualDiscountAmt: [
+        actualDiscountAmtA: [
           { required: true, message: '实放金额不能为空', trigger: 'blur' },
           { type: 'number', message: '实放金额必须为数字值' }
         ],
@@ -182,7 +182,7 @@ export default {
   computed: {
     getform () {
       let cP = this.detailsP
-      cP.actualDiscountAmt = this.detailsP.billBookAmt * this.detailsP.loanPer / 100
+      cP.actualDiscountAmtA = this.detailsP.billBookAmt * this.detailsP.loanPer / 100
       return cP
     },
     getTitle () {
@@ -202,7 +202,7 @@ export default {
             supplierCustId: this.getform.supplierCustId,
             billBookAmt: this.getform.billBookAmt, // 贴现金额
             loanPer: this.getform.loanPer, // 放款比例
-            actualDiscountAmt: this.getform.actualDiscountAmt || '', // 实放金額
+            actualDiscountAmt: this.getform.actualDiscountAmtA || '', // 实放金額
             interestRate: this.getform.interestRate || '', // 贴现利率
             serviceFeeRate: this.getform.serviceFeeRate || '', // 服务费率
             overdueRate: this.getform.overdueRate || '', // 逾期利率

@@ -108,7 +108,7 @@ export default {
       }
       console.log(param)
       this.axios.post('/discountAudit/approveDiscountAudit.do', param).then(res => {
-        let type = res.data.result === 'true' ? 'success' : 'error'
+        let type = res.data.data.result === 'true' ? 'success' : 'error'
         this.$message({
           message: res.data.data.message,
           type: type

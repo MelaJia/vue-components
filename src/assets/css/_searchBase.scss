@@ -4,3 +4,17 @@ form {
 .line {
   text-align: center;
 }
+// @media screen and (min-width:1290px) and (max-width: 1405px) {
+//   form {
+//       width: 950px;
+//   }
+// }
+form {
+        min-width: 950px;
+    }
+.el-date-editor.el-range-editor.el-input__inner.el-date-editor--daterange.el-range-editor--mini {
+  width: 300px;
+}
+// .el-select.el-select--mini,.el-input.el-input--mini {
+//   width: 150px;
+// }

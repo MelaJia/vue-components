@@ -106,6 +106,7 @@ export default {
   },
   computed: {
     getTitle () {
+      console.log(this.detailsP.actualDiscountAmt)
       return this.detailsP.masterChainId + '详情'
     }
   },
