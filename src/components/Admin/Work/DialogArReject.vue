@@ -77,9 +77,9 @@ export default {
       }
       this.isLoading = true
       this.axios.post('/discountAudit/rejectDiscountAudit.do', param).then(res => {
-        let type = res.data.data.result === 'true' ? 'success' : 'error'
+        let type = res.data.result === 'true' ? 'success' : 'error'
         this.$message({
-          message: res.data.data.message,
+          message: res.data.message,
           type: type
         })
         this.isLoading = true

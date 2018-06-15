@@ -45,7 +45,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="注册资本：" prop="registeredCapital">
-              <el-input placeholder="请输入内容" v-model.number="getForm.registeredCapital" class="input-with-select">
+              <el-input placeholder="请输入金额：" v-model.number="getForm.registeredCapital" class="input-with-select">
                 <el-select v-model.number="getForm.registeredCurrencyType" slot="append" placeholder="请选择">
                   <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
                 </el-select>
@@ -90,29 +90,29 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="公司logo" >
-              <upload :param="{filename:'logoUrl'}" @get-url="getUrl($event, 'logoUrl')"></upload>
+              <upload :param="{filename:'logoUrl'}" :o-img-url="getForm.logoUrlByte" @get-url="getUrl($event, 'logoUrl')"></upload>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="营业执照(图片)">
-              <upload :param="{filename:'licenseUrl'}" @get-url="getUrl($event, 'licenseUrl')"></upload>
+              <upload :param="{filename:'licenseUrl'}" :o-img-url="getForm.licenseUrlByte" @get-url="getUrl($event, 'licenseUrl')"></upload>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="营业执照副本">
-              <upload :param="{filename:'licenseViceUrl'}" @get-url="getUrl($event, 'licenseViceUrl')"></upload>
+              <upload :param="{filename:'licenseViceUrl'}" :o-img-url="getForm.licenseViceUrlByte" @get-url="getUrl($event, 'licenseViceUrl')"></upload>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="组织机构代码证">
-              <upload :param="{filename:'organizationUrl'}" @get-url="getUrl($event, 'organizationUrl')"></upload>
+              <upload :param="{filename:'organizationUrl'}" :o-img-url="getForm.organizationUrlByte" @get-url="getUrl($event, 'organizationUrl')"></upload>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="税务登记证">
-              <upload :param="{filename:'taxUrl'}" @get-url="getUrl($event, 'taxUrl')"></upload>
+              <upload :param="{filename:'taxUrl'}" :o-img-url="getForm.taxUrlByte" @get-url="getUrl($event, 'taxUrl')"></upload>
             </el-form-item>
           </el-col>
         </el-row>
@@ -153,27 +153,27 @@ export default {
           { required: true, message: '请输入统一社会信用代码', trigger: 'blur' }
         ],
         payTaxesNumber: [
-          { required: true, message: '请输入纳税人识別号', trigger: 'blur' }
+          { required: false, message: '请输入纳税人识別号', trigger: 'blur' }
         ],
         vendorCodes: [
           { required: true, message: '请输入供应商代码', trigger: 'blur' }
         ],
         registeredCapital: [
-          { required: true, message: '请填写注册资本', trigger: 'blur' },
-          { type: 'number', message: '资本必须为数字值' }
+          { required: false, message: '请填写注册资本', trigger: 'blur' }
+          // { type: 'number', message: '资本必须为数字值' }
         ],
         paidinCapital: [
-          { required: true, message: '请填写实收资本', trigger: 'blur' },
-          { type: 'number', message: '资本必须为数字值' }
+          { required: false, message: '请填写实收资本', trigger: 'blur' }
+          // { type: 'number', message: '资本必须为数字值' }
         ],
         establishDate: [
-          { required: true, message: '请选择日期', trigger: 'change' }
+          { required: false, message: '请选择日期', trigger: 'change' }
         ],
         compuDate: [
-          { required: true, message: '请选择营业执照日期', trigger: 'change' }
+          { required: false, message: '请选择营业执照日期', trigger: 'change' }
         ],
         companyRegisterDate: [
-          { required: true, message: '请选择日期', trigger: 'change' }
+          { required: false, message: '请选择日期', trigger: 'change' }
         ],
         mainProducts: [
           { required: true, message: '请填写经营范围', trigger: 'blur' }

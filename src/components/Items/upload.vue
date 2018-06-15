@@ -1,6 +1,7 @@
 <template>
   <el-upload class="avatar-uploader" :data="param" :headers="{'Authorization':token}" :action="uploadUrl" :show-file-list="false" :on-success="handleAvatarSuccess" >
     <img v-if="imgurl" :src="imgurl" class="avatar">
+    <img v-else-if="oImgUrl" :src="'data:image/png;base64,'+oImgUrl" class="avatar">
     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
   </el-upload>
 </template>
@@ -36,7 +37,7 @@ import {
 } from '@/config/env.js'
 import {mapGetters} from 'vuex'
 export default {
-  props: ['param'],
+  props: ['param', 'oImgUrl'],
   data () {
     return {
       imgurl: '',

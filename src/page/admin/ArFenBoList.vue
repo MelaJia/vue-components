@@ -43,7 +43,7 @@ export default {
     return {
       loading: false,
       postUrl: '/discountAudit/getDiscountAuditListTable.do',
-      dataStr: 'data',
+      dataStr: 'aaData',
       totalStr: 'recordsTotal'
     }
   },
@@ -57,7 +57,6 @@ export default {
     const that = this
     this.getdata(1, 10)
       .then(function (response) {
-        console.log(response)
         if (response) {
           that.tableData5 = response.data[that.dataStr]
           that.total = response.data[that.totalStr]
