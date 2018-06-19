@@ -49,7 +49,7 @@
       </ul>
       <ul>
         <li>
-          <span>对应发票号:<label v-for="(item,index) in detailsP.invoiceCustom" :key="index">{{item.invoiceAfterTaxAmt}}</label></span>
+          <span>对应发票号:<label v-for="(item,index) in detailsP.invoiceCustomList" :key="index">{{item.invoiceNo}}</label></span>
         </li>
       </ul>
       <!-- <p>

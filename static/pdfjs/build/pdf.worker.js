@@ -27826,7 +27826,7 @@ var WidgetAnnotation = function WidgetAnnotationClosure() {
     }
     data.readOnly = this.hasFieldFlag(_util.AnnotationFieldFlag.READONLY);
     if (data.fieldType === 'Sig') {
-      this.setFlags(_util.AnnotationFlag.HIDDEN);
+      // this.setFlags(_util.AnnotationFlag.HIDDEN); // 签章隐藏
     }
   }
   _util.Util.inherit(WidgetAnnotation, Annotation, {

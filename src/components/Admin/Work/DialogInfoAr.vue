@@ -103,7 +103,7 @@ export default {
   },
   computed: {
     getTitle () {
-      return this.detailsP.masterChainId + '详情'
+      return this.detailsP.custId + '详情'
     }
   },
   methods: {

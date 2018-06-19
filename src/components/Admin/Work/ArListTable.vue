@@ -42,7 +42,7 @@ import ListMinxIn from '@/mixins/suplier/Ar/List'
 import Common from '@/mixins/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 import { firstToUpperCase } from '@/util/util' // 首字母大写
-import { auditDetail } from '@/monitorDatas/Admin/arDatas.js'
+// import { auditDetail } from '@/monitorDatas/Admin/arDatas.js'
 export default {
   props: ['dataLoading', 'dataTable'],
   data () {
@@ -73,7 +73,7 @@ export default {
         custId: val.custId,
         buyerCustNo: val.buyerCustNo
       }
-      this.details = auditDetail
+      // this.details = auditDetail
       this.dialogInfoVisible = true
       this.axios.post('/discountAudit/queryDiscountAuditInfo.do', param).then(res => {
         if (res.data.status) {

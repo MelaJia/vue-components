@@ -40,7 +40,7 @@
           <span>币别:{{this.detailsP.currencyDesc}}</span>
         </li>
         <li>
-          <span>转让对应AR:{{this.detailsP.billPayDate}}</span>
+          <span>转让对应AR:{{this.detailsP.parentChainId}}</span>
         </li>
 
       </ul>

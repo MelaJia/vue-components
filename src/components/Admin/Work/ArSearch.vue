@@ -65,10 +65,10 @@ export default {
   },
   mounted () {
     this.axios.post('/commonCust/arAuditStatusList.do').then((res) => {
-      console.log(res.data.showData)
+      console.log(res.data.data)
       if (res.data.status) {
-        console.log(res.data.showData)
-        this.arStatus = res.data.showData
+        console.log(res.data.data)
+        this.arStatus = res.data.data
       }
     })
   }

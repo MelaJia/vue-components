@@ -77,7 +77,7 @@ export default {
   mounted () {
     this.axios.post('/commonCust/factoringCustomerList.do').then(res => {
       if (res.data.status) {
-        this.factoringCusts = res.data.showData
+        this.factoringCusts = res.data.data
       }
     }).catch((err) => {
       this.$message({
@@ -108,19 +108,20 @@ export default {
       }
       console.log(param)
       this.axios.post('/discountAudit/approveDiscountAudit.do', param).then(res => {
-        let type = res.data.result === 'true' ? 'success' : 'error'
+        let type = res.data.data.result === 'true' ? 'success' : 'error'
         this.$message({
-          message: res.data.message,
+          message: res.data.data.message,
           type: type
         })
         this.isLoading = false
         this.handleClose() // 关闭弹窗
         this.$parent.fresh() // 刷新数据
-      }).catch(() => {
+      }).catch((err) => {
         this.$message({
           type: 'info',
           message: '操作失败'
         })
+        console.log(err)
         this.isLoading = false
       })
     }

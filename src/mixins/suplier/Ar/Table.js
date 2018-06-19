@@ -80,7 +80,7 @@ export default {
       that.param.iDisplayStart = page
       that.param.iDisplayLength = length
       return this.axios.post(this.postUrl, that.param).then(res => {
-        return res
+        return Promise.resolve(res)
       }).then(response => {
         let result = null
         if (response.data[that.dataStr] && response.data[that.dataStr].length > 0) {
@@ -101,7 +101,7 @@ export default {
         }
         result = response
         this.loading = false // 关闭加载动画
-        return result
+        return Promise.resolve(result)
       }).catch(err => {
         this.loading = false // 关闭加载动画
         console.log(err)

@@ -7,7 +7,7 @@
       <el-input v-model.trim="formInline.custFromName" placeholder="转让单位"></el-input>
     </el-form-item>
     <el-form-item label="状态">
-      <el-select v-model="formInline.status" placeholder="状态">
+      <el-select v-model="formInline.status" clearable placeholder="状态">
         <el-option v-for="(item,index) in arStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
       </el-select>
     </el-form-item>

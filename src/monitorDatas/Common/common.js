@@ -855,7 +855,7 @@ arDetails:{
 factories:{
     "message":"查询成功",
     "recordsTotal":5,
-    "showData":[
+    "data":[
         {
             "factoringApId":"FJF",
             "factoringCustId":"11031049033568"
@@ -880,7 +880,7 @@ factories:{
     "status":1
 },
 fenboList:{
-    "aaData":[
+    "data":[
         {
             "auditedTypeName":"已分拨",
             "billId":"NCP3H60025-test",
@@ -1035,6 +1035,27 @@ fenboList:{
     "draw":0,
     "recordsFiltered":10,
     "recordsTotal":10
+},
+fenboDetail:{
+    "data":{
+        factoringApId:'FJF',
+        factoringClientId:'FJF',
+        companyNameOfL1:'山西英和貿易有限公司',
+        custToName:'FJF',
+        companyName:'基準精密工業(惠州)有限公司深圳龍華分公司',
+        custFromName:'山西英和貿易有限公司',
+        buyerCustNo:'A086362',
+        payBankAccount:null,
+        receiveBankName:'建設銀行',
+        payBankName:null,
+        receiveBankAccount:'5006007008000',
+        factoringCustId:'11031049033568',
+        auditedTypeName:'已分拨',
+        custId:'09201912016466'
+      },
+    "msg":"请求成功",
+    "recordsTotal":1,
+    "status":1
 },
 getArData:{
     "data":[
@@ -1196,7 +1217,7 @@ getArData:{
 fenboStatus:{
     "message": "查询成功", 
     "recordsTotal": 5, 
-    "showData": [
+    "data": [
         {
             "auditedTypeId": 0, 
             "auditedTypeName": "待分拨"
