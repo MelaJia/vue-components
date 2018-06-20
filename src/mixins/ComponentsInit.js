@@ -23,7 +23,7 @@ export default {
           type: true
         })
       } else {
-        this.$message.error(res.data.message)
+        this.$message.error(res.data.msg)
       }
     })
     // 获取ar状态并保存
@@ -35,7 +35,7 @@ export default {
           type: true
         })
       } else {
-        this.$message.error(res.data.message)
+        this.$message.error(res.data.msg)
       }
     })
   }

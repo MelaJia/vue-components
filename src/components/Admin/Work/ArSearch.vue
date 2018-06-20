@@ -40,7 +40,7 @@
 </template>
 <style scoped>
 .el-input.el-input--small {
-    width: 190px;
+  width: 190px;
 }
 form {
   padding: 10px;

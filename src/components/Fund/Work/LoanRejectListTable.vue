@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import ListMinxIn from '@/mixins/suplier/Ar/List'
+import ListMinxIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 export default {

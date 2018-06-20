@@ -65,19 +65,19 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="公司成立日期:" prop="establishDate">
-              <el-date-picker v-model="getForm.establishDate" type="date" placeholder="选择日期">
+              <el-date-picker :editable="false" v-model="getForm.establishDate" type="date" placeholder="选择日期">
               </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="营业执照日期:" prop="compuDate">
-              <el-date-picker v-model="getForm.compuDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+              <el-date-picker :editable="false" v-model="getForm.compuDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
               </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="公司登记日期:" prop="companyRegisterDate">
-              <el-date-picker v-model="getForm.companyRegisterDate" type="date" placeholder="选择日期">
+              <el-date-picker :editable="false" v-model="getForm.companyRegisterDate" type="date" placeholder="选择日期">
               </el-date-picker>
             </el-form-item>
           </el-col>

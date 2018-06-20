@@ -53,7 +53,7 @@ export default {
     this.getdata(1, 10)
       .then(function (response) {
         console.log(response)
-        if (response) {
+        if (response.data.status) {
           that.tableData5 = response.data[that.dataStr]
           that.total = response.data[that.totalStr]
         }
@@ -80,7 +80,7 @@ export default {
         this.total = 0 // 分页的当前页数变动会触发 从而获取数据
       } else {
         this.getdata(1, 10).then(res => {
-          if (res) {
+          if (res.data.status) {
             this.tableData5 = res.data[this.dataStr]
             this.total = res.data[this.totalStr]
           }
@@ -91,7 +91,7 @@ export default {
       const that = this
       this.getdata(that.currentPage, that.psize)
         .then(res => {
-          if (res) {
+          if (res.data.status) {
             this.tableData5 = res.data[this.dataStr]
             this.total = res.data[this.totalStr]
           }

@@ -30,10 +30,9 @@
 <script>
 import ArList from '@/components/suplier/Ar/ArList'
 import Search from '@/components/suplier/Ar/SearchGet'
-import DataInit from '@/mixins/suplier/Ar/DataInit'
 import Table from '@/mixins/suplier/Ar/Table'// handleCurrentChange
 export default {
-  mixins: [DataInit, Table],
+  mixins: [Table],
   data () {
     return {
       postUrl: '/onReceivingAr/getOnReceivingArListTable', // 请求地址

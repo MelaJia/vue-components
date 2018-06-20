@@ -34,11 +34,10 @@
 <script>
 import ArTable from '@/components/Admin/Work/ArListTable'
 import Search from '@/components/Admin/Work/ArSearch'
-import DataInit from '@/mixins/suplier/Ar/DataInit'
 import Table from '@/mixins/suplier/Ar/Table'
 // import { auditList } from '@/monitorDatas/Admin/arDatas.js'
 export default {
-  mixins: [DataInit, Table],
+  mixins: [Table],
   data () {
     return {
       loading: false,

@@ -8,7 +8,7 @@ export default {
       }
       return new Date(date).Format('yyyy-MM-dd')
     },
-    // 时间格式化
+    // 添加%
     addPercent: function (row, column) {
       var val = row[column.property]
       if (val === undefined) {
@@ -72,7 +72,7 @@ export default {
       }).then(res => {
         let type = res.data.status ? 'success' : 'error'
         this.$message({
-          message: res.data.data.message,
+          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
           type: type
         })
         this.$emit('refresh')
@@ -101,7 +101,10 @@ export default {
         })
       })
     },
-    // 刷新数据
+    /**
+     * 刷新父页面数据
+     * this.$parent.fresh()
+     */
     fresh () {
       this.$emit('refresh')
     }

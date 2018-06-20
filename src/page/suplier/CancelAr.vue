@@ -30,10 +30,9 @@
 <script>
 import ArList from '@/components/suplier/Ar/ArListCancel'
 import Search from '@/components/suplier/Ar/SearchCancel'
-import DataInit from '@/mixins/suplier/Ar/DataInit'
 import Table from '@/mixins/suplier/Ar/Table'
 export default {
-  mixins: [DataInit, Table],
+  mixins: [Table],
   data () {
     return {
       postUrl: '/transferedAr/getTransferedArListTable.do',

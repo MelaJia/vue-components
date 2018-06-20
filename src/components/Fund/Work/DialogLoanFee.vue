@@ -14,7 +14,7 @@
             prop="loanPer"
             :rules="[
             { required: true, message: '请输入放款比例', trigger: 'blur' },
-            { type: 'number', message: '实放金额必须为数字值' }
+            { type: 'number', message: '放款比例必须为数字值' }
             ]"
             >
               <el-input v-model.number="form.loanPer"></el-input>
@@ -94,9 +94,9 @@ export default {
             prepaymentDeductRate: this.form.prepaymentDeductRate // 提前还款手续费
           }
           this.axios.post('/loanFee2/confirmCustLoanFee.do', param).then(res => {
-            let type = res.data.result === 'true' ? 'success' : 'error'
+            let type = res.data.status ? 'success' : 'error'
             this.$message({
-              message: res.data.message,
+              message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
               type: type
             })
             this.isLoading = false

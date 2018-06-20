@@ -23,7 +23,7 @@
       <el-col :span="11"><el-input v-model.number="formInline.discountAmtScopeTo" placeholder="结束金额"></el-input></el-col>
     </el-form-item>
     <el-form-item label="预计回款日期">
-      <el-date-picker v-model="formInline.moneyDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+      <el-date-picker :editable="false" v-model="formInline.moneyDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
       </el-date-picker>
     </el-form-item>
     <el-form-item>

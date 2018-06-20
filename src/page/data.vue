@@ -15,8 +15,8 @@
 </article>
 </template>
 <script>
-import mixTabel from '../mixins/suplier/Ar/DataInit'
+// 数据展示页面
 export default {
-  mixins: [mixTabel]
+  mixins: []
 }
 </script>

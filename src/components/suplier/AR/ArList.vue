@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import ListMinxIn from '@/mixins/suplier/Ar/List'
+import ListMinxIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 /* 待收Ar列表 */
@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     handleAccept (idx, val) {
-      this.$confirm(`单号为${val.masterChainId}的确认接授其转让?`, `${val.masterChainId}接收转让`, {
+      this.$confirm(`单号为${val.masterChainId}的确认接授其转让?`, `提示`, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -67,7 +67,7 @@ export default {
       })
     },
     handleReject (idx, val) {
-      this.$confirm(`单号为${val.masterChainId}的确认拒绝其转让?`, `${val.masterChainId}拒绝转让`, {
+      this.$confirm(`单号为${val.masterChainId}的确认拒绝其转让?`, `提示`, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

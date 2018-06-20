@@ -1,7 +1,7 @@
 <template>
   <div>
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-info>
-    <dialog-contract :visible-p.sync="dialogTransferVisible" :details-p="details"></dialog-contract>
+    <dialog-contract :visible-p.sync="dialogTransferVisible" :details-p="detailsContract"></dialog-contract>
     <section>
     <el-table :data="comDatas" v-loading="dataLoading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)" border  :summary-method="sumHandle([5,6])" sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import ListMinxIn from '@/mixins/suplier/Ar/List'
+import ListMinxIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common' // getLoanDetail
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 import { firstToUpperCase } from '@/util/util' // 首字母大写
@@ -57,6 +57,7 @@ export default {
   props: ['dataLoading', 'dataTable'],
   data () {
     return {
+      detailsContract: '',
       operateArr: [{ key: 'contrac', name: '合同生成', isLoading: false }, { key: 'confirm', name: '发起确认', isLoading: false }, { key: 'accept', name: '放款', isLoading: false }, { key: 'reject', name: '拒绝', isLoading: false }] // 操作数据
     }
   },
@@ -92,7 +93,7 @@ export default {
       this.axios.post('/loan2/showGenerateContract.do', { masterChainId: val.masterChainId }).then(res => {
         console.log(res)
         if (res.data.status) {
-          this.details = res.data.data
+          this.detailsContract = res.data.data
           this.dialogTransferVisible = true
         } else {
           this.$message.error(res.data.msg)
@@ -101,7 +102,7 @@ export default {
     },
     // 发起确认
     handleConfirm (idx, val) {
-      this.$confirm(`单号为${val.masterChainId}的贴现合同确认发起确认?`, `${val.masterChainId}合同确认`, {
+      this.$confirm(`单号为${val.masterChainId}的贴现合同确认发起确认?`, `提示`, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -111,7 +112,7 @@ export default {
         }).then(res => {
           let type = res.data.status ? 'success' : 'error'
           this.$message({
-            message: res.data.data.message,
+            message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
             type: type
           })
           this.$emit('refresh')
@@ -131,7 +132,7 @@ export default {
     },
     // 放款
     handleAccept (idx, val) {
-      this.$confirm(`单号为${val.masterChainId}的贴现申请确认放款?`, `${val.masterChainId}放款确认`, {
+      this.$confirm(`单号为${val.masterChainId}的贴现申请确认放款?`, `提示`, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -146,7 +147,7 @@ export default {
     },
     // 拒绝
     handleReject (idx, val) {
-      this.$confirm(`单号为${val.masterChainId}的贴现申请确认拒绝?`, `${val.masterChainId}放款拒绝`, {
+      this.$confirm(`单号为${val.masterChainId}的贴现申请确认拒绝?`, `提示`, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

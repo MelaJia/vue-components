@@ -87,7 +87,7 @@ export default {
             })
           } else {
             this.$message({
-              message: res.data.data,
+              message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
               type: 'success'
             })
           }

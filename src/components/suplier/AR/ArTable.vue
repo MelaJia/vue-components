@@ -7,11 +7,11 @@
     </header>
     <!-- <dialog-confirm :visible-p.sync="dialogConfirmVisible" :multiple-selection-p="multipleSelection"></dialog-confirm> -->
     <!-- 合同确认 -->
-    <dialog-contract :visible-p.sync="dialogContractVisible" :details-p="details"></dialog-contract>
+    <dialog-contract :visible-p.sync="dialogContractVisible" :details-p="detailsContract"></dialog-contract>
     <!-- 转让 -->
-    <dialog-transfer :visible-p.sync="dialogTransferVisible" :details-p="details"></dialog-transfer>
+    <dialog-transfer :visible-p.sync="dialogTransferVisible" :details-p="detailsTransfer"></dialog-transfer>
     <!-- 贴现 -->
-    <dialog-discount :visible-p.sync="dialogDiscountVisible" :details-p="details"></dialog-discount>
+    <dialog-discount :visible-p.sync="dialogDiscountVisible" :details-p="detailsDiscount"></dialog-discount>
     <!-- <dialog-withdraw :visible-p.sync="dialogWithdrawVisible" :multiple-selection-p="multipleSelection" :options="Options"></dialog-withdraw> -->
     <!-- 详情 -->
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-info>
@@ -177,6 +177,9 @@ export default {
       dialogDiscountVisible: false, // 控制贴现窗
       dialogInfoVisible: false,
       dialogChildInfoVisible: false, // 子详情
+      detailsContract: '', // 合同数据
+      detailsTransfer: '', // 转账数据
+      detailsDiscount: '', // 贴现数据
       multipleSelection: [], // 选择的数据
       details: {}, // 详情数据
       operateArr: [
@@ -255,7 +258,7 @@ export default {
       this.getDetail(val).then(res => {
         console.log(res)
         if (res) {
-          this.details = res
+          this.detailsTransfer = res
           this.dialogTransferVisible = true
         }
         this.operateArr[idx].isLoading = false
@@ -266,7 +269,7 @@ export default {
     },
     // 取消转让
     handleCancleTrans (idx, val) {
-      this.$confirm(`单号为${val.masterChainId}的确认取消授让?`, `${val.masterChainId}取消授让`, {
+      this.$confirm(`单号为${val.masterChainId}的确认取消授让?`, `提示`, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -285,7 +288,7 @@ export default {
       this.getDetail(val).then(res => {
         console.log(res)
         if (res) {
-          this.details = res
+          this.detailsDiscount = res
           this.dialogDiscountVisible = true
         }
         this.operateArr[idx].isLoading = false
@@ -296,14 +299,14 @@ export default {
     },
     // 取消贴现
     handleCancleDiscount (idx, val) {
-      this.$confirm(`单号为${val.masterChainId}的确认取消贴现?`, `${val.masterChainId}取消贴现`, {
+      this.$confirm(`单号为${val.masterChainId}的确认取消贴现?`, `提示`, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         this.cancelBase('/myAr/cancelDiscount.do', val.masterChainId)
         // this.axios.post('/myAr/cancelDiscount.do', { masterChainId: val.masterChainId }).then(res => {
-        //   let type = res.data.result === 'true' ? 'success' : 'error'
+        //   let type = res.status ? 'success' : 'error'
         //   this.$message({
         //     message: res.data.message,
         //     type: type
@@ -327,7 +330,7 @@ export default {
       this.getDetail(val).then(res => {
         console.log(res)
         if (res) {
-          this.details = res
+          this.detailsContract = res
           this.dialogContractVisible = true
         }
         this.operateArr[idx].isLoading = false
@@ -338,7 +341,7 @@ export default {
     },
     // 审核申请
     handleApply (idx, val) {
-      this.$confirm('确认进行贴现审核申请？', `${val.masterChainId}贴现审核申请`, {
+      this.$confirm(`单号为${val.masterChainId}的确认进行贴现审核申请？`, `提示`, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

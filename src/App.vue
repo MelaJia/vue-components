@@ -28,4 +28,7 @@ html,body,#app,#app>div,#app>div>main,.main-section,.main-section>div{
 .el-card__body {
         min-width: 950px;
     }
+.el-message-box__content{
+  padding: 20px 15px
+}
 </style>

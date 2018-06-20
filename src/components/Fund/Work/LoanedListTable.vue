@@ -165,7 +165,7 @@ header {
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common'
-import Width from '@/mixins/Fund/width'
+import Width from '@/mixins/Fund/width' // 宽度
 export default {
   props: ['dataLoading', 'dataTable'],
   mixins: [TableMixIn, Common, Width],

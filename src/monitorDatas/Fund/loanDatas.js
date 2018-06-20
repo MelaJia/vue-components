@@ -302,7 +302,8 @@ export const Datas = {
   ],
   "draw": 2,
   "recordsFiltered": 275,
-  "recordsTotal": 275
+  "recordsTotal": 275,
+  'status': 1
 }
 export const DataFee ={
   "data":[
@@ -479,7 +480,8 @@ export const DataFee ={
   ],
   "draw":1,
   "recordsFiltered":13,
-  "recordsTotal":13
+  "recordsTotal":13,
+  "status": 1
 }
 export const LoanedDatas={
     "data": [

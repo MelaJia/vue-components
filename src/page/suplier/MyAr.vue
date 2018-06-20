@@ -34,10 +34,9 @@
 <script>
 import ArTable from '@/components/suplier/Ar/arTable'
 import Search from '@/components/suplier/Ar/SearchMyAr'
-import DataInit from '@/mixins/suplier/Ar/DataInit'
 import Table from '@/mixins/suplier/Ar/Table'
 export default {
-  mixins: [DataInit, Table],
+  mixins: [Table],
   data () {
     return {
       loading: false,

@@ -14,14 +14,16 @@
         <li>
           <span>对手单位:{{this.detailsP.custToName}}</span>
         </li>
-        <li>
-          <span>AR来源:{{this.detailsP.arSourceDesc}}</span>
-        </li>
       </ul>
       <ul>
         <li>
+          <span>AR来源:{{this.detailsP.arSourceDesc}}</span>
+        </li>
+        <li>
           <span>状态:{{this.detailsP.arStatusTypeName}}</span>
         </li>
+      </ul>
+      <ul>
         <li>
           <span>币别:{{this.detailsP.currencyDesc}}</span>
         </li>
@@ -36,6 +38,8 @@
         <li>
           <span>可用金额:{{this.detailsP.arAvailableAmt}}</span>
         </li>
+      </ul>
+      <ul>
         <li>
             <span>贴现保理公司：山西英和</span>
         </li>
@@ -165,9 +169,9 @@ export default {
       this.checkList = [] // 重置
       console.log(data)
       this.axios.post('/myAr/initiateDiscount.do', data).then(res => {
-        let type = res.data.result === 'true' ? 'success' : 'error'
+        let type = res.data.status ? 'success' : 'error'
         this.$message({
-          message: res.data.message,
+          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
           type: type
         })
         this.isLoading = false

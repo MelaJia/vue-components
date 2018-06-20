@@ -30,12 +30,11 @@
 <script>
 import ArList from '@/components/Fund/Work/LoanFeeListTable'
 import Search from '@/components/Fund/Work/LoanFeeSearch'
-import DataInit from '@/mixins/suplier/Ar/DataInit'
 import Table from '@/mixins/suplier/Ar/Table'
 // import {DataFee} from '@/monitorDatas/Fund/loanDatas'
 export default {
   name: 'loanfee', // 费率页面
-  mixins: [DataInit, Table],
+  mixins: [Table],
   data () {
     return {
       postUrl: '/loanFee2/getCustLoanFeeListTable.do', // 列表请求地址
@@ -54,7 +53,7 @@ export default {
     this.getdata(1, 10)
       .then(function (response) {
         console.log(response)
-        if (response) {
+        if (response.data.status) {
           that.tableData5 = response.data[that.dataStr]
           that.total = response.data[that.totalStr]
         }
@@ -78,7 +77,7 @@ export default {
       } else {
         console.log('3')
         this.getdata(1, 10).then(res => {
-          if (res) {
+          if (res.data.status) {
             this.tableData5 = res.data[this.dataStr]
             this.total = res.data[this.totalStr]
           }
@@ -89,7 +88,7 @@ export default {
       const that = this
       this.getdata(that.currentPage, that.psize)
         .then(res => {
-          if (res) {
+          if (res.data.status) {
             this.tableData5 = res.data[this.dataStr]
             this.total = res.data[this.totalStr]
           }

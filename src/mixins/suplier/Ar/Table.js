@@ -38,10 +38,7 @@ export default {
     }
   },
   methods: {
-    tableRowClassName ({
-      row,
-      rowIndex
-    }) {
+    tableRowClassName ({row, rowIndex}) {
       if (row.pend) {
         return 'warning-row'
       }
@@ -145,25 +142,6 @@ export default {
         .catch(function (error) {
           console.log(error)
         })
-    },
-    /**
-     * 取消基础请求
-     * @param {str} url 请求地址
-     * @param {str} id 请求参数(ar单号)
-     */
-    cancelBase (url, id) {
-      this.axios.post(url, { masterChainId: id }).then(res => {
-        let type = res.data.result === 'true' ? 'success' : 'error'
-        this.$message({
-          message: res.data.message,
-          type: type
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '操作失败'
-        })
-      })
     }
   }
 }

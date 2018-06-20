@@ -43,7 +43,7 @@
     <el-row>
         <el-col :span="12">
           <el-form-item label="预计付款日期">
-            <el-date-picker v-model="formInline.moneyDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+            <el-date-picker :editable="false" v-model="formInline.moneyDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
             </el-date-picker>
           </el-form-item>
         </el-col>

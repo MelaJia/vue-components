@@ -7,16 +7,16 @@
       </span>
     </header>
     <section class="layout loan-contract-form">
-      <el-form ref="form" :model="getform" :rules="rules" label-width="130px">
+      <el-form ref="form" :model="detailsP" :rules="rules" label-width="130px">
         <el-row>
           <el-col :span="11" class="flex">
             <el-form-item label="贴现金额: " prop="billBookAmt">
-              <span>{{getform.billBookAmt}}</span>
+              <span>{{detailsP.billBookAmt}}</span>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
             <el-form-item label="放款比例: " prop="loanPer">
-             <el-input v-model.number="getform.loanPer" type="number" placeholder="放款比例">
+             <el-input v-model.number="detailsP.loanPer" type="number" placeholder="放款比例">
                <template slot="append">%</template>
              </el-input>
             </el-form-item>
@@ -24,22 +24,22 @@
         </el-row>
         <el-row>
           <el-col :span="11"  class="flex">
-            <el-form-item label="实放金额: " prop="actualDiscountAmtA">
-             <el-input v-model.number="getform.actualDiscountAmtA" type="number" placeholder="实放金额"></el-input>
+            <el-form-item label="实放金额: " prop="actualDiscountAmt">
+             <el-input v-model.number="detailsP.actualDiscountAmt" type="number" placeholder="实放金额"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11" class="flex">
             <el-form-item label="贴现利率: " prop="interestRate">
-             <el-input v-model.number="getform.interestRate" placeholder="贴现利率">
+             <el-input v-model.number="detailsP.interestRate" placeholder="贴现利率">
                <template slot="append">%</template>
              </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
              <el-form-item label="服务费率: " prop="serviceFeeRate">
-              <el-input v-model.number="getform.serviceFeeRate" placeholder="服务费率">
+              <el-input v-model.number="detailsP.serviceFeeRate" placeholder="服务费率">
                 <template slot="append">%</template>
               </el-input>
             </el-form-item>
@@ -48,40 +48,40 @@
         <el-row>
           <el-col :span="11" class="flex">
              <el-form-item label="逾期利率: " prop="overdueRate">
-             <el-input v-model.number="getform.overdueRate" placeholder="逾期利率">
+             <el-input v-model.number="detailsP.overdueRate" placeholder="逾期利率">
                <template slot="append">%</template>
              </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
             <el-form-item label="提前还款手续费: " prop="prepaymentDeductInterest">
-              <el-input v-model.number="getform.prepaymentDeductInterest" type="number" placeholder="提前还款手续费"></el-input>
+              <el-input v-model.number="detailsP.prepaymentDeductInterest" type="number" placeholder="提前还款手续费"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11" class="flex">
              <el-form-item label="还款方式: " prop="repaymentType">
-             <el-select v-model="getform.repaymentType" clearable placeholder="还款方式">
+             <el-select v-model="detailsP.repaymentType" clearable placeholder="还款方式">
               <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.RepaymentTypeName" :value="item.RepaymentType"></el-option>
             </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
              <el-form-item label="宽容天数: " prop="fineGraceDays">
-             <el-input v-model.number="getform.fineGraceDays" type="number" placeholder="宽容天数"></el-input>
+             <el-input v-model.number="detailsP.fineGraceDays" type="number" placeholder="宽容天数"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11" class="flex">
              <el-form-item label="预计回款日期: " prop="billPayDate">
-              <span>{{getform.billPayDate|dateFormat}}</span>
+              <span>{{detailsP.billPayDate|dateFormat}}</span>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
             <el-form-item label="预计还款日期: " prop="billDueDate">
-             <el-date-picker v-model="getform.billDueDate" type="date" placeholder="选择日期">
+             <el-date-picker :editable="false" v-model="detailsP.billDueDate" type="date" placeholder="选择日期">
             </el-date-picker>
             </el-form-item>
           </el-col>
@@ -117,7 +117,7 @@
   .el-date-editor.el-input__inner {
     width: 180px;
   }
-  .el-input-group__append{
+  .el-input-group__append {
     padding: 0 5px;
   }
 }
@@ -149,7 +149,7 @@ export default {
           { required: true, message: '请输入放款比例', trigger: 'blur' },
           { type: 'number', message: '放款比例必须为数字值' }
         ],
-        actualDiscountAmtA: [
+        actualDiscountAmt: [
           { required: true, message: '实放金额不能为空', trigger: 'blur' },
           { type: 'number', message: '实放金额必须为数字值' }
         ],
@@ -179,17 +179,18 @@ export default {
       }
     }
   },
+  watch: {
+    /** 修复只根据放款比例计算得到结果 输入的值无法获取  */
+    loanPer: function (val) {
+      this.detailsP.actualDiscountAmt = this.detailsP.billBookAmt * val / 100
+    }
+  },
   computed: {
-    getform () {
-      let cP = this.detailsP
-      cP.actualDiscountAmtA = this.detailsP.billBookAmt * this.detailsP.loanPer / 100
-      return cP
+    loanPer () {
+      return this.detailsP.loanPer
     },
     getTitle () {
       return this.detailsP.masterChainId + '合同利益确认'
-    },
-    getBillDueDate () {
-      return this.detailsP.billDueDate
     }
   },
   methods: {
@@ -198,28 +199,33 @@ export default {
         if (valid) {
           this.isLoading = true
           const param = {
-            masterChainId: this.getform.masterChainId,
-            supplierCustId: this.getform.supplierCustId,
-            billBookAmt: this.getform.billBookAmt, // 贴现金额
-            loanPer: this.getform.loanPer, // 放款比例
-            actualDiscountAmt: this.getform.actualDiscountAmtA || '', // 实放金額
-            interestRate: this.getform.interestRate || '', // 贴现利率
-            serviceFeeRate: this.getform.serviceFeeRate || '', // 服务费率
-            overdueRate: this.getform.overdueRate || '', // 逾期利率
-            prepaymentDeductInterest: this.getform.prepaymentDeductInterest || '', // 提前还款手续费
-            repaymentType: this.getform.repaymentType || '', // 还款方式
-            fineGraceDays: this.getform.fineGraceDays || '', // 宽容天数
-            billPayDate: this.getform.billPayDate, // 预计回款日期
-            billDueDate: this.getform.billDueDate // 预计还款日期
+            masterChainId: this.detailsP.masterChainId,
+            supplierCustId: this.detailsP.supplierCustId,
+            billBookAmt: this.detailsP.billBookAmt, // 贴现金额
+            loanPer: this.loanPer, // 放款比例
+            actualDiscountAmt: this.detailsP.actualDiscountAmt || '', // 实放金額 修复只根据放款比例计算得到结果
+            interestRate: this.detailsP.interestRate || '', // 贴现利率
+            serviceFeeRate: this.detailsP.serviceFeeRate || '', // 服务费率
+            overdueRate: this.detailsP.overdueRate || '', // 逾期利率
+            prepaymentDeductInterest: this.detailsP.prepaymentDeductInterest || '', // 提前还款手续费
+            repaymentType: this.detailsP.repaymentType || '', // 还款方式
+            fineGraceDays: this.detailsP.fineGraceDays || '', // 宽容天数
+            billPayDate: this.detailsP.billPayDate, // 预计回款日期
+            billDueDate: this.detailsP.billDueDate // 预计还款日期
           }
+          console.log(this.detailsP.actualDiscountAmtA)
           console.log(param)
           this.axios.post('/loan2/generateContract.do', param).then(res => {
             let type = res.data.status ? 'success' : 'error'
             this.$message({
-              message: res.data.data.message,
+              message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
               type: type
             })
             this.isLoading = false
+            if (res.data.status) {
+              this.$parent.fresh()
+              this.handleClose()
+            }
           }).catch(() => {
             this.$message({
               type: 'info',
