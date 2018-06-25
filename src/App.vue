@@ -12,6 +12,11 @@ export default {
 
 <style lang="scss">
 @import './assets/css/ie.scss';
+@media screen and (min-width: 1356px) and (max-width: 1396px){
+  .body:first-child .el-card__body {
+        width: 1020px;
+    }
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -25,6 +30,7 @@ body{
 html,body,#app,#app>div,#app>div>main,.main-section,.main-section>div{
   height: 100%;
 }
+.el-card.box-card,
 .el-card__body {
         min-width: 950px;
     }

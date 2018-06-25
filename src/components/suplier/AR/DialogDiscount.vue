@@ -54,7 +54,7 @@
       <ul>
           <span>未勾选发票:
             <el-checkbox-group v-model="checkList" class="inline-blox">
-              <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" :label="item.invoiceNo">{{item.invoiceNo}}</el-checkbox>
+              <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" :label="item.invoiceNo">{{item.invoiceNo}}(￥{{item.invoiceAfterTaxAmt}})</el-checkbox>
             </el-checkbox-group>
             <!-- <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected">{{item.invoiceNo}}</el-checkbox> -->
           </span>
@@ -162,7 +162,6 @@ export default {
           type: 'error',
           message: '贴现金额不得大于勾选发票总额'
         })
-        this.transAmt = sum
         this.isLoading = false
         return
       }
@@ -171,7 +170,7 @@ export default {
       this.axios.post('/myAr/initiateDiscount.do', data).then(res => {
         let type = res.data.status ? 'success' : 'error'
         this.$message({
-          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+          message: res.data.data.message ? res.data.data.message : '返回结果错误，请联系管理员',
           type: type
         })
         this.isLoading = false

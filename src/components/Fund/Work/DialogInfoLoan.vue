@@ -60,7 +60,7 @@
       <ul>
           <span>合同:
           <div class="a-link-group inline-block">
-            <a v-for="item in detailsP.contractList" :key="item.contractId" href="http://" @click.prevent="constractHandle(item.contractId)">{{item.contractName}}</a>
+            <a v-for="item in detailsP.contractList" :key="item.contractId" href="http://" @click.prevent="constractHandle(item.contractNo)">{{item.contractName}}</a>
           </div>
         </span>
       </ul>

@@ -6,10 +6,11 @@
       </span>
     </header>
     <el-checkbox-group v-model="checkList">
-      <el-checkbox v-for="item in this.detailsP.contractList" :key="item.contractId" :label="item.contractId">{{item.contractName}}</el-checkbox>
+      <el-checkbox v-for="item in this.detailsP.contractList" :key="item.contractId" :label="item.contractId"><a href="http://" @click.prevent="constractHandle(item.contractNo)">{{item.contractName}}</a></el-checkbox>
     </el-checkbox-group>
-    <footer>
-      <el-button @click="handleSubmit" :loading="isLoading">确认</el-button>
+    <footer slot="footer">
+      <el-button round @click="handleSubmit" type="primary" :loading="isLoading">同意签署</el-button>
+       <el-button round @click="handleReject" type="warning" :loading="isLoading">拒绝退回</el-button>
     </footer>
   </el-dialog>
 </template>
@@ -21,6 +22,7 @@ footer {
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+import { debounce } from '@/util/util'
 /* 合同确认 */
 export default {
   props: ['visibleP', 'detailsP'],
@@ -32,12 +34,12 @@ export default {
     }
   },
   methods: {
-    handleSubmit () {
+    handleSubmit: debounce(function () {
       this.isLoading = true
       if (this.checkList.length !== this.detailsP.contractList.length) {
         this.$message({
           type: 'error',
-          message: '合同未勾选'
+          message: '有未勾选合同'
         })
         this.isLoading = false
         return
@@ -58,7 +60,40 @@ export default {
         })
         this.isLoading = false
       })
-    }
+    }, 1000, {
+      'leading': true,
+      'trailing': false
+    }),
+    handleReject: debounce(function () {
+      this.isLoading = true
+      if (this.checkList.length !== this.detailsP.contractList.length) {
+        this.$message({
+          type: 'error',
+          message: '有未勾选合同'
+        })
+        this.isLoading = false
+        return
+      }
+      this.axios.post('/myAr/cancelSigningDiscount.do', { masterChainId: this.detailsP.masterChainId }).then(res => {
+        let type = res.data.status ? 'success' : 'error'
+        this.$message({
+          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+          type: type
+        })
+        this.isLoading = false
+        this.handleClose() // 关闭弹窗
+        this.$parent.fresh() // 刷新数据
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '操作失败'
+        })
+        this.isLoading = false
+      })
+    }, 1000, {
+      'leading': true,
+      'trailing': false
+    })
   },
   computed: {
     getTitle () {

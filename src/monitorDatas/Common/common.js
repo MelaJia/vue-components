@@ -407,7 +407,7 @@ const commonDatas = {
                     "billPayDate":null,
                     "billStartDate":1520870400000,
                     "buyerCustNo":"A086041",
-                    "checkedStatus":27,
+                    "checkedStatus":23,
                     "companyName":"深圳富泰宏精密工業有限公司",
                     "createtime":1528163811000,
                     "currencyDesc":null,
@@ -793,16 +793,19 @@ arDetails:{
         "contractList":[
             {
                 "contractId":"c0b2b899-f047-4698-b3c2-84e44233d44f",
+                "contractNo":"c0b2b899-f047-4698-b3c2-84e44233d44f",
                 "contractName":"國內保理業務合同（有追索權）",
                 "contractStatus":2
             },
             {
                 "contractId":"cf5a23ec-8340-47f6-a0ef-44934dba9863",
+                "contractNo":"cf5a23ec-8340-47f6-a0ef-44934dba9863",
                 "contractName":"應收賬款債權轉讓通知書（整體轉讓）",
                 "contractStatus":2
             },
             {
                 "contractId":"f9f53ca6-2d0c-46b1-8bd3-517af17d950f",
+                "contractNo":"f9f53ca6-2d0c-46b1-8bd3-517af17d950f",
                 "contractName":"供應商信息暨銀行資料確認書",
                 "contractStatus":2
             }

@@ -213,7 +213,6 @@ export default {
             billPayDate: this.detailsP.billPayDate, // 预计回款日期
             billDueDate: this.detailsP.billDueDate // 预计还款日期
           }
-          console.log(this.detailsP.actualDiscountAmtA)
           console.log(param)
           this.axios.post('/loan2/generateContract.do', param).then(res => {
             let type = res.data.status ? 'success' : 'error'

@@ -18,6 +18,8 @@ import {
   apiUrl
 } from '@/config/env.js'
 import {monitorInit} from '@/monitorDatas'
+import Loadsh from 'lodash'
+Vue.prototype._ = Loadsh
 Vue.use(dateInit) // 格式化日期注册
 axios.defaults.baseURL = apiUrl
 if (process.env.NODE_ENV === 'development') {

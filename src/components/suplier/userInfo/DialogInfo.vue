@@ -90,29 +90,29 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="公司logo" >
-              <upload :param="{filename:'logoUrl'}" :o-img-url="getForm.logoUrlByte" @get-url="getUrl($event, 'logoUrl')"></upload>
+              <upload :param="{filename:'logoUrl'}" :o-img-url="getForm.logoUrl" @get-url="getUrl($event, 'logoUrl')"></upload>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="营业执照(图片)">
-              <upload :param="{filename:'licenseUrl'}" :o-img-url="getForm.licenseUrlByte" @get-url="getUrl($event, 'licenseUrl')"></upload>
+              <upload :param="{filename:'licenseUrl'}" :o-img-url="getForm.licenseUrl" @get-url="getUrl($event, 'licenseUrl')"></upload>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="营业执照副本">
-              <upload :param="{filename:'licenseViceUrl'}" :o-img-url="getForm.licenseViceUrlByte" @get-url="getUrl($event, 'licenseViceUrl')"></upload>
+              <upload :param="{filename:'licenseViceUrl'}" :o-img-url="getForm.licenseViceUrl" @get-url="getUrl($event, 'licenseViceUrl')"></upload>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="组织机构代码证">
-              <upload :param="{filename:'organizationUrl'}" :o-img-url="getForm.organizationUrlByte" @get-url="getUrl($event, 'organizationUrl')"></upload>
+              <upload :param="{filename:'organizationUrl'}" :o-img-url="getForm.organizationUrl" @get-url="getUrl($event, 'organizationUrl')"></upload>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="税务登记证">
-              <upload :param="{filename:'taxUrl'}" :o-img-url="getForm.taxUrlByte" @get-url="getUrl($event, 'taxUrl')"></upload>
+              <upload :param="{filename:'taxUrl'}" :o-img-url="getForm.taxUrl" @get-url="getUrl($event, 'taxUrl')"></upload>
             </el-form-item>
           </el-col>
         </el-row>

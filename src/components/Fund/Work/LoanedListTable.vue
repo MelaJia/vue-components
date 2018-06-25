@@ -19,8 +19,6 @@
               <el-table-column width="48">
 
               </el-table-column>
-              <el-table-column align="center" width="40">
-              </el-table-column>
               <el-table-column align="center" prop="masterChainId" :width="widthArr.masterChainId">
               </el-table-column>
               <el-table-column align="center" prop="billId" :width="widthArr.billId">
@@ -72,8 +70,6 @@
               </el-table-column>
             </el-table>
           </template>
-        </el-table-column>
-        <el-table-column type="selection" fixed width="40">
         </el-table-column>
         <el-table-column align="center" label="AR单号" fixed sortable prop="masterChainId" width="150">
         </el-table-column>

@@ -1,30 +1,46 @@
 <template>
-  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini">
-    <el-form-item label="AR单号">
+  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="100px">
+    <el-row>
+      <el-col :span="8">
+<el-form-item label="AR单号">
       <el-input v-model.trim="formInline.masterChainId" placeholder="AR单号"></el-input>
     </el-form-item>
-    <el-form-item label="贴现客户">
+      </el-col>
+      <el-col :span="8">
+ <el-form-item label="贴现客户">
       <el-input v-model.trim="formInline.custFromName" placeholder="贴现客户"></el-input>
     </el-form-item>
-    <el-form-item label="付款单位">
+      </el-col>
+      <el-col :span="8">
+         <el-form-item label="付款单位">
       <el-input v-model.trim="formInline.companyName" placeholder="付款单位"></el-input>
     </el-form-item>
-    <el-form-item label="币别">
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="8"><el-form-item label="币别">
       <el-select v-model="formInline.billBookCurr" placeholder="币别">
         <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
       </el-select>
-    </el-form-item>
-    <el-form-item label="发票号">
+    </el-form-item></el-col>
+      <el-col :span="8"> <el-form-item label="发票号">
       <el-input v-model.trim="formInline.invoiceNo" placeholder="发票号"></el-input>
-    </el-form-item>
-    <el-form-item label="贴现金额">
+    </el-form-item></el-col>
+      <el-col :span="8"> </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="13"><el-form-item label="贴现金额">
       <el-col :span="11"><el-input v-model.number="formInline.discountAmtScopeFrom" placeholder="起始金额"></el-input></el-col>
       <el-col class="line" :span="2">-</el-col>
       <el-col :span="11"><el-input v-model.number="formInline.discountAmtScopeTo" placeholder="结束金额"></el-input></el-col>
-    </el-form-item>
-    <el-form-item>
+    </el-form-item></el-col>
+      <el-col :span="12"></el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="2" :offset="11"><el-form-item>
       <el-button type="primary" @click="onSubmit">查询</el-button>
-    </el-form-item>
+    </el-form-item></el-col>
+    </el-row>
   </el-form>
 </template>
 <style scoped lang="scss">

@@ -170,7 +170,7 @@ export default {
       this.axios.post('/myAr/initiateTrans.do', data).then(res => {
         let type = res.data.status ? 'success' : 'error'
         this.$message({
-          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+          message: res.data.data.message ? res.data.data.message : '返回结果错误，请联系管理员',
           type: type
         })
         this.isLoading = false

@@ -392,3 +392,38 @@ Print.prototype = {
     }
   }
 };
+/**
+ * 防抖
+ * @param {*} fun 
+ * @param {*} delay 
+ * @param {*} immediate 
+ */
+export const debounce = function (fun, delay, immediate) {
+  var timer, lasttime, context, arg
+  var later = function () {
+    var now = new Date().getTime(),
+      l = now - lasttime
+    if (l < delay && l >= 0) {
+      clearTimeout(timer)
+      timer = setTimeout(later, delay - l)
+    } else {
+      clearTimeout(timer)
+      timer = null
+      if (!immediate) {
+        fun.apply(context, arg)
+        if (!timer) context = arg = null
+      }
+    }
+  }
+  return function () {
+    context = this
+    arg = arguments
+    lasttime = new Date().getTime()
+    var callNow = immediate && !timer
+    if (!timer) timer=setTimeout(later, delay)
+    if (callNow) {
+      fun.apply(context, arg)
+      context = arg = null
+    }
+  }
+}

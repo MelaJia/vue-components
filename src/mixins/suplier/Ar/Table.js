@@ -32,7 +32,7 @@ export default {
         billBookAmt: '',
         loanAmt: '',
         billPayDate: '120',
-        billPayStatus: '',
+        billPayStatus: '120',
         operate: '200'
       }
     }
