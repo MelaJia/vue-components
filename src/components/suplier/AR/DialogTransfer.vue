@@ -41,7 +41,7 @@
       </ul>
       <ul>
         <li>
-            <span>授让公司名：山西英和</span>
+            <span>授让公司名：{{rcName}}</span>
         </li>
       </ul>
       <ul>
@@ -106,17 +106,30 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
+import { debounce } from '@/util/util' // 防抖函数
 /* 转让弹窗 */
 export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, Common],
   data () {
     return {
-      receiveCustId: '',
+      receiveCustId: '', // 授让公司id
+      rcName: '', // 授让公司名称
       transAmt: 0,
       checkList: [],
       isLoading: false
     }
+  },
+  watch: {
+    receiveCustId: debounce(function (val) {
+      this.axios.post('/commonCust/queryCustomer.do', { 'custId': val, 'companyName': '' }).then(res => {
+        if (res.data.status) {
+          this.rcName = res.data.data.companyName
+        } else {
+          this.rcName = '授让公司不存在'
+        }
+      })
+    }, 1000)
   },
   computed: {
     getTitle () {

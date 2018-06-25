@@ -788,7 +788,7 @@ arDetails:{
         "arStatusTypeName":"已確認",
         "billBookAmt":102070.8,
         "billPayDate":1516809600000,
-        "checkedStatus":2,
+        "checkedStatus":23,
         "companyName":"富泰華工業(深圳)有限公司",
         "contractList":[
             {
