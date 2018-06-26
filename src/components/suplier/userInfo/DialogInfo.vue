@@ -127,7 +127,6 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
-// import MixInfos from '@/mixins/Infos'
 import commonDatas from '@/mixins/commonDatas' // 货币类型
 import Upload from '@/components/Items/upload'
 /* 企业认证 */

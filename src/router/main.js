@@ -72,12 +72,6 @@ const routes = [{
     }
   }
   ]
-},
-{
-  path: '/login',
-  name: 'Login',
-  component: () =>
-    import('@/page/Login')
 }
 ]
 export default routes

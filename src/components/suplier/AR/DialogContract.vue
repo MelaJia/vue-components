@@ -22,7 +22,7 @@ footer {
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-import { debounce } from '@/util/util'
+import { debounce } from '@/util/util' // 防抖函数
 /* 合同确认 */
 export default {
   props: ['visibleP', 'detailsP'],

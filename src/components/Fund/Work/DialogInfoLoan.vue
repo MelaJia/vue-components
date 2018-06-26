@@ -9,47 +9,47 @@
     <section>
       <ul>
         <li>
-          <span>付款单位:{{this.detailsP.companyName}}</span>
+          <span>付款单位: <em>{{this.detailsP.companyName}}</em></span>
         </li>
         <li>
-          <span>贴现客户:{{this.detailsP.custFromName}}</span>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <span>付款银行名称:{{this.detailsP.payerBankName}}</span>
-        </li>
-        <li>
-          <span>付款银款账号:{{this.detailsP.payerBankAccount}}</span>
+          <span>贴现客户: <em>{{this.detailsP.custFromName}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>贴现客户收款银行:{{this.detailsP.bankName}}</span>
+          <span>付款银行名称: <em>{{this.detailsP.payerBankName}}</em></span>
         </li>
         <li>
-          <span>贴现客户收款银行:{{this.detailsP.bankAccount}}</span>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <span>贴现金额:{{this.detailsP.billBookAmt}}</span>
-        </li>
-        <li>
-          <span>币别:{{this.detailsP.currencyDesc}}</span>
+          <span>付款银款账号: <em>{{this.detailsP.payerBankAccount}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-         <span>贴现利率:{{this.detailsP.interestRate}}</span>
+          <span>贴现客户收款银行: <em>{{this.detailsP.bankName}}</em></span>
         </li>
         <li>
-         <span>逾期利率:{{this.detailsP.overdueRate}}</span>
+          <span>贴现客户收款银行: <em>{{this.detailsP.bankAccount}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>实际放款金额:{{this.detailsP.actualDiscountAmt}}</span>
+          <span>贴现金额: <em>{{this.detailsP.billBookAmt}}</em></span>
+        </li>
+        <li>
+          <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+         <span>贴现利率: <em>{{this.detailsP.interestRate}}</em></span>
+        </li>
+        <li>
+         <span>逾期利率: <em>{{this.detailsP.overdueRate}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>实际放款金额: <em>{{this.detailsP.actualDiscountAmt}}</em></span>
         </li>
       </ul>
       <ul>
@@ -65,21 +65,21 @@
         </span>
       </ul>
       <!-- <p>
-            <span>最终付款单位:{{this.detailsP.company}}</span>
-            <span>最终付款账户：{{this.detailsP.bankCompaney}}</span>
+            <span>最终付款单位: <em>{{this.detailsP.company}}</em></span>
+            <span>最终付款账户：{{this.detailsP.bankCompaney}}</em></span>
             <el-tooltip :content="'最终付款账号:'+this.detailsP.bankAccount" placement="bottom" effect="light">
-                <span>最终付款账号:{{this.detailsP.bankAccount}}</span>
+                <span>最终付款账号: <em>{{this.detailsP.bankAccount}}</em></span>
             </el-tooltip>
         </p>
         <p>
-            <span>AR来源:{{this.detailsP.come}}</span>
-            <span>状态:{{this.detailsP.status}}</span>
-            <span>币别:{{this.detailsP.moneyType}}</span>
+            <span>AR来源: <em>{{this.detailsP.come}}</em></span>
+            <span>状态: <em>{{this.detailsP.status}}</em></span>
+            <span>币别: <em>{{this.detailsP.moneyType}}</em></span>
         </p>
         <p>
-            <span>票面金额:{{this.detailsP.company}}</span>
-            <span>可用余额:{{this.detailsP.money_can}}</span>
-            <span>预计回款日期:{{this.detailsP.arriveDate}}</span>
+            <span>票面金额: <em>{{this.detailsP.company}}</em></span>
+            <span>可用余额: <em>{{this.detailsP.money_can}}</em></span>
+            <span>预计回款日期: <em>{{this.detailsP.arriveDate}}</em></span>
         </p> -->
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">

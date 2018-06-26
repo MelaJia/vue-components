@@ -9,7 +9,7 @@
         <li :span="8"><span>所属客户经理：</span>{{infos.sourceName}}</li>
         <li :span="8">
           <el-tooltip :content="'公司ID:'+infos.custId" placement="bottom" effect="light">
-            <span>公司ID: {{infos.custId}}</span>
+            <span>公司ID: <em>infos.custId}}</em></span>
           </el-tooltip>
         </li>
       </ul>
@@ -17,7 +17,7 @@
         <li :span="8"><span>企业电话：</span>{{infos.companyPhone}}</li>
         <li :span="8">
           <el-tooltip :content="'企业地址:'+infos.companyAddress" placement="bottom" effect="light">
-            <span>企业地址: {{infos.companyAddress}}</span>
+            <span>企业地址: <em>infos.companyAddress}}</em></span>
           </el-tooltip>
         </li>
         <li :span="8"><span>统一社会信用代码: </span>{{infos.creditCode}}</li>
@@ -52,12 +52,12 @@
         <td>企业地址：{{infos.companyAddress}}</td>
       </tr>
       <tr>
-        <td>统一社会信用代码:{{infos.creditCode}}</td>
+        <td>统一社会信用代码: <em>{{infos.creditCode}}</td>
         <td>纳税人识別号：{{infos.payTaxesNumber}}</td>
       </tr>
       <tr>
         <td>供应商代码：{{infos.vendorCodes}}</td>
-        <td>注册资本:{{infos.registeredCapital}}</td>
+        <td>注册资本: <em>{{infos.registeredCapital}}</td>
         <td>实收资本：{{infos.paidinCapital}}</td>
       </tr>
       <tr>

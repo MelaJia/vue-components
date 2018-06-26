@@ -10,37 +10,37 @@
       <ul>
         <li>
           <el-tooltip :content="'付款单位:'+this.detailsP.companyName" placement="bottom" effect="light">
-            <span>付款单位:{{this.detailsP.companyName}}</span>
+            <span>付款单位: <em>{{this.detailsP.companyName}}</em></span>
           </el-tooltip>
         </li>
         <li>
           <el-tooltip :content="'对手单位:'+this.detailsP.custToName" placement="bottom" effect="light">
-           <span>对手单位:{{this.detailsP.custToName}}</span>
+           <span>对手单位: <em>{{this.detailsP.custToName}}</em></span>
           </el-tooltip>
         </li>
       </ul>
       <ul>
          <li>
-          <span>AR来源:{{this.detailsP.arSourceDesc}}</span>
+          <span>AR来源: <em>{{this.detailsP.arSourceDesc}}</em></span>
         </li>
         <li>
-          <span>状态:{{this.detailsP.arStatusTypeName}}</span>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <span>币别:{{this.detailsP.currencyDesc}}</span>
-        </li>
-        <li>
-          <span>预计回款日期:{{this.detailsP.billPayDate | dateFormat}}</span>
+          <span>状态: <em>{{this.detailsP.arStatusTypeName}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>票面金额:{{this.detailsP.billBookAmt}}</span>
+          <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>
         </li>
         <li>
-          <span>可用金额:{{this.detailsP.arAvailableAmt}}</span>
+          <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>票面金额: <em>{{this.detailsP.billBookAmt}}</em></span>
+        </li>
+        <li>
+          <span>可用金额: <em>{{this.detailsP.arAvailableAmt}}</em></span>
         </li>
       </ul>
       <ul>
@@ -58,21 +58,21 @@
         </span>
       </ul>
       <!-- <p>
-            <span>最终付款单位:{{this.detailsP.company}}</span>
-            <span>最终付款账户：{{this.detailsP.bankCompaney}}</span>
+            <span>最终付款单位: <em>{{this.detailsP.company}}</em></span>
+            <span>最终付款账户：{{this.detailsP.bankCompaney}}</em></span>
             <el-tooltip :content="'最终付款账号:'+this.detailsP.bankAccount" placement="bottom" effect="light">
-                <span>最终付款账号:{{this.detailsP.bankAccount}}</span>
+                <span>最终付款账号: <em>{{this.detailsP.bankAccount}}</em></span>
             </el-tooltip>
         </p>
         <p>
-            <span>AR来源:{{this.detailsP.come}}</span>
-            <span>状态:{{this.detailsP.status}}</span>
-            <span>币别:{{this.detailsP.moneyType}}</span>
+            <span>AR来源: <em>{{this.detailsP.come}}</em></span>
+            <span>状态: <em>{{this.detailsP.status}}</em></span>
+            <span>币别: <em>{{this.detailsP.moneyType}}</em></span>
         </p>
         <p>
-            <span>票面金额:{{this.detailsP.company}}</span>
-            <span>可用余额:{{this.detailsP.money_can}}</span>
-            <span>预计回款日期:{{this.detailsP.arriveDate}}</span>
+            <span>票面金额: <em>{{this.detailsP.company}}</em></span>
+            <span>可用余额: <em>{{this.detailsP.money_can}}</em></span>
+            <span>预计回款日期: <em>{{this.detailsP.arriveDate}}</em></span>
         </p> -->
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">

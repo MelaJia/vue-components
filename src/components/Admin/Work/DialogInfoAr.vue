@@ -9,39 +9,39 @@
     <section>
       <ul>
         <li>
-          <span>付款单位: {{this.detailsP.companyName}}</span>
+          <span>付款单位: <em>this.detailsP.companyName}}</em></span>
         </li>
         <li>
-          <span>贴现单位: {{this.detailsP.custFromName}}</span>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <span>一级供应商: {{this.detailsP.companyNameOfL1}}</span>
+          <span>贴现单位: <em>this.detailsP.custFromName}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>付款银行: {{this.detailsP.payBankName}}</span>
-        </li>
-        <li>
-          <span>付款银行账号: {{this.detailsP.payBankAccount}}</span>
+          <span>一级供应商: <em>this.detailsP.companyNameOfL1}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>收款银行: {{this.detailsP.receiveBankName}}</span>
+          <span>付款银行: <em>this.detailsP.payBankName}}</em></span>
         </li>
         <li>
-          <span>收款银行账号: {{this.detailsP.receiveBankAccount}}</span>
+          <span>付款银行账号: <em>this.detailsP.payBankAccount}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>状态: {{this.detailsP.auditedTypeName}}</span>
+          <span>收款银行: <em>this.detailsP.receiveBankName}}</em></span>
         </li>
         <li>
-          <span>保理方: {{this.detailsP.custToName}}</span>
+          <span>收款银行账号: <em>this.detailsP.receiveBankAccount}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>状态: <em>this.detailsP.auditedTypeName}}</em></span>
+        </li>
+        <li>
+          <span>保理方: <em>this.detailsP.custToName}}</em></span>
         </li>
       </ul>
     </section>

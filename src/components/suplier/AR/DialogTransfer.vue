@@ -9,39 +9,39 @@
     <section>
       <ul>
         <li>
-          <span>付款单位:{{this.detailsP.companyName}}</span>
+          <span>付款单位: <em>{{this.detailsP.companyName}}</em></span>
         </li>
         <li>
-          <span>对手单位:{{this.detailsP.custToName}}</span>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <span>AR来源:{{this.detailsP.arSourceDesc}}</span>
-        </li>
-        <li>
-          <span>状态:{{this.detailsP.arStatusTypeName}}</span>
+          <span>对手单位: <em>{{this.detailsP.custToName}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>币别:{{this.detailsP.currencyDesc}}</span>
+          <span>AR来源: <em>{{this.detailsP.arSourceDesc}}</em></span>
         </li>
         <li>
-          <span>预计回款日期:{{this.detailsP.billPayDate | dateFormat}}</span>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <span>票面金额:{{this.detailsP.company}}</span>
-        </li>
-        <li>
-          <span>可用金额:{{this.detailsP.arAvailableAmt}}</span>
+          <span>状态: <em>{{this.detailsP.arStatusTypeName}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-            <span>授让公司名：{{rcName}}</span>
+          <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>
+        </li>
+        <li>
+          <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>票面金额: <em>{{this.detailsP.company}}</em></span>
+        </li>
+        <li>
+          <span>可用金额: <em>{{this.detailsP.arAvailableAmt}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+            <span>授让公司名：<em>{{rc.name}}</em></span>
         </li>
       </ul>
       <ul>
@@ -60,21 +60,21 @@
           </span>
       </ul>
       <!-- <p>
-            <span>最终付款单位:{{this.detailsP.company}}</span>
-            <span>最终付款账户：{{this.detailsP.bankCompaney}}</span>
+            <span>最终付款单位: <em>{{this.detailsP.company}}</em></span>
+            <span>最终付款账户：{{this.detailsP.bankCompaney}}</em></span>
             <el-tooltip :content="'最终付款账号:'+this.detailsP.bankAccount" placement="bottom" effect="light">
-                <span>最终付款账号:{{this.detailsP.bankAccount}}</span>
+                <span>最终付款账号: <em>{{this.detailsP.bankAccount}}</em></span>
             </el-tooltip>
         </p>
         <p>
-            <span>AR来源:{{this.detailsP.come}}</span>
-            <span>状态:{{this.detailsP.status}}</span>
-            <span>币别:{{this.detailsP.moneyType}}</span>
+            <span>AR来源: <em>{{this.detailsP.come}}</em></span>
+            <span>状态: <em>{{this.detailsP.status}}</em></span>
+            <span>币别: <em>{{this.detailsP.moneyType}}</em></span>
         </p>
         <p>
-            <span>票面金额:{{this.detailsP.company}}</span>
-            <span>可用余额:{{this.detailsP.money_can}}</span>
-            <span>预计回款日期:{{this.detailsP.arriveDate}}</span>
+            <span>票面金额: <em>{{this.detailsP.company}}</em></span>
+            <span>可用余额: <em>{{this.detailsP.money_can}}</em></span>
+            <span>预计回款日期: <em>{{this.detailsP.arriveDate}}</em></span>
         </p> -->
     </section>
     <section class="layout form">
@@ -114,7 +114,10 @@ export default {
   data () {
     return {
       receiveCustId: '', // 授让公司id
-      rcName: '', // 授让公司名称
+      rc: {
+        name: '', // 授让公司名称
+        status: false // 是否正确
+      },
       transAmt: 0,
       checkList: [],
       isLoading: false
@@ -124,9 +127,11 @@ export default {
     receiveCustId: debounce(function (val) {
       this.axios.post('/commonCust/queryCustomer.do', { 'custId': val, 'companyName': '' }).then(res => {
         if (res.data.status) {
-          this.rcName = res.data.data.companyName
+          this.rc.name = res.data.data.companyName
+          this.rc.status = true
         } else {
-          this.rcName = '授让公司不存在'
+          this.rc.name = '授让公司不存在'
+          this.rc.status = false
         }
       })
     }, 1000)
@@ -137,67 +142,74 @@ export default {
     }
   },
   methods: {
-    handleSubmit () {
-      this.isLoading = true
-      const data = {
-        masterChainId: this.detailsP.masterChainId,
-        receiveCustId: this.receiveCustId,
-        transAmt: this.transAmt,
-        transferSelectedInvoice: this.checkList.join(',')
-      }
-      // 已勾选发票
-      const arr = []
-      this.detailsP.invoiceList.forEach(item => {
-        for (const iterator of this.checkList) {
-          if (iterator === item.invoiceNo) {
-            arr.push(item)
-          }
-        }
-      })
-      arr.concat(...this.detailsP.invoiceListSelected)
-      if (arr.length <= 0) {
-        this.$message({
-          type: 'error',
-          message: '未勾选发票'
-        })
-        this.isLoading = false
-        return
-      }
-      let sum = arr.reduce((sum, currVal) => {
-        let num = Number(currVal.invoiceAfterTaxAmt)
-        if (isNaN(num)) {
-          return
-        }
-        return sum + num
-      }, 0)
-      if (Number(this.transAmt) > sum) {
-        this.$message({
-          type: 'error',
-          message: '转让金额不得大于勾选发票总额'
-        })
-        this.transAmt = sum
-        this.isLoading = false
-        return
-      }
-      this.checkList = [] // 重置
-      this.axios.post('/myAr/initiateTrans.do', data).then(res => {
-        let type = res.data.status ? 'success' : 'error'
-        this.$message({
-          message: res.data.data.message ? res.data.data.message : '返回结果错误，请联系管理员',
-          type: type
-        })
-        this.isLoading = false
-        this.handleClose() // 关闭弹窗
-        this.$parent.fresh() // 刷新数据
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '操作失败'
-        })
-        this.isLoading = false
-      })
-    }
+    handleSubmit: debounce(submit, 1000, true)
   }
 }
-
+function submit () {
+  if (!this.rc.status) {
+    this.$message({
+      type: 'error',
+      message: '请填写正确授让公司id'
+    })
+    return
+  }
+  this.isLoading = true
+  const data = {
+    masterChainId: this.detailsP.masterChainId,
+    receiveCustId: this.receiveCustId,
+    transAmt: this.transAmt,
+    transferSelectedInvoice: this.checkList.join(',')
+  }
+  // 已勾选发票
+  const arr = []
+  this.detailsP.invoiceList.forEach(item => {
+    for (const iterator of this.checkList) {
+      if (iterator === item.invoiceNo) {
+        arr.push(item)
+      }
+    }
+  })
+  arr.concat(...this.detailsP.invoiceListSelected)
+  if (arr.length <= 0) {
+    this.$message({
+      type: 'error',
+      message: '未勾选发票'
+    })
+    this.isLoading = false
+    return
+  }
+  let sum = arr.reduce((sum, currVal) => {
+    let num = Number(currVal.invoiceAfterTaxAmt)
+    if (isNaN(num)) {
+      return
+    }
+    return sum + num
+  }, 0)
+  if (Number(this.transAmt) > sum) {
+    this.$message({
+      type: 'error',
+      message: '转让金额不得大于勾选发票总额'
+    })
+    this.transAmt = sum
+    this.isLoading = false
+    return
+  }
+  this.checkList = [] // 重置
+  this.axios.post('/myAr/initiateTrans.do', data).then(res => {
+    let type = res.data.status ? 'success' : 'error'
+    this.$message({
+      message: res.data.data.message ? res.data.data.message : '返回结果错误，请联系管理员',
+      type: type
+    })
+    this.isLoading = false
+    this.handleClose() // 关闭弹窗
+    this.$parent.fresh() // 刷新数据
+  }).catch(() => {
+    this.$message({
+      type: 'info',
+      message: '操作失败'
+    })
+    this.isLoading = false
+  })
+}
 </script>

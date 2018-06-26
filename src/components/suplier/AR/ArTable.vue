@@ -234,13 +234,10 @@ export default {
         }
         val.infoLoading = false
       }).catch(err => {
-        this.$alert(err, '标题名称', {
+        this.$alert(`网络错误${err}`, '系统提示', {
           confirmButtonText: '确定',
           callback: action => {
-            this.$message({
-              type: 'info',
-              message: `网络错误`
-            })
+            val.infoLoading = false
           }
         })
         val.infoLoading = false

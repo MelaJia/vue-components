@@ -22,8 +22,20 @@ NProgress.configure({
 // import CancelAr from '@/components/AR/CancelAr'
 // import HistoryAr from '@/components/AR/HistoryAr'
 Vue.use(Router)
-const whiteList = ['/login', '/404', '/401', '/lock']
+const whiteList = ['/login', '/register', '/404', '/401', '/lock']
 const routes = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: () =>
+      import('@/page/Login')
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () =>
+      import('@/page/Register')
+  },
   ...Main, ...Fund, ...Admin
 ]
 // 页面刷新，重新设置token
