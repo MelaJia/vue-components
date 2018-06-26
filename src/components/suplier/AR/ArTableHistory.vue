@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import TableMixIn from '@/mixins/suplier/Ar/Table'
+import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
 /* 历史Ar列表 */
 export default {
@@ -92,45 +92,18 @@ export default {
       return this.axios.post('/myAr/queryAr', { masterChainId: val.masterChainId }).then(res => {
         console.log('获取到数据')
         // 处理数据
-        let details = this.handleInvoiceListFormat(res.data)
-        details.masterChainId = val.masterChainId
-        return details
-      })
-    },
-    // 详情
-    handleInfo (idx, val) {
-      console.log(val)
-      val.infoLoading = true
-      this.getDetail(val).then(res => {
-        console.log(res)
-        this.details = res
-        this.dialogInfoVisible = true
-        val.infoLoading = false
-      }).catch(err => {
-        this.$alert(`网络错误${err}`, '系统提示', {
-          confirmButtonText: '确定',
-          callback: action => {
-            val.infoLoading = false
-          }
-        })
-      })
-    },
-    /* 发票已选未选分离 */
-    handleInvoiceListFormat (oData) {
-      const data = oData
-      const list = []
-      const listSelected = []
-      data.invoiceCustomList.forEach(element => {
-        if (element.invoiceIsSelected) {
-          element.invoiceIsSelected = true
-          listSelected.push(element)
+        if (res.data.status) {
+          let details = this.handleInvoiceListFormat(res.data.data)
+          details.masterChainId = val.masterChainId
+          return details
         } else {
-          list.push(element)
+          this.$message({
+            type: 'info',
+            message: `请求出错`
+          })
+          return false
         }
       })
-      data.invoiceList = list
-      data.invoiceListSelected = listSelected
-      return data
     }
   }
 }

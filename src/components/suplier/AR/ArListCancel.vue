@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import ListMinxIn from '@/mixins/suplier/Ar/Table'
+import ListMinxIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 /* 取消转让列表 */

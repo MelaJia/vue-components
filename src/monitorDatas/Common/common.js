@@ -788,7 +788,7 @@ arDetails:{
         "arStatusTypeName":"已確認",
         "billBookAmt":102070.8,
         "billPayDate":1516809600000,
-        "checkedStatus":23,
+        "checkedStatus":3,
         "companyName":"富泰華工業(深圳)有限公司",
         "contractList":[
             {
@@ -830,7 +830,7 @@ arDetails:{
                 "invoiceCurrency":null,
                 "invoiceCurrencyDesc":null,
                 "invoiceDate":1512576000000,
-                "invoiceIsSelected":0,
+                "invoiceIsSelected":1,
                 "invoiceNo":"33759496"
             },
             {
@@ -838,7 +838,7 @@ arDetails:{
                 "invoiceCurrency":null,
                 "invoiceCurrencyDesc":null,
                 "invoiceDate":1512576000000,
-                "invoiceIsSelected":0,
+                "invoiceIsSelected":1,
                 "invoiceNo":"33759497"
             }
         ],

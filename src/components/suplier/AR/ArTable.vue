@@ -151,7 +151,7 @@ header {
 </style>
 
 <script>
-import TableMixIn from '@/mixins/suplier/Ar/Table'
+import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
 import { firstToUpperCase } from '@/util/util'
 /* 我的Ar列表 */
@@ -202,22 +202,6 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val
       console.log(this.multipleSelection)
-    },
-    getDetail (val) {
-      return this.axios.post('/myAr/queryAr', { masterChainId: val.masterChainId }).then(res => {
-        // 处理数据
-        if (res.data.status) {
-          let details = this.handleInvoiceListFormat(res.data.data)
-          details.masterChainId = val.masterChainId
-          return details
-        } else {
-          this.$message({
-            type: 'info',
-            message: `请求出错`
-          })
-          return false
-        }
-      })
     },
     // 详情
     handleInfo (idx, val, isChild = false) {
@@ -354,23 +338,6 @@ export default {
     // 刷新数据
     fresh () {
       this.$emit('refresh')
-    },
-    /* 发票已选未选分离 */
-    handleInvoiceListFormat (oData) {
-      const data = oData
-      const list = []
-      const listSelected = []
-      data.invoiceCustomList.forEach(element => {
-        if (element.invoiceIsSelected) {
-          element.invoiceIsSelected = true
-          listSelected.push(element)
-        } else {
-          list.push(element)
-        }
-      })
-      data.invoiceList = list
-      data.invoiceListSelected = listSelected
-      return data
     },
     /* 按钮菜单显隐处理
     ** val 节点数据

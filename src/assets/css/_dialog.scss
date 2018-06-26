@@ -16,6 +16,7 @@ ul {
   border-right: .5px solid #931719;
   padding: 0;
   min-height: 32px;
+  text-align: left;
 }
 
 ul:last-of-type {
@@ -30,30 +31,43 @@ li {
   overflow: hidden;
   white-space: nowrap;
   line-height: 32px;
-  text-align: left;
   padding-left: 5px;
 }
-li:not(:first-of-type){
+
+li:not(:first-of-type) {
   border-left: 0.5px solid #931719;
 }
+
 .inline-blox {
   display: inline-block;
 }
-ul>span{
+
+ul>span {
   padding-left: 5px;
 }
-.el-checkbox{
+
+.el-checkbox {
   margin-left: 30px;
 }
-.a-link-group>a{
-  margin-left:30px;
+
+.a-link-group>a {
+  margin-left: 30px;
 }
-.a-link-group>label{
-    margin-left: 5px;
+
+.a-link-group>label {
+  margin-left: 5px;
 }
-.a-link-group>label:not(:last-of-type)::after{
+
+.a-link-group>label:not(:last-of-type)::after {
   content: ','
 }
-span>em{
-  color:#303133;
+
+span>em {
+  color: #303133;
+}
+
+@media screen and (min-width:0\0) {
+  .el-input {
+    width: 70%;
+  }
 }

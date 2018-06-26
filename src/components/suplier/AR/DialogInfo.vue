@@ -48,7 +48,7 @@
       <ul v-if="detailsP.checkedStatus!==6&&detailsP.checkedStatus!==9">
         <span>对应发票号:
           <div class="a-link-group inline-block">
-            <label v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo"><em>{{item.invoiceNo}}</em></label>
+            <label v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo">{{item.invoiceNo}}</label>
           </div>
         </span>
       </ul>
