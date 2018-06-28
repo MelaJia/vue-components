@@ -116,7 +116,7 @@
         </el-table-column>
         <el-table-column align="left" label-align="center" label="操作" width='200px' class-name="">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)" :loading="scope.row.infoLoading">详情</el-button>
+            <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
             <!-- <el-dropdown>
               <el-button type="primary">
                 更多菜单<i class="el-icon-arrow-down el-icon--right"></i>
@@ -186,11 +186,10 @@ export default {
     },
     // 详情
     handleInfo (idx, val) {
-      val.infoLoading = true
+      // 引入mixins/common.js中getLoanDetail其中包含有加载loading
       this.getLoanDetail('/loan2/queryLoanInfo.do', { masterChainId: val.masterChainId }).then(res => {
         this.details = res
         this.dialogInfoVisible = true
-        val.infoLoading = false
       })
     }
   }

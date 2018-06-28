@@ -23,7 +23,7 @@
       </el-row>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleSubmit" :loading="isLoading">确认</el-button>
+      <el-button type="primary" @click="handleSubmit">确认</el-button>
     </footer>
   </el-dialog>
 </template>
@@ -54,7 +54,8 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
-
+import { debounce } from '@/util/util' // 防抖函数
+import { loadingConf } from '@/config/common' // 获取加载配置
 export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, Common],
@@ -70,8 +71,7 @@ export default {
       factoringCusts: [{
         factoringCustId: 1,
         factoringApId: '获取数据失败'
-      }],
-      isLoading: false // 请求数据中
+      }]
     }
   },
   mounted () {
@@ -92,40 +92,50 @@ export default {
     }
   },
   methods: {
-    handleSubmit () {
-      if (this.form.factoringCustId.length <= 0) {
-        this.$message({
-          type: 'warning',
-          message: '请选择保理单位'
-        })
-        return
-      }
-      this.isLoading = true
-      const param = {
-        custId: this.detailsP.custId, // 客户Id
-        buyerCustNo: this.detailsP.buyerCustNo, // 付款法人代码
-        factoringCustId: this.form.factoringCustId // 保理单位
-      }
-      console.log(param)
-      this.axios.post('/discountAudit/approveDiscountAudit.do', param).then(res => {
-        let type = res.data.status ? 'success' : 'error'
-        this.$message({
-          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-          type: type
-        })
-        this.isLoading = false
-        this.handleClose() // 关闭弹窗
-        this.$parent.fresh() // 刷新数据
-      }).catch((err) => {
-        this.$message({
-          type: 'info',
-          message: '操作失败'
-        })
-        console.log(err)
-        this.isLoading = false
-      })
-    }
+    handleSubmit: debounce(submit, 1000, true)
   }
 }
-
+// 错误提示函数
+function erroShow (err, loading) {
+  console.log(this)
+  this.$alert(`网络错误${err}`, '系统提示', {
+    confirmButtonText: '确定',
+    callback: action => {
+      // 关闭加载图标
+      loading.close()
+    }
+  })
+}
+// 提交操作
+function submit () {
+  if (this.form.factoringCustId.length <= 0) {
+    this.$message({
+      type: 'warning',
+      message: '请选择保理单位'
+    })
+    return
+  }
+  const param = {
+    custId: this.detailsP.custId, // 客户Id
+    buyerCustNo: this.detailsP.buyerCustNo, // 付款法人代码
+    factoringCustId: this.form.factoringCustId // 保理单位
+  }
+  console.log(param)
+  // 显示加载图标
+  const loading = this.$loading(loadingConf.sub())
+  this.axios.post('/discountAudit/approveDiscountAudit.do', param).then(res => {
+    let type = res.data.status ? 'success' : 'error'
+    this.$message({
+      message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+      type: type
+    })
+    // 关闭加载图标
+    loading.close()
+    this.handleClose() // 关闭弹窗
+    this.$parent.fresh() // 刷新数据
+  }).catch((err) => {
+    // 错误提示
+    erroShow.call(this, err, loading)
+  })
+}
 </script>

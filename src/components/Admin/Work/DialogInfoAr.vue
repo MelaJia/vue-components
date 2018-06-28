@@ -9,39 +9,39 @@
     <section>
       <ul>
         <li>
-          <span>付款单位: <em>this.detailsP.companyName}}</em></span>
+          <span>付款单位: <em>{{this.detailsP.companyName}}</em></span>
         </li>
         <li>
-          <span>贴现单位: <em>this.detailsP.custFromName}}</em></span>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <span>一级供应商: <em>this.detailsP.companyNameOfL1}}</em></span>
+          <span>贴现单位: <em>{{this.detailsP.custFromName}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>付款银行: <em>this.detailsP.payBankName}}</em></span>
-        </li>
-        <li>
-          <span>付款银行账号: <em>this.detailsP.payBankAccount}}</em></span>
+          <span>一级供应商: <em>{{this.detailsP.companyNameOfL1}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>收款银行: <em>this.detailsP.receiveBankName}}</em></span>
+          <span>付款银行: <em>{{this.detailsP.payBankName}}</em></span>
         </li>
         <li>
-          <span>收款银行账号: <em>this.detailsP.receiveBankAccount}}</em></span>
+          <span>付款银行账号: <em>{{this.detailsP.payBankAccount}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>状态: <em>this.detailsP.auditedTypeName}}</em></span>
+          <span>收款银行: <em>{{this.detailsP.receiveBankName}}</em></span>
         </li>
         <li>
-          <span>保理方: <em>this.detailsP.custToName}}</em></span>
+          <span>收款银行账号: <em>{{this.detailsP.receiveBankAccount}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>状态: <em>{{this.detailsP.auditedTypeName}}</em></span>
+        </li>
+        <li>
+          <span>保理方: <em>{{this.detailsP.custToName}}</em></span>
         </li>
       </ul>
     </section>

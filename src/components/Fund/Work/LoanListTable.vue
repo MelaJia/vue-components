@@ -37,7 +37,7 @@
               更多<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" :loading="item.isLoading">{{item.name}}</el-button></el-dropdown-item>
+              <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" >{{item.name}}</el-button></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -51,14 +51,15 @@
 import ListMinxIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common' // getLoanDetail
 import Dialog from '@/mixins/suplier/Ar/Dialog'
-import { firstToUpperCase } from '@/util/util' // 首字母大写
+import { firstToUpperCase, debounce } from '@/util/util' // 首字母大写 防抖函数
+import { loadingConf } from '@/config/common' // 获取加载配置
 export default {
   name: 'loan', // 放款列表页面
   props: ['dataLoading', 'dataTable'],
   data () {
     return {
       detailsContract: '',
-      operateArr: [{ key: 'contrac', name: '合同生成', isLoading: false }, { key: 'confirm', name: '发起确认', isLoading: false }, { key: 'accept', name: '放款', isLoading: false }, { key: 'reject', name: '拒绝', isLoading: false }] // 操作数据
+      operateArr: [{ key: 'contrac', name: '合同生成' }, { key: 'confirm', name: '发起确认' }, { key: 'accept', name: '放款' }, { key: 'reject', name: '拒绝' }] // 操作数据
     }
   },
   mixins: [ListMinxIn, Common, Dialog],
@@ -82,116 +83,137 @@ export default {
       this[key](obj.idx, obj.val)
     },
     // 详情
-    handleInfo (idx, val) {
-      this.getLoanDetail('/loan2/queryLoanInfo.do', { masterChainId: val.masterChainId }).then(res => {
-        this.details = res
-        this.dialogInfoVisible = true
-      })
-    },
+    handleInfo: debounce(handleInfo, 1000, true),
     // 合同生成
-    handleContrac (idx, val) {
-      this.axios.post('/loan2/showGenerateContract.do', { masterChainId: val.masterChainId }).then(res => {
-        console.log(res)
-        if (res.data.status) {
-          this.detailsContract = res.data.data
-          this.dialogTransferVisible = true
-        } else {
-          this.$message.error(res.data.msg)
-        }
-      })
-    },
+    handleContrac: debounce(handleContrac, 1000, true),
     // 发起确认
-    handleConfirm (idx, val) {
-      this.$confirm(`单号为${val.masterChainId}的贴现合同确认发起确认?`, `提示`, {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.axios.post('/loan2/confirmInitiateSigning.do', {
-          masterChainId: val.masterChainId
-        }).then(res => {
-          let type = res.data.status ? 'success' : 'error'
-          this.$message({
-            message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-            type: type
-          })
-          this.$emit('refresh')
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '操作失败'
-          })
-        })
-        // this.cancelBase('/loan2/confirmInitiateSigning.do', val.masterChainId) // 调用common混合中公共方法
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '取消'
-        })
-      })
-    },
+    handleConfirm: handleConfirm,
     // 放款
-    handleAccept (idx, val) {
-      this.$confirm(`单号为${val.masterChainId}的贴现申请确认放款?`, `提示`, {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.cancelBase('/loan2/completeLoan.do', val.masterChainId) // 调用common混合中公共方法
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '取消'
-        })
-      })
-    },
+    handleAccept: handleAccept,
     // 拒绝
-    handleReject (idx, val) {
-      this.$confirm(`单号为${val.masterChainId}的贴现申请确认拒绝?`, `提示`, {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.cancelBase('/loan2/rejectLoan.do', val.masterChainId) // 调用common混合中公共方法
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '取消'
-        })
-      })
-    },
+    handleReject: handleReject,
     // 刷新数据
     fresh () {
       this.$emit('refresh')
     },
-    /* 按钮菜单显隐处理
+    // 按钮菜单显隐处理
+    getOpera: getOpera
+  }
+}
+// 错误提示函数
+function erroShow (err, loading) {
+  console.log(this)
+  this.$alert(`网络错误${err}`, '系统提示', {
+    confirmButtonText: '确定',
+    callback: action => {
+      // 关闭加载图标
+      loading.close()
+    }
+  })
+}
+// 详情函数
+function handleInfo (idx, val) {
+  // 引入mixins/common.js中getLoanDetail其中包含有加载loading
+  this.getLoanDetail('/loan2/queryLoanInfo.do', { masterChainId: val.masterChainId }).then(res => {
+    this.details = res
+    this.dialogInfoVisible = true
+  })
+}
+// 合同生成
+function handleContrac (idx, val) {
+  // 1.显示加载图标
+  const loading = this.$loading(loadingConf.get())
+  // 2.获取数据
+  this.axios.post('/loan2/showGenerateContract.do', { masterChainId: val.masterChainId }).then(res => {
+    console.log(res)
+    if (res.data.status) {
+      // 放款比例初始化否则先输入实际放款金额会造成不联动
+      if (!res.data.data.loanPer) {
+        res.data.data.loanPer = 1
+      }
+      // 3.设置数据
+      this.detailsContract = res.data.data
+      // 4.显示弹窗
+      this.dialogTransferVisible = true
+    } else {
+      this.$message.error(res.data.msg)
+    }
+    loading.close() // 关闭加载图标
+  }).catch((err) => {
+    // 错误提示
+    erroShow.call(this, err, loading)
+  })
+}
+// 发起确认
+function handleConfirm (idx, val) {
+  this.$confirm(`单号为${val.masterChainId}的贴现合同确认发起确认?`, `提示`, {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    this.cancelBase('/loan2/confirmInitiateSigning.do', val.masterChainId) // 调用common混合中公共方法
+  }).catch(() => {
+    this.$message({
+      type: 'info',
+      message: '操作已取消'
+    })
+  })
+}
+// 放款
+function handleAccept (idx, val) {
+  this.$confirm(`单号为${val.masterChainId}的贴现申请确认放款?`, `提示`, {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    this.cancelBase('/loan2/completeLoan.do', val.masterChainId) // 调用common混合中公共方法
+  }).catch(() => {
+    this.$message({
+      type: 'info',
+      message: '操作已取消'
+    })
+  })
+}
+// 拒绝
+function handleReject (idx, val) {
+  this.$confirm(`单号为${val.masterChainId}的贴现申请确认拒绝?`, `提示`, {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    this.cancelBase('/loan2/rejectLoan.do', val.masterChainId) // 调用common混合中公共方法
+  }).catch(() => {
+    this.$message({
+      type: 'info',
+      message: '操作已取消'
+    })
+  })
+}
+/* 按钮菜单显隐处理
     ** val 节点数据
     ** ischild 是否是子数据
     */
-    getOpera: function (val) {
-      const datas = val
-      datas.forEach((item) => {
-        const operateArr = []
-        switch (item.checkedStatus) {
-          case 22:
-            operateArr.push(this.operateArr[0])
-            operateArr.push(this.operateArr[1])
-            break
-          case 24:
-            operateArr.push(this.operateArr[2])
-            break
-          default:
-            break
-        }
-        operateArr.push(this.operateArr[3])
-        item.operateArr = operateArr
-      })
-      console.log(datas)
-      return datas
+function getOpera (val) {
+  const datas = val
+  datas.forEach((item) => {
+    const operateArr = []
+    switch (item.checkedStatus) {
+      case 22:
+        operateArr.push(this.operateArr[0])
+        operateArr.push(this.operateArr[1])
+        break
+      case 24:
+        operateArr.push(this.operateArr[2])
+        break
+      default:
+        break
     }
-  }
+    operateArr.push(this.operateArr[3])
+    item.operateArr = operateArr
+  })
+  console.log(datas)
+  return datas
 }
-
 </script>
 <style lang="scss">
 .demo-table-expand label {

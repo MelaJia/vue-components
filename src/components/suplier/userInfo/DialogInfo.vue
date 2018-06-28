@@ -71,7 +71,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="营业执照日期:" prop="compuDate">
-              <el-date-picker :editable="false" v-model="getForm.compuDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+              <el-date-picker :editable="false" v-model="getForm.compuDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
               </el-date-picker>
             </el-form-item>
           </el-col>

@@ -23,5 +23,21 @@ const monitorInit = ()=>{
   Mock.mock('https://jurongtest.foxconn.com/sit/onReceivingAr/getOnReceivingArListTable', commonDatas.getArData)
   Mock.mock('https://jurongtest.foxconn.com/sit/transferedAr/getTransferedArListTable.do', commonDatas.getArData)
   Mock.mock('https://jurongtest.foxconn.com/sit/commonCust/arAuditStatusList.do', commonDatas.fenboStatus)
+  Mock.mock('https://jurongtest.foxconn.com/sit/commonCust/queryCustomer.do',{
+    "data":{companyName:'123'},
+    "msg|1":[
+      "失败",
+      "成功"
+    ],
+    "status": true
+  })
+  Mock.mock('https://jurongtest.foxconn.com/sit/api/check', {
+    "data":'',
+    "msg|1":[
+      "失败",
+      "成功"
+    ],
+    "status": true
+  })
 }
 export {monitorInit}

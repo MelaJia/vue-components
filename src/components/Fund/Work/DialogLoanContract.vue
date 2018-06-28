@@ -25,7 +25,7 @@
         <el-row>
           <el-col :span="11"  class="flex">
             <el-form-item label="实放金额: " prop="actualDiscountAmt">
-             <el-input v-model.number="detailsP.actualDiscountAmt" type="number" placeholder="实放金额"></el-input>
+             <el-input v-model.number="actualDiscountAmt" type="number" placeholder="实放金额"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -89,7 +89,7 @@
       </el-form>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleSubmit" :loading="isLoading">确认</el-button>
+      <el-button type="primary" @click="handleSubmit">确认</el-button>
     </footer>
   </el-dialog>
 </template>
@@ -126,6 +126,8 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
+import { debounce } from '@/util/util' // 防抖函数
+import { loadingConf } from '@/config/common' // 获取加载配置
 
 export default {
   props: ['visibleP', 'detailsP'],
@@ -143,7 +145,6 @@ export default {
         RepaymentTypeName: '一次还款本息'
       }
       ],
-      isLoading: false,
       rules: {
         loanPer: [
           { required: true, message: '请输入放款比例', trigger: 'blur' },
@@ -189,53 +190,72 @@ export default {
     loanPer () {
       return this.detailsP.loanPer
     },
+    actualDiscountAmt: {
+      // getter
+      get: function () {
+        return this.detailsP.billBookAmt * this.detailsP.loanPer / 100
+      },
+      // setter
+      set: function (newValue) {
+        this.detailsP.actualDiscountAmt = newValue
+        let val = Number((newValue / this.detailsP.billBookAmt * 100).toFixed(2))
+        console.log(typeof (val))
+        this.detailsP.loanPer = val
+        console.log(this.detailsP.loanPer)
+      }
+    },
     getTitle () {
       return this.detailsP.masterChainId + '合同利益确认'
     }
   },
   methods: {
-    handleSubmit () {
-      this.$refs.form.validate((valid) => {
-        if (valid) {
-          this.isLoading = true
-          const param = {
-            masterChainId: this.detailsP.masterChainId,
-            supplierCustId: this.detailsP.supplierCustId,
-            billBookAmt: this.detailsP.billBookAmt, // 贴现金额
-            loanPer: this.loanPer, // 放款比例
-            actualDiscountAmt: this.detailsP.actualDiscountAmt || '', // 实放金額 修复只根据放款比例计算得到结果
-            interestRate: this.detailsP.interestRate || '', // 贴现利率
-            serviceFeeRate: this.detailsP.serviceFeeRate || '', // 服务费率
-            overdueRate: this.detailsP.overdueRate || '', // 逾期利率
-            prepaymentDeductInterest: this.detailsP.prepaymentDeductInterest || '', // 提前还款手续费
-            repaymentType: this.detailsP.repaymentType || '', // 还款方式
-            fineGraceDays: this.detailsP.fineGraceDays || '', // 宽容天数
-            billPayDate: this.detailsP.billPayDate, // 预计回款日期
-            billDueDate: this.detailsP.billDueDate // 预计还款日期
-          }
-          console.log(param)
-          this.axios.post('/loan2/generateContract.do', param).then(res => {
-            let type = res.data.status ? 'success' : 'error'
-            this.$message({
-              message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-              type: type
-            })
-            this.isLoading = false
-            if (res.data.status) {
-              this.$parent.fresh()
-              this.handleClose()
-            }
-          }).catch(() => {
-            this.$message({
-              type: 'info',
-              message: '操作失败'
-            })
-            this.isLoading = false
-          })
-        }
-      })
-    }
+    handleSubmit: debounce(submit, 1000, true)
   }
 }
-
+// 提交操作
+function submit () {
+  this.$refs.form.validate((valid) => {
+    if (valid) {
+      const param = {
+        masterChainId: this.detailsP.masterChainId,
+        supplierCustId: this.detailsP.supplierCustId,
+        billBookAmt: this.detailsP.billBookAmt, // 贴现金额
+        loanPer: this.loanPer, // 放款比例
+        actualDiscountAmt: this.detailsP.actualDiscountAmt || '', // 实放金額 修复只根据放款比例计算得到结果
+        interestRate: this.detailsP.interestRate || '', // 贴现利率
+        serviceFeeRate: this.detailsP.serviceFeeRate || '', // 服务费率
+        overdueRate: this.detailsP.overdueRate || '', // 逾期利率
+        prepaymentDeductInterest: this.detailsP.prepaymentDeductInterest || '', // 提前还款手续费
+        repaymentType: this.detailsP.repaymentType || '', // 还款方式
+        fineGraceDays: this.detailsP.fineGraceDays || '', // 宽容天数
+        billPayDate: this.detailsP.billPayDate, // 预计回款日期
+        billDueDate: this.detailsP.billDueDate // 预计还款日期
+      }
+      console.log(param)
+      // 显示加载图标
+      const loading = this.$loading(loadingConf.sub())
+      // 发送数据
+      this.axios.post('/loan2/generateContract.do', param).then(res => {
+        let type = res.data.status ? 'success' : 'error'
+        this.$message({
+          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+          type: type
+        })
+        // 关闭加载图标
+        loading.close()
+        if (res.data.status) {
+          this.$parent.fresh()
+          this.handleClose()
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '操作失败'
+        })
+        // 关闭加载图标
+        loading.close()
+      })
+    }
+  })
+}
 </script>

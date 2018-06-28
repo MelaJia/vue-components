@@ -364,10 +364,15 @@ const commonDatas = {
     "recordsTotal":4,
     "status":1
 },
- comdata:{
-    result: 'true',
-    message: ' 操作成功'
+ comdata: {
+   data:{
+     result: 'true',
+     message: ' 操作成功'
+   },
+   msg: '操作成功',
+   status: 1
  },
+
  arDatas:{
     "data":[
         {
@@ -390,7 +395,7 @@ const commonDatas = {
             "custId":"09210827048265",
             "custToId":"",
             "custToName":"",
-            "discountAuditStatus":1,
+            "discountAuditStatus":2,
             "isInterfaceMode":0,
             "isMasterAr":1,
             "isNeedDiscountAudit":0,
@@ -443,7 +448,7 @@ const commonDatas = {
             "billPayStatus":null,
             "billStartDate":1523548800000,
             "buyerCustNo":"A086041",
-            "checkedStatus":2,
+            "checkedStatus":3,
             "companyName":"深圳富泰宏精密工業有限公司",
             "createtime":1523655348000,
             "currencyDesc":null,
@@ -478,7 +483,7 @@ const commonDatas = {
             "billPayStatus":null,
             "billStartDate":1512921600000,
             "buyerCustNo":"A086041",
-            "checkedStatus":2,
+            "checkedStatus":22,
             "companyName":"深圳富泰宏精密工業有限公司",
             "createtime":1513027773000,
             "currencyDesc":null,

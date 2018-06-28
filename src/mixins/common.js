@@ -1,3 +1,4 @@
+import {loadingConf} from '@/config/common' // 获取加载配置
 export default {
   methods: {
     // 时间格式化
@@ -67,6 +68,9 @@ export default {
      * @param {str} id 请求参数(ar单号)
      */
     cancelBase (url, id) {
+      // 1.显示加载图标
+      const loading = this.$loading(loadingConf.sub())
+      // 2.发送请求
       this.axios.post(url, {
         masterChainId: id
       }).then(res => {
@@ -75,17 +79,21 @@ export default {
           message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
           type: type
         })
+        // 关闭加载图标
+        loading.close()
         this.$emit('refresh')
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '操作失败'
-        })
+      }).catch((err) => {
+        // 错误提示
+        erroShow.call(this, err, loading)
       })
     },
     // 获取放款详情接口
     getLoanDetail (url, param) {
+      // 显示加载图标
+      const loading = this.$loading(loadingConf.sub())
       return this.axios.post(url, param).then(res => {
+        // 关闭加载图标
+        loading.close()
         if (res.data.status) {
           return res.data.data
         } else {
@@ -95,10 +103,8 @@ export default {
           })
         }
       }).catch((err) => {
-        this.$message({
-          type: 'error',
-          message: err
-        })
+        // 错误提示
+        erroShow.call(this, err, loading)
       })
     },
     /**
@@ -124,4 +130,15 @@ export default {
       return value === 1 ? '自有' : '购入'
     }
   }
+}
+// 错误提示函数
+function erroShow (err, loading) {
+  console.log(this)
+  this.$alert(`网络错误${err}`, '系统提示', {
+    confirmButtonText: '确定',
+    callback: action => {
+      // 关闭加载图标
+      loading.close()
+    }
+  })
 }

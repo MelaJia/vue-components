@@ -83,19 +83,19 @@
       </el-row>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleSubmit" :loading="isLoading">确认</el-button>
+      <el-button type="primary" @click="handleSubmit">确认</el-button>
     </footer>
   </el-dialog>
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
-.layout.form{
+.layout.form {
   margin-top: 10px;
 }
-.layout.form .flex{
+.layout.form .flex {
   display: flex;
-  >label{
-    width:120px;
+  > label {
+    width: 120px;
     height: 40px;
     line-height: 40px;
   }
@@ -105,6 +105,8 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
+import { debounce } from '@/util/util' // 防抖函数
+import {loadingConf} from '@/config/common' // 获取加载配置
 
 export default {
   name: 'ardiscount', // 贴现弹窗
@@ -113,8 +115,7 @@ export default {
   data () {
     return {
       transAmt: 0,
-      checkList: [],
-      isLoading: false
+      checkList: []
     }
   },
   computed: {
@@ -123,68 +124,70 @@ export default {
     }
   },
   methods: {
-    handleSubmit () {
-      this.isLoading = true
-      const data = {
-        masterChainId: this.detailsP.masterChainId,
-        discountAmt: this.transAmt,
-        discountSelectedInvoice: this.checkList.join(',')
-      }
-      // 已勾选发票
-      const arr = []
-      this.detailsP.invoiceList.forEach(item => {
-        for (const iterator of this.checkList) {
-          if (iterator === item.invoiceNo) {
-            arr.push(item)
-          }
-        }
-      })
-      arr.concat(...this.detailsP.invoiceListSelected)
-      console.log(arr)
-      console.log(this.detailsP.invoiceListSelected)
-      if (arr.length <= 0) {
-        this.$message({
-          type: 'error',
-          message: '未勾选发票'
-        })
-        this.isLoading = false
-        return
-      }
-      let sum = arr.reduce((sum, currVal) => {
-        let num = Number(currVal.invoiceAfterTaxAmt)
-        if (isNaN(num)) {
-          return
-        }
-        return sum + num
-      }, 0)
-      if (Number(this.transAmt) > sum) {
-        this.$message({
-          type: 'error',
-          message: '贴现金额不得大于勾选发票总额'
-        })
-        this.isLoading = false
-        return
-      }
-      this.checkList = [] // 重置
-      console.log(data)
-      this.axios.post('/myAr/initiateDiscount.do', data).then(res => {
-        let type = res.data.status ? 'success' : 'error'
-        this.$message({
-          message: res.data.data.message ? res.data.data.message : '返回结果错误，请联系管理员',
-          type: type
-        })
-        this.isLoading = false
-        this.handleClose() // 关闭弹窗
-        this.$parent.fresh() // 刷新数据
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '操作失败'
-        })
-        this.isLoading = false
-      })
-    }
+    handleSubmit: debounce(handleSubmit, 1000, true)
   }
+}
+function handleSubmit () {
+  const data = {
+    masterChainId: this.detailsP.masterChainId,
+    discountAmt: this.transAmt,
+    discountSelectedInvoice: this.checkList.join(',')
+  }
+  // 已勾选发票
+  const arr = []
+  this.detailsP.invoiceList.forEach(item => {
+    for (const iterator of this.checkList) {
+      if (iterator === item.invoiceNo) {
+        arr.push(item)
+      }
+    }
+  })
+  arr.concat(...this.detailsP.invoiceListSelected)
+  if (arr.length <= 0) {
+    this.$message({
+      type: 'error',
+      message: '未勾选发票'
+    })
+    return
+  }
+  let sum = arr.reduce((sum, currVal) => {
+    let num = Number(currVal.invoiceAfterTaxAmt)
+    if (isNaN(num)) {
+      return
+    }
+    return sum + num
+  }, 0)
+  if (Number(this.transAmt) > sum) {
+    this.$message({
+      type: 'error',
+      message: '贴现金额不得大于勾选发票总额'
+    })
+    return
+  }
+  // 显示加载图标
+  const loading = this.$loading(loadingConf.sub())
+  this.axios.post('/myAr/initiateDiscount.do', data).then(res => {
+    console.log(res)
+    let type = res.data.status ? 'success' : 'error'
+    this.$message({
+      message: res.data.data.message ? res.data.data.message : '返回结果错误，请联系管理员',
+      type: type
+    })
+    // 关闭加载图标
+    loading.close()
+    // 关闭弹窗
+    this.handleClose()
+    // 刷新数据
+    this.$parent.fresh()
+  }).catch((err) => {
+    console.log(err)
+    this.$message({
+      type: 'info',
+      message: '操作失败'
+    })
+    // 关闭加载图标
+    loading.close()
+  })
 }
 
 </script>

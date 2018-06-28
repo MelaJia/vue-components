@@ -52,13 +52,13 @@
               </el-table-column>
               <el-table-column align="left" label-align="center" width='200px'>
                 <template slot-scope="scope">
-                  <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row, true)" :loading="scope.row.infoLoading">详情</el-button>
+                  <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row, true)" >详情</el-button>
                   <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
                     <span class="el-dropdown-link">
                       更多<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                      <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" :loading="item.isLoading">{{item.name}}</el-button></el-dropdown-item>
+                      <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button></el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
                 </template>
@@ -95,13 +95,13 @@
         </el-table-column>
         <el-table-column align="left" header-align="center" label="操作" width='200px' class-name="">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)" :loading="scope.row.infoLoading">详情</el-button>
+            <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
             <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
   <span class="el-dropdown-link">
     更多<i class="el-icon-arrow-down el-icon--right"></i>
   </span>
   <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" :loading="item.isLoading">{{item.name}}</el-button></el-dropdown-item>
+    <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button></el-dropdown-item>
     <!-- <el-dropdown-item v-for="(item, index) in operateArr" :key="index" :command="{key:item.key, idx:scope.$index, val:scope.row}">{{item.name}}</el-dropdown-item> -->
   </el-dropdown-menu>
 </el-dropdown>
@@ -153,7 +153,8 @@ header {
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
-import { firstToUpperCase } from '@/util/util'
+import { firstToUpperCase, debounce } from '@/util/util' // 首字母大写 防抖函数
+import { loadingConf } from '@/config/common' // 获取加载配置
 /* 我的Ar列表 */
 export default {
   props: ['dataLoading', 'dataTable'],
@@ -183,12 +184,12 @@ export default {
       multipleSelection: [], // 选择的数据
       details: {}, // 详情数据
       operateArr: [
-        { key: 'trans', name: '转让', isLoading: false },
-        { key: 'cancleDiscount', name: '取消', isLoading: false },
-        { key: 'initiateDiscount', name: '贴现', isLoading: false },
-        { key: 'contract', name: '合同确认', isLoading: false },
-        { key: 'cancleTrans', name: '取消授让', isLoading: false },
-        { key: 'apply', name: '贴现审核申请', isLoading: false }
+        { key: 'trans', name: '转让' },
+        { key: 'cancleDiscount', name: '取消' },
+        { key: 'initiateDiscount', name: '贴现' },
+        { key: 'contract', name: '合同确认' },
+        { key: 'cancleTrans', name: '取消授让' },
+        { key: 'apply', name: '贴现审核申请' }
       ] // 操作数据
     }
   },
@@ -204,137 +205,25 @@ export default {
       console.log(this.multipleSelection)
     },
     // 详情
-    handleInfo (idx, val, isChild = false) {
-      console.log(val)
-      val.infoLoading = true
-      this.getDetail(val).then(res => {
-        if (res) {
-          this.details = res
-          if (isChild) {
-            this.dialogChildInfoVisible = true
-          } else {
-            this.dialogInfoVisible = true
-          }
-        }
-        val.infoLoading = false
-      }).catch(err => {
-        this.$alert(`网络错误${err}`, '系统提示', {
-          confirmButtonText: '确定',
-          callback: action => {
-            val.infoLoading = false
-          }
-        })
-        val.infoLoading = false
-      })
-    },
+    handleInfo: debounce(handleInfo, 1000, true),
     // 更多事件
     handleCommand (obj) {
-      console.log(firstToUpperCase(obj.key))
       let key = `handle${firstToUpperCase(obj.key)}` // 方法为handle+ key首字母大写化组成
+      // 执行方法
       this[key](obj.idx, obj.val)
     },
     // 转让
-    handleTrans (idx, val) {
-      this.operateArr[idx].isLoading = true
-      this.getDetail(val).then(res => {
-        console.log(res)
-        if (res) {
-          this.detailsTransfer = res
-          this.dialogTransferVisible = true
-        }
-        this.operateArr[idx].isLoading = false
-      }).catch(err => {
-        console.log(err)
-        this.operateArr[idx].isLoading = false
-      })
-    },
+    handleTrans: debounce(handleTrans, 1000, true),
     // 取消转让
-    handleCancleTrans (idx, val) {
-      this.$confirm(`单号为${val.masterChainId}的确认取消授让?`, `提示`, {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.cancelBase('/myAr/cancelTrans.do', val.masterChainId)
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '取消'
-        })
-      })
-    },
+    handleCancleTrans: handleCancleTrans,
     // 贴现
-    handleInitiateDiscount (idx, val) {
-      this.operateArr[idx].isLoading = true
-      this.getDetail(val).then(res => {
-        console.log(res)
-        if (res) {
-          this.detailsDiscount = res
-          this.dialogDiscountVisible = true
-        }
-        this.operateArr[idx].isLoading = false
-      }).catch(err => {
-        console.log(err)
-        this.operateArr[idx].isLoading = false
-      })
-    },
+    handleInitiateDiscount: debounce(handleInitiateDiscount, 1000, true),
     // 取消贴现
-    handleCancleDiscount (idx, val) {
-      this.$confirm(`单号为${val.masterChainId}的确认取消贴现?`, `提示`, {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.cancelBase('/myAr/cancelDiscount.do', val.masterChainId)
-        // this.axios.post('/myAr/cancelDiscount.do', { masterChainId: val.masterChainId }).then(res => {
-        //   let type = res.status ? 'success' : 'error'
-        //   this.$message({
-        //     message: res.data.message,
-        //     type: type
-        //   })
-        // }).catch(() => {
-        //   this.$message({
-        //     type: 'info',
-        //     message: '操作失败'
-        //   })
-        // })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '取消'
-        })
-      })
-    },
+    handleCancleDiscount: handleCancleDiscount,
     // 合同确认
-    handleContract (idx, val) {
-      this.operateArr[idx].isLoading = true
-      this.getDetail(val).then(res => {
-        console.log(res)
-        if (res) {
-          this.detailsContract = res
-          this.dialogContractVisible = true
-        }
-        this.operateArr[idx].isLoading = false
-      }).catch(err => {
-        console.log(err)
-        this.operateArr[idx].isLoading = false
-      })
-    },
+    handleContract: debounce(handleContract, 1000, true),
     // 审核申请
-    handleApply (idx, val) {
-      this.$confirm(`单号为${val.masterChainId}的确认进行贴现审核申请？`, `提示`, {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.cancelBase('/myAr/auditApplyDiscount.do', val.masterChainId)
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '取消'
-        })
-      })
-    },
+    handleApply: handleApply,
     // 刷新数据
     fresh () {
       this.$emit('refresh')
@@ -400,5 +289,135 @@ export default {
     }
   }
 }
-
+// 错误提示函数
+function erroShow (err, loading) {
+  console.log(this)
+  this.$alert(`网络错误${err}`, '系统提示', {
+    confirmButtonText: '确定',
+    callback: action => {
+      // 关闭加载图标
+      loading.close()
+    }
+  })
+}
+// 详情函数
+function handleInfo (idx, val, isChild = false) {
+  // 显示加载图标
+  const loading = this.$loading(loadingConf.get())
+  // 获取数据
+  this.getDetail(val).then(res => {
+    if (res) {
+      this.details = res
+      if (isChild) {
+        this.dialogChildInfoVisible = true
+      } else {
+        this.dialogInfoVisible = true
+      }
+    }
+    // 关闭加载图标
+    loading.close()
+  }).catch(err => {
+    // 错误提示
+    erroShow.call(this, err, loading)
+  })
+}
+// 转让
+function handleTrans (idx, val) {
+  // 显示加载图标
+  const loading = this.$loading(loadingConf.get())
+  // 获取数据
+  this.getDetail(val).then(res => {
+    console.log(res)
+    if (res) {
+      this.detailsTransfer = res
+      this.dialogTransferVisible = true
+    }
+    // 关闭加载图标
+    loading.close()
+  }).catch(err => {
+    // 错误提示
+    erroShow.call(this, err, loading)
+  })
+}
+// 取消转让
+function handleCancleTrans (idx, val) {
+  this.$confirm(`单号为${val.masterChainId}的确认取消授让?`, `提示`, {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    this.cancelBase('/myAr/cancelTrans.do', val.masterChainId)
+  }).catch(() => {
+    this.$message({
+      type: 'info',
+      message: '操作已取消'
+    })
+  })
+}
+// 贴现
+function handleInitiateDiscount (idx, val) {
+  // 显示加载图标
+  const loading = this.$loading(loadingConf.get())
+  // 获取数据
+  this.getDetail(val).then(res => {
+    console.log(res)
+    if (res) {
+      this.detailsDiscount = res
+      this.dialogDiscountVisible = true
+    }
+    // 关闭加载图标
+    loading.close()
+  }).catch(err => {
+    // 错误提示
+    erroShow.call(this, err, loading)
+  })
+}
+// 取消贴现
+function handleCancleDiscount (idx, val) {
+  this.$confirm(`单号为${val.masterChainId}的确认取消贴现?`, `提示`, {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    this.cancelBase('/myAr/cancelDiscount.do', val.masterChainId)
+  }).catch(() => {
+    this.$message({
+      type: 'info',
+      message: '操作已取消'
+    })
+  })
+}
+// 合同确认
+function handleContract (idx, val) {
+  // 显示加载图标
+  const loading = this.$loading(loadingConf.get())
+  // 获取数据
+  this.getDetail(val).then(res => {
+    console.log(res)
+    if (res) {
+      this.detailsContract = res
+      this.dialogContractVisible = true
+    }
+    // 关闭加载图标
+    loading.close()
+  }).catch(err => {
+    // 错误提示
+    erroShow.call(this, err, loading)
+  })
+}
+// 审核申请
+function handleApply (idx, val) {
+  this.$confirm(`单号为${val.masterChainId}的确认进行贴现审核申请？`, `提示`, {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    this.cancelBase('/myAr/auditApplyDiscount.do', val.masterChainId)
+  }).catch(() => {
+    this.$message({
+      type: 'info',
+      message: '操作已取消'
+    })
+  })
+}
 </script>

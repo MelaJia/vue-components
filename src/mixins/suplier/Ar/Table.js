@@ -1,3 +1,4 @@
+import {loadingConf} from '@/config/common' // 获取加载配置
 export default {
   data () {
     return {
@@ -82,14 +83,12 @@ export default {
             if (item.tableData && item.tableData.length > 0) {
               item.tableData.map(val => {
                 val.company = val.isMasterAr ? val.companyName : val.custToName // 子节点受让公司对手公司处理
-                val.infoLoading = false // 添加详情按钮loading节点
               })
             }
           })
           // 父节点处理
           response.data[that.dataStr].map(val => {
-            val.company = val.isMasterAr ? val.companyName : val.custToName // 父节点受让公司对手公司处理
-            val.infoLoading = false // 添加详情按钮loading节点
+            val.company = val.companyName// 父节点受让公司对手公司处理
           })
         }
         result = response
@@ -161,22 +160,19 @@ export default {
      * @param {*} val
      */
     handleInfo (idx, val) {
-      val.infoLoading = true
+      // 显示加载图标
+      const loading = this.$loading(loadingConf.sub())
+      // 获取数据
       this.getDetail(val).then(res => {
         if (res) {
           this.details = res
           this.dialogInfoVisible = true
         }
-        val.infoLoading = false
+        // 关闭加载图标
+        loading.close()
       }).catch(err => {
-        this.$alert(`网络错误`, '标题名称', {
-          confirmButtonText: '确定',
-          callback: action => {
-            console.log(err)
-            val.infoLoading = false
-          }
-        })
-        val.infoLoading = false
+        // 错误提示
+        erroShow.call(this, err, loading)
       })
     },
     /* 发票已选未选分离 */
@@ -197,4 +193,15 @@ export default {
       return data
     }
   }
+}
+// 错误提示函数
+function erroShow (err, loading) {
+  console.log(this)
+  this.$alert(`网络错误${err}`, '系统提示', {
+    confirmButtonText: '确定',
+    callback: action => {
+      // 关闭加载图标
+      loading.close()
+    }
+  })
 }

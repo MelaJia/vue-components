@@ -9,8 +9,8 @@
       <el-checkbox v-for="item in this.detailsP.contractList" :key="item.contractId" :label="item.contractId"><a href="http://" @click.prevent="constractHandle(item.contractNo)">{{item.contractName}}</a></el-checkbox>
     </el-checkbox-group>
     <footer slot="footer">
-      <el-button round @click="handleSubmit" type="primary" :loading="isLoading">同意签署</el-button>
-       <el-button round @click="handleReject" type="warning" :loading="isLoading">拒绝退回</el-button>
+      <el-button round @click="handleSubmit" type="primary" v-loading.fullscreen.lock="isLoading">同意签署</el-button>
+       <el-button round @click="handleReject" type="warning" v-loading.fullscreen.lock="isLoading">拒绝退回</el-button>
     </footer>
   </el-dialog>
 </template>
@@ -23,6 +23,7 @@ footer {
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import { debounce } from '@/util/util' // 防抖函数
+import { loadingConf } from '@/config/common' // 获取加载配置
 /* 合同确认 */
 export default {
   props: ['visibleP', 'detailsP'],
@@ -34,63 +35,11 @@ export default {
     }
   },
   methods: {
-    handleSubmit: debounce(function () {
-      this.isLoading = true
-      if (this.checkList.length !== this.detailsP.contractList.length) {
-        this.$message({
-          type: 'error',
-          message: '有未勾选合同'
-        })
-        this.isLoading = false
-        return
-      }
-      this.axios.post('/myAr/completeSigningDiscount.do', { masterChainId: this.detailsP.masterChainId }).then(res => {
-        let type = res.data.status ? 'success' : 'error'
-        this.$message({
-          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-          type: type
-        })
-        this.isLoading = false
-        this.handleClose() // 关闭弹窗
-        this.$parent.fresh() // 刷新数据
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '操作失败'
-        })
-        this.isLoading = false
-      })
-    }, 1000, {
+    handleSubmit: debounce(submit, 1000, {
       'leading': true,
       'trailing': false
     }),
-    handleReject: debounce(function () {
-      this.isLoading = true
-      if (this.checkList.length !== this.detailsP.contractList.length) {
-        this.$message({
-          type: 'error',
-          message: '有未勾选合同'
-        })
-        this.isLoading = false
-        return
-      }
-      this.axios.post('/myAr/cancelSigningDiscount.do', { masterChainId: this.detailsP.masterChainId }).then(res => {
-        let type = res.data.status ? 'success' : 'error'
-        this.$message({
-          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-          type: type
-        })
-        this.isLoading = false
-        this.handleClose() // 关闭弹窗
-        this.$parent.fresh() // 刷新数据
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '操作失败'
-        })
-        this.isLoading = false
-      })
-    }, 1000, {
+    handleReject: debounce(reject, 1000, {
       'leading': true,
       'trailing': false
     })
@@ -102,4 +51,63 @@ export default {
   }
 }
 
+function submit () {
+  if (this.checkList.length !== this.detailsP.contractList.length) {
+    this.$message({
+      type: 'error',
+      message: '有未勾选合同'
+    })
+    return
+  }
+  // 显示加载图标
+  const loading = this.$loading(loadingConf.sub())
+  this.axios.post('/myAr/completeSigningDiscount.do', { masterChainId: this.detailsP.masterChainId }).then(res => {
+    let type = res.data.status ? 'success' : 'error'
+    this.$message({
+      message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+      type: type
+    })
+    // 关闭加载图标
+    loading.close()
+    this.handleClose() // 关闭弹窗
+    this.$parent.fresh() // 刷新数据
+  }).catch(() => {
+    this.$message({
+      type: 'info',
+      message: '操作失败'
+    })
+    // 关闭加载图标
+    loading.close()
+  })
+}
+// 拒绝操作
+function reject () {
+  if (this.checkList.length !== this.detailsP.contractList.length) {
+    this.$message({
+      type: 'error',
+      message: '有未勾选合同'
+    })
+    return
+  }
+  // 显示加载图标
+  const loading = this.$loading(loadingConf.sub())
+  this.axios.post('/myAr/cancelSigningDiscount.do', { masterChainId: this.detailsP.masterChainId }).then(res => {
+    let type = res.data.status ? 'success' : 'error'
+    this.$message({
+      message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+      type: type
+    })
+    // 关闭加载图标
+    loading.close()
+    this.handleClose() // 关闭弹窗
+    this.$parent.fresh() // 刷新数据
+  }).catch(() => {
+    this.$message({
+      type: 'info',
+      message: '操作失败'
+    })
+    // 关闭加载图标
+    loading.close()
+  })
+}
 </script>

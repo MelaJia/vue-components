@@ -27,7 +27,7 @@
               更多<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" :loading="item.isLoading">{{item.name}}</el-button></el-dropdown-item>
+              <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" v-loading.fullscreen.lock="item.isLoading">{{item.name}}</el-button></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -41,8 +41,8 @@
 import ListMinxIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
-import { firstToUpperCase } from '@/util/util' // 首字母大写
-// import { auditDetail } from '@/monitorDatas/Admin/arDatas.js'
+import { firstToUpperCase, debounce } from '@/util/util' // 首字母大写 防抖函数
+import { loadingConf } from '@/config/common' // 获取加载配置
 export default {
   props: ['dataLoading', 'dataTable'],
   data () {
@@ -68,28 +68,7 @@ export default {
   },
   methods: {
     // 详情
-    handleInfo (idx, val) {
-      let param = {
-        custId: val.custId,
-        buyerCustNo: val.buyerCustNo
-      }
-      // this.details = auditDetail
-      this.dialogInfoVisible = true
-      this.axios.post('/discountAudit/queryDiscountAuditInfo.do', param).then(res => {
-        if (res.data.status) {
-          this.details = res.data.data
-          this.dialogInfoVisible = true
-        } else {
-          this.$message({
-            showClose: true,
-            message: res.data.msg,
-            type: 'error'
-          })
-        }
-      }).catch(function (error) {
-        console.log(error)
-      })
-    },
+    handleInfo: debounce(handleInfo, 1000, true),
     // 更多事件
     handleCommand (obj) {
       console.log(firstToUpperCase(obj.key))
@@ -127,6 +106,45 @@ export default {
       return datas
     }
   }
+}
+// 错误提示函数
+function erroShow (err, loading) {
+  console.log(this)
+  this.$alert(`网络错误${err}`, '系统提示', {
+    confirmButtonText: '确定',
+    callback: action => {
+      // 关闭加载图标
+      loading.close()
+    }
+  })
+}
+// 详情
+function handleInfo (idx, val) {
+  // 1.显示加载图标
+  const loading = this.$loading(loadingConf.get())
+  let param = {
+    custId: val.custId,
+    buyerCustNo: val.buyerCustNo
+  }
+  // 2.获取数据
+  this.axios.post('/discountAudit/queryDiscountAuditInfo.do', param).then(res => {
+    if (res.data.status) {
+      // 3.设置数据
+      this.details = res.data.data
+      // 4.显示弹窗
+      this.dialogInfoVisible = true
+    } else {
+      this.$message({
+        showClose: true,
+        message: res.data.msg,
+        type: 'error'
+      })
+    }
+    loading.close() // 关闭加载图标
+  }).catch((err) => {
+    // 错误提示
+    erroShow.call(this, err, loading)
+  })
 }
 </script>
 <style lang="scss">

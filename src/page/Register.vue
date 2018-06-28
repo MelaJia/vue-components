@@ -2,15 +2,15 @@
   <section class="register-style">
     <article>
       <header>
-        <el-steps :active="1" finish-status="success" simple style="margin-top: 20px">
+        <el-steps :active="step" finish-status="success" simple style="margin-top: 20px">
           <el-step title="步骤 1"></el-step>
           <el-step title="步骤 2"></el-step>
           <el-step title="步骤 3"></el-step>
         </el-steps>
       </header>
       <main>
-        <section class="reg-step-1">
-          <el-form ref="form" :model="getForm" :rules="rules" label-width="130px">
+        <section class="reg-step-1" v-if="step==1">
+          <el-form ref="form-1" :model="getForm" :rules="rulesOne" label-width="130px">
             <el-row>
               <el-col :span="8">
                 <el-form-item label="登陆名: " prop="custUsername">
@@ -100,26 +100,208 @@
             </el-row>
           </el-form>
         </section>
-        <section class="reg-step-2"></section>
-        <section class="reg-step-3"></section>
+        <section class="reg-step-2" v-else-if="step==2">
+          <el-form ref="form-2" :model="getForm" :rules="rulesTwo" label-width="150px">
+            <el-row>
+              <el-col :span="8">
+                <el-form-item label="统一社会信用代码:" prop="creditCode">
+                  <el-input v-model.trim="getForm.creditCode"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item label="营业执照编号: " prop="licenseNumber">
+                  <el-input v-model="getForm.licenseNumber"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item label="组织机构代码编号: " prop="organizationNumber">
+                  <el-input v-model.trim="getForm.organizationNumber"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="8">
+                <el-form-item label="营业执照副本编号: " prop="licenseViceNumber">
+                  <el-input v-model.trim="getForm.licenseViceNumber"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item label="税务登记证编号: " prop="taxNumber">
+                  <el-input v-model.trim="getForm.taxNumber"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item label="纳税人识别号: " prop="payTaxesNumber">
+                  <el-input v-model.trim="getForm.payTaxesNumber"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-form-item label="营业执照所在地: " prop="licenseAddress">
+                <el-input type="textarea" v-model.trim="getForm.licenseAddress"></el-input>
+              </el-form-item>
+            </el-row>
+            <el-row>
+              <el-col :span="10">
+                <el-form-item label="公司登记机构: " prop="companyAddress">
+                  <el-input v-model.trim="getForm.companyAddress"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="10" :offset="4">
+                <el-form-item label="代应商代码: " prop="vendorCodes">
+                  <el-input v-model.trim="getForm.vendorCodes"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="10">
+                <el-form-item label="注册资本：" prop="registeredCapital">
+                  <el-input placeholder="请输入金额：" v-model.number="getForm.registeredCapital" class="input-with-select">
+                    <el-select v-model.number="getForm.registeredCurrencyType" slot="append" placeholder="请选择">
+                      <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
+                    </el-select>
+                  </el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="10" :offset="4">
+                <el-form-item label="实收资本：" prop="paidinCapital">
+                  <el-input v-model.number="getForm.paidinCapital">
+                    <el-select v-model.number="getForm.paidinCurrencyType" slot="append" placeholder="请选择">
+                      <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
+                    </el-select>
+                  </el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="10">
+                <el-form-item label="公司成立日期:" prop="establishDate">
+                  <el-date-picker :editable="false" v-model="getForm.establishDate" type="date" placeholder="选择日期">
+                  </el-date-picker>
+                </el-form-item>
+              </el-col>
+              <el-col :span="10" :offset="4">
+                <el-form-item label="公司登记日期:" prop="companyRegisterDate">
+                  <el-date-picker :editable="false" v-model="getForm.companyRegisterDate" type="date" placeholder="选择日期">
+                  </el-date-picker>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="营业执照日期:" prop="compuDate">
+                  <el-date-picker :editable="false" v-model="getForm.compuDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+                  </el-date-picker>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="10">
+                <el-form-item label="法定营业范围: " prop="companyBusinessScope">
+                  <el-input type="textarea" v-model.trim="getForm.companyBusinessScope"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="10" :offset="4">
+                <el-form-item label="主营产品: " prop="mainProducts">
+                  <el-input type="textarea" v-model.trim="getForm.mainProducts"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+        </section>
+        <section class="reg-step-3" v-else-if="step==3">
+          <el-form ref="form-3" :model="getForm" :rules="rulesThree" label-width="150px">
+            <el-row>
+              <el-col :span="8">
+                <el-form-item label="公司logo" prop="logoUrl">
+                  <upload :param="{filename:'logoUrl'}" :o-img-url="getForm.logoUrl" @get-url="getUrl($event, 'logoUrl')"></upload>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item label="营业执照(图片)" prop="licenseUrl">
+                  <upload :param="{filename:'licenseUrl'}" :o-img-url="getForm.licenseUrl" @get-url="getUrl($event, 'licenseUrl')"></upload>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item label="营业执照副本" prop="licenseViceUrl">
+                  <upload :param="{filename:'licenseViceUrl'}" :o-img-url="getForm.licenseViceUrl" @get-url="getUrl($event, 'licenseViceUrl')"></upload>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="8">
+                <el-form-item label="组织机构代码证" prop="organizationUrl">
+                  <upload :param="{filename:'organizationUrl'}" :o-img-url="getForm.organizationUrl" @get-url="getUrl($event, 'organizationUrl')"></upload>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item label="税务登记证" prop="taxUrl">
+                  <upload :param="{filename:'taxUrl'}" :o-img-url="getForm.taxUrl" @get-url="getUrl($event, 'taxUrl')"></upload>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="9">
+                <el-form-item label="银行名称:" prop="bankName">
+                  <el-input v-model.trim="getForm.bankName"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="9" :offset="4" >
+                <el-form-item label="银行账号:" prop="bankAccount">
+                  <el-input v-model.trim="getForm.bankAccount"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="9">
+                <el-form-item label="开户省市:">
+                  <el-cascader
+                    :options="options"
+                    v-model="getBankAdd"
+                    filterable
+                    change-on-select
+                  ></el-cascader>
+                </el-form-item>
+              </el-col>
+              <el-col :span="9" :offset="4">
+                <el-form-item label="开户支行:" prop="accountOpeningBranch">
+                  <el-input v-model.trim="getForm.accountOpeningBranch"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+        </section>
 
       </main>
       <footer>
         <el-row>
-          <el-col :span="2" :offset="11">
-            <el-button type="primary" size="mini" @click="subHandle('form')">下一步</el-button>
+          <el-col :span="6" :offset="10">
+            <el-button v-if="step!=1" type="primary" size="mini" @click="prevHandle()">上一步</el-button>
+            <el-button v-if="step!=3" type="primary" size="mini" @click="nextHandle(`form-${step}`)">下一步</el-button>
+            <el-button v-if="step==3" type="primary" size="mini" @click="subHandle('form-3')">提交</el-button>
           </el-col>
         </el-row>
       </footer>
     </article>
   </section>
 </template>
-<style scoped>
+<style lang="scss">
 .register-style {
-  width: 60%;
+  min-width: 960px;
+  width: 65%;
   border: solid 1px #bbb;
   margin: auto;
   height: auto;
+  .el-date-editor.el-input,
+  .el-date-editor.el-input__inner {
+    width: 100%;
+  }
+  .el-select .el-input {
+    width: 130px;
+  }
+  .el-cascader {
+    width: 100%;
+  }
 }
 </style>
 
@@ -127,19 +309,68 @@
 import commonDatas from '@/mixins/commonDatas' // 货币类型
 import Upload from '@/components/Items/upload'
 import validConf from '@/config/validateConfig'
+import CityData from '@/mixins/CityData' // 省市数据
 /* 企业认证 */
 export default {
   props: ['visibleP', 'form'],
-  mixins: [commonDatas],
+  mixins: [commonDatas, CityData],
   components: {
     Upload
   },
   data () {
+    validConf.scope = this
+    let valido2tfun = (rule, value, callback) => {
+      console.log(!this.getForm.creditCode)
+      console.log(value)
+      if (!value && !this.getForm.creditCode) {
+        callback(new Error('不能为空'))
+      } else {
+        callback()
+      }
+    }
+    let validt2ofun = (rule, value, callback) => {
+      if (!value && !this.getForm.licenseNumber && !this.getForm.organizationNumber && !this.getForm.taxNumber) {
+        callback(new Error('不能为空'))
+      } else {
+        callback()
+      }
+    }
+    let arr = {
+      creditCode: [{
+        required: true,
+        validator: validt2ofun,
+        message: '请输入统一社会信用代码',
+        trigger: 'blur'
+      }],
+      licenseNumber: [{
+        required: true,
+        validator: valido2tfun,
+        message: '请输入营业执照编号',
+        trigger: 'blur'
+      }],
+      organizationNumber: [{
+        required: true,
+        validator: valido2tfun,
+        message: '请输入组织机构代码编号',
+        trigger: 'blur'
+      }],
+      taxNumber: [{
+        required: true,
+        validator: valido2tfun,
+        message: '请输入税务登记证编号',
+        trigger: 'blur'
+      }]
+    }
     return {
+      step: 1,
       show: true,
       userInfo: {},
+      bankProvinceCity: [], // 银行省市
       select: '',
-      rules: validConf
+      rulesOne: validConf.getValid('validOne'),
+      rulesTwo: { ...arr, ...validConf.getValid('validTwo') },
+      rulesThree: validConf.getValid('validThree')
+
     }
   },
   computed: {
@@ -147,8 +378,18 @@ export default {
       return '企业认证'
     },
     getForm () {
-      console.log(this.userInfo)
       return this.userInfo
+    },
+    getBankAdd: {
+      get: function () {
+        let arr = []
+        arr[0] = this.userInfo.bankProvince
+        arr[1] = this.userInfo.bankCity
+        return arr
+      },
+      set: function (newValue) {
+        this.bankProvinceCity = newValue
+      }
     }
   },
   mounted () {
@@ -162,7 +403,6 @@ export default {
         compuDate.push(data.businessEndDate)
         data.compuDate = compuDate
         this.userInfo = data
-        console.log(this.userInfo)
       } else {
         this.$message({
           showClose: true,
@@ -173,38 +413,54 @@ export default {
     })
   },
   methods: {
-    subHandle (formName) {
-      console.log(this.form)
+    prevHandle (formName) {
+      this.step = this.step > 1 ? this.step - 1 : this.step
+    },
+    nextHandle (formName) {
+      console.log(formName)
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          let businessStartDate = this.form.compuDate ? this.form.compuDate[0] : ''
-          let businessEndDate = this.form.compuDate ? this.form.compuDate[1] : ''
+          this.step = this.step < 3 ? this.step + 1 : this.step
+        }
+      })
+    },
+    subHandle (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let businessStartDate = this.userInfo.compuDate ? this.userInfo.compuDate[0] : ''
+          let businessEndDate = this.userInfo.compuDate ? this.userInfo.compuDate[1] : ''
+          this.userInfo.registeredCurrencyType = this.userInfo.registeredCurrencyType.toString() // 注册资本币别
+          this.userInfo.paidinCurrencyType = this.userInfo.paidinCurrencyType.toString() // 实收资本币别
+          this.userInfo.businessStartDate = businessStartDate // 营业执照开始日期
+          this.userInfo.businessEndDate = businessEndDate // 营业执照结束日期
+          this.userInfo.bankProvince = this.bankProvinceCity[0] !== undefined ? this.bankProvinceCity[0] : ''
+          this.userInfo.bankCity = this.bankProvinceCity[1] !== undefined ? this.bankProvinceCity[1] : ''
           const param = {
-            custId: this.form.custId, // 公司ID
-            custUsername: this.form.custUsername, // 企业名称
-            custPassword: this.form.custPassword, // 企业电话
-            custNickname: this.form.custNickname, // 企业地址
-            companyName: this.form.companyName, // 统一社会信用代码
-            companyPhone: this.form.companyPhone, // 纳税人识別号
-            companyPersonSum: this.form.companyPersonSum, // 供应商代码
-            contactPerson: this.form.contactPerson, // 注册资本
-            registeredCurrencyType: this.form.registeredCurrencyType.toString(), // 注册资本币别
-            contactIdcardNum: this.form.contactIdcardNum, // 实收资本
-            paidinCurrencyType: this.form.paidinCurrencyType.toString(), // 实收资本币别
-            contactPhone: this.form.contactPhone, // 公司成立日期
+            custId: this.userInfo.custId, // 公司ID
+            custUsername: this.userInfo.custUsername, // 企业名称
+            custPassword: this.userInfo.custPassword, // 企业电话
+            custNickname: this.userInfo.custNickname, // 企业地址
+            companyName: this.userInfo.companyName, // 统一社会信用代码
+            companyPhone: this.userInfo.companyPhone, // 纳税人识別号
+            companyPersonSum: this.userInfo.companyPersonSum, // 供应商代码
+            contactPerson: this.userInfo.contactPerson, // 注册资本
+            registeredCurrencyType: this.userInfo.registeredCurrencyType.toString(), // 注册资本币别
+            contactIdcardNum: this.userInfo.contactIdcardNum, // 实收资本
+            paidinCurrencyType: this.userInfo.paidinCurrencyType.toString(), // 实收资本币别
+            contactPhone: this.userInfo.contactPhone, // 公司成立日期
             businessStartDate: businessStartDate, // 营业执照开始日期
             businessEndDate: businessEndDate, // 营业执照结束日期
-            companyRegisterDate: this.form.companyRegisterDate, // 公司登记日期
-            companyAddress: this.form.companyAddress, // 经营范围
-            logoUrl: this.form.logoUrl, // 公司LOGO
-            licenseUrl: this.form.licenseUrl, // 营业执照(图片)
-            licenseViceUrl: this.form.licenseViceUrl, // 营业执照副本
-            organizationUrl: this.form.organizationUrl, // 组织机构代码证
-            taxUrl: this.form.taxUrl // 税务登记证
+            companyRegisterDate: this.userInfo.companyRegisterDate, // 公司登记日期
+            companyAddress: this.userInfo.companyAddress, // 经营范围
+            logoUrl: this.userInfo.logoUrl, // 公司LOGO
+            licenseUrl: this.userInfo.licenseUrl, // 营业执照(图片)
+            licenseViceUrl: this.userInfo.licenseViceUrl, // 营业执照副本
+            organizationUrl: this.userInfo.organizationUrl, // 组织机构代码证
+            taxUrl: this.userInfo.taxUrl // 税务登记证
 
           }
-          console.log(param)
-          this.axios.post('/cust/toAuthenticateCompany.do', param).then(res => {
+          console.log(this.userInfo)
+          this.axios.post('/cust/userRegister.do', param).then(res => {
             let type = res.data.status ? 'success' : 'error'
             this.$message({
               message: res.data.msg,
@@ -229,7 +485,7 @@ export default {
       console.log(val)
       console.log(idx)
       if (val.status) {
-        this.form[idx] = val.data
+        this.userInfo[idx] = val.data
       }
     }
   }
