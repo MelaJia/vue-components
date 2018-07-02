@@ -31,7 +31,7 @@ const monitorInit = ()=>{
     ],
     "status": true
   })
-  Mock.mock('https://jurongtest.foxconn.com/sit/api/check', {
+  Mock.mock('https://jurongtest.foxconn.com/sit/cust/check', {
     "data":'',
     "msg|1":[
       "失败",

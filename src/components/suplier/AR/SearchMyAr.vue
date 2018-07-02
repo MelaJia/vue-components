@@ -3,19 +3,19 @@
     <el-row>
       <el-col :span="8">
         <el-form-item label="AR来源">
-          <el-select v-model="formInline.isMasterAr" clearable placeholder="AR来源">
+          <el-select v-model="formInline.isMasterAr" clearable placeholder="全部">
             <el-option v-for="(item,index) in selectData.origin" :key="index" :label="item.lable" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
       <el-col :span="8">
         <el-form-item label="AR单号">
-          <el-input v-model.trim="formInline.masterChainId" placeholder="AR单号"></el-input>
+          <el-input v-model.trim="formInline.masterChainId" placeholder=""></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="8">
         <el-form-item label="付款单位/对手单位">
-          <el-input v-model.trim="formInline.companyName" placeholder="付款单位/对手单位"></el-input>
+          <el-input v-model.trim="formInline.companyName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
     </el-row>
@@ -29,14 +29,14 @@
         </el-col>
         <el-col :span="8">
            <el-form-item label="币别">
-              <el-select v-model="formInline.billBookCurr" clearable placeholder="币别">
+              <el-select v-model="formInline.billBookCurr" clearable placeholder="全部">
                 <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
               </el-select>
             </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="发票号">
-            <el-input v-model.trim="formInline.invoiceNo" placeholder="发票号"></el-input>
+            <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
           </el-form-item>
         </el-col>
     </el-row>
@@ -48,8 +48,8 @@
           </el-form-item>
         </el-col>
         <el-col :span="8" :offset="4">
-            <el-form-item label="结报号">
-              <el-input v-model.trim="formInline.billId" placeholder="结报号"></el-input>
+            <el-form-item label="结报单号">
+              <el-input v-model.trim="formInline.billId" placeholder=""></el-input>
             </el-form-item>
         </el-col>
     </el-row>

@@ -72,7 +72,7 @@
                 <el-button type="button" id="register" class="btnRed" @click.stop="submitForm('ruleForm')" :loading="loginLoading">登录</el-button>
               </div>
               <p class="account">如果没有账号，请
-                <a @click="showReg=true" class="red"> 注册</a>
+                <router-link to="/register" class="red">注册</router-link>
               </p>
             </div>
           </div>

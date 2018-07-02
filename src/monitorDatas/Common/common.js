@@ -788,73 +788,42 @@ const commonDatas = {
 },
 arDetails:{
     "data":{
-        "arAvailableAmt":102070.8,
-        "arSourceDesc":"自有",
+        "arAvailableAmt":10000,
+        "arGenerateDate":1530172132000,
+        "arSourceDesc":"购入",
         "arStatusTypeName":"已確認",
-        "billBookAmt":102070.8,
-        "billPayDate":1516809600000,
-        "checkedStatus":3,
-        "companyName":"富泰華工業(深圳)有限公司",
+        "billBookAmt":10000,
+        "billPayDate":1538323200000,
+        "checkedStatus":2,
+        "companyName":"深圳市裕展精密科技有限公司",
         "contractList":[
-            {
-                "contractId":"c0b2b899-f047-4698-b3c2-84e44233d44f",
-                "contractNo":"c0b2b899-f047-4698-b3c2-84e44233d44f",
-                "contractName":"國內保理業務合同（有追索權）",
-                "contractStatus":2
-            },
-            {
-                "contractId":"cf5a23ec-8340-47f6-a0ef-44934dba9863",
-                "contractNo":"cf5a23ec-8340-47f6-a0ef-44934dba9863",
-                "contractName":"應收賬款債權轉讓通知書（整體轉讓）",
-                "contractStatus":2
-            },
-            {
-                "contractId":"f9f53ca6-2d0c-46b1-8bd3-517af17d950f",
-                "contractNo":"f9f53ca6-2d0c-46b1-8bd3-517af17d950f",
-                "contractName":"供應商信息暨銀行資料確認書",
-                "contractStatus":2
-            }
+
         ],
-        "currencyDesc":null,
-        "currencyName":null,
+        "currencyDesc":"人民币",
+        "currencyName":"RMB",
         "custFromId":null,
-        "custFromName": '转让单位',
-        "custToId":null,
-        "custToName":null,
+        "custFromName":"深圳市新威達電子有限公司",
+        "custToId":"1114101203598",
+        "custToName":"煙臺美怡餐飲管理有限公司",
+        "factorCompany":null,
         "invoiceCustomList":[
             {
-                "invoiceAfterTaxAmt":102070.8,
-                "invoiceCurrency":null,
-                "invoiceCurrencyDesc":null,
-                "invoiceDate":1512576000000,
-                "invoiceIsSelected":0,
-                "invoiceNo":"33759495"
-            },
-            {
-                "invoiceAfterTaxAmt":102070.8,
-                "invoiceCurrency":null,
-                "invoiceCurrencyDesc":null,
-                "invoiceDate":1512576000000,
+                "invoiceAfterTaxAmt":115999.54,
+                "invoiceCurrency":1,
+                "invoiceCurrencyDesc":"人民币",
+                "invoiceDate":1528819200000,
                 "invoiceIsSelected":1,
-                "invoiceNo":"33759496"
-            },
-            {
-                "invoiceAfterTaxAmt":102070.8,
-                "invoiceCurrency":null,
-                "invoiceCurrencyDesc":null,
-                "invoiceDate":1512576000000,
-                "invoiceIsSelected":1,
-                "invoiceNo":"33759497"
+                "invoiceNo":"18058679"
             }
         ],
-        "isAvailableInvoice":0,
-        "isMasterAr":1,
-        "parentChainId":null,
+        "isAvailableInvoice":1,
+        "isMasterAr":0,
+        "parentChainId":"AR20180627000007",
         "poNumber":null,
-        "sourceChainId":null,
+        "sourceChainId":"AR20180627000007",
         "transSerial":null,
-        "transSerialNo":null,
-        "transType":null
+        "transSerialNo":"3518109d-6562-46a1-873e-773c78f84288",
+        "transType":"arpay"
     },
     "msg":"请求成功",
     "recordsTotal":1,

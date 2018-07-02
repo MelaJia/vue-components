@@ -47,14 +47,14 @@
       <ul>
           <span>已勾选发票:
             <div class="el-check-group inline-block">
-            <el-checkbox v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}</el-checkbox>
+            <el-checkbox v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}(￥{{item.invoiceAfterTaxAmt}})</el-checkbox>
             </div>
           </span>
       </ul>
       <ul>
           <span>未勾选发票:
             <el-checkbox-group v-model="checkList" class="inline-blox">
-              <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" :label="item.invoiceNo">{{item.invoiceNo}}</el-checkbox>
+              <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" :label="item.invoiceNo">{{item.invoiceNo}}(￥{{item.invoiceAfterTaxAmt}})</el-checkbox>
             </el-checkbox-group>
             <!-- <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected">{{item.invoiceNo}}</el-checkbox> -->
           </span>
@@ -107,7 +107,7 @@
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
 import { debounce } from '@/util/util' // 防抖函数
-import {loadingConf} from '@/config/common' // 获取加载配置
+import { loadingConf } from '@/config/common' // 获取加载配置
 /* 转让弹窗 */
 export default {
   props: ['visibleP', 'detailsP'],
@@ -171,8 +171,10 @@ function submit () {
       }
     }
   })
-  arr.concat(...this.detailsP.invoiceListSelected)
-  if (arr.length <= 0) {
+  console.log(this.detailsP.invoiceListSelected)
+  let arrc = this.detailsP.isMasterAr ? arr : arr.concat(...this.detailsP.invoiceListSelected)
+  console.log(arrc)
+  if (arrc.length <= 0) {
     this.$message({
       type: 'error',
       message: '未勾选发票'
@@ -180,7 +182,7 @@ function submit () {
     return
   }
   // 4.获取勾选发票金额
-  let sum = arr.reduce((sum, currVal) => {
+  let sum = arrc.reduce((sum, currVal) => {
     let num = Number(currVal.invoiceAfterTaxAmt)
     if (isNaN(num)) {
       return
@@ -205,8 +207,11 @@ function submit () {
       type: type
     })
     loading.close() // 关闭加载图标
-    this.handleClose() // 关闭弹窗
-    this.$parent.fresh() // 刷新数据
+    // 操作成功 关闭弹窗
+    if (res.data.status) {
+      this.handleClose() // 关闭弹窗
+      this.$parent.fresh() // 刷新数据
+    }
   }).catch(() => {
     this.$message({
       type: 'info',

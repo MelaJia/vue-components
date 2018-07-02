@@ -243,6 +243,7 @@ function submit () {
         })
         // 关闭加载图标
         loading.close()
+        // 操作成功关闭弹窗刷新数据
         if (res.data.status) {
           this.$parent.fresh()
           this.handleClose()

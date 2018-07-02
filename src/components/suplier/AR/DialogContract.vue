@@ -69,8 +69,11 @@ function submit () {
     })
     // 关闭加载图标
     loading.close()
-    this.handleClose() // 关闭弹窗
-    this.$parent.fresh() // 刷新数据
+    // 操作成功 关闭弹窗
+    if (res.data.status) {
+      this.handleClose() // 关闭弹窗
+      this.$parent.fresh() // 刷新数据
+    }
   }).catch(() => {
     this.$message({
       type: 'info',

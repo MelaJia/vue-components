@@ -131,8 +131,11 @@ function submit () {
     })
     // 关闭加载图标
     loading.close()
-    this.handleClose() // 关闭弹窗
-    this.$parent.fresh() // 刷新数据
+    // 操作成功关闭弹窗刷新数据
+    if (res.data.status) {
+      this.handleClose() // 关闭弹窗
+      this.$parent.fresh() // 刷新数据
+    }
   }).catch((err) => {
     // 错误提示
     erroShow.call(this, err, loading)

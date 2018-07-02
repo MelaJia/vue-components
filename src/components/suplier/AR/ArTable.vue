@@ -33,7 +33,7 @@
               </el-table-column>
               <el-table-column align="center" prop="billId" :width="widthArr.billId">
               </el-table-column>
-              <el-table-column align="center" prop="isMasterAr" :width="widthArr.isMasterAr" :formatter="originFormat">
+              <el-table-column align="center" :width="widthArr.isMasterAr" >
                 >
               </el-table-column>
               <el-table-column align="center" prop="company" :width="widthArr.company">

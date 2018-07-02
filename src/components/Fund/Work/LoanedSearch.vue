@@ -3,31 +3,31 @@
     <el-row>
       <el-col :span="8">
         <el-form-item label="AR单号">
-          <el-input v-model.trim="formInline.masterChainId" placeholder="AR单号"></el-input>
+          <el-input v-model.trim="formInline.masterChainId" placeholder=""></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="8">
         <el-form-item label="贴现客户">
-          <el-input v-model.trim="formInline.custFromName" placeholder="贴现客户"></el-input>
+          <el-input v-model.trim="formInline.custFromName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="8">
         <el-form-item label="付款单位">
-          <el-input v-model.trim="formInline.companyName" placeholder="付款单位"></el-input>
+          <el-input v-model.trim="formInline.companyName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="8">
         <el-form-item label="币别">
-          <el-select v-model="formInline.billBookCurr" placeholder="币别">
+          <el-select v-model="formInline.billBookCurr" placeholder="全部">
             <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
       <el-col :span="8">
         <el-form-item label="发票号">
-          <el-input v-model.trim="formInline.invoiceNo" placeholder="发票号"></el-input>
+          <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>
     </el-row>

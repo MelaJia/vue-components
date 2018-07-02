@@ -13,7 +13,7 @@ Vcg.prototype.getValid = function (name) {
   return this.valid[name]
 }
 const vcg = new Vcg()
-let check = function (key, smsg, url = '/api/check') {
+let check = function (key, smsg, url = '/cust/check') {
   return (rule, value, callback) => {
     if (!value) {
       callback(new Error(`${smsg}不能为空`))
@@ -50,7 +50,7 @@ let validOne = {
   }],
   custNickname: [{
     required: true,
-    validator: check('custUsername', '昵称'),
+    validator: check('custNickname', '昵称'),
     trigger: 'blur'
   }],
   companyName: [{
@@ -85,6 +85,7 @@ let validOne = {
   }],
   contactIdcardNum: [{
     required: true,
+    validator: check('custUsername', '身份证'),
     message: '请填写联系人身份证',
     trigger: 'blur'
   },
@@ -164,6 +165,11 @@ let validTwo = {
   licenseAddress: [{
     required: true,
     message: '请输入营业执照所在地',
+    trigger: 'blur'
+  }],
+  mainProducts: [{
+    required: true,
+    message: '请输入主营产品',
     trigger: 'blur'
   }]
 }

@@ -47,7 +47,7 @@
       <ul>
           <span>已勾选发票:
             <div class="el-check-group inline-block">
-              <el-checkbox v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}</el-checkbox>
+              <el-checkbox v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}(￥{{item.invoiceAfterTaxAmt}})</el-checkbox>
             </div>
           </span>
       </ul>
@@ -106,7 +106,7 @@
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
 import { debounce } from '@/util/util' // 防抖函数
-import {loadingConf} from '@/config/common' // 获取加载配置
+import { loadingConf } from '@/config/common' // 获取加载配置
 
 export default {
   name: 'ardiscount', // 贴现弹窗
@@ -142,15 +142,15 @@ function handleSubmit () {
       }
     }
   })
-  arr.concat(...this.detailsP.invoiceListSelected)
-  if (arr.length <= 0) {
+  let arrc = this.detailsP.isMasterAr ? arr : arr.concat(...this.detailsP.invoiceListSelected)
+  if (arrc.length <= 0) {
     this.$message({
       type: 'error',
       message: '未勾选发票'
     })
     return
   }
-  let sum = arr.reduce((sum, currVal) => {
+  let sum = arrc.reduce((sum, currVal) => {
     let num = Number(currVal.invoiceAfterTaxAmt)
     if (isNaN(num)) {
       return
@@ -175,10 +175,13 @@ function handleSubmit () {
     })
     // 关闭加载图标
     loading.close()
-    // 关闭弹窗
-    this.handleClose()
-    // 刷新数据
-    this.$parent.fresh()
+    // 操作成功 关闭弹窗
+    if (res.data.status) {
+      // 关闭弹窗
+      this.handleClose()
+      // 刷新数据
+      this.$parent.fresh()
+    }
   }).catch((err) => {
     console.log(err)
     this.$message({

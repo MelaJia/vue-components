@@ -1,5 +1,19 @@
 <template>
-  <section class="register-style">
+  <section>
+  <section class="header">
+    <div class="wrapper clearfix">
+        <a href="#" class="logo">
+          <img src="@/assets/img/login/pread_03.png" alt="">
+        </a>
+        <div class="phone">
+          <!--<a href="#" class="backhome">返回首页</a>-->
+          <p>已有账号？ 立即
+            <span class="loginLine">登录</span>
+          </p>
+        </div>
+      </div>
+  </section>
+  <section class="register-style main">
     <article>
       <header>
         <el-steps :active="step" finish-status="success" simple style="margin-top: 20px">
@@ -41,7 +55,7 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item label="员工人数: " prop="companyPersonSum">
-                  <el-input v-model.trim="getForm.companyPersonSum"></el-input>
+                  <el-input v-model.number="getForm.companyPersonSum"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -143,8 +157,8 @@
             </el-row>
             <el-row>
               <el-col :span="10">
-                <el-form-item label="公司登记机构: " prop="companyAddress">
-                  <el-input v-model.trim="getForm.companyAddress"></el-input>
+                <el-form-item label="公司登记机构: " prop="registry">
+                  <el-input v-model.trim="getForm.registry"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="10" :offset="4">
@@ -214,29 +228,29 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item label="公司logo" prop="logoUrl">
-                  <upload :param="{filename:'logoUrl'}" :o-img-url="getForm.logoUrl" @get-url="getUrl($event, 'logoUrl')"></upload>
+                  <upload ref="logoFile" :param="{filename:'logoUrl'}" @get-url="getUrl($event, 'logoUrl')"></upload>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="营业执照(图片)" prop="licenseUrl">
-                  <upload :param="{filename:'licenseUrl'}" :o-img-url="getForm.licenseUrl" @get-url="getUrl($event, 'licenseUrl')"></upload>
+                  <upload ref="licenseFile" :param="{filename:'licenseUrl'}"  @get-url="getUrl($event, 'licenseUrl')"></upload>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="营业执照副本" prop="licenseViceUrl">
-                  <upload :param="{filename:'licenseViceUrl'}" :o-img-url="getForm.licenseViceUrl" @get-url="getUrl($event, 'licenseViceUrl')"></upload>
+                  <upload ref="licenseViceFile" :param="{filename:'licenseViceUrl'}" @get-url="getUrl($event, 'licenseViceUrl')"></upload>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
                 <el-form-item label="组织机构代码证" prop="organizationUrl">
-                  <upload :param="{filename:'organizationUrl'}" :o-img-url="getForm.organizationUrl" @get-url="getUrl($event, 'organizationUrl')"></upload>
+                  <upload ref="organizationFile" :param="{filename:'organizationUrl'}" @get-url="getUrl($event, 'organizationUrl')"></upload>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="税务登记证" prop="taxUrl">
-                  <upload :param="{filename:'taxUrl'}" :o-img-url="getForm.taxUrl" @get-url="getUrl($event, 'taxUrl')"></upload>
+                  <upload ref="taxFile" :param="{filename:'taxUrl'}" @get-url="getUrl($event, 'taxUrl')"></upload>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -284,6 +298,8 @@
       </footer>
     </article>
   </section>
+  <section class="footer"></section>
+  </section>
 </template>
 <style lang="scss">
 .register-style {
@@ -303,11 +319,15 @@
     width: 100%;
   }
 }
+.loginLine{
+  color: #8ec1f4
+}
 </style>
 
 <script>
+import '@/assets/css/pread.css' // 引入样式
 import commonDatas from '@/mixins/commonDatas' // 货币类型
-import Upload from '@/components/Items/upload'
+import Upload from '@/components/Items/uploadReg'
 import validConf from '@/config/validateConfig'
 import CityData from '@/mixins/CityData' // 省市数据
 /* 企业认证 */
@@ -319,6 +339,7 @@ export default {
   },
   data () {
     validConf.scope = this
+    // 2选一
     let valido2tfun = (rule, value, callback) => {
       console.log(!this.getForm.creditCode)
       console.log(value)
@@ -364,7 +385,7 @@ export default {
     return {
       step: 1,
       show: true,
-      userInfo: {},
+      userInfo: getUserInfo(),
       bankProvinceCity: [], // 银行省市
       select: '',
       rulesOne: validConf.getValid('validOne'),
@@ -380,6 +401,7 @@ export default {
     getForm () {
       return this.userInfo
     },
+    // 开户省市计算
     getBankAdd: {
       get: function () {
         let arr = []
@@ -393,24 +415,6 @@ export default {
     }
   },
   mounted () {
-    this.axios.post('/cust/customerDetailInfo.do', {}).then(res => {
-      if (res.data.status) {
-        const data = res.data.data
-        const compuDate = [] // 营业执照日期
-        data.registeredCurrencyType = parseInt(data.registeredCurrencyType) // 货币类型数字转字符串
-        data.paidinCurrencyType = parseInt(data.paidinCurrencyType) // 货币类型数字转字符串
-        compuDate.push(data.businessStartDate)
-        compuDate.push(data.businessEndDate)
-        data.compuDate = compuDate
-        this.userInfo = data
-      } else {
-        this.$message({
-          showClose: true,
-          message: res.data.msg,
-          type: 'error'
-        })
-      }
-    })
   },
   methods: {
     prevHandle (formName) {
@@ -425,8 +429,10 @@ export default {
       })
     },
     subHandle (formName) {
+      console.log(this.userInfo)
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          // 1.处理数据
           let businessStartDate = this.userInfo.compuDate ? this.userInfo.compuDate[0] : ''
           let businessEndDate = this.userInfo.compuDate ? this.userInfo.compuDate[1] : ''
           this.userInfo.registeredCurrencyType = this.userInfo.registeredCurrencyType.toString() // 注册资本币别
@@ -435,32 +441,22 @@ export default {
           this.userInfo.businessEndDate = businessEndDate // 营业执照结束日期
           this.userInfo.bankProvince = this.bankProvinceCity[0] !== undefined ? this.bankProvinceCity[0] : ''
           this.userInfo.bankCity = this.bankProvinceCity[1] !== undefined ? this.bankProvinceCity[1] : ''
-          const param = {
-            custId: this.userInfo.custId, // 公司ID
-            custUsername: this.userInfo.custUsername, // 企业名称
-            custPassword: this.userInfo.custPassword, // 企业电话
-            custNickname: this.userInfo.custNickname, // 企业地址
-            companyName: this.userInfo.companyName, // 统一社会信用代码
-            companyPhone: this.userInfo.companyPhone, // 纳税人识別号
-            companyPersonSum: this.userInfo.companyPersonSum, // 供应商代码
-            contactPerson: this.userInfo.contactPerson, // 注册资本
-            registeredCurrencyType: this.userInfo.registeredCurrencyType.toString(), // 注册资本币别
-            contactIdcardNum: this.userInfo.contactIdcardNum, // 实收资本
-            paidinCurrencyType: this.userInfo.paidinCurrencyType.toString(), // 实收资本币别
-            contactPhone: this.userInfo.contactPhone, // 公司成立日期
-            businessStartDate: businessStartDate, // 营业执照开始日期
-            businessEndDate: businessEndDate, // 营业执照结束日期
-            companyRegisterDate: this.userInfo.companyRegisterDate, // 公司登记日期
-            companyAddress: this.userInfo.companyAddress, // 经营范围
-            logoUrl: this.userInfo.logoUrl, // 公司LOGO
-            licenseUrl: this.userInfo.licenseUrl, // 营业执照(图片)
-            licenseViceUrl: this.userInfo.licenseViceUrl, // 营业执照副本
-            organizationUrl: this.userInfo.organizationUrl, // 组织机构代码证
-            taxUrl: this.userInfo.taxUrl // 税务登记证
-
-          }
-          console.log(this.userInfo)
-          this.axios.post('/cust/userRegister.do', param).then(res => {
+          // 2.obj转formdata
+          // let p = { data: this.userInfo }
+          // const param = objToFormData.apply(this, [p])
+          // 3.添加图片信息
+          // let arr = ['logoFile', 'licenseFile', 'licenseViceFile', 'organizationFile', 'taxFile']
+          // for (const key of arr) {
+          //   param.append(key, this.$refs[key].file.raw)
+          // }
+          // 4.设置请求头
+          // let config = {
+          //   headers: {
+          //     'Content-Type': 'multipart/form-data'
+          //   }
+          // }
+          // 5.传送数据
+          this.axios.post('/cust/userRegister.do', this.userInfo).then(res => {
             let type = res.data.status ? 'success' : 'error'
             this.$message({
               message: res.data.msg,
@@ -481,14 +477,77 @@ export default {
     },
     // 上传图片更新formUrl地址
     getUrl (val, idx) {
-      console.log('上传成功返回:')
-      console.log(val)
-      console.log(idx)
-      if (val.status) {
-        this.userInfo[idx] = val.data
-      }
+      this.userInfo[idx] = val
     }
   }
 }
-
+// 对象转formdata
+// function objToFormData (config) { // 对象转formdata格式
+//   let formData = new FormData()
+//   let obj = config.data
+//   let arrayKey = config.arrayKey
+//   for (var i in obj) {
+//     if (this._.isArray(obj[i])) {
+//       obj[i].map(item => {
+//         if (!arrayKey) {
+//           formData.append(i, item)
+//         } else {
+//           formData.append(i + '[]', item)
+//         }
+//       })
+//     } else {
+//       formData.append(i, obj[i])
+//     }
+//   }
+//   return formData
+// }
+// 获取userInfo格式
+function getUserInfo () {
+  return {
+    custUsername: '', // 登陆名
+    custPassword: '', // 登陆密码
+    custNickname: '', // 昵称
+    companyName: '', // 公司名称
+    companyPhone: '', // 公司电话
+    companyPersonSum: 0, // 员工人数
+    companyAddress: '', // 公司详细地址
+    contactPerson: '', // 联系人姓名
+    contactIdcardNum: '', // 联系人身份证
+    contactPhone: '', // 联系人电话
+    contactMail: '', // 联系人邮箱
+    legalPerson: '', // 法人姓名
+    legalIdcardNum: '', // 法人身份证
+    legalPhone: '', // 法人电话
+    legalMail: '', // 法人邮箱
+    creditCode: '', // 统一社会信用代码
+    licenseNumber: '', // 营业执照编号
+    organizationNumber: '', // 组织机构代码编号
+    licenseViceNumber: '', // 营业执照副本编号
+    taxNumber: '', // 税务登记证编号
+    payTaxesNumber: '', // 纳税人识別号
+    licenseAddress: '', // 营业执照所在地
+    registry: '', // 公司登记机构
+    vendorCodes: '', // 供应商代码
+    registeredCapital: 0, // 注册资本
+    registeredCurrencyType: 1, // 注册资本币别
+    paidinCapital: 0, // 实收资本
+    paidinCurrencyType: 1, // 实收资本币别
+    establishDate: null, // 公司成立日期
+    companyRegisterDate: null, // 公司登记日期
+    businessStartDate: null, // 营业执照开始日期
+    businessEndDate: null, // 营业执照结束日期
+    companyBusinessScope: '', // 法定营业范围
+    mainProducts: '', // 主营产品
+    logoUrl: '', // 公司LOGO
+    licenseUrl: '', // 营业执照
+    licenseViceUrl: '', // 营业执照副本
+    organizationUrl: '', // 组织机构代码证
+    taxUrl: '', // 税务登记证
+    bankName: '', // 银行名称
+    bankAccount: '', // 银行账号
+    bankProvince: '', // 银行开户省
+    bankCity: '', // 银行开户市
+    accountOpeningBranch: '' // 开户支行
+  }
+}
 </script>
