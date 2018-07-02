@@ -39,5 +39,13 @@ const monitorInit = ()=>{
     ],
     "status": true
   })
+  Mock.mock('https://jurongtest.foxconn.com/sit/discountAudit/approveDiscountAudit.do',{
+    "data":"成功",
+    "msg|1":[
+      "失败",
+      "成功"
+    ],
+    "status": true
+  }) // 分拨
 }
 export {monitorInit}
