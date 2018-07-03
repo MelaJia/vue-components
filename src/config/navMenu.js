@@ -43,11 +43,32 @@ const navs = {
       hClass: 'header-circle bg-icon-2'
     },
     {
-      idx: 'data',
-      text: '消息中心',
+      idx: '3',
+      text: '辅助查询',
       disabled: true,
       lClass: 'line',
-      hClass: 'header-circle bg-icon-2'
+      hClass: 'header-circle bg-icon-2',
+      childrens: [{
+        idx: 'ordersearch',
+        text: '我的订单',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'acceptsearch',
+        text: '我的验收单',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      }, {
+        idx: 'mybill',
+        text: '我的对账单',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      }
+      ]
     },
     {
       idx: '4',

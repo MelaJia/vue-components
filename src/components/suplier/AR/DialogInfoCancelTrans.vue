@@ -51,7 +51,7 @@
           </el-tooltip>
         </li>
       </ul>
-      <ul v-if="detailsP.checkedStatus!==6&&detailsP.checkedStatus!==9">
+      <ul class="height-auto" v-if="detailsP.checkedStatus!==6&&detailsP.checkedStatus!==9">
         <span>对应发票号:
           <div class="a-link-group inline-block">
             <label v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo">{{item.invoiceNo}}</label>

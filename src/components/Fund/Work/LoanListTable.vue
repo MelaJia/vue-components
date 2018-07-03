@@ -49,7 +49,7 @@
 
 <script>
 import ListMinxIn from '@/mixins/suplier/Ar/Table'
-import Common from '@/mixins/common' // getLoanDetail
+import Common from '@/mixins/common' // getLoanDetail 刷新数据fresh函数
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 import { firstToUpperCase, debounce } from '@/util/util' // 首字母大写 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
@@ -92,10 +92,6 @@ export default {
     handleAccept: handleAccept,
     // 拒绝
     handleReject: handleReject,
-    // 刷新数据
-    fresh () {
-      this.$emit('refresh')
-    },
     // 按钮菜单显隐处理
     getOpera: getOpera
   }

@@ -44,14 +44,14 @@
             <span>授让公司名：<em>{{rc.name}}</em></span>
         </li>
       </ul>
-      <ul>
+      <ul class="height-auto">
           <span>已勾选发票:
             <div class="el-check-group inline-block">
             <el-checkbox v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}(￥{{item.invoiceAfterTaxAmt}})</el-checkbox>
             </div>
           </span>
       </ul>
-      <ul>
+      <ul class="height-auto">
           <span>未勾选发票:
             <el-checkbox-group v-model="checkList" class="inline-blox">
               <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" :label="item.invoiceNo">{{item.invoiceNo}}(￥{{item.invoiceAfterTaxAmt}})</el-checkbox>
@@ -142,6 +142,7 @@ export default {
     }
   },
   methods: {
+    // 提交事件
     handleSubmit: debounce(submit, 1000, true)
   }
 }
@@ -209,6 +210,7 @@ function submit () {
     loading.close() // 关闭加载图标
     // 操作成功 关闭弹窗
     if (res.data.status) {
+      this.checkList = [] // 已选发票置空
       this.handleClose() // 关闭弹窗
       this.$parent.fresh() // 刷新数据
     }

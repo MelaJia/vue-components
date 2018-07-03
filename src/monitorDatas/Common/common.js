@@ -814,6 +814,54 @@ arDetails:{
                 "invoiceDate":1528819200000,
                 "invoiceIsSelected":1,
                 "invoiceNo":"18058679"
+            },
+            {
+                "invoiceAfterTaxAmt":115999.54,
+                "invoiceCurrency":1,
+                "invoiceCurrencyDesc":"人民币",
+                "invoiceDate":1528819200000,
+                "invoiceIsSelected":1,
+                "invoiceNo":"18058679"
+            },
+            {
+                "invoiceAfterTaxAmt":115999.54,
+                "invoiceCurrency":1,
+                "invoiceCurrencyDesc":"人民币",
+                "invoiceDate":1528819200000,
+                "invoiceIsSelected":0,
+                "invoiceNo":"18058677"
+            },
+            {
+                "invoiceAfterTaxAmt":115999.54,
+                "invoiceCurrency":1,
+                "invoiceCurrencyDesc":"人民币",
+                "invoiceDate":1528819200000,
+                "invoiceIsSelected":0,
+                "invoiceNo":"18058678"
+            },
+            {
+                "invoiceAfterTaxAmt":115999.54,
+                "invoiceCurrency":1,
+                "invoiceCurrencyDesc":"人民币",
+                "invoiceDate":1528819200000,
+                "invoiceIsSelected":0,
+                "invoiceNo":"18058679"
+            },
+            {
+                "invoiceAfterTaxAmt":115999.54,
+                "invoiceCurrency":1,
+                "invoiceCurrencyDesc":"人民币",
+                "invoiceDate":1528819200000,
+                "invoiceIsSelected":0,
+                "invoiceNo":"18058679"
+            },
+            {
+                "invoiceAfterTaxAmt":115999.54,
+                "invoiceCurrency":1,
+                "invoiceCurrencyDesc":"人民币",
+                "invoiceDate":1528819200000,
+                "invoiceIsSelected":0,
+                "invoiceNo":"18058679"
             }
         ],
         "isAvailableInvoice":1,

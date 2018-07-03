@@ -504,7 +504,29 @@ export const LoanedDatas={
             "payAmt": null,
             "loanDate": null,
             "defaultRepayDate": null,
-            "billPayStatus": null
+            "billPayStatus": null,
+            "tableData": [{
+                "masterChainId": "AR20171026000016",
+                "billId": "HPu-H80058",
+                "companyName": null,
+                "custFromName": "VCN0021336昵稱",
+                "billBookAmt": 100.0,
+                "currencyDesc": "人民币",
+                "billPayDate": 1512057600000,
+                "repaymentType": null,
+                "fineGraceDays": null,
+                "payPrincipalAmt": null,
+                "payInterestAmt": null,
+                "payServiceAmt": null,
+                "payFineAmt": null,
+                "payFineDays": null,
+                "prepayServiceAmt": null,
+                "payAmt": null,
+                "loanDate": null,
+                "defaultRepayDate": null,
+                "billPayStatus": null,
+                "tableData": []
+            }]
         },
         {
             "masterChainId": "AR20171117000007",
@@ -714,6 +736,40 @@ export const dataDetails={
     "billBookAmt":378705.00,
     "checkedStatus":22,
     "companyName":"鴻富泰精密電子(煙台)有限公司",
+    "invoiceCustomList":[
+        {
+            "invoiceAfterTaxAmt":102070.8,
+            "invoiceCurrency":null,
+            "invoiceCurrencyDesc":null,
+            "invoiceDate":1512576000000,
+            "invoiceIsSelected":0,
+            "invoiceNo":"33759495"
+        },
+        {
+            "invoiceAfterTaxAmt":102070.8,
+            "invoiceCurrency":null,
+            "invoiceCurrencyDesc":null,
+            "invoiceDate":1512576000000,
+            "invoiceIsSelected":0,
+            "invoiceNo":"33759496"
+        },
+        {
+            "invoiceAfterTaxAmt":102070.8,
+            "invoiceCurrency":null,
+            "invoiceCurrencyDesc":null,
+            "invoiceDate":1512576000000,
+            "invoiceIsSelected":0,
+            "invoiceNo":"33759497"
+        },
+        {
+            "invoiceAfterTaxAmt":102070.8,
+            "invoiceCurrency":null,
+            "invoiceCurrencyDesc":null,
+            "invoiceDate":1512576000000,
+            "invoiceIsSelected":0,
+            "invoiceNo":"33759498"
+        }
+    ],
     "contractList":[
     {
     "contractId":"8fb5911e-dab3-4504-9aaf-8fee2af2a74e",
@@ -755,7 +811,6 @@ export const dataDetails={
     "custToId":"15c09de8-6600-42c5-8e5a-acfe1951f8b0",
     "custToName":"CF",
     "interestRate":1.00,
-    "invoiceCustomList":null,
     "isMasterAr":0,
     "l1Supplier":"昆山乙盛機械工業有限公司",
     "masterChainId":"AR20171125000008",

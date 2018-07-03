@@ -33,24 +33,28 @@
       </ul>
       <ul>
         <li>
-          <span>贴现金额: <em>{{this.detailsP.billBookAmt}}</em></span>
+          <span>应还款金额: <em>{{this.detailsP.needPayAmt}}</em></span>
         </li>
         <li>
           <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>
         </li>
       </ul>
       <ul>
-        <li>
-         <span>贴现利率: <em>{{this.detailsP.interestRate}}</em></span>
-        </li>
-        <li>
-         <span>逾期利率: <em>{{this.detailsP.overdueRate}}</em></span>
-        </li>
+         <span>客户还款金额: </span>
+         <el-input size="mini" v-model.number="payAmt"></el-input>
+         <a href="" @click.prevent="handleFill">代入应还金额</a>
       </ul>
       <ul class="height-auto">
-        <span>对应发票号:
+        <span >对应发票号:
           <div class="a-link-group inline-block">
             <label v-for="item in detailsP.invoiceCustomList" :key="item.invoiceNo">{{item.invoiceNo}}</label>
+          </div>
+        </span>
+      </ul>
+      <ul class="height-auto">
+          <span>合同:
+          <div class="a-link-group inline-block">
+            <a v-for="item in detailsP.contractList" :key="item.contractId" href="http://" @click.prevent="constractHandle(item.contractNo)">{{item.contractName}}</a>
           </div>
         </span>
       </ul>
@@ -73,69 +77,79 @@
         </p> -->
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleClose">确认</el-button>
+      <el-button type="primary" @click="handleSubmit">确认</el-button>
       <el-button type="primary" @click="print('print')">打印</el-button>
     </footer>
   </el-dialog>
 </section>
 </template>
-<style scoped>
-#title {
-  color: #931719;
-  line-height: 24px;
-  font-size: 18px;
-}
-
-section {
-  padding: 0px 20px;
-}
-
-ul {
-  position: relative;
-  border-top: 0.5px solid #931719;
-  margin: 0;
-  border-right: 0.5px solid #931719;
-  padding: 0;
-  height: 32px;
-}
-
-ul:last-of-type {
-  border-bottom: 0.5px solid #931719;
-}
-
-li {
-  list-style: none;
-  width: 48%;
-  display: inline-block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  line-height: 32px;
-  border-left: 0.5px solid #931719;
-  text-align: left;
-  padding-left: 5px;
+<style scoped lang="scss">
+@import "@/assets/css/_dialog.scss";
+.el-input {
+  width: 150px;
 }
 </style>
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-
+import { debounce } from '@/util/util' // 防抖函数
+import { loadingConf } from '@/config/common' // 获取加载配置
 export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose],
   data () {
     return {
-      radio2: 3
+      radio2: 3,
+      payAmt: 0
     }
   },
   computed: {
     getTitle () {
-      return this.detailsP.masterChainId + '详情'
+      console.log(this.detailsP.masterChainId)
+      return this.detailsP.masterChainId + '还款'
     }
   },
   methods: {
-
+    handleFill: handleFill,
+    handleSubmit: debounce(handleSubmit, 1000, true)
   }
 }
-
+// 填入应还金额
+function handleFill () {
+  this.payAmt = this.detailsP.billBookAmt
+}
+// 提交
+function handleSubmit () {
+  // 1.获取发送数据
+  let param = {
+    custId: this.detailsP.custFromId, // 客户Id
+    factoringCustId: this.detailsP.custToId, // 保理商Id
+    masterChainId: this.detailsP.masterChainId, // AR单号
+    payAmt: this.needPayAmt // 还款金额
+  }
+  // 2.显示加载图标
+  const loading = this.$loading(loadingConf.sub())
+  // 3.发送数据
+  this.axios.post('/loanQuery/repayLoan.do', param).then(res => {
+    let type = res.data.status ? 'success' : 'error'
+    this.$message({
+      message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+      type: type
+    })
+    // 关闭加载图标
+    loading.close()
+    // 操作成功关闭弹窗刷新数据
+    if (res.data.status) {
+      this.$parent.fresh()
+      this.handleClose()
+    }
+  }).catch(() => {
+    this.$message({
+      type: 'info',
+      message: '操作失败'
+    })
+    // 关闭加载图标
+    loading.close()
+  })
+}
 </script>

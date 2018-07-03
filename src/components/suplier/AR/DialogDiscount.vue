@@ -41,17 +41,17 @@
       </ul>
       <ul>
         <li>
-            <span>贴现保理公司：山西英和</span>
+            <span>贴现保理公司：{{this.detailsP.factorCompany}}</span>
         </li>
       </ul>
-      <ul>
+      <ul class="height-auto">
           <span>已勾选发票:
             <div class="el-check-group inline-block">
               <el-checkbox v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}(￥{{item.invoiceAfterTaxAmt}})</el-checkbox>
             </div>
           </span>
       </ul>
-      <ul>
+      <ul class="height-auto">
           <span>未勾选发票:
             <el-checkbox-group v-model="checkList" class="inline-blox">
               <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" :label="item.invoiceNo">{{item.invoiceNo}}(￥{{item.invoiceAfterTaxAmt}})</el-checkbox>
@@ -177,6 +177,8 @@ function handleSubmit () {
     loading.close()
     // 操作成功 关闭弹窗
     if (res.data.status) {
+      // 已选发票置空
+      this.checkList = []
       // 关闭弹窗
       this.handleClose()
       // 刷新数据

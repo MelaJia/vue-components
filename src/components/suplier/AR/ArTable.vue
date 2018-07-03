@@ -344,7 +344,8 @@ function handleCancleTrans (idx, val) {
   this.$confirm(`单号为${val.masterChainId}的确认取消授让?`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
-    type: 'warning'
+    type: 'warning',
+    center: true
   }).then(() => {
     this.cancelBase('/myAr/cancelTrans.do', val.masterChainId)
   }).catch(() => {
@@ -377,7 +378,8 @@ function handleCancleDiscount (idx, val) {
   this.$confirm(`单号为${val.masterChainId}的确认取消贴现?`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
-    type: 'warning'
+    type: 'warning',
+    center: true
   }).then(() => {
     this.cancelBase('/myAr/cancelDiscount.do', val.masterChainId)
   }).catch(() => {
@@ -410,7 +412,8 @@ function handleApply (idx, val) {
   this.$confirm(`单号为${val.masterChainId}的确认进行贴现审核申请？`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
-    type: 'warning'
+    type: 'warning',
+    center: true
   }).then(() => {
     this.cancelBase('/myAr/auditApplyDiscount.do', val.masterChainId)
   }).catch(() => {

@@ -9,6 +9,8 @@
     <!-- <dialog-withdraw :visible-p.sync="dialogWithdrawVisible" :multiple-selection-p="multipleSelection" :options="Options"></dialog-withdraw> -->
     <!-- 详情 -->
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-info>
+    <!-- 还款 -->
+    <dialog-repay :visible-p.sync="dialogRepayVisible" :details-p="details" ></dialog-repay>
     <section>
       <el-table :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([6])" border style="width: 100%"
@@ -54,7 +56,7 @@
               </el-table-column>
               <el-table-column align="center" prop="loanDate" :width="widthArr.loanDate" :formatter="dateFormat">
               </el-table-column>
-              <el-table-column align="center" prop="defaultRepayDate" :width="widthArr.defaultRepayDate" :formatter="dateFormat">
+              <el-table-column align="center" prop="periodPayDate" :width="widthArr.periodPayDate" :formatter="dateFormat">
               </el-table-column>
               <el-table-column align="center" :width="widthArr.billPayStatus">
                 <template slot-scope="scope">
@@ -63,9 +65,9 @@
                   </el-tooltip>
                 </template>
               </el-table-column>
-              <el-table-column align="center" width='200px'>
+              <el-table-column align="left" width='200px'>
                 <template slot-scope="scope">
-                  <el-button size="mini" type="primary" @click="handleDelete(scope.$index, scope.row)">还款</el-button>
+                  <el-button size="mini" type="primary" @click="handleRepay(scope.$index, props.row)">还款</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -105,7 +107,7 @@
         </el-table-column>
         <el-table-column align="center" label="出借日期" prop="loanDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="center" label="预计还款日期" prop="defaultRepayDate" :formatter="dateFormat" width="120">
+        <el-table-column align="center" label="预计还款日期" prop="periodPayDate" :formatter="dateFormat" width="120">
         </el-table-column>
         <el-table-column align="center" label="打款处理状态">
           <template slot-scope="scope">
@@ -160,20 +162,20 @@ header {
 
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table'
-import Common from '@/mixins/common'
+import Common from '@/mixins/common' // fresh刷新数据函数
 import Width from '@/mixins/Fund/width' // 宽度
 export default {
   props: ['dataLoading', 'dataTable'],
   mixins: [TableMixIn, Common, Width],
   components: {
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/DialogInfoLoaned')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/DialogInfoLoaned'),
+    'dialog-repay': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/DialogRepay')
   },
   data () {
     return {
-      dialogContractVisible: false, // 控制合同窗
-      dialogTransferVisible: false, // 控制转账窗
-      dialogDiscountVisible: false, // 控制贴现窗
+      dialogRepayVisible: false, // 控制贴现窗
       dialogInfoVisible: false,
       multipleSelection: [], // 选择的数据
       details: {} // 详情数据
@@ -185,14 +187,31 @@ export default {
       console.log(this.multipleSelection)
     },
     // 详情
-    handleInfo (idx, val) {
-      // 引入mixins/common.js中getLoanDetail其中包含有加载loading
-      this.getLoanDetail('/loan2/queryLoanInfo.do', { masterChainId: val.masterChainId }).then(res => {
-        this.details = res
-        this.dialogInfoVisible = true
-      })
-    }
+    handleInfo: handleInfo,
+    // 还款
+    handleRepay: handleRepay
   }
 }
-
+/**
+ * 详情
+ */
+function handleInfo (idx, val) {
+  // 引入mixins/common.js中getLoanDetail其中包含有加载loading
+  this.getLoanDetail('/loan2/queryLoanInfo.do', { masterChainId: val.masterChainId }).then(res => {
+    this.details = res
+    this.dialogInfoVisible = true
+  })
+}
+/**
+ * 还款
+ */
+function handleRepay (idx, val) {
+  // 获取数据
+  // 引入mixins/common.js中getLoanDetail其中包含有加载loading
+  console.log(val.masterChainId)
+  this.getLoanDetail('/loan2/queryLoanInfo.do', { masterChainId: val.masterChainId }).then(res => {
+    this.details = res
+    this.dialogRepayVisible = true
+  })
+}
 </script>

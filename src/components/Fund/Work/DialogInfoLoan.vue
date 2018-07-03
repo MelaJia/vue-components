@@ -52,12 +52,14 @@
           <span>实际放款金额: <em>{{this.detailsP.actualDiscountAmt}}</em></span>
         </li>
       </ul>
-      <ul>
-        <li>
-          <span>对应发票号:<label v-for="(item,index) in detailsP.invoiceCustomList" :key="index">{{item.invoiceNo}}</label></span>
-        </li>
+      <ul class="height-auto">
+        <span>对应发票号:
+          <div class="a-link-group inline-block">
+            <label v-for="item in detailsP.invoiceCustomList" :key="item.invoiceNo">{{item.invoiceNo}}</label>
+          </div>
+        </span>
       </ul>
-      <ul>
+      <ul class="height-auto">
           <span>合同:
           <div class="a-link-group inline-block">
             <a v-for="item in detailsP.contractList" :key="item.contractId" href="http://" @click.prevent="constractHandle(item.contractNo)">{{item.contractName}}</a>

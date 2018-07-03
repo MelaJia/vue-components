@@ -38,21 +38,21 @@
           <span>可用金额: <em>{{this.detailsP.arAvailableAmt}}</em></span>
         </li>
       </ul>
-      <ul>
+      <ul class="height-auto">
         <span>未勾选发票:
           <div class="el-check-group inline-block">
             <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}</el-checkbox>
           </div>
         </span>
       </ul>
-      <ul>
+      <ul class="height-auto">
           <span>已勾选发票:
             <div class="el-check-group inline-block">
             <el-checkbox v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}</el-checkbox>
             </div>
           </span>
       </ul>
-      <ul>
+      <ul class="height-auto">
           <span>合同:
           <div class="a-link-group inline-block">
             <a v-for="item in detailsP.contractList" :key="item.contractId" href="http://" @click.prevent="constractHandle(item.contractId)">{{item.contractName}}</a>

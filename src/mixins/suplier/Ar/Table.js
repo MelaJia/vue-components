@@ -138,6 +138,7 @@ export default {
           console.log(error)
         })
     },
+    // 获取ar详情
     getDetail (val) {
       return this.axios.post('/myAr/queryAr', { masterChainId: val.masterChainId }).then(res => {
         // 处理数据

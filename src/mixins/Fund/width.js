@@ -19,7 +19,7 @@ export default {
         payAmt: '',
         billPayDate: '120',
         loanDate: '120',
-        defaultRepayDate: '120',
+        periodPayDate: '120',
         billPayStatus: '',
         operate: '200'
       }
