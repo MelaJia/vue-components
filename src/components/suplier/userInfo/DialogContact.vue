@@ -11,27 +11,27 @@
         <el-row>
           <el-col :span="12" :offset="4">
             <el-form-item
-              prop="legalPerson"
+              prop="contractPerson"
              label="企业联系人名称:"
              :rules="[
                 { required: true, message: '请输入联系人名称', trigger: 'blur' },
               ]"
             >
-              <el-input v-model.trim="form.legalPerson"></el-input>
+              <el-input v-model.trim="form.contractPerson"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12" :offset="4">
             <el-form-item
-              prop="legalIdcardNum"
+              prop="contactIdcardNum"
               label="企业联系人身份证:"
               :rules="[
                 { required: true, message: '请输入身份证', trigger: 'blur' },
                 {pattern: /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/, message: '身份证格式错误', trigger: 'blur'}
               ]"
             >
-              <el-input v-model.trim="form.legalIdcardNum"></el-input>
+              <el-input v-model.trim="form.contactIdcardNum"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

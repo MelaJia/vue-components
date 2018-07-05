@@ -18,8 +18,16 @@ export default {
       })
     },
     [types.LOGOUT]: (state, data) => {
-      removeStore('token')
+      // 清除token
+      removeStore({
+        name: 'token'
+      })
       state.token = null
+      // 清除roles
+      removeStore({
+        name: 'roles'
+      })
+      state.roles = null
     },
     [types.SETROLE]: (state, data) => {
       state.roles = data

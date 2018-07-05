@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini" label-width="100px">
+  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
       <el-col :span="8">
         <el-form-item label="AR单号">

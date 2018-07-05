@@ -63,6 +63,11 @@ export default {
             type: 'error'
           })
         }
+        // 关闭加载图标
+        loading.close()
+      }).catch(err => {
+        console.log(err)
+        // 关闭加载图标
         loading.close()
       })
     },

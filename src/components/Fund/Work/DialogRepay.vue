@@ -116,7 +116,7 @@ export default {
 }
 // 填入应还金额
 function handleFill () {
-  this.payAmt = this.detailsP.billBookAmt
+  this.payAmt = this.detailsP.needPayAmt
 }
 // 提交
 function handleSubmit () {

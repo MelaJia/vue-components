@@ -101,16 +101,17 @@ export default {
   },
   methods: {
     handleCancle (idx, val) {
-      this.$confirm(`确认取消${val.masterChainId}的授让?`, `提示`, {
+      this.$confirm(`确认AR单号${val.masterChainId}是否取消授让?`, `提示`, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
+        center: true
       }).then(() => {
         this.cancelBase('/transferedAr/cancelTranfered.do', val.masterChainId)
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '取消'
+          message: '操作已取消'
         })
       })
     }

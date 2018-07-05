@@ -57,7 +57,7 @@ const routes = [{
     path: 'data',
     name: '数据信息',
     component: () =>
-      import(/* webpackChunkName: 'AR' */ '@/page/data'),
+      import(/* webpackChunkName: 'AR' */ '@/page/suplier/Index'),
     meta: {
       requireAuth: true // 需要登录验证
     }

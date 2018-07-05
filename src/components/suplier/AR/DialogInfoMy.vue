@@ -26,8 +26,8 @@
         </li>
       </ul>
       <ul>
-         <li>
-          <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
+        <li>
+          <span>可用金额: <em>{{this.detailsP.arAvailableAmt}}</em></span>
         </li>
         <li>
           <span>票面金额: <em>{{this.detailsP.billBookAmt}}</em></span>
@@ -35,7 +35,7 @@
       </ul>
       <ul>
         <li>
-          <span>可用金额: <em>{{this.detailsP.arAvailableAmt}}</em></span>
+          <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
         </li>
       </ul>
       <ul class="height-auto">

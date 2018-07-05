@@ -29,16 +29,16 @@ export default {
     InfoTable
   },
   created () {
-    const loading = this.$loading({
-      lock: true,
-      text: 'Loading',
-      spinner: 'el-icon-loading',
-      background: 'rgba(0, 0, 0, 0.7)'
-    })
-    this.getData(loading)
+    this.getData()
   },
   methods: {
-    getData (loading) {
+    getData () {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
       this.axios.post('/cust/customerDetailInfo.do', {
       }).then(res => {
         if (res.data.status) {
@@ -58,6 +58,10 @@ export default {
             type: 'error'
           })
         }
+        loading.close()
+      }).catch(err => {
+        console.log(err)
+        // 关闭加载图标
         loading.close()
       })
     },

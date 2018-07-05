@@ -7,7 +7,7 @@
       </span>
     </header>
     <section class="layout loan-contract-form">
-      <el-form ref="form" :model="detailsP" :rules="rules" label-width="130px">
+      <el-form ref="form" :model="detailsP" status-icon :rules="rules" label-width="130px">
         <el-row>
           <el-col :span="11" class="flex">
             <el-form-item label="贴现金额: " prop="billBookAmt">
@@ -16,7 +16,7 @@
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
             <el-form-item label="放款比例: " prop="loanPer">
-             <el-input v-model.number="detailsP.loanPer" type="number" placeholder="放款比例">
+             <el-input v-model="detailsP.loanPer"  placeholder="放款比例">
                <template slot="append">%</template>
              </el-input>
             </el-form-item>
@@ -25,21 +25,21 @@
         <el-row>
           <el-col :span="11"  class="flex">
             <el-form-item label="实放金额: " prop="actualDiscountAmt">
-             <el-input v-model.number="actualDiscountAmt" type="number" placeholder="实放金额"></el-input>
+             <el-input v-model="actualDiscountAmt" placeholder="实放金额"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11" class="flex">
             <el-form-item label="贴现利率: " prop="interestRate">
-             <el-input v-model.number="detailsP.interestRate" placeholder="贴现利率">
+             <el-input v-model="detailsP.interestRate" placeholder="贴现利率">
                <template slot="append">%</template>
              </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
              <el-form-item label="服务费率: " prop="serviceFeeRate">
-              <el-input v-model.number="detailsP.serviceFeeRate" placeholder="服务费率">
+              <el-input v-model="detailsP.serviceFeeRate" placeholder="服务费率">
                 <template slot="append">%</template>
               </el-input>
             </el-form-item>
@@ -48,14 +48,14 @@
         <el-row>
           <el-col :span="11" class="flex">
              <el-form-item label="逾期利率: " prop="overdueRate">
-             <el-input v-model.number="detailsP.overdueRate" placeholder="逾期利率">
+             <el-input v-model="detailsP.overdueRate" placeholder="逾期利率">
                <template slot="append">%</template>
              </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
             <el-form-item label="提前还款手续费: " prop="prepaymentDeductInterest">
-              <el-input v-model.number="detailsP.prepaymentDeductInterest" type="number" placeholder="提前还款手续费"></el-input>
+              <el-input v-model="detailsP.prepaymentDeductInterest"  placeholder="提前还款手续费"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -69,7 +69,7 @@
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
              <el-form-item label="宽容天数: " prop="fineGraceDays">
-             <el-input v-model.number="detailsP.fineGraceDays" type="number" placeholder="宽容天数"></el-input>
+             <el-input v-model="detailsP.fineGraceDays"  placeholder="宽容天数"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -148,31 +148,31 @@ export default {
       rules: {
         loanPer: [
           { required: true, message: '请输入放款比例', trigger: 'blur' },
-          { type: 'number', message: '放款比例必须为数字值' }
+          { validator: checkRate, trigger: 'blur' }
         ],
         actualDiscountAmt: [
           { required: true, message: '实放金额不能为空', trigger: 'blur' },
-          { type: 'number', message: '实放金额必须为数字值' }
+          { validator: checkNumber, trigger: 'blur' }
         ],
         interestRate: [
           { required: true, message: '请输入贴现利率', trigger: 'blur' },
-          { type: 'number', message: '贴现利率必须为数字值' }
+          { validator: checkRate, trigger: 'blur' }
         ],
         serviceFeeRate: [
           { required: true, message: '请输入服务费率', trigger: 'blur' },
-          { type: 'number', message: '服务费率必须为数字值' }
+          { validator: checkRate, trigger: 'blur' }
         ],
         overdueRate: [
           { required: true, message: '请输入逾期利率', trigger: 'blur' },
-          { type: 'number', message: '逾期利率必须为数字值' }
+          { validator: checkRate, trigger: 'blur' }
         ],
         prepaymentDeductInterest: [
           { required: true, message: '请输入提前还款手续费', trigger: 'blur' },
-          { type: 'number', message: '提前还款手续费必须为数字值' }
+          { validator: checkNumber, trigger: 'blur' }
         ],
         fineGraceDays: [
           { required: true, message: '请输入宽容天数', trigger: 'blur' },
-          { type: 'number', message: '宽容天数必须为数字值' }
+          { validator: checkNumber, trigger: 'blur' }
         ],
         billDueDate: [
           { required: true, message: '请输入预计还款日期', trigger: 'blur' }
@@ -182,9 +182,9 @@ export default {
   },
   watch: {
     /** 修复只根据放款比例计算得到结果 输入的值无法获取  */
-    loanPer: function (val) {
+    loanPer: debounce(function (val) {
       this.detailsP.actualDiscountAmt = this.detailsP.billBookAmt * val / 100
-    }
+    }, 1000)
   },
   computed: {
     loanPer () {
@@ -193,16 +193,16 @@ export default {
     actualDiscountAmt: {
       // getter
       get: function () {
-        return this.detailsP.billBookAmt * this.detailsP.loanPer / 100
+        return (this.detailsP.billBookAmt * (this.detailsP.loanPer * 100) / 10000).toFixed(2)
       },
       // setter
-      set: function (newValue) {
+      set: debounce(function (newValue) {
         this.detailsP.actualDiscountAmt = newValue
         let val = Number((newValue / this.detailsP.billBookAmt * 100).toFixed(2))
         console.log(typeof (val))
         this.detailsP.loanPer = val
         console.log(this.detailsP.loanPer)
-      }
+      }, 1000)
     },
     getTitle () {
       return this.detailsP.masterChainId + '合同利益确认'
@@ -248,7 +248,8 @@ function submit () {
           this.$parent.fresh()
           this.handleClose()
         }
-      }).catch(() => {
+      }).catch((err) => {
+        console.log(err)
         this.$message({
           type: 'info',
           message: '操作失败'
@@ -258,5 +259,42 @@ function submit () {
       })
     }
   })
+}
+// async 校验规则
+// 利率规则
+var checkRate = (rule, value, callback) => {
+  if (!value) {
+    return callback(new Error('不能为空'))
+  }
+  let re = /^([1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
+  setTimeout(() => {
+    if (!re.test(value)) {
+      callback(new Error('请输入大于0的数字'))
+    } else {
+      if (value <= 0 || value > 100) {
+        callback(new Error('必须为0-100之间'))
+      } else {
+        callback()
+      }
+    }
+  }, 1000)
+}
+// 数字规则
+var checkNumber = (rule, value, callback) => {
+  if (!value) {
+    return callback(new Error('不能为空'))
+  }
+  let re = /^([1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
+  setTimeout(() => {
+    if (!re.test(value)) {
+      callback(new Error('请输入大于0的数字'))
+    } else {
+      if (value <= 0) {
+        callback(new Error('必须大于0'))
+      } else {
+        callback()
+      }
+    }
+  }, 1000)
 }
 </script>

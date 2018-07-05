@@ -7,48 +7,50 @@
       </span>
     </header>
     <section>
-      <el-form ref="form" :model="form" label-width="130px" label-position="left">
+      <el-form ref="form" :model="form" label-width="130px" status-icon :rules="rules" label-position="left">
         <el-row>
           <el-col :span="11">
-            <el-form-item label="放款比例:"
-            prop="loanPer"
-            :rules="[
-            { required: true, message: '请输入放款比例', trigger: 'blur' },
-            { type: 'number', message: '放款比例必须为数字值' }
-            ]"
-            >
-              <el-input v-model.number="form.loanPer"></el-input>
+            <el-form-item label="放款比例:" prop="loanPer">
+              <el-input v-model="form.loanPer">
+                <template slot="append">%</template>
+              </el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11">
-            <el-form-item label="宽容天数:">
-              <el-input v-model.number="form.fineGraceDays"></el-input>
+            <el-form-item label="宽容天数:" prop="fineGraceDays">
+              <el-input v-model="form.fineGraceDays"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11" :offset="1">
-            <el-form-item label="年利率:">
-              <el-input v-model.number="form.interestRate"></el-input>
+          <el-col :span="11" :offset="1" >
+            <el-form-item label="年利率:" prop="interestRate">
+              <el-input v-model="form.interestRate">
+                 <template slot="append">%</template>
+              </el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11">
-            <el-form-item label="服务费率:">
-              <el-input v-model.number="form.serviceFeeRate"></el-input>
+            <el-form-item label="服务费率:" prop="serviceFeeRate">
+              <el-input v-model="form.serviceFeeRate">
+                 <template slot="append">%</template>
+              </el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11" :offset="1">
-            <el-form-item label="罚息天利率:">
-              <el-input v-model.number="form.fineGraceDayRate"></el-input>
+          <el-col :span="11" :offset="1" >
+            <el-form-item label="罚息天利率:" prop="fineGraceDayRate">
+              <el-input v-model="form.fineGraceDayRate">
+                 <template slot="append">%</template>
+              </el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11" >
-            <el-form-item label="提前还款手续费:">
-              <el-input v-model.number="form.prepaymentDeductRate"></el-input>
+            <el-form-item label="提前还款手续费:" prop="prepaymentDeductRate">
+              <el-input v-model="form.prepaymentDeductRate"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -69,7 +71,28 @@ export default {
   mixins: [DialogClose],
   data () {
     return {
-      bankProvinceCity: []
+      bankProvinceCity: [],
+      rules: {
+        loanPer: [
+          { required: true, message: '请输入放款比例', trigger: 'blur' },
+          { validator: checkRate, trigger: 'blur' }
+        ],
+        fineGraceDays: [
+          { validator: checkNumber, trigger: 'blur' }
+        ],
+        interestRate: [
+          { validator: checkRate, trigger: 'blur' }
+        ],
+        serviceFeeRate: [
+          { validator: checkRate, trigger: 'blur' }
+        ],
+        fineGraceDayRate: [
+          { validator: checkRate, trigger: 'blur' }
+        ],
+        prepaymentDeductRate: [
+          { validator: checkNumber, trigger: 'blur' }
+        ]
+      }
     }
   },
   computed: {
@@ -125,5 +148,37 @@ function submit () {
       })
     }
   })
+}
+// async 校验规则
+// 利率规则
+var checkRate = (rule, value, callback) => {
+  let re = /^([1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
+  re.test(value)
+  setTimeout(() => {
+    if (!re.test(value)) {
+      callback(new Error('请输入大于0的数字'))
+    } else {
+      if (value <= 0 || value > 100) {
+        callback(new Error('必须为0-100之间'))
+      } else {
+        callback()
+      }
+    }
+  }, 1000)
+}
+// 数字规则
+var checkNumber = (rule, value, callback) => {
+  let re = /^([1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
+  setTimeout(() => {
+    if (!re.test(value)) {
+      callback(new Error('请输入大于0的数字'))
+    } else {
+      if (value <= 0) {
+        callback(new Error('必须大于0'))
+      } else {
+        callback()
+      }
+    }
+  }, 1000)
 }
 </script>

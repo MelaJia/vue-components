@@ -833,7 +833,7 @@ export const dataDetails={
     }
 export const contract = {
     "data":{
-        "billBookAmt": 5000, 
+        "billBookAmt": 3000, 
         "billDueDate": 1496592000000, 
         "billPayDate": 1496592000000, 
         "masterChainId": "AR20170920000017", 

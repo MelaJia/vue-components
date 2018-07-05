@@ -63,13 +63,14 @@ function handleAccept (idx, val) {
   this.$confirm(`单号为${val.masterChainId}的确认接授其转让?`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
-    type: 'warning'
+    type: 'warning',
+    center: true
   }).then(() => {
     this.cancelBase('/onReceivingAr/receiveTranfer.do', val.masterChainId)
   }).catch(() => {
     this.$message({
       type: 'info',
-      message: '取消'
+      message: '操作已取消'
     })
   })
 }
@@ -78,13 +79,14 @@ function handleReject (idx, val) {
   this.$confirm(`单号为${val.masterChainId}的确认拒绝其转让?`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
-    type: 'warning'
+    type: 'warning',
+    center: true
   }).then(() => {
     this.cancelBase('/onReceivingAr/rejectTranfer.do', val.masterChainId)
   }).catch(() => {
     this.$message({
       type: 'info',
-      message: '取消'
+      message: '操作已取消'
     })
   })
 }

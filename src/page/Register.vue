@@ -8,7 +8,7 @@
         <div class="phone">
           <!--<a href="#" class="backhome">返回首页</a>-->
           <p>已有账号？ 立即
-            <span class="loginLine">登录</span>
+             <router-link to="/login" class="red">登录</router-link>
           </p>
         </div>
       </div>
@@ -223,7 +223,7 @@
             </el-row>
           </el-form>
         </section>
-        <section class="reg-step-3" v-else-if="step==3">
+        <section class="reg-step-3" v-show="step==3">
           <el-form ref="form-3" :model="getForm" :rules="rulesThree" label-width="150px">
             <el-row>
               <el-col :span="8">

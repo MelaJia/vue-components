@@ -145,7 +145,8 @@ function handleConfirm (idx, val) {
   this.$confirm(`单号为${val.masterChainId}的贴现合同确认发起确认?`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
-    type: 'warning'
+    type: 'warning',
+    center: true
   }).then(() => {
     this.cancelBase('/loan2/confirmInitiateSigning.do', val.masterChainId) // 调用common混合中公共方法
   }).catch(() => {
@@ -160,7 +161,8 @@ function handleAccept (idx, val) {
   this.$confirm(`单号为${val.masterChainId}的贴现申请确认放款?`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
-    type: 'warning'
+    type: 'warning',
+    center: true
   }).then(() => {
     this.cancelBase('/loan2/completeLoan.do', val.masterChainId) // 调用common混合中公共方法
   }).catch(() => {
@@ -175,7 +177,8 @@ function handleReject (idx, val) {
   this.$confirm(`单号为${val.masterChainId}的贴现申请确认拒绝?`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
-    type: 'warning'
+    type: 'warning',
+    center: true
   }).then(() => {
     this.cancelBase('/loan2/rejectLoan.do', val.masterChainId) // 调用common混合中公共方法
   }).catch(() => {

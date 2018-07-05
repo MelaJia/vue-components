@@ -214,7 +214,8 @@ function submit () {
       this.handleClose() // 关闭弹窗
       this.$parent.fresh() // 刷新数据
     }
-  }).catch(() => {
+  }).catch((err) => {
+    console.log(err)
     this.$message({
       type: 'info',
       message: '操作失败'

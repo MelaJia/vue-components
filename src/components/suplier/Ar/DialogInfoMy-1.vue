@@ -20,19 +20,11 @@
         </li>
       </ul>
       <ul>
-         <li>
-          <span>AR来源: <em>{{this.detailsP.arSourceDesc}}</em></span>
-        </li>
         <li>
           <span>状态: <em>{{this.detailsP.arStatusTypeName}}</em></span>
         </li>
-      </ul>
-      <ul>
-        <li>
+         <li>
           <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>
-        </li>
-        <li>
-          <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
         </li>
       </ul>
       <ul>
@@ -41,6 +33,11 @@
         </li>
         <li>
           <span>可用金额: <em>{{this.detailsP.arAvailableAmt}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
         </li>
       </ul>
       <ul class="height-auto">

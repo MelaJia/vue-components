@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini">
+  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
       <el-col :span="8">
         <el-form-item label="贴现客户">
@@ -30,7 +30,9 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :span="8">
+    </el-row>
+    <el-row>
+      <el-col :span="2" :offset="11">
         <el-form-item>
           <el-button type="primary" @click="onSubmit">查询</el-button>
         </el-form-item>

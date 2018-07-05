@@ -32,7 +32,7 @@
 </style>
 
 <script>
-import ArTable from '@/components/Fund/Work/LoanedListTable'
+import ArTable from '@/components/Fund/Work/LoanFinishListTable'
 import Search from '@/components/Fund/Work/LoanedSearch'
 import Table from '@/mixins/suplier/Ar/Table'
 // import { LoanedDatas } from '@/monitorDatas/Fund/loanDatas.js'
