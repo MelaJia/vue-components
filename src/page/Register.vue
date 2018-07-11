@@ -17,13 +17,13 @@
     <article>
       <header>
         <el-steps :active="step" finish-status="success" simple style="margin-top: 20px">
-          <el-step title="步骤 1"></el-step>
-          <el-step title="步骤 2"></el-step>
-          <el-step title="步骤 3"></el-step>
+          <el-step title="设定账号"></el-step>
+          <el-step title="完善信息"></el-step>
+          <el-step title="完成注册"></el-step>
         </el-steps>
       </header>
       <main>
-        <section class="reg-step-1" v-if="step==1">
+        <section class="reg-step-1" v-show="step==0">
           <el-form ref="form-1" :model="getForm" status-icon :rules="rulesOne" label-width="130px">
             <el-row>
               <el-col :span="24">
@@ -119,7 +119,7 @@
             </el-row>
           </el-form>
         </section>
-        <section class="reg-step-2" v-else-if="step==2">
+        <section class="reg-step-2" v-show="step==1">
           <el-form ref="form-2" :model="getForm" :rules="rulesTwo" label-width="150px">
             <el-row>
               <el-col :span="24">
@@ -233,7 +233,7 @@
             </el-row>
           </el-form>
         </section>
-        <section class="reg-step-3" v-show="step==3">
+        <section class="reg-step-3" v-show="step==2">
           <el-form ref="form-3" :model="getForm" :rules="rulesThree" label-width="150px">
             <el-row>
               <el-col :span="8">
@@ -300,9 +300,9 @@
       <footer>
         <el-row>
           <el-col :span="6" :offset="10">
-            <el-button v-if="step!=1" type="primary" size="mini" @click="prevHandle()">上一步</el-button>
-            <el-button v-if="step!=3" type="primary" size="mini" @click="nextHandle(`form-${step}`)">下一步</el-button>
-            <el-button v-if="step==3" type="primary" size="mini" @click="subHandle('form-3')">提交</el-button>
+            <el-button v-if="step!=0" type="primary" size="mini" @click="prevHandle()">上一步</el-button>
+            <el-button v-if="step!=2" type="primary" size="mini" @click="nextHandle(`form-${step+1}`)">下一步</el-button>
+            <el-button v-if="step==2" type="primary" size="mini" @click="subHandle('form-3')">提交</el-button>
           </el-col>
         </el-row>
       </footer>
@@ -312,6 +312,23 @@
   </section>
 </template>
 <style lang="scss">
+// ie10步骤条兼容处理
+.ie10 {
+  .el-steps{
+    display: block;
+  }
+  .el-step{
+    display: inline-block;
+    width: 43%;
+  }
+  .el-step:last-of-type.is-flex{
+    width: 10%;
+  }
+  .el-step.is-simple .el-step__head{
+    float: left;
+  }
+}
+// ie10步骤条兼容处理
 .register-style {
   min-width: 960px;
   width: 65%;
@@ -346,10 +363,11 @@ import '@/assets/css/pread.css' // 引入样式
 import Upload from '@/components/Items/uploadReg'
 import validConf from '@/config/validateConfig'
 import CityData from '@/mixins/CityData' // 省市数据
+import commonDatas from '@/mixins/commonDatas' // 货币类型
 /* 企业认证 */
 export default {
   props: ['visibleP', 'form'],
-  mixins: [CityData],
+  mixins: [CityData, commonDatas],
   components: {
     Upload
   },
@@ -399,7 +417,7 @@ export default {
       }]
     }
     return {
-      step: 1,
+      step: 0,
       show: true,
       isPassShow: false, // 密码提示信息显示
       is2s1Show: true, // 二选一提示
@@ -453,7 +471,7 @@ export default {
 }
 // 上一页函数
 function prevHandle (formName) {
-  this.step = this.step > 1 ? this.step - 1 : this.step
+  this.step = this.step > 0 ? this.step - 1 : this.step
 }
 // 下一页函数
 function nextHandle (formName) {
@@ -461,7 +479,7 @@ function nextHandle (formName) {
   this.$refs[formName].validate((valid) => {
     if (valid) {
       // 校验成功显示下一步骤
-      this.step = this.step < 3 ? this.step + 1 : this.step
+      this.step = this.step < 2 ? this.step + 1 : this.step
     }
   })
 }

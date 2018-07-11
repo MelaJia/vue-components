@@ -144,7 +144,7 @@ let validOne = {
   {
     type: 'email',
     message: '请输入正确的邮箱地址',
-    trigger: ['blur', 'change']
+    trigger: ['blur']
   }
   ],
   legalPerson: [{
@@ -182,7 +182,7 @@ let validOne = {
   {
     type: 'email',
     message: '请输入正确的邮箱地址',
-    trigger: ['blur', 'change']
+    trigger: ['blur']
   }
   ]
 }
@@ -195,6 +195,11 @@ let validTwo = {
   licenseAddress: [{
     required: true,
     message: '请输入营业执照所在地',
+    trigger: 'blur'
+  }],
+  vendorCodes: [{
+    required: true,
+    validator: check('vendorCodes', '供应商代码'),
     trigger: 'blur'
   }],
   mainProducts: [{

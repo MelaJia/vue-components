@@ -1,0 +1,158 @@
+<template>
+<section id="print">
+  <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
+    <header slot="title">
+      <span class="title">
+        {{getTitle}}
+      </span>
+    </header>
+    <section>
+      <ul>
+        <li>
+          <span>销方名称: <em>{{this.detailsP.sellerName}}</em></span>
+        </li>
+        <li>
+          <span>销方税号: <em>{{this.detailsP.sellerTaxNo}}</em></span>
+        </li>
+      </ul>
+      <ul>
+          <span>销方银行账号: <em>{{this.detailsP.sellerBankNo}}</em></span>
+      </ul>
+      <ul>
+          <span>销方联系方式: <em>{{this.detailsP.sellerPhone}}</em></span>
+      </ul>
+      <ul>
+        <li>
+          <span>购方名称: <em>{{this.detailsP.buyerName}}</em></span>
+        </li>
+        <li>
+          <span>购方税号: <em>{{this.detailsP.buyerTaxNo}}</em></span>
+        </li>
+      </ul>
+      <ul>
+          <span>购方银行账号: <em>{{this.detailsP.buyerBankNo}}</em></span>
+      </ul>
+      <ul>
+          <span>购方联系方式: <em>{{this.detailsP.buyerPhone}}</em></span>
+      </ul>
+      <ul>
+        <li>
+          <span>金额: <em>{{this.detailsP.amount}}</em>元</span>
+        </li>
+        <li>
+          <span>税额: <em>{{this.detailsP.taxAmount}}</em>元</span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>税价合计: <em>{{this.detailsP.total}}</em>元</span>
+        </li>
+        <li>
+          <span>录入日期: <em>{{this.detailsP.entryDate}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>状态: <em>{{this.detailsP.statusName}}</em></span>
+        </li>
+        <li>
+          <span>发送状态: <em>{{this.detailsP.postStatusName}}</em></span>
+        </li>
+      </ul>
+      <table class="tableList" border="1">
+        <thead>
+          <tr>
+            <th>进货验收单号</th>
+            <th>进货验收单金额</th>
+            <th>进货验收单日期</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for = "(item,index) in this.detailsP.grnDetail" :key="index">
+            <td>{{item.grnNumber}}</td>
+            <td>{{item.grnAmount}}</td>
+            <td>{{item.grnDate}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ul>
+        <span>
+          <div class="a-link-group inline-block">
+            <a v-for="(item, index) in filelist" ref="fileBtn" :key="index" href="http://" @click.prevent="downLoadFile(item.fileDownLoadUrl, item.fileName)">{{item.fileName}}</a>
+          </div>
+        </span>
+      </ul>
+    </section>
+    <footer class="no-print" slot="footer" :style="'clear:both'">
+      <el-button type="primary" @click="handleClose">确认</el-button>
+    </footer>
+  </el-dialog>
+</section>
+</template>
+
+<style scoped lang="scss">
+@import "@/assets/css/_dialog.scss";
+.tableList{
+  width: 100%;
+  border: 0.5px solid #931719;
+  border-collapse: collapse;
+  thead tr{
+    height: 30px;
+    th{
+      font-weight: normal;
+    }
+  }
+  tbody tr{
+    height: 30px;
+    text-align: center;
+    &:last-child{
+      border-bottom: none;
+      td{
+        border-bottom: none;
+      }
+    }
+  }
+}
+ul:last-child{
+  border-top: none;
+  span{
+    padding-left: 0;
+  }
+}
+span {
+  line-height: 32px;
+}
+</style>
+
+<script>
+import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+export default {
+  props: ['visibleP', 'detailsP', 'filelist'],
+  mixins: [DialogClose],
+  computed: {
+    getTitle () {
+      return this.detailsP.statementNo
+    }
+  },
+  methods: {
+    downLoadFile (url, fileName) {
+      this.axios.post('/commonFile/showFileByUrl.do', {fileUrl: url}).then(res => {
+        if (res.data.status === 1) {
+          var blob = new Blob(res.data.data, {type: 'application/pdf'})
+          if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+            navigator.msSaveBlob(blob, fileName)
+          } else {
+            var link = document.createElement('a')
+            link.href = window.URL.createObjectURL(blob)
+            link.download = fileName
+            link.click()
+            window.URL.revokeObjectURL(link.href)
+          }
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  }
+}
+</script>
