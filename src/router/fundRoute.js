@@ -67,6 +67,69 @@ const routes = [
       meta: {
         requireAuth: true // 需要登录验证
       }
+    },
+    {
+      path: 'ordersearch',
+      name: '我的订单',
+      component: () =>
+        import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/OrderSearch'),
+      meta: {
+        requireAuth: true // 需要登录验证
+      }
+    },
+    {
+      path: 'acceptsearch',
+      name: '我的验收单',
+      component: () =>
+        import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/AcceptanceSearch'),
+      meta: {
+        requireAuth: true // 需要登录验证
+      }
+    },
+    {
+      path: 'mybill',
+      name: '我的对账单',
+      component: () =>
+        import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyBill'),
+      meta: {
+        requireAuth: true // 需要登录验证
+      }
+    },
+    {
+      path: 'mypayer',
+      name: '我的付款单',
+      component: () =>
+        import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyPayer'),
+      meta: {
+        requireAuth: true // 需要登录验证
+      }
+    },
+    {
+      path: 'myinvoice',
+      name: '我的发票',
+      component: () =>
+        import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyInvoice'),
+      meta: {
+        requireAuth: true // 需要登录验证
+      }
+    },
+    {
+      path: 'mysubmit',
+      name: '我的结报',
+      component: () =>
+        import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MySubmit'),
+      meta: {
+        requireAuth: true // 需要登录验证
+      }
+    },
+    {
+      path: 'myarrear',
+      name: '我的欠款',
+      component: () =>
+        import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyArrear'),
+      meta: {
+        requireAuth: true // 需要登录验证
+      }
     }
     ]
   }
