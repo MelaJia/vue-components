@@ -32,8 +32,8 @@
 </style>
 
 <script>
-import ArTable from '@/components/Admin/Work/ArListTable'
-import Search from '@/components/Admin/Work/ArSearch'
+import ArTable from '@/components/Admin/manager/regCMP/ListTable'
+import Search from '@/components/Admin/manager/regCMP/Search'
 import Table from '@/mixins/suplier/Ar/Table'
 // import { auditList } from '@/monitorDatas/Admin/arDatas.js'
 export default {
@@ -41,7 +41,7 @@ export default {
   data () {
     return {
       loading: false,
-      postUrl: '/discountAudit/getDiscountAuditListTable.do',
+      postUrl: '/sysRegisteredCompanyManager/getRegisteredCompanyQueryListTable.do', // 数据来源
       dataStr: 'data',
       totalStr: 'recordsTotal'
     }
@@ -73,11 +73,11 @@ export default {
 function searchSubmit (val) {
   /* 修改请求参数 */
   this.param = {
-    custFromName: val.custFromName, // 贴现客户
-    companyNameOfL1: val.companyNameOfL1, // 一级供应商
-    companyName: val.companyName, // 付款单位
-    custToName: val.custToName, // 保理方
-    auditedTypeId: val.auditedTypeId // 状态
+    companyName: val.companyName, // 公司名称
+    legalPerson: val.legalPerson, // 公司法人代表
+    contactPerson: val.contactPerson, // 公司联系人
+    customerManagerId: val.customerManagerId, // 客户经理
+    status: val.status // 状态
   }
   if (this.total && this.currentPage !== 1) {
     this.total = 0 // 分页的当前页数变动会触发 从而获取数据

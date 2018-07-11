@@ -11,13 +11,13 @@
         <el-row>
           <el-col :span="12" :offset="4">
             <el-form-item
-              prop="contractPerson"
+              prop="contactPerson"
              label="企业联系人名称:"
              :rules="[
                 { required: true, message: '请输入联系人名称', trigger: 'blur' },
               ]"
             >
-              <el-input v-model.trim="form.contractPerson"></el-input>
+              <el-input v-model.trim="form.contactPerson"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

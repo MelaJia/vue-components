@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" >
     <router-view/>
   </div>
 </template>
@@ -28,6 +28,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+.el-container:not(.is-vertical){
+  overflow: scroll
+}
 body{
   margin: 0px;
   min-width: 1200px;
@@ -41,5 +44,9 @@ html,body,#app,#app>div,#app>div>main,.main-section,.main-section>div{
     }
 .el-message-box__content{
   padding: 20px 15px
+}
+// 图片预览置顶
+.pswp--open {
+    z-index: 2600;
 }
 </style>

@@ -3,19 +3,19 @@
     <header>
     </header>
     <el-container>
-      <el-header height="auto">
+      <el-header height="auto" style="position: fixed;width: 100%;z-index: 9;top:0px;">
         <header>
           <header-section></header-section>
 
         </header>
       </el-header>
-      <el-container>
-        <el-aside width="200px">
+      <el-container style="margin-top: 84px;">
+        <el-aside style="width: 220px;position: fixed;height: 100%;overflow-y: auto;z-index:9;">
           <nav-t :nav-items="navItems"></nav-t>
         </el-aside>
-        <el-main>
+        <el-main style="margin-left: 200px;padding-top:0px;">
           <tags ref="nav" class="nav"></tags>
-          <main :style="'overflow: auto;background-color:#fff;'+'height:auto'">
+         <main :style="'background-color:#fff;height:auto;margin-top: 40px;'">
             <router-view></router-view>
           </main>
         </el-main>

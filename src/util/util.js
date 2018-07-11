@@ -5,6 +5,7 @@ import {
   baseUrl
 } from '@/config/env'
 import CryptoJS from 'crypto-js'
+import { loadingConf } from '@/config/common' // 获取加载配置
 /**
  * 加密处理
  */
@@ -426,4 +427,82 @@ export const debounce = function (fun, delay, immediate) {
       context = arg = null
     }
   }
+}
+// 错误提示函数
+export const erroShow = function (err, loading) {
+  // 关闭加载图标
+  if(loading) {
+    loading.close()
+  }
+  this.$alert(`网络错误${err}`, '系统提示', {
+    confirmButtonText: '确定',
+    callback: action => {
+    }
+  })
+}
+/**
+ * 获取数据基础函数
+ * @param {str} url 请求地址
+ * @param {obj} param 请求参数
+ * @param {boolean} showLoading 是否显示加载图标
+ */
+export const getDataBase = function (url, param, showLoading) {
+  if(typeof param=='boolean'){
+    showLoading = param
+    param = null
+  }
+  // 显示加载图标
+  const loading = showLoading ? this.$loading(loadingConf.get()) : null
+  return this.axios.post(url, param).then((res) => {
+    // 关闭加载图标
+    if(loading){
+      loading.close()
+    }
+    if (res.data.status) {
+      return res.data.data
+    } else {
+      this.$message({
+        showClose: true,
+        message: res.data.msg,
+        type: 'error'
+      })
+      return false
+    }
+  }).catch((err) => {
+    // 错误提示
+    erroShow.call(this, err, loading)
+  })
+}
+/**
+ * 提交数据基础函数
+ * @param {str} url 请求地址
+ * @param {obj} param 请求参数
+ * @param {boolean} showLoading 是否显示加载图标
+ */
+export const postDataBase = function (url, param, showLoading) {
+  if(typeof param=='boolean'){
+    showLoading = param
+    param = null
+  }
+  // 1.显示加载图标
+  const loading = showLoading ? this.$loading(loadingConf.sub()) : null
+   // 2.发送请求
+  return this.axios.post(url, param).then((res) => {
+    // 关闭加载图标
+    if(loading){
+      loading.close()
+    }
+    let type = res.data.status ? 'success' : 'error'
+    if(typeof res.data.data === 'string'){
+      this.$message({
+        showClose: true,
+        message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+        type: type
+      })
+    }
+    return res
+  }).catch((err) => {
+    // 错误提示
+    erroShow.call(this, err, loading)
+  })
 }

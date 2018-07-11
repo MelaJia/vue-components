@@ -24,7 +24,12 @@
       </header>
       <main>
         <section class="reg-step-1" v-if="step==1">
-          <el-form ref="form-1" :model="getForm" :rules="rulesOne" label-width="130px">
+          <el-form ref="form-1" :model="getForm" status-icon :rules="rulesOne" label-width="130px">
+            <el-row>
+              <el-col :span="24">
+                <div v-show="isPassShow" class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~32位的字符串.</div>
+              </el-col>
+            </el-row>
             <el-row>
               <el-col :span="8">
                 <el-form-item label="登陆名: " prop="custUsername">
@@ -33,7 +38,7 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item label="登陆密码: " prop="custPassword">
-                  <el-input v-model="getForm.custPassword"></el-input>
+                  <el-input v-model="getForm.custPassword" @blur="passBlur" @focus="passFocus"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
@@ -116,6 +121,11 @@
         </section>
         <section class="reg-step-2" v-else-if="step==2">
           <el-form ref="form-2" :model="getForm" :rules="rulesTwo" label-width="150px">
+            <el-row>
+              <el-col :span="24">
+                <div v-show="is2s1Show" class="text-error">提示：统一社会信用代码与(营业执照号码,组织机构代码证编号,税务登记证号),两者是贰选壹的关系。</div>
+              </el-col>
+            </el-row>
             <el-row>
               <el-col :span="8">
                 <el-form-item label="统一社会信用代码:" prop="creditCode">
@@ -319,21 +329,27 @@
     width: 100%;
   }
 }
-.loginLine{
-  color: #8ec1f4
+.loginLine {
+  color: #8ec1f4;
+}
+.text-error {
+  color: #f56c6c;
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px;
+  text-align: center;
 }
 </style>
 
 <script>
 import '@/assets/css/pread.css' // 引入样式
-import commonDatas from '@/mixins/commonDatas' // 货币类型
 import Upload from '@/components/Items/uploadReg'
 import validConf from '@/config/validateConfig'
 import CityData from '@/mixins/CityData' // 省市数据
 /* 企业认证 */
 export default {
   props: ['visibleP', 'form'],
-  mixins: [commonDatas, CityData],
+  mixins: [CityData],
   components: {
     Upload
   },
@@ -385,6 +401,8 @@ export default {
     return {
       step: 1,
       show: true,
+      isPassShow: false, // 密码提示信息显示
+      is2s1Show: true, // 二选一提示
       userInfo: getUserInfo(),
       bankProvinceCity: [], // 银行省市
       select: '',
@@ -417,108 +435,109 @@ export default {
   mounted () {
   },
   methods: {
-    prevHandle (formName) {
-      this.step = this.step > 1 ? this.step - 1 : this.step
-    },
-    nextHandle (formName) {
-      console.log(formName)
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.step = this.step < 3 ? this.step + 1 : this.step
-        }
-      })
-    },
-    subHandle (formName) {
-      console.log(this.userInfo)
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          // 1.处理数据
-          let businessStartDate = this.userInfo.compuDate ? this.userInfo.compuDate[0] : ''
-          let businessEndDate = this.userInfo.compuDate ? this.userInfo.compuDate[1] : ''
-          this.userInfo.registeredCurrencyType = this.userInfo.registeredCurrencyType.toString() // 注册资本币别
-          this.userInfo.paidinCurrencyType = this.userInfo.paidinCurrencyType.toString() // 实收资本币别
-          this.userInfo.businessStartDate = businessStartDate // 营业执照开始日期
-          this.userInfo.businessEndDate = businessEndDate // 营业执照结束日期
-          this.userInfo.bankProvince = this.bankProvinceCity[0] !== undefined ? this.bankProvinceCity[0] : ''
-          this.userInfo.bankCity = this.bankProvinceCity[1] !== undefined ? this.bankProvinceCity[1] : ''
-          // 2.obj转formdata
-          // let p = { data: this.userInfo }
-          // const param = objToFormData.apply(this, [p])
-          // 3.添加图片信息
-          // let arr = ['logoFile', 'licenseFile', 'licenseViceFile', 'organizationFile', 'taxFile']
-          // for (const key of arr) {
-          //   param.append(key, this.$refs[key].file.raw)
-          // }
-          // 4.设置请求头
-          // let config = {
-          //   headers: {
-          //     'Content-Type': 'multipart/form-data'
-          //   }
-          // }
-          // 5.传送数据
-          this.axios.post('/cust/userRegister.do', this.userInfo).then(res => {
-            let type = res.data.status ? 'success' : 'error'
-            this.$message({
-              message: res.data.msg,
-              type: type
-            })
-            if (res.data.status) {
-              this.$parent.fresh()
-              this.handleClose()
-            }
-          }).catch(err => {
-            this.$message({
-              type: 'info',
-              message: `操作失败${err}`
-            })
-          })
-        }
-      })
-    },
+    // 上一页
+    prevHandle: prevHandle,
+    // 下一页
+    nextHandle: nextHandle,
+    // 密码框获取焦点时显示提示信息
+    passFocus: passFocus,
+    // 密码框失去焦点时隐藏提示信息
+    passBlur: passBlur,
+    // 提交
+    subHandle: subHandle,
     // 上传图片更新formUrl地址
     getUrl (val, idx) {
       this.userInfo[idx] = val
     }
   }
 }
-// 对象转formdata
-// function objToFormData (config) { // 对象转formdata格式
-//   let formData = new FormData()
-//   let obj = config.data
-//   let arrayKey = config.arrayKey
-//   for (var i in obj) {
-//     if (this._.isArray(obj[i])) {
-//       obj[i].map(item => {
-//         if (!arrayKey) {
-//           formData.append(i, item)
-//         } else {
-//           formData.append(i + '[]', item)
-//         }
-//       })
-//     } else {
-//       formData.append(i, obj[i])
-//     }
-//   }
-//   return formData
-// }
+// 上一页函数
+function prevHandle (formName) {
+  this.step = this.step > 1 ? this.step - 1 : this.step
+}
+// 下一页函数
+function nextHandle (formName) {
+  // 校验操作
+  this.$refs[formName].validate((valid) => {
+    if (valid) {
+      // 校验成功显示下一步骤
+      this.step = this.step < 3 ? this.step + 1 : this.step
+    }
+  })
+}
+// 显示密码提示信息
+function passFocus () {
+  this.isPassShow = true
+}
+//  隐藏密码提示信息
+function passBlur () {
+  this.isPassShow = false
+}
+// 提交
+function subHandle (formName) {
+  console.log(this.userInfo)
+  this.$refs[formName].validate((valid) => {
+    if (valid) {
+      // 1.处理数据
+      let businessStartDate = this.userInfo.compuDate ? this.userInfo.compuDate[0] : ''
+      let businessEndDate = this.userInfo.compuDate ? this.userInfo.compuDate[1] : ''
+      this.userInfo.registeredCurrencyType = this.userInfo.registeredCurrencyType.toString() // 注册资本币别
+      this.userInfo.paidinCurrencyType = this.userInfo.paidinCurrencyType.toString() // 实收资本币别
+      this.userInfo.businessStartDate = businessStartDate // 营业执照开始日期
+      this.userInfo.businessEndDate = businessEndDate // 营业执照结束日期
+      this.userInfo.bankProvince = this.bankProvinceCity[0] !== undefined ? this.bankProvinceCity[0] : ''
+      this.userInfo.bankCity = this.bankProvinceCity[1] !== undefined ? this.bankProvinceCity[1] : ''
+      // 2.obj转formdata
+      // let p = { data: this.userInfo }
+      // const param = objToFormData.apply(this, [p])
+      // 3.添加图片信息
+      // let arr = ['logoFile', 'licenseFile', 'licenseViceFile', 'organizationFile', 'taxFile']
+      // for (const key of arr) {
+      //   param.append(key, this.$refs[key].file.raw)
+      // }
+      // 4.设置请求头
+      // let config = {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data'
+      //   }
+      // }
+      // 5.传送数据
+      this.axios.post('/cust/userRegister.do', this.userInfo).then(res => {
+        let type = res.data.status ? 'success' : 'error'
+        this.$message({
+          message: res.data.msg,
+          type: type
+        })
+        if (res.data.status) {
+          this.$router.push('/login')
+        }
+      }).catch(err => {
+        this.$message({
+          type: 'info',
+          message: `操作失败${err}`
+        })
+      })
+    }
+  })
+}
 // 获取userInfo格式
 function getUserInfo () {
   return {
-    custUsername: '', // 登陆名
-    custPassword: '', // 登陆密码
-    custNickname: '', // 昵称
-    companyName: '', // 公司名称
-    companyPhone: '', // 公司电话
+    custUsername: 'a', // 登陆名
+    custPassword: 'a', // 登陆密码
+    custNickname: 'a', // 昵称
+    companyName: 'a', // 公司名称
+    companyPhone: '8725585', // 公司电话
     companyPersonSum: 0, // 员工人数
-    companyAddress: '', // 公司详细地址
-    contactPerson: '', // 联系人姓名
-    contactIdcardNum: '', // 联系人身份证
-    contactPhone: '', // 联系人电话
-    contactMail: '', // 联系人邮箱
-    legalPerson: '', // 法人姓名
-    legalIdcardNum: '', // 法人身份证
-    legalPhone: '', // 法人电话
-    legalMail: '', // 法人邮箱
+    companyAddress: 'a', // 公司详细地址
+    contactPerson: 'a', // 联系人姓名
+    contactIdcardNum: '433121199912103562', // 联系人身份证
+    contactPhone: '8725585', // 联系人电话
+    contactMail: '11@qq.com', // 联系人邮箱
+    legalPerson: 'a', // 法人姓名
+    legalIdcardNum: '433121199912103562', // 法人身份证
+    legalPhone: '8725585', // 法人电话
+    legalMail: '11@qq.com', // 法人邮箱
     creditCode: '', // 统一社会信用代码
     licenseNumber: '', // 营业执照编号
     organizationNumber: '', // 组织机构代码编号
@@ -550,4 +569,24 @@ function getUserInfo () {
     accountOpeningBranch: '' // 开户支行
   }
 }
+// 对象转formdata
+// function objToFormData (config) { // 对象转formdata格式
+//   let formData = new FormData()
+//   let obj = config.data
+//   let arrayKey = config.arrayKey
+//   for (var i in obj) {
+//     if (this._.isArray(obj[i])) {
+//       obj[i].map(item => {
+//         if (!arrayKey) {
+//           formData.append(i, item)
+//         } else {
+//           formData.append(i + '[]', item)
+//         }
+//       })
+//     } else {
+//       formData.append(i, obj[i])
+//     }
+//   }
+//   return formData
+// }
 </script>

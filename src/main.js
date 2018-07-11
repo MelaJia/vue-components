@@ -17,8 +17,13 @@ import dateInit from '@/plugs/date'
 import {
   apiUrl
 } from '@/config/env.js'
-import {monitorInit} from '@/monitorDatas'
+import {
+  monitorInit
+} from '@/monitorDatas'
 import Loadsh from 'lodash'
+import preview from 'vue-photo-preview'
+import 'vue-photo-preview/dist/skin.css'
+Vue.use(preview)// 图片预览
 Vue.prototype._ = Loadsh
 Vue.use(dateInit) // 格式化日期注册
 axios.defaults.baseURL = apiUrl
@@ -46,7 +51,6 @@ axios.interceptors.response.use(
     return response
   },
   error => {
-    console.log(error.response)
     if (error.response) {
       switch (error.response.status) {
         case 401:
@@ -60,7 +64,10 @@ axios.interceptors.response.use(
           })
       }
     }
-    return Promise.reject(error.response.data) // 返回接口返回的错误信息
+    if (error.response) {
+      return Promise.reject(error.response.data) // 返回接口返回的错误信息
+    }
+    return Promise.reject(error) // 返回接口返回的错误信息
   })
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false

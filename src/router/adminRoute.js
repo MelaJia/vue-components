@@ -18,40 +18,40 @@ const routes = [
     {
       path: 'fenbo',
       name: 'AR分拨',
-      component: () => import(/* webpackChunkName: 'AR' */ '@/page/admin/ArFenBoList'),
+      component: () => import(/* webpackChunkName: 'admin' */ '@/page/admin/ArFenBoList'),
       meta: {
         requireAuth: true // 需要登录验证
       }
     },
     {
-      path: 'loanreject',
-      name: '拒绝放款查询',
+      path: 'regcmp',
+      name: '注册企业管理',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/LoanRejectList')
+        import(/* webpackChunkName: 'admin' */ '@/page/admin/managers/regCMP')
     },
     {
       path: 'loaned',
       name: '已放款查询',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/LoanedList')
+        import(/* webpackChunkName: 'admin' */ '@/page/funder/LoanedList')
     },
     {
       path: 'loanfinish',
       name: '已完结查询',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/LoanFinishList')
+        import(/* webpackChunkName: 'admin' */ '@/page/funder/LoanFinishList')
     },
     {
       path: 'cstLoanFee',
       name: '客户利率维护',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/LoanFeeList')
+        import(/* webpackChunkName: 'admin' */ '@/page/funder/LoanFeeList')
     },
     {
       path: 'lolanuserinfo',
       name: '个基础信息',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/UserInfo')
+        import(/* webpackChunkName: 'admin' */ '@/page/funder/UserInfo')
     }
     ]
   }

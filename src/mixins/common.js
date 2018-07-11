@@ -1,4 +1,5 @@
 import {loadingConf} from '@/config/common' // 获取加载配置
+import { postDataBase } from '@/util/util' // 发送数据函数
 export default {
   methods: {
     // 时间格式化
@@ -17,6 +18,7 @@ export default {
       }
       return `${val}%`
     },
+    // 来源格式化
     originFormat: function (row, column) {
       return row[column.property] === 1 ? '自有' : '购入'
     },
@@ -68,23 +70,14 @@ export default {
      * @param {str} id 请求参数(ar单号)
      */
     cancelBase (url, id) {
-      // 1.显示加载图标
-      const loading = this.$loading(loadingConf.sub())
-      // 2.发送请求
-      this.axios.post(url, {
+      postDataBase.call(this, url, {
         masterChainId: id
-      }).then(res => {
-        let type = res.data.status ? 'success' : 'error'
-        this.$message({
-          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-          type: type
-        })
-        // 关闭加载图标
-        loading.close()
-        this.$emit('refresh')
-      }).catch((err) => {
-        // 错误提示
-        erroShow.call(this, err, loading)
+      }, true).then(res => {
+        console.log(res)
+        // 操作成功刷新数据
+        if (res && res.data.status) {
+          this.$emit('refresh')
+        }
       })
     },
     // 获取放款详情接口
@@ -108,6 +101,20 @@ export default {
       })
     },
     /**
+     * 操作类基础请求
+     * @param {str} url 请求地址
+     * @param {obj} param 请求参数
+     */
+    postBase (url, param) {
+      postDataBase.call(this, url, param, true).then(res => {
+        console.log(res)
+        // 操作成功刷新数据
+        if (res && res.data.status) {
+          this.$emit('refresh')
+        }
+      })
+    },
+    /**
      * 刷新父页面数据
      * this.$parent.fresh()
      */
@@ -126,6 +133,7 @@ export default {
       }
       return new Date(value).Format('yyyy-MM-dd')
     },
+    // 来源格式化
     originFormat: function (value) {
       return value === 1 ? '自有' : '购入'
     }

@@ -1,5 +1,6 @@
 import Mock from 'mockjs'
 import { Datas, dataDetails, contract, LoanedDatas, DataFee } from './Fund/loanDatas'
+import {regCMPList} from './Admin/arDatas'
 import commonDatas from './Common/common'
 import userInfo from './Suplier/userInfo'
 import subData from './Fund/index'
@@ -39,6 +40,15 @@ const monitorInit = ()=>{
     ],
     "status": true
   })
+  // 注册
+  Mock.mock('https://jurongtest.foxconn.com/sit/cust/userRegister.do', {
+    "data":'',
+    "msg|1":[
+      "失败",
+      "成功"
+    ],
+    "status": true
+  })
    // 分拨
   Mock.mock('https://jurongtest.foxconn.com/sit/discountAudit/approveDiscountAudit.do',{
     "data":"成功",
@@ -57,5 +67,8 @@ const monitorInit = ()=>{
     ],
     "status": true
   })
+  // 企业管理列表
+  Mock.mock('https://jurongtest.foxconn.com/sit/sysRegisteredCompanyManager/getRegisteredCompanyQueryListTable.do', regCMPList)
+
 }
 export {monitorInit}

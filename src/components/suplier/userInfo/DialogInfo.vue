@@ -36,11 +36,11 @@
               <el-input v-model.trim="getForm.payTaxesNumber"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <!-- <el-col :span="8">
             <el-form-item label="供应商代码：" prop="vendorCodes">
               <el-input v-model.trim="getForm.vendorCodes"></el-input>
             </el-form-item>
-          </el-col>
+          </el-col> -->
         </el-row>
         <el-row>
           <el-col :span="8">
@@ -154,9 +154,9 @@ export default {
         payTaxesNumber: [
           { required: false, message: '请输入纳税人识別号', trigger: 'blur' }
         ],
-        vendorCodes: [
-          { required: true, message: '请输入供应商代码', trigger: 'blur' }
-        ],
+        // vendorCodes: [
+        //   { required: true, message: '请输入供应商代码', trigger: 'blur' }
+        // ],
         registeredCapital: [
           { required: false, message: '请填写注册资本', trigger: 'blur' }
           // { type: 'number', message: '资本必须为数字值' }

@@ -210,11 +210,14 @@ export default {
       }
       if (process.env.NODE_ENV === 'development') { // 调试环境
         let res = {
-          data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 2 }
+          data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 2, custNickname: '阿拉斯加大型犬' }
         }
         if (res.data.status) {
           this.$store.commit(types.LOGIN, res.data.token)
           this.$store.commit(types.SETROLE, res.data.custType)
+          this.$store.commit('SET_UINFO', {
+            nickName: res.data.custNickname
+          }) // 保存用户信息
           this.$store.commit('SET_TAG_WEL', {
             label: '首页',
             value: Roles[res.data.custType].layout
@@ -236,6 +239,9 @@ export default {
           if (res.data.status === '1') {
             this.$store.commit(types.LOGIN, res.data.token)
             this.$store.commit(types.SETROLE, res.data.custType)
+            this.$store.commit('SET_UINFO', {
+              nickName: res.data.custNickname
+            }) // 保存用户信息
             this.$store.commit('SET_TAG_WEL', {
               label: '首页',
               value: Roles[res.data.custType].layout

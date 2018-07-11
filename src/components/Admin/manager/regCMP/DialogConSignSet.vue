@@ -8,30 +8,8 @@
     </header>
     <section class="layout form">
       <el-row>
-        <el-col :span="11" class="flex"><label>付款单位:</label>
-           <el-tooltip class="item" effect="dark" :content="detailsP.companyName" placement="top">
-            <span>{{detailsP.companyName}}</span>
-           </el-tooltip>
-        </el-col>
-        <el-col :span="11" :offset="1" class="flex"><label>贴现客户:</label>
-          <el-tooltip class="item" effect="dark" :content="detailsP.custFromName" placement="top">
-            <span>{{detailsP.custFromName}}</span>
-           </el-tooltip>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="22" class="flex"><label>一级供应商:</label>
-          <el-tooltip class="item" effect="dark" :content="detailsP.companyNameOfL1" placement="top">
-            <span>{{detailsP.companyNameOfL1}}</span>
-           </el-tooltip>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="22" class="flex"><label>保理单位:</label>
-          <el-select v-model="form.factoringCustId" clearable placeholder="保理单位">
-            <el-option v-for="(item,index) in factoringCusts" :key="index" :label="item.factoringApId" :value="item.factoringCustId"></el-option>
-          </el-select>
-        </el-col>
+        <el-radio v-model="radio" label="1">电子签章</el-radio>
+        <el-radio v-model="radio" label="2">线下上传</el-radio>
       </el-row>
     </section>
     <footer slot="footer" :style="'clear:both'">
@@ -55,16 +33,10 @@
     text-align: right;
     padding-right: 20px;
     font-weight: 600;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
   }
   > span {
     height: 40px;
     line-height: 40px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
   }
 }
 </style>
@@ -79,11 +51,7 @@ export default {
   mixins: [DialogClose, Common],
   data () {
     return {
-      form: {
-        custId: this.detailsP.custId, // 客户Id
-        buyerCustNo: this.detailsP.buyerCustNo, // 付款法人代码
-        factoringCustId: '' // 保理单位
-      },
+      radio: '1',
       transAmt: 0,
       checkList: [],
       factoringCusts: [{
@@ -93,20 +61,10 @@ export default {
     }
   },
   mounted () {
-    this.axios.post('/commonCust/factoringCustomerList.do').then(res => {
-      if (res.data.status) {
-        this.factoringCusts = res.data.data
-      }
-    }).catch((err) => {
-      this.$message({
-        type: 'info',
-        message: err
-      })
-    })
   },
   computed: {
     getTitle () {
-      return this.detailsP.custFromName
+      return this.detailsP.companyName
     }
   },
   methods: {
@@ -126,24 +84,17 @@ function erroShow (err, loading) {
 }
 // 提交操作
 function submit () {
-  if (this.form.factoringCustId.length <= 0) {
-    this.$message({
-      type: 'warning',
-      message: '请选择保理单位'
-    })
-    return
-  }
   const param = {
     custId: this.detailsP.custId, // 客户Id
-    buyerCustNo: this.detailsP.buyerCustNo, // 付款法人代码
-    factoringCustId: this.form.factoringCustId // 保理单位
+    contractSignedType: this.radio // 付款法人代码
   }
   console.log(param)
   // 显示加载图标
   const loading = this.$loading(loadingConf.sub())
-  this.axios.post('/discountAudit/approveDiscountAudit.do', param).then(res => {
+  this.axios.post('/sysCompanyUserManager/contractSignedTypeConfig.do', param).then(res => {
     let type = res.data.status ? 'success' : 'error'
     this.$message({
+      showClose: true,
       message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
       type: type
     })

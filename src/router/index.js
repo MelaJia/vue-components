@@ -50,6 +50,10 @@ if (getStore({name: 'roles'}) !== undefined && getStore({name: 'roles'}) !== nul
 if (getStore({name: 'tagWel'})) {
   store.commit('SET_TAG_WEL', getStore({name: 'tagWel'}))
 }
+// 页面刷新，重新设置userinfo
+if (getStore({name: 'userinfos'})) {
+  store.commit('SET_UINFO', getStore({name: 'userinfos'}))
+}
 const router = new Router({
   routes
 })

@@ -37,6 +37,36 @@ let check = function (key, smsg, url = '/cust/check') {
     }
   }
 }
+/**
+ * 密码校验
+ * @param {string} key 字段名
+ * @param {string} smsg 提示信息
+ * @param {str} url 地址
+ */
+let checkPass = function (key, smsg, url = '/cust/check') {
+  return (rule, value, callback) => {
+    if (!value) {
+      callback(new Error(`${smsg}不能为空`))
+    } else {
+      let axios = vcg.scope.axios || null
+      if (axios) {
+        axios.post(url, {
+          key: key,
+          value: value
+        }).then(res => {
+          console.log(res)
+          if (res.data.status) {
+            callback()
+          } else {
+            callback(new Error(res.data.msg))
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+    }
+  }
+}
 let validOne = {
   custUsername: [{
     required: true,
@@ -45,7 +75,7 @@ let validOne = {
   }],
   custPassword: [{
     required: true,
-    message: '请输入登录密码',
+    validator: checkPass('custPassword', '登录密码'),
     trigger: 'blur'
   }],
   custNickname: [{

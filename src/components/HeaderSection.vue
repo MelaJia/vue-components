@@ -9,7 +9,7 @@
       <div class="header-right">
         <el-button type="danger" size="medium" :class="'process'" icon="el-icon-caret-right">您的工作进度</el-button>
         <el-dropdown @command="handleCommand">
-          <span>早安，李先生<img src="@/assets/img/juxin_18.png" alt=""></span>
+          <span style="color:#fff">早安，{{this.$store.state.user.userinfos.nickName}}<img src="@/assets/img/juxin_18.png" alt=""></span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="logout">退出</el-dropdown-item>
           </el-dropdown-menu>

@@ -1,23 +1,26 @@
 <template>
   <div class="main index-style">
     <div class="header">
-      <h3>供应商资产概况</h3>
+      <h3>保理商资产概况</h3>
     </div>
     <div class="content left-right">
+      <!-- 左侧部分 -->
       <div class="float-left" style="position:relative">
-        <!-- 图形区域 -->
+        <!-- 图表区域 -->
         <div ref="pie" id="pie" style="width: 700px;height:600px;"></div>
-         <!-- 底部链接区域 -->
+        <!-- 底部链接区域 -->
         <div class="url-section">
           <div class="bg-style bg-blue">
-            <router-link to="loan">去贴现/转让></router-link>
+            <router-link to="loan">去放款></router-link>
           </div>
-           <div class="bg-style bg-gray">
-            <router-link to="cstLoanFee">往来明细></router-link>
+           <div class="bg-style bg-none">
+            <router-link to="cstLoanFee">供应商概况表></router-link>
           </div>
         </div>
       </div>
+      <!-- 右侧部分 -->
       <div class="float-right">
+        <!-- 2部分数据 -->
         <div v-for="(item,idx) in dataArr" class="text-content" :style="'background:'+item.bcolor" :key="idx">
           <div class="float-left text">
             <p class="t1">{{item.title}}</p>
@@ -34,11 +37,25 @@
               </ul>
             </div>
           </div>
-          <div class="float-right">
+          <div class="float-right w-100">
             <div class="url">
-              <router-link :to="item.path">查看明细</router-link>
+              <router-link :to="item.path">查看明细></router-link>
             </div>
             <pie :num="item.firData" :total="item.secData" :color="color[idx]"></pie>
+          </div>
+        </div>
+        <!-- 只有单一数据 -->
+        <div v-for="(item,idx) in dataTArr" class="text-content total-style" :style="'background:'+item.bcolor" :key="idx">
+          <div class="float-left text">
+            <p class="t1">{{item.title}}</p>
+            <p class="line"></p>
+            <p class="t1" style="margin-top:5px">总金额:</p>
+            <p class="t1 val-text">{{item.totalData.value}}万元</p>
+          </div>
+          <div class="float-right w-100">
+            <div class="url">
+              <router-link :to="item.path">{{idx==0?'去放款>':'查看明细>'}}</router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -51,8 +68,8 @@
 }
 
 .content.left-right {
-    width: 1200px;
-    margin: auto;
+  width: 1200px;
+  margin: auto;
 }
 .index-style {
   min-width: 1102px;
@@ -60,13 +77,15 @@
 .index-style > .header {
   text-align: center;
 }
+.w-100 {
+  width: 100px;
+}
 .float-left {
   float: left;
 }
 .float-right {
   float: right;
 }
-/* 右侧方形图左边区域样式 */
 .float-left.text {
   width: 250px;
   padding: 5px 20px;
@@ -111,14 +130,12 @@ li {
 .url > a {
   color: #fff;
 }
-/* 链接样式 */
-.url-section {
-    position: absolute;
-    bottom: 0px;
-    left: 150px;
+.val-text {
+  margin-top: 10px;
+  font-weight: 700;
 }
+/* 链接样式 */
 .bg-style {
-  display: inline-block;
   width: 200px;
   margin: auto;
   text-align: center;
@@ -127,11 +144,16 @@ li {
 .bg-blue {
   background: #2e75b6;
 }
-.bg-gray{
-  background: #7f7f7f;
-}
-.bg-blue > a,.bg-gray>a {
+.bg-blue > a {
   color: #fff;
+}
+.bg-none>a{
+  color:#9e400f
+}
+.url-section {
+    position: absolute;
+    bottom: 0px;
+    left: 250px;
 }
 </style>
 
@@ -151,56 +173,45 @@ export default {
     return {
       dataArr: [
         {
-          title: '未贴现/转让', // 标题
+          title: '放款中', // 标题
           firData: { // 第一个数据
             value: 515,
-            name: '可以金额'
+            name: '已放款金额'
           },
           secData: { // 第二个数据
             value: 3515,
-            name: '冻结金额'
+            name: '审核中金额'
           },
-          path: 'myar', // 路径
+          path: 'loan', // 路径
           bcolor: '#5b9bd5' // 背景色
-
-        },
+        }
+      ],
+      dataTArr: [
         {
-          title: '已转让', // 标题
-          firData: { // 第一个数据
+          title: '待放款', // 标题
+          totalData: {
             value: 515,
-            name: '未到期金额'
+            name: '总金额'
           },
-          secData: { // 第二个数据
-            value: 3515,
-            name: '已到期金额'
-          },
-          path: 'cancelar', // 路径
+          path: 'loan', // 路径
           bcolor: '#f1bd00' // 背景色
         },
         {
-          title: '已贴现', // 标题
-          firData: { // 第一个数据
+          title: '拒绝放款', // 标题
+          totalData: { // 第一个数据
             value: 515,
-            name: '未到期金额'
+            name: '总金额'
           },
-          secData: { // 第二个数据
-            value: 3515,
-            name: '已到期金额'
-          },
-          path: 'myar', // 路径
+          path: 'loanreject', // 路径
           bcolor: '#f67b28' // 背景色
         },
         {
-          title: '已接收', // 标题
-          firData: { // 第一个数据
+          title: '已完结', // 标题
+          totalData: { // 第一个数据
             value: 515,
-            name: '未到期金额'
+            name: '总金额'
           },
-          secData: { // 第二个数据
-            value: 3515,
-            name: '已到期金额'
-          },
-          path: 'getar', // 路径
+          path: 'loaned', // 路径
           bcolor: '#9a9a9a' // 背景色
         }
       ],
@@ -217,20 +228,10 @@ export default {
     var scale = 1
     var echartData = [{
       value: 3854,
-      name: '未贴现/转让金额'
+      name: '放款中金额'
     }, {
       value: 3515,
-      name: '已转让金额'
-    }, {
-      value: 3515,
-      name: '已贴现金额'
-    }, {
-      value: 3854,
-      name: '已接收金额'
-    },
-    {
-      value: 254,
-      name: '待接收金额'
+      name: '待放款金额'
     }]
     var rich = {
       yellow: {
@@ -320,7 +321,7 @@ export default {
         },
         labelLine: {
           normal: {
-            length: 55 * scale,
+            length: 30 * scale,
             length2: 10,
             lineStyle: {
               color: '#0b5263'

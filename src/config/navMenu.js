@@ -183,6 +183,20 @@ const navs = {
   admin: {
     navItems: [{
       idx: '1',
+      text: '企业/用户管理',
+      disabled: false,
+      lClass: 'start-line',
+      hClass: 'header-circle bg-icon-1',
+      childrens: [{
+        idx: 'regcmp',
+        text: '注册企业管理',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      }]
+    },
+    {
+      idx: '2',
       text: '业务处理',
       disabled: false,
       lClass: 'start-line',

@@ -1,6 +1,6 @@
 <template>
   <nav class="nav-menu">
-    <el-menu :default-active="activeidx" :router="true" text-color="#000" active-text-color="#005ac8" class="el-menu-demo" mode="vertical"
+    <el-menu :default-active="activeidx" :router="true" unique-opened text-color="#000" active-text-color="#005ac8" class="el-menu-demo" mode="vertical"
       @select="handleSelect">
       <section v-for="item in navItems" :key="item.idx">
         <el-submenu v-if="item.childrens" :index="item.idx">
@@ -43,7 +43,7 @@
   ul li.el-menu-item.is-active {
     &::before{
       background: $navbg-item-hover;
-      width: 100%;
+      width: 136px;
     }
     .circle {
       border: 1px solid white;
@@ -72,7 +72,7 @@
   .el-menu-item:hover{
     &::before {
       background: $navbg-item-hover;
-      width: 100%;
+      width: 136px;
     }
     .circle {
       border: 1px solid white;

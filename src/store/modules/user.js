@@ -7,7 +7,7 @@ export default {
   state: {
     token: null,
     roles: null,
-    ssoId: ''
+    userinfos: null
   },
   mutations: {
     [types.LOGIN]: (state, data) => {
@@ -28,6 +28,11 @@ export default {
         name: 'roles'
       })
       state.roles = null
+      // 清除用户信息
+      removeStore({
+        name: 'userinfos'
+      })
+      state.userinfos = null
     },
     [types.SETROLE]: (state, data) => {
       state.roles = data
@@ -36,8 +41,12 @@ export default {
         content: state.roles
       })
     },
-    setSsoId: (state, data) => {
-      state.ssoId = data
+    SET_UINFO: (state, data) => {
+      state.userinfos = data
+      setStore({
+        name: 'userinfos',
+        content: state.userinfos
+      })
     }
   }
 }

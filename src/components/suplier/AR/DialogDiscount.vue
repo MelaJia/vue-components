@@ -118,6 +118,13 @@ export default {
       checkList: []
     }
   },
+  watch: {
+    getTitle: function () {
+      // 已选发票置空
+      console.log('发票置空')
+      this.checkList = []
+    }
+  },
   computed: {
     getTitle () {
       return this.detailsP.masterChainId + '贴现'
