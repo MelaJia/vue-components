@@ -69,6 +69,37 @@ const monitorInit = ()=>{
   })
   // 企业管理列表
   Mock.mock('https://jurongtest.foxconn.com/sit/sysRegisteredCompanyManager/getRegisteredCompanyQueryListTable.do', regCMPList)
+  // 首页数据
+  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchIndexList.do', {
+    "data":{
+      "unOperateSumAmout": function() {
+        return this.unOperateAvailableAmout+this.unOperateExpiredAmout
+      },
+      "unOperateAvailableAmout|100-2000": 500,
+      "unOperateExpiredAmout|100-2000": 500,
+      "transferedSumAmout|100-2000": function() {
+        return this.transferedAvailableAmout+this.transferedExpiredAmout
+      },
+      "transferedAvailableAmout|100-2000": 500,
+      "transferedExpiredAmout|100-2000": 500,
+      "discountedSumAmout|100-2000": function() {
+        return this.discountedAvailableAmout+this.discountedExpiredAmout
+      },
+      "discountedAvailableAmout|100-2000": 500,
+      "discountedExpiredAmout|100-2000": 500,
+      "receivedSumAmout|100-2000": function() {
+        return this.receivedAvailableAmout+this.receivedExpiredAmout
+      },
+      "receivedAvailableAmout|100-2000": 500,
+      "receivedExpiredAmout|100-2000": 500,
+      "onReceiveAmout|100-2000": 500,
+    },
+    "msg|1":[
+      "失败",
+      "成功"
+    ],
+    "status": true
+  })
 
 }
 export {monitorInit}

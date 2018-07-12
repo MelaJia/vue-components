@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="float-right">
-        <div v-for="(item,idx) in dataArr" class="text-content" :style="'background:'+item.bcolor" :key="idx">
+        <div v-for="(item,idx) in rightDataArr" class="text-content" :style="'background:'+item.bcolor" :key="idx">
           <div class="float-left text">
             <p class="t1">{{item.title}}</p>
             <p class="line"></p>
@@ -51,9 +51,9 @@
 }
 
 .content.left-right {
-    width: 1200px;
-    margin: auto;
-    overflow: auto;
+  width: 1200px;
+  margin: auto;
+  overflow: auto;
 }
 .index-style {
   min-width: 1102px;
@@ -114,9 +114,9 @@ li {
 }
 /* 链接样式 */
 .url-section {
-    position: absolute;
-    bottom: 0px;
-    left: 150px;
+  position: absolute;
+  bottom: 0px;
+  left: 150px;
 }
 .bg-style {
   display: inline-block;
@@ -128,10 +128,11 @@ li {
 .bg-blue {
   background: #2e75b6;
 }
-.bg-gray{
+.bg-gray {
   background: #7f7f7f;
 }
-.bg-blue > a,.bg-gray>a {
+.bg-blue > a,
+.bg-gray > a {
   color: #fff;
 }
 </style>
@@ -150,7 +151,8 @@ export default {
   components: { Pie },
   data () {
     return {
-      dataArr: [
+      sortArr: [{ key: 'unOperate', text: '未贴现/转让金额' }, { key: 'transfered', text: '已转让金额' }, { key: 'discounted', text: '已贴现金额' }, { key: 'received', text: '已接收金额' }],
+      rightDataArr: [
         {
           title: '未贴现/转让', // 标题
           firData: { // 第一个数据
@@ -210,130 +212,144 @@ export default {
   },
   mounted () {
     // 获取容器
-    var dom = this.$refs.pie
-    // 基于准备好的dom，初始化echarts实例
-    console.log(dom)
-    let myChart = echarts.init(document.getElementById('pie'))
-    // 设置数据
-    var scale = 1
-    var echartData = [{
-      value: 3854,
-      name: '未贴现/转让金额'
-    }, {
-      value: 3515,
-      name: '已转让金额'
-    }, {
-      value: 3515,
-      name: '已贴现金额'
-    }, {
-      value: 3854,
-      name: '已接收金额'
-    },
-    {
-      value: 254,
-      name: '待接收金额'
-    }]
-    var rich = {
-      yellow: {
-        color: '#ffc72b',
-        fontSize: 30 * scale,
-        padding: [5, 0],
-        align: 'center'
-      },
-      total: {
-        color: '#000',
-        fontSize: 30 * scale,
-        fontWeight: 600,
-        align: 'center'
-      },
-      white: {
-        align: 'center',
-        fontSize: 14 * scale,
-        padding: [0, 0]
-      },
-      blue: {
-        color: '#49dff0',
-        fontSize: 16 * scale,
-        align: 'center'
-      },
-      hr: {
-        borderColor: '#0b5263',
-        width: '100%',
-        borderWidth: 1,
-        height: 0
-      },
-      per: {
-        color: '#eee',
-        backgroundColor: '#334455',
-        padding: [2, 4],
-        borderRadius: 2
+    let dom = this.$refs.pie
+    let myChart = echarts.init(dom)
+    // 获取数据
+    ge.call(this).then(res => {
+      // 设置数据
+      let echartData = res
+      // 设置option
+      let option = getOptions(echartData)
+      // 绘制图表
+      myChart.setOption(option)
+    })
+  }
+}
+// 获取数据
+function getdata (scope) {
+  // 基于准备好的dom，初始化echarts实例
+  return scope.axios.post('auxiliaryFunction/searchIndexList.do').then(res => {
+    const arr = []
+    for (const key in scope.sortArr) {
+      if (scope.sortArr.hasOwnProperty(key)) {
+        const element = scope.sortArr[key]
+        // 设置右侧列表数据
+        scope.rightDataArr[key].firData.value = res.data.data[`${element.key}AvailableAmout`]
+        scope.rightDataArr[key].secData.value = res.data.data[`${element.key}ExpiredAmout`]
+        // 填充饼图数据
+        arr.push({ value: res.data.data[`${element.key}SumAmout`], name: element.text })
       }
     }
-    let option = {
-      title: {
-        text: '总额度(万元)',
-        left: 'center',
-        top: '50%',
-        padding: [24, 0],
-        textStyle: {
-          color: '#000',
-          fontSize: 16 * scale,
-          align: 'center'
-        }
+    arr.push({ value: res.data.data['onReceiveAmout'], name: '待接收金额' })
+    return arr
+  })
+}
+// 异步获取数据
+async function ge () {
+  // 等待获取数据
+  const t = await getdata(this)
+  return t
+}
+// 配置option
+function getOptions (echartData) {
+  let scale = 1
+  let rich = {
+    yellow: {
+      color: '#ffc72b',
+      fontSize: 30 * scale,
+      padding: [5, 0],
+      align: 'center'
+    },
+    total: {
+      color: '#000',
+      fontSize: 30 * scale,
+      fontWeight: 600,
+      align: 'center'
+    },
+    white: {
+      align: 'center',
+      fontSize: 14 * scale,
+      padding: [0, 0]
+    },
+    blue: {
+      color: '#49dff0',
+      fontSize: 16 * scale,
+      align: 'center'
+    },
+    hr: {
+      borderColor: '#0b5263',
+      width: '100%',
+      borderWidth: 1,
+      height: 0
+    },
+    per: {
+      color: '#eee',
+      backgroundColor: '#334455',
+      padding: [2, 4],
+      borderRadius: 2
+    }
+  }
+  return {
+    title: {
+      text: '总额度(万元)',
+      left: 'center',
+      top: '50%',
+      padding: [24, 0],
+      textStyle: {
+        color: '#000',
+        fontSize: 16 * scale,
+        align: 'center'
+      }
+    },
+    tooltip: {
+      trigger: 'item',
+      formatter: '{b}: {c} ({d}%)'
+    },
+    legend: {
+      selectedMode: false,
+      formatter: function (name) {
+        var total = 0 // 总和
+        echartData.forEach(function (value, index, array) {
+          total += value.value
+        })
+        return '{total|' + total + '}'
       },
-      tooltip: {
-        trigger: 'item',
-        formatter: '{b}: {c} ({d}%)'
-      },
-      legend: {
-        selectedMode: false,
-        formatter: function (name) {
-          var total = 0 // 总和
-          echartData.forEach(function (value, index, array) {
-            total += value.value
-          })
-          return '{total|' + total + '}'
-        },
-        data: [echartData[0].name],
-        left: 'center',
-        top: '45%',
-        icon: 'none',
-        align: 'center',
-        textStyle: {
-          color: '#000',
-          fontSize: 16 * scale,
+      data: [echartData[0].name],
+      left: 'center',
+      top: '45%',
+      icon: 'none',
+      align: 'center',
+      textStyle: {
+        color: '#000',
+        fontSize: 16 * scale,
+        rich: rich
+      }
+    },
+    series: [{
+      name: '总考生数量',
+      type: 'pie',
+      radius: ['27%', '50%'],
+      hoverAnimation: false,
+      color: ['#5b9bd5', '#ed7d31', '#a5a5a5', '#ffc000', '#4472c4'],
+      label: {
+        normal: {
+          formatter: function (params, ticket, callback) {
+            return `{white|${params.name}: ${params.value}万元 }\n{per|${params.percent}%}`
+          },
           rich: rich
         }
       },
-      series: [{
-        name: '总考生数量',
-        type: 'pie',
-        radius: ['27%', '50%'],
-        hoverAnimation: false,
-        color: ['#5b9bd5', '#ed7d31', '#a5a5a5', '#ffc000', '#4472c4'],
-        label: {
-          normal: {
-            formatter: function (params, ticket, callback) {
-              return `{white|${params.name}: ${params.value}万元 }\n{per|${params.percent}%}`
-            },
-            rich: rich
+      labelLine: {
+        normal: {
+          length: 55 * scale,
+          length2: 10,
+          lineStyle: {
+            color: '#0b5263'
           }
-        },
-        labelLine: {
-          normal: {
-            length: 55 * scale,
-            length2: 10,
-            lineStyle: {
-              color: '#0b5263'
-            }
-          }
-        },
-        data: echartData
-      }]
-    }
-    console.log(option)
-    // 绘制图表
-    myChart.setOption(option)
+        }
+      },
+      data: echartData
+    }]
   }
 }
 </script>
