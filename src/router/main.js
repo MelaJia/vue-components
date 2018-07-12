@@ -1,6 +1,6 @@
 const routes = [{
   path: '/',
-  redirect: '/main/myar'
+  redirect: '/main/index'
 },
 {
   path: '/main',
@@ -8,7 +8,7 @@ const routes = [{
     import('@/layout/Main'),
   children: [{
     path: '/',
-    redirect: 'myar'
+    redirect: 'index'
   },
   // {
   //   path: 'plan',
@@ -20,117 +20,130 @@ const routes = [{
   // },
   {
     path: 'myar',
-    name: '我的AR',
+    name: 'myar',
     component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/MyAr'),
     meta: {
+      title: '我的AR', // 名称
       requireAuth: true // 需要登录验证
     }
   },
   {
     path: 'getar',
-    name: '待收AR',
+    name: 'getar',
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/GetAr'),
     meta: {
+      title: '待收AR', // 名称
       requireAuth: true // 需要登录验证
     }
   },
   {
     path: 'cancelar',
-    name: '取消转让',
+    name: 'cancelar',
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/CancelAr'),
     meta: {
+      title: '取消转让', // 名称
       requireAuth: true // 需要登录验证
     }
   },
   {
     path: 'historyar',
-    name: '历史AR',
+    name: 'historyar',
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/HistoryAr'),
     meta: {
+      title: '历史AR', // 名称
       requireAuth: true // 需要登录验证
     }
   },
   {
-    path: 'data',
-    name: '数据信息',
+    path: 'index',
+    name: 'index',
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/Index'),
     meta: {
+      title: '首页', // 名称
       requireAuth: true // 需要登录验证
     }
   },
   {
     path: 'userinfo',
-    name: '基础信息',
+    name: 'userinfo',
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/UserInfo'),
     meta: {
+      title: '基础信息', // 名称
       requireAuth: true // 需要登录验证
     }
   },
   {
     path: 'ordersearch',
-    name: '我的订单',
+    name: 'ordersearch',
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/auxiliarySelect/OrderSearch'),
     meta: {
+      title: '我的订单', // 名称
       requireAuth: true // 需要登录验证
     }
   },
   {
     path: 'acceptsearch',
-    name: '我的验收单',
+    name: 'acceptsearch',
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/auxiliarySelect/AcceptanceSearch'),
     meta: {
+      title: '我的验收单', // 名称
       requireAuth: true // 需要登录验证
     }
   },
   {
     path: 'mybill',
-    name: '我的对账单',
+    name: 'mybill',
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/auxiliarySelect/MyBill'),
     meta: {
+      title: '我的对账单', // 名称
       requireAuth: true // 需要登录验证
     }
   },
   {
     path: 'mypayer',
-    name: '我的付款单',
+    name: 'mypayer',
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/auxiliarySelect/MyPayer'),
     meta: {
+      title: '我的付款单', // 名称
       requireAuth: true // 需要登录验证
     }
   },
   {
     path: 'myinvoice',
-    name: '我的发票',
+    name: 'myinvoice',
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/auxiliarySelect/MyInvoice'),
     meta: {
+      title: '我的发票', // 名称
       requireAuth: true // 需要登录验证
     }
   },
   {
     path: 'mysubmit',
-    name: '我的结报',
+    name: 'mysubmit',
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/auxiliarySelect/MySubmit'),
     meta: {
+      title: '我的结报', // 名称
       requireAuth: true // 需要登录验证
     }
   },
   {
     path: 'myarrear',
-    name: '我的欠款',
+    name: 'myarrear',
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/auxiliarySelect/MyArrear'),
     meta: {
+      title: '我的欠款', // 名称
       requireAuth: true // 需要登录验证
     }
   }

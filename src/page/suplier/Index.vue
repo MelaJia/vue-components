@@ -53,6 +53,7 @@
 .content.left-right {
     width: 1200px;
     margin: auto;
+    overflow: auto;
 }
 .index-style {
   min-width: 1102px;
@@ -74,10 +75,10 @@
 }
 .text-content {
   width: 400px;
-  height: 120px;
+  height: 130px;
   color: #fff;
   border: solid 1px;
-  border-radius: 5px;
+  border-radius: 15px;
   margin-top: 10px;
 }
 .t1 {

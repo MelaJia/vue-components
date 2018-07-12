@@ -17,102 +17,90 @@ const routes = [
     // },
     {
       path: 'fenbo',
-      name: 'AR分拨',
+      name: 'fenbo',
       component: () => import(/* webpackChunkName: 'admin' */ '@/page/admin/ArFenBoList'),
       meta: {
+        title: 'AR分拨', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'regcmp',
-      name: '注册企业管理',
+      name: 'regcmp',
       component: () =>
-        import(/* webpackChunkName: 'admin' */ '@/page/admin/managers/regCMP')
-    },
-    {
-      path: 'loaned',
-      name: '已放款查询',
-      component: () =>
-        import(/* webpackChunkName: 'admin' */ '@/page/funder/LoanedList')
-    },
-    {
-      path: 'loanfinish',
-      name: '已完结查询',
-      component: () =>
-        import(/* webpackChunkName: 'admin' */ '@/page/funder/LoanFinishList')
-    },
-    {
-      path: 'cstLoanFee',
-      name: '客户利率维护',
-      component: () =>
-        import(/* webpackChunkName: 'admin' */ '@/page/funder/LoanFeeList')
-    },
-    {
-      path: 'lolanuserinfo',
-      name: '个基础信息',
-      component: () =>
-        import(/* webpackChunkName: 'admin' */ '@/page/funder/UserInfo')
+        import(/* webpackChunkName: 'admin' */ '@/page/admin/managers/regCMP'),
+      meta: {
+        title: '注册企业管理', // 名称
+        requireAuth: true // 需要登录验证
+      }
     },
     {
       path: 'ordersearch',
-      name: '我的订单',
+      name: 'ordersearchAdminAdmin',
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/admin/auxiliarySelect/OrderSearch'),
       meta: {
+        title: '我的订单', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'acceptsearch',
-      name: '我的验收单',
+      name: 'acceptsearchAdmin',
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/admin/auxiliarySelect/AcceptanceSearch'),
       meta: {
+        title: '我的验收单', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'mybill',
-      name: '我的对账单',
+      name: 'mybillAdmin',
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/admin/auxiliarySelect/MyBill'),
       meta: {
+        title: '我的对账单', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'mypayer',
-      name: '我的付款单',
+      name: 'mypayerAdmin',
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/admin/auxiliarySelect/MyPayer'),
       meta: {
+        title: '我的付款单', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'myinvoice',
-      name: '我的发票',
+      name: 'myinvoiceAdmin',
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/admin/auxiliarySelect/MyInvoice'),
       meta: {
+        title: '我的发票', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'mysubmit',
-      name: '我的结报',
+      name: 'mysubmitAdmin',
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/admin/auxiliarySelect/MySubmit'),
       meta: {
+        title: '我的结报', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'myarrear',
-      name: '我的欠款',
+      name: 'myarrearAdmin',
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/admin/auxiliarySelect/MyArrear'),
       meta: {
+        title: '我的欠款', // 名称
         requireAuth: true // 需要登录验证
       }
     }

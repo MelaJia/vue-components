@@ -21,27 +21,27 @@
       <!-- 右侧部分 -->
       <div class="float-right">
         <!-- 2部分数据 -->
-        <div v-for="(item,idx) in dataArr" class="text-content" :style="'background:'+item.bcolor" :key="idx">
+        <div  class="text-content" :style="'background:'+dataArr[0].bcolor">
           <div class="float-left text">
-            <p class="t1">{{item.title}}</p>
+            <p class="t1">{{dataArr[0].title}}</p>
             <p class="line"></p>
-            <p class="t1" style="margin-top:5px">总金额: <span>{{item.firData.value+item.secData.value}}万元</span></p>
+            <p class="t1" style="margin-top:5px">总金额: <span>{{dataArr[0].firData.value+dataArr[0].secData.value}}万元</span></p>
             <div class="t2">
               <ul>
-                <li>{{item.firData.name}}</li>
-                <li>{{item.secData.name}}</li>
+                <li>{{dataArr[0].firData.name}}</li>
+                <li>{{dataArr[0].secData.name}}</li>
               </ul>
               <ul>
-                <li>{{item.firData.value}}万元</li>
-                <li>{{item.secData.value}}万元</li>
+                <li>{{dataArr[0].firData.value}}万元</li>
+                <li>{{dataArr[0].secData.value}}万元</li>
               </ul>
             </div>
           </div>
           <div class="float-right w-100">
             <div class="url">
-              <router-link :to="item.path">查看明细></router-link>
+              <router-link :to="dataArr[0].path">查看明细></router-link>
             </div>
-            <pie :num="item.firData" :total="item.secData" :color="color[idx]"></pie>
+            <pie :num="dataArr[0].firData" :total="dataArr[0].secData" :color="color[0]"></pie>
           </div>
         </div>
         <!-- 只有单一数据 -->

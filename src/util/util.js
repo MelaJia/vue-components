@@ -470,7 +470,13 @@ export const getDataBase = function (url, param, showLoading) {
     }
   }).catch((err) => {
     // 错误提示
-    erroShow.call(this, err, loading)
+    // 显示加载框则弹窗提示框
+    if(showLoading){
+      erroShow.call(this, err, loading)
+    }else{
+      //否则报错输出
+      throw new Error(err)
+    }
   })
 }
 /**
@@ -502,7 +508,12 @@ export const postDataBase = function (url, param, showLoading) {
     }
     return res
   }).catch((err) => {
-    // 错误提示
-    erroShow.call(this, err, loading)
+    // 显示加载框则弹窗提示框
+    if(showLoading){
+      erroShow.call(this, err, loading)
+    }else{
+      //否则报错输出
+      throw new Error(err)
+    }
   })
 }

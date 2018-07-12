@@ -60,7 +60,8 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
   const value = to.query.src ? to.query.src : to.path
-  const label = to.query.name ? to.query.name : to.name
+  const label = to.query.name ? to.query.name : to.meta.title
+  console.log(label)
   if (whiteList.indexOf(value) === -1 && store.getters.roles !== undefined && store.getters.roles !== null) {
     if (Roles[store.getters.roles].layout === to.matched[0].path) {
       store.commit('ADD_TAG', {

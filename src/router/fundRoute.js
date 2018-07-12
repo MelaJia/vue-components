@@ -5,129 +5,143 @@ const routes = [
       import('@/layout/Fund'),
     children: [{
       path: '/',
-      redirect: 'loan'
+      redirect: 'index'
     },
     {
       path: 'index',
-      name: 'PlanTable',
+      name: 'indexFund',
       meta: {
-        requireAuth: false // 需要登录验证
+        title: '首页', // 名称
+        requireAuth: true // 需要登录验证
       },
       component: () => import(/* webpackChunkName: 'Fund' */ '@/page/funder/Index')
     },
     {
       path: 'loan',
-      name: '放款处理',
+      name: 'loan',
       component: () => import(/* webpackChunkName: 'Fund' */ '@/page/funder/LoanList'),
       meta: {
+        title: '放款处理', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'loanreject',
-      name: '拒绝放款查询',
+      name: 'loanreject',
       component: () =>
         import(/* webpackChunkName: 'Fund' */ '@/page/funder/LoanRejectList'),
       meta: {
+        title: '拒绝放款查询', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'loaned',
-      name: '已放款查询',
+      name: 'loaned',
       component: () =>
         import(/* webpackChunkName: 'Fund' */ '@/page/funder/LoanedList'),
       meta: {
+        title: '已放款查询', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'loanfinish',
-      name: '已完结查询',
+      name: 'loanfinish',
       component: () =>
         import(/* webpackChunkName: 'Fund' */ '@/page/funder/LoanFinishList'),
       meta: {
+        title: '已完结查询', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'cstLoanFee',
-      name: '客户利率维护',
+      name: 'cstLoanFee',
       component: () =>
         import(/* webpackChunkName: 'Fund' */ '@/page/funder/LoanFeeList'),
       meta: {
+        title: '客户利率维护', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'lolanuserinfo',
-      name: '个基础信息',
+      name: 'lolanuserinfo',
       component: () =>
         import(/* webpackChunkName: 'Fund' */ '@/page/funder/UserInfo'),
       meta: {
+        title: '个基础信息', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'ordersearch',
-      name: '我的订单',
+      name: 'ordersearchFund',
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/OrderSearch'),
       meta: {
+        title: '我的订单', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'acceptsearch',
-      name: '我的验收单',
+      name: 'acceptsearchFund',
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/AcceptanceSearch'),
       meta: {
+        title: '我的验收单', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'mybill',
-      name: '我的对账单',
+      name: 'mybillFund',
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyBill'),
       meta: {
+        title: '我的对账单', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'mypayer',
-      name: '我的付款单',
+      name: 'mypayerFund',
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyPayer'),
       meta: {
+        title: '我的付款单', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'myinvoice',
-      name: '我的发票',
+      name: 'myinvoiceFund',
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyInvoice'),
       meta: {
+        title: '我的发票', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'mysubmit',
-      name: '我的结报',
+      name: 'mysubmitFund',
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MySubmit'),
       meta: {
+        title: '我的结报', // 名称
         requireAuth: true // 需要登录验证
       }
     },
     {
       path: 'myarrear',
-      name: '我的欠款',
+      name: 'myarrearFund',
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyArrear'),
       meta: {
+        title: '我的欠款', // 名称
         requireAuth: true // 需要登录验证
       }
     }

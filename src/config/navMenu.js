@@ -67,6 +67,12 @@ const navs = {
         disabled: false,
         lClass: 'line',
         hClass: 'circle'
+      }, {
+        idx: 'index',
+        text: '首页',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
       }
       ]
     },
@@ -177,6 +183,13 @@ const navs = {
         hClass: 'circle'
       }
       ]
+    },
+    {
+      idx: 'index',
+      text: '首页',
+      disabled: false,
+      lClass: 'line',
+      hClass: 'header-circle bg-icon-2'
     }
     ]
   },
