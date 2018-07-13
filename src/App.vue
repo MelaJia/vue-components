@@ -22,6 +22,11 @@ export default {
         width: 1150px;
     }
 }
+@media screen and (min-width: 1431px) and (max-width: 1483px){
+  .body:first-child .el-card__body {
+        width: 1150px;
+    }
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

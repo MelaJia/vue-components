@@ -423,8 +423,11 @@ body {
 }
 
 .dataTotal {
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+  right: 0;
   background-color: white;
-  padding-top: 30px;
   padding-bottom: 60px;
 }
 
@@ -518,9 +521,6 @@ body {
   margin-bottom: 50px;
 }
 
-.dataTotal {
-  padding-top: 50px;
-}
 
 .dataTotal .financeClub {
   margin-top: 40px;

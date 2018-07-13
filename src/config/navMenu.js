@@ -173,16 +173,16 @@ const navs = {
     {
       idx: '2',
       text: '客户资料',
-      disabled: true,
-      lClass: 'line',
-      hClass: 'header-circle bg-icon-2'
-    },
-    {
-      idx: 'cstLoanFee',
-      text: '客户利率维护',
       disabled: false,
       lClass: 'line',
-      hClass: 'header-circle bg-icon-2'
+      hClass: 'header-circle bg-icon-2',
+      childrens: [{
+        idx: 'cstLoanFee',
+        text: '客户利率维护',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      }]
     },
     {
       idx: '3',
