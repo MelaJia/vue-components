@@ -36,7 +36,7 @@
           <span>生产单位代码: <em>{{this.detailsP.bmCode}}</em></span>
         </li>
         <li>
-          <span>关系单位: <em>{{this.detailsP.isRelativeParty}}</em></span>
+          <span>关系单位: <em>{{this.detailsP.isRelativePartyName}}</em></span>
         </li>
       </ul>
       <ul>

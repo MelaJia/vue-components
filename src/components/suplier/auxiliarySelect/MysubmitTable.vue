@@ -15,7 +15,7 @@
               </el-table-column>
               <el-table-column align="center" prop="billNo" :width="widthArr.billNo">
               </el-table-column>
-              <el-table-column align="center" prop="invoiceNo" :width="widthArr.invList">
+              <el-table-column align="center" prop="invoiceNo" :width="widthArr.invoiceNo">
               </el-table-column>
               <el-table-column align="center" prop="corpCode" :width="widthArr.corpCode">
               </el-table-column>
@@ -54,7 +54,7 @@
         </el-table-column>
         <el-table-column align="center" label="结报单号" fixed sortable prop="billNo" width="150">
         </el-table-column>
-        <el-table-column align="center" label="发票单号" prop="invList" width="150">
+        <el-table-column align="center" label="发票单号" prop="invoiceNo" width="150">
         </el-table-column>
         <el-table-column align="center" label="法人代码" prop="corpCode" width="180">
         </el-table-column>
@@ -127,7 +127,7 @@ export default {
       filedetails: {},
       widthArr: {
         billNo: '150',
-        invList: '150',
+        invoice: '150',
         corpCode: '180',
         corpName: '180',
         dueDate: '120',

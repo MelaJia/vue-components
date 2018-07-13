@@ -45,7 +45,7 @@
         </li>
       </ul>
       <ul>
-        <span>发票单号: <em v-for="(item, index) in detailsP.invoiceDetail" :key="index">{{item.statementNo}}</em></span>
+        <span>发票单号: <em v-for="(item, index) in this.detailsP.invoiceDetail" :key="index">{{item.invoiceNo}}</em></span>
       </ul>
       <table class="tableList" border="1">
         <thead>

@@ -47,8 +47,7 @@
       <ul>
         <span>
           <div class="a-link-group inline-block">
-            <!-- <a v-for="(item, index) in filelist" ref="fileBtn" :key="index" href="http://10.134.158.84:8080/upload/regist/license/license09210827048265.png" @click.prevent="downLoadFile(item.fileDownLoadUrl)">{{item.fileName}}</a> -->
-            <a v-for="(item, index) in filelist" ref="fileBtn" :key="index" href="http://10.134.158.84:8080/upload/regist/license/license09210827048265.png" target="_blank">{{item.fileName}}</a>
+            <a v-for="(item, index) in filelist" ref="fileBtn" :key="index" :href="href" @click.prevent="downLoadFile(item.fileDownLoadUrl)">{{item.fileName}}</a>
           </div>
         </span>
       </ul>
@@ -75,28 +74,21 @@ import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 export default {
   props: ['visibleP', 'detailsP', 'filelist'],
   mixins: [DialogClose],
+  data () {
+    return {
+      href: 'http://'
+    }
+  },
   computed: {
     getTitle () {
       return this.detailsP.poNumber + '详情'
     }
   },
   methods: {
+    // 文件下载
     downLoadFile (url) {
-      this.axios.post('http://10.134.158.84:8080/JuXinss/openapi/cust/customerDetailInfo.do', {fileUrl: url}).then(res => {
-        console.log(res.data.data)
-        // if (res.data.status === 1) {
-        //   console.log(res.data.data)
-        //   var blob = new Blob([res.data.data], {type: 'application/pdf'})
-        //   if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        //     window.navigator.msSaveBlob(blob, 'JPPT_20180709111952_S85236411_VTW0011040+')
-        //   } else {
-        //     var link = document.createElement('a')
-        //     link.href = window.URL.createObjectURL(blob)
-        //     link.download = 'JPPT_20180709111952_S85236411_VTW0011040+'
-        //     link.click()
-        //     window.URL.revokeObjectURL(link.href)
-        //   }
-        // }
+      this.axios.post('commonFile/showFileByUrl.do', {fileUrl: url}).then(res => {
+        this.href = res.data.data.url
       }).catch(err => {
         console.log(err)
       })

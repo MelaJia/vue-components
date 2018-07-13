@@ -67,6 +67,34 @@ const navs = {
         disabled: false,
         lClass: 'line',
         hClass: 'circle'
+      },
+      {
+        idx: 'myinvoice',
+        text: '我的发票',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'mysubmit',
+        text: '我的结报',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'mypayer',
+        text: '我的付款单',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'myarrear',
+        text: '我的欠款',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
       }, {
         idx: 'index',
         text: '首页',
@@ -157,6 +185,63 @@ const navs = {
       hClass: 'header-circle bg-icon-2'
     },
     {
+      idx: '3',
+      text: '辅助查询',
+      disabled: true,
+      lClass: 'line',
+      hClass: 'header-circle bg-icon-2',
+      childrens: [{
+        idx: 'ordersearch',
+        text: '订单查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'acceptsearch',
+        text: '验收单查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'mybill',
+        text: '对账单查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'myinvoice',
+        text: '发票查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'mysubmit',
+        text: '结报查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'mypayer',
+        text: '付款单查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'myarrear',
+        text: '欠款查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      }
+      ]
+    },
+    {
       idx: '4',
       text: '账户管理',
       disabled: false,
@@ -217,6 +302,62 @@ const navs = {
       childrens: [{
         idx: 'fenbo',
         text: 'AR分拨',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      }]
+    },
+    {
+      idx: '3',
+      text: '辅助查询',
+      disabled: true,
+      lClass: 'line',
+      hClass: 'header-circle bg-icon-2',
+      childrens: [{
+        idx: 'ordersearch',
+        text: '订单查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'acceptsearch',
+        text: '验收单查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'mybill',
+        text: '对账单查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'myinvoice',
+        text: '发票查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'mysubmit',
+        text: '结报查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'mypayer',
+        text: '付款单查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'myarrear',
+        text: '欠款查询',
         disabled: false,
         lClass: 'line',
         hClass: 'circle'
