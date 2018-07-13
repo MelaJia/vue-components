@@ -1,11 +1,11 @@
 import Mock from 'mockjs'
-import { Datas, dataDetails, contract, LoanedDatas, DataFee } from './Fund/loanDatas'
-import {regCMPList} from './Admin/arDatas'
+import { Datas, dataDetails, contract, LoanedDatas, DataFee, orderlistDetails, acceptlistDetails, billlistDetails, paylistDetails, invoicelistDetails, submitlistDetails, orderFileData, fileData } from './Fund/loanDatas'
 import commonDatas from './Common/common'
 import userInfo from './Suplier/userInfo'
 import subData from './Fund/index'
 /* eslint-disable */
 const monitorInit = ()=>{
+  Mock.mock('https://jurongtest.foxconn.com/sit/commonFile/showFileByUrl.do', fileData)
   Mock.mock('https://jurongtest.foxconn.com/sit/loan2/getLoanManagerListTable.do', Datas)
   Mock.mock('https://jurongtest.foxconn.com/sit/loan2/queryLoanInfo.do', dataDetails)
   Mock.mock('https://jurongtest.foxconn.com/sit/loan2/showGenerateContract.do', contract)
@@ -16,6 +16,18 @@ const monitorInit = ()=>{
   Mock.mock('https://jurongtest.foxconn.com/sit/myAr/initiateDiscount.do', commonDatas.comdata)
   Mock.mock('https://jurongtest.foxconn.com/sit/myAr/getMyArListTable.do', commonDatas.arDatas)
   Mock.mock('https://jurongtest.foxconn.com/sit/myAr/queryAr', commonDatas.arDetails)
+  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchSupplierOrderDetail.do', orderlistDetails)
+  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchSupplierGRNDetail.do', acceptlistDetails)
+  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchSupplierStatementDetail.do', billlistDetails)
+  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchSupplierPaymentList.do', commonDatas.paylistData)
+  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchSupplierPaymentDetail.do', paylistDetails)
+  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchSupplierInvoiceList.do', commonDatas.invoicelistData)
+  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchSupplierInvoiceDetail.do', invoicelistDetails)
+  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchSupplierJieBaoList.do', commonDatas.submitlistData)
+  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchSupplierJieBaoDetail.do', submitlistDetails)
+  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchCustomerQiankuanList.do', commonDatas.arrearlistData)
+  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchPOFile.do', orderFileData)
+  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchSupplierGRNFile.do', orderFileData)
   Mock.mock('https://jurongtest.foxconn.com/sit/commonCust/factoringCustomerList.do', commonDatas.factories)
   Mock.mock('https://jurongtest.foxconn.com/sit/discountAudit/getDiscountAuditListTable.do', commonDatas.fenboList)
   Mock.mock('https://jurongtest.foxconn.com/sit/discountAudit/queryDiscountAuditInfo.do', commonDatas.fenboDetail)

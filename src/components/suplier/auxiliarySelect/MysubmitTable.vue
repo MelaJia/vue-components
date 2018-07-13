@@ -127,7 +127,7 @@ export default {
       filedetails: {},
       widthArr: {
         billNo: '150',
-        invoice: '150',
+        invoiceNo: '150',
         corpCode: '180',
         corpName: '180',
         dueDate: '120',

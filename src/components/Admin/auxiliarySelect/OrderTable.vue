@@ -1,7 +1,7 @@
 <template>
   <div class="order-table">
     <!-- 详情 -->
-    <dialog-order :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-order>
+    <dialog-order :visible-p.sync="dialogInfoVisible" :details-p="details" :filelist="filedetails"></dialog-order>
     <section>
       <el-table ref="table" :data="dataTable" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([6,7])" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName"
@@ -55,7 +55,8 @@ export default {
   data () {
     return {
       dialogInfoVisible: false,
-      details: {} // 详情数据
+      details: {}, // 详情数据
+      filedetails: {}
     }
   },
   computed: {
@@ -76,6 +77,12 @@ export default {
         this.details = res
         this.dialogInfoVisible = true
         val.infoLoading = false
+      })
+      // 附件信息展示
+      this.axios.post('/auxiliaryFunction/searchPOFile.do', { vendorCode: val.vendorCode, poNumber: val.poNumber, plantCode: val.plantCode }).then(res => {
+        this.filedetails = res.data.data
+      }).catch(err => {
+        console.log(err)
       })
     },
     fresh () {

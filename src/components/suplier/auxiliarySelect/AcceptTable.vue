@@ -13,8 +13,8 @@
               </el-table-column>
               <el-table-column align="center" width="60">
               </el-table-column>
-              <el-table-column align="center" prop="vendorCode" :width="widthArr.vendorCode">
-              </el-table-column>
+              <!-- <el-table-column align="center" prop="vendorCode" :width="widthArr.vendorCode">
+              </el-table-column> -->
               <el-table-column align="center" prop="corpCode" :width="widthArr.corpCode">
               </el-table-column>
               <el-table-column align="center" prop="corpName" :width="widthArr.corpName">
@@ -56,8 +56,8 @@
           label="序号"
           fixed width="60" align="center">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="120">
-        </el-table-column>
+        <!-- <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="120">
+        </el-table-column> -->
         <el-table-column align="center" label="法人代码" prop="corpCode" width="100">
         </el-table-column>
         <el-table-column align="center" label="法人单位" prop="corpName" width="150">
@@ -134,7 +134,7 @@ export default {
       details: {}, // 详情数据
       filedetails: {},
       widthArr: {
-        vendorCode: '120',
+        // vendorCode: '120',
         corpCode: '100',
         corpName: '150',
         grnNumber: '120',

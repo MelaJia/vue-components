@@ -78,7 +78,7 @@
       <ul>
         <span>
           <div class="a-link-group inline-block">
-            <a v-for="(item, index) in filelist" ref="fileBtn" :key="index" href="http://" @click.prevent="downLoadFile(item.fileDownLoadUrl, item.fileName)">{{item.fileName}}</a>
+            附件:<a v-for="(item, index) in filelist" ref="fileBtn" :key="index" href="http://" @click.prevent="downLoadFile(item.fileDownLoadUrl)">{{item.fileName}}</a>
           </div>
         </span>
       </ul>
@@ -114,6 +114,7 @@
   }
 }
 ul:last-child{
+  height: auto;
   border-top: none;
   span{
     padding-left: 0;
@@ -126,6 +127,9 @@ span {
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+import {
+  baseUrl
+} from '@/config/env.js'
 export default {
   props: ['visibleP', 'detailsP', 'filelist'],
   mixins: [DialogClose],
@@ -135,19 +139,14 @@ export default {
     }
   },
   methods: {
-    downLoadFile (url, fileName) {
-      this.axios.post('/commonFile/showFileByUrl.do', {fileUrl: url}).then(res => {
-        if (res.data.status === 1) {
-          var blob = new Blob(res.data.data, {type: 'application/pdf'})
-          if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-            navigator.msSaveBlob(blob, fileName)
-          } else {
-            var link = document.createElement('a')
-            link.href = window.URL.createObjectURL(blob)
-            link.download = fileName
-            link.click()
-            window.URL.revokeObjectURL(link.href)
-          }
+    // 文件下载
+    downLoadFile (fileDownLoadUrl) {
+      var newWindow = window.open()
+      this.axios.post('/commonFile/showFileByUrl.do', {fileUrl: fileDownLoadUrl}).then(res => {
+        if (res.data.status) {
+          newWindow.location = `${baseUrl}/static/pdfjs/web/viewer.html?file=${res.data.data.fileName}`
+        } else {
+          this.$message.error(res.data.msg)
         }
       }).catch(err => {
         console.log(err)
