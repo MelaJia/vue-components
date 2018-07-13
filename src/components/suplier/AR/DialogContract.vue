@@ -22,7 +22,7 @@ footer {
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-import { debounce } from '@/util/util' // 防抖函数
+import { debounce, erroShow } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 /* 合同确认 */
 export default {
@@ -75,13 +75,8 @@ function submit () {
       this.$parent.fresh() // 刷新数据
     }
   }).catch((err) => {
-    console.log(err)
-    this.$message({
-      type: 'info',
-      message: '操作失败'
-    })
-    // 关闭加载图标
-    loading.close()
+    // 错误提示
+    erroShow.call(this, err, loading)
   })
 }
 // 拒绝操作
@@ -106,13 +101,8 @@ function reject () {
     this.handleClose() // 关闭弹窗
     this.$parent.fresh() // 刷新数据
   }).catch((err) => {
-    console.log(err)
-    this.$message({
-      type: 'info',
-      message: '操作失败'
-    })
-    // 关闭加载图标
-    loading.close()
+    // 错误提示
+    erroShow.call(this, err, loading)
   })
 }
 </script>

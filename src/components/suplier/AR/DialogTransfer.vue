@@ -106,7 +106,7 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
-import { debounce } from '@/util/util' // 防抖函数
+import { debounce, erroShow } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 /* 转让弹窗 */
 export default {
@@ -221,12 +221,8 @@ function submit () {
       this.$parent.fresh() // 刷新数据
     }
   }).catch((err) => {
-    console.log(err)
-    this.$message({
-      type: 'info',
-      message: '操作失败'
-    })
-    loading.close() // 关闭加载图标
+    // 错误提示
+    erroShow.call(this, err, loading)
   })
 }
 </script>

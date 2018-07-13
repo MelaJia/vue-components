@@ -14,7 +14,7 @@ const routes = [
         title: '首页', // 名称
         requireAuth: true // 需要登录验证
       },
-      component: () => import(/* webpackChunkName: 'Fund' */ '@/page/funder/Index')
+      component: () => import(/* webpackChunkName: 'Fund' */ '@/page/funder/outSource/Index')
     },
     {
       path: 'loan',
@@ -79,7 +79,7 @@ const routes = [
       path: 'ordersearch',
       name: 'ordersearchFund',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/OrderSearch'),
+        import(/* webpackChunkName: 'Fund' */ '@/page/funder/auxiliarySelect/OrderSearch'),
       meta: {
         title: '我的订单', // 名称
         requireAuth: true // 需要登录验证
@@ -89,7 +89,7 @@ const routes = [
       path: 'acceptsearch',
       name: 'acceptsearchFund',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/AcceptanceSearch'),
+        import(/* webpackChunkName: 'Fund' */ '@/page/funder/auxiliarySelect/AcceptanceSearch'),
       meta: {
         title: '我的验收单', // 名称
         requireAuth: true // 需要登录验证
@@ -99,7 +99,7 @@ const routes = [
       path: 'mybill',
       name: 'mybillFund',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyBill'),
+        import(/* webpackChunkName: 'Fund' */ '@/page/funder/auxiliarySelect/MyBill'),
       meta: {
         title: '我的对账单', // 名称
         requireAuth: true // 需要登录验证
@@ -109,7 +109,7 @@ const routes = [
       path: 'mypayer',
       name: 'mypayerFund',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyPayer'),
+        import(/* webpackChunkName: 'Fund' */ '@/page/funder/auxiliarySelect/MyPayer'),
       meta: {
         title: '我的付款单', // 名称
         requireAuth: true // 需要登录验证
@@ -119,7 +119,7 @@ const routes = [
       path: 'myinvoice',
       name: 'myinvoiceFund',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyInvoice'),
+        import(/* webpackChunkName: 'Fund' */ '@/page/funder/auxiliarySelect/MyInvoice'),
       meta: {
         title: '我的发票', // 名称
         requireAuth: true // 需要登录验证
@@ -129,7 +129,7 @@ const routes = [
       path: 'mysubmit',
       name: 'mysubmitFund',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MySubmit'),
+        import(/* webpackChunkName: 'Fund' */ '@/page/funder/auxiliarySelect/MySubmit'),
       meta: {
         title: '我的结报', // 名称
         requireAuth: true // 需要登录验证
@@ -139,11 +139,20 @@ const routes = [
       path: 'myarrear',
       name: 'myarrearFund',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyArrear'),
+        import(/* webpackChunkName: 'Fund' */ '@/page/funder/auxiliarySelect/MyArrear'),
       meta: {
         title: '我的欠款', // 名称
         requireAuth: true // 需要登录验证
       }
+    },
+    {
+      path: 'crc',
+      name: 'crc',
+      meta: {
+        title: '中证网查询', // 名称
+        requireAuth: true // 需要登录验证
+      },
+      component: () => import(/* webpackChunkName: 'Fund' */ '@/page/funder/outSource/CRC')
     }
     ]
   }

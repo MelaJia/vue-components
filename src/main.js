@@ -20,11 +20,9 @@ import {
 import {
   monitorInit
 } from '@/monitorDatas'
-import Loadsh from 'lodash'
 import preview from 'vue-photo-preview'
 import 'vue-photo-preview/dist/skin.css'
 Vue.use(preview)// 图片预览
-Vue.prototype._ = Loadsh
 Vue.use(dateInit) // 格式化日期注册
 axios.defaults.baseURL = apiUrl
 if (process.env.NODE_ENV === 'development') {

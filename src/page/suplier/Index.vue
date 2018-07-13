@@ -22,15 +22,19 @@
           <div class="float-left text">
             <p class="t1">{{item.title}}</p>
             <p class="line"></p>
-            <p class="t1" style="margin-top:5px">总金额: <span>{{item.firData.value+item.secData.value}}万元</span></p>
+            <p class="t1" style="margin-top:5px">总金额: <span>{{(item.firData.value*100+item.secData.value*100)/100}}万元</span></p>
             <div class="t2">
               <ul>
                 <li>{{item.firData.name}}</li>
                 <li>{{item.secData.name}}</li>
               </ul>
               <ul>
-                <li>{{item.firData.value}}万元</li>
-                <li>{{item.secData.value}}万元</li>
+                <el-tooltip class="item" effect="dark" :content="item.firData.value+'万元'" placement="bottom-start">
+                  <li>{{item.firData.value}}万元</li>
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" :content="item.secData.value+'万元'" placement="bottom-end">
+                   <li>{{item.secData.value}}万元</li>
+                </el-tooltip>
               </ul>
             </div>
           </div>
@@ -99,6 +103,9 @@ li {
   display: inline-block;
   width: 100px;
   text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .line {
   width: 100%;
@@ -151,62 +158,62 @@ export default {
   components: { Pie },
   data () {
     return {
-      sortArr: [{ key: 'unOperate', text: '未贴现/转让金额' }, { key: 'transfered', text: '已转让金额' }, { key: 'discounted', text: '已贴现金额' }, { key: 'received', text: '已接收金额' }],
-      rightDataArr: [
-        {
+      sortArr: [{ key: 'unOperate', text: '未贴现/转让金额' }, { key: 'discounted', text: '已贴现金额' }, { key: 'received', text: '已接收金额' }, { key: 'transfered', text: '已转让金额' }],
+      rightDataArr: {
+        unOperate: {
           title: '未贴现/转让', // 标题
           firData: { // 第一个数据
-            value: 515,
+            value: null,
             name: '可以金额'
           },
           secData: { // 第二个数据
-            value: 3515,
+            value: null,
             name: '冻结金额'
           },
           path: 'myar', // 路径
           bcolor: '#5b9bd5' // 背景色
 
         },
-        {
+        transfered: {
           title: '已转让', // 标题
           firData: { // 第一个数据
-            value: 515,
+            value: null,
             name: '未到期金额'
           },
           secData: { // 第二个数据
-            value: 3515,
+            value: null,
             name: '已到期金额'
           },
           path: 'cancelar', // 路径
           bcolor: '#f1bd00' // 背景色
         },
-        {
+        discounted: {
           title: '已贴现', // 标题
           firData: { // 第一个数据
-            value: 515,
+            value: null,
             name: '未到期金额'
           },
           secData: { // 第二个数据
-            value: 3515,
+            value: null,
             name: '已到期金额'
           },
           path: 'myar', // 路径
           bcolor: '#f67b28' // 背景色
         },
-        {
+        received: {
           title: '已接收', // 标题
           firData: { // 第一个数据
-            value: 515,
+            value: null,
             name: '未到期金额'
           },
           secData: { // 第二个数据
-            value: 3515,
+            value: null,
             name: '已到期金额'
           },
           path: 'getar', // 路径
           bcolor: '#9a9a9a' // 背景色
         }
-      ],
+      },
       color: [['#fff', '#3b64ad'], ['#fff', '#ffd184'], ['#fff', '#d26e2a'], ['#fff', '#3e3c3c']] // 小饼图颜色数组
     }
   },
@@ -214,6 +221,10 @@ export default {
     // 获取容器
     let dom = this.$refs.pie
     let myChart = echarts.init(dom)
+    // 初始化饼图
+    let option = getOptions([{ value: null, name: '待接收金额' }])
+    // 绘制图表
+    myChart.setOption(option)
     // 获取数据
     ge.call(this).then(res => {
       // 设置数据
@@ -234,8 +245,8 @@ function getdata (scope) {
       if (scope.sortArr.hasOwnProperty(key)) {
         const element = scope.sortArr[key]
         // 设置右侧列表数据
-        scope.rightDataArr[key].firData.value = res.data.data[`${element.key}AvailableAmout`]
-        scope.rightDataArr[key].secData.value = res.data.data[`${element.key}ExpiredAmout`]
+        scope.rightDataArr[element.key].firData.value = res.data.data[`${element.key}AvailableAmout`]
+        scope.rightDataArr[element.key].secData.value = res.data.data[`${element.key}ExpiredAmout`]
         // 填充饼图数据
         arr.push({ value: res.data.data[`${element.key}SumAmout`], name: element.text })
       }
@@ -310,8 +321,9 @@ function getOptions (echartData) {
       formatter: function (name) {
         var total = 0 // 总和
         echartData.forEach(function (value, index, array) {
-          total += value.value
+          total += value.value * 100
         })
+        total = total / 100
         return '{total|' + total + '}'
       },
       data: [echartData[0].name],
