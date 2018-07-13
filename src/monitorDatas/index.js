@@ -69,6 +69,90 @@ const monitorInit = ()=>{
   })
   // 企业管理列表
   Mock.mock('https://jurongtest.foxconn.com/sit/sysRegisteredCompanyManager/getRegisteredCompanyQueryListTable.do', regCMPList)
-
+  // 首页数据
+  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchIndexList.do', {
+    "data":{
+      "unOperateSumAmout": function() {
+        return this.unOperateAvailableAmout+this.unOperateExpiredAmout
+      },
+      "unOperateAvailableAmout|100-2000": 500,
+      "unOperateExpiredAmout|100-2000": 500,
+      "transferedSumAmout|100-2000": function() {
+        return this.transferedAvailableAmout+this.transferedExpiredAmout
+      },
+      "transferedAvailableAmout|100-2000": 500,
+      "transferedExpiredAmout|100-2000": 500,
+      "discountedSumAmout|100-2000": function() {
+        return this.discountedAvailableAmout+this.discountedExpiredAmout
+      },
+      "discountedAvailableAmout|100-2000": 500,
+      "discountedExpiredAmout|100-2000": 500,
+      "receivedSumAmout|100-2000": function() {
+        return (this.receivedAvailableAmout*100+this.receivedExpiredAmout*100)/100
+      },
+      "receivedAvailableAmout": 5555.24,
+      "receivedExpiredAmout": 3500.00,
+      "onReceiveAmout": 2500.00,
+    },
+    "msg|1":[
+      "失败",
+      "成功"
+    ],
+    "status": true
+  })
+// 已上传数据
+Mock.mock('https://jurongtest.foxconn.com/sit/crcQuery/getUploadedAccountInformationList.do', {
+  "data":[
+    {
+      index:1,
+      uploadDate:1528905600000,
+      billNO:'123',
+      creditorsDistrict:'456',
+      debtorDistrict:'789',
+      amount:'111',
+      currency:'111'
+    }
+  ],
+  "recordsTotal":100,
+  "msg|1":[
+    "失败",
+    "成功"
+  ],
+  "status": true
+})
+// 已上传数据
+Mock.mock('https://jurongtest.foxconn.com/sit/crcQuery/getCorporateInformationList.do', {
+  "data":[
+    {
+      index:1,
+      enterprise:'1528905600000',
+      OIBC:'123',
+      district:'456'
+    }
+  ],
+  "recordsTotal":100,
+  "msg|1":[
+    "失败",
+    "成功"
+  ],
+  "status": true
+})
+// 资金提供数据
+Mock.mock('https://jurongtest.foxconn.com/sit/crcQuery/getFundProviderInformationList.do', {
+  "data":[
+    {
+      index:1,
+      funding:'1234',
+      OIBC:'123',
+      district:'456'
+    }
+  ],
+  "recordsTotal":100,
+  "msg|1":[
+    "失败",
+    "成功"
+  ],
+  "status": true
+})
 }
 export {monitorInit}

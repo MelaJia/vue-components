@@ -137,11 +137,11 @@ export default {
       transAmt: 0,
       checkList: [],
       moneyTypes: [{
-        RepaymentType: 1,
+        RepaymentType: 2,
         RepaymentTypeName: '一期还息，期末清偿法'
       },
       {
-        RepaymentType: 2,
+        RepaymentType: 1,
         RepaymentTypeName: '一次还款本息'
       }
       ],

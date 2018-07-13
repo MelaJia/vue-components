@@ -540,22 +540,22 @@ function subHandle (formName) {
 }
 // 获取userInfo格式
 function getUserInfo () {
-  return {
-    custUsername: 'a', // 登陆名
-    custPassword: 'a', // 登陆密码
-    custNickname: 'a', // 昵称
-    companyName: 'a', // 公司名称
-    companyPhone: '8725585', // 公司电话
+  const infos = {
+    custUsername: '', // 登陆名
+    custPassword: '', // 登陆密码
+    custNickname: '', // 昵称
+    companyName: '', // 公司名称
+    companyPhone: '', // 公司电话
     companyPersonSum: 0, // 员工人数
-    companyAddress: 'a', // 公司详细地址
-    contactPerson: 'a', // 联系人姓名
-    contactIdcardNum: '433121199912103562', // 联系人身份证
-    contactPhone: '8725585', // 联系人电话
-    contactMail: '11@qq.com', // 联系人邮箱
-    legalPerson: 'a', // 法人姓名
-    legalIdcardNum: '433121199912103562', // 法人身份证
-    legalPhone: '8725585', // 法人电话
-    legalMail: '11@qq.com', // 法人邮箱
+    companyAddress: '', // 公司详细地址
+    contactPerson: '', // 联系人姓名
+    contactIdcardNum: '', // 联系人身份证
+    contactPhone: '', // 联系人电话
+    contactMail: '', // 联系人邮箱
+    legalPerson: '', // 法人姓名
+    legalIdcardNum: '', // 法人身份证
+    legalPhone: '', // 法人电话
+    legalMail: '', // 法人邮箱
     creditCode: '', // 统一社会信用代码
     licenseNumber: '', // 营业执照编号
     organizationNumber: '', // 组织机构代码编号
@@ -586,6 +586,25 @@ function getUserInfo () {
     bankCity: '', // 银行开户市
     accountOpeningBranch: '' // 开户支行
   }
+  const devInfos = {
+    custUsername: 'a', // 登陆名
+    custPassword: 'a', // 登陆密码
+    custNickname: 'a', // 昵称
+    companyName: 'a', // 公司名称
+    companyPhone: '8725585', // 公司电话
+    companyPersonSum: 0, // 员工人数
+    companyAddress: 'a', // 公司详细地址
+    contactPerson: 'a', // 联系人姓名
+    contactIdcardNum: '433121199912103562', // 联系人身份证
+    contactPhone: '8725585', // 联系人电话
+    contactMail: '11@qq.com', // 联系人邮箱
+    legalPerson: 'a', // 法人姓名
+    legalIdcardNum: '433121199912103562', // 法人身份证
+    legalPhone: '8725585', // 法人电话
+    legalMail: '11@qq.com' // 法人邮箱
+  }
+  var object = require('lodash/fp/object')
+  return process.env.NODE_ENV === 'development' ? object.assign(infos, devInfos) : infos
 }
 // 对象转formdata
 // function objToFormData (config) { // 对象转formdata格式

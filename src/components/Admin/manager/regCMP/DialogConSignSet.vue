@@ -44,7 +44,7 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
-import { debounce } from '@/util/util' // 防抖函数
+import { debounce, erroShow } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 export default {
   props: ['visibleP', 'detailsP'],
@@ -70,17 +70,6 @@ export default {
   methods: {
     handleSubmit: debounce(submit, 1000, true)
   }
-}
-// 错误提示函数
-function erroShow (err, loading) {
-  console.log(this)
-  this.$alert(`网络错误${err}`, '系统提示', {
-    confirmButtonText: '确定',
-    callback: action => {
-      // 关闭加载图标
-      loading.close()
-    }
-  })
 }
 // 提交操作
 function submit () {

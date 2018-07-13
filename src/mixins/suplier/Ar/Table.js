@@ -197,12 +197,15 @@ export default {
 }
 // 错误提示函数
 function erroShow (err, loading) {
-  console.log(this)
-  this.$alert(`网络错误${err}`, '系统提示', {
-    confirmButtonText: '确定',
-    callback: action => {
-      // 关闭加载图标
-      loading.close()
-    }
-  })
+  if (err.response && err.response.status === 401) {
+    console.log(err)
+  } else {
+    this.$alert(`网络错误${err}`, '系统提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+        // 关闭加载图标
+        loading.close()
+      }
+    })
+  }
 }

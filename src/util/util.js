@@ -434,11 +434,15 @@ export const erroShow = function (err, loading) {
   if(loading) {
     loading.close()
   }
-  this.$alert(`网络错误${err}`, '系统提示', {
-    confirmButtonText: '确定',
-    callback: action => {
-    }
-  })
+  if(err.response && err.response.status === 401){
+  }else{
+    this.$alert(`网络错误${err}`, '系统提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+      }
+    })
+  }
+    
 }
 /**
  * 获取数据基础函数

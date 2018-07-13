@@ -41,7 +41,7 @@
 import ListMinxIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
-import { firstToUpperCase, debounce } from '@/util/util' // 首字母大写 防抖函数
+import { firstToUpperCase, debounce, erroShow } from '@/util/util' // 首字母大写 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 export default {
   props: ['dataLoading', 'dataTable'],
@@ -106,17 +106,6 @@ export default {
       return datas
     }
   }
-}
-// 错误提示函数
-function erroShow (err, loading) {
-  console.log(this)
-  this.$alert(`网络错误${err}`, '系统提示', {
-    confirmButtonText: '确定',
-    callback: action => {
-      // 关闭加载图标
-      loading.close()
-    }
-  })
 }
 // 详情
 function handleInfo (idx, val) {

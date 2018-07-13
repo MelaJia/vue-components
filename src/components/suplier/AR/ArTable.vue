@@ -153,7 +153,7 @@ header {
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
-import { firstToUpperCase, debounce } from '@/util/util' // 首字母大写 防抖函数
+import { firstToUpperCase, debounce, erroShow } from '@/util/util' // 首字母大写 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 /* 我的Ar列表 */
 export default {
@@ -189,7 +189,7 @@ export default {
         { key: 'initiateDiscount', name: '贴现' },
         { key: 'contract', name: '合同确认' },
         { key: 'cancleTrans', name: '取消授让' },
-        { key: 'apply', name: '贴现审核申请' }
+        { key: 'apply', name: '保理方申请' }
       ] // 操作数据
     }
   },
@@ -228,77 +228,9 @@ export default {
     fresh () {
       this.$emit('refresh')
     },
-    /* 按钮菜单显隐处理
-    ** val 节点数据
-    ** ischild 是否是子数据
-    */
-    getOpera: function (val) {
-      const datas = val
-      datas.forEach((item) => {
-        const operateArr = []
-        /* 子节点菜单处理 start */
-        if (item.tableData && item.tableData.length > 0) { // 子节点菜单处理
-          const childs = item.tableData
-          childs.map((itemc) => {
-            const operateChild = []
-            switch (itemc.checkedStatus) {
-              case 3:
-                operateChild.push(this.operateArr[4])
-                break
-              case 22:
-                operateChild.push(this.operateArr[1])
-                break
-              case 23:
-                operateChild.push(this.operateArr[3])
-                break
-              default:
-                break
-            }
-            itemc.operateArr = operateChild
-          })
-        }
-        /* 子节点菜单处理 end */
-        switch (item.checkedStatus) {
-          case 2:
-            operateArr.push(this.operateArr[0])
-            if (item.isNeedDiscountAudit === 0 && item.discountAuditStatus === 1) {
-              operateArr.push(this.operateArr[2])
-            }
-            if (item.isNeedDiscountAudit === 0 && (item.discountAuditStatus === 2 || item.discountAuditStatus === 9)) {
-              operateArr.push(this.operateArr[5])
-            }
-            if (item.isNeedDiscountAudit === 1 && item.discountAuditStatus === -1) {
-              operateArr.push(this.operateArr[5])
-            }
-            break
-          case 3:
-            operateArr.push(this.operateArr[4])
-            break
-          case 22:
-            operateArr.push(this.operateArr[1])
-            break
-          case 23:
-            operateArr.push(this.operateArr[3])
-            break
-          default:
-            break
-        }
-        item.operateArr = operateArr
-      })
-      return datas
-    }
+    // 按钮处理
+    getOpera: getOpera
   }
-}
-// 错误提示函数
-function erroShow (err, loading) {
-  console.log(this)
-  this.$alert(`网络错误${err}`, '系统提示', {
-    confirmButtonText: '确定',
-    callback: action => {
-      // 关闭加载图标
-      loading.close()
-    }
-  })
 }
 // 详情函数
 function handleInfo (idx, val, isChild = false) {
@@ -422,5 +354,59 @@ function handleApply (idx, val) {
       message: '操作已取消'
     })
   })
+}
+/* 按钮菜单显隐处理
+  ** val 节点数据
+  ** ischild 是否是子数据
+*/
+function getOpera (val) {
+  const datas = val
+  datas.forEach((item) => {
+    const operateArr = []
+    /* 子节点菜单处理 start */
+    if (item.tableData && item.tableData.length > 0) { // 子节点菜单处理
+      const childs = item.tableData
+      childs.map((itemc) => {
+        const operateChild = []
+        switch (itemc.checkedStatus) {
+          case 3:
+            operateChild.push(this.operateArr[4])
+            break
+          case 22:
+            operateChild.push(this.operateArr[1])
+            break
+          case 23:
+            operateChild.push(this.operateArr[3])
+            break
+          default:
+            break
+        }
+        itemc.operateArr = operateChild
+      })
+    }
+    /* 子节点菜单处理 end */
+    switch (item.checkedStatus) {
+      case 1:
+        operateArr.push(this.operateArr[5])
+        break
+      case 2:
+        operateArr.push(this.operateArr[0])
+        operateArr.push(this.operateArr[2])
+        break
+      case 3:
+        operateArr.push(this.operateArr[4])
+        break
+      case 22:
+        operateArr.push(this.operateArr[1])
+        break
+      case 23:
+        operateArr.push(this.operateArr[3])
+        break
+      default:
+        break
+    }
+    item.operateArr = operateArr
+  })
+  return datas
 }
 </script>

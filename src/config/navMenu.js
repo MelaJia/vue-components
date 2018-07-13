@@ -270,11 +270,26 @@ const navs = {
       ]
     },
     {
-      idx: 'index',
-      text: '首页',
+      idx: '5',
+      text: '外部资料',
       disabled: false,
-      lClass: 'line',
-      hClass: 'header-circle bg-icon-2'
+      lClass: 'end-line',
+      hClass: 'header-circle bg-icon-3',
+      childrens: [{
+        idx: 'index',
+        text: '首页',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'crc',
+        text: '中证网查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      }
+      ]
     }
     ]
   },
