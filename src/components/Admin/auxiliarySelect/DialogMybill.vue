@@ -78,7 +78,7 @@
       <ul>
         <span>
           <div class="a-link-group inline-block">
-            <a v-for="item in detailsP.contractList" :key="item.contractId" href="http://" @click.prevent="constractHandle(item.contractNo)">{{item.contractName}}</a>
+            附件:<a v-for="(item, index) in filelist" ref="fileBtn" :key="index" href="http://" @click.prevent="downLoadFile(item.fileDownLoadUrl)">{{item.fileName}}</a>
           </div>
         </span>
       </ul>
@@ -114,6 +114,7 @@
   }
 }
 ul:last-child{
+  height: auto;
   border-top: none;
   span{
     padding-left: 0;
@@ -126,12 +127,30 @@ span {
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+import {
+  baseUrl
+} from '@/config/env.js'
 export default {
-  props: ['visibleP', 'detailsP'],
+  props: ['visibleP', 'detailsP', 'filelist'],
   mixins: [DialogClose],
   computed: {
     getTitle () {
       return '对账单号' + this.detailsP.statementNo
+    }
+  },
+  methods: {
+    // 文件下载
+    downLoadFile (fileDownLoadUrl) {
+      var newWindow = window.open()
+      this.axios.post('/commonFile/showFileByUrl.do', {fileUrl: fileDownLoadUrl}).then(res => {
+        if (res.data.status) {
+          newWindow.location = `${baseUrl}/static/pdfjs/web/viewer.html?file=${res.data.data.fileName}`
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }

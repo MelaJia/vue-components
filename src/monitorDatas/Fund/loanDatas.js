@@ -842,3 +842,361 @@ export const contract = {
     "msg": "返回结果正常", 
         "status": 1
 }
+
+export const orderlistDetails = {
+    "data":{
+      "vendorCode":"VCR26566323",
+      "corpCode":"100001",
+      "corpName":"富鸿准",
+      "poNumber":"HB851265",
+      "poItem":"56",
+      "plantCode":"100001",
+      "currency":"人民币",
+      "orderAmount":"56000",
+      "confirmDate":"2018-5-6",
+      "deliveryDate":"2018-6-18",
+      "paymenttermName":"先交货后付款，收货三月内付款",
+      "contractList":[
+        {
+        "contractId":"8fb5911e-dab3-4504-9aaf-8fee2af2a74e",
+        "contractName":"应收账款质押合同",
+        "contractNo":"8fb5911e-dab3-4504-9aaf-8fee2af2a74e",
+        "contractPlatformId":null,
+        "contractTemplateId":"1808f0a6-1172-4f60-aa6d-026a9ce5a80b",
+        "contractUrl":null,
+        "createBy":"11031049033568",
+        "createTime":1528970222000,
+        "isNeedPlatformSign":null,
+        "lstUpdBy":"11031049033568",
+        "lstUpdTime":1528970222000,
+        "masterChainId":"AR20171125000008",
+        "status":0,
+        "transSerialNo":null
+        }
+      ]
+    },
+    "msg":"返回结果正常",
+    "status":1
+}
+
+export const acceptlistDetails = {
+    "data":{
+      "vendorCode": "VCN0015680",
+      "plantCode": "fthua1mj",
+      "corpCode": "A086116",
+      "corpName": "富泰華工業(深圳)有限公司",
+      "grnNumbe": 'JB851265',
+      "grnItem": null,
+      "poItem": "10",
+      "confirmDate": "2018/6/4",
+      "currency": "RMB",
+      "amount": "78300,0000",
+      "deliveryDate": "2018/6/4 上午 12:00:00",     
+      "tableData":[
+        {
+          "poNumber":"P4a-I50010",
+          "dataType": "1",
+          "dataName": "進貨单"
+        },
+        {
+          "poNumber":"P4a-I50010",
+          "dataType": "2",
+          "dataName": "退貨单"
+        }
+      ],
+      "poDetail": [
+        {
+          "grnItem": "65",
+          "poNumber": "P4a-I50010",
+          "poItem": "10",
+          "deliveryDate": "2018/6/25",
+          "poAmount": "78300",
+          "currency": "RMB",
+          "dataType": '1',
+          "dataName": '进货单'
+        },
+        {
+          "grnItem": "65",
+          "poNumber": "P4a-I50010",
+          "poItem": "10",
+          "deliveryDate": "2018/6/25",
+          "poAmount": "78300",
+          "currency": "RMB",
+          "dataType": '2',
+          "dataName": '退货单'
+        }
+      ],
+      "contractList":[
+        {
+        "contractId":"8fb5911e-dab3-4504-9aaf-8fee2af2a74e",
+        "contractName":"应收账款质押合同",
+        "contractNo":"8fb5911e-dab3-4504-9aaf-8fee2af2a74e",
+        "contractPlatformId":null,
+        "contractTemplateId":"1808f0a6-1172-4f60-aa6d-026a9ce5a80b",
+        "contractUrl":null,
+        "createBy":"11031049033568",
+        "createTime":1528970222000,
+        "isNeedPlatformSign":null,
+        "lstUpdBy":"11031049033568",
+        "lstUpdTime":1528970222000,
+        "masterChainId":"AR20171125000008",
+        "status":0,
+        "transSerialNo":null
+        }
+      ]      
+    },
+    "msg":"返回结果正常",
+    "status":1
+}
+
+export const billlistDetails = {
+    "status":1,
+    "msg":"操作成功",
+    "recordsTotal":1,
+    "data":
+        {
+          "vendorCode":"VCN0021591",
+          "invoiceCode":"4403172130",
+          "invoiceNo":"54564667",
+          "createtime":"2018-01-04",
+          "sellerTaxNo":"91440300736257669U",
+          "buyerTaxNo":"91440300738817535K",
+          "sellerName":"深圳市漢泰實業有限公司",
+          "buyerName":"深圳富泰宏精密工業有限公司",
+          "amount":"660",
+          "taxAmount":"112.2",
+          "buyerPhone":"深圳市龍華新區龍華辦事處東環二路二號富士康科技園K1區廠房3棟2層 0755-28129800",
+          "buyerBankNo":"平安銀行深圳富士康支行 11002931582501",
+          "sellerPhone":"深圳市福田區濱河路愛地大廈辦公樓602-3 0755-88306996",
+          "sellerBankNo":"中國建設銀行股份有限公司深圳福田支行 44201503500050032626",
+          "status":"1",
+          "statusName":"作廢",
+          "postStatus":"",
+          "postStatusName":"",
+          "total":"772.2",
+          "statementNo":"D20180100000297",
+          "grnDetail":[
+              {
+                  "VendorCode":"VCN0021591",
+                  "grnNumber":"5034738866",
+                  "grnAmount":"165.0000",
+                  "grnDate":""
+              }
+          ],
+          "contractList":[
+            {
+            "contractId":"8fb5911e-dab3-4504-9aaf-8fee2af2a74e",
+            "contractName":"应收账款质押合同",
+            "contractNo":"8fb5911e-dab3-4504-9aaf-8fee2af2a74e",
+            "contractPlatformId":null,
+            "contractTemplateId":"1808f0a6-1172-4f60-aa6d-026a9ce5a80b",
+            "contractUrl":null,
+            "createBy":"11031049033568",
+            "createTime":1528970222000,
+            "isNeedPlatformSign":null,
+            "lstUpdBy":"11031049033568",
+            "lstUpdTime":1528970222000,
+            "masterChainId":"AR20171125000008",
+            "status":0,
+            "transSerialNo":null
+            }
+          ]
+        }
+}
+
+export const paylistDetails = {
+  "status":1,
+  "msg":"操作成功",
+  "recordsTotal":1,
+  "data":
+    {
+      "payNo":"0500001499",
+      "payBacth":"2",
+      "plantCode":"",
+      "buyerCompany":"深圳市星海龙电子科技公司",
+      "rcvAmtOrigin":"",
+      "currency":"人民币",
+      "payDate":"2017-12-20",
+      "vendorCode":"0500001499",
+      "billDetailList":[
+        {
+          "billNo":"0500001499",
+          "oriAmt":"2000",
+          "billDate":"2017-12-20"
+        },
+        {
+          "billNo":"0500001499",
+          "oriAmt":"2000",
+          "billDate":"2017-12-20"
+        }
+      ]
+    }
+}
+
+export const invoicelistDetails = {
+  "status":1,
+  "msg":"操作成功",
+  "recordsTotal":1,
+  "data":
+    {
+      "vendorCode":"JB851265",
+      "invoiceNo":"100001",
+      "sellerName":"深圳市星海龙电子科技公司",
+      "buyerName":"富鸿锦精密",
+      "amount":"9999",
+      "taxAmount":"1699.33",
+      "total":"11698.33",
+      "currency":"人民币",
+      "invoiceType":"1",
+      "invoiceTypeName":"增专",
+      "state":"1",
+      "statusName":"正常",
+      "creationDate":"2017-12-20",
+      "invoiceCode":"1111111111",
+      "tableData":[
+        {
+          "statementNo":"1212121",
+          "entryDate":"2017-12-20"
+        }
+      ],
+      "statementDetail":[
+        {
+          "statementNo":"1212121",
+          "entryDate":"2017-12-20"
+        }
+      ],
+      "contractList":[
+        {
+        "contractId":"8fb5911e-dab3-4504-9aaf-8fee2af2a74e",
+        "contractName":"应收账款质押合同",
+        "contractNo":"8fb5911e-dab3-4504-9aaf-8fee2af2a74e",
+        "contractPlatformId":null,
+        "contractTemplateId":"1808f0a6-1172-4f60-aa6d-026a9ce5a80b",
+        "contractUrl":null,
+        "createBy":"11031049033568",
+        "createTime":1528970222000,
+        "isNeedPlatformSign":null,
+        "lstUpdBy":"11031049033568",
+        "lstUpdTime":1528970222000,
+        "masterChainId":"AR20171125000008",
+        "status":0,
+        "transSerialNo":null
+        }
+      ]
+    }
+}
+
+export const submitlistDetails = {
+  "status":1,
+  "msg":"操作成功",
+  "recordsTotal":1,
+  "data":{
+    "vendorCode":"da12312312",
+    "billNo":"EPC-HC0046",
+    "corpCode":"A886001",
+    "corpName":"鴻海精密工業股份有限公司",
+    "oriAmt":"",
+    "dueDate":"2017/12/20",
+    "currency":"",
+    "oriAmt":"",
+    "oriPaidAmt":"",
+    "oriUnPaidAmt":"",
+    "statusName":"",
+    "vendorName":"",
+    "plantCode":"",
+    "status":"",
+    "statusName":"",
+    "invoiceDetail":[
+      {
+        "invoiceNo":"ad54536"
+      }
+    ],
+    "payBatchList":[
+      {
+        "payBatch":"12",
+        "payNo":"123456"
+      },
+      {
+        "payBatch":"17",
+        "payNo":"123456"
+      }
+    ],
+    "contractList":[
+      {
+      "contractId":"8fb5911e-dab3-4504-9aaf-8fee2af2a74e",
+      "contractName":"应收账款质押合同",
+      "contractNo":"8fb5911e-dab3-4504-9aaf-8fee2af2a74e",
+      "contractPlatformId":null,
+      "contractTemplateId":"1808f0a6-1172-4f60-aa6d-026a9ce5a80b",
+      "contractUrl":null,
+      "createBy":"11031049033568",
+      "createTime":1528970222000,
+      "isNeedPlatformSign":null,
+      "lstUpdBy":"11031049033568",
+      "lstUpdTime":1528970222000,
+      "masterChainId":"AR20171125000008",
+      "status":0,
+      "transSerialNo":null
+      }
+    ]
+  }
+}
+
+export const orderFileData = {
+  "status":1,
+  "msg":"操作成功",
+  "data":[
+    {
+      "fileDownLoadUrl":null,
+      "fileName":"附件一"
+    },
+    {
+      "fileDownLoadUrl":null,
+      "fileName":"附件二"
+    },
+    {
+      "fileDownLoadUrl":null,
+      "fileName":"附件二"
+    },
+    {
+      "fileDownLoadUrl":null,
+      "fileName":"附件二"
+    },
+    {
+      "fileDownLoadUrl":null,
+      "fileName":"附件二"
+    },
+    {
+      "fileDownLoadUrl":null,
+      "fileName":"附件二"
+    },
+    {
+      "fileDownLoadUrl":null,
+      "fileName":"附件二"
+    },
+    {
+      "fileDownLoadUrl":null,
+      "fileName":"附件二"
+    },
+    {
+      "fileDownLoadUrl":null,
+      "fileName":"附件二"
+    },
+    {
+      "fileDownLoadUrl":null,
+      "fileName":"附件二"
+    },
+    {
+      "fileDownLoadUrl":null,
+      "fileName":"附件二"
+    }
+  ]
+}
+
+export const fileData = {
+  "msg": "返回结果正常", 
+  "status": 1,
+  "data":{
+    "fileName":"5d85d8fc-0cd6-4e64-ae4b-9c8fd40784af.pdf"
+  }
+}

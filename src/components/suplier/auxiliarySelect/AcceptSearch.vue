@@ -2,11 +2,6 @@
   <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini" label-width="150px">
     <el-row>
       <el-col :span="8">
-        <el-form-item label="供应商代码">
-          <el-input v-model.trim="formInline.vendorCode" placeholder=""></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="8">
         <el-form-item label="法人代码">
           <el-input v-model.trim="formInline.corpCode" placeholder=""></el-input>
         </el-form-item>
@@ -16,13 +11,13 @@
           <el-input v-model.trim="formInline.corpName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-    </el-row>
-    <el-row>
       <el-col :span="8">
         <el-form-item label="进货验收单编号">
           <el-input v-model.trim="formInline.grnNumber" placeholder=""></el-input>
         </el-form-item>
       </el-col>
+    </el-row>
+    <el-row>
       <el-col :span="8">
         <el-form-item label="订单号">
           <el-input v-model.trim="formInline.poNumber" placeholder=""></el-input>
@@ -35,25 +30,12 @@
           </el-select>
         </el-form-item>
       </el-col>
-    </el-row>
-    <el-row>
       <el-col :span="8">
           <el-form-item label="类型">
             <el-select v-model="formInline.dataType">
               <el-option v-for="(item,index) in listType" :key="index" :label="item.dataName" :value="item.dataType"></el-option>
             </el-select>
           </el-form-item>
-      </el-col>
-      <el-col :span="16">
-        <el-form-item label="金额范围">
-          <el-col :span="11">
-            <el-input v-model.number="formInline.amountBegin" placeholder="起始金额"></el-input>
-          </el-col>
-          <el-col class="line" :span="2">-</el-col>
-          <el-col :span="11">
-            <el-input v-model.number="formInline.amountEnd" placeholder="结束金额"></el-input>
-          </el-col>
-        </el-form-item>
       </el-col>
     </el-row>
     <el-row>
@@ -69,6 +51,20 @@
           </el-date-picker>
         </el-form-item>
       </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="16">
+        <el-form-item label="金额范围">
+          <el-col :span="11">
+            <el-input v-model.number="formInline.amountBegin" placeholder="起始金额"></el-input>
+          </el-col>
+          <el-col class="line" :span="2">-</el-col>
+          <el-col :span="11">
+            <el-input v-model.number="formInline.amountEnd" placeholder="结束金额"></el-input>
+          </el-col>
+        </el-form-item>
+      </el-col>
+      <el-col :span="8"></el-col>
     </el-row>
     <el-row>
       <el-col :span="8" :offset="10">
@@ -107,7 +103,7 @@ export default {
         }
       ],
       formInline: {
-        vendorCode: '', // 供应商代码
+        // vendorCode: '', // 供应商代码
         corpCode: '', // 法人代码
         corpName: '', // 法人单位
         grnNumber: '', // 进货验收单编号

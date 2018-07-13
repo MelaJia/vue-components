@@ -1,7 +1,7 @@
 <template>
   <div class="ar-table">
     <!-- 详情 -->
-    <dialog-mysubmit :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-mysubmit>
+    <dialog-mysubmit :visible-p.sync="dialogInfoVisible" :details-p="details" :filelist="filedetails"></dialog-mysubmit>
     <section>
       <el-table ref="table" :data="dataTable" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle"
@@ -129,6 +129,7 @@ export default {
     return {
       dialogInfoVisible: false,
       details: {}, // 详情数据
+      filedetails: {},
       widthArr: {
         vendorCode: '150',
         billNo: '150',
@@ -161,6 +162,12 @@ export default {
         this.details = res
         this.dialogInfoVisible = true
         val.infoLoading = false
+      })
+      // 附件信息展示
+      this.axios.post('/auxiliaryFunction/searchSupplierJieBaoFile.do', { vendorCode: val.vendorCode, billNo: val.billNo, plantCode: val.plantCode }).then(res => {
+        this.filedetails = res.data.data
+      }).catch(err => {
+        console.log(err)
       })
     },
     fresh () {

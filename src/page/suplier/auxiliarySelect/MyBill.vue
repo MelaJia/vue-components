@@ -79,8 +79,8 @@ export default {
         grnNumber: val.grnNumber, // 进货验收单编号
         buyerName: val.buyerName, // 购方名称
         sellerName: val.sellerName, // 销方名称
-        state: val.state, // 状态
-        sendingState: val.sendingState, // 发送状态
+        status: val.status, // 状态
+        postStatus: val.postStatus, // 发送状态
         entryDateStart: entryfrom, // 录入日期开始
         entryDateEnd: entryto, // 录入日期结束
         amountStart: val.amountStart, // 开始金额
@@ -93,6 +93,10 @@ export default {
           if (res.data.status) {
             this.tableData5 = res.data[this.dataStr]
             this.total = res.data[this.totalStr]
+          } else {
+            this.tableData5 = []
+            this.total = 0
+            this.$message.error(res.data.msg)
           }
         })
       }

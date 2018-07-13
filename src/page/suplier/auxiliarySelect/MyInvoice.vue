@@ -93,6 +93,10 @@ export default {
           if (res.data.status) {
             this.tableData5 = res.data[this.dataStr]
             this.total = res.data[this.totalStr]
+          } else {
+            this.tableData5 = []
+            this.total = 0
+            this.$message.error(res.data.msg)
           }
         })
       }

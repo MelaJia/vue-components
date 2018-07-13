@@ -77,7 +77,7 @@ export default {
       this.param = {
         iDisplayStart: 1,
         iDisplayLength: 10,
-        vendorCode: val.vendorCode, // 供应商代码
+        // vendorCode: val.vendorCode, // 供应商代码
         corpCode: val.corpCode, // 法人代码
         corpName: val.corpName, // 法人单位
         grnNumber: val.grnNumber, // 进货验收单编号
@@ -98,6 +98,10 @@ export default {
           if (res.data.status) {
             this.tableData5 = res.data[this.dataStr]
             this.total = res.data[this.totalStr]
+          } else {
+            this.tableData5 = []
+            this.total = 0
+            this.$message.error(res.data.msg)
           }
         })
       }
