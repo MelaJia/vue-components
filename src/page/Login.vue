@@ -17,38 +17,16 @@
     <!-- 页头 end -->
 
     <div class="bigPicture">
-      <!-- index_focus start -->
-      <div class="index_focus">
-
-        <!-- substance start -->
-
-        <!-- substance end -->
-        <div class="bd">
-          <ul style="position: relative;">
-            <li style="height: 740px; position: absolute; left: 0px; top: 0px; ">
-              <a href="https://www.iqianbang.com/Activity-getnewers?userfrom=sem%7cbaidu%7cpc%7c89171#?userfrom=sem%7cbaidu%7cpc%7c89171"
-                target="_blank" class="pic"></a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="slide_nav">
-          <a href="javascript:;?userfrom=sem%7cbaidu%7cpc%7c89171" class="on">●</a>
-        </div>
-      </div>
       <!-- index_focus end -->
-      <div class="wrapper">
         <form action="" ref="ruleForm" id="register_form">
           <div class="register" id="div_register1" v-show="!showReg">
             <p class="title">登录</p>
             <div class="iptContext">
               <div class="ipt-group">
                 <input type="text" v-model="ruleForm.phone" class="text iptphone">
-                <!-- <input-phone v-model="ruleForm.phone" :classes="'text iptphone'"></input-phone> -->
               </div>
               <div class="ipt-group">
                 <input type="password" maxlength="20" v-model="ruleForm.pass" class="text iptpassword" ref="input" placeholder="8-20位数字与字母组合的密码">
-                <!-- <input-pass v-model="ruleForm.pass" :classes="'text iptpassword'"></input-pass> -->
               </div>
               <div class="ipt-group picture">
                 <verify :is-sure="isVerify" @verify-ok="handleVerify"></verify>
@@ -76,29 +54,7 @@
               </p>
             </div>
           </div>
-
-          <div class="register" v-show="showReg">
-            <p class="title">注册</p>
-            <div class="iptContext">
-              <div class="ipt-group">
-                <input-phone v-model="ruleForm.phone" :classes="'text iptphone'"></input-phone>
-              </div>
-              <div class="ipt-group">
-                <input-pass v-model="ruleForm.pass" :classes="'text iptpassword'"></input-pass>
-              </div>
-              <div class="ipt-group phone">
-                  <input type="text" id="viste" name="viste" class="text iptviste iptPhoneviste" onkeydown="if(event.keyCode===32) return false" placeholder="手机验证" maxlength="6">
-                  <button type="button" class="btn btnGray" id="getViste">获取手机验证码</button>
-                  <em class="error"> </em>
-              </div>
-              <div class="btnGroup step2">
-                <button type="submit" id="register2" class="btn btnRed">注册领取</button>
-              </div>
-            </div>
-          </div>
-          <input type="hidden" name="__hash__" value="ddb92acedd9bd8372428976866a2bf7d_d2469a6c836a041ad5df5fa5e4b42a9e">
         </form>
-      </div>
     </div>
 
     <!-- 数据总览 start -->
@@ -146,12 +102,11 @@
       </p>
 
     </div>
-
-    <div class="protocol-box" style="display:none;z-index: 999;"></div>
   </section>
 
 </template>
 <style lang="scss" scoped>
+@import "@/assets/css/_login.scss";
 .section-login {
   margin: 100px 50px;
 }
@@ -163,9 +118,6 @@
 
 <script>
 import * as types from '@/store/types'
-import '@/assets/css/pread.css'
-import '@/assets/css/slide.css'
-import '@/assets/css/style.css' // 引入全局less文件
 import InputPhone from '@/components/Items/InputPhone'
 import InputPass from '@/components/Items/InputPass'
 import Verify from '@/components/Items/Verify'

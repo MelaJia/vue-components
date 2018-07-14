@@ -1,0 +1,173 @@
+html{
+  font-size: 62.5%;
+}
+body, h1, h2, h3, h4, h5, h6{
+  margin: 0;
+  padding: 0;
+}
+// 登录样式
+.header{
+  background-color: white;
+height: 80px;
+line-height: 80px;
+}
+.header .logo, .header .phone {
+display: inline-block;
+}
+.header .logo {
+float: left;
+margin-left: 70px;
+img{
+  height: 80px;
+}
+}
+.header .phone {
+float: right;
+color: #666;
+font-size: 16px;
+height: 80px;
+line-height: 80px;
+margin-right: 70px;
+.p{
+  margin: 0;
+}
+}
+.hotLine {
+color: #F60;
+font-size: 36px;
+}
+// 中部
+.bigPicture {
+  background: url("~@/assets/img/login/tuiguang_02.jpg") 50% 50% repeat-x;
+  position: absolute;
+  top: 80px;
+  bottom: 140px;
+  left: 0;
+  right: 0;
+  max-height:780px;
+}
+// 登录块
+.bigPicture .register {
+display: block;
+width: 340px;
+height: 380px;
+background-color: white;
+border-radius: 10px;
+position: absolute;
+right: 75px;
+top:20px;
+}
+// 登录块内容
+.ipt-group {
+  margin-bottom: 10px;
+}
+.bigPicture .register p.title {
+color: #ff7832;
+font-size: 24px;
+text-align: center;
+margin: 15px 0 10px 0;
+}
+.bigPicture .register .iptContext {
+margin: 0 20px 0 20px;
+}
+.bigPicture .register .ipt-group input.text {
+padding: 17px 15px;
+border: 1px solid #e5e5e5;
+border-radius: 5px;
+height: 15px;
+line-height: 15px;
+color: #666;
+width: 270px;
+text-indent: 35px;
+}
+.bigPicture .register .ipt-group .iptphone {
+  background: url("~@/assets/img/login/icon.png") no-repeat;
+  background-position: 17px 10px;
+}
+
+.bigPicture .register .ipt-group .iptpassword {
+  background: url("~@/assets/img/login/icon.png") no-repeat;
+  background-position: 17px -43px;
+}
+
+.bigPicture .register .ipt-group .iptviste {
+  background: url("~@/assets/img/login/icon.png") no-repeat;
+  background-position: 17px -94px;
+}
+.bigPicture .register .iptChoose {
+  font-size: 14px;
+  margin-top: 20px;
+  color: #666;
+  text-indent: 0px;
+}
+a.red {
+  color: #ff7832;
+}
+.bigPicture .register .btnGroup button {
+  background: #ff7832;
+  width: 100%;
+  cursor: pointer;
+}
+.bigPicture .register p.account {
+  margin-top: 15px;
+  color: #666;
+  font-size: 14px;
+}
+// 底部
+.dataTotal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  padding-bottom: 40px;
+}
+.dataCase .wrapper {
+  height: 40px;
+}
+.dataTotal .dataGroup {
+  display: inline-block;
+  float: left;
+  width: 33.3%;
+}
+.dataTotal .dataGroup .img {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  margin-left: 15px;
+  margin-right: 15px;
+  background: url("~@/assets/img/login/spread_icon_01.png") no-repeat;
+  float: left;
+}
+.dataTotal .dataGroup>div {
+  vertical-align: middle;
+}
+.dataTotal .dataGroup i {
+  height: 35px;
+  line-height: 35px;
+  color: #999;
+  font-size: 14px;
+}
+.dataTotal .dataGroup h3 {
+  color: #333;
+  font-weight: normal;
+  font-size: 20px;
+  height: 45px;
+  line-height: 45px;
+}
+.dataTotal .dataGroup .data big {
+  font-size: 32px;
+}
+.activeFotter{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.activeFotter p {
+  color: #FFF;
+  font-size: 14px;
+  text-align: center;
+  line-height: 30px;
+  margin: 0;
+}
