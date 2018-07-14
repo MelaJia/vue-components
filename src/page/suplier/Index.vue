@@ -42,7 +42,7 @@
             <div class="url">
               <router-link :to="item.path">查看明细</router-link>
             </div>
-            <pie :num="item.firData" :total="item.secData" :color="color[idx]"></pie>
+            <pie ref="child" :num="item.firData" :total="item.secData" :color="color[idx]"></pie>
           </div>
         </div>
       </div>
@@ -214,7 +214,7 @@ export default {
           bcolor: '#9a9a9a' // 背景色
         }
       },
-      color: [['#fff', '#3b64ad'], ['#fff', '#ffd184'], ['#fff', '#d26e2a'], ['#fff', '#3e3c3c']] // 小饼图颜色数组
+      color: { unOperate: ['#fff', '#3b64ad'], transfered: ['#fff', '#ffd184'], discounted: ['#fff', '#d26e2a'], received: ['#fff', '#3e3c3c'] } // 小饼图颜色数组
     }
   },
   mounted () {
@@ -227,6 +227,10 @@ export default {
     myChart.setOption(option)
     // 获取数据
     ge.call(this).then(res => {
+      // 子饼图数据显示
+      this.$refs.child.forEach(re => {
+        re.updateMethod()
+      })
       // 设置数据
       let echartData = res
       // 设置option

@@ -8,42 +8,42 @@ var echarts = require('echarts/lib/echarts')
 require('echarts/lib/chart/pie')
 export default {
   props: ['num', 'total', 'color'],
-  mounted () {
-    // 获取容器
-    var dom = this.$refs.pie
-    // 基于准备好的dom，初始化echarts实例
-    let myChart = echarts.init(dom)
-    // 设置数据
-    let option = {
-      color: this.color,
-      series: [
-        {
-          name: '访问来源',
-          type: 'pie',
-          radius: ['50%', '70%'],
-          hoverAnimation: false,
-          label: {
-            normal: {
-              show: false,
-              position: 'center'
-            }
-          },
-          labelLine: {
-            normal: {
-              show: false
-            }
-          },
-          data: this.getData
-        }
-      ]
-    }
-    // 绘制图表
-    myChart.setOption(option)
-  },
   computed: {
-    getData: function () {
+    getOption: function () {
       let datas = [this.num, this.total]
-      return datas
+      return {
+        color: this.color,
+        series: [
+          {
+            name: '访问来源',
+            type: 'pie',
+            radius: ['50%', '70%'],
+            hoverAnimation: false,
+            label: {
+              normal: {
+                show: false,
+                position: 'center'
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              }
+            },
+            data: datas
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    updateMethod () {
+      // 获取容器
+      var dom = this.$refs.pie
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = echarts.init(dom)
+      // 绘制图表
+      myChart.setOption(this.getOption)
     }
   }
 }
