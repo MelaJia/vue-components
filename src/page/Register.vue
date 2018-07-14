@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="reg-style">
   <section class="header">
     <div class="wrapper clearfix">
         <a href="#" class="logo">
@@ -312,6 +312,48 @@
   </section>
 </template>
 <style lang="scss">
+.reg-style{
+  .header {
+  background-color: white;
+  height: 100px;
+  line-height: 100px;
+  min-height: 100px;
+}
+
+.header .logo,
+.header .phone {
+  display: inline-block;
+}
+
+.header .logo {
+  float: left;
+  margin-left: 70px;
+}
+
+.header .logo img {
+  vertical-align: middle;
+}
+
+.header .phone {
+  float: right;
+  color: #666;
+  font-size: 16px;
+  height: 100px;
+  line-height: 100px;
+  margin-right: 70px;
+}
+a {
+  text-decoration: none;
+}
+
+a.red {
+  color: #ff7832;
+}
+
+a.red:hover {
+  text-decoration: underline;
+}
+}
 // ie10步骤条兼容处理
 .ie10 {
   .el-steps{
@@ -359,15 +401,17 @@
 </style>
 
 <script>
-import '@/assets/css/pread.css' // 引入样式
 import Upload from '@/components/Items/uploadReg'
 import validConf from '@/config/validateConfig'
 import CityData from '@/mixins/CityData' // 省市数据
-import commonDatas from '@/mixins/commonDatas' // 货币类型
+import {
+  getStore,
+  setStore
+} from '@/util/store'
 /* 企业认证 */
 export default {
   props: ['visibleP', 'form'],
-  mixins: [CityData, commonDatas],
+  mixins: [CityData],
   components: {
     Upload
   },
@@ -426,7 +470,8 @@ export default {
       select: '',
       rulesOne: validConf.getValid('validOne'),
       rulesTwo: { ...arr, ...validConf.getValid('validTwo') },
-      rulesThree: validConf.getValid('validThree')
+      rulesThree: validConf.getValid('validThree'),
+      moneyTypes: []
 
     }
   },
@@ -451,6 +496,27 @@ export default {
     }
   },
   mounted () {
+    this.moneyTypes = getStore({
+      name: 'moneyTypes'
+    })
+    // storage中无数据
+    if (!this.moneyTypes) {
+      console.log('从服务器获取通用数据')
+      // 获取货币类型并保存
+      this.axios.get('/commonAr/queryCurr.do').then(res => {
+        if (res.data.status) {
+          setStore({
+            name: 'moneyTypes',
+            content: res.data.data,
+            type: true
+          })
+          // 赋值
+          this.moneyTypes = res.data.data
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      })
+    }
   },
   methods: {
     // 上一页

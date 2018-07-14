@@ -209,6 +209,13 @@ export default {
               type: 'error'
             })
           }
+        }).catch(err => {
+          this.loginLoading = false // 登录失败
+          this.$message({
+            showClose: true,
+            message: err,
+            type: 'error'
+          })
         })
       }
       // *************************分割线*************************
