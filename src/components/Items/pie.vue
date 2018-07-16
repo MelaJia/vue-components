@@ -12,10 +12,14 @@ export default {
     getOption: function () {
       let datas = [this.num, this.total]
       return {
+        tooltip: {
+          trigger: 'item',
+          formatter: '{b}: {c} ({d}%)'
+        },
         color: this.color,
         series: [
           {
-            name: '访问来源',
+            name: '数据来源',
             type: 'pie',
             radius: ['50%', '70%'],
             hoverAnimation: false,

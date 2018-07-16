@@ -41,7 +41,7 @@
             <div class="url">
               <router-link :to="dataArr[0].path">查看明细></router-link>
             </div>
-            <pie :num="dataArr[0].firData" :total="dataArr[0].secData" :color="color[0]"></pie>
+            <pie ref="child" :num="dataArr[0].firData" :total="dataArr[0].secData" :color="color[0]"></pie>
           </div>
         </div>
         <!-- 只有单一数据 -->
@@ -147,13 +147,13 @@ li {
 .bg-blue > a {
   color: #fff;
 }
-.bg-none>a{
-  color:#9e400f
+.bg-none > a {
+  color: #9e400f;
 }
 .url-section {
-    position: absolute;
-    bottom: 0px;
-    left: 250px;
+  position: absolute;
+  bottom: 0px;
+  left: 250px;
 }
 </style>
 
@@ -332,6 +332,8 @@ export default {
       }]
     }
     console.log(option)
+    // 子饼图数据显示
+    this.$refs.child.updateMethod()
     // 绘制图表
     myChart.setOption(option)
   }

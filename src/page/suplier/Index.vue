@@ -164,11 +164,11 @@ export default {
           title: '未贴现/转让', // 标题
           firData: { // 第一个数据
             value: null,
-            name: '可以金额'
+            name: '可用金额'
           },
           secData: { // 第二个数据
             value: null,
-            name: '冻结金额'
+            name: '已到期金额'
           },
           path: 'myar', // 路径
           bcolor: '#5b9bd5' // 背景色
@@ -342,7 +342,7 @@ function getOptions (echartData) {
       }
     },
     series: [{
-      name: '总考生数量',
+      name: '资产概况',
       type: 'pie',
       radius: ['27%', '50%'],
       hoverAnimation: false,
