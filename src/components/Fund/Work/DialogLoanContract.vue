@@ -214,6 +214,7 @@ export default {
 }
 // 提交操作
 function submit () {
+  console.log(this.detailsP)
   this.$refs.form.validate((valid) => {
     if (valid) {
       const param = {

@@ -113,9 +113,9 @@ function handleContrac (idx, val) {
     console.log(res)
     if (res.data.status) {
       // 放款比例初始化否则先输入实际放款金额会造成不联动
-      if (!res.data.data.loanPer) {
-        res.data.data.loanPer = 1
-      }
+      res.data.data.loanPer = res.data.data.loanPer || 1
+      res.data.data.actualDiscountAmt = res.data.data.actualDiscountAmt || res.data.data.billBookAmt * res.data.data.loanPer / 100
+      res.data.data.repaymentType = res.data.data.repaymentType ? parseInt(res.data.data.repaymentType) : null
       // 3.设置数据
       this.detailsContract = res.data.data
       // 4.显示弹窗
