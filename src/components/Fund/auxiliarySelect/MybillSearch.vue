@@ -113,7 +113,7 @@ export default {
         },
         {
           'dataType': 1,
-          'dataName': '推送'
+          'dataName': '已推送'
         },
         {
           'dataType': 2,
