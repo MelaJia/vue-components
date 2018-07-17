@@ -181,8 +181,8 @@ function handleSearchFirst (val) {
   let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
   this.param = {
     billBookCurr: val.billBookCurr, // 币别
-    from: from, // 日期
-    to: to
+    beginDate: from, // 日期
+    endDate: to
   }
   console.log(this.param)
   if (this.arrData.first.total && this.arrData.first.currentPage !== 1) {
