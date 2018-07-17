@@ -3,23 +3,9 @@ var DEFAULT_URL = "";//注意，删除的变量在这里重新定义
 $(document).ready(function(){
 var PDFData = "";
 var param = GetRequest();
-var url = getApiUrl()
-$.ajax({
-    type:"post",
-    async:false,
-    mimeType: 'text/plain; charset=x-user-defined',
-    url:url+'/contract/showContract?contractNo='+param.contractNo,
-    success:function(data){
-       PDFData = data;
-    }
-});
-var rawLength = PDFData.length;
-//转换成pdf.js能直接解析的Uint8Array类型,见pdf.js-4068
-var array = new Uint8Array(new ArrayBuffer(rawLength));  
-for(i = 0; i < rawLength; i++) {
-  array[i] = PDFData.charCodeAt(i) & 0xff;
-}
-DEFAULT_URL = array;
+DEFAULT_URL = param.url;
+var t=param.url.split('/')
+window.document.title=t[t.length-1]
 });
 function GetRequest() {   
   var url = location.search; //获取url中"?"符后的字串   
