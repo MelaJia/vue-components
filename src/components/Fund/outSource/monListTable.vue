@@ -8,7 +8,7 @@
       </el-table-column>
       <el-table-column align="center" label="注册资金提供方 " prop="funding">
       </el-table-column>
-      <el-table-column align="center" label="组织机构代码" prop="OIBC">
+      <el-table-column align="center" label="组织机构代码" prop="oibc">
       </el-table-column>
       <el-table-column align="center" label="所属区域 " prop="district">
       </el-table-column>

@@ -50,17 +50,18 @@
               </el-table-column>
               <el-table-column align="center" prop="billPayStatus" :width="widthArr.billPayStatus">
               </el-table-column>
-              <el-table-column align="left" label-align="center" width='200px'>
+              <el-table-column align="left" label-align="center" width='250px'>
                 <template slot-scope="scope">
                   <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row, true)" >详情</el-button>
-                  <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
+                  <el-button v-for="(item, index) in scope.row.operateArr" :key="index" size="mini" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button>
+                  <!-- <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
                     <span class="el-dropdown-link">
                       更多<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
                       <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button></el-dropdown-item>
                     </el-dropdown-menu>
-                  </el-dropdown>
+                  </el-dropdown> -->
                 </template>
               </el-table-column>
             </el-table>
@@ -93,18 +94,18 @@
         </el-table-column>
         <el-table-column align="center" label="打款处理状态" prop="billPayStatus" width="120">
         </el-table-column>
-        <el-table-column align="left" header-align="center" label="操作" width='200px' class-name="">
+        <el-table-column align="left" header-align="center" label="操作" width='250px' class-name="">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-            <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
+            <el-button v-for="(item, index) in scope.row.operateArr" :key="index" size="mini" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button>
+            <!-- <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
   <span class="el-dropdown-link">
     更多<i class="el-icon-arrow-down el-icon--right"></i>
   </span>
   <el-dropdown-menu slot="dropdown">
     <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button></el-dropdown-item>
-    <!-- <el-dropdown-item v-for="(item, index) in operateArr" :key="index" :command="{key:item.key, idx:scope.$index, val:scope.row}">{{item.name}}</el-dropdown-item> -->
   </el-dropdown-menu>
-</el-dropdown>
+</el-dropdown> -->
             <!-- <el-dropdown>
               <el-button type="primary">
                 更多菜单<i class="el-icon-arrow-down el-icon--right"></i>

@@ -153,6 +153,9 @@ export default {
         this.checkShow = true
         return
       }
+      // 登录前清除信息
+      this.$store.commit(types.LOGOUT)
+      this.$store.commit('DEL_ALL_TAG')
       // if (Valid.checkPass(this.ruleForm.pass)) {
       // *************************分割线*************************
       this.loginLoading = true // 登录中

@@ -181,8 +181,8 @@ function handleSearchFirst (val) {
   let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
   this.param = {
     billBookCurr: val.billBookCurr, // 币别
-    from: from, // 日期
-    to: to
+    beginDate: from, // 日期
+    endDate: to
   }
   console.log(this.param)
   if (this.arrData.first.total && this.arrData.first.currentPage !== 1) {
@@ -201,7 +201,7 @@ function handleSearchFirst (val) {
 function handleSearchSecond (val) {
   this.param = {
     enterprise: val.enterprise, // 企业名称
-    OIBC: val.OIBC // 组织机构代码
+    oibc: val.OIBC // 组织机构代码
   }
   console.log(this.param)
   if (this.arrData.second.total && this.arrData.second.currentPage !== 1) {
@@ -220,7 +220,7 @@ function handleSearchSecond (val) {
 function handleSearchThird (val) {
   this.param = {
     funding: val.funding, // 资金提供方名称
-    OIBC: val.OIBC // 组织机构代码
+    oibc: val.OIBC // 组织机构代码
   }
   console.log(this.param)
   if (this.arrData.third.total && this.arrData.third.currentPage !== 1) {

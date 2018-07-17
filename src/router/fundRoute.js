@@ -81,7 +81,7 @@ const routes = [
       component: () =>
         import(/* webpackChunkName: 'Fund' */ '@/page/funder/auxiliarySelect/OrderSearch'),
       meta: {
-        title: '我的订单', // 名称
+        title: '订单查询', // 名称
         requireAuth: true // 需要登录验证
       }
     },
@@ -91,7 +91,7 @@ const routes = [
       component: () =>
         import(/* webpackChunkName: 'Fund' */ '@/page/funder/auxiliarySelect/AcceptanceSearch'),
       meta: {
-        title: '我的验收单', // 名称
+        title: '验收单查询', // 名称
         requireAuth: true // 需要登录验证
       }
     },
@@ -101,7 +101,7 @@ const routes = [
       component: () =>
         import(/* webpackChunkName: 'Fund' */ '@/page/funder/auxiliarySelect/MyBill'),
       meta: {
-        title: '我的对账单', // 名称
+        title: '对账单查询', // 名称
         requireAuth: true // 需要登录验证
       }
     },
@@ -111,7 +111,7 @@ const routes = [
       component: () =>
         import(/* webpackChunkName: 'Fund' */ '@/page/funder/auxiliarySelect/MyPayer'),
       meta: {
-        title: '我的付款单', // 名称
+        title: '付款单查询', // 名称
         requireAuth: true // 需要登录验证
       }
     },
@@ -121,7 +121,7 @@ const routes = [
       component: () =>
         import(/* webpackChunkName: 'Fund' */ '@/page/funder/auxiliarySelect/MyInvoice'),
       meta: {
-        title: '我的发票', // 名称
+        title: '发票查询', // 名称
         requireAuth: true // 需要登录验证
       }
     },
@@ -131,7 +131,7 @@ const routes = [
       component: () =>
         import(/* webpackChunkName: 'Fund' */ '@/page/funder/auxiliarySelect/MySubmit'),
       meta: {
-        title: '我的结报', // 名称
+        title: '结报查询', // 名称
         requireAuth: true // 需要登录验证
       }
     },
@@ -141,7 +141,7 @@ const routes = [
       component: () =>
         import(/* webpackChunkName: 'Fund' */ '@/page/funder/auxiliarySelect/MyArrear'),
       meta: {
-        title: '我的欠款', // 名称
+        title: '欠款查询', // 名称
         requireAuth: true // 需要登录验证
       }
     },

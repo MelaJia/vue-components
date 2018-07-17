@@ -34,7 +34,7 @@ export default {
         loanAmt: '',
         billPayDate: '120',
         billPayStatus: '120',
-        operate: '200'
+        operate: '250'
       }
     }
   },
