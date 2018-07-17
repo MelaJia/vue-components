@@ -128,18 +128,18 @@
             </el-row>
             <el-row>
               <el-col :span="8">
-                <el-form-item label="统一社会信用代码:" prop="creditCode">
-                  <el-input v-model.trim="getForm.creditCode"></el-input>
+                <el-form-item label="统一社会信用代码:" prop="creditCode" :show-message="!t2oAb">
+                  <el-input :disabled="t2oAb" v-model.trim="getForm.creditCode"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="营业执照编号: " prop="licenseNumber">
-                  <el-input v-model="getForm.licenseNumber"></el-input>
+                <el-form-item label="营业执照编号: " prop="licenseNumber" :show-message="!o2tAb">
+                  <el-input :disabled="o2tAb" v-model="getForm.licenseNumber"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="组织机构代码编号: " prop="organizationNumber">
-                  <el-input v-model.trim="getForm.organizationNumber"></el-input>
+                <el-form-item label="组织机构代码编号: " prop="organizationNumber" :show-message="!o2tAb">
+                  <el-input :disabled="o2tAb" v-model.trim="getForm.organizationNumber"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -150,8 +150,8 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="税务登记证编号: " prop="taxNumber">
-                  <el-input v-model.trim="getForm.taxNumber"></el-input>
+                <el-form-item label="税务登记证编号: " prop="taxNumber" :show-message="!o2tAb">
+                  <el-input :disabled="o2tAb" v-model.trim="getForm.taxNumber"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
@@ -312,61 +312,61 @@
   </section>
 </template>
 <style lang="scss">
-.reg-style{
+.reg-style {
   .header {
-  background-color: white;
-  height: 100px;
-  line-height: 100px;
-  min-height: 100px;
-}
+    background-color: white;
+    height: 100px;
+    line-height: 100px;
+    min-height: 100px;
+  }
 
-.header .logo,
-.header .phone {
-  display: inline-block;
-}
+  .header .logo,
+  .header .phone {
+    display: inline-block;
+  }
 
-.header .logo {
-  float: left;
-  margin-left: 70px;
-}
+  .header .logo {
+    float: left;
+    margin-left: 70px;
+  }
 
-.header .logo img {
-  vertical-align: middle;
-}
+  .header .logo img {
+    vertical-align: middle;
+  }
 
-.header .phone {
-  float: right;
-  color: #666;
-  font-size: 16px;
-  height: 100px;
-  line-height: 100px;
-  margin-right: 70px;
-}
-a {
-  text-decoration: none;
-}
+  .header .phone {
+    float: right;
+    color: #666;
+    font-size: 16px;
+    height: 100px;
+    line-height: 100px;
+    margin-right: 70px;
+  }
+  a {
+    text-decoration: none;
+  }
 
-a.red {
-  color: #ff7832;
-}
+  a.red {
+    color: #ff7832;
+  }
 
-a.red:hover {
-  text-decoration: underline;
-}
+  a.red:hover {
+    text-decoration: underline;
+  }
 }
 // ie10步骤条兼容处理
 .ie10 {
-  .el-steps{
+  .el-steps {
     display: block;
   }
-  .el-step{
+  .el-step {
     display: inline-block;
     width: 43%;
   }
-  .el-step:last-of-type.is-flex{
+  .el-step:last-of-type.is-flex {
     width: 10%;
   }
-  .el-step.is-simple .el-step__head{
+  .el-step.is-simple .el-step__head {
     float: left;
   }
 }
@@ -482,6 +482,13 @@ export default {
     getForm () {
       return this.userInfo
     },
+    // 2选一是否可输入
+    o2tAb () {
+      return this.getForm.creditCode.length > 0
+    },
+    t2oAb () {
+      return this.getForm.licenseNumber.length > 0 || this.getForm.organizationNumber.length > 0 || this.getForm.payTaxesNumber.length > 0
+    }, // 2选一是否可输入
     // 开户省市计算
     getBankAdd: {
       get: function () {
