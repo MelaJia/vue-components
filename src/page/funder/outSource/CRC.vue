@@ -201,7 +201,7 @@ function handleSearchFirst (val) {
 function handleSearchSecond (val) {
   this.param = {
     enterprise: val.enterprise, // 企业名称
-    OIBC: val.OIBC // 组织机构代码
+    oibc: val.OIBC // 组织机构代码
   }
   console.log(this.param)
   if (this.arrData.second.total && this.arrData.second.currentPage !== 1) {
@@ -220,7 +220,7 @@ function handleSearchSecond (val) {
 function handleSearchThird (val) {
   this.param = {
     funding: val.funding, // 资金提供方名称
-    OIBC: val.OIBC // 组织机构代码
+    oibc: val.OIBC // 组织机构代码
   }
   console.log(this.param)
   if (this.arrData.third.total && this.arrData.third.currentPage !== 1) {
