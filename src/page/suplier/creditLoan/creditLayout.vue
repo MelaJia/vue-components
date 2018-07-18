@@ -46,11 +46,19 @@ export default {
   mixins: [Dialog],
   components: {
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/creditLoan/DialogLoan')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/creditLoan/loan/DialogLoan')
   },
   methods: {
+    // 申请融资
     handleInfo () {
       this.dialogInfoVisible = true
+    },
+    /**
+     * 刷新父页面数据
+     * this.$parent.fresh()
+     */
+    fresh () {
+      this.$emit('refresh')
     }
   }
 }

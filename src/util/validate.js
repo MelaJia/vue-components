@@ -244,3 +244,22 @@ export function checkNumber (rule, value, callback) {
     }
   }, 1000)
 }
+// 数字比较大小规则
+export function checkNumberPire (obj) {
+  return function (rule, value, callback) {
+    let re = /^([1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
+    setTimeout(() => {
+      if (!re.test(value)) {
+        callback(new Error('请输入大于0的数字'))
+      } else {
+        if (value <= 0) {
+          callback(new Error('必须大于0'))
+        } else if (obj.max && value > obj.max) {
+          callback(new Error(`不得大于${obj.max}`))
+        } else {
+          callback()
+        }
+      }
+    }, 1000)
+  }
+}

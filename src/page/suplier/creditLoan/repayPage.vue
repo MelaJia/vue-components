@@ -36,8 +36,8 @@
 
 <script>
 import Info from '@/page/suplier/creditLoan/creditLayout' // 顶部信息以及操作
-import ArTable from '@/components/suplier/creditLoan/loan/LoanList'
-import Search from '@/components/suplier/creditLoan/loan/LoanSearch'
+import ArTable from '@/components/suplier/creditLoan/repay/RepayList'
+import Search from '@/components/suplier/creditLoan/repay/RepaySearch'
 import Table from '@/mixins/suplier/Ar/Table'
 export default {
   mixins: [Table],

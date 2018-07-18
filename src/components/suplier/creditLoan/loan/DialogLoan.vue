@@ -7,7 +7,7 @@
       </span>
     </header>
     <section>
-      <el-form ref="form" :model="form" label-width="130px" status-icon :rules="rules" label-position="right">
+      <el-form ref="form" :model="formInline" label-width="130px" status-icon :rules="rules" label-position="right">
         <el-row>
           <el-col :span="12" :offset="6">
             <el-form-item label="可融资金额: ">
@@ -17,8 +17,8 @@
         </el-row>
         <el-row>
           <el-col :span="12" :offset="6">
-            <el-form-item label="融资申请金额:" prop="loanPer">
-              <el-input v-model="form.loanPer">
+            <el-form-item label="融资申请金额:" prop="applyAmt">
+              <el-input v-model="formInline.applyAmt">
                 <template slot="append">元</template>
               </el-input>
             </el-form-item>
@@ -27,7 +27,7 @@
         <el-row>
           <el-col :span="12" :offset="6">
             <el-form-item label="还款日期:" prop="repayDate">
-            <el-date-picker :editable="false" v-model="form.repayDate"  :picker-options="pickerOptions" type="date" placeholder="选择日期">
+            <el-date-picker :editable="false" v-model="formInline.repayDate"  :picker-options="pickerOptions" type="date" placeholder="选择日期">
             </el-date-picker>
             </el-form-item>
           </el-col>
@@ -53,7 +53,7 @@
       </el-form>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="subHandle">修改</el-button>
+      <el-button type="primary" @click="subHandle">确认</el-button>
       <el-button @click="handleClose">取消</el-button>
     </footer>
   </el-dialog>
@@ -66,9 +66,8 @@
 </style>
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
-import { debounce } from '@/util/util' // 防抖函数
-import { checkNumber } from '@/util/validate' // 校验数字
-import { loadingConf } from '@/config/common' // 获取加载配置
+import { debounce, postDataBase } from '@/util/util' // 防抖函数
+import { checkNumberPire } from '@/util/validate' // 校验数字
 export default {
   props: ['visibleP', 'form'],
   mixins: [DialogClose],
@@ -76,10 +75,11 @@ export default {
     return {
       bankProvinceCity: [],
       fileList: [{ name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }, { name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }],
+      // 校验规则
       rules: {
-        loanPer: [
+        applyAmt: [
           { required: true, message: '请输入融资金额', trigger: 'blur' },
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumberPire({ max: this.form.canV }), trigger: 'blur' }
         ],
         repayDate: [
           { required: true, message: '请选择还款日期', trigger: 'blur' }
@@ -90,6 +90,11 @@ export default {
         disabledDate (time) {
           return time.getTime() < Date.now()
         }
+      },
+      // 表单数据
+      formInline: {
+        applyAmt: '', // 融资申请金额
+        repayDate: null // 还款日期
       }
     }
   },
@@ -119,39 +124,17 @@ function submit () {
     if (valid) {
       // 组合数据
       const param = {
-        custId: this.form.custId, // 客户id
-        factoringCustId: this.form.factoringCustId, // 保理商Id
-        vendorCode: this.form.vendorCode, // 供应商代码
-        loanPer: this.form.loanPer, // 放款比例
-        fineGraceDays: this.form.fineGraceDays, // 宽容天数
-        interestRate: this.form.interestRate, // 年利率
-        serviceFeeRate: this.form.serviceFeeRate, // 还款手续费
-        fineGraceDayRate: this.form.fineGraceDayRate, // 罚息天利率
-        prepaymentDeductRate: this.form.prepaymentDeductRate // 提前还款手续费
+        custId: this.form.custId, // 供應商Id
+        applyAmt: this.formInline.applyAmt, // 融资申请金额
+        repayDate: this.formInline.repayDate // 还款日期
       }
-      // 显示加载图标
-      const loading = this.$loading(loadingConf.sub())
-      // 上传数据
-      this.axios.post('/loanFee2/confirmCustLoanFee.do', param).then(res => {
-        let type = res.data.status ? 'success' : 'error'
-        this.$message({
-          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-          type: type
-        })
-        // 关闭加载图标
-        loading.close()
+      // 提交数据
+      postDataBase.call(this, '/creditLoan/creditApplyDiscount.do', param, true).then(res => {
         // 操作成功关闭弹窗刷新数据
         if (res.data.status) {
           this.$parent.fresh()
           this.handleClose()
         }
-      }).catch(err => {
-        this.$message({
-          type: 'info',
-          message: `操作失败${err}`
-        })
-        // 关闭加载图标
-        loading.close()
       })
     }
   })

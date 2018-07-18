@@ -29,26 +29,35 @@
               </el-table-column>
               <el-table-column align="center" width="40">
               </el-table-column>
-              <el-table-column align="center" prop="masterChainId" :width="widthArr.masterChainId">
+              <el-table-column align="center" prop="loanId" :width="widthArr.loanId">
               </el-table-column>
-              <el-table-column align="center" prop="billId" :width="widthArr.billId">
+              <el-table-column align="center" prop="applyAmt" :width="widthArr.applyAmt">
               </el-table-column>
-              <el-table-column align="center" :width="widthArr.isMasterAr" >
-                >
+              <el-table-column align="center" :width="widthArr.currencyDesc" >
               </el-table-column>
-              <el-table-column align="center" prop="company" :width="widthArr.company">
+              <el-table-column align="center" prop="status" :width="widthArr.status">
               </el-table-column>
-              <el-table-column align="center" prop="arStatusTypeName" :width="widthArr.arStatusTypeName">
-              </el-table-column>
-              <el-table-column align="center" prop="currencyDesc" :width="widthArr.currencyDesc">
-              </el-table-column>
-              <el-table-column align="center" prop="billBookAmt" :width="widthArr.billBookAmt">
+              <el-table-column align="center" prop="repaymentType" :width="widthArr.repaymentType">
               </el-table-column>
               <el-table-column align="center" prop="loanAmt" :width="widthArr.loanAmt">
               </el-table-column>
-              <el-table-column align="center" prop="billPayDate" :width="widthArr.billPayDate" :formatter="dateFormat">
+              <el-table-column align="center" prop="payPrincipalAmt" :width="widthArr.payPrincipalAmt">
               </el-table-column>
-              <el-table-column align="center" prop="billPayStatus" :width="widthArr.billPayStatus">
+              <el-table-column align="center" prop="payInterestAmt" :width="widthArr.payInterestAmt">
+              </el-table-column>
+              <el-table-column align="center" prop="payServiceAmt" :width="widthArr.payServiceAmt">
+              </el-table-column>
+              <el-table-column align="center" prop="payFineAmt" :width="widthArr.payFineAmt">
+              </el-table-column>
+              <el-table-column align="center" prop="payFineDays" :width="widthArr.payFineDays">
+              </el-table-column>
+              <el-table-column align="center" prop="prepaymentDeductInterest" :width="widthArr.prepaymentDeductInterest">
+              </el-table-column>
+              <el-table-column align="center" prop="totalRepayAmt" :width="widthArr.totalRepayAmt">
+              </el-table-column>
+              <el-table-column align="center" prop="contractSignedDate" :width="widthArr.contractSignedDate" :formatter="dateFormat">
+              </el-table-column>
+              <el-table-column align="center" prop="repayDate" :width="widthArr.repayDate" :formatter="dateFormat">
               </el-table-column>
               <el-table-column align="left" label-align="center" width='200px'>
                 <template slot-scope="scope">
@@ -73,48 +82,40 @@
           label="序号"
           fixed width="40">
         </el-table-column>
-        <el-table-column align="center" label="AR单号" fixed sortable prop="masterChainId" width="150">
+        <el-table-column align="center" label="融资编号" fixed sortable prop="loanId" width="150">
         </el-table-column>
-        <el-table-column align="center" label="结报单号" prop="billId" width="150">
+        <el-table-column align="center" label="融资申请金额" prop="applyAmt" width="150">
         </el-table-column>
-        <el-table-column align="center" label="AR来源" prop="isMasterAr" :formatter="originFormat">
+        <el-table-column align="center" label="币别" prop="currencyDesc" :formatter="originFormat">
         </el-table-column>
-        <el-table-column align="center" label="付款单位/对手单位" prop="company" width="150">
+        <el-table-column align="center" label="状态" prop="status">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="arStatusTypeName">
+        <el-table-column align="center" label="还款方式" prop="repaymentType">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyDesc">
+        <el-table-column align="center" label="实放金额" prop="loanAmt">
         </el-table-column>
-        <el-table-column align="center" label="票面金额" prop="billBookAmt">
+        <el-table-column align="center" label="还款本金" prop="payPrincipalAmt">
         </el-table-column>
-        <el-table-column align="center" label="可用余额" prop="loanAmt">
+        <el-table-column align="center" label="还款利息" prop="payInterestAmt">
         </el-table-column>
-        <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120">
+         <el-table-column align="center" label="还款服务费" prop="payServiceAmt">
         </el-table-column>
-        <el-table-column align="center" label="打款处理状态" prop="billPayStatus" width="120">
+        <el-table-column align="center" label="罚息" prop="payFineAmt">
+        </el-table-column>
+        <el-table-column align="center" label="罚息天数" prop="payFineDays">
+        </el-table-column>
+        <el-table-column align="center" label="提前还款手续费" prop="prepaymentDeductInterest">
+        </el-table-column>
+        <el-table-column align="center" label="还款合计" prop="totalRepayAmt">
+        </el-table-column>
+        <el-table-column align="center" label="合同签署日期" prop="contractSignedDate" :formatter="dateFormat" width="120">
+        </el-table-column>
+        <el-table-column align="center" label="还款日期" prop="repayDate" :formatter="dateFormat" width="120">
         </el-table-column>
         <el-table-column align="left" header-align="center" label="操作" width='200px' class-name="">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-            <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
-  <span class="el-dropdown-link">
-    更多<i class="el-icon-arrow-down el-icon--right"></i>
-  </span>
-  <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button></el-dropdown-item>
-    <!-- <el-dropdown-item v-for="(item, index) in operateArr" :key="index" :command="{key:item.key, idx:scope.$index, val:scope.row}">{{item.name}}</el-dropdown-item> -->
-  </el-dropdown-menu>
-</el-dropdown>
-            <!-- <el-dropdown>
-              <el-button type="primary">
-                更多菜单<i class="el-icon-arrow-down el-icon--right"></i>
-              </el-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item><el-button size="mini" type="primary" @click="handleTransfer(scope.$index, scope.row)">转让</el-button></el-dropdown-item>
-                <el-dropdown-item><el-button size="mini" type="primary" @click="handleCancle(scope.$index, scope.row)">取消</el-button></el-dropdown-item>
-                <el-dropdown-item><el-button size="mini" type="primary" @click="handleApply(scope.$index, scope.row)">贴现审核申请</el-button></el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown> -->
+            <el-button v-for="(item, index) in scope.row.operateArr" :key="index"  size="mini" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button>
             </template>
         </el-table-column>
       </el-table>
@@ -155,6 +156,7 @@ import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
 import { firstToUpperCase, debounce, erroShow } from '@/util/util' // 首字母大写 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
+import widhConf from '@/config/width' // 宽度配置
 /* 我的Ar列表 */
 export default {
   props: ['dataLoading', 'dataTable'],
@@ -172,6 +174,7 @@ export default {
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogInfoMy-1')
   },
   data () {
+    console.log(widhConf.crL)
     return {
       dialogContractVisible: false, // 控制合同窗
       dialogTransferVisible: false, // 控制转账窗
@@ -190,7 +193,8 @@ export default {
         { key: 'contract', name: '合同确认' },
         { key: 'cancleTrans', name: '取消授让' },
         { key: 'apply', name: '保理方申请' }
-      ] // 操作数据
+      ], // 操作数据
+      widthArr: widhConf.crL
     }
   },
   computed: {

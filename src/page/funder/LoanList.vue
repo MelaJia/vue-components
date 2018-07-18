@@ -66,6 +66,7 @@ export default {
     handleSearch (val) {
       let from = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
       let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
+      // 修改查询条件
       this.param = {
         masterChainId: val.masterChainId, // ar单号
         custFromName: val.custFromName, // 贴现客户

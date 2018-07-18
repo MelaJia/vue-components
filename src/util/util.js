@@ -428,7 +428,11 @@ export const debounce = function (fun, delay, immediate) {
     }
   }
 }
-// 错误提示函数
+/**
+ * 
+ * @param {obj} err 错误对象
+ * @param {obj} loading 加载图标对象
+ */
 export const erroShow = function (err, loading) {
   // 关闭加载图标
   if(loading) {
@@ -485,9 +489,11 @@ export const getDataBase = function (url, param, showLoading) {
 }
 /**
  * 提交数据基础函数
+ * @returns {obj} axios返回的对象
  * @param {str} url 请求地址
  * @param {obj} param 请求参数
  * @param {boolean} showLoading 是否显示加载图标
+ * @example postDataBase.call(this, url, param, true).then(res=>{console.log(res)})
  */
 export const postDataBase = function (url, param, showLoading) {
   if(typeof param=='boolean'){

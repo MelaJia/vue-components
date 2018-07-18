@@ -155,6 +155,15 @@ const routes = [{
       title: '融资情况', // 名称
       requireAuth: true // 需要登录验证
     }
+  },
+  {
+    path: 'creditRepaySituation',
+    name: 'creditRepaySituation',
+    component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/creditLoan/repayPage'),
+    meta: {
+      title: '还款情况', // 名称
+      requireAuth: true // 需要登录验证
+    }
   }
   ]
 }
