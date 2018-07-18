@@ -38,7 +38,7 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item label="登陆密码: " prop="custPassword">
-                  <el-input v-model="getForm.custPassword" @blur="passBlur" @focus="passFocus"></el-input>
+                  <el-input type="password" v-model="getForm.custPassword" @blur="passBlur" @focus="passFocus"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
@@ -172,7 +172,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="10" :offset="4">
-                <el-form-item label="代应商代码: " prop="vendorCodes">
+                <el-form-item label="供应商代码: " prop="vendorCodes">
                   <el-input v-model.trim="getForm.vendorCodes"></el-input>
                 </el-form-item>
               </el-col>

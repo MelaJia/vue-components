@@ -58,23 +58,6 @@
           </div>
         </span>
       </ul>
-      <!-- <p>
-            <span>最终付款单位: <em>{{this.detailsP.company}}</em></span>
-            <span>最终付款账户：{{this.detailsP.bankCompaney}}</em></span>
-            <el-tooltip :content="'最终付款账号:'+this.detailsP.bankAccount" placement="bottom" effect="light">
-                <span>最终付款账号: <em>{{this.detailsP.bankAccount}}</em></span>
-            </el-tooltip>
-        </p>
-        <p>
-            <span>AR来源: <em>{{this.detailsP.come}}</em></span>
-            <span>状态: <em>{{this.detailsP.status}}</em></span>
-            <span>币别: <em>{{this.detailsP.moneyType}}</em></span>
-        </p>
-        <p>
-            <span>票面金额: <em>{{this.detailsP.company}}</em></span>
-            <span>可用余额: <em>{{this.detailsP.money_can}}</em></span>
-            <span>预计回款日期: <em>{{this.detailsP.arriveDate}}</em></span>
-        </p> -->
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
