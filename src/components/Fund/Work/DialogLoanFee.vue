@@ -40,7 +40,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" >
-            <el-form-item label="罚息天利率:" prop="fineGraceDayRate">
+            <el-form-item label="逾期利率:" prop="fineGraceDayRate">
               <el-input v-model="form.fineGraceDayRate">
                  <template slot="append">%</template>
               </el-input>
