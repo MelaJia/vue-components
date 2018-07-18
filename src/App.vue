@@ -33,9 +33,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
-.el-container:not(.is-vertical){
-  overflow: scroll
-}
 body{
   margin: 0px;
   min-width: 1200px;

@@ -6,7 +6,7 @@
       </span>
     </header>
     <el-checkbox-group v-model="checkList">
-      <el-checkbox v-for="item in this.detailsP.contractList" :key="item.contractId" :label="item.contractId"><a href="http://" @click.prevent="constractHandle(item.contractNo)">{{item.contractName}}</a></el-checkbox>
+      <el-checkbox v-for="item in this.detailsP.contractList" :key="item.contractId" :label="item.contractId"><a :href="item.contractUrl" target="_blank" @click="constractHandle(item.contractUrl)">{{item.contractName}}</a></el-checkbox>
     </el-checkbox-group>
     <footer slot="footer">
       <el-button round @click="handleSubmit" type="primary" v-loading.fullscreen.lock="isLoading">同意签署</el-button>
