@@ -120,7 +120,7 @@
           </el-form>
         </section>
         <section class="reg-step-2" v-show="step==1">
-          <el-form ref="form-2" :model="getForm" :rules="rulesTwo" label-width="150px">
+          <el-form ref="form-2" :model="getForm"  :rules="rulesTwo" label-width="150px">
             <el-row>
               <el-col :span="24">
                 <div v-show="is2s1Show" class="text-error">提示：统一社会信用代码与(营业执照号码,组织机构代码证编号,税务登记证号),两者是贰选壹的关系。</div>
@@ -283,7 +283,6 @@
                     :options="options"
                     v-model="getBankAdd"
                     filterable
-                    change-on-select
                   ></el-cascader>
                 </el-form-item>
               </el-col>
@@ -431,7 +430,19 @@ export default {
       if (!value && !this.getForm.licenseNumber && !this.getForm.organizationNumber && !this.getForm.taxNumber) {
         callback(new Error('不能为空'))
       } else {
-        callback()
+        this.axios.post('/cust/check', {
+          key: 'creditCode',
+          value: value
+        }).then(res => {
+          if (res.data.status) {
+            callback()
+          } else {
+            callback(new Error(`统一社会信用代码已存在`))
+          }
+        }).catch(err => {
+          console.log(err)
+          callback(new Error(`验证失败请联系管理员`))
+        })
       }
     }
     let arr = {
@@ -538,7 +549,11 @@ export default {
     subHandle: subHandle,
     // 上传图片更新formUrl地址
     getUrl (val, idx) {
-      this.userInfo[idx] = val
+      if (val.status) {
+        this.userInfo[idx] = val.data
+      } else {
+        this.$message.error(val.msg)
+      }
     }
   }
 }
