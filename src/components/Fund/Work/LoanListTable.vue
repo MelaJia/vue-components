@@ -29,17 +29,18 @@
       </el-table-column>
       <el-table-column align="center" label="贴现状态" prop="arStatusTypeName">
       </el-table-column>
-      <el-table-column align="center" label="操作" width='230px' fixed="right">
+      <el-table-column align="left" header-align="center" label="操作" width='350px' fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-          <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length!==0">
+          <el-button v-for="(item, index) in scope.row.operateArr" :key="index" size="mini" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" >{{item.name}}</el-button>
+          <!-- <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length!==0">
             <span class="el-dropdown-link">
               更多<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" >{{item.name}}</el-button></el-dropdown-item>
             </el-dropdown-menu>
-          </el-dropdown>
+          </el-dropdown> -->
         </template>
       </el-table-column>
     </el-table>
@@ -113,7 +114,7 @@ function handleContrac (idx, val) {
     console.log(res)
     if (res.data.status) {
       // 放款比例初始化否则先输入实际放款金额会造成不联动
-      res.data.data.loanPer = res.data.data.loanPer || 1
+      res.data.data.loanPer = res.data.data.loanPer || 80
       res.data.data.actualDiscountAmt = res.data.data.actualDiscountAmt || res.data.data.billBookAmt * res.data.data.loanPer / 100
       res.data.data.repaymentType = res.data.data.repaymentType ? parseInt(res.data.data.repaymentType) : null
       // 3.设置数据

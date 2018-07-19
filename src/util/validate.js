@@ -173,6 +173,14 @@ export function validatename (name) {
   return true
 }
 /**
+ * 判断是否为大于0的数字
+  */
+export function validatenumber (num) {
+  let re = /^([1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
+  if (!re.test(num)) return false
+  return true
+}
+/**
  * 判断是否为整数
   */
 export function validatenum (num, type) {
@@ -211,4 +219,53 @@ export function validatenull (val) {
     return false
   }
   return false
+}
+// async 校验规则
+// 利率规则
+export function checkRate (rule, value, callback) {
+  setTimeout(() => {
+    if (!validatenumber(value)) {
+      callback(new Error('请输入大于0的数字'))
+    } else {
+      if (value <= 0 || value > 100) {
+        callback(new Error('必须为0-100之间'))
+      } else {
+        callback()
+      }
+    }
+  }, 1000)
+}
+// 数字规则
+export function checkNumber (rule, value, callback) {
+  let re = /^([1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
+  setTimeout(() => {
+    if (!re.test(value)) {
+      callback(new Error('请输入大于0的数字'))
+    } else {
+      if (value <= 0) {
+        callback(new Error('必须大于0'))
+      } else {
+        callback()
+      }
+    }
+  }, 1000)
+}
+// 数字比较大小规则
+export function checkNumberPire (obj) {
+  return function (rule, value, callback) {
+    let re = /^([1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
+    setTimeout(() => {
+      if (!re.test(value)) {
+        callback(new Error('请输入大于0的数字'))
+      } else {
+        if (value <= 0) {
+          callback(new Error('必须大于0'))
+        } else if (obj.max && value > obj.max) {
+          callback(new Error(`不得大于${obj.max}`))
+        } else {
+          callback()
+        }
+      }
+    }, 1000)
+  }
 }

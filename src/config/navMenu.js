@@ -37,13 +37,72 @@ const navs = {
     },
     {
       idx: '2',
+      text: '其它融资',
+      disabled: false,
+      lClass: 'line',
+      hClass: 'header-circle bg-icon-1',
+      childrens: [{
+        idx: '2-1',
+        text: '信用融资',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle',
+        childrens: [{
+          idx: 'creditLoanSituation',
+          text: '融资情况',
+          disabled: false,
+          lClass: 'line',
+          hClass: 'circle'
+        },
+        {
+          idx: 'creditRepaySituation',
+          text: '还款情况',
+          disabled: false,
+          lClass: 'line',
+          hClass: 'circle'
+        }
+        ]
+      },
+      {
+        idx: '2-2',
+        text: '订单融资',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle',
+        childrens: [{
+          idx: 'orderLoanAble',
+          text: '可用订单',
+          disabled: false,
+          lClass: 'line',
+          hClass: 'circle'
+        },
+        {
+          idx: 'orderLoanSituation',
+          text: '融资情况',
+          disabled: false,
+          lClass: 'line',
+          hClass: 'circle'
+        },
+        {
+          idx: 'orderRepaySituation',
+          text: '还款情况',
+          disabled: false,
+          lClass: 'line',
+          hClass: 'circle'
+        }
+        ]
+      }
+      ]
+    },
+    {
+      idx: '3',
       text: '资金管理',
       disabled: true,
       lClass: 'line',
       hClass: 'header-circle bg-icon-2'
     },
     {
-      idx: '3',
+      idx: '4',
       text: '辅助查询',
       disabled: true,
       lClass: 'line',
@@ -105,7 +164,7 @@ const navs = {
       ]
     },
     {
-      idx: '4',
+      idx: '5',
       text: '账户管理',
       disabled: false,
       lClass: 'end-line',

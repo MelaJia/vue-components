@@ -33,15 +33,15 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
-.el-container:not(.is-vertical){
-  overflow: scroll
-}
 body{
   margin: 0px;
   min-width: 1200px;
 }
 html,body,#app,#app>div,#app>div>main,.main-section,.main-section>div{
   height: 100%;
+}
+.el-card__header{
+  padding: 10px 20px;
 }
 .el-card.box-card,
 .el-card__body {

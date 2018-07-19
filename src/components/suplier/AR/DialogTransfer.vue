@@ -8,12 +8,7 @@
     </header>
     <section>
       <ul>
-        <li>
-          <span>付款单位: <em>{{this.detailsP.companyName}}</em></span>
-        </li>
-        <li>
-          <span>对手单位: <em>{{this.detailsP.custToName}}</em></span>
-        </li>
+        <span>付款单位: <em>{{this.detailsP.companyName}}</em></span>
       </ul>
       <ul>
         <li>
@@ -33,16 +28,14 @@
       </ul>
       <ul>
         <li>
-          <span>票面金额: <em>{{this.detailsP.company}}</em></span>
+          <span>票面金额: <em>{{this.detailsP.billBookAmt}}</em></span>
         </li>
         <li>
           <span>可用金额: <em>{{this.detailsP.arAvailableAmt}}</em></span>
         </li>
       </ul>
       <ul>
-        <li>
-            <span>授让公司名：<em>{{rc.name}}</em></span>
-        </li>
+          <span>授让公司名：<em>{{rc.name}}</em></span>
       </ul>
       <ul class="height-auto">
           <span>已勾选发票:
@@ -59,23 +52,6 @@
             <!-- <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected">{{item.invoiceNo}}</el-checkbox> -->
           </span>
       </ul>
-      <!-- <p>
-            <span>最终付款单位: <em>{{this.detailsP.company}}</em></span>
-            <span>最终付款账户：{{this.detailsP.bankCompaney}}</em></span>
-            <el-tooltip :content="'最终付款账号:'+this.detailsP.bankAccount" placement="bottom" effect="light">
-                <span>最终付款账号: <em>{{this.detailsP.bankAccount}}</em></span>
-            </el-tooltip>
-        </p>
-        <p>
-            <span>AR来源: <em>{{this.detailsP.come}}</em></span>
-            <span>状态: <em>{{this.detailsP.status}}</em></span>
-            <span>币别: <em>{{this.detailsP.moneyType}}</em></span>
-        </p>
-        <p>
-            <span>票面金额: <em>{{this.detailsP.company}}</em></span>
-            <span>可用余额: <em>{{this.detailsP.money_can}}</em></span>
-            <span>预计回款日期: <em>{{this.detailsP.arriveDate}}</em></span>
-        </p> -->
     </section>
     <section class="layout form">
       <el-row>
