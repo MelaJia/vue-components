@@ -46,7 +46,7 @@ export default {
   mixins: [Dialog],
   components: {
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/creditLoan/loan/DialogLoan')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/creditLoan/loan/DialogLoan')
   },
   methods: {
     // 申请融资

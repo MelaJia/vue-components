@@ -35,9 +35,9 @@
 </style>
 
 <script>
-import Info from '@/page/suplier/creditLoan/creditLayout' // 顶部信息以及操作
-import ArTable from '@/components/suplier/creditLoan/loan/LoanList'
-import Search from '@/components/suplier/creditLoan/loan/LoanSearch'
+import Info from '@/page/suplier/loan/creditLoan/creditLayout' // 顶部信息以及操作
+import ArTable from '@/components/suplier/loan/creditLoan/repay/RepayList'
+import Search from '@/components/suplier/loan/creditLoan/repay/RepaySearch'
 import Table from '@/mixins/suplier/Ar/Table'
 export default {
   mixins: [Table],
@@ -82,11 +82,11 @@ function searchSubmit (val) {
   let contractSignedDateEnd = val.contractDate ? val.contractDate[1].Format('yyyy-MM-dd') : ''
   /* 修改请求参数 */
   this.param = {
-    loanId: val.masterChainId, // 融资编号
-    currency: val.masterChainId, // 币别
-    amountBegin: val.masterChainId, // 金额范围开始
-    amountEnd: val.masterChainId, // 金额范围结束
-    status: val.masterChainId, // 状态
+    loanId: val.loanId, // 融资编号
+    currency: val.currency, // 币别
+    amountBegin: val.amountBegin, // 金额范围开始
+    amountEnd: val.amountEnd, // 金额范围结束
+    status: val.status, // 状态
     repayDateBegin: repayDateBegin, // 还款日期开始
     repayDateEnd: repayDateEnd, // 还款日期结束
     contractSignedDateBegin: contractSignedDateBegin, // 合同签署日期开始

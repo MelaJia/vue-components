@@ -153,7 +153,7 @@ export default {
     'dialog-contract': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogContract'),
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/creditLoan/loan/DialogInfo')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/orderLoan/loan/DialogInfo')
   },
   data () {
     console.log(widhConf.crL)
@@ -249,7 +249,7 @@ function getOpera (val) {
   const datas = val
   datas.forEach((item) => {
     const operateArr = []
-    switch (item.checkedStatus) {
+    switch (item.status) {
       case 2:
         operateArr.push(this.operateArr[0])
         break

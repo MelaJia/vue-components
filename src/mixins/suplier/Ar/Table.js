@@ -41,7 +41,7 @@ export default {
   methods: {
     tableRowClassName ({row, rowIndex}) {
       if (row.pend) {
-        return 'warning-row'
+        return ''
       }
       return ''
     },
@@ -49,10 +49,10 @@ export default {
       console.log(expandedRows)
       row.pend = !row.pend
     },
-    getPendedColor ({
-      row,
-      rowIndex
-    }) {
+    getPendedColor ({row, rowIndex}) {
+      if (row.status === 4) {
+        return 'warning-row'
+      }
       return 'expendcolor'
     },
     // 父table控制子table宽度控制
