@@ -154,5 +154,52 @@ Mock.mock('https://jurongtest.foxconn.com/sit/crcQuery/getFundProviderInformatio
   ],
   "status": true
 })
+// 融资详情数据
+Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/queryCreditLoanInfo.do', {
+  "data":
+    {
+      loanId: 123556, // 融资ID
+      applyAmt:123, // 申请金额
+      loanAmt:123, // 实放金额
+      repayDate:1528905600000, // 还款日期
+      currency:'人民币', // 币别
+      interestRate:20, // 利率
+      serviceFeeRate:20, // 手续费率
+      overdueRate:20, // 罚息利率
+      prepaymentDeductInterest:20, // 提前还款手续费
+      fineGraceDays:20, // 宽容天数
+      repaymentType:'分期', // 还款方式
+      currencyName:'人民币', // 币别名称
+      actualRepayDate:1528905600000, // 实际还款日期
+      contractList:[
+        {
+        contractId:123, // 合同id
+        contractNo:123, // 合同号
+        contractName:123, // 合同名称
+        status:123, // 合同状态
+        contractUrl: 'http://www.baidu.com'
+        },
+        {
+          contractId:1231, // 合同id
+          contractNo:123, // 合同号
+          contractName:123, // 合同名称
+          status:123, // 合同状态
+        contractUrl: 'http://www.baidu.com'
+        }
+      ], // 合同信息列表
+      fileInfoList:[
+        {
+          fileUrl: 'url', //  文件url
+          fileName: 'url' //  文件名稱
+        }
+      ] // 附件列表
+    },
+  "recordsTotal":100,
+  "msg|1":[
+    "失败",
+    "成功"
+  ],
+  "status": true
+})
 }
 export {monitorInit}
