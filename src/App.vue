@@ -40,6 +40,9 @@ body{
 html,body,#app,#app>div,#app>div>main,.main-section,.main-section>div{
   height: 100%;
 }
+.el-card__header{
+  padding: 10px 20px;
+}
 .el-card.box-card,
 .el-card__body {
         min-width: 950px;

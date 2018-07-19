@@ -154,5 +154,226 @@ Mock.mock('https://jurongtest.foxconn.com/sit/crcQuery/getFundProviderInformatio
   ],
   "status": true
 })
+// 融资详情数据
+Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/queryCreditLoanInfo.do', {
+  "data":
+    {
+      loanId: 123556, // 融资ID
+      applyAmt:123, // 申请金额
+      loanAmt:123, // 实放金额
+      repayDate:1528905600000, // 还款日期
+      currency:'人民币', // 币别
+      interestRate:20, // 利率
+      serviceFeeRate:20, // 手续费率
+      overdueRate:20, // 罚息利率
+      prepaymentDeductInterest:20, // 提前还款手续费
+      fineGraceDays:20, // 宽容天数
+      repaymentType:'分期', // 还款方式
+      currencyName:'人民币', // 币别名称
+      actualRepayDate:1528905600000, // 实际还款日期
+      contractList:[
+        {
+        contractId:123, // 合同id
+        contractNo:123, // 合同号
+        contractName:123, // 合同名称
+        status:123, // 合同状态
+        contractUrl: 'http://www.baidu.com'
+        },
+        {
+          contractId:1231, // 合同id
+          contractNo:123, // 合同号
+          contractName:123, // 合同名称
+          status:123, // 合同状态
+        contractUrl: 'http://www.baidu.com'
+        }
+      ], // 合同信息列表
+      fileInfoList:[
+        {
+          fileUrl: 'url', //  文件url
+          fileName: 'url' //  文件名稱
+        }
+      ] // 附件列表
+    },
+  "recordsTotal":100,
+  "msg|1":[
+    "失败",
+    "成功"
+  ],
+  "status": true
+})
+// 融资情况列表
+Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/supplierCreditLoanManageList.do', {
+  "data":[
+      {
+        loanId: '123', // 融资编号
+        applyAmt: 10000, // 融资申请金额
+        currency: '123', // 币别
+        status: 2, // 状态
+        repaymentType: '123', // 还款方式
+        loanAmt: 10000, // 实放金额
+        payPrincipalAmt: 10000, // 还款本金
+        payInterestAmt: 10000, // 还款利息
+        payServiceAmt: 10000, // 还款服务费
+        payFineAmt: 10000, // 罚息
+        payFineDays: 10000, // 罚息天数
+        prepaymentDeductInterest: 10000, // 提前还款手续费
+        totalRepayAmt: 10000, // 还款合计
+        contractSignedDate: 1528905600000, // 合同签署日期
+        repayDate: 1528905600000, // 还款日期
+        currencyName: '123', // 币别名称
+        custId: '123', // 供應商Id 
+      },
+      {
+        loanId: '123', // 融资编号
+        applyAmt: 10000, // 融资申请金额
+        currency: '123', // 币别
+        status: 3, // 状态
+        repaymentType: '123', // 还款方式
+        loanAmt: 10000, // 实放金额
+        payPrincipalAmt: 10000, // 还款本金
+        payInterestAmt: 10000, // 还款利息
+        payServiceAmt: 10000, // 还款服务费
+        payFineAmt: 10000, // 罚息
+        payFineDays: 10000, // 罚息天数
+        prepaymentDeductInterest: 10000, // 提前还款手续费
+        totalRepayAmt: 10000, // 还款合计
+        contractSignedDate: 1528905600000, // 合同签署日期
+        repayDate: 1528905600000, // 还款日期
+        currencyName: '123', // 币别名称
+        custId: '123', // 供應商Id 
+        "tableData":[ {
+          loanId: '123', // 融资编号
+          applyAmt: 10000, // 融资申请金额
+          currency: '123', // 币别
+          status: 3, // 状态
+          repaymentType: '123', // 还款方式
+          loanAmt: 10000, // 实放金额
+          payPrincipalAmt: 10000, // 还款本金
+          payInterestAmt: 10000, // 还款利息
+          payServiceAmt: 10000, // 还款服务费
+          payFineAmt: 10000, // 罚息
+          payFineDays: 10000, // 罚息天数
+          prepaymentDeductInterest: 10000, // 提前还款手续费
+          totalRepayAmt: 10000, // 还款合计
+          contractSignedDate: 1528905600000, // 合同签署日期
+          repayDate: 1528905600000, // 还款日期
+          currencyName: '123', // 币别名称
+          custId: '123', // 供應商Id 
+        },
+        {
+          loanId: '123', // 融资编号
+          applyAmt: 10000, // 融资申请金额
+          currency: '123', // 币别
+          status: 22, // 状态
+          repaymentType: '123', // 还款方式
+          loanAmt: 10000, // 实放金额
+          payPrincipalAmt: 10000, // 还款本金
+          payInterestAmt: 10000, // 还款利息
+          payServiceAmt: 10000, // 还款服务费
+          payFineAmt: 10000, // 罚息
+          payFineDays: 10000, // 罚息天数
+          prepaymentDeductInterest: 10000, // 提前还款手续费
+          totalRepayAmt: 10000, // 还款合计
+          contractSignedDate: 1528905600000, // 合同签署日期
+          repayDate: 1528905600000, // 还款日期
+          currencyName: '123', // 币别名称
+          custId: '123', // 供應商Id 
+        },{
+          loanId: '123', // 融资编号
+          applyAmt: 10000, // 融资申请金额
+          currency: '123', // 币别
+          status: 4, // 状态
+          repaymentType: '123', // 还款方式
+          loanAmt: 10000, // 实放金额
+          payPrincipalAmt: 10000, // 还款本金
+          payInterestAmt: 10000, // 还款利息
+          payServiceAmt: 10000, // 还款服务费
+          payFineAmt: 10000, // 罚息
+          payFineDays: 10000, // 罚息天数
+          prepaymentDeductInterest: 10000, // 提前还款手续费
+          totalRepayAmt: 10000, // 还款合计
+          contractSignedDate: 1528905600000, // 合同签署日期
+          repayDate: 1528905600000, // 还款日期
+          currencyName: '123', // 币别名称
+          custId: '123', // 供應商Id 
+        }]
+      },
+      {
+        loanId: '123', // 融资编号
+        applyAmt: 10000, // 融资申请金额
+        currency: '123', // 币别
+        status: '123', // 状态
+        repaymentType: '123', // 还款方式
+        loanAmt: 10000, // 实放金额
+        payPrincipalAmt: 10000, // 还款本金
+        payInterestAmt: 10000, // 还款利息
+        payServiceAmt: 10000, // 还款服务费
+        payFineAmt: 10000, // 罚息
+        payFineDays: 10000, // 罚息天数
+        prepaymentDeductInterest: 10000, // 提前还款手续费
+        totalRepayAmt: 10000, // 还款合计
+        contractSignedDate: 1528905600000, // 合同签署日期
+        repayDate: 1528905600000, // 还款日期
+        currencyName: '123', // 币别名称
+        custId: '123', // 供應商Id 
+      }
+  ],
+  "msg":"请求成功",
+  "recordsTotal":416,
+  "status":1
+})
+Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/availableSupplierOrderList.do', {
+  "data":[
+      {
+        vendorCode: '123', // 供应商代码
+        corpCode: '123', // 法人代碼
+        corpName: '123', // 法人单位
+        plantCode: '123', // 法人工厂代码
+        poNumber: '123', // 订单号
+        poItem: '123', // 項次
+        poAmount:2000, // 金额
+        currency: '123', // 币别
+        currencyName: '123', // 币别名称
+        confirmDate: 1528905600000, // 订单确认日期
+        deliveryDate: 1528905600000, // 约定交货日期
+        paymenttermName: '123', // 交易条件
+        
+      },
+      {
+        vendorCode: '123', // 供应商代码
+        corpCode: '123', // 法人代碼
+        corpName: '123', // 法人单位
+        plantCode: '123', // 法人工厂代码
+        poNumber: '124', // 订单号
+        poItem: '123', // 項次
+        poAmount:3000, // 金额
+        currency: '123', // 币别
+        currencyName: '123', // 币别名称
+        confirmDate: 1528905600000, // 订单确认日期
+        deliveryDate: 1528905600000, // 约定交货日期
+        paymenttermName: '123', // 交易条件
+        
+      },
+      {
+        vendorCode: '123', // 供应商代码
+        corpCode: '123', // 法人代碼
+        corpName: '123', // 法人单位
+        plantCode: '123', // 法人工厂代码
+        poNumber: '125', // 订单号
+        poItem: '123', // 項次
+        poAmount:5000, // 金额
+        currency: '123', // 币别
+        currencyName: '123', // 币别名称
+        confirmDate: 1528905600000, // 订单确认日期
+        deliveryDate: 1528905600000, // 约定交货日期
+        paymenttermName: '123', // 交易条件
+        
+      }
+  ],
+  "msg":"请求成功",
+  "recordsTotal":416,
+  "status":1
+})
 }
+
 export {monitorInit}

@@ -2,7 +2,8 @@
   <nav class="nav-menu">
     <el-menu :default-active="activeidx" :router="true" unique-opened text-color="#000" active-text-color="#005ac8" class="el-menu-demo" mode="vertical"
       @select="handleSelect">
-      <section v-for="item in navItems" :key="item.idx">
+      <tree-menu :list="navItems"></tree-menu>
+      <!-- <section v-for="item in navItems" :key="item.idx">
         <el-submenu v-if="item.childrens" :index="item.idx">
           <template slot="title">
             <div :class="item.lClass"></div>
@@ -24,7 +25,7 @@
             <span>{{item.text}}</span>
           </template>
         </el-menu-item>
-      </section>
+      </section> -->
     </el-menu>
   </nav>
 </template>
@@ -32,9 +33,9 @@
 @import "../assets/css/base";
 .nav-menu {
   height: 100%;
-  li i[class*="el-icon-arrow-down"]:before {
-    content: none;
-  }
+  // li i[class*="el-icon-arrow-down"]:before {
+  //   content: none;
+  // }
   ul {
     background: $navbg;
     border-right: none;
@@ -145,6 +146,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
+import treeMenu from '@/components/Items/navItem'
 export default {
   name: 'Nav',
   props: ['navItems'],
@@ -153,6 +155,9 @@ export default {
       activeIndex: 'myar'
 
     }
+  },
+  components: {
+    treeMenu
   },
   computed: {
     ...mapGetters(['activeidx'])
