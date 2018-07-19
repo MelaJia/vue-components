@@ -153,6 +153,42 @@ const routes = [
         requireAuth: true // 需要登录验证
       },
       component: () => import(/* webpackChunkName: 'Fund' */ '@/page/funder/outSource/CRC')
+    },
+    {
+      path: 'creditloan',
+      name: 'creditloan',
+      meta: {
+        title: '信用放款处理', // 名称
+        requireAuth: true // 需要登录验证
+      },
+      component: () => import(/* webpackChunkName: 'Fund' */ '@/page/funder/creditFinance/CreditLoan')
+    },
+    {
+      path: 'creditreject',
+      name: 'creditreject',
+      meta: {
+        title: '信用拒绝查询', // 名称
+        requireAuth: true // 需要登录验证
+      },
+      component: () => import(/* webpackChunkName: 'Fund' */ '@/page/funder/creditFinance/CreditReject')
+    },
+    {
+      path: 'creditloaned',
+      name: 'creditloaned',
+      meta: {
+        title: '信用已放款处理', // 名称
+        requireAuth: true // 需要登录验证
+      },
+      component: () => import(/* webpackChunkName: 'Fund' */ '@/page/funder/creditFinance/CreditLoaned')
+    },
+    {
+      path: 'creditend',
+      name: 'creditend',
+      meta: {
+        title: '信用已完结查询', // 名称
+        requireAuth: true // 需要登录验证
+      },
+      component: () => import(/* webpackChunkName: 'Fund' */ '@/page/funder/creditFinance/CreditEnd')
     }
     ]
   }

@@ -171,6 +171,42 @@ const navs = {
       ]
     },
     {
+      idx: '6',
+      text: '信用融资',
+      disabled: true,
+      lClass: 'line',
+      hClass: 'header-circle bg-icon-2',
+      childrens: [{
+        idx: 'creditloan',
+        text: '信用放款处理',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'creditreject',
+        text: '信用拒绝查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'creditloaned',
+        text: '信用已放款处理',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'creditend',
+        text: '信用已完结查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      }
+      ]
+    },
+    {
       idx: '2',
       text: '客户资料',
       disabled: false,

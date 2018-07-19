@@ -1,38 +1,39 @@
 <template>
   <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
-      <el-col :span="7">
+      <el-col :span="8">
         <el-form-item label="AR单号">
           <el-input v-model.trim="formInline.masterChainId" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="7" :offset="3">
+      <el-col :span="8">
         <el-form-item label="贴现客户">
           <el-input v-model.trim="formInline.custFromName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="7">
+      <el-col :span="8">
         <el-form-item label="付款单位">
           <el-input v-model.trim="formInline.companyName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="7">
+      <el-col :span="8">
         <el-form-item label="币别">
           <el-select v-model="formInline.billBookCurr" placeholder="全部">
             <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :span="7" :offset="3">
+      <el-col :span="8">
         <el-form-item label="发票号">
           <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>
+      <el-col :span="8"></el-col>
     </el-row>
     <el-row>
-      <el-col :span="10">
+      <el-col :span="12">
         <el-form-item label="贴现金额">
           <el-col :span="10">
             <el-input v-model.number="formInline.discountAmtScopeFrom" placeholder="起始金额"></el-input>
@@ -43,7 +44,7 @@
           </el-col>
         </el-form-item>
       </el-col>
-      <el-col :span="10">
+      <el-col :span="12">
         <el-form-item label="预计回款日期">
           <el-date-picker :editable="false" v-model="formInline.moneyDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期"
             end-placeholder="结束日期">
@@ -62,6 +63,9 @@
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
+.el-select.el-select--small{
+  width: 190px;
+}
 </style>
 
 <script>
