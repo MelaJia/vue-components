@@ -50,7 +50,7 @@
       <ul class="height-auto">
         <span>附件:
           <div class="a-link-group inline-block">
-             <a v-for="(item,idx) in detailsP.fileInfoList" :key="idx" :href="item.fileUrl" target="_blank" @click="constractHandle(item.fileUrl)">{{item.fileName}}</a>
+             <a v-for="(item,idx) in detailsP.loanUploadFileList" :key="idx" :href="item.fileUrl" target="_blank" @click="constractHandle(item.fileUrl)">{{item.fileName}}</a>
           </div>
         </span>
       </ul>
@@ -65,7 +65,6 @@
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
-      <el-button type="primary" @click="print('print')">打印</el-button>
     </footer>
   </el-dialog>
 </section>

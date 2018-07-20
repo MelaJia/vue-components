@@ -4,15 +4,15 @@
     <el-row>
       <el-col :span="6">
         总限额：
-        <span class="red">3000000元</span>
+        <span class="red">{{details.totalCreditAmount}}元</span>
       </el-col>
       <el-col :span="6">
         可融资金额:
-        <span class="red">1175500元</span>
+        <span class="red">{{details.availableCreditAmount}}元</span>
       </el-col>
       <el-col :span="6">
         已融资金额:
-        <span class="red">1824500元</span>
+        <span class="red">{{details.usedCreditAmount}}元</span>
       </el-col>
       <el-col :span="6">
         <el-button type="danger" @click="handleInfo">申请融资</el-button>
@@ -35,15 +35,23 @@ section {
 
 <script>
 import Dialog from '@/mixins/suplier/Ar/Dialog'
+import { getDataBase } from '@/util/util'
 export default {
   data () {
     return {
       details: {
-        canV: 12345
+        totalCreditAmount: '', // 总限额
+        availableCreditAmount: '', // 可融资金额
+        usedCreditAmount: '' // 已融资金额
       }
     }
   },
   mixins: [Dialog],
+  mounted () {
+    getDataBase.call(this, 'creditLoan/queryCreditAmount.do').then(res => {
+      this.details = res
+    })
+  },
   components: {
     'dialog-info': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/creditLoan/loan/DialogLoan')
@@ -58,6 +66,10 @@ export default {
      * this.$parent.fresh()
      */
     fresh () {
+      // 重新获取金额
+      getDataBase.call(this, 'creditLoan/queryCreditAmount.do').then(res => {
+        this.details = res
+      })
       this.$emit('refresh')
     }
   }

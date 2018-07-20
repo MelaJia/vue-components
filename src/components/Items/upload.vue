@@ -1,6 +1,7 @@
 <template>
-  <el-upload class="avatar-uploader" :data="param" :headers="{'Authorization':token}" :action="uploadUrl" :show-file-list="false" :on-success="handleAvatarSuccess" >
-    <img v-if="imgurl" :src="imgurl" class="avatar">
+  <el-upload class="avatar-uploader" :data="param" :headers="{'Authorization':token}" :action="uploadUrl" :show-file-list="false" :on-progress="uploadVideoProcess" :before-upload="beforeAvatarUpload" :on-success="handleAvatarSuccess" :on-error="uploadError">
+    <el-progress v-if="videoFlag == true" type="circle" :percentage="videoUploadPercent" :status="status" :width="120"></el-progress>
+    <img v-else-if="imgurl" :src="imgurl" class="avatar">
     <img v-else-if="oImgUrl" :src="oImgUrl" class="avatar">
     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
   </el-upload>
@@ -48,11 +49,52 @@ export default {
     ...mapGetters(['token'])
   },
   methods: {
-    // 图片上传
-    handleAvatarSuccess (res, file) {
-      this.imgurl = URL.createObjectURL(file.raw)
-      this.$emit('get-url', res) // 返回图片地址
-    }
+    // 图片上传成功
+    handleAvatarSuccess: handleAvatarSuccess,
+    // 进度
+    uploadVideoProcess: uploadVideoProcess,
+    // 上传失败
+    uploadError: uploadError,
+    // 上传前检查类型
+    beforeAvatarUpload: beforeAvatarUpload
   }
+}
+// 上传成功处理函数
+function handleAvatarSuccess (res, file) {
+  this.videoUploadPercent = 100
+  this.status = 'success'
+  setTimeout(() => {
+    this.videoFlag = false
+  }, 1000)
+  this.imgurl = URL.createObjectURL(file.raw)
+  this.$emit('get-url', res) // 返回图片地址
+}
+// 上传进度
+function uploadVideoProcess (event, file, fileList) {
+  this.videoFlag = true
+  this.videoUploadPercent = file.percentage
+}
+// 上传失败处理
+function uploadError (err, file, fileList) {
+  this.status = 'exception'
+  setTimeout(() => {
+    this.videoFlag = false
+  }, 1000)
+  console.log(err)
+}
+// 检查上传文件
+function beforeAvatarUpload (file) {
+  console.log(file)
+  const typeReg = /(gif|jpg|jpeg|png|GIF|JPG|PNG)$/
+  const isIMG = typeReg.test(file.type)
+  const isLt4M = file.size / 1024 / 1024 < 4
+
+  if (!isIMG) {
+    this.$message.error('上传图片只能是gif,jpeg,jpg,png格式!')
+  }
+  if (!isLt4M) {
+    this.$message.error('上传图片大小不能超过 4MB!')
+  }
+  return isIMG && isLt4M
 }
 </script>

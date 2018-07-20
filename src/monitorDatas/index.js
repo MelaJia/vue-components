@@ -192,7 +192,41 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/queryCreditLoanInfo.do'
           fileUrl: 'url', //  文件url
           fileName: 'url' //  文件名稱
         }
-      ] // 附件列表
+      ], // 附件列表
+      poLoanInfoList:[
+        {
+          corpCode: '123',
+          corpName: '单位',
+          poLoanDetailInfoList:[
+            {poNumber: 'HB851265'},
+            {poNumber: 'DID23423'}
+          ]
+        },
+        {
+          corpCode: '123',
+          corpName: '单位2',
+          poLoanDetailInfoList:[
+            {poNumber: 'HDNI3324'},
+            {poNumber: '1231'}
+          ]
+        },
+        {
+          corpCode: '123',
+          corpName: '单位2',
+          poLoanDetailInfoList:[
+            {poNumber: '1231'},
+            {poNumber: '1231'}
+          ]
+        },
+        {
+          corpCode: '123',
+          corpName: '单位2',
+          poLoanDetailInfoList:[
+            {poNumber: '1231'},
+            {poNumber: '1231'}
+          ]
+        }
+      ]
     },
   "recordsTotal":100,
   "msg|1":[
@@ -373,6 +407,20 @@ Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/availableSupplie
   "msg":"请求成功",
   "recordsTotal":416,
   "status":1
+})
+// 金额提供数据
+Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/queryCreditAmount.do', {
+  "data":{
+    totalCreditAmount: 10000, // 总限额
+    availableCreditAmount: 8000, // 可融资金额
+    usedCreditAmount: 2000 // 已融资金额
+  },
+  "recordsTotal":100,
+  "msg|1":[
+    "失败",
+    "成功"
+  ],
+  "status": true
 })
 }
 

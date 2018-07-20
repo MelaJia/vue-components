@@ -19,7 +19,7 @@
         </div>
       </div>
       <!-- 右侧部分 -->
-      <div class="float-right">
+      <div class="float-left">
         <!-- 2部分数据 -->
         <div  class="text-content" :style="'background:'+dataArr[0].bcolor">
           <div class="float-left text">
@@ -308,7 +308,7 @@ export default {
       series: [{
         name: '总考生数量',
         type: 'pie',
-        radius: ['27%', '50%'],
+        radius: ['27%', '45%'],
         hoverAnimation: false,
         color: ['#5b9bd5', '#ed7d31', '#a5a5a5', '#ffc000', '#4472c4'],
         label: {

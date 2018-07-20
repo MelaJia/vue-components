@@ -7,17 +7,17 @@
       </span>
     </header>
     <section>
-      <el-form ref="form" :model="formInline" label-width="130px" status-icon :rules="rules" label-position="right">
+      <el-form ref="form" :model="formInline" label-width="130px" status-icon label-position="right">
         <el-row>
           <el-col :span="12" :offset="6">
             <el-form-item label="可融资金额: ">
-              <span class="red">{{form.canV}}元</span>
+              <span class="red">{{form.availableCreditAmount}}元</span>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12" :offset="6">
-            <el-form-item label="融资申请金额:" prop="applyAmt">
+            <el-form-item label="融资申请金额:" :rules="applyRule" prop="applyAmt">
               <el-input v-model="formInline.applyAmt">
                 <template slot="append">元</template>
               </el-input>
@@ -26,7 +26,7 @@
         </el-row>
         <el-row>
           <el-col :span="12" :offset="6">
-            <el-form-item label="还款日期:" prop="repayDate">
+            <el-form-item label="还款日期:" :rules="rules.repayDate" prop="repayDate">
             <el-date-picker :editable="false" v-model="formInline.repayDate"  :picker-options="pickerOptions" type="date" placeholder="选择日期">
             </el-date-picker>
             </el-form-item>
@@ -35,18 +35,7 @@
         <el-row>
           <el-col :span="12" :offset="6">
             <el-form-item label="上传附件:">
-            <el-upload
-              class="upload-demo"
-              ref="upload"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
-              :file-list="fileList"
-              :auto-upload="false">
-              <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-              <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-              <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-            </el-upload>
+            <upload :param="{typename:'files'}" :file-list="fileList" @get-url="getUrl"></upload>
             </el-form-item>
           </el-col>
         </el-row>
@@ -68,19 +57,19 @@
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
 import { debounce, postDataBase } from '@/util/util' // 防抖函数
 import { checkNumberPire } from '@/util/validate' // 校验数字
+import Upload from '@/components/Items/uploadFile'
 export default {
   props: ['visibleP', 'form'],
   mixins: [DialogClose],
+  components: {
+    Upload
+  },
   data () {
     return {
       bankProvinceCity: [],
       fileList: [{ name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }, { name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }],
       // 校验规则
       rules: {
-        applyAmt: [
-          { required: true, message: '请输入融资金额', trigger: 'blur' },
-          { validator: checkNumberPire({ max: this.form.canV }), trigger: 'blur' }
-        ],
         repayDate: [
           { required: true, message: '请选择还款日期', trigger: 'blur' }
         ]
@@ -101,6 +90,13 @@ export default {
   computed: {
     getTitle () {
       return '信 用 贷 款'
+    },
+    // 金额校验规则动态
+    applyRule () {
+      return [
+        { required: true, message: '请输入融资金额', trigger: 'blur' },
+        { validator: checkNumberPire({ max: this.form.availableCreditAmount }), trigger: 'blur' }
+      ]
     }
   },
   methods: {
@@ -113,7 +109,9 @@ export default {
     },
     handlePreview (file) {
       console.log(file)
-    }
+    },
+    // 上传图片更新fileList
+    getUrl: getUrl
   }
 }
 
@@ -121,12 +119,14 @@ export default {
 function submit () {
   // 表单验证
   this.$refs.form.validate((valid) => {
+    console.log(this.fileList)
     if (valid) {
       // 组合数据
       const param = {
         custId: this.form.custId, // 供應商Id
         applyAmt: this.formInline.applyAmt, // 融资申请金额
-        repayDate: this.formInline.repayDate // 还款日期
+        repayDate: this.formInline.repayDate, // 还款日期
+        loanUploadFileUrl: this.fileList // 附件列表
       }
       // 提交数据
       postDataBase.call(this, '/creditLoan/creditApplyDiscount.do', param, true).then(res => {
@@ -138,5 +138,15 @@ function submit () {
       })
     }
   })
+}
+// 上传成功调用此事件给fileList中添加数据
+function getUrl (val) {
+  if (val) {
+    if (val.status) {
+      this.fileList.push({ loanUploadFileUrl: val.data })
+    } else {
+      this.$message.error(val.msg)
+    }
+  }
 }
 </script>
