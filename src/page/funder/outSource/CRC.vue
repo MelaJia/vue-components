@@ -16,7 +16,7 @@
         <el-pagination
       @size-change="handleSizeChangeFirst"
       @current-change="handleCurrentChangeFirst"
-      :page-sizes="[10, 50, 100, 500]"
+      :page-sizes="pageSizesArr"
       :page-size="arrData.first.psize"
       :current-page.sync="arrData.first.currentPage"
       layout="total, sizes, prev, pager, next, jumper"
@@ -41,7 +41,7 @@
         <el-pagination
       @size-change="handleSizeChangeSecond"
       @current-change="handleCurrentChangeSecond"
-      :page-sizes="[10, 50, 100, 500]"
+      :page-sizes="pageSizesArr"
       :page-size="arrData.second.psize"
       :current-page.sync="arrData.second.currentPage"
       layout="total, sizes, prev, pager, next, jumper"
@@ -66,7 +66,7 @@
         <el-pagination
       @size-change="handleSizeChangeThird"
       @current-change="handleCurrentChangeThird"
-      :page-sizes="[10, 50, 100, 500]"
+      :page-sizes="pageSizesArr"
       :page-size="arrData.third.psize"
       :current-page.sync="arrData.third.currentPage"
       layout="total, sizes, prev, pager, next, jumper"

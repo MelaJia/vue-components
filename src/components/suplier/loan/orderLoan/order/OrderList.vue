@@ -1,7 +1,7 @@
 <template>
   <div class="ar-table">
     <header>
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
+      <el-form ref="ordform" :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="融资金额合计" :rules="amtRule" prop="applyAmt">
           <el-input class="wd-200" v-model="formInline.applyAmt" @change="handleChange"></el-input>元
         </el-form-item>
@@ -32,7 +32,7 @@
           label="序号"
           fixed width="40">
         </el-table-column>
-        <el-table-column align="center" label="订单号" fixed sortable prop="poNumber" width="150">
+        <el-table-column align="center" label="订单号" fixed prop="poNumber" width="150">
         </el-table-column>
         <el-table-column align="center" label="项次" prop="poItem" width="150">
         </el-table-column>
@@ -99,7 +99,7 @@ header {
 import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
 import { firstToUpperCase, debounce, getDataBase, postDataBase } from '@/util/util' // 首字母大写 防抖函数
-import {validatenumber} from '@/util/validate' // 首字母大写 防抖函数
+import { validatenumber } from '@/util/validate' // 首字母大写 防抖函数
 import widhConf from '@/config/width' // 宽度配置
 /* 我的Ar列表 */
 export default {
@@ -109,7 +109,7 @@ export default {
     'dialog-contract': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogContract'),
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/orderLoan/loan/DialogInfo')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/orderLoan/order/DialogInfo')
   },
   data () {
     console.log(widhConf.crL)
@@ -139,7 +139,7 @@ export default {
     },
     amtRule: function () {
       var checkMax = (rule, value, callback) => {
-        if (!validatenumber(value)) {
+        if (value && !validatenumber(value)) {
           return callback(new Error('请输入正确的金额'))
         }
         if (this.isover) {
@@ -230,31 +230,35 @@ function handleChange () {
 }
 // 确认事件
 function handleSub () {
-  this.$confirm(`您好，请问是否确认申请${this.formInline.applyAmt}元人民币的订单信用融资？`, `提示`, {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-    center: true
-  }).then(() => {
-    // 设置数据
-    let selected = []
-    this.multipleSelection.forEach(item => {
-      selected.push(item.poNumber)
-    })
-    let param = Object.assign({}, this.formInline, { slorder: selected })
-    console.log(param)
-    postDataBase.call(this, 'creditLoan/supplierOrderApplyDiscount.do', param, true).then(res => {
-      if (res.data.status) {
-        // 成功刷新数据
-        this.fresh()
-      }
-    })
-  }).catch((err) => {
-    console.log(err)
-    this.$message({
-      type: 'info',
-      message: '操作已取消'
-    })
+  this.$refs.ordform.validate((valid) => {
+    if (valid) {
+      this.$confirm(`您好，请问是否确认申请${this.formInline.applyAmt}元人民币的订单信用融资？`, `提示`, {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        center: true
+      }).then(() => {
+        // 设置数据
+        let selected = []
+        this.multipleSelection.forEach(item => {
+          selected.push(item.poNumber)
+        })
+        let param = Object.assign({}, this.formInline, { slorder: selected })
+        console.log(param)
+        postDataBase.call(this, 'creditLoan/supplierOrderApplyDiscount.do', param, true).then(res => {
+          if (res.data.status) {
+            // 成功刷新数据
+            this.fresh()
+          }
+        })
+      }).catch((err) => {
+        console.log(err)
+        this.$message({
+          type: 'info',
+          message: '操作已取消'
+        })
+      })
+    }
   })
 }
 </script>

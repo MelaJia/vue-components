@@ -17,7 +17,7 @@
       </el-table-column>
       <el-table-column align="center" label="年利率" prop="interestRate" :formatter="addPercent">
       </el-table-column>
-      <el-table-column align="center" label="还款手续费" prop="serviceFeeRate" :formatter="addPercent">
+      <el-table-column align="center" label="服务费率" prop="serviceFeeRate" :formatter="addPercent">
       </el-table-column>
       <el-table-column align="center" label="逾期利率" prop="fineGraceDayRate" :formatter="addPercent">
       </el-table-column>

@@ -238,29 +238,29 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item label="公司logo" prop="logoUrl">
-                  <upload ref="logoFile" :param="{filename:'logoUrl'}" @get-url="getUrl($event, 'logoUrl')"></upload>
+                  <upload ref="logoFile" :param="{typename:'logoUrl'}" @get-url="getUrl($event, 'logoUrl')"></upload>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="营业执照(图片)" prop="licenseUrl">
-                  <upload ref="licenseFile" :param="{filename:'licenseUrl'}"  @get-url="getUrl($event, 'licenseUrl')"></upload>
+                  <upload ref="licenseFile" :param="{typename:'licenseUrl'}"  @get-url="getUrl($event, 'licenseUrl')"></upload>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="营业执照副本" prop="licenseViceUrl">
-                  <upload ref="licenseViceFile" :param="{filename:'licenseViceUrl'}" @get-url="getUrl($event, 'licenseViceUrl')"></upload>
+                  <upload ref="licenseViceFile" :param="{typename:'licenseViceUrl'}" @get-url="getUrl($event, 'licenseViceUrl')"></upload>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
                 <el-form-item label="组织机构代码证" prop="organizationUrl">
-                  <upload ref="organizationFile" :param="{filename:'organizationUrl'}" @get-url="getUrl($event, 'organizationUrl')"></upload>
+                  <upload ref="organizationFile" :param="{typename:'organizationUrl'}" @get-url="getUrl($event, 'organizationUrl')"></upload>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="税务登记证" prop="taxUrl">
-                  <upload ref="taxFile" :param="{filename:'taxUrl'}" @get-url="getUrl($event, 'taxUrl')"></upload>
+                  <upload ref="taxFile" :param="{typename:'taxUrl'}" @get-url="getUrl($event, 'taxUrl')"></upload>
                 </el-form-item>
               </el-col>
             </el-row>

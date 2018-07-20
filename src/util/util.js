@@ -450,6 +450,7 @@ export const erroShow = function (err, loading) {
 }
 /**
  * 获取数据基础函数
+ * @returns {obj} axios返回的对象res.data.data
  * @param {str} url 请求地址
  * @param {obj} param 请求参数
  * @param {boolean} showLoading 是否显示加载图标
