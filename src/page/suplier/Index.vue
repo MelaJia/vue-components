@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="float-right">
+      <div class="float-left">
         <div v-for="(item,idx) in rightDataArr" class="text-content" :style="'background:'+item.bcolor" :key="idx">
           <div class="float-left text">
             <p class="t1">{{item.title}}</p>
@@ -344,7 +344,7 @@ function getOptions (echartData) {
     series: [{
       name: '资产概况',
       type: 'pie',
-      radius: ['27%', '50%'],
+      radius: ['27%', '45%'],
       hoverAnimation: false,
       color: ['#5b9bd5', '#ed7d31', '#a5a5a5', '#ffc000', '#4472c4'],
       label: {

@@ -15,7 +15,7 @@
         <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :page-sizes="[10, 50, 100, 500]"
+      :page-sizes="pageSizesArr"
       :page-size="psize"
       :current-page.sync="currentPage"
       layout="total, sizes, prev, pager, next, jumper"
@@ -50,7 +50,7 @@ export default {
     // this.tableData5 = DataFee.data
     // this.total = DataFee.recordsTotal
     const that = this
-    this.getdata(1, 10)
+    this.getdata(1, this.psize)
       .then(function (response) {
         console.log(response)
         if (response.data.status) {
@@ -76,7 +76,7 @@ export default {
         this.total = 0 // 分页的当前页数变动会触发 从而获取数据
       } else {
         console.log('3')
-        this.getdata(1, 10).then(res => {
+        this.getdata(1, this.psize).then(res => {
           if (res.data.status) {
             this.tableData5 = res.data[this.dataStr]
             this.total = res.data[this.totalStr]

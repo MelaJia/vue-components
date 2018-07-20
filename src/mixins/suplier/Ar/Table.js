@@ -4,6 +4,7 @@ export default {
     return {
       total: 0, // 总数
       psize: 10, // 每页数据
+      pageSizesArr: [5, 10, 20, 50], // 每页数据量数组
       currentPage: 1, // 当前页
       loading: false, // 加载状态
       tableData5: [], // 表格数据
@@ -115,6 +116,7 @@ export default {
       this.loading = true // 开启加载动画
       that.param.iDisplayStart = page
       that.param.iDisplayLength = length
+      console.log(that.param)
       return this.axios.post(this.postUrl, that.param).then(res => {
         return Promise.resolve(res)
       }).then(response => {

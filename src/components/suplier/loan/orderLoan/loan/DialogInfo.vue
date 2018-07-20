@@ -25,18 +25,18 @@
       </ul>
       <ul>
         <li>
-          <span>利率: <em>{{this.detailsP.interestRate}}</em></span>
+          <span>利率: <em>{{this.detailsP.interestRate}}%</em></span>
         </li>
         <li>
-          <span>手续费率: <em>{{this.detailsP.serviceFeeRate}}</em></span>
+          <span>手续费率: <em>{{this.detailsP.serviceFeeRate}}%</em></span>
         </li>
       </ul>
       <ul>
          <li>
-          <span>罚息利率: <em>{{this.detailsP.overdueRate}}</em></span>
+          <span>罚息利率: <em>{{this.detailsP.overdueRate}}%</em></span>
         </li>
         <li>
-          <span>提前还款手续费: <em>{{this.detailsP.prepaymentDeductInterest}}</em></span>
+          <span>提前还款手续费: <em>{{this.detailsP.prepaymentDeductInterest}}%</em></span>
         </li>
       </ul>
       <ul>
@@ -48,11 +48,28 @@
         </li>
       </ul>
       <ul class="height-auto">
-        <span>附件:
-          <div class="a-link-group inline-block">
-             <a v-for="(item,idx) in detailsP.fileInfoList" :key="idx" :href="item.fileUrl" target="_blank" @click="constractHandle(item.fileUrl)">{{item.fileName}}</a>
-          </div>
-        </span>
+        <el-table
+          :data="detailsP.poLoanInfoList"
+          height="150"
+          border
+          style="width: 100%">
+          <el-table-column
+            prop="corpCode"
+            label="法人代碼"
+            width="200">
+          </el-table-column>
+          <el-table-column
+            prop="corpName"
+            label="法人单位"
+            width="250">
+          </el-table-column>
+          <el-table-column
+            label="订单号">
+            <template slot-scope="scope">
+              <span class="po-number-style" v-for="(item,idx) in scope.row.poLoanDetailInfoList" :key="idx" style="margin-left: 10px">{{ item.poNumber }}</span>
+            </template>
+          </el-table-column>
+        </el-table>
       </ul>
       <ul class="height-auto">
           <span>合同:
@@ -65,7 +82,6 @@
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
-      <el-button type="primary" @click="print('print')">打印</el-button>
     </footer>
   </el-dialog>
 </section>
@@ -74,6 +90,9 @@
 @import "@/assets/css/_dialog.scss";
 span>lable.strong{
   color: #303133;
+}
+span.po-number-style:not(:last-child)::after{
+  content: ","
 }
 </style>
 
