@@ -6,7 +6,8 @@ export default {
   data () {
     return {
       moneyTypes: [], // 货币类型
-      arStatus: [] // ar状态
+      arStatus: [], // ar状态
+      loanTypes: [] // 融资类型
     }
   },
   mounted () {
@@ -17,6 +18,26 @@ export default {
     this.moneyTypes = getStore({
       name: 'moneyTypes'
     })
+    this.loanTypes = getStore({
+      name: 'loanTypes'
+    })
+    if (!this.loanTypes) {
+      // 获取融资类型
+      this.axios.get('/commonTrans/queryLoanType.do').then(res => {
+        if (res.data.status) {
+          setStore({
+            name: 'loanTypes',
+            content: res.data.data,
+            type: true
+          })
+          // 赋值
+          this.loanTypes = res.data.data
+          console.log(res.data.data)
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      })
+    }
     // storage中无数据
     if (!this.moneyTypes) {
       console.log('从服务器获取通用数据')

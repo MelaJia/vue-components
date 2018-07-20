@@ -75,9 +75,10 @@ export default {
       this.param = {
         iDisplayStart: 1,
         iDisplayLength: 10,
-        BGCode: val.BGCode, // 事业群代码
-        BUCode: val.BUCode, // 事业处代码
-        BMCode: val.BMCode, // 生产单位代码
+        vendorCode: val.vendorCode,
+        bgCode: val.bgCode, // 事业群代码
+        buCode: val.buCode, // 事业处代码
+        bmCode: val.bmCode, // 生产单位代码
         corpCode: val.corpCode, // 管报代码
         currency: val.currency, // 状态
         agingDateStart: agingDatefrom, // 录入日期开始

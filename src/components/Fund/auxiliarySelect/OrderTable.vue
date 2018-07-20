@@ -24,7 +24,7 @@
         </el-table-column>
         <el-table-column align="center" label="金额" prop="poAmount" width="100">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currency" width="80">
+        <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
         <el-table-column align="center" label="订单确认日期" prop="confirmDate" width="100" :formatter="dateFormat">
         </el-table-column>

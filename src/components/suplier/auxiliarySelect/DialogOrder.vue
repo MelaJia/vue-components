@@ -33,7 +33,7 @@
       </ul>
       <ul>
         <li>
-          <span>币别: <em>{{this.detailsP.currency}}</em></span>
+          <span>币别: <em>{{this.detailsP.currencyName}}</em></span>
         </li>
         <!-- <li>
           <span>撤销状态: <em>{{this.detailsP.paymenttermName}}</em></span>

@@ -40,7 +40,7 @@
         </el-table-column>
         <el-table-column align="center" label="报表日的预付款余额" prop="advanceReceiptsAmount" width="150">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currency" width="100">
+        <el-table-column align="center" label="币别" prop="currencyName" width="100">
         </el-table-column>
         <el-table-column align="center" label="创建日期" prop="createTime" width="100" :formatter="dateFormat">
         </el-table-column>

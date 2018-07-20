@@ -29,7 +29,7 @@
               </el-table-column>
               <el-table-column align="center" prop="amount" :width="widthArr.amount">
               </el-table-column>
-              <el-table-column align="center" prop="currency" :width="widthArr.currency">
+              <el-table-column align="center" prop="currencyName" :width="widthArr.currencyName">
               </el-table-column>
               <el-table-column align="center" prop="deliveryDate" :width="widthArr.deliveryDate" :formatter="dateFormat">
               </el-table-column>
@@ -72,7 +72,7 @@
         </el-table-column>
         <el-table-column align="center" label="金额" prop="amount" width="120">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currency" width="80">
+        <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
         <el-table-column align="center" label="约定交货日期" prop="deliveryDate" width="150">
         </el-table-column>
@@ -142,7 +142,7 @@ export default {
         poNumber: '120',
         dataType: '80',
         amount: '120',
-        currency: '80',
+        currencyName: '80',
         deliveryDate: '150',
         confirmDate: '150',
         operate: '200'

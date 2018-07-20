@@ -27,7 +27,7 @@
               </el-table-column>
               <el-table-column align="center" prop="rcvAmtOrigin" :width="widthArr.rcvAmtOrigin">
               </el-table-column>
-              <el-table-column align="center" prop="currency" :width="widthArr.currency">
+              <el-table-column align="center" prop="currencyName" :width="widthArr.currencyName">
               </el-table-column>
               <el-table-column align="center" prop="payDate" :width="widthArr.payDate" :formatter="dateFormat">
               </el-table-column>
@@ -68,7 +68,7 @@
         </el-table-column>
         <el-table-column align="center" label="实际付款金额" prop="rcvAmtOrigin" width="120">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currency" width="100">
+        <el-table-column align="center" label="币别" prop="currencyName" width="100">
         </el-table-column>
         <el-table-column align="center" label="付款日期" prop="payDate" width="100" :formatter="dateFormat">
         </el-table-column>
@@ -136,7 +136,7 @@ export default {
         corpCode: '180',
         corpName: '200',
         rcvAmtOrigin: '120',
-        currency: '100',
+        currencyName: '100',
         payDate: '100',
         billDate: '100'
       }

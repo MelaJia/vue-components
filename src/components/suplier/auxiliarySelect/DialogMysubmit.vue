@@ -20,7 +20,7 @@
           <span>供应商名称: <em>{{this.detailsP.vendorName}}</em></span>
         </li>
         <li>
-          <span>币别: <em>{{this.detailsP.currency}}</em></span>
+          <span>币别: <em>{{this.detailsP.currencyName}}</em></span>
         </li>
       </ul>
       <ul>

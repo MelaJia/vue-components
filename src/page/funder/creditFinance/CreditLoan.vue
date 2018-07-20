@@ -11,7 +11,7 @@
     </div>
     <div class="body">
       <el-card class="box-card text-align-center">
-        <myarrear-table :data-loading="loading" :data-table="tableData5" @refresh="handleRefresh"></myarrear-table>
+        <creditloan-table :data-loading="loading" :data-table="tableData5" @refresh="handleRefresh"></creditloan-table>
         <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -32,22 +32,22 @@
 </style>
 
 <script>
-import MyarrearTable from '@/components/Admin/auxiliarySelect/MyarrearTable'
-import Search from '@/components/Admin/auxiliarySelect/MyarrearSearch'
+import CreditloanTable from '@/components/Fund/creditFinance/CreditloanTable'
+import Search from '@/components/Fund/creditFinance/CreditloanSearch'
 import Table from '@/mixins/suplier/Ar/Table'
 export default {
-  name: 'myarrear', // 我的欠款
+  name: 'creditLoan', // 信用放款
   mixins: [Table],
   data () {
     return {
       loading: false,
-      postUrl: '/auxiliaryFunction/searchCustomerQiankuanList.do',
+      postUrl: '/factoringCreditLoan/factoringCreditLoanOnLoanManageList.do',
       dataStr: 'data',
       totalStr: 'recordsTotal'
     }
   },
   components: {
-    'myarrear-table': MyarrearTable,
+    'creditloan-table': CreditloanTable,
     'search': Search
   },
   mounted () {
@@ -69,20 +69,25 @@ export default {
   methods: {
     // 查询
     searchSubmit (val) {
-      let agingDatefrom = val.agingDate ? val.agingDate[0].Format('yyyy-MM-dd') : ''
-      let agingDateto = val.agingDate ? val.agingDate[1].Format('yyyy-MM-dd') : ''
+      let repayDatefrom = val.repayDate ? val.repayDate[0].Format('yyyy-MM-dd') : ''
+      let repayDateto = val.repayDate ? val.repayDate[1].Format('yyyy-MM-dd') : ''
+      let contractSignedDatefrom = val.contractSignedDate ? val.contractSignedDate[0].Format('yyyy-MM-dd') : ''
+      let contractSignedDateto = val.contractSignedDate ? val.contractSignedDate[1].Format('yyyy-MM-dd') : ''
       /* 修改请求参数 */
       this.param = {
         iDisplayStart: 1,
         iDisplayLength: 10,
-        vendorCode: val.vendorCode,
-        bgCode: val.bgCode, // 事业群代码
-        buCode: val.buCode, // 事业处代码
-        bmCode: val.bmCode, // 生产单位代码
-        corpCode: val.corpCode, // 管报代码
-        currency: val.currency, // 状态
-        agingDateStart: agingDatefrom, // 录入日期开始
-        agingDateEnd: agingDateto // 录入日期结束
+        loanId: val.loanId, // 融资编号
+        companyName: val.companyName, // 融资客户
+        currency: val.currency, // 币别
+        amountBegin: val.amountBegin, // 开始金额
+        amountEnd: val.amountEnd, // 结束金额
+        status: val.status, // 状态
+        loanType: val.loanType, // 融资类型
+        repayDateBegin: repayDatefrom, // 还款日期开始
+        repayDateEnd: repayDateto, // 还款日期结束
+        contractSignedDateBegin: contractSignedDatefrom, // 合同签署日期开始
+        contractSignedDateEnd: contractSignedDateto // 合同签署日期结束
       }
       if (this.total && this.currentPage !== 1) {
         this.total = 0 // 分页的当前页数变动会触发 从而获取数据

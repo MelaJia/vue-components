@@ -41,7 +41,7 @@
       </ul>
       <ul>
         <li>
-          <span>币别: <em>{{this.detailsP.currency}}</em></span>
+          <span>币别: <em>{{this.detailsP.currencyName}}</em></span>
         </li>
         <li>
           <span>结账日期: <em>{{this.detailsP.agingDate | dateFormat}}</em></span>

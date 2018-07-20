@@ -20,7 +20,7 @@
           <span>金额: <em>{{this.detailsP.poAmount}}</em>元</span>
         </li>
         <li>
-          <span>币别: <em>{{this.detailsP.currency}}</em></span>
+          <span>币别: <em>{{this.detailsP.currencyName}}</em></span>
         </li>
       </ul>
       <ul>
