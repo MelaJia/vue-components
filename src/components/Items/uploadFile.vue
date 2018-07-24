@@ -22,7 +22,10 @@ export default {
       this.$refs.upload.submit()
     },
     handleRemove (file, fileList) {
-      console.log(file, fileList)
+      let arr = this.fileList.slice(0)
+      let idx = this.fileList.findIndex((n) => n.uid === file.uid)
+      arr.splice(idx, 1)
+      this.$emit('update:fileList', arr)
     },
     handlePreview (file) {
       console.log(file)
@@ -32,6 +35,6 @@ export default {
 }
 // 上传成功事件
 function handleSuccess (res, file, fileList) {
-  this.$emit('get-url', res) // 返回到父级
+  this.$emit('get-url', { val: res, file: file }) // 返回到父级
 }
 </script>

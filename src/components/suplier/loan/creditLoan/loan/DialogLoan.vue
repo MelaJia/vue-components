@@ -35,7 +35,7 @@
         <el-row>
           <el-col :span="12" :offset="6">
             <el-form-item label="上传附件:">
-            <upload :param="{typename:'files'}" :file-list="fileList" @get-url="getUrl"></upload>
+            <upload :param="{typename:'files'}" :file-list.sync="fileList" @get-url="getUrl"></upload>
             </el-form-item>
           </el-col>
         </el-row>
@@ -101,15 +101,6 @@ export default {
   },
   methods: {
     subHandle: debounce(submit, 1000, true),
-    submitUpload () {
-      this.$refs.upload.submit()
-    },
-    handleRemove (file, fileList) {
-      console.log(file, fileList)
-    },
-    handlePreview (file) {
-      console.log(file)
-    },
     // 上传图片更新fileList
     getUrl: getUrl
   }
@@ -140,10 +131,12 @@ function submit () {
   })
 }
 // 上传成功调用此事件给fileList中添加数据
-function getUrl (val) {
+function getUrl (obj) {
+  let { val, file } = obj
+  console.log(file)
   if (val) {
     if (val.status) {
-      this.fileList.push({ loanUploadFileUrl: val.data })
+      this.fileList.push({ loanUploadFileUrl: val.data, uid: file.uid })
     } else {
       this.$message.error(val.msg)
     }

@@ -10,7 +10,7 @@
       <el-col :span="8">
         <el-form-item label="币别">
           <el-select v-model="formInline.billBookCurr" placeholder="全部">
-            <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
+            <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyDesc"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
