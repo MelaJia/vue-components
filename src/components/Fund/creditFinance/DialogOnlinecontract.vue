@@ -25,12 +25,9 @@
         <el-row>
           <el-col>
             <el-form-item label="合同上传:">
-              <el-upload ref="upload" class="upload-demo" :headers="{'Authorization':token}" :auto-upload="false" :action="uploadUrl" :show-file-list="true" :on-remove="handleRemove" :on-preview="handlePreview">
-                <el-progress v-if="flag == true" type="circle" :percentage="uploadPercent" :status="status" :width="120"></el-progress>
-                <el-button size="mini" type="primary">选择文件</el-button>
-                <el-button style="margin-left: 10px;" size="mini" type="success" @click="submitUpload">上传到服务器</el-button>
-                <div slot="tip" class="el-upload__tip">只能上传pdf文件,可以上传多个文件</div>
-              </el-upload>
+              <upload :param="{typename:'files'}" :file-list="fileList" @get-url="getUrl">
+                <template slot="tip">上传pdf文件,可上传多个文件</template>
+              </upload>
             </el-form-item>
           </el-col>
         </el-row>
@@ -89,6 +86,7 @@ import {
   apiUrl
 } from '@/config/env.js'
 import { mapGetters } from 'vuex'
+import Upload from '@/components/Items/uploadFile'
 
 export default {
   props: ['visibleP', 'detailsP'],
@@ -96,12 +94,8 @@ export default {
   data () {
     return {
       uploadUrl: apiUrl + '/cust/userFilePicture',
-      fileUrl: '',
-      flag: false,
-      contractList: [],
-      status: '',
+      fileList: [],
       applyAmt: '',
-      uploadPercent: 0,
       // 校验规则
       rules: {
         applyAmt: [
@@ -116,6 +110,9 @@ export default {
     },
     ...mapGetters(['token'])
   },
+  components: {
+    Upload
+  },
   methods: {
     uploadContract: debounce(submit, 1000, true),
     // 上传服务器
@@ -127,7 +124,9 @@ export default {
     },
     handlePreview (file) {
       console.log(file)
-    }
+    },
+    // 上传合同更新fileList
+    getUrl: getUrl
   }
 }
 function submit () {
@@ -136,9 +135,10 @@ function submit () {
     if (valid) {
       // 组合数据
       const param = {
-        loanId: this.detailsP.loanId, // 供應商Id
+        loanId: this.detailsP.loanId, // 融资编号Id
         applyAmt: this.detailsP.applyAmt, // 实放金额
-        repayDate: this.detailsP.repayDate // 还款日期
+        repayDate: this.detailsP.repayDate, // 还款日期
+        contractUploadFileUrl: this.fileList // 合同列表
       }
       // 提交数据
       postDataBase.call(this, '/factoringCreditLoan/generateContract.do', param, true).then(res => {
@@ -150,5 +150,15 @@ function submit () {
       })
     }
   })
+}
+// 上传成功调用此事件给fileList中添加数据
+function getUrl (val) {
+  if (val) {
+    if (val.status) {
+      this.fileList.push({ contractUploadFileUrl: val.data })
+    } else {
+      this.$message.error(val.msg)
+    }
+  }
 }
 </script>

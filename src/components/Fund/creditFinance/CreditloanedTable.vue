@@ -10,7 +10,7 @@
         >
         <el-table-column type="expand" fixed>
           <template slot-scope="props">
-            <el-table :data="props.row.tableData" border style="width: 100%" :show-header="false" :row-class-name="getPendedColor">
+            <el-table :data="props.row.tableData" border style="width: 100%" :show-header="false" :row-class-name="getColor">
               <el-table-column width="48">
               </el-table-column>
               <el-table-column align="center" width="60">
@@ -19,7 +19,7 @@
               </el-table-column>
               <el-table-column align="center" prop="loanId" :width="widthArr.loanId">
               </el-table-column>
-              <el-table-column align="center" prop="LoanTypeName" :width="widthArr.LoanTypeName">
+              <el-table-column align="center" prop="loanTypeName" :width="widthArr.loanTypeName">
               </el-table-column>
               <el-table-column align="center" prop="applyAmt" :width="widthArr.applyAmt">
               </el-table-column>
@@ -69,11 +69,11 @@
         </el-table-column>
         <el-table-column align="center" label="融资编号" fixed sortable prop="loanId" width="120">
         </el-table-column>
-        <el-table-column align="center" label="融资类型" prop="LoanTypeName" width="100">
+        <el-table-column align="center" label="融资类型" prop="loanTypeName" width="100">
         </el-table-column>
         <el-table-column align="center" label="贴现申请金额" prop="applyAmt" width="150">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currency" width="80">
+        <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
         <el-table-column align="center" label="还款方式" prop="repaymentType" width="150">
         </el-table-column>
@@ -137,6 +137,12 @@ header {
 .el-table__expanded-cell .el-table--scrollable-x .el-table__body-wrapper {
   overflow-x: hidden;
 }
+.warning-row{
+  background: #ffcccc;
+}
+.expendcolor{
+  background: oldlace;
+}
 </style>
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
@@ -162,9 +168,9 @@ export default {
       widthArr: {
         companyName: '120',
         loanId: '120',
-        LoanTypeName: '100',
+        loanTypeName: '100',
         applyAmt: '150',
-        currency: '80',
+        currencyName: '80',
         // status: '80',
         repaymentType: '150',
         loanAmt: '100',
@@ -193,6 +199,15 @@ export default {
       this.multipleSelection = val
       console.log(this.multipleSelection)
     },
+    // 子列表颜色显示
+    getColor ({row, rowIndex}) {
+      console.log(row)
+      if (row.loanStatus === '05') {
+        return 'warning-row'
+      } else {
+        return 'expendcolor'
+      }
+    },
     // 详情
     handleInfo (idx, val) {
       val.infoLoading = true
@@ -208,7 +223,7 @@ export default {
     // 还款详情
     repayMent (idx, val) {
       val.repayLoading = true
-      this.getLoanDetail('/creditLoan/queryCreditLoanInfo.do', { loanId: val.loanId }).then(res => {
+      this.getLoanDetail('/creditLoan/queryCreditLoanRepayInfo.do', { loanId: val.loanId }).then(res => {
         this.details = res
         this.dialogRepay = true
         val.infoLoading = false

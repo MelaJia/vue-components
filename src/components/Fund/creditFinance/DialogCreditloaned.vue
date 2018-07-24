@@ -7,14 +7,14 @@
       </span>
     </header>
     <section>
-      <ul>
+      <!-- <ul>
         <li>
           <span>法人代码: <em>{{this.detailsP.poLoanInfoList.corpCode}}</em></span>
         </li>
         <li>
           <span>法人单位: <em>{{this.detailsP.poLoanInfoList.corpName}}</em></span>
         </li>
-      </ul>
+      </ul> -->
       <ul>
         <li>
           <span>申请金额: <em>{{this.detailsP.applyAmt}}</em></span>
@@ -28,7 +28,7 @@
           <span>还款日期: <em>{{this.detailsP.repayDate}}</em></span>
         </li>
         <li>
-          <span>币别: <em>{{this.detailsP.currency}}</em></span>
+          <span>币别: <em>{{this.detailsP.currencyName}}</em></span>
         </li>
       </ul>
       <ul>
@@ -55,13 +55,29 @@
           <span>还款方式: <em>{{this.detailsP.repaymentType}}</em></span>
         </li>
       </ul>
-      <ul class="height-auto">
+      <!-- <ul class="height-auto">
         <span>
           <div class="a-link-group inline-block">
             订单号:<label v-for="(item, index) in this.detailsP.poLoanInfoList.poLoanDetailInfoList" :key="index">{{item.poNumber}}</label>
           </div>
         </span>
-      </ul>
+      </ul> -->
+      <table class="tableList" border="1">
+        <thead>
+          <tr>
+            <th>法人代码</th>
+            <th>法人单位</th>
+            <th>订单号</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for = "(item,index) in this.detailsP.poLoanInfoList" :key="index">
+            <td>{{item.corpCode}}</td>
+            <td>{{item.corpName}}</td>
+            <td><span v-for = "(itemList,index) in item.poLoanDetailInfoList" :key="index">{{itemList.poNumber}}</span></td>
+          </tr>
+        </tbody>
+      </table>
       <ul class="height-auto">
           <span>
           <div class="a-link-group inline-block">
@@ -87,8 +103,33 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+.tableList{
+  width: 100%;
+  border: 0.5px solid #931719;
+  border-collapse: collapse;
+  thead tr{
+    height: 30px;
+    th{
+      font-weight: normal;
+    }
+  }
+  tbody tr{
+    height: 30px;
+    text-align: center;
+    &:last-child{
+      border-bottom: none;
+      td{
+        border-bottom: none;
+        span{
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
 ul:last-child{
   height: auto;
+  border-top: none;
   span{
     padding-left: 0;
     line-height: 45px;

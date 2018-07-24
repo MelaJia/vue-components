@@ -16,11 +16,11 @@
         </el-table-column>
         <el-table-column align="center" label="融资编号" prop="loanId">
         </el-table-column>
-        <el-table-column align="center" label="融资类型" prop="LoanTypeName">
+        <el-table-column align="center" label="融资类型" prop="loanTypeName">
         </el-table-column>
         <el-table-column align="center" label="贴现申请金额" prop="applyAmt">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currency">
+        <el-table-column align="center" label="币别" prop="currencyName">
         </el-table-column>
         <el-table-column align="center" label="还款方式" prop="repaymentType">
         </el-table-column>

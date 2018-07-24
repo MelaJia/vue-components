@@ -20,11 +20,11 @@
         </el-table-column>
         <el-table-column align="center" label="融资编号" sortable prop="loanId" width="140">
         </el-table-column>
-        <el-table-column align="center" label="融资类型" prop="LoanTypeName" width="140">
+        <el-table-column align="center" label="融资类型" prop="loanTypeName" width="140">
         </el-table-column>
         <el-table-column align="center" label="贴现申请金额" prop="applyAmt" width="140">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currency" width="100">
+        <el-table-column align="center" label="币别" prop="currencyName" width="100">
         </el-table-column>
         <el-table-column align="center" label="状态" prop="status" width="100">
         </el-table-column>

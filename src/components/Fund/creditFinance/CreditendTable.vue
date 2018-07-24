@@ -17,11 +17,11 @@
               </el-table-column>
               <el-table-column align="center" prop="loanId" :width="widthArr.loanId">
               </el-table-column>
-              <el-table-column align="center" prop="LoanTypeName" :width="widthArr.LoanTypeName">
+              <el-table-column align="center" prop="loanTypeName" :width="widthArr.loanTypeName">
               </el-table-column>
               <el-table-column align="center" prop="applyAmt" :width="widthArr.applyAmt">
               </el-table-column>
-              <el-table-column align="center" prop="currency" :width="widthArr.currency">
+              <el-table-column align="center" prop="currencyName" :width="widthArr.currencyName">
               </el-table-column>
               <el-table-column align="center" prop="status" :width="widthArr.status">
               </el-table-column>
@@ -77,11 +77,11 @@
         </el-table-column>
         <el-table-column align="center" label="融资编号" sortable prop="loanId" width="120">
         </el-table-column>
-        <el-table-column align="center" label="融资类型" prop="LoanTypeName" width="100">
+        <el-table-column align="center" label="融资类型" prop="loanTypeName" width="100">
         </el-table-column>
         <el-table-column align="center" label="贴现申请金额" prop="applyAmt" width="150">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currency" width="80">
+        <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
         <el-table-column align="center" label="状态" prop="status" width="80">
         </el-table-column>
@@ -169,9 +169,9 @@ export default {
       widthArr: {
         companyName: '120',
         loanId: '120',
-        LoanTypeName: '100',
+        loanTypeName: '100',
         applyAmt: '150',
-        currency: '80',
+        currencyName: '80',
         status: '80',
         repaymentType: '150',
         loanAmt: '100',

@@ -7,7 +7,8 @@ export default {
     return {
       moneyTypes: [], // 货币类型
       arStatus: [], // ar状态
-      loanTypes: [] // 融资类型
+      loanTypes: [], // 融资类型
+      repayTypes: [] // 还款方式
     }
   },
   mounted () {
@@ -21,6 +22,9 @@ export default {
     this.loanTypes = getStore({
       name: 'loanTypes'
     })
+    this.repayTypes = getStore({
+      name: 'repayTypes'
+    })
     if (!this.loanTypes) {
       // 获取融资类型
       this.axios.get('/commonTrans/queryLoanType.do').then(res => {
@@ -32,6 +36,23 @@ export default {
           })
           // 赋值
           this.loanTypes = res.data.data
+          console.log(res.data.data)
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      })
+    }
+    if (!this.repayTypes) {
+      // 获取还款方式类型
+      this.axios.get('/commonTrans/queryRepaymentType.do').then(res => {
+        if (res.data.status) {
+          setStore({
+            name: 'repayTypes',
+            content: res.data.data,
+            type: true
+          })
+          // 赋值
+          this.repayTypes = res.data.data
           console.log(res.data.data)
         } else {
           this.$message.error(res.data.msg)

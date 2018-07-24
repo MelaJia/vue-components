@@ -61,7 +61,7 @@
           <el-col :span="11" :offset="1" class="flex">
             <el-form-item label="还款方式: " prop="repaymentType">
              <el-select v-model="detailsP.repaymentType" clearable placeholder="还款方式">
-              <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.RepaymentTypeName" :value="item.RepaymentType"></el-option>
+              <el-option v-for="(item,index) in repayTypes" :key="index" :label="item.RepaymentTypeName" :value="item.RepaymentType"></el-option>
             </el-select>
             </el-form-item>
           </el-col>
@@ -119,12 +119,13 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
+import commonDatas from '@/mixins/commonDatas'
 import { debounce } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 
 export default {
   props: ['visibleP', 'detailsP'],
-  mixins: [DialogClose, Common],
+  mixins: [DialogClose, Common, commonDatas],
   data () {
     return {
       transAmt: 0,
