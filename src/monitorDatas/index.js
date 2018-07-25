@@ -254,14 +254,14 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/supplierCreditLoanManag
         totalRepayAmt: 10000, // 还款合计
         contractSignedDate: 1528905600000, // 合同签署日期
         repayDate: 1528905600000, // 还款日期
-        currencyName: '123', // 币别名称
+        currencyName: '人民币', // 币别名称
         custId: '123', // 供應商Id 
       },
       {
         loanId: '123', // 融资编号
         applyAmt: 10000, // 融资申请金额
         currency: '123', // 币别
-        status: 3, // 状态
+        loanStatus: '01', // 状态
         repaymentType: '123', // 还款方式
         loanAmt: 10000, // 实放金额
         payPrincipalAmt: 10000, // 还款本金
@@ -273,13 +273,13 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/supplierCreditLoanManag
         totalRepayAmt: 10000, // 还款合计
         contractSignedDate: 1528905600000, // 合同签署日期
         repayDate: 1528905600000, // 还款日期
-        currencyName: '123', // 币别名称
+        currencyName: '人民币', // 币别名称
         custId: '123', // 供應商Id 
         "tableData":[ {
           loanId: '123', // 融资编号
           applyAmt: 10000, // 融资申请金额
           currency: '123', // 币别
-          status: 3, // 状态
+          loanStatus: '05', // 状态
           repaymentType: '123', // 还款方式
           loanAmt: 10000, // 实放金额
           payPrincipalAmt: 10000, // 还款本金
@@ -291,14 +291,14 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/supplierCreditLoanManag
           totalRepayAmt: 10000, // 还款合计
           contractSignedDate: 1528905600000, // 合同签署日期
           repayDate: 1528905600000, // 还款日期
-          currencyName: '123', // 币别名称
+          currencyName: '人民币', // 币别名称
           custId: '123', // 供應商Id 
         },
         {
           loanId: '123', // 融资编号
           applyAmt: 10000, // 融资申请金额
           currency: '123', // 币别
-          status: 22, // 状态
+          loanStatus: '02', // 状态
           repaymentType: '123', // 还款方式
           loanAmt: 10000, // 实放金额
           payPrincipalAmt: 10000, // 还款本金
@@ -310,13 +310,13 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/supplierCreditLoanManag
           totalRepayAmt: 10000, // 还款合计
           contractSignedDate: 1528905600000, // 合同签署日期
           repayDate: 1528905600000, // 还款日期
-          currencyName: '123', // 币别名称
+          currencyName: '人民币', // 币别名称
           custId: '123', // 供應商Id 
         },{
           loanId: '123', // 融资编号
           applyAmt: 10000, // 融资申请金额
           currency: '123', // 币别
-          status: 4, // 状态
+          loanStatus: '03', // 状态
           repaymentType: '123', // 还款方式
           loanAmt: 10000, // 实放金额
           payPrincipalAmt: 10000, // 还款本金
@@ -328,7 +328,7 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/supplierCreditLoanManag
           totalRepayAmt: 10000, // 还款合计
           contractSignedDate: 1528905600000, // 合同签署日期
           repayDate: 1528905600000, // 还款日期
-          currencyName: '123', // 币别名称
+          currencyName: '人民币', // 币别名称
           custId: '123', // 供應商Id 
         }]
       },
@@ -348,7 +348,7 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/supplierCreditLoanManag
         totalRepayAmt: 10000, // 还款合计
         contractSignedDate: 1528905600000, // 合同签署日期
         repayDate: 1528905600000, // 还款日期
-        currencyName: '123', // 币别名称
+        currencyName: '人民币', // 币别名称
         custId: '123', // 供應商Id 
       }
   ],

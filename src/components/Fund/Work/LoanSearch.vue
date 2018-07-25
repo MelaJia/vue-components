@@ -39,7 +39,7 @@
       <el-col :span="10">
         <el-form-item label="贴现金额">
           <el-col :span="10">
-            <el-input :class="ipt" v-model.number="formInline.discountAmtScopeFrom" placeholder="起始金额"></el-input>
+            <el-input v-model.number="formInline.discountAmtScopeFrom" placeholder="起始金额"></el-input>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="10">
