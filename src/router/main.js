@@ -198,11 +198,7 @@ const routes = [{
     component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/blockChain/index'),
     meta: {
       title: '区块链', // 名称
-<<<<<<< HEAD
-      requireAuth: true // 需要登录验证
-=======
       requireAuth: false // 需要登录验证
->>>>>>> a674d6d61ea8ea359fc304a7ab047df64b0394de
     }
   }
   ]
