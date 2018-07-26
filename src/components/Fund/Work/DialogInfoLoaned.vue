@@ -33,7 +33,7 @@
       </ul>
       <ul>
         <li class="w-50">
-          <span>贴现金额: <em>{{this.detailsP.billBookAmt}}</em></span>
+          <span>贴现金额: <em>{{this.detailsP.billBookAmt | regexNum}}</em></span>
         </li>
         <li class="w-50">
           <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>
@@ -49,7 +49,7 @@
       </ul>
       <ul>
         <li class="w-50">
-          <span>实际放款金额: <em>{{this.detailsP.actualDiscountAmt}}</em></span>
+          <span>实际放款金额: <em>{{this.detailsP.actualDiscountAmt | regexNum}}</em></span>
         </li>
         <li class="w-50">
          <span>手续费: <em>{{this.detailsP.overdueRate}}</em></span>
@@ -84,10 +84,10 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-
+import common from '@/mixins/common' //
 export default {
   props: ['visibleP', 'detailsP'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, common],
   data () {
     return {
       radio2: 3

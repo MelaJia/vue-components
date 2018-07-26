@@ -528,3 +528,33 @@ export const postDataBase = function (url, param, showLoading) {
     }
   })
 }
+/**
+ * 千分位转换
+ * @param {number} val 转换值
+ */
+export const thousandth = function (val) {
+  var regex = /(\d)(?=(\d\d\d)+(?!\d))/g
+  var result
+  if (typeof val === 'string') {
+    let str = val
+    if (str.indexOf('.') === -1) {
+      str = str.replace(regex, ',') + '.00'
+    } else {
+      var newStr = str.split('.')
+      var str2 = newStr[0].replace(regex, ',')
+      if (newStr[1].length <= 1) {
+        // 小数点后只有一位时
+        result = str2 + '.' + newStr[1] + '0'
+        console.log(result)
+      } else if (newStr[1].length > 1) {
+        // 小数点后两位以上时
+        var decimals = newStr[1].substr(0, 2)
+        result = str2 + '.' + decimals
+        console.log(result)
+      }
+    }
+  } else if (typeof val === 'number') {
+    return val.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+  }
+  return result
+}

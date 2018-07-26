@@ -16,9 +16,9 @@
       </el-table-column>
       <el-table-column align="center" label="币别" prop="currencyDesc">
       </el-table-column>
-      <el-table-column align="center" label="贴现金额" prop="billBookAmt">
+      <el-table-column align="center" label="贴现金额" prop="billBookAmt" :formatter="regexNum">
       </el-table-column>
-      <el-table-column align="center" label="实放金额" prop="discountAmt" >
+      <el-table-column align="center" label="实放金额" prop="discountAmt" :formatter="regexNum">
       </el-table-column>
       <el-table-column align="center" label="预计回款日期" prop="billPayDate" min-width="120" :formatter="dateFormat">
       </el-table-column>

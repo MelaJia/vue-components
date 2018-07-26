@@ -27,15 +27,20 @@
       </ul>
       <ul>
         <li>
-          <span>可用金额: <em>{{this.detailsP.arAvailableAmt}}</em></span>
+          <span>可用金额: <em>{{this.detailsP.arAvailableAmt | regexNum}}</em></span>
         </li>
         <li>
-          <span>票面金额: <em>{{this.detailsP.billBookAmt}}</em></span>
+          <span>票面金额: <em>{{this.detailsP.billBookAmt | regexNum}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
           <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
+        </li>
+        <li v-if="!detailsP.isMasterAr">
+          <el-tooltip :content="'对手单位:'+this.detailsP.custFromName" placement="bottom" effect="light">
+           <span>对手单位: <em>{{this.detailsP.custFromName}}</em></span>
+          </el-tooltip>
         </li>
       </ul>
       <ul class="height-auto">

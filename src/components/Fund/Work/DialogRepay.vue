@@ -33,7 +33,7 @@
       </ul>
       <ul>
         <li>
-          <span>应还款金额: <em>{{this.detailsP.needPayAmt}}</em></span>
+          <span>应还款金额: <em>{{this.detailsP.needPayAmt | regexNum}}</em></span>
         </li>
         <li>
           <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>

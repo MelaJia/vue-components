@@ -27,9 +27,9 @@
               </el-table-column>
               <el-table-column align="center" prop="currencyDesc" :width="widthArr.currencyDesc">
               </el-table-column>
-              <el-table-column align="center" prop="billBookAmt" :width="widthArr.billBookAmt">
+              <el-table-column align="center" prop="billBookAmt" :formatter="regexNum" :width="widthArr.billBookAmt">
               </el-table-column>
-              <el-table-column align="center" prop="loanAmt" :width="widthArr.loanAmt">
+              <el-table-column align="center" prop="loanAmt" :width="widthArr.loanAmt" :formatter="regexNum">
               </el-table-column>
               <el-table-column align="center" prop="billPayDate" :width="widthArr.billPayDate" :formatter="dateFormat">
               </el-table-column>
@@ -58,9 +58,9 @@
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyDesc">
         </el-table-column>
-        <el-table-column align="center" label="票面金额" prop="billBookAmt">
+        <el-table-column align="center" label="票面金额" prop="billBookAmt" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="可用余额" prop="loanAmt">
+        <el-table-column align="center" label="可用余额" prop="loanAmt" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120">
         </el-table-column>

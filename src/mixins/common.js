@@ -1,5 +1,5 @@
 import {loadingConf} from '@/config/common' // 获取加载配置
-import { postDataBase } from '@/util/util' // 发送数据函数
+import { postDataBase, thousandth } from '@/util/util' // 发送数据函数
 export default {
   methods: {
     // 时间格式化
@@ -17,6 +17,13 @@ export default {
         return ''
       }
       return `${val}%`
+    },
+    // 千分位原始方法
+    thousandth: thousandth,
+    // 千分位formatter方法
+    regexNum: function (row, column) {
+      var val = row[column.property]
+      return thousandth(val)
     },
     // 来源格式化
     originFormat: function (row, column) {
@@ -94,7 +101,9 @@ export default {
     // 来源格式化
     originFormat: function (value) {
       return value === 1 ? '自有' : '购入'
-    }
+    },
+    // 千分位
+    regexNum: thousandth
   }
 }
 // 错误提示函数

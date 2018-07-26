@@ -684,11 +684,11 @@ function getUserInfo () {
     companyAddress: 'a', // 公司详细地址
     contactPerson: 'a', // 联系人姓名
     contactIdcardNum: '433121199912103562', // 联系人身份证
-    contactPhone: '8725585', // 联系人电话
+    contactPhone: '13713384377', // 联系人电话
     contactMail: '11@qq.com', // 联系人邮箱
     legalPerson: 'a', // 法人姓名
     legalIdcardNum: '433121199912103562', // 法人身份证
-    legalPhone: '8725585', // 法人电话
+    legalPhone: '13713384377', // 法人电话
     legalMail: '11@qq.com' // 法人邮箱
   }
   var object = require('lodash/fp/object')

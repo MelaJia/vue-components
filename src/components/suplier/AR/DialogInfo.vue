@@ -32,7 +32,7 @@
           <span>转让日期: <em>{{this.detailsP.arGenerateDate | dateFormat}}</em></span>
         </li>
         <li>
-          <span>转让金额: <em>{{this.detailsP.billBookAmt}}</em></span>
+          <span>转让金额: <em>{{this.detailsP.billBookAmt | regexNum}}</em></span>
         </li>
       </ul>
       <ul>
