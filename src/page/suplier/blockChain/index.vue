@@ -1,0 +1,34 @@
+<template>
+  <section>
+    <!-- 标签页 -->
+    <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tab-pane label="富金机" name="first"></el-tab-pane>
+      <el-tab-pane label="钜信" name="second"></el-tab-pane>
+      <el-tab-pane label="CF" name="third"></el-tab-pane>
+    </el-tabs>
+    <!-- 内容区域 -->
+    <component v-bind:is="activeName"></component>
+  </section>
+</template>
+<script>
+export default {
+  data () {
+    return {
+      activeName: 'second'
+    }
+  },
+  methods: {
+    handleClick (tab, event) {
+      console.log(tab, event)
+    }
+  },
+  components: {
+    'first': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/page/suplier/blockChain/first'),
+    'second': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/page/suplier/blockChain/second'),
+    'third': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/page/suplier/blockChain/third')
+  }
+}
+</script>
