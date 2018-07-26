@@ -25,7 +25,7 @@
         <el-row>
           <el-col>
             <el-form-item label="合同上传:">
-              <upload :param="{typename:'files'}" :file-list="fileList" @get-url="getUrl">
+              <upload :param="{typename:'files'}" :file-list.sync="fileList" @get-url="getUrl">
                 <template slot="tip">上传pdf文件,可上传多个文件</template>
               </upload>
             </el-form-item>
@@ -115,16 +115,6 @@ export default {
   },
   methods: {
     uploadContract: debounce(submit, 1000, true),
-    // 上传服务器
-    submitUpload () {
-      this.$refs.upload.submit()
-    },
-    handleRemove (file, fileList) {
-      console.log(file, fileList)
-    },
-    handlePreview (file) {
-      console.log(file)
-    },
     // 上传合同更新fileList
     getUrl: getUrl
   }
@@ -146,16 +136,19 @@ function submit () {
         if (res.data.status) {
           this.$parent.fresh()
           this.handleClose()
+          // this.fileList = []
         }
       })
     }
   })
 }
 // 上传成功调用此事件给fileList中添加数据
-function getUrl (val) {
+function getUrl (obj) {
+  let { val, file } = obj
+  console.log(file)
   if (val) {
     if (val.status) {
-      this.fileList.push({ contractUploadFileUrl: val.data })
+      this.fileList.push({ contractUploadFileUrl: val.data, uid: file.uid })
     } else {
       this.$message.error(val.msg)
     }

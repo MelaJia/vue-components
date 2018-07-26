@@ -15,7 +15,7 @@
               </el-table-column>
               <el-table-column align="center" prop="companyName" :width="widthArr.companyName">
               </el-table-column>
-              <el-table-column align="center" prop="loanId" :width="widthArr.loanId">
+              <el-table-column align="center" :width="widthArr.loanId">
               </el-table-column>
               <el-table-column align="center" prop="loanTypeName" :width="widthArr.loanTypeName">
               </el-table-column>

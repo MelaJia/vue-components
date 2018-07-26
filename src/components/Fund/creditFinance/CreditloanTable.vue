@@ -187,14 +187,34 @@ function handleAccept (idx, val) {
   })
 }
 // 拒绝
+// function handleReject (idx, val) {
+//   this.$confirm(`融资编号为${val.loanId}的贴现申请确认拒绝?`, `提示`, {
+//     confirmButtonText: '确定',
+//     cancelButtonText: '取消',
+//     type: 'warning',
+//     center: true
+//   }).then(() => {
+//     this.cancelBase('/factoringCreditLoan/rejectLoan.do', {loanId: val.loanId, rejectReason: ''}) // 调用common混合中公共方法
+//   }).catch(() => {
+//     this.$message({
+//       type: 'info',
+//       message: '操作已取消'
+//     })
+//   })
+// }
 function handleReject (idx, val) {
-  this.$confirm(`融资编号为${val.loanId}的贴现申请确认拒绝?`, `提示`, {
+  this.$prompt(`融资编号为${val.loanId}的贴现申请确认拒绝`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
+    inputPlaceholder: '请输入拒绝理由',
+    inputType: 'textarea',
+    inputPattern: /^\S+$/,
+    inputErrorMessage: '拒绝理由不能为空',
     center: true
-  }).then(() => {
-    this.cancelBase('/factoringCreditLoan/rejectLoan.do', {loanId: val.loanId, rejectReason: ''}) // 调用common混合中公共方法
+  }).then(({value}) => {
+    console.log(value)
+    this.cancelBase('/factoringCreditLoan/rejectLoan.do', {loanId: val.loanId, rejectReason: value}) // 调用common混合中公共方法
   }).catch(() => {
     this.$message({
       type: 'info',

@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini" label-width="150px">
+  <el-form :inline="true" :model="formInline" :rules="rules" class="demo-form-inline" size="mini" label-width="150px">
     <el-row>
       <el-col :span="8">
         <el-form-item label="结报单号">
@@ -33,7 +33,7 @@
       <el-col :span="8">
       </el-col>
     </el-row>
-    <el-row>
+    <el-row class="money">
       <el-col :span="12">
         <el-form-item label="结报申请付款日期" style="text-align:left;">
           <el-date-picker :editable="false" v-model="formInline.dueDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
@@ -43,35 +43,47 @@
       <el-col :span="12">
         <el-form-item label="应付金额">
           <el-col :span="11">
-            <el-input v-model.number="formInline.oriAmtBegin" placeholder="起始金额"></el-input>
+            <el-form-item prop="oriAmtBegin">
+              <el-input v-model="formInline.oriAmtBegin" placeholder="起始金额"></el-input>
+            </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
-            <el-input v-model.number="formInline.oriAmtEnd" placeholder="结束金额"></el-input>
+            <el-form-item prop="oriAmtEnd">
+              <el-input v-model="formInline.oriAmtEnd" placeholder="结束金额"></el-input>
+            </el-form-item>
           </el-col>
         </el-form-item>
       </el-col>
     </el-row>
-    <el-row>
+    <el-row class="money">
       <el-col :span="12">
         <el-form-item label="已付金额">
           <el-col :span="11">
-            <el-input v-model.number="formInline.oriPaidAmtBegin" placeholder="起始金额"></el-input>
+            <el-form-item prop="oriPaidAmtBegin">
+              <el-input v-model="formInline.oriPaidAmtBegin" placeholder="起始金额"></el-input>
+            </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
-            <el-input v-model.number="formInline.oriPaidAmtEnd" placeholder="结束金额"></el-input>
+            <el-form-item prop="oriPaidAmtEnd">
+              <el-input v-model="formInline.oriPaidAmtEnd" placeholder="结束金额"></el-input>
+            </el-form-item>
           </el-col>
         </el-form-item>
       </el-col>
       <el-col :span="12">
         <el-form-item label="未付金额">
           <el-col :span="11">
-            <el-input v-model.number="formInline.oriUnPaidAmtBegin" placeholder="起始金额"></el-input>
+            <el-form-item prop="oriUnPaidAmtBegin">
+              <el-input v-model="formInline.oriUnPaidAmtBegin" placeholder="起始金额"></el-input>
+            </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
-            <el-input v-model.number="formInline.oriUnPaidAmtEnd" placeholder="结束金额"></el-input>
+            <el-form-item prop="oriUnPaidAmtEnd">
+              <el-input v-model="formInline.oriUnPaidAmtEnd" placeholder="结束金额"></el-input>
+            </el-form-item>
           </el-col>
         </el-form-item>
       </el-col>
@@ -90,6 +102,11 @@
 @import "@/assets/css/_searchBase.scss";
 .el-select.el-select--mini{
   width:178px;
+}
+.money {
+  .el-form-item.el-form-item--mini{
+    margin-bottom: 10px;
+  }
 }
 </style>
 
@@ -115,8 +132,46 @@ export default {
         oriPaidAmtEnd: '', // 已付结束金额
         oriUnPaidAmtBegin: '', // 未付开始金额
         oriUnPaidAmtEnd: '' // 未付结束金额
+      },
+      rules: {
+        oriAmtBegin: [
+          { validator: checkNumber, trigger: 'blur' }
+        ],
+        oriAmtEnd: [
+          { validator: checkNumber, trigger: 'blur' }
+        ],
+        oriPaidAmtBegin: [
+          { validator: checkNumber, trigger: 'blur' }
+        ],
+        oriPaidAmtEnd: [
+          { validator: checkNumber, trigger: 'blur' }
+        ],
+        oriUnPaidAmtBegin: [
+          { validator: checkNumber, trigger: 'blur' }
+        ],
+        oriUnPaidAmtEnd: [
+          { validator: checkNumber, trigger: 'blur' }
+        ]
       }
     }
   }
+}
+// 数字规则
+var checkNumber = (rule, value, callback) => {
+  // if (!value) {
+  //   return callback(new Error('不能为空'))
+  // }
+  let re = /^(0|[1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
+  setTimeout(() => {
+    if (!re.test(value)) {
+      callback(new Error('请输入大于等于0的数字'))
+    } else {
+      if (value < 0) {
+        callback(new Error('必须大于等于0'))
+      } else {
+        callback()
+      }
+    }
+  }, 1000)
 }
 </script>

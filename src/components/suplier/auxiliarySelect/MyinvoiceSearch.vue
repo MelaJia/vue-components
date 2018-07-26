@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini" label-width="100px">
+  <el-form :inline="true" :model="formInline" :rules="rules" class="demo-form-inline" size="mini" label-width="100px">
     <el-row>
       <el-col :span="8">
         <el-form-item label="发票单号">
@@ -38,7 +38,7 @@
         </el-form-item>
       </el-col>
     </el-row>
-    <el-row>
+    <el-row class="money">
       <el-col :span="12">
         <el-form-item label="开票日期">
           <el-date-picker :editable="false" v-model="formInline.entryDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
@@ -48,11 +48,15 @@
       <el-col :span="12">
         <el-form-item label="金额范围">
           <el-col :span="11">
-            <el-input v-model.number="formInline.taxTotalStart" placeholder="起始金额"></el-input>
+            <el-form-item prop="taxTotalStart">
+              <el-input v-model="formInline.taxTotalStart" placeholder="起始金额"></el-input>
+            </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
-            <el-input v-model.number="formInline.taxTotalEnd" placeholder="结束金额"></el-input>
+            <el-form-item prop="taxTotalEnd">
+              <el-input v-model="formInline.taxTotalEnd" placeholder="结束金额"></el-input>
+            </el-form-item>
           </el-col>
         </el-form-item>
       </el-col>
@@ -71,6 +75,11 @@
 @import "@/assets/css/_searchBase.scss";
 .el-select.el-select--mini{
   width:178px;
+}
+.money {
+  .el-form-item.el-form-item--mini{
+    margin-bottom: 10px;
+  }
 }
 </style>
 
@@ -129,8 +138,34 @@ export default {
         entryDate: null, // 付款日期
         taxTotalStart: '', // 开始金额
         taxTotalEnd: '' // 结束金额
+      },
+      rules: {
+        taxTotalStart: [
+          { validator: checkNumber, trigger: 'blur' }
+        ],
+        taxTotalEnd: [
+          { validator: checkNumber, trigger: 'blur' }
+        ]
       }
     }
   }
+}
+// 数字规则
+var checkNumber = (rule, value, callback) => {
+  // if (!value) {
+  //   return callback(new Error('不能为空'))
+  // }
+  let re = /^(0|[1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
+  setTimeout(() => {
+    if (!re.test(value)) {
+      callback(new Error('请输入大于等于0的数字'))
+    } else {
+      if (value < 0) {
+        callback(new Error('必须大于等于0'))
+      } else {
+        callback()
+      }
+    }
+  }, 1000)
 }
 </script>

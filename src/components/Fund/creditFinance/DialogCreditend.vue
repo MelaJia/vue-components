@@ -58,7 +58,7 @@
       <ul class="height-auto">
         <span>
           <div class="a-link-group inline-block">
-            订单号:<label v-for="(item, index) in this.detailsP.poLoanInfoList.poLoanDetailInfoList" :key="index">{{item.poNumber}}</label>
+            订单号:<label v-for="(item, index) in this.detailsP.poLoanInfoList" :key="index"><span v-for="(itemList, index) in item.poLoanDetailInfoList" :key="index" class="poList">{{itemList.poNumber}}</span></label>
           </div>
         </span>
       </ul>
@@ -126,6 +126,9 @@
       }
     }
   }
+}
+.poList{
+  margin-right: 10px;
 }
 ul:last-child{
   height: auto;

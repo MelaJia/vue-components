@@ -17,7 +17,7 @@
               </el-table-column>
               <el-table-column align="center" prop="companyName" :width="widthArr.companyName">
               </el-table-column>
-              <el-table-column align="center" prop="loanId" :width="widthArr.loanId">
+              <el-table-column align="center" :width="widthArr.loanId">
               </el-table-column>
               <el-table-column align="center" prop="loanTypeName" :width="widthArr.loanTypeName">
               </el-table-column>
@@ -220,10 +220,10 @@ export default {
     fresh () {
       this.$emit('refresh')
     },
-    // 还款详情
+    // 还款详情查看
     repayMent (idx, val) {
       val.repayLoading = true
-      this.getLoanDetail('/creditLoan/queryCreditLoanRepayInfo.do', { loanId: val.loanId }).then(res => {
+      this.getLoanDetail('/creditLoan/queryCreditLoanRepayInfo.do', { loanId: val.loanId, id: val.id }).then(res => {
         this.details = res
         this.dialogRepay = true
         val.infoLoading = false

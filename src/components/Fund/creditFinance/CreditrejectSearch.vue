@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini" label-width="150px">
+  <el-form :inline="true" :model="formInline" :rules="rules" class="demo-form-inline" size="mini" label-width="150px">
     <el-row>
       <el-col :span="8">
         <el-form-item label="融资编号">
@@ -19,22 +19,26 @@
         </el-form-item>
       </el-col>
     </el-row>
-    <el-row>
+    <el-row class="money">
       <el-col :span="8">
         <el-form-item label="币别">
           <el-select v-model="formInline.currency" placeholder="全部">
-            <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyName"></el-option>
+            <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
       <el-col :span="16">
         <el-form-item label="金额范围">
           <el-col :span="11">
-            <el-input v-model.number="formInline.amountBegin" placeholder="起始金额"></el-input>
+            <el-form-item prop="amountBegin">
+              <el-input v-model="formInline.amountBegin" placeholder="起始金额"></el-input>
+            </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
-            <el-input v-model.number="formInline.amountEnd" placeholder="结束金额"></el-input>
+            <el-form-item prop="amountEnd">
+              <el-input v-model="formInline.amountEnd" placeholder="结束金额"></el-input>
+            </el-form-item>
           </el-col>
         </el-form-item>
       </el-col>
@@ -62,6 +66,11 @@
 @import "@/assets/css/_searchBase.scss";
 .el-select.el-select--mini{
   width:178px;
+}
+.money {
+  .el-form-item.el-form-item--mini{
+    margin-bottom: 10px;
+  }
 }
 </style>
 
@@ -92,8 +101,34 @@ export default {
         repayDate: null, // 约定交货日期
         amountBegin: '', // 开始金额
         amountEnd: '' // 结束金额
+      },
+      rules: {
+        amountBegin: [
+          { validator: checkNumber, trigger: 'blur' }
+        ],
+        amountEnd: [
+          { validator: checkNumber, trigger: 'blur' }
+        ]
       }
     }
   }
+}
+// 数字规则
+var checkNumber = (rule, value, callback) => {
+  // if (!value) {
+  //   return callback(new Error('不能为空'))
+  // }
+  let re = /^(0|[1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
+  setTimeout(() => {
+    if (!re.test(value)) {
+      callback(new Error('请输入大于等于0的数字'))
+    } else {
+      if (value < 0) {
+        callback(new Error('必须大于等于0'))
+      } else {
+        callback()
+      }
+    }
+  }, 1000)
 }
 </script>
