@@ -3,6 +3,9 @@ export default {
     return {
       selectData: {
         origin: [{
+          lable: '全部',
+          value: ''
+        }, {
           lable: '自有AR',
           value: 1
         }, {

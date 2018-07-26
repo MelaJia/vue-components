@@ -191,6 +191,15 @@ const routes = [{
       title: '还款情况', // 名称
       requireAuth: true // 需要登录验证
     }
+  },
+  {
+    path: 'blockChain',
+    name: 'blockChain',
+    component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/blockChain/index'),
+    meta: {
+      title: '区块链', // 名称
+      requireAuth: false // 需要登录验证
+    }
   }
   ]
 }
