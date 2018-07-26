@@ -1,7 +1,7 @@
 /**
  * 验证规则 对象
  */
-
+import {checkNumber} from '@/util/validate'
 function Vcg () {
   this.scope = this
   this.valid = []
@@ -72,7 +72,7 @@ let validOne = {
     required: true,
     validator: check('custUsername', '用户名'),
     trigger: 'blur'
-  }],
+  }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
   custPassword: [{
     required: true,
     validator: checkPass('custPassword', '登录密码'),
@@ -82,19 +82,19 @@ let validOne = {
     required: true,
     validator: check('custNickname', '昵称'),
     trigger: 'blur'
-  }],
+  }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
   companyName: [{
     required: true,
     message: '请输入名称',
     trigger: 'blur'
-  }],
+  }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
   companyPhone: [{
     required: true,
     message: '请输入企业电话',
     trigger: 'blur'
   },
   {
-    pattern: /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/,
+    pattern: /^([0-9]{3,4}-)?[0-9]{7,8}$/,
     message: '电话号码错误',
     trigger: 'blur'
   }
@@ -102,17 +102,20 @@ let validOne = {
   companyPersonSum: [{
     type: 'number',
     message: '员工人数必须为数字值'
+  }, {
+    validator: checkNumber,
+    trigger: 'blur'
   }],
   companyAddress: [{
     required: true,
     message: '请输入公司详细地址',
     trigger: 'blur'
-  }],
+  }, { max: 225, message: '长度不得超过225个字符', trigger: 'blur' }],
   contactPerson: [{
     required: true,
     message: '请输入联系人姓名',
     trigger: 'blur'
-  }],
+  }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
   contactIdcardNum: [{
     required: true,
     validator: check('custUsername', '身份证'),
@@ -127,12 +130,12 @@ let validOne = {
   ],
   contactPhone: [{
     required: true,
-    message: '请输入企业电话',
+    message: '请输入联系人手机号',
     trigger: 'blur'
   },
   {
-    pattern: /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/,
-    message: '电话号码错误',
+    pattern: /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/,
+    message: '手机号码格式错误',
     trigger: 'blur'
   }
   ],
@@ -151,7 +154,7 @@ let validOne = {
     required: true,
     message: '请输入法人姓名',
     trigger: 'blur'
-  }],
+  }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
   legalIdcardNum: [{
     required: true,
     message: '请填写联系人身份证',
@@ -165,12 +168,12 @@ let validOne = {
   ],
   legalPhone: [{
     required: true,
-    message: '请输入法人电话',
+    message: '请输入法人手机号',
     trigger: 'blur'
   },
   {
-    pattern: /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/,
-    message: '电话号码错误',
+    pattern: /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/,
+    message: '手机号码格式错误',
     trigger: 'blur'
   }
   ],
@@ -191,22 +194,23 @@ let validTwo = {
     required: true,
     message: '请输入营业执照副本编号',
     trigger: 'blur'
-  }],
+  }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
   licenseAddress: [{
     required: true,
     message: '请输入营业执照所在地',
     trigger: 'blur'
-  }],
+  }, { max: 225, message: '长度不得超过225个字符', trigger: 'blur' }],
   vendorCodes: [{
     required: true,
     validator: check('vendorCodes', '供应商代码'),
     trigger: 'blur'
-  }],
+  }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
+  companyBusinessScope: [{ max: 225, message: '长度不得超过225个字符', trigger: 'blur' }],
   mainProducts: [{
     required: true,
     message: '请输入主营产品',
     trigger: 'blur'
-  }]
+  }, { max: 225, message: '长度不得超过225个字符', trigger: 'blur' }]
 }
 let validThree = {
   logoUrl: [{

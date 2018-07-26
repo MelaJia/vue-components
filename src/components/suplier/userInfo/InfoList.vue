@@ -25,7 +25,7 @@
       <ul>
         <li :span="8"><span>纳税人识別号：</span>{{infos.payTaxesNumber}}</li>
         <li :span="8"><span>供应商代码：</span>{{infos.vendorCodes}}</li>
-        <li :span="8"><span>注册资本: </span>{{infos.registeredCapital}}</li>
+        <li :span="8"><span>注册资本: </span>{{infos.registeredCapital | numberRex}}</li>
       </ul>
       <ul>
         <li :span="8"><span>实收资本：</span>{{infos.paidinCapital}}</li>
