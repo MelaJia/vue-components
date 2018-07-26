@@ -58,7 +58,7 @@
         </el-table-column>
         <el-table-column align="center" label="融资申请金额" prop="applyAmt" width="150">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyDesc" :formatter="originFormat">
+        <el-table-column align="center" label="币别" prop="currencyName">
         </el-table-column>
         <el-table-column align="center" label="状态" prop="status">
         </el-table-column>

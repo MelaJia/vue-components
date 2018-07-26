@@ -75,7 +75,7 @@
         </el-table-column>
         <el-table-column align="center" label="融资申请金额" prop="applyAmt" width="150">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyDesc" :formatter="originFormat">
+        <el-table-column align="center" label="币别" prop="currencyName">
         </el-table-column>
         <el-table-column align="center" label="状态" prop="status">
         </el-table-column>
@@ -203,8 +203,11 @@ export default {
 }
 // 详情函数
 function handleInfo (idx, val) {
+  let param = {
+    loanId: val.loanId
+  }
   // 获取数据
-  getDataBase.call(this, '/creditLoan/queryCreditLoanInfo.do', val.loanId, true).then(res => {
+  getDataBase.call(this, '/creditLoan/queryCreditLoanInfo.do', param, true).then(res => {
     if (res) {
       console.log(res)
       this.details = res
@@ -220,7 +223,7 @@ function handleCancle (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.cancelBase('/myAr/cancelTrans.do', val.masterChainId)
+    this.postBase('/supplierOrderLoan/supplierOrderCancelCreditDiscount.do', { loanId: val.loanId })
   }).catch(() => {
     this.$message({
       type: 'info',
@@ -230,8 +233,11 @@ function handleCancle (idx, val) {
 }
 // 合同确认
 function handleContract (idx, val) {
+  let param = {
+    loanId: val.loanId
+  }
   // 获取数据
-  getDataBase.call(this, '/creditLoan/queryCreditLoanInfo.do', val.loanId, true).then(res => {
+  getDataBase.call(this, '/creditLoan/queryCreditLoanInfo.do', param, true).then(res => {
     if (res) {
       console.log(res)
       // 标题赋值

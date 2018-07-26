@@ -68,7 +68,7 @@ export default {
         console.log(res)
         // 操作成功刷新数据
         if (res && res.data.status) {
-          this.$emit('refresh')
+          this.fresh()
         }
       })
     },
@@ -86,7 +86,7 @@ export default {
      * 时间戳转时间
      */
     dateFormat: function (value) {
-      if (value === null || value === undefined) {
+      if (value === null || value === undefined || value === '') {
         return ' '
       }
       return new Date(value).Format('yyyy-MM-dd')

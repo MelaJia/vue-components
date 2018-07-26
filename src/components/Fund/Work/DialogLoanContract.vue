@@ -75,16 +75,27 @@
         </el-row>
         <el-row>
           <el-col :span="11" class="flex">
-             <el-form-item label="预计回款日期: " prop="billPayDate">
-              <span>{{detailsP.billPayDate|dateFormat}}</span>
+             <el-form-item label="预计回款日期: " prop="billDueDate">
+              <span>{{detailsP.billDueDate|dateFormat}}</span>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
-            <el-form-item label="预计还款日期: " prop="billDueDate">
-             <el-date-picker :editable="false" v-model="detailsP.billDueDate" type="date" placeholder="选择日期">
+            <el-form-item label="预计还款日期: " prop="billPayDate"
+            :rules="[
+          { required: !detailsP.billDueDate, message: '请输入预计还款日期', trigger: 'blur' }
+        ]">
+             <el-date-picker :editable="false" :disabled="!!detailsP.billDueDate" v-model="detailsP.billPayDate" type="date" placeholder="选择日期">
             </el-date-picker>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row>
+          <el-alert
+            title="声明:在预计回款日期存在的情况下将以预计回款日期为准,在预计回款日期没有的情况下,需和供应商商议合理的预计还款日期填写,此处平台不承担责任!"
+            type="warning"
+            :closable="false"
+            show-icon>
+          </el-alert>
         </el-row>
       </el-form>
     </section>
@@ -173,9 +184,6 @@ export default {
         fineGraceDays: [
           { required: true, message: '请输入宽容天数', trigger: 'blur' },
           { validator: checkNumber, trigger: 'blur' }
-        ],
-        billDueDate: [
-          { required: true, message: '请输入预计还款日期', trigger: 'blur' }
         ]
       }
     }

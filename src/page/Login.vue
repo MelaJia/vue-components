@@ -9,7 +9,7 @@
         <div class="phone">
           <!--<a href="#" class="backhome">返回首页</a>-->
           <p>财富热线：
-            <span class="hotLine">0755-462315</span>
+            <span class="hotLine">13424348719</span>
           </p>
         </div>
       </div>
@@ -38,7 +38,7 @@
               <div class="iptChoose">
                 <label for="agree">
                   <el-checkbox v-model="checked"></el-checkbox>&nbsp;我已阅读并同意
-                  <a href="javascript:void (0)?userfrom=sem%7cbaidu%7cpc%7c89171" id="agreement"
+                  <a :href="pdfUrl" target="_pdf" id="agreement"
                     class="red">《钜信网服务协议》</a>
                 <el-alert v-if="checkShow"
                   title="请同意相关协议"
@@ -98,7 +98,7 @@
       <p class="daBG">
         <span><img src="@/assets/img/login/iconJY.png" />深圳钜信科技有限公司</span>
         <span>深圳市龙华新区</span>
-      <span>服务热线：4006-777-518</span>
+      <span>服务热线：0755-66838888</span>
       </p>
 
     </div>
@@ -123,11 +123,12 @@ import InputPass from '@/components/Items/InputPass'
 import Verify from '@/components/Items/Verify'
 // import Valid from '@/mixins/Login/Validate'
 import Roles from '@/config/roles'
+import {baseUrl} from '@/config/env.js'
 export default {
   data () {
     return {
       showReg: false,
-      checked: true,
+      checked: false,
       isVerify: false,
       sliderShow: false, // 滑块验证错误信息显示
       checkShow: false, // 协议未勾选错误信息显示
@@ -135,7 +136,8 @@ export default {
       ruleForm: {
         phone: '',
         pass: ''
-      }
+      },
+      pdfUrl: `${baseUrl}/static/cnd/钜信网服务协议.pdf` // 服务协议文件地址
     }
   },
   components: {

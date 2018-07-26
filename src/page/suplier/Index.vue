@@ -10,10 +10,10 @@
          <!-- 底部链接区域 -->
         <div class="url-section">
           <div class="bg-style bg-blue">
-            <router-link to="loan">去贴现/转让></router-link>
+            <router-link to="myar">去贴现/转让></router-link>
           </div>
            <div class="bg-style bg-gray">
-            <router-link to="cstLoanFee">往来明细></router-link>
+            <router-link to="historyar">往来明细></router-link>
           </div>
         </div>
       </div>
@@ -243,7 +243,7 @@ export default {
 // 获取数据
 function getdata (scope) {
   // 基于准备好的dom，初始化echarts实例
-  return scope.axios.post('auxiliaryFunction/searchIndexList.do').then(res => {
+  return scope.axios.post('/auxiliaryFunction/searchIndexList.do').then(res => {
     const arr = []
     for (const key in scope.sortArr) {
       if (scope.sortArr.hasOwnProperty(key)) {
