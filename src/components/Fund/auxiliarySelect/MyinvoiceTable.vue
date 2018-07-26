@@ -31,7 +31,7 @@
               </el-table-column>
               <el-table-column align="center" prop="currencyName" :width="widthArr.currencyName">
               </el-table-column>
-              <el-table-column align="center" prop="invoiceType" :width="widthArr.invoiceType">
+              <el-table-column align="center" prop="invoiceTypeName" :width="widthArr.invoiceTypeName">
               </el-table-column>
               <el-table-column align="center" prop="statusName" :width="widthArr.statusName">
               </el-table-column>
@@ -79,7 +79,7 @@
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" width="100">
         </el-table-column>
-        <el-table-column align="center" label="发票类型" prop="invoiceType" width="100">
+        <el-table-column align="center" label="发票类型" prop="invoiceTypeName" width="100">
         </el-table-column>
         <el-table-column align="center" label="状态" prop="statusName" width="100">
         </el-table-column>
@@ -152,7 +152,7 @@ export default {
         taxAmount: '120',
         total: '120',
         currencyName: '100',
-        invoiceType: '100',
+        invoiceTypeName: '100',
         statusName: '100',
         entryDate: '100',
         creationDate: '100'

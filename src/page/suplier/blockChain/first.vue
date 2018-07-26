@@ -16,18 +16,22 @@
             <el-input v-model="content.key"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button  type="primary" @click="post('addCompany')">企业新增</el-button>
-            <el-button  type="warning" @click="post('updateCompany')">企业更新</el-button>
-            <el-button  type="default" @click="post('company')">企业查询</el-button>
-            <el-button  type="default" @click="post('')">企业查看权限分配</el-button>
-            <el-button  type="default" >企业修改权限分配</el-button>
-            <el-button  type="default" >企业新增权限分配</el-button>
-            <br/>
-            <el-button  type="default" @click="post('')">AR查询</el-button>
-            <el-button  type="default" @click="post('')">支付查询</el-button>
-            <el-button  type="default" @click="post('')">贴现查询</el-button>
-            <br/>
-            <el-button  type="default" @click="post('')">合同查询</el-button>
+            <div style="margin-bottom:10px;">
+              <el-button  type="primary" @click="post('addCompany')">企业新增</el-button>
+              <el-button  type="warning" @click="post('updateCompany')">企业更新</el-button>
+              <el-button  type="default" @click="post('company')">企业查询</el-button>
+              <el-button  type="default" @click="post('companyQueryPermissionsAllocation')">企业查看权限分配</el-button>
+              <el-button  type="default" @click="post('companyUpdatePermissionsAllocation')">企业修改权限分配</el-button>
+              <el-button  type="default" @click="post('companyAddPermissionsAllocation')">企业新增权限分配</el-button>
+            </div>
+            <div style="margin-bottom:10px;">
+              <el-button  type="default" @click="post('ar')">AR查询</el-button>
+              <el-button  type="default" @click="post('arPay')">支付查询</el-button>
+              <el-button  type="default" @click="post('discount')">贴现查询</el-button>
+            </div>
+            <div>
+              <el-button  type="default" @click="post('contract')">合同查询</el-button>
+            </div>
           </el-form-item>
           <el-form-item label="请求串">
             <el-input type="textarea" v-model="content.body"></el-input>
@@ -80,6 +84,21 @@ var tmpl = {
   contract: {
     key: 'contractNo',
     method: 'getArContractByNo',
+    content: {}
+  },
+  companyQueryPermissionsAllocation: {
+    key: 'queryPermission',
+    method: 'queryPermission',
+    content: {}
+  },
+  companyUpdatePermissionsAllocation: {
+    key: 'updatePermission',
+    method: 'updatePermission',
+    content: {}
+  },
+  companyAddPermissionsAllocation: {
+    key: 'addPermission',
+    method: 'addPermission',
     content: {}
   },
   addContract: {

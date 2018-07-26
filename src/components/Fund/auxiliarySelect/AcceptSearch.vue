@@ -19,7 +19,7 @@
     </el-row>
     <el-row>
       <el-col :span="8">
-        <el-form-item label="进货验收单编号">
+        <el-form-item label="进货验收单号">
           <el-input v-model.trim="formInline.grnNumber" placeholder=""></el-input>
         </el-form-item>
       </el-col>
@@ -106,6 +106,10 @@ export default {
   data () {
     return {
       listType: [
+        {
+          'dataType': '',
+          'dataName': '全部'
+        },
         {
           'dataType': 1,
           'dataName': '进货单'

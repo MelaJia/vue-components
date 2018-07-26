@@ -12,7 +12,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="8">
-        <el-form-item label="进货验收单编号" style="white-space:nowrap">
+        <el-form-item label="进货验收单号" style="white-space:nowrap">
           <el-input v-model.trim="formInline.grnNumber" placeholder=""></el-input>
         </el-form-item>
       </el-col>

@@ -12,7 +12,7 @@
           <span>法人单位: <em>{{this.detailsP.corpName}}</em></span>
         </li>
         <li>
-          <span>法人代码: <em>{{this.detailsP.plantCode}}</em></span>
+          <span>法人代码: <em>{{this.detailsP.corpCode}}</em></span>
         </li>
       </ul>
       <ul>
