@@ -28,10 +28,10 @@
       </ul>
       <ul>
         <li>
-          <span>票面金额: <em>{{this.detailsP.billBookAmt}}</em></span>
+          <span>票面金额: <em>{{this.detailsP.billBookAmt | regexNum}}</em></span>
         </li>
         <li>
-          <span>可用金额: <em>{{this.detailsP.arAvailableAmt}}</em></span>
+          <span>可用金额: <em>{{this.detailsP.arAvailableAmt | regexNum}}</em></span>
         </li>
       </ul>
       <ul>
@@ -46,8 +46,8 @@
       </ul>
       <ul class="height-auto">
           <span>未勾选发票:
-            <el-checkbox-group v-model="checkList" class="inline-blox">
-              <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" :label="item.invoiceNo">{{item.invoiceNo}}(￥{{item.invoiceAfterTaxAmt}})</el-checkbox>
+            <el-checkbox-group v-model="checkList" class="inline-blox" @change="handleCheckedChange">
+              <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" :label="item.invoiceNo">{{item.invoiceNo}}(￥{{item.invoiceAfterTaxAmt|regexNum}})</el-checkbox>
             </el-checkbox-group>
             <!-- <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected">{{item.invoiceNo}}</el-checkbox> -->
           </span>
@@ -56,7 +56,12 @@
     <section class="layout form">
       <el-row>
         <el-col :span="8" class="flex"><label>授让公司Id</label><el-input v-model.trim="receiveCustId" placeholder="请输入授让公司Id"></el-input></el-col>
-        <el-col :span="8" :offset="8" class="flex"><label>转让金额：</label><el-input v-model.number="transAmt" type="number" placeholder="请输入转让金额："></el-input></el-col>
+        <el-col :span="8" :offset="2" class="flex"><label>转让金额：</label><el-input v-model.number="transAmt" type="number" placeholder="请输入转让金额："></el-input></el-col>
+        <el-col :span="6">
+          <el-tooltip class="item" effect="dark" :content="`已勾选发票总金额${thousandth(sum)}`" placement="top-start">
+            <label class="sum-content">{{sum | regexNum}}</label>
+          </el-tooltip>
+        </el-col>
       </el-row>
     </section>
     <footer slot="footer" :style="'clear:both'">
@@ -77,6 +82,10 @@
     line-height: 40px;
   }
 }
+.sum-content{
+  height: 40px;
+  line-height: 40px;
+}
 </style>
 
 <script>
@@ -96,7 +105,8 @@ export default {
         status: false // 是否正确
       },
       transAmt: 0,
-      checkList: []
+      checkList: [],
+      sum: 0 // 勾选发票总金额
     }
   },
   watch: {
@@ -105,6 +115,7 @@ export default {
       // 已选发票置空
       console.log('发票置空')
       this.checkList = []
+      this.sum = []
     },
     receiveCustId: debounce(function (val) {
       this.axios.post('/commonCust/queryCustomer.do', { 'custId': val, 'companyName': '' }).then(res => {
@@ -125,7 +136,9 @@ export default {
   },
   methods: {
     // 提交事件
-    handleSubmit: debounce(submit, 1000, true)
+    handleSubmit: debounce(submit, 1000, true),
+    // 发票修改事件
+    handleCheckedChange: handleCheckedChange
   }
 }
 // 提交操作
@@ -200,5 +213,28 @@ function submit () {
     // 错误提示
     erroShow.call(this, err, loading)
   })
+}
+// 改变选项
+function handleCheckedChange (value) {
+  console.log(value)
+  // 1.获取已勾选发票
+  const arr = []
+  this.detailsP.invoiceList.forEach(item => {
+    for (const iterator of value) {
+      if (iterator === item.invoiceNo) {
+        arr.push(item)
+      }
+    }
+  })
+  // 2.计算勾选发票金额
+  let sum = arr.reduce((sum, currVal) => {
+    let num = Number(currVal.invoiceAfterTaxAmt)
+    if (isNaN(num)) {
+      return
+    }
+    return sum + num
+  }, 0)
+  // 赋值
+  this.transAmt = this.sum = sum
 }
 </script>

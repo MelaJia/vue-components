@@ -52,6 +52,7 @@
         <el-table-column align="center"
         label="转让金额"
         prop="transAmt"
+        :formatter="regexNum"
         >
         </el-table-column><el-table-column align="center"
         label="授让日期"

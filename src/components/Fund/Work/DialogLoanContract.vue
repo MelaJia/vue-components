@@ -11,7 +11,7 @@
         <el-row>
           <el-col :span="11" class="flex">
             <el-form-item label="贴现金额: " prop="billBookAmt">
-              <span>{{detailsP.billBookAmt}}</span>
+              <span>{{detailsP.billBookAmt | regexNum}}</span>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">

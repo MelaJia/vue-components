@@ -36,7 +36,7 @@
             <el-button  type="primary" @click="sign(content)">生成签名串</el-button>
           </el-form-item>
            <el-form-item label="签名串">
-            <el-input type="textarea" v-model="content.signResult1" placeholder="生成签名串"></el-input>
+            <el-input type="textarea" v-model="signResult1" placeholder="生成签名串"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button  type="primary" @click="view(content)">请求</el-button>
@@ -45,7 +45,7 @@
             <div v-show="signError" class="col-md-offset-1 col-md-10"><span class="text-danger">{{signError}}</span></div>
           </el-form-item>
            <el-form-item label="结果">
-            <el-input type="textarea" v-model="content.signResult" placeholder="请求"></el-input>
+            <el-input type="textarea" v-model="signResult" placeholder="请求"></el-input>
           </el-form-item>
         </el-form>
       </el-col>
@@ -324,10 +324,11 @@ export default {
       _this.signResult = '请求中...'
       setStore({
         name: 'content',
-        content: JSON.stringify(_this.content)
+        content: _this.content
       })
-      this.post('/blockChainBrower/bcView.do', JSON.stringify(content)).then(res => {
-        _this.signResult = res.data
+      console.log(content)
+      this.axios.post('/blockChainBrower/bcView', content).then(res => {
+        _this.signResult = JSON.stringify(res.data)
       })
     },
     sign: function (content) {
@@ -340,10 +341,10 @@ export default {
       _this.signResult1 = '请求中...'
       setStore({
         name: 'content',
-        content: JSON.stringify(_this.content)
+        content: _this.content
       })
-      this.post('/blockChainBrower/rsaSign.do', JSON.stringify(content)).then(res => {
-        _this.signResult1 = res.data
+      this.axios.post('/blockChainBrower/rsaSign', content).then(res => {
+        _this.signResult1 = JSON.stringify(res.data)
       })
     }
   },

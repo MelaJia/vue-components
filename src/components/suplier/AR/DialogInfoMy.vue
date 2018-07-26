@@ -37,6 +37,11 @@
         <li>
           <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
         </li>
+        <li v-if="!detailsP.isMasterAr">
+          <el-tooltip :content="'对手单位:'+this.detailsP.custFromName" placement="bottom" effect="light">
+           <span>对手单位: <em>{{this.detailsP.custFromName}}</em></span>
+          </el-tooltip>
+        </li>
       </ul>
       <ul class="height-auto">
         <span>未勾选发票:

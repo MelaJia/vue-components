@@ -4,9 +4,9 @@
       <h3>供应商资产概况</h3>
     </div>
     <div class="content left-right">
-      <div class="float-left" style="position:relative">
+      <div class="float-left" style="width:60%;position:relative">
         <!-- 图形区域 -->
-        <div ref="pie" id="pie" style="width: 700px;height:600px;"></div>
+        <div ref="pie" id="pie" style="width:100%;min-width: 700px;height:600px;"></div>
          <!-- 底部链接区域 -->
         <div class="url-section">
           <div class="bg-style bg-blue">
@@ -22,18 +22,21 @@
           <div class="float-left text">
             <p class="t1">{{item.title}}</p>
             <p class="line"></p>
-            <p class="t1" style="margin-top:5px">总金额: <span>{{(item.firData.value*100+item.secData.value*100)/100}}万元</span></p>
+            <p class="t1" style="margin-top:5px">总金额: <span>{{(item.firData.value*100+item.secData.value*100)/100 | regexNum}}万元</span></p>
             <div class="t2">
               <ul>
                 <li>{{item.firData.name}}</li>
-                <li>{{item.secData.name}}</li>
+                <el-tooltip v-if="idx==='unOperate'" class="item" effect="light" content="已申请贴现或转让的发票剩余金额" placement="right-end">
+                   <li>{{item.secData.name}}</li>
+                </el-tooltip>
+                <li v-else>{{item.secData.name}}</li>
               </ul>
               <ul>
-                <el-tooltip class="item" effect="dark" :content="item.firData.value+'万元'" placement="bottom-start">
-                  <li>{{item.firData.value}}万元</li>
+                <el-tooltip class="item" effect="dark" :content="thousandth(item.firData.value)+'万元'" placement="bottom-start">
+                  <li>{{item.firData.value | regexNum}}万元</li>
                 </el-tooltip>
-                <el-tooltip class="item" effect="dark" :content="item.secData.value+'万元'" placement="bottom-end">
-                   <li>{{item.secData.value}}万元</li>
+                <el-tooltip class="item" effect="dark" :content="thousandth(item.secData.value)+'万元'" placement="bottom-end">
+                   <li>{{item.secData.value | regexNum}}万元</li>
                 </el-tooltip>
               </ul>
             </div>
@@ -55,7 +58,8 @@
 }
 
 .content.left-right {
-  width: 1200px;
+  width: 100%;
+  min-width:1200px;
   margin: auto;
   overflow: auto;
 }
@@ -107,6 +111,9 @@ li {
   overflow: hidden;
   white-space: nowrap;
 }
+.t2>ul>li:last-child{
+  color: black;
+}
 .line {
   width: 100%;
   background-color: #fff;
@@ -146,6 +153,9 @@ li {
 
 <script>
 import Pie from '@/components/items/pie'
+import {thousandth} from '@/util/util'
+import Common from '@/mixins/common'
+
 // 引入 ECharts 主模块
 const echarts = require('echarts/lib/echarts')
 // 引入柱状图
@@ -156,6 +166,7 @@ require('echarts/lib/component/tooltip')
 require('echarts/lib/component/title')
 export default {
   components: { Pie },
+  mixins: [Common],
   data () {
     return {
       sortArr: [{ key: 'unOperate', text: '未贴现/转让金额' }, { key: 'discounted', text: '已贴现金额' }, { key: 'received', text: '已接收金额' }, { key: 'transfered', text: '已转让金额' }],
@@ -168,7 +179,7 @@ export default {
           },
           secData: { // 第二个数据
             value: null,
-            name: '已到期金额'
+            name: '不可用金额'
           },
           path: 'myar', // 路径
           bcolor: '#5b9bd5' // 背景色
@@ -214,7 +225,7 @@ export default {
           bcolor: '#9a9a9a' // 背景色
         }
       },
-      color: { unOperate: ['#fff', '#3b64ad'], transfered: ['#fff', '#ffd184'], discounted: ['#fff', '#d26e2a'], received: ['#fff', '#3e3c3c'] } // 小饼图颜色数组
+      color: { unOperate: ['#fff', '#000'], transfered: ['#fff', '#000'], discounted: ['#fff', '#000'], received: ['#fff', '#000'] } // 小饼图颜色数组
     }
   },
   mounted () {
@@ -237,7 +248,11 @@ export default {
       let option = getOptions(echartData)
       // 绘制图表
       myChart.setOption(option)
+      window.onresize = myChart.resize
     })
+  },
+  methods: {
+    thousandth: thousandth
   }
 }
 // 获取数据
@@ -327,7 +342,7 @@ function getOptions (echartData) {
         echartData.forEach(function (value, index, array) {
           total += value.value * 100
         })
-        total = total / 100
+        total = thousandth(total / 100)
         return '{total|' + total + '}'
       },
       data: [echartData[0].name],
@@ -345,12 +360,13 @@ function getOptions (echartData) {
       name: '资产概况',
       type: 'pie',
       radius: ['27%', '45%'],
+      minAngle: 10, // 最小角度
       hoverAnimation: false,
       color: ['#5b9bd5', '#ed7d31', '#a5a5a5', '#ffc000', '#4472c4'],
       label: {
         normal: {
           formatter: function (params, ticket, callback) {
-            return `{white|${params.name}: ${params.value}万元 }\n{per|${params.percent}%}`
+            return `{white|${params.name}: ${thousandth(params.value)}万元 }\n{per|${params.percent}%}`
           },
           rich: rich
         }

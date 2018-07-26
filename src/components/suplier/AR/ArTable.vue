@@ -42,7 +42,7 @@
               </el-table-column>
               <el-table-column align="center" prop="currencyDesc" :width="widthArr.currencyDesc">
               </el-table-column>
-              <el-table-column align="center" prop="billBookAmt" :width="widthArr.billBookAmt">
+              <el-table-column align="center" prop="billBookAmt" :formatter="regexNum" :width="widthArr.billBookAmt">
               </el-table-column>
               <el-table-column align="center"  :width="widthArr.loanAmt">
               </el-table-column>

@@ -33,7 +33,7 @@
       </ul>
       <ul>
         <li>
-          <span>贴现金额: <em>{{this.detailsP.billBookAmt}}</em></span>
+          <span>贴现金额: <em>{{this.detailsP.billBookAmt | regexNum}}</em></span>
         </li>
         <li>
           <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>
@@ -102,10 +102,10 @@ li {
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-
+import common from '@/mixins/common' //
 export default {
   props: ['visibleP', 'detailsP'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, common],
   data () {
     return {
       radio2: 3
