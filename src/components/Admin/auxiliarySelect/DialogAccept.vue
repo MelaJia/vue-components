@@ -93,7 +93,7 @@ export default {
   mixins: [DialogClose],
   computed: {
     getTitle () {
-      return '进货验收单' + this.detailsP.grnNumbe
+      return '进货验收单' + this.detailsP.grnNumber
     }
   },
   methods: {

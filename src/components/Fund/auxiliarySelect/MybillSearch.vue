@@ -30,7 +30,7 @@
       </el-col>
       <el-col :span="8">
         <el-form-item label="状态">
-          <el-select v-model="formInline.status" placeholder="">
+          <el-select v-model="formInline.status" clearable placeholder="">
             <el-option v-for="(item,index) in stateList" :key="index" :label="item.dataName" :value="item.dataType"></el-option>
           </el-select>
         </el-form-item>
@@ -39,7 +39,7 @@
     <el-row class="money">
       <el-col :span="8">
         <el-form-item label="发送状态">
-          <el-select v-model="formInline.postStatus" placeholder="">
+          <el-select v-model="formInline.postStatus" clearable placeholder="">
             <el-option v-for="(item,index) in sendList" :key="index" :label="item.dataName" :value="item.dataType"></el-option>
           </el-select>
         </el-form-item>

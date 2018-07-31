@@ -44,6 +44,9 @@
 .el-input.el-input--small {
   width: 190px;
 }
+.el-select.el-select--small{
+  width: 190px;
+}
 form {
   padding: 10px;
 }

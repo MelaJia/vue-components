@@ -30,7 +30,7 @@
       </el-col>
       <el-col :span="8">
         <el-form-item label="状态">
-          <el-select v-model="formInline.status" placeholder="全部">
+          <el-select v-model="formInline.status" clearable placeholder="全部">
             <el-option v-for="(item,index) in stateList" :key="index" :label="item.dataName" :value="item.dataType"></el-option>
           </el-select>
         </el-form-item>
@@ -39,7 +39,7 @@
     <el-row class="money">
       <el-col :span="8">
         <el-form-item label="发票类型">
-          <el-select v-model="formInline.invoiceType" placeholder="全部">
+          <el-select v-model="formInline.invoiceType" clearable placeholder="全部">
             <el-option v-for="(item,index) in invoiceList" :key="index" :label="item.dataName" :value="item.dataType"></el-option>
           </el-select>
         </el-form-item>

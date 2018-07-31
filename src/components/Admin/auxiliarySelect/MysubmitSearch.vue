@@ -30,13 +30,13 @@
       </el-col>
       <el-col :span="8">
         <el-form-item label="币别">
-          <el-select v-model="formInline.currency" placeholder="全部">
+          <el-select v-model="formInline.currency" clearable placeholder="全部">
             <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyName"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
     </el-row>
-    <el-row class="moeny">
+    <el-row class="money">
       <el-col :span="12">
         <el-form-item label="结报申请付款日期" style="text-align:left;">
           <el-date-picker :editable="false" v-model="formInline.dueDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">

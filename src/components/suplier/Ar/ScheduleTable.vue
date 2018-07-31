@@ -1,7 +1,9 @@
 <template>
   <div class="order-table">
     <!-- 详情 -->
-    <dialog-order :visible-p.sync="dialogInfoVisible" :details-p="details" :filelist="filedetails"></dialog-order>
+    <dialog-schedule :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-schedule>
+    <!--合同确认-->
+    <dialog-contract :visible-p.sync="dialogContractVisible" :details-p="details"></dialog-contract>
     <section>
       <el-table ref="table" :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([6,7])" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName"
@@ -11,27 +13,30 @@
           label="序号"
           fixed width="60" align="center">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="120">
+        <el-table-column align="center" fixed label="AR单号" prop="masterChainId" width="150px">
         </el-table-column>
-        <el-table-column align="center" fixed label="法人代码" prop="corpCode" width="120">
+        <el-table-column align="center" label="结报单号" prop="billId" width="120px">
         </el-table-column>
-        <el-table-column align="center" label="法人单位" prop="corpName" width="140">
+        <el-table-column align="center" label="AR来源" prop="isMasterAr" :formatter="originFormat">
         </el-table-column>
-        <el-table-column align="center" label="订单号" prop="poNumber" width="120">
+        <el-table-column align="center" label="付款单位/对手单位" prop="transUnitName" width="180px">
         </el-table-column>
-        <el-table-column align="center" label="项次" prop="poItem" width="80">
+        <el-table-column align="center" label="状态" prop="arStatusTypeName" width="120px">
         </el-table-column>
-        <el-table-column align="center" label="金额" prop="poAmount" width="100">
+        <el-table-column align="center" label="币别" prop="currencyDesc">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" width="80">
+        <el-table-column align="center" label="票面金额" prop="billBookAmt">
         </el-table-column>
-        <el-table-column align="center" label="订单确认日期" prop="confirmDate" width="100" :formatter="dateFormat">
+        <el-table-column align="center" label="余额" prop="loanAmt">
         </el-table-column>
-        <el-table-column align="center" label="约定交货日期" prop="deliveryDate" width="100" :formatter="dateFormat">
+        <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120px">
         </el-table-column>
-        <el-table-column align="center" label="操作" header-align="center">
+        <el-table-column align="center" label="打款处理状态" prop="signStatusName" width="140px">
+        </el-table-column>
+        <el-table-column align="center" label="操作" header-align="left" width='200px' fixed="right">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+            <el-button :disabled="scope.row.operateControllerStatus=='0'?true:false" size="mini" type="primary" @click="confirmContract(scope.$index, scope.row)">合同确认</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -49,12 +54,15 @@ export default {
   props: ['dataLoading', 'dataTable'],
   mixins: [TableMixIn, Common],
   components: {
-    'dialog-order': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/Admin/auxiliarySelect/DialogOrder')
+    'dialog-schedule': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogSchedule'),
+    'dialog-contract': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogContract')
   },
   data () {
     return {
       dialogInfoVisible: false,
+      dialogContractVisible: false,
       details: {}, // 详情数据
       filedetails: {}
     }
@@ -73,32 +81,23 @@ export default {
     // 详情
     handleInfo (idx, val) {
       val.infoLoading = true
-      this.getLoanDetail('/auxiliaryFunction/searchSupplierOrderDetail.do', { vendorCode: val.vendorCode, poNumber: val.poNumber, poItem: val.poItem, plantCode: val.plantCode }).then(res => {
+      this.getLoanDetail('/myAr/queryAr.do', { masterChainId: val.masterChainId }).then(res => {
         this.details = res
         this.dialogInfoVisible = true
         val.infoLoading = false
       })
-      // 附件信息展示
-      this.axios.post('/auxiliaryFunction/searchPOFile.do', { vendorCode: val.vendorCode, poNumber: val.poNumber, plantCode: val.plantCode }).then(res => {
-        this.filedetails = res.data.data
-      }).catch(err => {
-        console.log(err)
-      })
     },
     fresh () {
       this.$emit('refresh')
+    },
+    confirmContract (idx, val) {
+      val.infoLoading = true
+      this.getLoanDetail('/myAr/queryAr.do', { masterChainId: val.masterChainId }).then(res => {
+        this.details = res
+        this.dialogContractVisible = true
+        val.infoLoading = false
+      })
     }
   }
 }
-// 错误提示函数
-// function erroShow (err, loading) {
-//   console.log(this)
-//   this.$alert(`网络错误${err}`, '系统提示', {
-//     confirmButtonText: '确定',
-//     callback: action => {
-//       // 关闭加载图标
-//       loading.close()
-//     }
-//   })
-// }
 </script>

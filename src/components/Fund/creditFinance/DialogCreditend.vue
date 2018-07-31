@@ -74,7 +74,7 @@
           <tr v-for = "(item,index) in this.detailsP.poLoanInfoList" :key="index">
             <td>{{item.corpCode}}</td>
             <td>{{item.corpName}}</td>
-            <td><span v-for = "(itemList,index) in item.poLoanDetailInfoList" :key="index">{{itemList.poNumber}}</span></td>
+            <td><div class="a-link-group inline-block"><label v-for = "(itemList,index) in item.poLoanDetailInfoList" :key="index">{{itemList.poNumber}}</label></div></td>
           </tr>
         </tbody>
       </table>
@@ -103,6 +103,9 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+.a-link-group>label>span:not(:last-of-type)::after {
+  content: ','
+}
 .tableList{
   width: 100%;
   border: 0.5px solid #931719;
@@ -128,7 +131,7 @@
   }
 }
 .poList{
-  margin-right: 10px;
+  margin-right: 4px;
 }
 ul:last-child{
   height: auto;

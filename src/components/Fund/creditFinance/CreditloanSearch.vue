@@ -13,7 +13,7 @@
       </el-col>
       <el-col :span="8">
         <el-form-item label="融资类型">
-          <el-select v-model="formInline.loanType" placeholder="全部">
+          <el-select v-model="formInline.loanType" clearable placeholder="全部">
             <el-option v-for="(item,index) in loanTypes" :key="index" :label="item.loanTypeName" :value="item.loanType"></el-option>
           </el-select>
         </el-form-item>
@@ -22,14 +22,14 @@
     <el-row>
       <el-col :span="8">
         <el-form-item label="状态">
-          <el-select v-model="formInline.status" placeholder="全部">
+          <el-select v-model="formInline.status" clearable placeholder="全部">
             <el-option v-for="(item,index) in creditStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
       <el-col :span="8">
         <el-form-item label="币别">
-          <el-select v-model="formInline.currency" placeholder="全部">
+          <el-select v-model="formInline.currency" clearable placeholder="全部">
             <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
           </el-select>
         </el-form-item>

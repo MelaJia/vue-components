@@ -8,6 +8,7 @@ export default {
     token: null,
     roles: null,
     userinfos: null
+    // scheduleNumber: 0
   },
   mutations: {
     [types.LOGIN]: (state, data) => {
@@ -48,5 +49,8 @@ export default {
         content: state.userinfos
       })
     }
+    // getScheduleNumber: (state, data) => {
+    //   state.scheduleNumber += data
+    // }
   }
 }

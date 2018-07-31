@@ -82,7 +82,8 @@
       </el-form>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleSubmit">确认</el-button>
+      <el-button type="primary" @click="handleSubmit">生成</el-button>
+      <el-button type="default" @click="handleClose">取消</el-button>
     </footer>
   </el-dialog>
 </template>

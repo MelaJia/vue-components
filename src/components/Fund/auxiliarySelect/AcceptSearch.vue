@@ -30,7 +30,7 @@
       </el-col>
       <el-col :span="8">
         <el-form-item label="币别">
-          <el-select v-model="formInline.currency" placeholder="全部">
+          <el-select v-model="formInline.currency" clearable placeholder="全部">
             <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyName"></el-option>
           </el-select>
         </el-form-item>
@@ -39,7 +39,7 @@
     <el-row class="money">
       <el-col :span="8">
           <el-form-item label="类型">
-            <el-select v-model="formInline.dataType">
+            <el-select v-model="formInline.dataType" clearable>
               <el-option v-for="(item,index) in listType" :key="index" :label="item.dataName" :value="item.dataType"></el-option>
             </el-select>
           </el-form-item>

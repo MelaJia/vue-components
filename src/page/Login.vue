@@ -52,6 +52,12 @@
               <p class="account">如果没有账号，请
                 <router-link to="/register" class="red">注册</router-link>
               </p>
+              <!--登录失败提示-->
+              <el-alert v-if="loginError"
+                  :title="loginErrorInfo"
+                  type="error"
+                  show-icon>
+              </el-alert>
             </div>
           </div>
         </form>
@@ -133,6 +139,8 @@ export default {
       sliderShow: false, // 滑块验证错误信息显示
       checkShow: false, // 协议未勾选错误信息显示
       loginLoading: false, // 登录加载中
+      loginError: false, // 登录失败显示
+      loginErrorInfo: '', // 登录信息失败提示
       ruleForm: {
         phone: '',
         pass: ''
@@ -216,11 +224,13 @@ export default {
           }
         }).catch(err => {
           this.loginLoading = false // 登录失败
-          this.$message({
-            showClose: true,
-            message: err,
-            type: 'error'
-          })
+          this.loginError = true
+          this.loginErrorInfo = err
+          // this.$message({
+          //   showClose: true,
+          //   message: err,
+          //   type: 'error'
+          // })
         })
       }
       // *************************分割线*************************

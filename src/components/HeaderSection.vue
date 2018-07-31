@@ -7,7 +7,9 @@
     </div>
     <div class="width-50">
       <div class="header-right">
-        <el-button type="danger" size="medium" :class="'process'" icon="el-icon-caret-right">您的工作进度</el-button>
+        <!-- <el-button v-if="this.$store.getters.roles=='2'" type="danger" size="medium" :class="'process'" icon="el-icon-caret-right" @click="goPage">我的待办 <el-badge :value="scheduleNumber" :max="99" class="item">
+</el-badge></el-button> -->
+        <el-button v-if="this.$store.getters.roles=='2'" type="danger" size="medium" :class="'process'" icon="el-icon-caret-right" @click="goPage">我的待办</el-button>
         <el-dropdown @command="handleCommand">
           <span style="color:#fff">你好，{{this.$store.state.user.userinfos.nickName}}<img src="@/assets/img/juxin_18.png" alt=""></span>
           <el-dropdown-menu slot="dropdown">
@@ -99,7 +101,19 @@ export default {
           query: { redirect: this.$router.currentRoute.fullPath }
         })
       }
+    },
+    // 路由跳转
+    goPage () {
+      this.$router.push({
+        name: 'myschedule' // 跳转到我的待办页面
+      })
+      // this.$store.commit('getScheduleNumber')
     }
   }
+  // computed: {
+  //   scheduleNumber () {
+  //     return this.$store.getters.scheduleNumber
+  //   }
+  // }
 }
 </script>

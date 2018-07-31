@@ -31,8 +31,8 @@
         </el-row>
         <el-row>
           <el-col :span="11" class="flex">
-            <el-form-item label="贴现利率: " prop="interestRate">
-             <el-input v-model="detailsP.interestRate" placeholder="贴现利率">
+            <el-form-item label="年利率: " prop="interestRate">
+             <el-input v-model="detailsP.interestRate" placeholder="年利率">
                <template slot="append">%</template>
              </el-input>
             </el-form-item>

@@ -9,6 +9,7 @@ const getters = {
   tagWel: state => state.tags.tagWel,
   token: state => state.user.token,
   roles: state => state.user.roles,
+  // scheduleNumber: state => state.user.scheduleNumber,
   permission: state => state.user.permission,
   menu: state => state.user.menu,
   menuAll: state => state.user.menuAll,

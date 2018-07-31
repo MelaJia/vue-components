@@ -3,7 +3,7 @@
     <!-- 详情 -->
     <dialog-creditend :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-creditend>
     <section>
-      <el-table ref="table" :data="dataTable" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+      <el-table ref="table" :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle"
         >
         <el-table-column type="expand" fixed>
@@ -196,6 +196,10 @@ export default {
     // }
   },
   methods: {
+    // 子table列表背景色
+    // getColor ({row, rowIndex}) {
+    //   return 'expendcolor'
+    // },
     handleSelectionChange (val) {
       this.multipleSelection = val
       console.log(this.multipleSelection)
