@@ -24,11 +24,11 @@
         </el-dropdown-menu>
       </el-dropdown> -->
     </div>
-    <ul class='contextmenu' v-show="visible" :style="{left:left+'px',top:top+'px'}">
+    <!-- <ul class='contextmenu' v-show="visible" :style="{left:left+'px',top:top+'px'}">
           <li @click="closeTag(selectedTag)">关闭</li>
           <li @click="closeOthersTags">关闭其他</li>
           <li @click="closeAllTags">关闭全部</li>
-        </ul>
+        </ul> -->
   </div>
 </template>
 <script>

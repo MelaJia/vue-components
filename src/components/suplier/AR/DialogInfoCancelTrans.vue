@@ -40,7 +40,7 @@
           <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>
         </li>
         <li>
-          <span>转让对应AR: <em>{{this.detailsP.parentChainId}}</em></span>
+          <span>对应原始AR: <em>{{this.detailsP.parentChainId}}</em></span>
         </li>
 
       </ul>
