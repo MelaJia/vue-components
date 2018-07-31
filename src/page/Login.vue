@@ -20,6 +20,12 @@
       <!-- index_focus end -->
         <form action="" ref="ruleForm" id="register_form">
           <div class="register" id="div_register1" v-show="!showReg">
+            <!--登录失败提示-->
+            <el-alert class="loginError" v-if="loginError"
+                :title="loginErrorInfo"
+                type="error"
+                show-icon>
+            </el-alert>
             <p class="title">登录</p>
             <div class="iptContext">
               <div class="ipt-group">
@@ -41,12 +47,6 @@
               <p class="account">如果没有账号，请
                 <router-link to="/register" class="red">注册</router-link>
               </p>
-              <!--登录失败提示-->
-              <el-alert v-if="loginError"
-                  :title="loginErrorInfo"
-                  type="error"
-                  show-icon>
-              </el-alert>
             </div>
           </div>
         </form>
@@ -108,6 +108,15 @@
 .el-button:focus,
 .el-button:hover {
   color: white;
+}
+.register{
+  position: relative;
+}
+.loginError{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 40px;
 }
 </style>
 
