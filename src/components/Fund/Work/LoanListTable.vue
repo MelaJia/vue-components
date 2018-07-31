@@ -132,7 +132,7 @@ function handleContrac (idx, val) {
 }
 // 发起确认
 function handleConfirm (idx, val) {
-  this.$confirm(`单号为${val.masterChainId}的贴现合同确认发起确认?`, `提示`, {
+  this.$confirm(`单号为${val.masterChainId}的贴现合同确认发起?`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',

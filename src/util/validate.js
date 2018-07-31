@@ -242,8 +242,8 @@ export function checkNumber (rule, value, callback) {
     if (!re.test(value)) {
       callback(new Error('请输入大于0的数字'))
     } else {
-      if (value <= 0) {
-        callback(new Error('必须大于0'))
+      if (value < 0) {
+        callback(new Error('必须大于或等于0'))
       } else {
         callback()
       }

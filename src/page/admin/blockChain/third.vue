@@ -37,16 +37,16 @@
             <el-button  type="primary" @click="sign(content)">生成签名串</el-button>
           </el-form-item>
            <el-form-item label="签名串">
-            <el-input type="textarea" v-model="content.signResult1" placeholder="生成签名串"></el-input>
+            <el-input type="textarea" v-model="signResult1" placeholder="生成签名串"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button  type="primary" @click="view(content)">请求</el-button>
+            <el-button  type="primary" @click="view(content)">发送</el-button>
           </el-form-item>
           <el-form-item>
             <div v-show="signError" class="col-md-offset-1 col-md-10"><span class="text-danger">{{signError}}</span></div>
           </el-form-item>
            <el-form-item label="结果">
-            <el-input type="textarea" v-model="content.signResult" placeholder="请求"></el-input>
+            <el-input type="textarea" v-model="signResult" placeholder="结果"></el-input>
           </el-form-item>
         </el-form>
       </el-col>
@@ -330,10 +330,10 @@ export default {
       _this.signResult = '请求中...'
       setStore({
         name: 'content',
-        content: JSON.stringify(_this.content)
+        content: _this.content
       })
-      this.post('/blockChainBrower/bcView.do', JSON.stringify(content)).then(res => {
-        _this.signResult = res.data
+      this.axios.post('/blockChainBrower/bcView.do', content).then(res => {
+        _this.signResult = JSON.stringify(res.data)
       })
     },
     sign: function (content) {
@@ -346,17 +346,17 @@ export default {
       _this.signResult1 = '请求中...'
       setStore({
         name: 'content',
-        content: JSON.stringify(_this.content)
+        content: _this.content
       })
-      this.post('/blockChainBrower/rsaSign.do', JSON.stringify(content)).then(res => {
+      this.axios.post('/blockChainBrower/rsaSign.do', content).then(res => {
         _this.signResult1 = res.data
       })
     }
   },
   mounted () {
     var _this = this
-    _this.content.privateKey = 'MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCtBn5urZpFNq2PFyNj5jGRxwAgH1mCO1l9ANuMvwLr4PKQJyh5unfxrNPFKTRFgOFRWMP+4p7LAMHii53Lnp+S2ln5Pk8W+VwVqBiC79eI5pj3qw4vf6FLMTwiEq+aD+0qY/FwVKpbSw5gY8hHxfJKS0S9Ge/pVtXPX3rfAd8ZiHog8KcchipliQIecxSP3ij8TrTSBEPVHBMAOQCFFHAabEGRR4HrbodD4RoBi21noon2XWa2vwxUKTAVd2jYO+S/HrOJmP9WG9N4PPxncAmTe1ZvJsA9SL9OLV8GecC3OUxLwGCwfv0ww9NDca20Mc+LbGhbL/Bl6APFPznmFM6FAgMBAAECggEBAKvzai6/5DKoti8gBZHAML75D4zc2u1r4fEyqv3izhpwwV61K6pdv9mzsfmci1APVtyq5I0n1jtUk1p6+eRjzZ351bS3UY45XmQ/W6y0gnSRBrALlNtrcXXyhhoui8kFzuJz1HuYCH0VyEHOqDl75OAkkTmEz0ILhAzEjK2XhIovx7x2GbKMVIfJVQ695QBmhf0BrYOjHMPqCrsqIAOCSCokvqjaOi6mQgr+5eKCCAl+spSJJXreHV7m+MHLmlDfMBvpNlwp0u0VE/NlXJcDMqDjBMydXJEHUaz3erAatN3LNk2dcb55iUg1PZlPsjwyaGTdFHD/XBwYNA360ty9BsECgYEA/hbk7CRRyfJl30kRRsHTLajKu2rR+cUxYLVAUWp08a98/vTjx+yr4WbOdbQehCvZ6pzO9wCJCH8ry0qtsVgzZ+d2I4Wft4WR705QZetubQORrlvIwSoRiFI2hRZ2WXlILkJdzn39YfsnAU2fk7l9TDgpHMNug9284DPdnivscl0CgYEArlOOeirIkGMLwOgAYY4SABGBnya/c4ipYhCHI9ok8GE+/D8zC8GNIk0retA4bXPy9mxqnuUGqoBMvPfc17ioyhcRzqfxI9CJ4x/NOMD7NsZmbELfLMNIj8qFSCs/9E0nKab6wjK2p5V+W9fxbBsPLoeCrtEKeUbtW2/NefUJ2kkCgYBxcDE2CCUHvxOiM1HmQCSTDver4s3p8BLSdTlI3/lj6ZApl5WWLWCzWh20yPySz60TpHx2JCQJyhT4RtfzBEi3C8xfoYmj+psjttgIGKsNOnmw2UNwkeKP9PxoQJYH7jC+jlypEvCr7OAGIeyrnDWHcM9SCyJs9vMbOayosD149QKBgA4B5MboPSls6/raKX2tPsEGpxW0tVmBN6sLjPBSjPlLtxXpth5RtRd2f/HkXUReNr2aRI7z9C8rE/9zIymqStXCOMoUMIoiLZI0cfcHeqgSFRTJ4sjkACadrUv5PbBRqr3sDuYf0RFyL68NkPaQzg19EgEeButryZK5Txdnmx0RAoGBAO5EoBGPq5AdDxlA6vfPu7Rt1+vyyBSHhmbt6IYS780voUOw9VhK2TgX/VGhZ4xJ8IMGO3h7Ltvd04R/VmbS8ZoaA0Ss+xEyKNRQ2l+PToCNFhkg5ZnSasFpGTT5+1zU2DQTnu9A9ohnGaVSPdad1puSeb9RDrfyqBdYCOWSwTRI'
-    _this.content.url = 'http://10.134.184.117:8081/openapi'
+    _this.content.privateKey = 'MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDoTt6XgvCvIb3YSrDHgbfSZWuIAsYrel1xovx0ubBYe/vhoCNomGzdGEHrRf/Prg49waH2PEzfA2JWB3NYj4uTMYCs7RRBmz8gLaM5g3h6FpkE5vvjRpHDfYDJEWk826O5SHlmqUoguzOeGEfVeC+bhHFuOCsHZpKL7mZSvs8LPx2fN/HGXKboNWovFc5aSnKWDqzO0l9nCKE9gXABYywleUjrbiGraH5Bi9j2a4w3twg5gvM4c9J060WgXNQ47BT9wQB+ThAJE9PNjXXrVn2ZpYfEwRK4fRJVnqLaxCYBgmbmgzqbroLMqL+OW6MK+tFsOEuBI6y3OtcCC4Qs2RfnAgMBAAECggEAEGBe+LdWWEI8q964D5hpaP+VUQVBCxeZNsWSnnfoopQ68XDkjh8QrZVkMD3DBtTyVBAuZrlhgecvK3li/D9CS6IVvBsKboWPMamF9Cv8dj7Zkqrl3uO+qtVSGtqLXKrvI8SkKkSM4TnRLbfweG/8iy4PAQIcpmzor8yikfq5hcVO4yIAc09hk0+7H5G1x8GQxAnS4FeD/pAnDIG286hl6KldygbHW1lT02vZ8ydwhkUGgbGuELnQuL6omLU2mOA0tHFbnFLQ5AcEgcEByB1gssU50ZlRbeTj2/F6TKzck9J5nhwtOPGsz5tmdPVzD5dGzIVzc68xPE0zRzEwd8x+wQKBgQD08qVHEvefqnjjHJm1DVHRMJMbhs142KxGcVlkrXrpTZpHcfJAkx22OHLhQ25x6FxULnqdPooLVVLfSGcHrjkLRbq3AZ+Px+OqPw9nXmyGrihTkX9oX7RsDY4EeRxSPZuOFKvNdtk1xMYuyk/ftrQ1CtvaarP/pFNtKO129K83HwKBgQDyyjld8Fs6Ef/+k+EYHHeaqH9lRo6GBnv16ZfIiVwYOosWkIDmhKN8MQLy4MrOomKjtlqUWMisKZqKun3tc34y6KwTF0FiZYsB1uLuWYnyepCtD9dUZGcHUNtMsmF/DxeHcYxTXvcdhxj5zj8u/bRqE/4+fVrKW+luex0vE4nuOQKBgQDeAq9a5A4cYV6AOoP2XcQyXlx3Lo89YOWEU2g6oCIvI28aImT3sl/TsQYutfd8tqY4hogLzYtBCmy6g90eUQLS/Lhm9smwf/QRcmZ7wlGLIH7cf5uC9nuJFCAMXdkVkVFUTdgJuhbVbSxTbHtIwUhEazsplFzg8AfNgLL6hnvo8QKBgB2sjbpniB7e2FT7KgXSZOPoODnel8jVvgzeUgjWkQT9EsbdPoPuLjUdoGijBOagfkHYJdX/y/cO1q6iAIYnGYOLYIysyPcHxiehZfcPxoZ2aHxedUkBRH5maYdEPhpTc+LABBCkiLt5KZpOlPZfV8+nRenJVHFrLmqsbXK1hqQxAoGBAKida6Bho6f448kPLuucOEOlixEXnt1hSdSVBxxuapplHB6nFQnR5F5KUiJqHGHEdpHoOyj+JN0MKZjc5jliAE9tCulPfWu2uWek3wRnsvxG/UqCxTYWV3FSVNi3RTTJWknueaDlm4ADTF9FKBGBsO0ehc6sCYjUuv0OUu2g9o9M'
+    _this.content.url = 'http://10.134.184.117:8082/openapi'
     _this.content.clientId = 'cf'
   }
 }

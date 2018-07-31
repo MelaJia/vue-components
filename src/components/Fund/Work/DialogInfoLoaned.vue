@@ -41,10 +41,10 @@
       </ul>
       <ul>
         <li class="w-50">
-         <span>贴现利率: <em>{{this.detailsP.interestRate}}</em></span>
+         <span>年利率: <em>{{this.detailsP.interestRate |addPercent}}</em></span>
         </li>
         <li class="w-50">
-         <span>逾期利率: <em>{{this.detailsP.overdueRate}}</em></span>
+         <span>逾期利率: <em>{{this.detailsP.overdueRate |addPercent}}</em></span>
         </li>
       </ul>
       <ul>
@@ -52,7 +52,7 @@
           <span>实际放款金额: <em>{{this.detailsP.actualDiscountAmt | regexNum}}</em></span>
         </li>
         <li class="w-50">
-         <span>手续费: <em>{{this.detailsP.overdueRate}}</em></span>
+         <span>手续费: <em>{{this.detailsP.overdueRate |addPercent}}</em></span>
         </li>
       </ul>
       <ul class="height-auto">

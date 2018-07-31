@@ -73,10 +73,20 @@ const monitorInit = ()=>{
   Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchIndexList.do', {
     "data":{
       "unOperateSumAmout": function() {
-        return this.unOperateAvailableAmout+this.unOperateExpiredAmout
+        return  125.88 // this.unOperateAvailableAmout+this.unOperateExpiredAmout
       },
       "unOperateAvailableAmout|1-20": 5,
-      "unOperateExpiredAmout|1-20": 5,
+      "unOperateUnavailableAmout": 125.88,
+      "transferingSumAmout": function() {
+        return this.transferingAvailableAmout+this.transferingExpiredAmout
+      },
+      "transferingAvailableAmout|1-20": 5,
+      "transferingExpiredAmout|1-20": 5,
+      "discountingSumAmout": function() {
+        return this.discountingAvailableAmout+this.discountingExpiredAmout
+      },
+      "discountingAvailableAmout|1-20": 5,
+      "discountingExpiredAmout|1-20": 5,
       "transferedSumAmout|100-2000": function() {
         return this.transferedAvailableAmout+this.transferedExpiredAmout
       },
@@ -93,6 +103,22 @@ const monitorInit = ()=>{
       "receivedAvailableAmout": 5555.24,
       "receivedExpiredAmout": 3500.00,
       "onReceiveAmout": 2500.00,
+    },
+    "msg|1":[
+      "失败",
+      "成功"
+    ],
+    "status": true
+  })
+  // 首页数据
+  Mock.mock('https://jurongtest.foxconn.com/sit/factoringIndex/searchFactoringIndex.do', {
+    "data":{
+      "loanedNoFinishInterest|1-20": 5,
+      "loanedNoFinishPrincipal": 125.88,
+      "loanedFinishPrincipal|1-20": 5,
+      "loanedFinishInterest|1-20": 5,
+      "onLoaningSumAmout|1-20": 5,
+      "rejectLoanSumAmout|1-20": 5
     },
     "msg|1":[
       "失败",
@@ -254,6 +280,7 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/supplierCreditLoanManag
         totalRepayAmt: 10000, // 还款合计
         contractSignedDate: 1528905600000, // 合同签署日期
         repayDate: 1528905600000, // 还款日期
+        actualRepayDate: 1528905600000, // 实际还款日期
         currencyName: '人民币', // 币别名称
         custId: '123', // 供應商Id 
       },
@@ -292,6 +319,7 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/supplierCreditLoanManag
           contractSignedDate: 1528905600000, // 合同签署日期
           repayDate: 1528905600000, // 还款日期
           currencyName: '人民币', // 币别名称
+          actualRepayDate: 1528905600000, // 实际还款日期
           custId: '123', // 供應商Id 
         },
         {
@@ -310,6 +338,7 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/supplierCreditLoanManag
           totalRepayAmt: 10000, // 还款合计
           contractSignedDate: 1528905600000, // 合同签署日期
           repayDate: 1528905600000, // 还款日期
+          actualRepayDate: 1528905600000, // 实际还款日期
           currencyName: '人民币', // 币别名称
           custId: '123', // 供應商Id 
         },{
@@ -328,6 +357,7 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/supplierCreditLoanManag
           totalRepayAmt: 10000, // 还款合计
           contractSignedDate: 1528905600000, // 合同签署日期
           repayDate: 1528905600000, // 还款日期
+          actualRepayDate: 1528905600000, // 实际还款日期
           currencyName: '人民币', // 币别名称
           custId: '123', // 供應商Id 
         }]

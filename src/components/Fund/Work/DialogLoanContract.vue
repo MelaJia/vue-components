@@ -76,7 +76,7 @@
         <el-row>
           <el-col :span="11" class="flex">
              <el-form-item label="预计回款日期: " prop="billDueDate">
-              <span>{{detailsP.billDueDate|dateFormat}}</span>
+              <span>{{detailsP.billPayDate|dateFormat}}</span>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
@@ -84,7 +84,7 @@
             :rules="[
           { required: !detailsP.billDueDate, message: '请输入预计还款日期', trigger: 'blur' }
         ]">
-             <el-date-picker :editable="false" :disabled="!!detailsP.billDueDate" v-model="detailsP.billPayDate" type="date" placeholder="选择日期">
+             <el-date-picker :editable="false" :disabled="!!detailsP.billPayDate" v-model="detailsP.billDueDate" type="date" placeholder="选择日期">
             </el-date-picker>
             </el-form-item>
           </el-col>

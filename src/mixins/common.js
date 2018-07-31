@@ -103,7 +103,14 @@ export default {
       return value === 1 ? '自有' : '购入'
     },
     // 千分位
-    regexNum: thousandth
+    regexNum: thousandth,
+    // 添加%
+    addPercent: function (val) {
+      if (val === undefined || val === null || val === '') {
+        return ''
+      }
+      return `${val}%`
+    }
   }
 }
 // 错误提示函数

@@ -33,7 +33,7 @@ const routes = [{
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/GetAr'),
     meta: {
-      title: '待收AR', // 名称
+      title: '购入AR管理', // 名称
       requireAuth: true // 需要登录验证
     }
   },
@@ -43,7 +43,7 @@ const routes = [{
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/CancelAr'),
     meta: {
-      title: '取消转让', // 名称
+      title: '转让AR管理', // 名称
       requireAuth: true // 需要登录验证
     }
   },
@@ -190,15 +190,6 @@ const routes = [{
     meta: {
       title: '还款情况', // 名称
       requireAuth: true // 需要登录验证
-    }
-  },
-  {
-    path: 'blockChain',
-    name: 'blockChain',
-    component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/blockChain/index'),
-    meta: {
-      title: '区块链', // 名称
-      requireAuth: false // 需要登录验证
     }
   },
   {

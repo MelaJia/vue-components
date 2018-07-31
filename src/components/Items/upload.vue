@@ -42,7 +42,8 @@ export default {
   data () {
     return {
       imgurl: '',
-      uploadUrl: apiUrl + '/cust/uploadPicture'
+      uploadUrl: apiUrl + '/cust/uploadPicture',
+      videoFlag: false
     }
   },
   computed: {
@@ -66,8 +67,12 @@ function handleAvatarSuccess (res, file) {
   setTimeout(() => {
     this.videoFlag = false
   }, 1000)
-  this.imgurl = URL.createObjectURL(file.raw)
-  this.$emit('get-url', res) // 返回图片地址
+  if (res.status) {
+    this.imgurl = res.data
+    this.$emit('get-url', res) // 返回图片地址
+  } else {
+    this.$message.error(res.msg)
+  }
 }
 // 上传进度
 function uploadVideoProcess (event, file, fileList) {

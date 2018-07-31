@@ -21,7 +21,7 @@
               <el-table-column align="center" prop="isMasterAr" :width="widthArr.isMasterAr" :formatter="originFormat">
                 >
               </el-table-column>
-              <el-table-column align="center" prop="company" :width="widthArr.company">
+              <el-table-column align="center" prop="transUnitName" :width="widthArr.transUnitName">
               </el-table-column>
               <el-table-column align="center" prop="arStatusTypeName" :width="widthArr.arStatusTypeName">
               </el-table-column>
@@ -52,7 +52,7 @@
         </el-table-column>
         <el-table-column align="center" label="AR来源" prop="isMasterAr" :formatter="originFormat">
         </el-table-column>
-        <el-table-column align="center" label="付款单位/对手单位" prop="company" width="150">
+        <el-table-column align="center" label="付款单位/对手单位" prop="transUnitName" width="150">
         </el-table-column>
         <el-table-column align="center" label="状态" prop="arStatusTypeName">
         </el-table-column>

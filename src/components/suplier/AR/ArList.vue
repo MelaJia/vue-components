@@ -4,14 +4,14 @@
     <section>
     <el-table :data="dataTable" v-loading="dataLoading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)" border  :summary-method="sumHandle([7])" sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
-      @expand-change="expendhandle">
+      @expand-change="expendhandle" :span-method="objectSpanMethod">
       <el-table-column align="center" fixed type="index" label="序号" width="60">
       </el-table-column>
       <el-table-column align="center" fixed sortable label="AR单号" prop="masterChainId" width="130">
       </el-table-column>
       <el-table-column align="center" fixed sortable label="结报单号" prop="billId" width="130">
       </el-table-column>
-      <el-table-column align="center" label="付款单位" prop="companyName">
+      <el-table-column align="center" label="付款单位" prop="transUnitName">
       </el-table-column>
       <el-table-column align="center" label="转让单位" prop="custFromName">
       </el-table-column>
@@ -55,12 +55,13 @@ export default {
     // 接受转让
     handleAccept: handleAccept,
     // 拒绝转让
-    handleReject: handleReject
+    handleReject: handleReject,
+    objectSpanMethod: objectSpanMethod
   }
 }
 // 接受转让
 function handleAccept (idx, val) {
-  this.$confirm(`单号为${val.masterChainId}的确认接授其转让?`, `提示`, {
+  this.$confirm(`请确认AR单号${val.masterChainId}接受转让?`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
@@ -76,7 +77,7 @@ function handleAccept (idx, val) {
 }
 // 拒绝转让
 function handleReject (idx, val) {
-  this.$confirm(`单号为${val.masterChainId}的确认拒绝其转让?`, `提示`, {
+  this.$confirm(`请确认AR单号${val.masterChainId}拒绝转让?`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
@@ -90,6 +91,9 @@ function handleReject (idx, val) {
     })
   })
 }
+function objectSpanMethod ({ row, column, rowIndex, columnIndex }) {
+}
+
 </script>
 <style>
 .demo-table-expand label {

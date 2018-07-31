@@ -1,6 +1,7 @@
 <template>
   <div class="main index-style">
-    <div class="header">
+    <el-card class="box-card">
+        <div class="header">
       <h3>供应商资产概况</h3>
     </div>
     <div class="content left-right">
@@ -26,7 +27,7 @@
             <div class="t2">
               <ul>
                 <li>{{item.firData.name}}</li>
-                <el-tooltip v-if="idx==='unOperate'" class="item" effect="light" content="已申请贴现或转让的发票剩余金额" placement="right-end">
+                <el-tooltip v-if="item.tip" class="item" effect="light" :content="item.tip" placement="right-end">
                    <li>{{item.secData.name}}</li>
                 </el-tooltip>
                 <li v-else>{{item.secData.name}}</li>
@@ -50,16 +51,19 @@
         </div>
       </div>
     </div>
+    </el-card>
   </div>
 </template>
 <style scoped>
 * {
   margin: 0;
 }
-
+.header {
+  text-align: center;
+}
 .content.left-right {
   width: 100%;
-  min-width:1200px;
+  min-width: 1200px;
   margin: auto;
   overflow: auto;
 }
@@ -83,14 +87,14 @@
 }
 .text-content {
   width: 400px;
-  height: 130px;
+  height: 115px;
   color: #fff;
   border: solid 1px;
   border-radius: 15px;
   margin-top: 10px;
 }
 .t1 {
-  font-size: 18px;
+  font-size: 16px;
   padding: 0px 5px;
 }
 .t1 > span {
@@ -98,6 +102,7 @@
 }
 .t2 {
   margin-top: 10px;
+  font-size: 13px;
 }
 .t2 ul {
   padding: 0px 5px;
@@ -111,7 +116,7 @@ li {
   overflow: hidden;
   white-space: nowrap;
 }
-.t2>ul>li:last-child{
+.t2 > ul > li:last-child {
   color: black;
 }
 .line {
@@ -130,7 +135,8 @@ li {
 .url-section {
   position: absolute;
   bottom: 0px;
-  left: 150px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .bg-style {
   display: inline-block;
@@ -153,7 +159,7 @@ li {
 
 <script>
 import Pie from '@/components/items/pie'
-import {thousandth} from '@/util/util'
+import { thousandth } from '@/util/util'
 import Common from '@/mixins/common'
 
 // 引入 ECharts 主模块
@@ -169,10 +175,11 @@ export default {
   mixins: [Common],
   data () {
     return {
-      sortArr: [{ key: 'unOperate', text: '未贴现/转让金额' }, { key: 'discounted', text: '已贴现金额' }, { key: 'received', text: '已接收金额' }, { key: 'transfered', text: '已转让金额' }],
+      sortArr: [{ key: 'unOperate', text: '未贴现/转让金额', bcolor: '#5b9bd5' }, { key: 'discounted', text: '已贴现金额', bcolor: '#ed7d31' }, { key: 'received', text: '已接收金额', bcolor: '#a5a5a5' }, { key: 'transfered', text: '已转让金额', bcolor: '#ffc000' }, { key: 'onReceiveAmout', text: '待接收金额', bcolor: '#4472c4' }, { key: 'transfering', text: '转让中金额', bcolor: '#71b345' }, { key: 'discounting', text: '贴现中金额', bcolor: '#255e91' }],
       rightDataArr: {
         unOperate: {
           title: '未贴现/转让', // 标题
+          tip: '已申请贴现或转让的发票剩余金额', // 提示信息
           firData: { // 第一个数据
             value: null,
             name: '可用金额'
@@ -185,8 +192,23 @@ export default {
           bcolor: '#5b9bd5' // 背景色
 
         },
+        transfering: {
+          title: '转让中', // 标题
+          tip: '', // 提示信息
+          firData: { // 第一个数据
+            value: null,
+            name: '未到期金额'
+          },
+          secData: { // 第二个数据
+            value: null,
+            name: '已到期金额'
+          },
+          path: 'myar', // 路径
+          bcolor: '#71b345' // 背景色
+        },
         transfered: {
           title: '已转让', // 标题
+          tip: '', // 提示信息
           firData: { // 第一个数据
             value: null,
             name: '未到期金额'
@@ -198,8 +220,23 @@ export default {
           path: 'cancelar', // 路径
           bcolor: '#f1bd00' // 背景色
         },
+        discounting: {
+          title: '贴现中', // 标题
+          tip: '', // 提示信息
+          firData: { // 第一个数据
+            value: null,
+            name: '未到期金额'
+          },
+          secData: { // 第二个数据
+            value: null,
+            name: '已到期金额'
+          },
+          path: 'myar', // 路径
+          bcolor: '#3f71ca' // 背景色
+        },
         discounted: {
           title: '已贴现', // 标题
+          tip: '', // 提示信息
           firData: { // 第一个数据
             value: null,
             name: '未到期金额'
@@ -213,6 +250,7 @@ export default {
         },
         received: {
           title: '已接收', // 标题
+          tip: '', // 提示信息
           firData: { // 第一个数据
             value: null,
             name: '未到期金额'
@@ -225,7 +263,7 @@ export default {
           bcolor: '#9a9a9a' // 背景色
         }
       },
-      color: { unOperate: ['#fff', '#000'], transfered: ['#fff', '#000'], discounted: ['#fff', '#000'], received: ['#fff', '#000'] } // 小饼图颜色数组
+      color: { unOperate: ['#fff', '#000'], transfering: ['#fff', '#000'], transfered: ['#fff', '#000'], discounting: ['#fff', '#000'], discounted: ['#fff', '#000'], received: ['#fff', '#000'] } // 小饼图颜色数组
     }
   },
   mounted () {
@@ -259,19 +297,24 @@ export default {
 function getdata (scope) {
   // 基于准备好的dom，初始化echarts实例
   return scope.axios.post('/auxiliaryFunction/searchIndexList.do').then(res => {
-    const arr = []
+    const amtArr = []
+    const bColorArr = []
     for (const key in scope.sortArr) {
       if (scope.sortArr.hasOwnProperty(key)) {
         const element = scope.sortArr[key]
         // 设置右侧列表数据
-        scope.rightDataArr[element.key].firData.value = res.data.data[`${element.key}AvailableAmout`]
-        scope.rightDataArr[element.key].secData.value = res.data.data[`${element.key}ExpiredAmout`]
-        // 填充饼图数据
-        arr.push({ value: res.data.data[`${element.key}SumAmout`], name: element.text })
+        if (element.key !== 'onReceiveAmout') {
+          scope.rightDataArr[element.key].firData.value = res.data.data[`${element.key}AvailableAmout`]
+          scope.rightDataArr[element.key].secData.value = element.key === 'unOperate' ? res.data.data[`${element.key}UnavailableAmout`] : res.data.data[`${element.key}ExpiredAmout`]
+          // 填充饼图数据
+          amtArr.push({ value: res.data.data[`${element.key}SumAmout`], name: element.text })
+        } else {
+          amtArr.push({ value: res.data.data['onReceiveAmout'], name: element.text })
+        }
+        bColorArr.push(element.bcolor)
       }
     }
-    arr.push({ value: res.data.data['onReceiveAmout'], name: '待接收金额' })
-    return arr
+    return { amt: amtArr, bColor: bColorArr }
   })
 }
 // 异步获取数据
@@ -339,13 +382,13 @@ function getOptions (echartData) {
       selectedMode: false,
       formatter: function (name) {
         var total = 0 // 总和
-        echartData.forEach(function (value, index, array) {
+        echartData.amt.forEach(function (value, index, array) {
           total += value.value * 100
         })
         total = thousandth(total / 100)
         return '{total|' + total + '}'
       },
-      data: [echartData[0].name],
+      data: ['未贴现/转让金额'],
       left: 'center',
       top: '45%',
       icon: 'none',
@@ -362,7 +405,7 @@ function getOptions (echartData) {
       radius: ['27%', '45%'],
       minAngle: 10, // 最小角度
       hoverAnimation: false,
-      color: ['#5b9bd5', '#ed7d31', '#a5a5a5', '#ffc000', '#4472c4'],
+      color: echartData.bColor,
       label: {
         normal: {
           formatter: function (params, ticket, callback) {
@@ -380,7 +423,7 @@ function getOptions (echartData) {
           }
         }
       },
-      data: echartData
+      data: echartData.amt
     }]
   }
 }

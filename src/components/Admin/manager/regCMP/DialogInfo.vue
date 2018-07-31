@@ -40,10 +40,10 @@
           <span>供应商代码: <em>{{this.detailsP.vendorCodes}}</em></span>
         </li>
         <li class="wd-3">
-          <span>注册资本: <em>{{this.detailsP.registeredCapital}}</em></span>
+          <span>注册资本: <em>{{this.detailsP.registeredCapital}} ({{getRegisteredCurrencyType}})</em></span>
         </li>
         <li class="wd-3">
-          <span>实收资本: <em>{{this.detailsP.paidinCapital}}</em></span>
+          <span>实收资本: <em>{{this.detailsP.paidinCapital}} ({{getPaidinCurrencyType}})</em></span>
         </li>
       </ul>
       <ul>
@@ -115,7 +115,7 @@
           </el-col>
           <el-col :span="6">
             <p>营业执照</p>
-            <img :src="detailsP.licenseViceUrl" width="100px" preview="0" preview-text="营业执照">
+            <img :src="detailsP.licenseUrl" width="100px" preview="0" preview-text="营业执照">
           </el-col>
           <el-col :span="6">
             <p>组织机构代码证</p>
@@ -133,7 +133,8 @@
   </el-dialog>
   </section>
 </template>
-<style scoped>
+<style scoped lang="scss">
+@import "@/assets/css/_dialog.scss";
 #title {
   color: #931719;
   line-height: 24px;
@@ -177,10 +178,10 @@ li {
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
-
+import commonDatas from '@/mixins/commonDatas' // 货币类型
 export default {
   props: ['visibleP', 'detailsP'],
-  mixins: [DialogClose, Common],
+  mixins: [DialogClose, Common, commonDatas],
   data () {
     return {
       radio2: 3
@@ -189,6 +190,28 @@ export default {
   computed: {
     getTitle () {
       return this.detailsP.companyName
+    },
+    // 实收资本单位
+    getPaidinCurrencyType () {
+      // 全部索引
+      let result = null
+      if (this.moneyTypes) {
+        result = this.moneyTypes.find(val => {
+          return val.currencyId === this.detailsP.paidinCurrencyType
+        })
+      }
+      return result ? result.currencyDesc : ''
+    },
+    // 注册资本单位
+    getRegisteredCurrencyType () {
+      // 全部索引
+      let result = null
+      if (this.moneyTypes) {
+        result = this.moneyTypes.find(val => {
+          return val.currencyId === this.detailsP.registeredCurrencyType
+        })
+      }
+      return result ? result.currencyDesc : ''
     }
   },
   updated () {

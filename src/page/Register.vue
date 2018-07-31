@@ -24,7 +24,7 @@
       </header>
       <main>
         <section class="reg-step-1" v-show="step==0">
-          <el-form ref="form-1" :model="getForm" status-icon :rules="rulesOne" label-width="130px">
+          <el-form ref="form-1" :model="getForm" :rules="rulesOne" label-width="130px">
             <el-row>
               <el-col :span="24">
                 <div v-show="isPassShow" class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~32位的字符串.</div>
@@ -38,12 +38,16 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item label="登陆密码: " prop="custPassword">
-                  <el-input type="password" v-model="getForm.custPassword" @blur="passBlur" @focus="passFocus"></el-input>
+                  <el-input :type="pShow?'text':'password'" v-model="getForm.custPassword" @blur="passBlur" @focus="passFocus">
+                    <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pShow')"></a>
+                  </el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="昵称: " prop="custNickname">
-                  <el-input v-model.trim="getForm.custNickname"></el-input>
+                <el-form-item label="确认密码" prop="checkPass">
+                  <el-input :type="pcShow?'text':'password'" v-model="getForm.checkPass" auto-complete="off">
+                    <a slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pcShow')"></a>
+                  </el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -59,15 +63,22 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="员工人数: " prop="companyPersonSum">
-                  <el-input v-model.number="getForm.companyPersonSum"></el-input>
+                <el-form-item label="昵称: " prop="custNickname">
+                  <el-input v-model.trim="getForm.custNickname"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
-              <el-form-item label="公司详细地址: " prop="companyAddress">
-                <el-input type="textarea" v-model.trim="getForm.companyAddress"></el-input>
-              </el-form-item>
+              <el-col :span="16">
+                <el-form-item label="公司详细地址: " prop="companyAddress">
+                  <el-input type="textarea" v-model.trim="getForm.companyAddress"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item label="员工人数: " prop="companyPersonSum">
+                  <el-input v-model.number="getForm.companyPersonSum"></el-input>
+                </el-form-item>
+              </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
@@ -123,7 +134,7 @@
           <el-form ref="form-2" :model="getForm"  :rules="rulesTwo" label-width="150px">
             <el-row>
               <el-col :span="24">
-                <div v-show="is2s1Show" class="text-error">提示：统一社会信用代码与(营业执照号码,组织机构代码证编号,税务登记证号),两者是贰选壹的关系。</div>
+                <div v-show="is2s1Show" class="text-error">提示：统一社会信用代码与(营业执照编号,组织机构代码证编号,税务登记编号),两者是贰选壹的关系。</div>
               </el-col>
             </el-row>
             <el-row>
@@ -237,30 +248,30 @@
           <el-form ref="form-3" :model="getForm" :rules="rulesThree" label-width="150px">
             <el-row>
               <el-col :span="8">
-                <el-form-item label="公司logo" prop="logoUrl">
-                  <upload ref="logoFile" :param="{typename:'logoUrl'}" @get-url="getUrl($event, 'logoUrl')"></upload>
+                <el-form-item ref="logoFile" label="公司logo" prop="logoUrl">
+                  <upload :param="{typename:'logoUrl'}" @get-url="getUrl($event, 'logoUrl')"></upload>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="营业执照(图片)" prop="licenseUrl">
-                  <upload ref="licenseFile" :param="{typename:'licenseUrl'}"  @get-url="getUrl($event, 'licenseUrl')"></upload>
+                <el-form-item ref="licenseFile" label="营业执照(图片)" prop="licenseUrl">
+                  <upload :param="{typename:'licenseUrl'}"  @get-url="getUrl($event, 'licenseUrl')"></upload>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="营业执照副本" prop="licenseViceUrl">
-                  <upload ref="licenseViceFile" :param="{typename:'licenseViceUrl'}" @get-url="getUrl($event, 'licenseViceUrl')"></upload>
+                <el-form-item ref="licenseViceFile" label="营业执照副本" prop="licenseViceUrl">
+                  <upload :param="{typename:'licenseViceUrl'}" @get-url="getUrl($event, 'licenseViceUrl')"></upload>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
-                <el-form-item label="组织机构代码证" prop="organizationUrl">
-                  <upload ref="organizationFile" :param="{typename:'organizationUrl'}" @get-url="getUrl($event, 'organizationUrl')"></upload>
+                <el-form-item ref="organizationFile" label="组织机构代码证" prop="organizationUrl">
+                  <upload :param="{typename:'organizationUrl'}" @get-url="getUrl($event, 'organizationUrl')"></upload>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="税务登记证" prop="taxUrl">
-                  <upload ref="taxFile" :param="{typename:'taxUrl'}" @get-url="getUrl($event, 'taxUrl')"></upload>
+                <el-form-item ref="taxFile" label="税务登记证" prop="taxUrl">
+                  <upload :param="{typename:'taxUrl'}" @get-url="getUrl($event, 'taxUrl')"></upload>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -291,6 +302,19 @@
                   <el-input v-model.trim="getForm.accountOpeningBranch"></el-input>
                 </el-form-item>
               </el-col>
+            </el-row>
+            <el-row>
+              <div class="iptChoose">
+                <label for="agree">
+                  <el-checkbox v-model="checked" @change="handleCheck"></el-checkbox>&nbsp;我已阅读并同意
+                  <a :href="pdfUrl" target="_pdf" id="agreement"
+                    class="red">《钜信网服务协议》</a>
+                <el-alert v-if="checkShow"
+                  title="请同意相关协议"
+                  type="error">
+                </el-alert>
+                </label>
+              </div>
             </el-row>
           </el-form>
         </section>
@@ -397,6 +421,9 @@
   padding: 4px;
   text-align: center;
 }
+.iptChoose{
+  padding: 20px 50px;
+}
 </style>
 
 <script>
@@ -407,6 +434,7 @@ import {
   getStore,
   setStore
 } from '@/util/store'
+import { baseUrl } from '@/config/env.js'
 /* 企业认证 */
 export default {
   props: ['visibleP', 'form'],
@@ -437,7 +465,7 @@ export default {
           if (res.data.status) {
             callback()
           } else {
-            callback(new Error(`统一社会信用代码已存在`))
+            callback(new Error(res.data.msg))
           }
         }).catch(err => {
           console.log(err)
@@ -474,6 +502,9 @@ export default {
     return {
       step: 0,
       show: true,
+      checked: false,
+      checkShow: false, // 协议未勾选错误信息显示
+      pdfUrl: `${baseUrl}/static/cnd/钜信网服务协议.pdf`, // 服务协议文件地址
       isPassShow: false, // 密码提示信息显示
       is2s1Show: true, // 二选一提示
       userInfo: getUserInfo(),
@@ -482,7 +513,9 @@ export default {
       rulesOne: validConf.getValid('validOne'),
       rulesTwo: { ...arr, ...validConf.getValid('validTwo') },
       rulesThree: validConf.getValid('validThree'),
-      moneyTypes: []
+      moneyTypes: [],
+      pShow: false, // 密码是否可见
+      pcShow: false // 密码确认是是否可见
 
     }
   },
@@ -498,7 +531,7 @@ export default {
       return this.getForm.creditCode.length > 0
     },
     t2oAb () {
-      return this.getForm.licenseNumber.length > 0 || this.getForm.organizationNumber.length > 0 || this.getForm.payTaxesNumber.length > 0
+      return this.getForm.licenseNumber.length > 0 || this.getForm.organizationNumber.length > 0 || this.getForm.taxNumber.length > 0
     }, // 2选一是否可输入
     // 开户省市计算
     getBankAdd: {
@@ -533,8 +566,16 @@ export default {
         } else {
           this.$message.error(res.data.msg)
         }
+      }).catch(err => {
+        this.$message.error(`网络错误,请求数据失败!${err}`)
       })
     }
+    // 全部索引
+    let idx = this.moneyTypes.findIndex(val => {
+      return val.currencyId === null
+    })
+    // 去除全部
+    this.moneyTypes.splice(idx, 1)
   },
   methods: {
     // 上一页
@@ -547,8 +588,17 @@ export default {
     passBlur: passBlur,
     // 提交
     subHandle: subHandle,
+    handleCheck: handleCheck,
+    // 格式化银行账号
+    formatBankNo: formatBankNo,
+    // 还原银行账号
+    resetBankNo: resetBankNo,
+    // 可见修改
+    handlePShowChange: handlePShowChange,
     // 上传图片更新formUrl地址
     getUrl (val, idx) {
+      let ref = idx.replace('Url', 'File')
+      this.$refs[ref].clearValidate()
       if (val.status) {
         this.userInfo[idx] = val.data
       } else {
@@ -579,9 +629,17 @@ function passFocus () {
 function passBlur () {
   this.isPassShow = false
 }
+// 阅读协议
+function handleCheck (val) {
+  this.checkShow = !val
+}
 // 提交
 function subHandle (formName) {
   console.log(this.userInfo)
+  if (!this.checked) {
+    this.checkShow = true
+    return
+  }
   this.$refs[formName].validate((valid) => {
     if (valid) {
       // 1.处理数据
@@ -693,6 +751,46 @@ function getUserInfo () {
   }
   var object = require('lodash/fp/object')
   return process.env.NODE_ENV === 'development' ? object.assign(infos, devInfos) : infos
+}
+// 银行账号格式化
+function formatBankNo () {
+  if (this.getForm.bankAccount === '') return
+  var account = this.getForm.bankAccount.toString()
+  account = account.substring(0, 22) /* 帐号的总数, 包括空格在内 */
+  if (account.match('.[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}') == null) {
+    /* 对照格式 */
+    if (account.match('.[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}|' + '.[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}|' +
+      '.[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}|' + '.[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{7}') == null) {
+      var accountNumeric = ''
+      var accountChar = ''
+      var i
+      for (i = 0; i < account.length; i++) {
+        accountChar = account.substr(i, 1)
+        if (!isNaN(accountChar) && (accountChar !== ' ')) accountNumeric = accountNumeric + accountChar
+      }
+      account = ''
+      for (i = 0; i < accountNumeric.length; i++) { /* 可将以下空格改为-,效果也不错 */
+        if (i === 4) account = account + ' ' /* 帐号第四位数后加空格 */
+        if (i === 8) account = account + ' ' /* 帐号第八位数后加空格 */
+        if (i === 12) account = account + ' ' /* 帐号第十二位后数后加空格 */
+        account = account + accountNumeric.substr(i, 1)
+      }
+    }
+  } else {
+    account = ' ' + account.substring(1, 5) + ' ' + account.substring(6, 10) + ' ' + account.substring(14, 18) + '-' + account.substring(18, 25)
+  }
+  if (account !== this.getForm.bankAccount) {
+    console.log(this.getForm.bankAccount)
+    setTimeout(() => { this.getForm.bankAccount = account }, 1000)
+  }
+}
+// 重置银行账号
+function resetBankNo () {
+  this.getForm.bankAccount = this.getForm.bankAccount.replace(/ /g, '')
+}
+// 可见修改
+function handlePShowChange (val) {
+  this[val] = !this[val]
 }
 // 对象转formdata
 // function objToFormData (config) { // 对象转formdata格式

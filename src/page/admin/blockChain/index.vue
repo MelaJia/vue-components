@@ -24,11 +24,11 @@ export default {
   },
   components: {
     'first': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/page/suplier/blockChain/first'),
+      import(/* webpackChunkName: 'Dialog' */ '@/page/admin/blockChain/first'),
     'second': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/page/suplier/blockChain/second'),
+      import(/* webpackChunkName: 'Dialog' */ '@/page/admin/blockChain/second'),
     'third': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/page/suplier/blockChain/third')
+      import(/* webpackChunkName: 'Dialog' */ '@/page/admin/blockChain/third')
   }
 }
 </script>

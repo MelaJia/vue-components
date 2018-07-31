@@ -14,8 +14,8 @@
           </el-tooltip>
         </li>
         <li>
-          <el-tooltip :content="'转让单位:'+this.detailsP.custFromName" placement="bottom" effect="light">
-            <span>转让单位: <em>{{this.detailsP.custFromName}}</em></span>
+          <el-tooltip :content="'转让单位:'+this.detailsP.custToName" placement="bottom" effect="light">
+            <span>授让单位: <em>{{this.detailsP.custToName}}</em></span>
           </el-tooltip>
         </li>
       </ul>
@@ -56,6 +56,11 @@
           <div class="a-link-group inline-block">
             <label v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo">{{item.invoiceNo}}</label>
           </div>
+        </span>
+      </ul>
+      <ul class="height-auto">
+        <span>备注:
+           <em>{{this.detailsP.remark}}</em>
         </span>
       </ul>
     </section>

@@ -180,7 +180,7 @@ function handleSearchFirst (val) {
   let from = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
   let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
   this.param = {
-    billBookCurr: val.billBookCurr, // 币别
+    currency: val.currency, // 币别
     beginDate: from, // 日期
     endDate: to
   }

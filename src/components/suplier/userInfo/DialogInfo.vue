@@ -129,6 +129,10 @@
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
 import commonDatas from '@/mixins/commonDatas' // 货币类型
 import Upload from '@/components/Items/upload'
+import {
+  getStore,
+  setStore
+} from '@/util/store'
 /* 企业认证 */
 export default {
   props: ['visibleP', 'form'],
@@ -179,6 +183,35 @@ export default {
         ]
       }
     }
+  },
+  mounted () {
+    this.moneyTypes = getStore({
+      name: 'moneyTypes'
+    })
+    // storage中无数据
+    if (!this.moneyTypes) {
+      console.log('从服务器获取通用数据')
+      // 获取货币类型并保存
+      this.axios.get('/commonAr/queryCurr.do').then(res => {
+        if (res.data.status) {
+          setStore({
+            name: 'moneyTypes',
+            content: res.data.data,
+            type: true
+          })
+          // 赋值
+          this.moneyTypes = res.data.data
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      })
+    }
+    // 全部索引
+    let idx = this.moneyTypes.findIndex(val => {
+      return val.currencyId === null
+    })
+    // 去除全部
+    this.moneyTypes.splice(idx, 1)
   },
   computed: {
     getTitle () {

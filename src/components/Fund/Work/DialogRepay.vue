@@ -75,15 +75,22 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+import Common from '@/mixins/common'
 import { debounce } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 export default {
   props: ['visibleP', 'detailsP'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, Common],
   data () {
     return {
       radio2: 3,
       payAmt: 0
+    }
+  },
+  watch: {
+    getTitle: function () {
+      // 置空
+      this.payAmt = 0
     }
   },
   computed: {
@@ -108,7 +115,8 @@ function handleSubmit () {
     custId: this.detailsP.custFromId, // 客户Id
     factoringCustId: this.detailsP.custToId, // 保理商Id
     masterChainId: this.detailsP.masterChainId, // AR单号
-    payAmt: this.needPayAmt // 还款金额
+    payAmt: this.payAmt, // 还款金额
+    periodNo: this.detailsP.periodNo // 期数
   }
   // 2.显示加载图标
   const loading = this.$loading(loadingConf.sub())

@@ -93,6 +93,8 @@ export default {
               type: 'success'
             })
           }
+        }).catch(err => {
+          console.log(err)
         })
         this.$store.commit(types.LOGOUT)
         this.$store.commit('DEL_ALL_TAG')

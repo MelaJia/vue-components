@@ -2,8 +2,8 @@ const wd = {
   crL: {
     loanId: '150',
     applyAmt: '150',
-    currencyDesc: '',
-    status: '',
+    currencyName: '',
+    statusName: '',
     repaymentType: '',
     loanAmt: '',
     payPrincipalAmt: '',
@@ -15,6 +15,7 @@ const wd = {
     totalRepayAmt: '',
     contractSignedDate: '120',
     repayDate: '120',
+    actualRepayDate: '120',
     operate: '200'
   }
 }
