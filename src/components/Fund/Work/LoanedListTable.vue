@@ -209,7 +209,11 @@ function handleRepay (idx, val) {
   // 获取数据
   // 引入mixins/common.js中getLoanDetail其中包含有加载loading
   console.log(val.masterChainId)
-  this.getLoanDetail('/loanQuery/queryLoanRepayInfo.do', { masterChainId: val.masterChainId }).then(res => {
+  let param = {
+    masterChainId: val.masterChainId,
+    periodNo: val.periodNo
+  }
+  this.getLoanDetail('/loanQuery/queryLoanRepayInfo.do', param).then(res => {
     this.details = res
     this.dialogRepayVisible = true
   })

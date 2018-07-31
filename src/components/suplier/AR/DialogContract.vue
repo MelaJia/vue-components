@@ -44,6 +44,13 @@ export default {
       'trailing': false
     })
   },
+  watch: {
+    // 发票置空
+    getTitle: function () {
+      // 置空
+      this.checkList = []
+    }
+  },
   computed: {
     getTitle () {
       return this.detailsP.masterChainId + '合同签署'

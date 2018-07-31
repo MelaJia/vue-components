@@ -29,10 +29,12 @@
             <p class="title">登录</p>
             <div class="iptContext">
               <div class="ipt-group">
-                <input type="text" v-model="ruleForm.phone" class="text iptphone">
+                <i class="icon-ipt-phone iconfont icon-yonghuming" :class="iptPhoneLight?'light': ''"></i>
+                <input type="text" v-model="ruleForm.phone" class="text iptphone" @focus="iptPhoneLight=true" @blur="iptPhoneLight=flase">
               </div>
               <div class="ipt-group">
-                <input type="password" maxlength="20" v-model="ruleForm.pass" class="text iptpassword" ref="input" placeholder="8-20位数字与字母组合的密码">
+                <i class="icon-ipt-pwd iconfont icon-mimaicon" :class="iptPWDLight?'light': ''"></i>
+                <input type="password" maxlength="20" v-model="ruleForm.pass" class="text iptpassword" ref="input" placeholder="8-20位数字与字母组合的密码" @focus="iptPWDLight=true" @blur="iptPWDLight=flase">
               </div>
               <div class="ipt-group picture">
                 <verify ref="verifyC" :is-sure="isVerify" @verify-ok="handleVerify"></verify>
@@ -109,14 +111,29 @@
 .el-button:hover {
   color: white;
 }
-.register{
+.register {
   position: relative;
 }
-.loginError{
+.loginError {
   position: absolute;
   bottom: 0;
   left: 0;
   height: 40px;
+}
+.icon-ipt-phone {
+  font-size: 24px;
+  position: absolute;
+  left: 35px;
+  top: 69px;
+}
+.icon-ipt-pwd {
+  font-size: 24px;
+  position: absolute;
+  left: 35px;
+  top: 130px;
+}
+.iconfont.light{
+  color:#81bcf9;
 }
 </style>
 
@@ -135,6 +152,8 @@ export default {
       loginLoading: false, // 登录加载中
       loginError: false, // 登录失败显示
       loginErrorInfo: '', // 登录信息失败提示
+      iptPhoneLight: false, // 用户名高亮
+      iptPWDLight: false, // 密码高亮
       ruleForm: {
         phone: '',
         pass: ''

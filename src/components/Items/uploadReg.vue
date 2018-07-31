@@ -1,5 +1,5 @@
 <template>
-  <el-upload class="avatar-uploader" :data="param" :headers="{'Authorization':token}" :action="`https://jurongtest.foxconn.com/JuXin/openapi/cust/userFilePicture`" :show-file-list="false" :on-progress="uploadVideoProcess" :before-upload="beforeAvatarUpload"  :on-success="handleAvatarSuccess" :on-error="uploadError">
+  <el-upload class="avatar-uploader" :data="param" :headers="{'Authorization':token}" :action="uploadUrl" :show-file-list="false" :on-progress="uploadVideoProcess" :before-upload="beforeAvatarUpload"  :on-success="handleAvatarSuccess" :on-error="uploadError">
     <el-progress v-if="videoFlag == true" type="circle" :percentage="videoUploadPercent" :status="status" :width="120"></el-progress>
     <img v-else-if="imgurl" :src="imgurl" class="avatar">
     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
