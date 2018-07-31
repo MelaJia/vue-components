@@ -55,12 +55,17 @@
     </section>
     <section class="layout form">
       <el-row>
-        <el-col :span="8" class="flex"><label>授让公司Id</label><el-input v-model.trim="receiveCustId" placeholder="请输入授让公司Id"></el-input></el-col>
-        <el-col :span="8" :offset="2" class="flex"><label>转让金额：</label><el-input v-model.number="transAmt" type="number" placeholder="请输入转让金额："></el-input></el-col>
+        <el-col :span="8" class="flex"><label>授让公司Id:</label><el-input v-model.trim="receiveCustId" placeholder="请输入授让公司Id"></el-input></el-col>
+        <el-col :span="8" :offset="2" class="flex"><label>转让金额:</label><el-input v-model.number="transAmt" type="number" placeholder="请输入转让金额："></el-input></el-col>
         <el-col :span="6">
           <el-tooltip class="item" effect="dark" :content="`已勾选发票总金额${thousandth(sum)}`" placement="top-start">
             <label class="sum-content">{{sum | regexNum}}</label>
           </el-tooltip>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24">
+          <label>备注:</label><el-input type="textarea" v-model.trim="remark" :maxlength="255" ></el-input>
         </el-col>
       </el-row>
     </section>
@@ -104,7 +109,8 @@ export default {
         name: '', // 授让公司名称
         status: false // 是否正确
       },
-      transAmt: 0,
+      transAmt: 0, // 转让金额
+      remark: '', // 备注
       checkList: [],
       sum: 0 // 勾选发票总金额
     }
@@ -114,8 +120,7 @@ export default {
     getTitle: function () {
       // 已选发票置空
       console.log('发票置空')
-      this.checkList = []
-      this.sum = []
+      Init.call(this)
     },
     receiveCustId: debounce(function (val) {
       this.axios.post('/commonCust/queryCustomer.do', { 'custId': val, 'companyName': '' }).then(res => {
@@ -156,6 +161,7 @@ function submit () {
     masterChainId: this.detailsP.masterChainId,
     receiveCustId: this.receiveCustId,
     transAmt: this.transAmt,
+    remark: this.remark,
     transferSelectedInvoice: this.checkList.join(',')
   }
   // 3.获取已勾选发票
@@ -236,5 +242,12 @@ function handleCheckedChange (value) {
   }, 0)
   // 赋值
   this.transAmt = this.sum = sum
+}
+function Init () {
+  console.log(this)
+  this.checkList = []
+  this.sum = []
+  this.transAmt = 0
+  this.receiveCustId = ''
 }
 </script>

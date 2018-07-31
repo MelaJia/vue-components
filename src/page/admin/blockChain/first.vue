@@ -16,27 +16,21 @@
             <el-input v-model="content.key"></el-input>
           </el-form-item>
           <el-form-item>
-            <div style="margin-bottom:10px;"><el-button type="default" @click="post('company')">企业查询</el-button></div>
             <div style="margin-bottom:10px;">
-              <el-button type="primary" @click="post('addAr')">Ar新增</el-button>
-              <el-button type="warning" @click="post('updateAr')">Ar更新</el-button>
-              <el-button type="default" @click="post('ar')">Ar查询</el-button>
-              <el-button type="default" @click="post('arQueryPermissionsAllocation')">Ar查询权限分配</el-button>
+              <el-button  type="primary" @click="post('addCompany')">企业新增</el-button>
+              <el-button  type="warning" @click="post('updateCompany')">企业更新</el-button>
+              <el-button  type="default" @click="post('company')">企业查询</el-button>
+              <el-button  type="default" @click="post('companyQueryPermissionsAllocation')">企业查看权限分配</el-button>
+              <el-button  type="default" @click="post('companyUpdatePermissionsAllocation')">企业修改权限分配</el-button>
+              <el-button  type="default" @click="post('companyAddPermissionsAllocation')">企业新增权限分配</el-button>
             </div>
             <div style="margin-bottom:10px;">
-              <el-button type="primary" @click="post('addArPay')">支付新增</el-button>
-              <el-button type="warning" @click="post('updateArPay')">支付更新</el-button>
-              <el-button type="default" @click="post('arPay')">支付查询</el-button>
-              <el-button type="default" @click="post('payQueryPermissionsAllocation')">支付查询权限分配</el-button>
-            </div>
-            <div style="margin-bottom:10px;">
-              <el-button type="primary" @click="post('addArDiscount')">贴现新增</el-button>
-              <el-button type="warning" @click="post('updateArDiscount')">贴现更新</el-button>
-              <el-button type="default" @click="post('discount')">贴现查询</el-button>
-              <el-button type="default" @click="post('discountQueryPermissionsAllocation')">贴现查询权限分配</el-button>
+              <el-button  type="default" @click="post('ar')">AR查询</el-button>
+              <el-button  type="default" @click="post('arPay')">支付查询</el-button>
+              <el-button  type="default" @click="post('discount')">贴现查询</el-button>
             </div>
             <div>
-              <el-button type="default" @click="post('contract')">合同查询</el-button>
+              <el-button  type="default" @click="post('contract')">合同查询</el-button>
             </div>
           </el-form-item>
           <el-form-item label="请求串">
@@ -46,16 +40,16 @@
             <el-button  type="primary" @click="sign(content)">生成签名串</el-button>
           </el-form-item>
            <el-form-item label="签名串">
-            <el-input type="textarea" v-model="content.signResult1" placeholder="生成签名串"></el-input>
+            <el-input type="textarea" v-model="signResult1" placeholder="生成签名串"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button  type="primary" @click="view(content)">请求</el-button>
+            <el-button  type="primary" @click="view(content)">发送</el-button>
           </el-form-item>
           <el-form-item>
             <div v-show="signError" class="col-md-offset-1 col-md-10"><span class="text-danger">{{signError}}</span></div>
           </el-form-item>
            <el-form-item label="结果">
-            <el-input type="textarea" v-model="content.signResult" placeholder="请求"></el-input>
+            <el-input type="textarea" v-model="signResult" placeholder="结果"></el-input>
           </el-form-item>
         </el-form>
       </el-col>
@@ -87,24 +81,24 @@ var tmpl = {
     method: 'getArDiscountById',
     content: {}
   },
-  arQueryPermissionsAllocation: {
-    key: 'arQueryPermission',
-    method: 'arQueryPermission',
-    content: {}
-  },
-  payQueryPermissionsAllocation: {
-    key: 'payQueryPermission',
-    method: 'payQueryPermission',
-    content: {}
-  },
-  discountQueryPermissionsAllocation: {
-    key: 'discountQueryPermission',
-    method: 'discountQueryPermission',
-    content: {}
-  },
   contract: {
     key: 'contractNo',
     method: 'getArContractByNo',
+    content: {}
+  },
+  companyQueryPermissionsAllocation: {
+    key: 'queryPermission',
+    method: 'queryPermission',
+    content: {}
+  },
+  companyUpdatePermissionsAllocation: {
+    key: 'updatePermission',
+    method: 'updatePermission',
+    content: {}
+  },
+  companyAddPermissionsAllocation: {
+    key: 'addPermission',
+    method: 'addPermission',
     content: {}
   },
   addContract: {
@@ -349,10 +343,11 @@ export default {
       _this.signResult = '请求中...'
       setStore({
         name: 'content',
-        content: JSON.stringify(_this.content)
+        content: _this.content
       })
-      this.post('/blockChainBrower/bcView.do', JSON.stringify(content)).then(res => {
-        _this.signResult = res.data
+      console.log(content)
+      this.axios.post('/blockChainBrower/bcView', content).then(res => {
+        _this.signResult = JSON.stringify(res.data, true, 2)
       })
     },
     sign: function (content) {
@@ -365,9 +360,9 @@ export default {
       _this.signResult1 = '请求中...'
       setStore({
         name: 'content',
-        content: JSON.stringify(_this.content)
+        content: _this.content
       })
-      this.post('/blockChainBrower/rsaSign.do', JSON.stringify(content)).then(res => {
+      this.axios.post('/blockChainBrower/rsaSign', content).then(res => {
         _this.signResult1 = res.data
       })
     }
@@ -376,7 +371,7 @@ export default {
     var _this = this
     _this.content.privateKey = 'MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCtBn5urZpFNq2PFyNj5jGRxwAgH1mCO1l9ANuMvwLr4PKQJyh5unfxrNPFKTRFgOFRWMP+4p7LAMHii53Lnp+S2ln5Pk8W+VwVqBiC79eI5pj3qw4vf6FLMTwiEq+aD+0qY/FwVKpbSw5gY8hHxfJKS0S9Ge/pVtXPX3rfAd8ZiHog8KcchipliQIecxSP3ij8TrTSBEPVHBMAOQCFFHAabEGRR4HrbodD4RoBi21noon2XWa2vwxUKTAVd2jYO+S/HrOJmP9WG9N4PPxncAmTe1ZvJsA9SL9OLV8GecC3OUxLwGCwfv0ww9NDca20Mc+LbGhbL/Bl6APFPznmFM6FAgMBAAECggEBAKvzai6/5DKoti8gBZHAML75D4zc2u1r4fEyqv3izhpwwV61K6pdv9mzsfmci1APVtyq5I0n1jtUk1p6+eRjzZ351bS3UY45XmQ/W6y0gnSRBrALlNtrcXXyhhoui8kFzuJz1HuYCH0VyEHOqDl75OAkkTmEz0ILhAzEjK2XhIovx7x2GbKMVIfJVQ695QBmhf0BrYOjHMPqCrsqIAOCSCokvqjaOi6mQgr+5eKCCAl+spSJJXreHV7m+MHLmlDfMBvpNlwp0u0VE/NlXJcDMqDjBMydXJEHUaz3erAatN3LNk2dcb55iUg1PZlPsjwyaGTdFHD/XBwYNA360ty9BsECgYEA/hbk7CRRyfJl30kRRsHTLajKu2rR+cUxYLVAUWp08a98/vTjx+yr4WbOdbQehCvZ6pzO9wCJCH8ry0qtsVgzZ+d2I4Wft4WR705QZetubQORrlvIwSoRiFI2hRZ2WXlILkJdzn39YfsnAU2fk7l9TDgpHMNug9284DPdnivscl0CgYEArlOOeirIkGMLwOgAYY4SABGBnya/c4ipYhCHI9ok8GE+/D8zC8GNIk0retA4bXPy9mxqnuUGqoBMvPfc17ioyhcRzqfxI9CJ4x/NOMD7NsZmbELfLMNIj8qFSCs/9E0nKab6wjK2p5V+W9fxbBsPLoeCrtEKeUbtW2/NefUJ2kkCgYBxcDE2CCUHvxOiM1HmQCSTDver4s3p8BLSdTlI3/lj6ZApl5WWLWCzWh20yPySz60TpHx2JCQJyhT4RtfzBEi3C8xfoYmj+psjttgIGKsNOnmw2UNwkeKP9PxoQJYH7jC+jlypEvCr7OAGIeyrnDWHcM9SCyJs9vMbOayosD149QKBgA4B5MboPSls6/raKX2tPsEGpxW0tVmBN6sLjPBSjPlLtxXpth5RtRd2f/HkXUReNr2aRI7z9C8rE/9zIymqStXCOMoUMIoiLZI0cfcHeqgSFRTJ4sjkACadrUv5PbBRqr3sDuYf0RFyL68NkPaQzg19EgEeButryZK5Txdnmx0RAoGBAO5EoBGPq5AdDxlA6vfPu7Rt1+vyyBSHhmbt6IYS780voUOw9VhK2TgX/VGhZ4xJ8IMGO3h7Ltvd04R/VmbS8ZoaA0Ss+xEyKNRQ2l+PToCNFhkg5ZnSasFpGTT5+1zU2DQTnu9A9ohnGaVSPdad1puSeb9RDrfyqBdYCOWSwTRI'
     _this.content.url = 'http://10.134.184.117:8081/openapi'
-    _this.content.clientId = 'jy'
+    _this.content.clientId = 'fjj'
   }
 }
 

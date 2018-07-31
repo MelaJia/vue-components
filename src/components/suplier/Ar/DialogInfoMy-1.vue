@@ -14,8 +14,8 @@
           </el-tooltip>
         </li>
         <li>
-          <el-tooltip :content="'对手单位:'+this.detailsP.custToName" placement="bottom" effect="light">
-           <span>对手单位: <em>{{this.detailsP.custToName}}</em></span>
+          <el-tooltip :content="'对手单位:'+this.detailsP.transUnitName" placement="bottom" effect="light">
+           <span>对手单位: <em>{{this.detailsP.transUnitName}}</em></span>
           </el-tooltip>
         </li>
       </ul>

@@ -28,7 +28,7 @@ export default {
         masterChainId: '150',
         billId: '150',
         isMasterAr: '',
-        company: '150',
+        transUnitName: '150',
         arStatusTypeName: '',
         currencyDesc: '',
         billBookAmt: '',

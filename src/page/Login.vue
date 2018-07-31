@@ -29,22 +29,11 @@
                 <input type="password" maxlength="20" v-model="ruleForm.pass" class="text iptpassword" ref="input" placeholder="8-20位数字与字母组合的密码">
               </div>
               <div class="ipt-group picture">
-                <verify :is-sure="isVerify" @verify-ok="handleVerify"></verify>
+                <verify ref="verifyC" :is-sure="isVerify" @verify-ok="handleVerify"></verify>
                 <el-alert v-if="sliderShow"
                   title="请拖动滑块进行验证"
                   type="error">
                 </el-alert>
-              </div>
-              <div class="iptChoose">
-                <label for="agree">
-                  <el-checkbox v-model="checked"></el-checkbox>&nbsp;我已阅读并同意
-                  <a :href="pdfUrl" target="_pdf" id="agreement"
-                    class="red">《钜信网服务协议》</a>
-                <el-alert v-if="checkShow"
-                  title="请同意相关协议"
-                  type="error">
-                </el-alert>
-                </label>
               </div>
               <div class="btnGroup">
                 <el-button type="button" id="register" class="btnRed" @click.stop="submitForm('ruleForm')" :loading="loginLoading">登录</el-button>
@@ -96,9 +85,9 @@
     <!-- 数据总览 end -->
     <div class="activeFotter" style="background: #03022e ">
       <p class="daBG">
-        <span><img src="@/assets/img/login/iconJY.png" />深圳钜信科技有限公司</span>
+        <span><img src="@/assets/img/login/iconJY.png" />Copyright © {{getYear}} 钜亿科技(深圳)有限公司</span>
         <span>深圳市龙华新区</span>
-      <span>服务热线：0755-66838888</span>
+      <span>服务热线：0755-66838888-25806</span>
       </p>
 
     </div>
@@ -121,23 +110,18 @@ import * as types from '@/store/types'
 import InputPhone from '@/components/Items/InputPhone'
 import InputPass from '@/components/Items/InputPass'
 import Verify from '@/components/Items/Verify'
-// import Valid from '@/mixins/Login/Validate'
 import Roles from '@/config/roles'
-import {baseUrl} from '@/config/env.js'
 export default {
   data () {
     return {
       showReg: false,
-      checked: false,
       isVerify: false,
       sliderShow: false, // 滑块验证错误信息显示
-      checkShow: false, // 协议未勾选错误信息显示
       loginLoading: false, // 登录加载中
       ruleForm: {
         phone: '',
         pass: ''
-      },
-      pdfUrl: `${baseUrl}/static/cnd/钜信网服务协议.pdf` // 服务协议文件地址
+      }
     }
   },
   components: {
@@ -145,21 +129,22 @@ export default {
     InputPass,
     Verify
   },
+  computed: {
+    // 获取年
+    getYear () {
+      let time = new Date()
+      return time.getFullYear()
+    }
+  },
   methods: {
     submitForm (formName) {
       if (!this.isVerify) {
         this.sliderShow = true
         return
       }
-      if (!this.checked) {
-        this.checkShow = true
-        return
-      }
       // 登录前清除信息
       this.$store.commit(types.LOGOUT)
       this.$store.commit('DEL_ALL_TAG')
-      // if (Valid.checkPass(this.ruleForm.pass)) {
-      // *************************分割线*************************
       this.loginLoading = true // 登录中
       let param = {
         phone: this.ruleForm.phone,
@@ -213,6 +198,9 @@ export default {
               message: res.data.msg,
               type: 'error'
             })
+            // 重置验证码
+            this.isVerify = false
+            this.$refs.verifyC.reset()
           }
         }).catch(err => {
           this.loginLoading = false // 登录失败
@@ -221,13 +209,12 @@ export default {
             message: err,
             type: 'error'
           })
+          // 重置验证码
+          // 重置验证码
+          this.isVerify = false
+          this.$refs.verifyC.reset()
         })
       }
-      // *************************分割线*************************
-      // } else {
-      //   console.log('error submit!!')
-      //   return false
-      // }
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()

@@ -103,6 +103,15 @@ const routes = [
         title: '欠款查询', // 名称
         requireAuth: true // 需要登录验证
       }
+    },
+    {
+      path: 'blockChain',
+      name: 'blockChain',
+      component: () => import(/* webpackChunkName: 'AR' */ '@/page/admin/blockChain/index'),
+      meta: {
+        title: '区块链', // 名称
+        requireAuth: true // 需要登录验证
+      }
     }
     ]
   }

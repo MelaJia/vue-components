@@ -102,6 +102,8 @@ function handleInfo (idx, val) {
   // 2.获取数据
   getDataBase.call(this, '/cust/customerDetailInfo.do', param, true).then((res) => {
     if (res) {
+      res.registeredCurrencyType = parseInt(res.registeredCurrencyType) // 货币类型数字转字符串
+      res.paidinCurrencyType = parseInt(res.paidinCurrencyType) // 货币类型数字转字符串
       // 3.设置数据
       this.details = res
       // 4.显示弹窗

@@ -94,22 +94,25 @@ export default {
         return false
       }
       this.axios.post('/cust/toverificationCode.do', { ssoId: 'a11c0b29d53794b2ecf1986ca3ad41d58803724b491121fa59aa0d85f5c46e7e', contactPhone: this.form.contactPhone }).then(res => {
-        console.log(res)
-      })
-      let that = this
-      let time = 60
-      this.btntype = ''
-      var sendTimer = setInterval(function () {
-        that.isOvertime = true
-        time--
-        that.word = '重新发送' + time
-        if (time < 0) {
-          that.isOvertime = false
-          this.btntype = 'primary'
-          clearInterval(sendTimer)
-          that.word = '获取验证码'
+        if (res.data.status) {
+          let that = this
+          let time = 60
+          this.btntype = ''
+          var sendTimer = setInterval(function () {
+            that.isOvertime = true
+            time--
+            that.word = '重新发送' + time
+            if (time < 0) {
+              that.isOvertime = false
+              this.btntype = 'primary'
+              clearInterval(sendTimer)
+              that.word = '获取验证码'
+            }
+          }, 1000)
+        } else {
+          this.$message.error(res.data.msg)
         }
-      }, 1000)
+      })
     }
   }
 }

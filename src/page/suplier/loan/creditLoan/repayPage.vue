@@ -44,7 +44,7 @@ export default {
   data () {
     return {
       loading: false,
-      postUrl: '/myAr/getMyArListTable.do',
+      postUrl: '/creditLoan/supplierCreditLoanManageList.do',
       dataStr: 'data',
       totalStr: 'recordsTotal'
     }

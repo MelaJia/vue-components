@@ -36,7 +36,7 @@
               <el-table-column align="center" :width="widthArr.isMasterAr" >
                 >
               </el-table-column>
-              <el-table-column align="center" prop="company" :width="widthArr.company">
+              <el-table-column align="center" prop="transUnitName" :width="widthArr.transUnitName">
               </el-table-column>
               <el-table-column align="center" prop="arStatusTypeName" :width="widthArr.arStatusTypeName">
               </el-table-column>
@@ -80,7 +80,7 @@
         </el-table-column>
         <el-table-column align="center" label="AR来源" prop="isMasterAr" :formatter="originFormat">
         </el-table-column>
-        <el-table-column align="center" label="付款单位/对手单位" prop="company" width="150">
+        <el-table-column align="center" label="付款单位/对手单位" prop="transUnitName" width="150">
         </el-table-column>
         <el-table-column align="center" label="状态" prop="arStatusTypeName">
         </el-table-column>
@@ -93,6 +93,27 @@
         <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120">
         </el-table-column>
         <el-table-column align="center" label="打款处理状态" prop="billPayStatus" width="120">
+          <template slot-scope="scope">
+            <el-tooltip class="item" effect="light" placement="top-start">
+              <div slot="content" class="status-tooltip">
+                <ul>
+                  <li :style="scope.row.signStatusId===0?'color:red':''">会计确认</li><span>-></span>
+                  <li :style="scope.row.signStatusId===1?'color:red':''">财务确认</li><span>-></span>
+                  <li :style="scope.row.signStatusId===2?'color:red':''">财务已付款</li><span>-></span>
+                  <li :style="scope.row.signStatusId===3?'color:red':''">付款单确认</li>
+                </ul>
+                <ul>
+                  <li :style="scope.row.signStatusId===0?'color:red':''">{{scope.row.signStatusId===0&&scope.row.signStatusName?`(${scope.row.signStatusName})`: ''}}</li>
+                  <li :style="scope.row.signStatusId===1?'color:red':''">{{scope.row.signStatusId===1&&scope.row.signStatusName?`(${scope.row.signStatusName})`: ''}}</li>
+                  <li :style="scope.row.signStatusId===2?'color:red':''">{{scope.row.signStatusId===2&&scope.row.signStatusName?`(${scope.row.signStatusName})`: ''}}</li>
+                  <li :style="scope.row.signStatusId===3?'color:red':''">{{scope.row.signStatusId===3&&scope.row.signStatusName?`(${scope.row.signStatusName})`: ''}}</li>
+                </ul>
+              </div>
+              <span>
+                {{scope.row.billPayStatus}}
+              </span>
+            </el-tooltip>
+          </template>
         </el-table-column>
         <el-table-column align="left" header-align="center" label="操作" width='250px' class-name="">
           <template slot-scope="scope">
@@ -142,6 +163,23 @@ header {
   }
   .full-width {
     width: 100%;
+  }
+}
+.status-tooltip{
+  ul{
+    padding: 0;
+  }
+  li {
+    list-style: none;
+    display: inline-block;
+  }
+  ul:last-child {
+    li{
+      width: 63px;
+    }
+    li:nth-of-type(n+3){
+      width: 75px;
+    }
   }
 }
 </style>

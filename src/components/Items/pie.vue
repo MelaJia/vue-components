@@ -1,5 +1,5 @@
 <template>
-  <div ref="pie" id="pie" style="width: 100px;height:100px;"></div>
+  <div ref="pie" id="pie" style="width: 85px;height:85px;"></div>
 </template>
 <script>
 // 引入 ECharts 主模块

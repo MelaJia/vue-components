@@ -110,6 +110,7 @@ export default {
       console.log('发票置空')
       this.checkList = []
       this.sum = []
+      this.transAmt = 0
     }
   },
   computed: {

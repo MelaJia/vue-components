@@ -18,9 +18,9 @@
               </el-table-column>
               <el-table-column align="center" prop="applyAmt" :width="widthArr.applyAmt">
               </el-table-column>
-              <el-table-column align="center" :width="widthArr.currencyDesc" >
+              <el-table-column align="center" prop="currencyName" :width="widthArr.currencyName" >
               </el-table-column>
-              <el-table-column align="center" prop="status" :width="widthArr.status">
+              <el-table-column align="center" prop="statusName" :width="widthArr.statusName">
               </el-table-column>
               <el-table-column align="center" prop="repaymentType" :width="widthArr.repaymentType">
               </el-table-column>
@@ -44,6 +44,8 @@
               </el-table-column>
               <el-table-column align="center" prop="repayDate" :width="widthArr.repayDate" :formatter="dateFormat">
               </el-table-column>
+              <el-table-column align="center" prop="actualRepayDate" :formatter="dateFormat" :width="widthArr.actualRepayDate">
+              </el-table-column>
               <el-table-column align="center" width='200px'>
               </el-table-column>
             </el-table>
@@ -58,9 +60,9 @@
         </el-table-column>
         <el-table-column align="center" label="融资申请金额" prop="applyAmt" width="150">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyDesc" :formatter="originFormat">
+        <el-table-column align="center" label="币别" prop="currencyName" >
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="status">
+        <el-table-column align="center" label="状态" prop="statusName">
         </el-table-column>
         <el-table-column align="center" label="还款方式" prop="repaymentType">
         </el-table-column>
@@ -83,6 +85,8 @@
         <el-table-column align="center" label="合同签署日期" prop="contractSignedDate" :formatter="dateFormat" width="120">
         </el-table-column>
         <el-table-column align="center" label="还款日期" prop="repayDate" :formatter="dateFormat" width="120">
+        </el-table-column>
+        <el-table-column align="center" label="实际还款日期" prop="actualRepayDate" :formatter="dateFormat" width="120">
         </el-table-column>
         <el-table-column align="center" label="操作" width='200px' class-name="">
           <template slot-scope="scope">

@@ -65,7 +65,7 @@
                   </el-tooltip>
                 </template>
               </el-table-column>
-              <el-table-column align="left" width='200px'>
+              <el-table-column align="center" width='200px'>
                 <template slot-scope="scope">
                   <el-button size="mini" type="primary" @click="handleRepay(scope.$index, props.row)">还款</el-button>
                 </template>
@@ -209,7 +209,7 @@ function handleRepay (idx, val) {
   // 获取数据
   // 引入mixins/common.js中getLoanDetail其中包含有加载loading
   console.log(val.masterChainId)
-  this.getLoanDetail('/loan2/queryLoanInfo.do', { masterChainId: val.masterChainId }).then(res => {
+  this.getLoanDetail('/loanQuery/queryLoanRepayInfo.do', { masterChainId: val.masterChainId }).then(res => {
     this.details = res
     this.dialogRepayVisible = true
   })

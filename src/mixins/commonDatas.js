@@ -40,6 +40,8 @@ export default {
         } else {
           this.$message.error(res.data.msg)
         }
+      }).catch(err => {
+        console.log(err)
       })
     }
     if (!this.repayTypes) {
@@ -57,6 +59,8 @@ export default {
         } else {
           this.$message.error(res.data.msg)
         }
+      }).catch(err => {
+        console.log(err)
       })
     }
     // storage中无数据
@@ -75,6 +79,8 @@ export default {
         } else {
           this.$message.error(res.data.msg)
         }
+      }).catch(err => {
+        console.log(err)
       })
       // 获取ar状态并保存
       this.axios.get('/commonAr/queryARStatusType.do').then(res => {
@@ -93,6 +99,8 @@ export default {
         } else {
           this.$message.error(res.data.msg)
         }
+      }).catch(err => {
+        console.log(err)
       })
     } else { // storage中有数据
       const statusArr = getStore({

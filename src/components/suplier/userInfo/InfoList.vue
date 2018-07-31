@@ -25,10 +25,10 @@
       <ul>
         <li :span="8"><span>纳税人识別号：</span>{{infos.payTaxesNumber}}</li>
         <li :span="8"><span>供应商代码：</span>{{infos.vendorCodes}}</li>
-        <li :span="8"><span>注册资本: </span>{{infos.registeredCapital | regexNum}}</li>
+        <li :span="8"><span>注册资本: </span>{{infos.registeredCapital | regexNum}} ({{getRegisteredCurrencyType}})</li>
       </ul>
       <ul>
-        <li :span="8"><span>实收资本：</span>{{infos.paidinCapital | regexNum}}</li>
+        <li :span="8"><span>实收资本：</span>{{infos.paidinCapital | regexNum}} ({{getPaidinCurrencyType}})</li>
         <li :span="8"><span>公司成立日期：</span>{{infos.establishDate | dateFormat}}</li>
         <li :span="8"><span>营业执照开始日期：</span>{{infos.businessStartDate | dateFormat}}</li>
       </ul>
@@ -75,21 +75,46 @@
 <script>
 /* 用户信息列表 */
 import Common from '@/mixins/common'
+import commonDatas from '@/mixins/commonDatas' // 货币类型
 export default {
   props: ['infos'],
-  mixins: [Common]
+  mixins: [Common, commonDatas],
+  computed: {
+    // 实收资本单位
+    getPaidinCurrencyType () {
+      // 全部索引
+      let result = null
+      if (this.moneyTypes) {
+        result = this.moneyTypes.find(val => {
+          return val.currencyId === this.infos.paidinCurrencyType
+        })
+      }
+      return result ? result.currencyDesc : ''
+    },
+    // 注册资本单位
+    getRegisteredCurrencyType () {
+      // 全部索引
+      let result = null
+      if (this.moneyTypes) {
+        result = this.moneyTypes.find(val => {
+          return val.currencyId === this.infos.registeredCurrencyType
+        })
+      }
+      return result ? result.currencyDesc : ''
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
- li{
-   list-style: none;
-    width: 31%;
-    display: inline-block;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    line-height: 32px;
-    text-align: left;
-    padding-left: 5px;
- }
+li {
+  list-style: none;
+  width: 31%;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 32px;
+  text-align: left;
+  padding-left: 5px;
+}
 </style>

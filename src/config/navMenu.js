@@ -15,13 +15,13 @@ const navs = {
       },
       {
         idx: 'getar',
-        text: '待收AR',
+        text: '购入AR管理',
         disabled: false,
         lClass: 'line',
         hClass: 'circle'
       }, {
         idx: 'cancelar',
-        text: '取消转让',
+        text: '转让AR管理',
         disabled: false,
         lClass: 'line',
         hClass: 'circle'
@@ -468,6 +468,19 @@ const navs = {
       {
         idx: 'myarrear',
         text: '欠款查询',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      }]
+    }, {
+      idx: '4',
+      text: '区块链',
+      disabled: false,
+      lClass: 'start-line',
+      hClass: 'header-circle bg-icon-1',
+      childrens: [{
+        idx: 'blockChain',
+        text: '区块链演示',
         disabled: false,
         lClass: 'line',
         hClass: 'circle'

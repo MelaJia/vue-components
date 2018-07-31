@@ -41,10 +41,10 @@
       </ul>
       <ul>
         <li>
-         <span>贴现利率: <em>{{this.detailsP.interestRate}}</em></span>
+         <span>年利率: <em>{{this.detailsP.interestRate |addPercent}}</em></span>
         </li>
         <li>
-         <span>逾期利率: <em>{{this.detailsP.overdueRate}}</em></span>
+         <span>逾期利率: <em>{{this.detailsP.overdueRate |addPercent}}</em></span>
         </li>
       </ul>
       <ul>

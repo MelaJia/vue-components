@@ -501,6 +501,7 @@ export const LoanedDatas={
             "payFineAmt": null,
             "payFineDays": null,
             "prepayServiceAmt": null,
+            'needPayAmt': 1250,
             "payAmt": null,
             "loanDate": null,
             "defaultRepayDate": null,
@@ -521,6 +522,7 @@ export const LoanedDatas={
                 "payFineAmt": null,
                 "payFineDays": null,
                 "prepayServiceAmt": null,
+                'needPayAmt': 1250,
                 "payAmt": null,
                 "loanDate": null,
                 "defaultRepayDate": null,
@@ -735,6 +737,7 @@ export const dataDetails={
     "bankName":"PBOC",
     "billBookAmt":378705.00,
     "checkedStatus":22,
+    'needPayAmt': 1250,
     "companyName":"鴻富泰精密電子(煙台)有限公司",
     "invoiceCustomList":[
         {

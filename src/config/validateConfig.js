@@ -28,10 +28,11 @@ let check = function (key, smsg, url = '/cust/check') {
           if (res.data.status) {
             callback()
           } else {
-            callback(new Error(`${smsg}已存在`))
+            callback(new Error(res.data.msg))
           }
         }).catch(err => {
           console.log(err)
+          this.$message.error('系统错误，请联系管理员!')
         })
       }
     }
@@ -43,7 +44,7 @@ let check = function (key, smsg, url = '/cust/check') {
  * @param {string} smsg 提示信息
  * @param {str} url 地址
  */
-let checkPass = function (key, smsg, url = '/cust/check') {
+let validPass = function (key, smsg, url = '/cust/check') {
   return (rule, value, callback) => {
     if (!value) {
       callback(new Error(`${smsg}不能为空`))
@@ -56,6 +57,9 @@ let checkPass = function (key, smsg, url = '/cust/check') {
         }).then(res => {
           console.log(res)
           if (res.data.status) {
+            if (vcg.scope.getForm.checkPass !== '') {
+              vcg.scope.$refs['form-1'].validateField('checkPass')
+            }
             callback()
           } else {
             callback(new Error(res.data.msg))
@@ -67,6 +71,16 @@ let checkPass = function (key, smsg, url = '/cust/check') {
     }
   }
 }
+let validPass2 = (rule, value, callback) => {
+  let _this = vcg.scope
+  if (value === '') {
+    callback(new Error('请再次输入密码'))
+  } else if (value !== _this.getForm.custPassword) {
+    callback(new Error('两次输入密码不一致!'))
+  } else {
+    callback()
+  }
+}
 let validOne = {
   custUsername: [{
     required: true,
@@ -75,9 +89,12 @@ let validOne = {
   }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
   custPassword: [{
     required: true,
-    validator: checkPass('custPassword', '登录密码'),
+    validator: validPass('custPassword', '登录密码'),
     trigger: 'blur'
   }],
+  checkPass: [
+    { required: true, validator: validPass2, trigger: 'blur' }
+  ],
   custNickname: [{
     required: true,
     validator: check('custNickname', '昵称'),
@@ -240,24 +257,29 @@ let validThree = {
   }],
   accountOpeningBranch: [{
     required: true,
-    message: '请输入营业执照所在地',
+    message: '请输入开户支行',
     trigger: 'blur'
   }],
   bankName: [{
     required: true,
-    message: '请输入营业执照所在地',
+    message: '请输入银行名称',
     trigger: 'blur'
-  }],
+  }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
   bankAccount: [{
     required: true,
-    message: '请输入营业执照所在地',
+    message: '请输入银行账号',
+    trigger: 'blur'
+  }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' },
+  {
+    pattern: /^([1-9]{1})(\d{14}|\d{18})$/,
+    message: '银行账号格式错误',
     trigger: 'blur'
   }],
   bankShortName: [{
     required: true,
-    message: '请输入营业执照所在地',
+    message: '请输入开户支行',
     trigger: 'blur'
-  }]
+  }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }]
 }
 vcg.setValid('validOne', validOne)
 vcg.setValid('validTwo', validTwo)

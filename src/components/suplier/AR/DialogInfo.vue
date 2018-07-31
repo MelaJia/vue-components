@@ -52,6 +52,18 @@
           </div>
         </span>
       </ul>
+      <ul class="height-auto" v-if="detailsP.checkedStatus!==6&&detailsP.checkedStatus!==9">
+        <span>对应发票号:
+          <div class="a-link-group inline-block">
+            <label v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo">{{item.invoiceNo}}</label>
+          </div>
+        </span>
+      </ul>
+      <ul class="height-auto">
+        <span>备注:
+           <em>{{this.detailsP.remark}}</em>
+        </span>
+      </ul>
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
@@ -82,7 +94,7 @@ export default {
   },
   computed: {
     getTitle () {
-      return this.detailsP.masterChainId + '详情'
+      return '详情'
     }
   },
   methods: {

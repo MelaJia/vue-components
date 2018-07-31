@@ -2,13 +2,13 @@
   <div class="verify">
     <div id="verify_box">
       <div id="verify_xbox">
-        <section v-if="isSure">
+        <section v-show="isSure">
           验证通过
-          <div id="btn">
+          <div class="btn">
             <img style="margin-top:8px" src="@/assets/img/login/kkkk.png" />
           </div>
         </section>
-        <div v-else id="btn">
+        <div v-show="!isSure" class="btn" id="btn">
           <img src="@/assets/img/login/lllllll.png" />
         </div>
 
@@ -40,7 +40,7 @@
   background: #7bbb55;
 }
 
-#btn {
+.btn {
   cursor: pointer;
   width: 54px;
   height: 40px;
@@ -117,7 +117,48 @@ export default {
         document.onmouseup = null
       }
     }
+  },
+  methods: {
+    reset () {
+      var box = document.getElementById('verify_box')
+      var xbox = document.getElementById('verify_xbox')
+      var element = document.getElementById('btn')
+      var b = box.offsetWidth
+      var o = element.offsetWidth ? element.offsetWidth : 56
+      const _that = this
+      xbox.style.width = o + 'px'
+      element.ondragstart = function () {
+        return false
+      }
+      element.onselectstart = function () {
+        return false
+      }
+      element.onmousedown = function (e) {
+        var disX = e.clientX - element.offsetLeft
+        document.onmousemove = function (e) {
+          var l = e.clientX - disX + o
+          if (l < o) {
+            l = o
+          }
+          if (l > b) {
+            l = b
+          }
+          xbox.style.width = l + 'px'
+        }
+        document.onmouseup = function (e) {
+          var l = e.clientX - disX + o
+          if (l < b) {
+            l = o
+          } else {
+            l = b
+            _that.$emit('verify-ok')
+          }
+          xbox.style.width = l + 'px'
+          document.onmousemove = null
+          document.onmouseup = null
+        }
+      }
+    }
   }
 }
-
 </script>

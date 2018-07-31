@@ -1,5 +1,5 @@
 <template>
-  <el-upload class="avatar-uploader" :data="param" :headers="{'Authorization':token}" :action="uploadUrl" :show-file-list="false" :on-progress="uploadVideoProcess" :before-upload="beforeAvatarUpload" :on-success="handleAvatarSuccess" :on-error="uploadError">
+  <el-upload class="avatar-uploader" :data="param" :headers="{'Authorization':token}" :action="`https://jurongtest.foxconn.com/JuXin/openapi/cust/userFilePicture`" :show-file-list="false" :on-progress="uploadVideoProcess" :before-upload="beforeAvatarUpload"  :on-success="handleAvatarSuccess" :on-error="uploadError">
     <el-progress v-if="videoFlag == true" type="circle" :percentage="videoUploadPercent" :status="status" :width="120"></el-progress>
     <img v-else-if="imgurl" :src="imgurl" class="avatar">
     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -70,8 +70,12 @@ function handleAvatarSuccess (res, file) {
   setTimeout(() => {
     this.videoFlag = false
   }, 1000)
-  this.imgurl = URL.createObjectURL(file.raw)
-  this.$emit('get-url', res) // 返回图片地址
+  if (res.status) {
+    this.imgurl = res.data
+    this.$emit('get-url', res) // 返回图片地址
+  } else {
+    this.$message.error(res.msg)
+  }
 }
 // 上传进度
 function uploadVideoProcess (event, file, fileList) {
