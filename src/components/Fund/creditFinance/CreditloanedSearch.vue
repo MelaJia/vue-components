@@ -31,13 +31,13 @@
         <el-form-item label="金额范围">
           <el-col :span="11">
             <el-form-item prop="amountBegin">
-              <el-input v-model="formInline.amountBegin" placeholder="起始金额"></el-input>
+              <el-input v-model="formInline.amountBegin" clearable placeholder="起始金额"></el-input>
             </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
             <el-form-item prop="amountEnd">
-              <el-input v-model="formInline.amountEnd" placeholder="结束金额"></el-input>
+              <el-input v-model="formInline.amountEnd" clearable placeholder="结束金额"></el-input>
             </el-form-item>
           </el-col>
         </el-form-item>

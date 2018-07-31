@@ -49,13 +49,13 @@
         <el-form-item label="金额范围">
           <el-col :span="11">
             <el-form-item prop="taxTotalStart">
-              <el-input v-model="formInline.taxTotalStart" placeholder="起始金额"></el-input>
+              <el-input v-model="formInline.taxTotalStart" clearable placeholder="起始金额"></el-input>
             </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
             <el-form-item prop="taxTotalEnd">
-              <el-input v-model="formInline.taxTotalEnd" placeholder="结束金额"></el-input>
+              <el-input v-model="formInline.taxTotalEnd" clearable placeholder="结束金额"></el-input>
             </el-form-item>
           </el-col>
         </el-form-item>

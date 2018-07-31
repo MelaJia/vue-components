@@ -47,13 +47,13 @@
         <el-form-item label="应付金额">
           <el-col :span="11">
             <el-form-item prop="oriAmtBegin">
-              <el-input v-model="formInline.oriAmtBegin" placeholder="起始金额"></el-input>
+              <el-input v-model="formInline.oriAmtBegin" clearable placeholder="起始金额"></el-input>
             </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
             <el-form-item prop="oriAmtEnd">
-              <el-input v-model="formInline.oriAmtEnd" placeholder="结束金额"></el-input>
+              <el-input v-model="formInline.oriAmtEnd" clearable placeholder="结束金额"></el-input>
             </el-form-item>
           </el-col>
         </el-form-item>
@@ -64,13 +64,13 @@
         <el-form-item label="已付金额">
           <el-col :span="11">
             <el-form-item prop="oriPaidAmtBegin">
-              <el-input v-model="formInline.oriPaidAmtBegin" placeholder="起始金额"></el-input>
+              <el-input v-model="formInline.oriPaidAmtBegin" clearable placeholder="起始金额"></el-input>
             </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
             <el-form-item prop="oriPaidAmtEnd">
-              <el-input v-model="formInline.oriPaidAmtEnd" placeholder="结束金额"></el-input>
+              <el-input v-model="formInline.oriPaidAmtEnd" clearable placeholder="结束金额"></el-input>
             </el-form-item>
           </el-col>
         </el-form-item>
@@ -79,13 +79,13 @@
         <el-form-item label="未付金额">
           <el-col :span="11">
             <el-form-item prop="oriUnPaidAmtBegin">
-              <el-input v-model="formInline.oriUnPaidAmtBegin" placeholder="起始金额"></el-input>
+              <el-input v-model="formInline.oriUnPaidAmtBegin" clearable placeholder="起始金额"></el-input>
             </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
             <el-form-item prop="oriUnPaidAmtEnd">
-              <el-input v-model="formInline.oriUnPaidAmtEnd" placeholder="结束金额"></el-input>
+              <el-input v-model="formInline.oriUnPaidAmtEnd" clearable placeholder="结束金额"></el-input>
             </el-form-item>
           </el-col>
         </el-form-item>

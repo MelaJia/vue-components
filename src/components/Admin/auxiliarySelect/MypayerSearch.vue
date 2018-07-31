@@ -47,13 +47,13 @@
         <el-form-item label="实际付款金额">
           <el-col :span="11">
             <el-form-item prop="rcvAmtOriginStart">
-              <el-input v-model="formInline.rcvAmtOriginStart" placeholder="起始金额"></el-input>
+              <el-input v-model="formInline.rcvAmtOriginStart" clearable placeholder="起始金额"></el-input>
             </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
             <el-from-item prop="rcvAmtOriginEnd">
-              <el-input v-model="formInline.rcvAmtOriginEnd" placeholder="结束金额"></el-input>
+              <el-input v-model="formInline.rcvAmtOriginEnd" clearable placeholder="结束金额"></el-input>
             </el-from-item>
           </el-col>
         </el-form-item>
