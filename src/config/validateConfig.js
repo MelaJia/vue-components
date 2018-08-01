@@ -32,7 +32,7 @@ let check = function (key, smsg, url = '/cust/check') {
           }
         }).catch(err => {
           console.log(err)
-          vcg.scope.$message.error('系统错误，请联系管理员!')
+          callback(new Error(`验证失败请联系管理员`))
         })
       }
     }
@@ -66,7 +66,7 @@ let validPass = function (key, smsg, url = '/cust/check') {
           }
         }).catch(err => {
           console.log(err)
-          vcg.scope.$message.error('系统错误，请联系管理员!')
+          callback(new Error(`验证失败请联系管理员`))
         })
       }
     }
@@ -136,12 +136,7 @@ let validOne = {
   }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
   contactIdcardNum: [{
     required: true,
-    validator: check('custUsername', '身份证'),
-    trigger: 'blur'
-  },
-  {
-    pattern: /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/,
-    message: '身份证格式错误',
+    validator: check('contactIdcardNum', '身份证'),
     trigger: 'blur'
   }
   ],
@@ -174,12 +169,7 @@ let validOne = {
   }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
   legalIdcardNum: [{
     required: true,
-    message: '请填写联系人身份证',
-    trigger: 'blur'
-  },
-  {
-    pattern: /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/,
-    message: '身份证格式错误',
+    validator: check('legalIdcardNum', '身份证'),
     trigger: 'blur'
   }
   ],
