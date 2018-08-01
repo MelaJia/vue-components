@@ -62,15 +62,24 @@ export default {
 }
 // 上传成功处理函数
 function handleAvatarSuccess (res, file) {
-  this.videoUploadPercent = 100
-  this.status = 'success'
-  setTimeout(() => {
-    this.videoFlag = false
-  }, 1000)
   if (res.status) {
+    // 更新进度条
+    this.videoUploadPercent = 100
+    this.status = 'success'
+    setTimeout(() => {
+      this.videoFlag = false
+    }, 1000)
+    // 显示图片
     this.imgurl = res.data
+    // 通知父组件更新地址
     this.$emit('get-url', res) // 返回图片地址
   } else {
+    // 更新进度条
+    this.status = 'exception'
+    setTimeout(() => {
+      this.videoFlag = false
+    }, 1000)
+    // 弹出提示信息
     this.$message.error(res.msg)
   }
 }
@@ -90,7 +99,7 @@ function uploadError (err, file, fileList) {
 // 检查上传文件
 function beforeAvatarUpload (file) {
   console.log(file)
-  const typeReg = /(gif|jpg|jpeg|png|GIF|JPG|PNG)$/
+  const typeReg = /(gif|jpg|jpeg|png|GIF|JPG|JPEG|PNG)$/
   const isIMG = typeReg.test(file.type)
   const isLt4M = file.size / 1024 / 1024 < 4
 

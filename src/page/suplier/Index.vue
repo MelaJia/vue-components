@@ -304,8 +304,8 @@ function getdata (scope) {
         const element = scope.sortArr[key]
         // 设置右侧列表数据
         if (element.key !== 'onReceiveAmout') {
-          scope.rightDataArr[element.key].firData.value = res.data.data[`${element.key}AvailableAmout`]
-          scope.rightDataArr[element.key].secData.value = element.key === 'unOperate' ? res.data.data[`${element.key}UnavailableAmout`] : res.data.data[`${element.key}ExpiredAmout`]
+          scope.rightDataArr[element.key].firData.value = res.data.data[`${element.key}AvailableAmout`] || 0
+          scope.rightDataArr[element.key].secData.value = element.key === 'unOperate' ? res.data.data[`${element.key}UnavailableAmout`] || 0 : res.data.data[`${element.key}ExpiredAmout`] || 0
           // 填充饼图数据
           amtArr.push({ value: res.data.data[`${element.key}SumAmout`], name: element.text })
         } else {

@@ -15,28 +15,28 @@
           <span>贴现客户: <em>{{this.detailsP.custFromName}}</em></span>
         </li>
       </ul>
-      <!-- <ul>
-        <li>
-          <span>付款银行名称: <em>{{this.detailsP.payerBankName}}</em></span>
-        </li>
-        <li>
-          <span>付款银款账号: <em>{{this.detailsP.payerBankAccount}}</em></span>
-        </li>
-      </ul> -->
       <ul>
         <li>
-          <span>贴现客户收款银行: <em>{{this.detailsP.bankName}}</em></span>
+          <span>付款银行名称: <em>{{this.detailsP.repayBankName}}</em></span>
         </li>
         <li>
-          <span>贴现客户收款银行: <em>{{this.detailsP.bankAccount}}</em></span>
+          <span>付款银款账号: <em>{{this.detailsP.repayBankAccount}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>应还款金额: <em>{{this.detailsP.needPayAmt | regexNum}}</em></span>
+          <span>贴现客户收款银行名称: <em>{{this.detailsP.receiveBankName}}</em></span>
         </li>
         <li>
-          <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>
+          <span>贴现客户收款银行账号: <em>{{this.detailsP.receiveBankAccount}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>应还款金额: <em>{{this.detailsP.repayAmt | regexNum}}</em></span>
+        </li>
+        <li>
+          <span>币别: <em>{{this.detailsP.repayCurrencyName}}</em></span>
         </li>
       </ul>
       <ul>
@@ -76,8 +76,7 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
-import { debounce } from '@/util/util' // 防抖函数
-import { loadingConf } from '@/config/common' // 获取加载配置
+import { debounce, postDataBase } from '@/util/util' // 防抖函数 发送函数
 export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, Common],
@@ -105,11 +104,11 @@ export default {
 }
 // 填入应还金额
 function handleFill () {
-  this.payAmt = this.detailsP.needPayAmt
+  this.payAmt = this.detailsP.repayAmt
 }
 // 提交
 function handleSubmit () {
-  // 1.获取发送数据
+  // 1.设置发送数据
   let param = {
     custId: this.detailsP.custFromId, // 客户Id
     factoringCustId: this.detailsP.custToId, // 保理商Id
@@ -117,29 +116,13 @@ function handleSubmit () {
     payAmt: this.payAmt, // 还款金额
     periodNo: this.detailsP.periodNo // 期数
   }
-  // 2.显示加载图标
-  const loading = this.$loading(loadingConf.sub())
-  // 3.发送数据
-  this.axios.post('/loanQuery/repayLoan.do', param).then(res => {
-    let type = res.data.status ? 'success' : 'error'
-    this.$message({
-      message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-      type: type
-    })
-    // 关闭加载图标
-    loading.close()
+  // 2.发送数据 转移this指向
+  postDataBase.call(this, '/loanQuery/repayLoan.do', param, true).then(res => {
     // 操作成功关闭弹窗刷新数据
     if (res.data.status) {
       this.$parent.fresh()
       this.handleClose()
     }
-  }).catch(() => {
-    this.$message({
-      type: 'info',
-      message: '操作失败'
-    })
-    // 关闭加载图标
-    loading.close()
   })
 }
 </script>

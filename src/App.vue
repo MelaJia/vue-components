@@ -54,4 +54,8 @@ html,body,#app,#app>div,#app>div>main,.main-section,.main-section>div{
 .pswp--open {
     z-index: 2600;
 }
+// 表格子数据滚动条隐藏
+td>.el-table--scrollable-x .el-table__body-wrapper {
+    overflow-x: hidden;
+}
 </style>

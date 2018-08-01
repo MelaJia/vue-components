@@ -137,7 +137,6 @@ let validOne = {
   contactIdcardNum: [{
     required: true,
     validator: check('custUsername', '身份证'),
-    message: '请填写联系人身份证',
     trigger: 'blur'
   },
   {
@@ -272,7 +271,7 @@ let validThree = {
     trigger: 'blur'
   }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' },
   {
-    pattern: /^([1-9]{1})(\d{14}|\d{18})$/,
+    pattern: /^\d+$/,
     message: '银行账号格式错误',
     trigger: 'blur'
   }],

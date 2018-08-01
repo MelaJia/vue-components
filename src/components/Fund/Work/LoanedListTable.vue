@@ -12,7 +12,7 @@
     <!-- 还款 -->
     <dialog-repay :visible-p.sync="dialogRepayVisible" :details-p="details" ></dialog-repay>
     <section>
-      <el-table :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+      <el-table id="tb" :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([6])" border style="width: 100%"
         @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle">
         <el-table-column type="expand" fixed>
@@ -67,7 +67,7 @@
               </el-table-column>
               <el-table-column align="center" width='200px'>
                 <template slot-scope="scope">
-                  <el-button size="mini" type="primary" @click="handleRepay(scope.$index, props.row)">还款</el-button>
+                  <el-button size="mini" type="primary" @click="handleRepay(scope.$index, props.row, scope.row)">还款</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -205,14 +205,15 @@ function handleInfo (idx, val) {
 /**
  * 还款
  */
-function handleRepay (idx, val) {
+function handleRepay (idx, val1, val2) {
   // 获取数据
   // 引入mixins/common.js中getLoanDetail其中包含有加载loading
-  console.log(val.masterChainId)
   let param = {
-    masterChainId: val.masterChainId,
-    periodNo: val.periodNo
+    masterChainId: val1.masterChainId,
+    periodNo: val2.periodNo
   }
+  console.log(param)
+
   this.getLoanDetail('/loanQuery/queryLoanRepayInfo.do', param).then(res => {
     this.details = res
     this.dialogRepayVisible = true
