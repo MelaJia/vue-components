@@ -15,28 +15,28 @@
           <span>贴现客户: <em>{{this.detailsP.custFromName}}</em></span>
         </li>
       </ul>
-      <!-- <ul>
-        <li>
-          <span>付款银行名称: <em>{{this.detailsP.payerBankName}}</em></span>
-        </li>
-        <li>
-          <span>付款银款账号: <em>{{this.detailsP.payerBankAccount}}</em></span>
-        </li>
-      </ul> -->
       <ul>
         <li>
-          <span>贴现客户收款银行: <em>{{this.detailsP.bankName}}</em></span>
+          <span>付款银行名称: <em>{{this.detailsP.repayBankName}}</em></span>
         </li>
         <li>
-          <span>贴现客户收款银行: <em>{{this.detailsP.bankAccount}}</em></span>
+          <span>付款银款账号: <em>{{this.detailsP.repayBankAccount}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>应还款金额: <em>{{this.detailsP.needPayAmt | regexNum}}</em></span>
+          <span>贴现客户收款银行名称: <em>{{this.detailsP.receiveBankName}}</em></span>
         </li>
         <li>
-          <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>
+          <span>贴现客户收款银行账号: <em>{{this.detailsP.receiveBankAccount}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>应还款金额: <em>{{this.detailsP.repayAmt | regexNum}}</em></span>
+        </li>
+        <li>
+          <span>币别: <em>{{this.detailsP.repayCurrencyName}}</em></span>
         </li>
       </ul>
       <ul>
@@ -104,7 +104,7 @@ export default {
 }
 // 填入应还金额
 function handleFill () {
-  this.payAmt = this.detailsP.needPayAmt
+  this.payAmt = this.detailsP.repayAmt
 }
 // 提交
 function handleSubmit () {

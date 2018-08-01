@@ -12,7 +12,7 @@
     <!-- 还款 -->
     <dialog-repay :visible-p.sync="dialogRepayVisible" :details-p="details" ></dialog-repay>
     <section>
-      <el-table :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+      <el-table id="tb" :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([6])" border style="width: 100%"
         @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle">
         <el-table-column type="expand" fixed>

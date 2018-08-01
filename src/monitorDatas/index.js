@@ -77,7 +77,6 @@ const monitorInit = ()=>{
         return  125.88 // this.unOperateAvailableAmout+this.unOperateExpiredAmout
       },
       "unOperateAvailableAmout|1-20": 5,
-      "unOperateUnavailableAmout": 125.88,
       "transferingSumAmout": function() {
         return this.transferingAvailableAmout+this.transferingExpiredAmout
       },
