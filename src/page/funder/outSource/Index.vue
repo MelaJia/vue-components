@@ -1,5 +1,6 @@
 <template>
   <div class="main index-style">
+    <el-card class="box-card">
     <div class="header">
       <h3>保理商资产概况</h3>
     </div>
@@ -66,6 +67,7 @@
         </div>
       </div>
     </div>
+     </el-card>
   </div>
 </template>
 <style scoped>

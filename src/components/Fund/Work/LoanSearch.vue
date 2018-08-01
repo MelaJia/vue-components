@@ -36,7 +36,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="12">
+      <el-col :span="10">
         <el-form-item label="贴现金额">
           <el-col :span="10">
             <el-input v-model.number="formInline.discountAmtScopeFrom" placeholder="起始金额"></el-input>
@@ -47,7 +47,7 @@
           </el-col>
         </el-form-item>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="10">
         <el-form-item label="预计还款日期">
           <el-date-picker :editable="false" v-model="formInline.moneyDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
           </el-date-picker>

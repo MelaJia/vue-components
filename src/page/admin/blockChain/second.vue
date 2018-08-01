@@ -1,7 +1,7 @@
 <template>
   <section>
     <el-row>
-      <el-col :span="20" :offset="2">
+      <el-col :span="20">
         <el-form ref="form" :model="content" label-width="100px">
           <el-form-item label="密钥">
             <el-input type="textarea" v-model="content.privateKey"></el-input>

@@ -1,4 +1,5 @@
 <template>
+<div class="main index-style">
   <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
     <el-tab-pane label="已上传账款信息" name="first">
       <div class="body">
@@ -76,6 +77,7 @@
     </div>
     </el-tab-pane>
   </el-tabs>
+</div>
 </template>
 <script>
 import UpSearch from '@/components/Fund/outSource/uploadedSearch'

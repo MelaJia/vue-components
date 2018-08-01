@@ -1,4 +1,6 @@
 <template>
+<div class="main index-style">
+  <el-card class="box-card">
   <section>
     <!-- 标签页 -->
     <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -9,6 +11,8 @@
     <!-- 内容区域 -->
     <component v-bind:is="activeName"></component>
   </section>
+   </el-card>
+</div>
 </template>
 <script>
 export default {

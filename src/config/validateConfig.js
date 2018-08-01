@@ -32,7 +32,7 @@ let check = function (key, smsg, url = '/cust/check') {
           }
         }).catch(err => {
           console.log(err)
-          this.$message.error('系统错误，请联系管理员!')
+          vcg.scope.$message.error('系统错误，请联系管理员!')
         })
       }
     }
@@ -66,6 +66,7 @@ let validPass = function (key, smsg, url = '/cust/check') {
           }
         }).catch(err => {
           console.log(err)
+          vcg.scope.$message.error('系统错误，请联系管理员!')
         })
       }
     }

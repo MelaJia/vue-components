@@ -11,7 +11,7 @@
       </el-table-column>
       <el-table-column align="center" fixed sortable label="结报单号" prop="billId" width="130">
       </el-table-column>
-      <el-table-column align="center" label="付款单位" prop="transUnitName">
+      <el-table-column align="center" label="付款单位" prop="company">
       </el-table-column>
       <el-table-column align="center" label="转让单位" prop="custFromName">
       </el-table-column>
