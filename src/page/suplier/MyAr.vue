@@ -81,37 +81,27 @@ export default {
         to: to,
         billId: val.billId // 结报号
       }
+      this.handleRefresh()
+    },
+    handleRefresh () {
       if (this.total && this.currentPage !== 1) {
         this.total = 0 // 分页的当前页数变动会触发 从而获取数据
       } else {
-        this.getdata(1, this.psize).then(res => {
-          if (res.data.status) {
-            this.tableData5 = res.data[this.dataStr]
-            this.total = res.data[this.totalStr]
-          } else {
-            this.tableData5 = []
-            this.total = 0
-            this.$message.error(res.data.msg)
-          }
-        })
+        this.getdata(1, this.psize)
+          .then(res => {
+            if (res.data.status) {
+              this.tableData5 = res.data[this.dataStr]
+              this.total = res.data[this.totalStr]
+            } else {
+              this.tableData5 = []
+              this.total = 0
+              this.$message.error(res.data.msg)
+            }
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
       }
-    },
-    handleRefresh () {
-      const that = this
-      this.getdata(that.currentPage, that.psize)
-        .then(res => {
-          if (res.data.status) {
-            this.tableData5 = res.data[this.dataStr]
-            this.total = res.data[this.totalStr]
-          } else {
-            this.tableData5 = []
-            this.total = 0
-            this.$message.error(res.data.msg)
-          }
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
     }
   }
 }

@@ -15,14 +15,14 @@
           <span>贴现客户: <em>{{this.detailsP.custFromName}}</em></span>
         </li>
       </ul>
-      <ul>
+      <!-- <ul>
         <li>
           <span>付款银行名称: <em>{{this.detailsP.repayBankName}}</em></span>
         </li>
         <li>
           <span>付款银款账号: <em>{{this.detailsP.repayBankAccount}}</em></span>
         </li>
-      </ul>
+      </ul> -->
       <ul>
         <li>
           <span>贴现客户收款银行名称: <em>{{this.detailsP.receiveBankName}}</em></span>
