@@ -76,8 +76,7 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
-import { debounce } from '@/util/util' // 防抖函数
-import { loadingConf } from '@/config/common' // 获取加载配置
+import { debounce, postDataBase } from '@/util/util' // 防抖函数 发送函数
 export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, Common],
@@ -109,7 +108,7 @@ function handleFill () {
 }
 // 提交
 function handleSubmit () {
-  // 1.获取发送数据
+  // 1.设置发送数据
   let param = {
     custId: this.detailsP.custFromId, // 客户Id
     factoringCustId: this.detailsP.custToId, // 保理商Id
@@ -117,29 +116,13 @@ function handleSubmit () {
     payAmt: this.payAmt, // 还款金额
     periodNo: this.detailsP.periodNo // 期数
   }
-  // 2.显示加载图标
-  const loading = this.$loading(loadingConf.sub())
-  // 3.发送数据
-  this.axios.post('/loanQuery/repayLoan.do', param).then(res => {
-    let type = res.data.status ? 'success' : 'error'
-    this.$message({
-      message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-      type: type
-    })
-    // 关闭加载图标
-    loading.close()
+  // 2.发送数据 转移this指向
+  postDataBase.call(this, '/loanQuery/repayLoan.do', param, true).then(res => {
     // 操作成功关闭弹窗刷新数据
     if (res.data.status) {
       this.$parent.fresh()
       this.handleClose()
     }
-  }).catch(() => {
-    this.$message({
-      type: 'info',
-      message: '操作失败'
-    })
-    // 关闭加载图标
-    loading.close()
   })
 }
 </script>

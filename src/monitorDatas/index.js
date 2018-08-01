@@ -8,6 +8,7 @@ import subData from './Fund/index'
 const monitorInit = ()=>{
   Mock.mock('https://jurongtest.foxconn.com/sit/loan2/getLoanManagerListTable.do', Datas)
   Mock.mock('https://jurongtest.foxconn.com/sit/loan2/queryLoanInfo.do', dataDetails)
+  Mock.mock('https://jurongtest.foxconn.com/sit/loanQuery/queryLoanRepayInfo.do', dataDetails) // 还款详情
   Mock.mock('https://jurongtest.foxconn.com/sit/loan2/showGenerateContract.do', contract)
   Mock.mock('https://jurongtest.foxconn.com/sit/loanFee2/getCustLoanFeeListTable.do', DataFee)
   Mock.mock('https://jurongtest.foxconn.com/sit/loanQuery/loanQueryLOANEDManage.do', LoanedDatas)
