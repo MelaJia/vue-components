@@ -84,7 +84,6 @@ export default {
   mixins: [SearchMixIn, commonDatas],
   data () {
     return {
-      // checkedStatus: 23,
       statusList: [
         {
           checkedStatus: 23,
