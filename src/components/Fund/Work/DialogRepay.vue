@@ -113,7 +113,7 @@ function handleSubmit () {
     custId: this.detailsP.custFromId, // 客户Id
     factoringCustId: this.detailsP.custToId, // 保理商Id
     masterChainId: this.detailsP.masterChainId, // AR单号
-    payAmt: this.payAmt, // 还款金额
+    actualRepayAmt: this.payAmt, // 客户还款金额
     periodNo: this.detailsP.periodNo // 期数
   }
   // 2.发送数据 转移this指向
