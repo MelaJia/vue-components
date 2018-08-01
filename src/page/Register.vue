@@ -421,7 +421,7 @@
   padding: 4px;
   text-align: center;
 }
-.iptChoose{
+.iptChoose {
   padding: 20px 50px;
 }
 </style>
@@ -446,8 +446,6 @@ export default {
     validConf.scope = this
     // 2选一
     let valido2tfun = (rule, value, callback) => {
-      console.log(!this.getForm.creditCode)
-      console.log(value)
       if (!value && !this.getForm.creditCode) {
         callback(new Error('不能为空'))
       } else {
@@ -477,7 +475,6 @@ export default {
       creditCode: [{
         required: true,
         validator: validt2ofun,
-        message: '请输入统一社会信用代码',
         trigger: 'blur'
       }],
       licenseNumber: [{
@@ -667,14 +664,17 @@ function subHandle (formName) {
       // }
       // 5.传送数据
       this.axios.post('/cust/userRegister.do', this.userInfo).then(res => {
+        let _this = this
         let type = res.data.status ? 'success' : 'error'
         this.$message({
           message: res.data.msg,
           type: type
         })
-        if (res.data.status) {
-          this.$router.push('/login')
-        }
+        setTimeout(function () {
+          if (res.data.status) {
+            _this.$router.push('/login')
+          }
+        }, 2000)
       }).catch(err => {
         this.$message({
           type: 'info',
