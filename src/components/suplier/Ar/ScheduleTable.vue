@@ -25,13 +25,13 @@
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyDesc">
         </el-table-column>
-        <el-table-column align="center" label="票面金额" prop="billBookAmt">
+        <el-table-column align="center" label="票面金额" prop="billBookAmt" width="120px">
         </el-table-column>
-        <el-table-column align="center" label="余额" prop="loanAmt">
+        <el-table-column align="center" label="余额" prop="loanAmt" width="120px">
         </el-table-column>
         <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120px">
         </el-table-column>
-        <el-table-column align="center" label="打款处理状态" prop="signStatusName" width="140px">
+        <el-table-column align="center" label="打款处理状态" prop="billPayStatus" width="140px">
         </el-table-column>
         <el-table-column align="center" label="操作" header-align="left" width='200px' fixed="right">
           <template slot-scope="scope">

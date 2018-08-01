@@ -41,17 +41,18 @@
         </el-table-column>
         <el-table-column align="center" label="还款日期" prop="repayDate" :formatter="dateFormat" width="140">
         </el-table-column>
-        <el-table-column align="center" label="操作" width='230px' fixed="right">
+        <el-table-column align="left" header-align="center" label="操作" width='350px' fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-          <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length!==0">
+          <el-button v-for="(item, index) in scope.row.operateArr" :key="index" size="mini" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" >{{item.name}}</el-button>
+          <!-- <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length!==0">
             <span class="el-dropdown-link">
               更多<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" >{{item.name}}</el-button></el-dropdown-item>
             </el-dropdown-menu>
-          </el-dropdown>
+          </el-dropdown> -->
         </template>
       </el-table-column>
       </el-table>

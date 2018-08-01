@@ -79,7 +79,7 @@
         </el-table-column>
         <el-table-column align="center" label="进货验收单日期" prop="confirmDate" width="150" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" label="操作" header-align="center" width="150">
+        <el-table-column align="center" fixed="right" label="操作" header-align="center" width="150">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           </template>

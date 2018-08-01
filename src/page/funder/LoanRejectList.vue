@@ -10,7 +10,7 @@
       </el-card>
     </div>
     <div class="body">
-      <el-card class="box-card">
+      <el-card class="box-card text-align-center">
         <ar-list :data-table="tableData5" :data-loading="loading"  @refresh="handleRefresh"></ar-list>
          <el-pagination
       @size-change="handleSizeChange"
@@ -26,6 +26,12 @@
   </div>
 
 </template>
+
+<style scope>
+.text-align-center {
+  text-align: center;
+}
+</style>
 
 <script>
 import ArList from '@/components/Fund/Work/LoanRejectListTable'

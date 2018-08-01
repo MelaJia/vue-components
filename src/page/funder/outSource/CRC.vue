@@ -12,7 +12,7 @@
       </el-card>
     </div>
     <div class="body">
-      <el-card class="box-card">
+      <el-card class="box-card text-align-center">
         <up-list :data-table="arrData.first.tableData5" :data-loading="arrData.first.loading"></up-list>
         <el-pagination
       @size-change="handleSizeChangeFirst"
@@ -37,7 +37,7 @@
       </el-card>
     </div>
     <div class="body">
-      <el-card class="box-card">
+      <el-card class="box-card text-align-center">
         <comp-list :data-table="arrData.second.tableData5" :data-loading="arrData.second.loading"></comp-list>
         <el-pagination
       @size-change="handleSizeChangeSecond"
@@ -62,7 +62,7 @@
       </el-card>
     </div>
     <div class="body">
-      <el-card class="box-card">
+      <el-card class="box-card text-align-center">
         <mon-list :data-table="arrData.third.tableData5" :data-loading="arrData.third.loading"></mon-list>
         <el-pagination
       @size-change="handleSizeChangeThird"
@@ -79,6 +79,13 @@
   </el-tabs>
 </div>
 </template>
+
+<style scope>
+.text-align-center {
+  text-align: center;
+}
+</style>
+
 <script>
 import UpSearch from '@/components/Fund/outSource/uploadedSearch'
 import UpList from '@/components/Fund/outSource/uploadedListTable'

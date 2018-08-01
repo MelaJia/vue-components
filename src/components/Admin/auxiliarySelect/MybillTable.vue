@@ -94,7 +94,7 @@
         </el-table-column>
         <el-table-column align="center" label="录入日期" prop="entryDate" width="100" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" label="操作" header-align="center" width="100">
+        <el-table-column align="center" fixed="right" label="操作" header-align="center" width="100">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           </template>
