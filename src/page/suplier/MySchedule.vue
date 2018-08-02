@@ -51,6 +51,20 @@ export default {
     'search': Search
   },
   mounted () {
+    this.param = {
+      iDisplayStart: 1,
+      iDisplayLength: 10,
+      isMasterAr: '',
+      companyName: '',
+      checkedStatus: 23,
+      billBookCurr: '',
+      masterChainId: '',
+      invoiceNo: '',
+      billId: '',
+      from: '',
+      to: ''
+    }
+    // this.param = Object.assign({checkedStatus: 23}, this.param)
     this.getdata(1, this.psize)
       .then(res => {
         if (res.data.status) {

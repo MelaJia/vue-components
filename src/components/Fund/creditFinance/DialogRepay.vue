@@ -41,7 +41,7 @@
         </el-row>
         <el-row>
           <el-form-item label="客户还款金额:" prop="repayAmt">
-            <el-input v-model="detailsP.repayAmt">
+            <el-input v-model="repayAmt">
               <template slot="append">代入应还金额</template>
             </el-input>
           </el-form-item>
@@ -130,7 +130,7 @@ function submit () {
         custId: this.detailsP.custId,
         factoringCustId: this.detailsP.factoringCustId,
         loanId: this.detailsP.loanId,
-        repayAmt: this.detailsP.repayAmt,
+        repayAmt: this.repayAmt,
         actualRepayDate: this.detailsP.actualRepayDate
       }
       console.log(param)
