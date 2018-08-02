@@ -12,7 +12,7 @@
     <section>
       <el-table :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([6])" border style="width: 100%"
-        @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle">
+        @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle" @mousedown.native="mouseDown">
         <el-table-column type="expand" fixed>
           <template slot-scope="props">
             <el-table :data="props.row.tableData" border style="width: 100%" :show-header="false" :row-class-name="getPendedColor">
@@ -48,6 +48,8 @@
               </el-table-column>
               <el-table-column align="center" prop="prepayServiceAmt" :width="widthArr.prepayServiceAmt" :formatter="regexNum">
               </el-table-column>
+              <el-table-column align="center" prop="periodReliefAmt" :width="widthArr.periodReliefAmt" :formatter="regexNum">
+              </el-table-column>
               <el-table-column align="center" prop="payAmt" :width="widthArr.payAmt" :formatter="regexNum">
               </el-table-column>
               <el-table-column align="center" prop="billPayDate" :width="widthArr.billPayDate" :formatter="dateFormat">
@@ -56,12 +58,7 @@
               </el-table-column>
               <el-table-column align="center" prop="periodPayDate" :width="widthArr.periodPayDate" :formatter="dateFormat">
               </el-table-column>
-              <el-table-column align="center" :width="widthArr.billPayStatus">
-                <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" content="会计确认->财务确认->财务已付款->付款单确认" placement="top">
-                    <span>{{scope.row.billPayStatus}}</span>
-                  </el-tooltip>
-                </template>
+              <el-table-column align="center" prop="actualRepayDate" :width="widthArr.actualRepayDate" :formatter="dateFormat" >
               </el-table-column>
               <el-table-column align="center" width='200px'>
                 <template slot-scope="scope">
@@ -98,6 +95,8 @@
         </el-table-column>
         <el-table-column align="center" label="提前还款手续费" prop="prepayServiceAmt" :formatter="regexNum">
         </el-table-column>
+         <el-table-column align="center" label="还款优惠金额" prop="periodReliefAmt" :formatter="regexNum">
+        </el-table-column>
         <el-table-column align="center" label="还款总计" prop="payAmt" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120">
@@ -106,12 +105,7 @@
         </el-table-column>
         <el-table-column align="center" label="预计还款日期" prop="periodPayDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="center" label="打款处理状态">
-          <template slot-scope="scope">
-            <el-tooltip class="item" effect="dark" content="会计确认->财务确认->财务已付款->付款单确认" placement="top">
-              <span>{{scope.row.billPayStatus}}</span>
-            </el-tooltip>
-          </template>
+        <el-table-column align="center" label="实际还款日期" prop="actualRepayDate" :formatter="dateFormat" width="120">
         </el-table-column>
         <el-table-column align="center" header-align="center" label="操作" width='200px' class-name="">
           <template slot-scope="scope">

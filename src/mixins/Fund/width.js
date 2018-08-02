@@ -16,10 +16,12 @@ export default {
         payFineAmt: '',
         payFineDays: '',
         prepayServiceAmt: '',
+        periodReliefAmt: '',
         payAmt: '',
         billPayDate: '120',
         loanDate: '120',
         periodPayDate: '120',
+        actualRepayDate: '120',
         billPayStatus: '',
         operate: '200'
       }

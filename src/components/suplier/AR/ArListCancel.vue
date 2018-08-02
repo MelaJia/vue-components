@@ -6,7 +6,7 @@
         border
         sum-text="本页合计"
         style="width: 100%"
-        :row-class-name="tableRowClassName" @expand-change="expendhandle">
+        :row-class-name="tableRowClassName" @expand-change="expendhandle" @mousedown.native="mouseDown">
         <el-table-column align="center"
         fixed
         type="index"
