@@ -54,12 +54,14 @@ axios.interceptors.response.use(
         case 401:
           // 返回 401 清除token信息并跳转到登录页面
           store.commit(types.LOGOUT)
-          router.replace({
-            path: '/login',
-            query: {
-              redirect: router.currentRoute.fullPath
-            }
-          })
+          if (router.currentRoute.name !== 'Login') {
+            router.replace({
+              path: '/login',
+              query: {
+                redirect: router.currentRoute.fullPath
+              }
+            })
+          }
       }
     }
     if (error.response) {

@@ -30,11 +30,11 @@
             <div class="iptContext">
               <div class="ipt-group">
                 <i class="icon-ipt-phone iconfont icon-yonghuming" :class="iptPhoneLight?'light': ''"></i>
-                <input type="text" autocomplete="off" v-model="ruleForm.phone" class="text iptphone" @focus="iptPhoneLight=true" @blur="iptPhoneLight=flase">
+                <input type="text" autocomplete="off" v-model="ruleForm.phone" class="text iptphone" @focus="iptPhoneLight=true" @blur="iptPhoneLight=false">
               </div>
               <div class="ipt-group">
                 <i class="icon-ipt-pwd iconfont icon-mimaicon" :class="iptPWDLight?'light': ''"></i>
-                <input type="password" autocomplete="off" maxlength="20" v-model="ruleForm.pass" class="text iptpassword" ref="input" placeholder="8-20位数字与字母组合的密码" @focus="iptPWDLight=true" @blur="iptPWDLight=flase">
+                <input type="password" autocomplete="off" maxlength="20" v-model="ruleForm.pass" class="text iptpassword" ref="input" placeholder="8-20位数字与字母组合的密码" @focus="iptPWDLight=true" @blur="iptPWDLight=false">
               </div>
               <div class="ipt-group picture">
                 <verify ref="verifyC" :is-sure="isVerify" @verify-ok="handleVerify"></verify>

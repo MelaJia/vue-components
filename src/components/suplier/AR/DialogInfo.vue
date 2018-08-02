@@ -48,7 +48,8 @@
       <ul class="height-auto">
         <span>AR单号:
           <div class="a-link-group inline-block">
-            <label v-for="item in detailsP.arIdList" :key="item.arId">{{item.arId}}</label>
+            <label >{{this.detailsP.masterChainId}}</label>
+            <!-- <label v-for="item in detailsP.arIdList" :key="item.arId">{{item.arId}}</label> -->
           </div>
         </span>
       </ul>

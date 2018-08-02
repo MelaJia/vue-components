@@ -59,7 +59,7 @@ const router = new Router({
 })
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
-  const value = to.query.src ? to.query.src : to.path
+  const value = to.query.redirect ? to.query.redirect : to.path
   const label = to.query.name ? to.query.name : to.meta.title
   console.log(label)
   if (whiteList.indexOf(value) === -1 && store.getters.roles !== undefined && store.getters.roles !== null) {
