@@ -65,8 +65,30 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
-.el-select.el-select--mini{
-  width:178px;
+@media screen and (min-width:960px){
+  .el-select.el-select--mini{
+    width:180px;
+  }
+}
+@media screen and (min-width:1024px){
+  .el-select.el-select--mini{
+    width:186px;
+  }
+}
+@media screen and (min-width:1400px){
+  .el-select.el-select--mini{
+    width:178px;
+  }
+}
+@media screen and (min-width:1600px){
+  .el-select.el-select--mini{
+    width:214px;
+  }
+}
+@media screen and (min-width:1900px){
+  .el-select.el-select--mini{
+    width:226px;
+  }
 }
 .money {
   .el-form-item.el-form-item--mini{
