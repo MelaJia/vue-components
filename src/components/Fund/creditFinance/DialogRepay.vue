@@ -40,9 +40,9 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-form-item label="客户还款金额:" prop="repayAmt">
-            <el-input v-model="repayAmt">
-              <template slot="append">代入应还金额</template>
+          <el-form-item label="客户还款金额:" prop="actualRepayAmt">
+            <el-input v-model="detailsP.actualRepayAmt">
+              <template slot="append"><a href="javascript:;" @click.prevent="getFull" class="getFull">代入应还金额</a></template>
             </el-input>
           </el-form-item>
         </el-row>
@@ -82,6 +82,10 @@ ul:last-child{
     line-height: 45px;
   }
 }
+.getFull{
+  text-decoration: none;
+  color: #333;
+}
 </style>
 
 <script>
@@ -93,9 +97,8 @@ export default {
   mixins: [DialogClose],
   data () {
     return {
-      repayAmt: 0,
       rules: {
-        repayAmt: [
+        actualRepayAmt: [
           { required: true, message: '请输入还款金额', trigger: 'blur' },
           { validator: checkNumber, trigger: 'blur' }
         ],
@@ -118,7 +121,10 @@ export default {
   },
   methods: {
     // 还款
-    handleRepay: debounce(submit, 1000, true)
+    handleRepay: debounce(submit, 1000, true),
+    getFull () {
+      this.detailsP.actualRepayAmt = this.detailsP.repayAmt
+    }
   }
 }
 // 还款函数
@@ -130,7 +136,7 @@ function submit () {
         custId: this.detailsP.custId,
         factoringCustId: this.detailsP.factoringCustId,
         loanId: this.detailsP.loanId,
-        repayAmt: this.repayAmt,
+        actualRepayAmt: this.detailsP.actualRepayAmt,
         actualRepayDate: this.detailsP.actualRepayDate
       }
       console.log(param)

@@ -4,7 +4,7 @@
     <dialog-mypayer :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-mypayer>
     <section>
       <el-table ref="table" :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
-        element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle"
+        element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle" @mousedown.native="mouseDown"
         >
         <el-table-column type="expand" fixed>
           <template slot-scope="props">
@@ -70,7 +70,7 @@
         </el-table-column>
         <el-table-column align="center" label="结报日期" prop="billDate" width="100" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" fixed="riight" label="操作" header-align="center" width="100">
+        <el-table-column align="center" fixed="right" label="操作" header-align="center" width="100">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           </template>

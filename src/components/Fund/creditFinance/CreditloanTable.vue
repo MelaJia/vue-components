@@ -8,7 +8,7 @@
     <dialog-contractonline :visible-p.sync="dialogOnline" :details-p="detailsContract"></dialog-contractonline>
     <section>
       <el-table ref="table" :data="comDatas" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
-        element-loading-background="rgba(0, 0, 0, 0.8)" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName"
+        element-loading-background="rgba(0, 0, 0, 0.8)" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @mousedown.native="mouseDown"
         >
         <el-table-column
           type="index"
