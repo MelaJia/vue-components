@@ -1,56 +1,58 @@
 <template>
   <div class="main index-style">
     <el-card class="box-card">
-        <div class="header">
-      <h3>供应商资产概况</h3>
-    </div>
-    <div class="content left-right">
-      <div class="float-left" style="width:60%;position:relative">
-        <!-- 图形区域 -->
-        <div ref="pie" id="pie" style="width:100%;min-width: 700px;height:600px;"></div>
-         <!-- 底部链接区域 -->
-        <div class="url-section">
-          <div class="bg-style bg-blue">
-            <router-link to="myar">去贴现/转让></router-link>
-          </div>
-           <div class="bg-style bg-gray">
-            <router-link to="historyar">往来明细></router-link>
-          </div>
-        </div>
-      </div>
-      <div class="float-left">
-        <div v-for="(item,idx) in rightDataArr" class="text-content" :style="'background:'+item.bcolor" :key="idx">
-          <div class="float-left text">
-            <p class="t1">{{item.title}}</p>
-            <p class="line"></p>
-            <p class="t1" style="margin-top:5px">总金额: <span>{{(item.firData.value*100+item.secData.value*100)/100 | regexNum}}万元</span></p>
-            <div class="t2">
-              <ul>
-                <li>{{item.firData.name}}</li>
-                <el-tooltip v-if="item.tip" class="item" effect="light" :content="item.tip" placement="right-end">
-                   <li>{{item.secData.name}}</li>
-                </el-tooltip>
-                <li v-else>{{item.secData.name}}</li>
-              </ul>
-              <ul>
-                <el-tooltip class="item" effect="dark" :content="thousandth(item.firData.value)+'万元'" placement="bottom-start">
-                  <li>{{item.firData.value | regexNum}}万元</li>
-                </el-tooltip>
-                <el-tooltip class="item" effect="dark" :content="thousandth(item.secData.value)+'万元'" placement="bottom-end">
-                   <li>{{item.secData.value | regexNum}}万元</li>
-                </el-tooltip>
-              </ul>
+      <header class="header">
+        <h3>供应商资产概况</h3>
+      </header>
+      <div class="content left-right">
+        <section class="float-left" style="width:60%;position:relative">
+          <!-- 图形区域 -->
+          <div ref="pie" id="pie" style="width:100%;min-width: 700px;height:600px;"></div>
+          <!-- 底部链接区域 -->
+          <div class="url-section">
+            <div class="bg-style bg-blue">
+              <router-link to="myar">去贴现/转让></router-link>
+            </div>
+            <div class="bg-style bg-gray">
+              <router-link to="historyar">往来明细></router-link>
             </div>
           </div>
-          <div class="float-right">
-            <div class="url">
-              <router-link :to="item.path">查看明细</router-link>
+        </section>
+        <section class="float-left">
+          <article v-for="(item,idx) in rightDataArr" class="text-content" :style="'background:'+item.bcolor" :key="idx">
+            <div class="float-left text">
+              <p class="t1">{{item.title}}</p>
+              <p class="line"></p>
+              <p class="t1" style="margin-top:5px">总金额:
+                <span>{{(item.firData.value*100+item.secData.value*100)/100 | regexNum}}万元</span>
+              </p>
+              <div class="t2">
+                <ul>
+                  <li>{{item.firData.name}}</li>
+                  <el-tooltip v-if="item.tip" class="item" effect="light" :content="item.tip" placement="right-end">
+                    <li>{{item.secData.name}}</li>
+                  </el-tooltip>
+                  <li v-else>{{item.secData.name}}</li>
+                </ul>
+                <ul>
+                  <el-tooltip class="item" effect="dark" :content="thousandth(item.firData.value)+'万元'" placement="bottom-start">
+                    <li>{{item.firData.value | regexNum}}万元</li>
+                  </el-tooltip>
+                  <el-tooltip class="item" effect="dark" :content="thousandth(item.secData.value)+'万元'" placement="bottom-end">
+                    <li>{{item.secData.value | regexNum}}万元</li>
+                  </el-tooltip>
+                </ul>
+              </div>
             </div>
-            <pie ref="child" :num="item.firData" :total="item.secData" :color="color[idx]"></pie>
-          </div>
-        </div>
+            <div class="float-right">
+              <div class="url">
+                <router-link :to="item.path">查看明细</router-link>
+              </div>
+              <pie ref="child" :num="item.firData" :total="item.secData" :color="color[idx]"></pie>
+            </div>
+          </article>
+        </section>
       </div>
-    </div>
     </el-card>
   </div>
 </template>
@@ -58,33 +60,46 @@
 * {
   margin: 0;
 }
+
+.box-card {
+  min-width: 1200px;
+}
+
 .header {
   text-align: center;
 }
+
 .content.left-right {
   width: 100%;
   min-width: 1200px;
   margin: auto;
   overflow: auto;
 }
+
 .index-style {
   min-width: 1102px;
 }
+
 .index-style > .header {
   text-align: center;
 }
+
 .float-left {
   float: left;
 }
+
 .float-right {
   float: right;
 }
+
 /* 右侧方形图左边区域样式 */
+
 .float-left.text {
   width: 250px;
   padding: 5px 20px;
   font-weight: 500;
 }
+
 .text-content {
   width: 400px;
   height: 115px;
@@ -93,20 +108,25 @@
   border-radius: 15px;
   margin-top: 10px;
 }
+
 .t1 {
   font-size: 16px;
   padding: 0px 5px;
 }
+
 .t1 > span {
   margin-left: 20px;
 }
+
 .t2 {
   margin-top: 10px;
   font-size: 13px;
 }
+
 .t2 ul {
   padding: 0px 5px;
 }
+
 li {
   list-style: none;
   display: inline-block;
@@ -116,28 +136,36 @@ li {
   overflow: hidden;
   white-space: nowrap;
 }
+
 .t2 > ul > li:last-child {
   color: black;
 }
+
 .line {
   width: 100%;
   background-color: #fff;
   height: 3px;
 }
+
 .url {
   text-align: center;
   margin-top: 5px;
 }
+
 .url > a {
   color: #fff;
 }
+
 /* 链接样式 */
+
 .url-section {
   position: absolute;
   bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
+  text-align: center;
 }
+
 .bg-style {
   display: inline-block;
   width: 200px;
@@ -145,12 +173,15 @@ li {
   text-align: center;
   padding: 5px 0px;
 }
+
 .bg-blue {
   background: #2e75b6;
 }
+
 .bg-gray {
   background: #7f7f7f;
 }
+
 .bg-blue > a,
 .bg-gray > a {
   color: #fff;
@@ -159,7 +190,9 @@ li {
 
 <script>
 import Pie from '@/components/items/pie'
-import { thousandth } from '@/util/util'
+import {
+  thousandth
+} from '@/util/util'
 import Common from '@/mixins/common'
 
 // 引入 ECharts 主模块
@@ -171,11 +204,41 @@ require('echarts/lib/component/legendScroll')
 require('echarts/lib/component/tooltip')
 require('echarts/lib/component/title')
 export default {
-  components: { Pie },
+  components: {
+    Pie
+  },
   mixins: [Common],
   data () {
     return {
-      sortArr: [{ key: 'unOperate', text: '未贴现/转让金额', bcolor: '#5b9bd5' }, { key: 'discounted', text: '已贴现金额', bcolor: '#ed7d31' }, { key: 'received', text: '已接收金额', bcolor: '#a5a5a5' }, { key: 'transfered', text: '已转让金额', bcolor: '#ffc000' }, { key: 'onReceiveAmout', text: '待接收金额', bcolor: '#4472c4' }, { key: 'transfering', text: '转让中金额', bcolor: '#71b345' }, { key: 'discounting', text: '贴现中金额', bcolor: '#255e91' }],
+      sortArr: [{
+        key: 'unOperate',
+        text: '未贴现/转让金额',
+        bcolor: '#5b9bd5'
+      }, {
+        key: 'discounted',
+        text: '已贴现金额',
+        bcolor: '#ed7d31'
+      }, {
+        key: 'received',
+        text: '已接收金额',
+        bcolor: '#a5a5a5'
+      }, {
+        key: 'transfered',
+        text: '已转让金额',
+        bcolor: '#ffc000'
+      }, {
+        key: 'onReceiveAmout',
+        text: '待接收金额',
+        bcolor: '#4472c4'
+      }, {
+        key: 'transfering',
+        text: '转让中金额',
+        bcolor: '#71b345'
+      }, {
+        key: 'discounting',
+        text: '贴现中金额',
+        bcolor: '#255e91'
+      }],
       rightDataArr: {
         unOperate: {
           title: '未贴现/转让', // 标题
@@ -263,7 +326,14 @@ export default {
           bcolor: '#9a9a9a' // 背景色
         }
       },
-      color: { unOperate: ['#fff', '#000'], transfering: ['#fff', '#000'], transfered: ['#fff', '#000'], discounting: ['#fff', '#000'], discounted: ['#fff', '#000'], received: ['#fff', '#000'] } // 小饼图颜色数组
+      color: {
+        unOperate: ['#fff', '#000'],
+        transfering: ['#fff', '#000'],
+        transfered: ['#fff', '#000'],
+        discounting: ['#fff', '#000'],
+        discounted: ['#fff', '#000'],
+        received: ['#fff', '#000']
+      } // 小饼图颜色数组
     }
   },
   mounted () {
@@ -271,7 +341,10 @@ export default {
     let dom = this.$refs.pie
     let myChart = echarts.init(dom)
     // 初始化饼图
-    let option = getOptions([{ value: null, name: '待接收金额' }])
+    let option = getOptions([{
+      value: null,
+      name: '待接收金额'
+    }])
     // 绘制图表
     myChart.setOption(option)
     // 获取数据
@@ -307,14 +380,23 @@ function getdata (scope) {
           scope.rightDataArr[element.key].firData.value = res.data.data[`${element.key}AvailableAmout`] || 0
           scope.rightDataArr[element.key].secData.value = element.key === 'unOperate' ? res.data.data[`${element.key}UnavailableAmout`] || 0 : res.data.data[`${element.key}ExpiredAmout`] || 0
           // 填充饼图数据
-          amtArr.push({ value: res.data.data[`${element.key}SumAmout`], name: element.text })
+          amtArr.push({
+            value: res.data.data[`${element.key}SumAmout`],
+            name: element.text
+          })
         } else {
-          amtArr.push({ value: res.data.data['onReceiveAmout'], name: element.text })
+          amtArr.push({
+            value: res.data.data['onReceiveAmout'],
+            name: element.text
+          })
         }
         bColorArr.push(element.bcolor)
       }
     }
-    return { amt: amtArr, bColor: bColorArr }
+    return {
+      amt: amtArr,
+      bColor: bColorArr
+    }
   })
 }
 // 异步获取数据
@@ -427,4 +509,5 @@ function getOptions (echartData) {
     }]
   }
 }
+
 </script>

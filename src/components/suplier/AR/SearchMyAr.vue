@@ -62,13 +62,8 @@
     </el-row>
   </el-form>
 </template>
-<style scoped>
-.el-input.el-input--small {
-    width: 190px;
-}
-form {
-  padding: 10px;
-}
+<style scoped lang="scss">
+@import "@/assets/css/_searchBase.scss";
 </style>
 
 <script>

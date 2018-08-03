@@ -65,9 +65,6 @@
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
-.el-select.el-select--small{
-  width: 190px;
-}
 </style>
 
 <script>

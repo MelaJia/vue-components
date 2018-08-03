@@ -1,6 +1,6 @@
 <template>
-  <div class="main">
-    <div class="body">
+  <section class="main">
+    <article class="body">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
           <img src="~@/assets/img/juxin_06.png" alt="查询条件">
@@ -8,29 +8,23 @@
         </div>
         <search @handle-search="handleSearch"></search>
       </el-card>
-    </div>
-    <div class="body">
+    </article>
+    <article class="body">
       <el-card class="box-card">
-        <ar-list :data-table="tableData5" :data-loading="loading"  @refresh="handleRefresh"></ar-list>
-        <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :page-sizes="pageSizesArr"
-      :page-size="psize"
-      :current-page.sync="currentPage"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination>
+        <ar-list :data-table="tableData5" :data-loading="loading" @refresh="handleRefresh"></ar-list>
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="pageSizesArr" :page-size="psize"
+          :current-page.sync="currentPage" layout="total, sizes, prev, pager, next, jumper" :total="total">
+        </el-pagination>
       </el-card>
-    </div>
-  </div>
+    </article>
+  </section>
 
 </template>
 
 <script>
 import ArList from '@/components/suplier/Ar/ArList'
 import Search from '@/components/suplier/Ar/SearchGet'
-import Table from '@/mixins/suplier/Ar/Table'// handleCurrentChange
+import Table from '@/mixins/suplier/Ar/Table' // handleCurrentChange
 export default {
   mixins: [Table],
   data () {

@@ -27,7 +27,7 @@
       </ul>
       <ul>
         <li>
-          <span>可用金额: <em>{{this.detailsP.arAvailableAmt | regexNum}}</em></span>
+          <span>余额: <em>{{this.detailsP.arAvailableAmt | regexNum}}</em></span>
         </li>
         <li>
           <span>票面金额: <em>{{this.detailsP.billBookAmt | regexNum}}</em></span>

@@ -17,6 +17,8 @@
       </el-table-column>
       <el-table-column align="center" label="公司注册资本" prop="registeredCapital">
       </el-table-column>
+      <el-table-column align="center" label="币别" prop="currencyName">
+      </el-table-column>
       <el-table-column align="center" label="公司状态" prop="status" :formatter="statusFormat">
       </el-table-column>
       <el-table-column align="center" label="公司地址" prop="companyAddress">

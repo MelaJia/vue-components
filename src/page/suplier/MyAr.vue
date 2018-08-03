@@ -1,6 +1,6 @@
 <template>
-  <div class="main">
-    <div class="body">
+  <section class="main">
+    <article class="body">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
           <img src="~@/assets/img/juxin_06.png" alt="查询条件">
@@ -8,22 +8,16 @@
         </div>
         <search @handle-search="searchSubmit"></search>
       </el-card>
-    </div>
-    <div class="body">
+    </article>
+    <article class="body">
       <el-card class="box-card text-align-center">
         <ar-table :data-loading="loading" :data-table="tableData5" @refresh="handleRefresh"></ar-table>
-        <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :page-sizes="pageSizesArr"
-      :page-size="psize"
-      :current-page.sync="currentPage"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination>
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="pageSizesArr" :page-size="psize"
+          :current-page.sync="currentPage" layout="total, sizes, prev, pager, next, jumper" :total="total">
+        </el-pagination>
       </el-card>
-    </div>
-  </div>
+    </article>
+  </section>
 </template>
 <style scope>
 .text-align-center {

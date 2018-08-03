@@ -42,10 +42,8 @@
     </el-row>
   </el-form>
 </template>
-<style scoped>
-form {
-  padding: 10px;
-}
+<style scoped lang="scss">
+@import "@/assets/css/_searchBase.scss";
 </style>
 
 <script>
