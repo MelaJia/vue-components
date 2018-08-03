@@ -54,6 +54,8 @@ const navs = {
         value: action.value,
         query: action.query
       })
+      // 超过7个从起始位置删除
+      if (state.tagList.length > 7) state.tagList.shift()
       state.tagList = setFistTag(state.tagList)
       setStore({
         name: 'tagList',

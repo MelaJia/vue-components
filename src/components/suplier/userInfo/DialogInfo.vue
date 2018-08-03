@@ -147,7 +147,7 @@ export default {
         ],
         companyPhone: [
           { required: true, message: '请输入企业电话', trigger: 'blur' },
-          { pattern: /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/, message: '电话号码错误', trigger: 'blur' }
+          { pattern: /^(0[0-9]{2,3}-)?([2-9][0-9]{6,7})+(-[0-9]{1,6})?$/, message: '电话号码格式错误', trigger: 'blur' }
         ],
         companyAddress: [
           { required: true, message: '请输入企业地址', trigger: 'blur' }

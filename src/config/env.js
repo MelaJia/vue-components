@@ -7,6 +7,7 @@
  * routerMode: 路由模式
  * imgBaseUrl: 图片所在域名地址
  * welUrl :默认欢迎页
+ * apiUrl: 接口地址
  *
  */
 let baseUrl = ''
@@ -16,7 +17,7 @@ let iconfontUrl = `//at.alicdn.com/t/font_$key.css`
 let codeUrl = `${baseUrl}/code`
 let protocol = document.location.protocol
 let host = document.location.host
-let basePath = getContextPath()
+let basePath = document.location.hostname === 'localhost' ? '/JuXin' : getContextPath()
 if (process.env.NODE_ENV === 'development') {
   baseUrl = `https://jurongtest.foxconn.com/sit`
   apiUrl = baseUrl
