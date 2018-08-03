@@ -7,14 +7,6 @@
       </span>
     </header>
     <section>
-      <!-- <ul>
-        <li>
-          <span>法人代码: <em>{{this.detailsP.poLoanInfoList.corpCode}}</em></span>
-        </li>
-        <li>
-          <span>法人单位: <em>{{this.detailsP.poLoanInfoList.corpName}}</em></span>
-        </li>
-      </ul> -->
       <ul>
         <li>
           <span>申请金额: <em>{{this.detailsP.applyAmt}}</em></span>
@@ -36,7 +28,7 @@
           <span>利率: <em>{{this.detailsP.interestRate}}</em></span>
         </li>
         <li>
-          <span>手术费率: <em>{{this.detailsP.serviceFeeRate}}</em></span>
+          <span>手续费率: <em>{{this.detailsP.serviceFeeRate}}</em></span>
         </li>
       </ul>
       <ul>

@@ -28,7 +28,7 @@
           <span>利率: <em>{{this.detailsP.interestRate}}</em></span>
         </li>
         <li>
-          <span>手术费率: <em>{{this.detailsP.serviceFeeRate}}</em></span>
+          <span>手续费率: <em>{{this.detailsP.serviceFeeRate}}</em></span>
         </li>
       </ul>
       <ul>

@@ -44,8 +44,12 @@
           <span>打款处理状态: <em>{{this.detailsP.statusName}}</em></span>
         </li>
       </ul>
-      <ul>
-        <span>发票单号: <em v-for="(item, index) in this.detailsP.invoiceDetail" :key="index">{{item.invoiceNo}}</em></span>
+      <ul class="height-auto">
+        <span>发票单号:
+          <div class="a-link-group inline-block">
+            <label v-for="(item, index) in this.detailsP.invoiceDetail" :key="index">{{item.invoiceNo}}</label>
+          </div>
+        </span>
       </ul>
       <table class="tableList" border="1">
         <thead>

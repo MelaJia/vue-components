@@ -99,7 +99,7 @@ export default {
     return {
       rules: {
         actualRepayAmt: [
-          { required: true, message: '请输入还款金额', trigger: 'blur' },
+          { required: true, message: '请输入客户还款金额', trigger: 'blur' },
           { validator: checkNumber, trigger: 'blur' }
         ],
         actualRepayDate: [

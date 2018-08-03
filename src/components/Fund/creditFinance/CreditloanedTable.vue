@@ -223,7 +223,7 @@ export default {
     // 还款详情查看
     repayMent (idx, val) {
       val.repayLoading = true
-      this.getLoanDetail('/factoringCreditLoan/queryCreditLoanRepayInfo.do', { loanId: val.loanId, id: val.id, periodNo: val.periodNo }).then(res => {
+      this.getLoanDetail('/factoringCreditLoan/queryCreditLoanRepayInfo.do', { loanId: val.loanId, periodNo: val.periodNo }).then(res => {
         this.details = res
         this.dialogRepay = true
         val.infoLoading = false

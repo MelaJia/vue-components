@@ -135,7 +135,7 @@ export default {
   mixins: [DialogClose],
   computed: {
     getTitle () {
-      return this.detailsP.statementNo
+      return '对账单号' + this.detailsP.statementNo
     }
   },
   methods: {

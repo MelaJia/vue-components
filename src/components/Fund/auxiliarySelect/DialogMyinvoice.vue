@@ -52,8 +52,12 @@
           <span>发票代码: <em>{{this.detailsP.invoiceCode}}</em></span>
         </li>
       </ul>
-      <ul>
-        <span>对账单号: <em v-for="(item, index) in detailsP.statementDetail" :key="index">{{item.statementNo}}</em></span>
+      <ul class="height-auto">
+        <span>对账单号:
+          <div class="a-link-group inline-block">
+            <label v-for="(item, index) in this.detailsP.statementDetail" :key="index">{{item.statementNo}}</label>
+          </div>
+        </span>
       </ul>
       <ul>
         <span>
