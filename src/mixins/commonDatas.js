@@ -16,6 +16,9 @@ export default {
     console.log('从storage获取通用数据')
 
     let pageName = this.$options.name ? this.$options.name : 'all'
+    const statusArr = getStore({
+      name: 'arStatus'
+    })
     this.moneyTypes = getStore({
       name: 'moneyTypes'
     })
@@ -82,6 +85,16 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+    }
+    if (statusArr) {
+      // storage中有数据
+      for (const iterator of statusArr) {
+        if (iterator.pageName === pageName) {
+          this.arStatus = iterator.arStatusList
+        }
+      }
+    } else {
+      // storage中无数据
       // 获取ar状态并保存
       this.axios.get('/commonAr/queryARStatusType.do').then(res => {
         if (res.data.status) {
@@ -102,15 +115,6 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-    } else { // storage中有数据
-      const statusArr = getStore({
-        name: 'arStatus'
-      })
-      for (const iterator of statusArr) {
-        if (iterator.pageName === pageName) {
-          this.arStatus = iterator.arStatusList
-        }
-      }
     }
   }
 }
