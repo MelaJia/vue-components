@@ -117,7 +117,6 @@ export default {
 }
 // 错误提示函数
 function erroShow (err, loading) {
-  console.log(this)
   this.$alert(`网络错误${err}`, '系统提示', {
     confirmButtonText: '确定',
     callback: action => {
@@ -128,7 +127,6 @@ function erroShow (err, loading) {
 }
 // 鼠标单击事件
 function mouseDown (e) {
-  console.log('单击了')
   // 获取单击位置
   var disX = e.clientX
   var t = document.querySelector(':not(td)>.el-table>.el-table__body-wrapper')

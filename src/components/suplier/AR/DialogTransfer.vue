@@ -31,7 +31,7 @@
           <span>票面金额: <em>{{this.detailsP.billBookAmt | regexNum}}</em></span>
         </li>
         <li>
-          <span>可用金额: <em>{{this.detailsP.arAvailableAmt | regexNum}}</em></span>
+          <span>余额: <em>{{this.detailsP.arAvailableAmt | regexNum}}</em></span>
         </li>
       </ul>
       <ul>
@@ -222,7 +222,6 @@ function submit () {
 }
 // 改变选项
 function handleCheckedChange (value) {
-  console.log(value)
   // 1.获取已勾选发票
   const arr = []
   this.detailsP.invoiceList.forEach(item => {
@@ -244,7 +243,6 @@ function handleCheckedChange (value) {
   this.transAmt = this.sum = sum
 }
 function Init () {
-  console.log(this)
   this.checkList = []
   this.sum = []
   this.transAmt = 0

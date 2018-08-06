@@ -192,8 +192,7 @@ header {
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
-import { firstToUpperCase, debounce, erroShow } from '@/util/util' // 首字母大写 防抖函数
-import { loadingConf } from '@/config/common' // 获取加载配置
+import { firstToUpperCase, debounce } from '@/util/util' // 首字母大写 防抖函数
 /* 我的Ar列表 */
 export default {
   props: ['dataLoading', 'dataTable'],
@@ -273,8 +272,6 @@ export default {
 }
 // 详情函数
 function handleInfo (idx, val, isChild = false) {
-  // 显示加载图标
-  const loading = this.$loading(loadingConf.get())
   // 获取数据
   this.getDetail(val).then(res => {
     if (res) {
@@ -285,29 +282,16 @@ function handleInfo (idx, val, isChild = false) {
         this.dialogInfoVisible = true
       }
     }
-    // 关闭加载图标
-    loading.close()
-  }).catch(err => {
-    // 错误提示
-    erroShow.call(this, err, loading)
   })
 }
 // 转让
 function handleTrans (idx, val) {
-  // 显示加载图标
-  const loading = this.$loading(loadingConf.get())
   // 获取数据
   this.getDetail(val).then(res => {
-    console.log(res)
     if (res) {
       this.detailsTransfer = res
       this.dialogTransferVisible = true
     }
-    // 关闭加载图标
-    loading.close()
-  }).catch(err => {
-    // 错误提示
-    erroShow.call(this, err, loading)
   })
 }
 // 取消转让
@@ -328,20 +312,12 @@ function handleCancleTrans (idx, val) {
 }
 // 贴现
 function handleInitiateDiscount (idx, val) {
-  // 显示加载图标
-  const loading = this.$loading(loadingConf.get())
   // 获取数据
   this.getDetail(val).then(res => {
-    console.log(res)
     if (res) {
       this.detailsDiscount = res
       this.dialogDiscountVisible = true
     }
-    // 关闭加载图标
-    loading.close()
-  }).catch(err => {
-    // 错误提示
-    erroShow.call(this, err, loading)
   })
 }
 // 取消贴现
@@ -362,20 +338,12 @@ function handleCancleDiscount (idx, val) {
 }
 // 合同确认
 function handleContract (idx, val) {
-  // 显示加载图标
-  const loading = this.$loading(loadingConf.get())
   // 获取数据
   this.getDetail(val).then(res => {
-    console.log(res)
     if (res) {
       this.detailsContract = res
       this.dialogContractVisible = true
     }
-    // 关闭加载图标
-    loading.close()
-  }).catch(err => {
-    // 错误提示
-    erroShow.call(this, err, loading)
   })
 }
 // 审核申请

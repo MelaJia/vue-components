@@ -1,4 +1,4 @@
-import {loadingConf} from '@/config/common' // 获取加载配置
+import {getDataBase} from '@/util/util' // 发送数据函数
 export default {
   data () {
     return {
@@ -47,7 +47,6 @@ export default {
       return ''
     },
     expendhandle (row, expandedRows) {
-      console.log(expandedRows)
       row.pend = !row.pend
     },
     getPendedColor ({row, rowIndex}) {
@@ -110,16 +109,13 @@ export default {
      * @param {any} length 长度
      * @returns promise
      */
-    getdata (page, length) {
-      console.log('获取数据')
+    async getdata (page, length) {
       const that = this
       this.loading = true // 开启加载动画
       that.param.iDisplayStart = page
       that.param.iDisplayLength = length
-      console.log(that.param)
-      return this.axios.post(this.postUrl, that.param).then(res => {
-        return Promise.resolve(res)
-      }).then(response => {
+      try {
+        let response = await this.axios.post(this.postUrl, that.param)
         let result = null
         if (response.data[that.dataStr] && response.data[that.dataStr].length > 0) {
           // 遍历子节点
@@ -138,10 +134,10 @@ export default {
         result = response
         this.loading = false // 关闭加载动画
         return Promise.resolve(result)
-      }).catch(err => {
+      } catch (error) {
         this.loading = false // 关闭加载动画
-        console.log(err)
-      })
+        console.log(error)
+      }
     },
     // 页数改变
     handleSizeChange (val) {
@@ -183,21 +179,16 @@ export default {
         })
     },
     // 获取ar详情
-    getDetail (val) {
-      return this.axios.post('/myAr/queryAr', { masterChainId: val.masterChainId }).then(res => {
-        // 处理数据
-        if (res.data.status) {
-          let details = this.handleInvoiceListFormat(res.data.data)
-          details.masterChainId = val.masterChainId
-          return details
-        } else {
-          this.$message({
-            type: 'info',
-            message: `请求出错`
-          })
-          return false
-        }
-      })
+    async getDetail (val) {
+      let res = await getDataBase.call(this, '/myAr/queryAr', { masterChainId: val.masterChainId }, true)
+      // 处理数据
+      if (res) {
+        let details = this.handleInvoiceListFormat(res)
+        details.masterChainId = val.masterChainId
+        return details
+      } else {
+        return res
+      }
     },
     /**
      * 详情
@@ -205,19 +196,12 @@ export default {
      * @param {*} val
      */
     handleInfo (idx, val) {
-      // 显示加载图标
-      const loading = this.$loading(loadingConf.sub())
       // 获取数据
       this.getDetail(val).then(res => {
         if (res) {
           this.details = res
           this.dialogInfoVisible = true
         }
-        // 关闭加载图标
-        loading.close()
-      }).catch(err => {
-        // 错误提示
-        erroShow.call(this, err, loading)
       })
     },
     /* 发票已选未选分离 */
@@ -237,19 +221,5 @@ export default {
       data.invoiceListSelected = listSelected
       return data
     }
-  }
-}
-// 错误提示函数
-function erroShow (err, loading) {
-  if (err.response && err.response.status === 401) {
-    console.log(err)
-  } else {
-    this.$alert(`网络错误${err}`, '系统提示', {
-      confirmButtonText: '确定',
-      callback: action => {
-        // 关闭加载图标
-        loading.close()
-      }
-    })
   }
 }

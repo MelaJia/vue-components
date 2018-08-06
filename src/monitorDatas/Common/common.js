@@ -401,7 +401,7 @@ const commonDatas = {
             "isInterfaceMode":0,
             "isMasterAr":1,
             "isNeedDiscountAudit":0,
-            "loanAmt":18406.44,
+            "loanAmt":100000,
             "masterChainId":"AR20180330000003",
             "parentChainId":"",
             "tableData":[

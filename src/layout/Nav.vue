@@ -51,9 +51,12 @@
       width: 3px;
       height: 100%;
       position: absolute;
-      left: 30px;
+      left: 3px;
       background: $navbg-circle;
     }
+  }
+  >ul>section{
+    padding-left: 10px;
   }
   .el-submenu__title::before,
   .el-menu-item::before {
@@ -61,7 +64,7 @@
     height: 100%;
     width: 3px;
     position: absolute;
-    left: 32px;
+    left: 3px;
     top: 0;
     transition: width 0.2s;
   }
@@ -80,13 +83,12 @@
       width: 3px;
       height: 100%;
       position: absolute;
-      left: 30px;
+      left: 3px;
       background: $navbg-circle;
     }
   }
   .el-submenu__title,
   .el-menu-item {
-    padding-left: 55px !important;
     span {
       position: relative;
     }
@@ -98,7 +100,7 @@
     width: 1px;
     top: 0;
     bottom: 0;
-    left: 32px;
+    left: 5px;
     position: absolute;
     border-color: inherit;
     background-color: $navbg-line-color;
@@ -120,11 +122,10 @@
     width: 10px;
     height: 10px;
     position: absolute;
-    left: 26px;
+    left: -5px;
     top: 50%;
     margin-top: -5px;
     background: $navbg-circle;
-    left: 20px;
     width: 20px;
     height: 20px;
     margin-top: -11px;

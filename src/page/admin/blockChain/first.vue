@@ -347,7 +347,7 @@ export default {
       })
       console.log(content)
       this.axios.post('/blockChainBrower/bcView', content).then(res => {
-        _this.signResult = JSON.stringify(res.data, true, 2)
+        _this.signResult = JSON.stringify(res.data)
       })
     },
     sign: function (content) {
