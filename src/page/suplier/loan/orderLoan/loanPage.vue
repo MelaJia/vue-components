@@ -40,7 +40,7 @@ export default {
   data () {
     return {
       loading: false,
-      postUrl: '/supplierOrderLoan/supplierCreditLoanManageList.do',
+      postUrl: '/supplierOrderLoan/supplierCreditLoanManagerList.do',
       dataStr: 'data',
       totalStr: 'recordsTotal'
     }

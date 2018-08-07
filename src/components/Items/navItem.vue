@@ -31,7 +31,6 @@ export default {
     treeMenu
   },
   mounted () {
-    console.log(this.list)
   }
 }
 </script>

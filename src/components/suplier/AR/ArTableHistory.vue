@@ -93,23 +93,6 @@ export default {
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogInfoMy')
   },
   methods: {
-    getDetail (val) {
-      return this.axios.post('/myAr/queryAr', { masterChainId: val.masterChainId }).then(res => {
-        console.log('获取到数据')
-        // 处理数据
-        if (res.data.status) {
-          let details = this.handleInvoiceListFormat(res.data.data)
-          details.masterChainId = val.masterChainId
-          return details
-        } else {
-          this.$message({
-            type: 'info',
-            message: `请求出错`
-          })
-          return false
-        }
-      })
-    }
   }
 }
 

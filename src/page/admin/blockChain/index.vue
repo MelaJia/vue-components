@@ -6,7 +6,7 @@
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="富金机" name="first"></el-tab-pane>
       <el-tab-pane label="钜信" name="second"></el-tab-pane>
-      <el-tab-pane label="保理方" name="third"></el-tab-pane>
+      <el-tab-pane label="保理方节点一" name="third"></el-tab-pane>
     </el-tabs>
     <!-- 内容区域 -->
     <component v-bind:is="activeName"></component>

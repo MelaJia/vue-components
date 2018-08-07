@@ -198,8 +198,10 @@ export default {
 function handleInfo (idx, val) {
   // 引入mixins/common.js中getLoanDetail其中包含有加载loading
   this.getLoanDetail('/loan2/queryLoanInfo.do', { masterChainId: val.masterChainId }).then(res => {
-    this.details = res
-    this.dialogInfoVisible = true
+    if (res) {
+      this.details = res
+      this.dialogInfoVisible = true
+    }
   })
 }
 /**
@@ -215,8 +217,10 @@ function handleRepay (idx, val1, val2) {
   console.log(param)
 
   this.getLoanDetail('/loanQuery/queryLoanRepayInfo.do', param).then(res => {
-    this.details = res
-    this.dialogRepayVisible = true
+    if (res) {
+      this.details = res
+      this.dialogRepayVisible = true
+    }
   })
 }
 </script>
