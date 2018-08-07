@@ -17,7 +17,7 @@
       </ul>
       <ul>
         <li>
-          <span>金额: <em>{{this.detailsP.poAmount}}</em>元</span>
+          <span>金额: <em>{{this.detailsP.poAmount | regexNum}}</em>元</span>
         </li>
         <li>
           <span>币别: <em>{{this.detailsP.currencyName}}</em></span>
@@ -64,12 +64,13 @@ ul:last-child{
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+import Common from '@/mixins/common'
 import {
   baseUrl
 } from '@/config/env.js'
 export default {
   props: ['visibleP', 'detailsP', 'filelist'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, Common],
   computed: {
     getTitle () {
       return '订单' + this.detailsP.poNumber

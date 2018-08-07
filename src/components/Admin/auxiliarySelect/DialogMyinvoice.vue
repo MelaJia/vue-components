@@ -17,15 +17,15 @@
       </ul>
       <ul>
         <li>
-          <span>金额: <em>{{this.detailsP.amount}}</em>元</span>
+          <span>金额: <em>{{this.detailsP.amount | regexNum}}</em>元</span>
         </li>
         <li>
-          <span>税额: <em>{{this.detailsP.taxAmount}}</em>元</span>
+          <span>税额: <em>{{this.detailsP.taxAmount | regexNum}}</em>元</span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>税价总计: <em>{{this.detailsP.total}}</em>元</span>
+          <span>税价总计: <em>{{this.detailsP.total | regexNum}}</em>元</span>
         </li>
         <li>
           <span>发票类型: <em>{{this.detailsP.invoiceTypeName}}</em></span>
@@ -87,12 +87,13 @@ ul:last-child{
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+import Common from '@/mixins/common'
 import {
   baseUrl
 } from '@/config/env.js'
 export default {
   props: ['visibleP', 'detailsP', 'filelist'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, Common],
   computed: {
     getTitle () {
       return '发票单号' + this.detailsP.invoiceNo

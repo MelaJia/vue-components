@@ -31,11 +31,11 @@
               </el-table-column>
               <el-table-column align="center" prop="buyerBankNo" :width="widthArr.buyerBankNo">
               </el-table-column>
-              <el-table-column align="center" prop="amount" :width="widthArr.amount">
+              <el-table-column align="right" prop="amount" :width="widthArr.amount" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="taxAmount" :width="widthArr.taxAmount">
+              <el-table-column align="right" prop="taxAmount" :width="widthArr.taxAmount" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="total" :width="widthArr.total">
+              <el-table-column align="right" prop="total" :width="widthArr.total" :formatter="regexNum">
               </el-table-column>
               <el-table-column align="center" prop="statusName" :width="widthArr.statusName">
               </el-table-column>
@@ -82,11 +82,11 @@
         </el-table-column>
         <el-table-column align="center" label="购方银行账号" prop="buyerBankNo" width="200">
         </el-table-column>
-        <el-table-column align="center" label="金额" prop="amount" width="100">
+        <el-table-column align="right" header-align="center" label="金额" prop="amount" width="100" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="税额" prop="taxAmount" width="100">
+        <el-table-column align="right" header-align="center" label="税额" prop="taxAmount" width="100" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="税价合计" prop="total" width="120">
+        <el-table-column align="right" header-align="center" label="税价合计" prop="total" width="120" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="状态" prop="statusName" width="80">
         </el-table-column>

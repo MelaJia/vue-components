@@ -27,11 +27,11 @@
               </el-table-column>
               <el-table-column align="center" prop="currencyName" :width="widthArr.currencyName">
               </el-table-column>
-              <el-table-column align="center" prop="oriAmt" :width="widthArr.oriAmt">
+              <el-table-column align="right" prop="oriAmt" :width="widthArr.oriAmt" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="oriPaidAmt" :width="widthArr.oriPaidAmt">
+              <el-table-column align="right" prop="oriPaidAmt" :width="widthArr.oriPaidAmt" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="oriUnPaidAmt" :width="widthArr.oriUnPaidAmt">
+              <el-table-column align="right" prop="oriUnPaidAmt" :width="widthArr.oriUnPaidAmt" :formatter="regexNum">
               </el-table-column>
               <el-table-column align="left" label-align="center" width="150">
                 <template slot-scope="scope">
@@ -69,11 +69,11 @@
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
-        <el-table-column align="center" label="应付金额" prop="oriAmt" width="120">
+        <el-table-column align="right" header-align="center" label="应付金额" prop="oriAmt" width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="已付金额" prop="oriPaidAmt" width="120">
+        <el-table-column align="right" header-align="center" label="已付金额" prop="oriPaidAmt" width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="未付金额" prop="oriUnPaidAmt" width="100">
+        <el-table-column align="right" header-align="center" label="未付金额" prop="oriUnPaidAmt" width="100" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" fixed="right" label="操作" header-align="center" width="100">
           <template slot-scope="scope">

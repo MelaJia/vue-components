@@ -33,10 +33,10 @@
       </ul>
       <ul>
         <li>
-          <span>贴现申请金额: <em>{{this.detailsP.discountApplyAmt}}</em></span>
+          <span>贴现申请金额: <em>{{this.detailsP.discountApplyAmt | regexNum}}</em></span>
         </li>
         <li>
-          <span>贴现确认金额: <em>{{this.detailsP.discountLoanAmt}}</em></span>
+          <span>贴现确认金额: <em>{{this.detailsP.discountLoanAmt | regexNum}}</em></span>
         </li>
       </ul>
       <ul class="height-auto">

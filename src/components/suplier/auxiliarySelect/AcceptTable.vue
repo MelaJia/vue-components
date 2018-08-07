@@ -27,7 +27,7 @@
               </el-table-column>
               <el-table-column align="center" prop="dataName" :width="widthArr.dataType">
               </el-table-column>
-              <el-table-column align="center" prop="amount" :width="widthArr.amount">
+              <el-table-column align="right" prop="amount" :width="widthArr.amount" :formatter="regexNum">
               </el-table-column>
               <el-table-column align="center" prop="currencyName" :width="widthArr.currencyName">
               </el-table-column>
@@ -70,7 +70,7 @@
         </el-table-column>
         <el-table-column align="center" label="类型" prop="dataType" width="80">
         </el-table-column>
-        <el-table-column align="center" label="金额" prop="amount" width="120">
+        <el-table-column align="right" header-align="center" label="金额" prop="amount" width="120" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>

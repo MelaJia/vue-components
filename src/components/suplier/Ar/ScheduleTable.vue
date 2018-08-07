@@ -25,9 +25,9 @@
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyDesc">
         </el-table-column>
-        <el-table-column align="center" label="票面金额" prop="billBookAmt" width="120px">
+        <el-table-column align="right" header-align="center" label="票面金额" prop="billBookAmt" width="120px" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="实际放款金额" prop="loanAmt" width="120px">
+        <el-table-column align="right" header-align="center" label="实际放款金额" prop="loanAmt" width="120px" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120px">
         </el-table-column>

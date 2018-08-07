@@ -60,39 +60,39 @@
         <tbody>
           <tr>
             <td>逾期0天之欠款金额</td>
-            <td>{{this.detailsP.dueARAmount_000}}</td>
+            <td>{{this.detailsP.dueARAmount_000 | regexNum}}</td>
             <td>逾期1-3天之欠款金额</td>
-            <td>{{this.detailsP.dueARAmount_001_003}}</td>
+            <td>{{this.detailsP.dueARAmount_001_003 | regexNum}}</td>
           </tr>
           <tr>
             <td>逾期4-7天之欠款金额</td>
-            <td>{{this.detailsP.dueARAmount_004_007}}</td>
+            <td>{{this.detailsP.dueARAmount_004_007 | regexNum}}</td>
             <td>逾期8-14天之欠款金额</td>
-            <td>{{this.detailsP.dueARAmount_008_014}}</td>
+            <td>{{this.detailsP.dueARAmount_008_014 | regexNum}}</td>
           </tr>
           <tr>
             <td>逾期15-30天之欠款金额</td>
-            <td>{{this.detailsP.dueARAmount_015_030}}</td>
+            <td>{{this.detailsP.dueARAmount_015_030 | regexNum}}</td>
             <td>逾期31-60天之欠款金额</td>
-            <td>{{this.detailsP.dueARAmount_031_060}}</td>
+            <td>{{this.detailsP.dueARAmount_031_060 | regexNum}}</td>
           </tr>
           <tr>
             <td>逾期61-90天之欠款金额</td>
-            <td>{{this.detailsP.dueARAmount_061_090}}</td>
+            <td>{{this.detailsP.dueARAmount_061_090 | regexNum}}</td>
             <td>逾期91-180天之欠款金额</td>
-            <td>{{this.detailsP.dueARAmount_091_180}}</td>
+            <td>{{this.detailsP.dueARAmount_091_180 | regexNum}}</td>
           </tr>
           <tr>
             <td>逾期181-270天之欠款金额</td>
-            <td>{{this.detailsP.dueARAmount_181_270}}</td>
+            <td>{{this.detailsP.dueARAmount_181_270 | regexNum}}</td>
             <td>逾期271-360天之欠款金额</td>
-            <td>{{this.detailsP.dueARAmount_271_360}}</td>
+            <td>{{this.detailsP.dueARAmount_271_360 | regexNum}}</td>
           </tr>
           <tr>
             <td>逾期361天及以上之欠款金额</td>
-            <td>{{this.detailsP.dueARAmount_361}}</td>
+            <td>{{this.detailsP.dueARAmount_361 | regexNum}}</td>
             <td>逾期之欠款金额</td>
-            <td>{{this.detailsP.totalDueARAmount}}</td>
+            <td>{{this.detailsP.totalDueARAmount | regexNum}}</td>
           </tr>
         </tbody>
       </table>
@@ -109,21 +109,21 @@
         <tbody>
           <tr>
             <td>1-7天内到期之欠款金额</td>
-            <td>{{this.detailsP.undueARAmount_01_07}}</td>
+            <td>{{this.detailsP.undueARAmount_01_07 | regexNum}}</td>
             <td>8-15天内到期之欠款金额</td>
-            <td>{{this.detailsP.undueARAmount_08_15}}</td>
+            <td>{{this.detailsP.undueARAmount_08_15 | regexNum}}</td>
           </tr>
           <tr>
             <td>16-22天内到期之欠款金额</td>
-            <td>{{this.detailsP.undueARAmount_16_22}}</td>
+            <td>{{this.detailsP.undueARAmount_16_22 | regexNum}}</td>
             <td>23-30天内到期之欠款金额</td>
-            <td>{{this.detailsP.undueARAmount_23_30}}</td>
+            <td>{{this.detailsP.undueARAmount_23_30 | regexNum}}</td>
           </tr>
           <tr>
             <td>31天后到期之欠款金额</td>
-            <td>{{this.detailsP.undueARAmount_31}}</td>
+            <td>{{this.detailsP.undueARAmount_31 | regexNum}}</td>
             <td>未到期之欠款金额</td>
-            <td>{{this.detailsP.totalUndueARAmount}}</td>
+            <td>{{this.detailsP.totalUndueARAmount | regexNum}}</td>
           </tr>
         </tbody>
       </table>
@@ -140,15 +140,15 @@
         <tbody>
           <tr>
             <td>报表日的应收商业承兑汇票余额</td>
-            <td>{{this.detailsP.tradeAcceptanceAmount}}</td>
+            <td>{{this.detailsP.tradeAcceptanceAmount | regexNum}}</td>
             <td>报表日的应收银行承兑汇票余额</td>
-            <td>{{this.detailsP.bankAcceptanceAmount}}</td>
+            <td>{{this.detailsP.bankAcceptanceAmount | regexNum}}</td>
           </tr>
           <tr>
             <td>报表日的暂收款余额</td>
-            <td>{{this.detailsP.temporaryReceiptsAmount}}</td>
+            <td>{{this.detailsP.temporaryReceiptsAmount | regexNum}}</td>
             <td>报表日的预收款余额</td>
-            <td>{{this.detailsP.advanceReceiptsAmount}}</td>
+            <td>{{this.detailsP.advanceReceiptsAmount | regexNum}}</td>
           </tr>
         </tbody>
       </table>

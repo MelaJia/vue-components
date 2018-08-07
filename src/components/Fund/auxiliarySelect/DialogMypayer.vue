@@ -17,7 +17,7 @@
       </ul>
       <ul>
         <li>
-          <span>实际付款金额: <em>{{this.detailsP.rcvAmtOrigin}}</em>元</span>
+          <span>实际付款金额: <em>{{this.detailsP.rcvAmtOrigin | regexNum}}</em>元</span>
         </li>
         <li>
           <span>币别: <em>{{this.detailsP.currencyName}}</em></span>
@@ -40,7 +40,7 @@
         <tbody>
           <tr v-for = "(item,index) in this.detailsP.billDetailList" :key="index">
             <td>{{item.billNo}}</td>
-            <td>{{item.oriAmt}}</td>
+            <td>{{item.oriAmt | regexNum}}</td>
             <td>{{item.billDate}}</td>
           </tr>
         </tbody>
@@ -100,9 +100,10 @@ span {
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+import Common from '@/mixins/common'
 export default {
   props: ['visibleP', 'detailsP'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, Common],
   computed: {
     getTitle () {
       return '付款单号' + this.detailsP.payNo

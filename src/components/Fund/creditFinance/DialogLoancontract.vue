@@ -11,7 +11,7 @@
         <el-row>
           <el-col :span="11" class="flex">
             <el-form-item label="贴现金额: " prop="applyAmt">
-              <span>{{detailsP.applyAmt}}</span>
+              <span>{{detailsP.applyAmt | regexNum}}</span>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
@@ -25,7 +25,7 @@
         <el-row>
           <el-col :span="11" class="flex">
             <el-form-item label="实放金额: " prop="loanAmt">
-             <el-input v-model="loanAmt" placeholder="实放金额"></el-input>
+             <el-input v-model="loanAmt" placeholder="实放金额" :formatter="regexNum"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">

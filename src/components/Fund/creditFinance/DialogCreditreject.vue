@@ -9,10 +9,10 @@
     <section>
       <ul>
         <li>
-          <span>申请金额: <em>{{this.detailsP.applyAmt}}</em></span>
+          <span>申请金额: <em>{{this.detailsP.applyAmt | regexNum}}</em></span>
         </li>
         <li>
-          <span>实放金额: <em>{{this.detailsP.loanAmt}}</em></span>
+          <span>实放金额: <em>{{this.detailsP.loanAmt | regexNum}}</em></span>
         </li>
       </ul>
       <ul>
@@ -83,9 +83,10 @@ ul:last-child{
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+import Common from '@/mixins/common'
 export default {
   props: ['visibleP', 'detailsP'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, Common],
   computed: {
     getTitle () {
       return '融资编号' + this.detailsP.loanId

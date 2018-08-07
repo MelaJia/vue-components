@@ -21,7 +21,7 @@
         </el-table-column>
         <el-table-column align="center" label="项次" prop="poItem">
         </el-table-column>
-        <el-table-column align="center" label="金额" prop="poAmount">
+        <el-table-column align="right" header-align="center" label="金额" prop="poAmount" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName">
         </el-table-column>

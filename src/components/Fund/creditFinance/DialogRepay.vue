@@ -30,7 +30,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="应还款金额:" prop="repayAmt">
-              <span>{{detailsP.repayAmt}}元</span>
+              <span>{{detailsP.repayAmt | regexNum}}</span>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -49,7 +49,11 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="实际还款日期:" prop="actualRepayDate">
-              <el-date-picker :editable="false" :picker-options="pickerOptions" v-model="detailsP.actualRepayDate" type="date" placeholder="选择日期">
+              <!-- <el-date-picker :editable="false" :picker-options="pickerOptions" v-model="detailsP.actualRepayDate" type="date" placeholder="选择日期">
+              </el-date-picker> -->
+              <!-- <el-date-picker :editable="false" v-model="detailsP.actualRepayDate" type="date" placeholder="选择日期" :formatter="dateFormat">
+              </el-date-picker> -->
+              <el-date-picker :editable="false" v-model="detailsP.actualRepayDate" type="date" placeholder="选择日期" format="yyyy-MM-dd">
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -92,9 +96,10 @@ ul:last-child{
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import { debounce } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
+import Common from '@/mixins/common'
 export default {
   props: ['visibleP', 'detailsP'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, Common],
   data () {
     return {
       rules: {
@@ -105,13 +110,18 @@ export default {
         actualRepayDate: [
           { required: true, message: '请输入实际还款日期', trigger: 'blur' }
         ]
-      },
-      // 日期选择器配置
-      pickerOptions: {
-        disabledDate (time) {
-          return time.getTime() < Date.now()
-        }
       }
+      // 日期选择器配置
+      // pickerOptions: {
+      //   disabledDate (time) {
+      //     return time.getTime() <= Date.now()
+      //   }
+      // }
+    }
+  },
+  watch: {
+    actualRepayAmt () {
+      return this.detailsP.repayAmt
     }
   },
   computed: {
@@ -136,8 +146,9 @@ function submit () {
         custId: this.detailsP.custId,
         factoringCustId: this.detailsP.factoringCustId,
         loanId: this.detailsP.loanId,
+        periodNo: this.detailsP.periodNo,
         actualRepayAmt: this.detailsP.actualRepayAmt,
-        actualRepayDate: this.detailsP.actualRepayDate
+        actualRepayDate: new Date(this.detailsP.actualRepayDate).Format('yyyy-MM-dd')
       }
       console.log(param)
       // 显示加载图标

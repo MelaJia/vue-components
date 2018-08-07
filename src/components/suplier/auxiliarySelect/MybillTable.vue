@@ -78,11 +78,11 @@
         </el-table-column>
         <el-table-column align="center" label="购方银行账号" prop="buyerBankNo" width="200">
         </el-table-column>
-        <el-table-column align="center" label="金额" prop="amount" width="100">
+        <el-table-column align="right" header-align="center" label="金额" prop="amount" width="100" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="税额" prop="taxAmount" width="100">
+        <el-table-column align="right" header-align="center" label="税额" prop="taxAmount" width="100" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="税价合计" prop="total" width="120">
+        <el-table-column align="right" header-align="center" label="税价合计" prop="total" width="120" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="状态" prop="statusName" width="80">
         </el-table-column>

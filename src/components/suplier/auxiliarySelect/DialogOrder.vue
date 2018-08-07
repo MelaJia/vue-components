@@ -20,7 +20,7 @@
           <span>订单项次: <em>{{this.detailsP.poItem}}</em></span>
         </li>
         <li>
-          <span>金额: <em>{{this.detailsP.poAmount}}</em>元</span>
+          <span>金额: <em>{{this.detailsP.poAmount | regexNum}}</em>元</span>
         </li>
       </ul>
       <ul>
@@ -72,12 +72,13 @@ ul:last-child{
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+import Common from '@/mixins/common'
 import {
   baseUrl
 } from '@/config/env.js'
 export default {
   props: ['visibleP', 'detailsP', 'filelist'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, Common],
   computed: {
     getTitle () {
       return this.detailsP.poNumber + '详情'

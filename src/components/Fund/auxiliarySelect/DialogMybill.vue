@@ -37,15 +37,15 @@
       </ul>
       <ul>
         <li>
-          <span>金额: <em>{{this.detailsP.amount}}</em>元</span>
+          <span>金额: <em>{{this.detailsP.amount | regexNum}}</em>元</span>
         </li>
         <li>
-          <span>税额: <em>{{this.detailsP.taxAmount}}</em>元</span>
+          <span>税额: <em>{{this.detailsP.taxAmount | regexNum}}</em>元</span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>税价合计: <em>{{this.detailsP.total}}</em>元</span>
+          <span>税价合计: <em>{{this.detailsP.total | regexNum}}</em>元</span>
         </li>
         <li>
           <span>录入日期: <em>{{this.detailsP.entryDate}}</em></span>
@@ -70,7 +70,7 @@
         <tbody>
           <tr v-for = "(item,index) in this.detailsP.grnDetail" :key="index">
             <td>{{item.grnNumber}}</td>
-            <td>{{item.grnAmount}}</td>
+            <td>{{item.grnAmount | regexNum}}</td>
             <td>{{item.grnDate}}</td>
           </tr>
         </tbody>
@@ -127,12 +127,13 @@ span {
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+import Common from '@/mixins/common'
 import {
   baseUrl
 } from '@/config/env.js'
 export default {
   props: ['visibleP', 'detailsP', 'filelist'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, Common],
   data () {
     return {
       vendorCode: this.detailsP.vendorCode

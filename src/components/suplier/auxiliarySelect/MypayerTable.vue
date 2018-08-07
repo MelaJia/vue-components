@@ -23,7 +23,7 @@
               </el-table-column>
               <el-table-column align="center" prop="corpName" :width="widthArr.corpName">
               </el-table-column>
-              <el-table-column align="center" prop="rcvAmtOrigin" :width="widthArr.rcvAmtOrigin">
+              <el-table-column align="right" prop="rcvAmtOrigin" :width="widthArr.rcvAmtOrigin" :formatter="regexNum">
               </el-table-column>
               <el-table-column align="center" prop="currencyName" :width="widthArr.currencyName">
               </el-table-column>
@@ -62,7 +62,7 @@
         </el-table-column>
         <el-table-column align="center" label="法人单位" prop="corpName" width="200">
         </el-table-column>
-        <el-table-column align="center" label="实际付款金额" prop="rcvAmtOrigin" width="120">
+        <el-table-column align="right" header-align="center" label="实际付款金额" prop="rcvAmtOrigin" width="120" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" width="100">
         </el-table-column>

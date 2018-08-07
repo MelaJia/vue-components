@@ -28,15 +28,15 @@
           <span>结报申请付款日期: <em>{{this.detailsP.dueDate}}</em></span>
         </li>
         <li>
-          <span>应付金额: <em>{{this.detailsP.oriAmt}}</em>元</span>
+          <span>应付金额: <em>{{this.detailsP.oriAmt | regexNum}}</em>元</span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>已付金额: <em>{{this.detailsP.oriPaidAmt}}</em>元</span>
+          <span>已付金额: <em>{{this.detailsP.oriPaidAmt | regexNum}}</em>元</span>
         </li>
         <li>
-          <span>未付金额: <em>{{this.detailsP.oriUnPaidAmt}}</em>元</span>
+          <span>未付金额: <em>{{this.detailsP.oriUnPaidAmt | regexNum}}</em>元</span>
         </li>
       </ul>
       <ul>
@@ -122,12 +122,13 @@ ul:last-child{
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+import Common from '@/mixins/common'
 import {
   baseUrl
 } from '@/config/env.js'
 export default {
   props: ['visibleP', 'detailsP', 'filelist'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, Common],
   computed: {
     getTitle () {
       return '结报单号' + this.detailsP.billNo

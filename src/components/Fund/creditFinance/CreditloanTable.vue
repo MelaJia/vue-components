@@ -22,7 +22,7 @@
         </el-table-column>
         <el-table-column align="center" label="融资类型" prop="loanTypeName" width="140">
         </el-table-column>
-        <el-table-column align="center" label="贴现申请金额" prop="applyAmt" width="140">
+        <el-table-column align="right" header-align="center" label="贴现申请金额" prop="applyAmt" width="140" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" width="100">
         </el-table-column>
@@ -30,7 +30,7 @@
         </el-table-column>
         <el-table-column align="center" label="还款方式" prop="repaymentType" width="140">
         </el-table-column>
-        <el-table-column align="center" label="实放金额" prop="loanAmt" width="100">
+        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" width="120" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="信用报告" width="100">
           <template slot-scope="scope">

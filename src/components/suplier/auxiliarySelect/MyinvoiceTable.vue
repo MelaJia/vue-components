@@ -21,11 +21,11 @@
               </el-table-column>
               <el-table-column align="center" prop="buyerName" :width="widthArr.buyerName">
               </el-table-column>
-              <el-table-column align="center" prop="amount" :width="widthArr.amount">
+              <el-table-column align="right" prop="amount" :width="widthArr.amount" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="taxAmount" :width="widthArr.taxAmount">
+              <el-table-column align="right" prop="taxAmount" :width="widthArr.taxAmount" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="total" :width="widthArr.total">
+              <el-table-column align="right" prop="total" :width="widthArr.total" :formatter="regexNum">
               </el-table-column>
               <el-table-column align="center" prop="currencyName" :width="widthArr.currencyName">
               </el-table-column>
@@ -66,11 +66,11 @@
         </el-table-column>
         <el-table-column align="center" label="购方名称" prop="buyerName" width="180">
         </el-table-column>
-        <el-table-column align="center" label="金额" prop="amount" width="120">
+        <el-table-column align="right" header-align="center" label="金额" prop="amount" width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="税额" prop="taxAmount" width="120">
+        <el-table-column align="right" header-align="center" label="税额" prop="taxAmount" width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="税价合计" prop="total" width="120">
+        <el-table-column align="right" header-align="center" label="税价合计" prop="total" width="120" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" width="100">
         </el-table-column>
