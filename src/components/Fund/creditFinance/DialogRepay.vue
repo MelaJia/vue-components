@@ -53,7 +53,7 @@
               </el-date-picker> -->
               <!-- <el-date-picker :editable="false" v-model="detailsP.actualRepayDate" type="date" placeholder="选择日期" :formatter="dateFormat">
               </el-date-picker> -->
-              <el-date-picker :editable="false" v-model="detailsP.actualRepayDate" type="date" placeholder="选择日期" format="yyyy-MM-dd">
+              <el-date-picker :editable="false" v-model="detailsP.actualRepayDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd">
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -119,11 +119,6 @@ export default {
       // }
     }
   },
-  watch: {
-    actualRepayAmt () {
-      return this.detailsP.repayAmt
-    }
-  },
   computed: {
     getTitle () {
       return this.detailsP.loanId + '还款'
@@ -148,7 +143,7 @@ function submit () {
         loanId: this.detailsP.loanId,
         periodNo: this.detailsP.periodNo,
         actualRepayAmt: this.detailsP.actualRepayAmt,
-        actualRepayDate: new Date(this.detailsP.actualRepayDate).Format('yyyy-MM-dd')
+        actualRepayDate: this.detailsP.actualRepayDate
       }
       console.log(param)
       // 显示加载图标

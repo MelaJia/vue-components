@@ -158,9 +158,11 @@ export default {
     handleInfo (idx, val) {
       val.infoLoading = true
       this.getLoanDetail('/auxiliaryFunction/searchSupplierPaymentDetail.do', { payNo: val.payNo, payBacth: val.payBacth, plantCode: val.plantCode }).then(res => {
-        this.details = res
-        this.dialogInfoVisible = true
-        val.infoLoading = false
+        if (res) {
+          this.details = res
+          this.dialogInfoVisible = true
+          val.infoLoading = false
+        }
       })
     },
     fresh () {

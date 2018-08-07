@@ -122,8 +122,10 @@ export default {
 function handleInfo (idx, val) {
   // 引入mixins/common.js中getLoanDetail其中包含有加载loading
   this.getLoanDetail('/creditLoan/queryCreditLoanInfo.do', { loanId: val.loanId }).then(res => {
-    this.details = res
-    this.dialogInfoVisible = true
+    if (res) {
+      this.details = res
+      this.dialogInfoVisible = true
+    }
   })
 }
 // 合同生成

@@ -70,9 +70,11 @@ export default {
     handleInfo (idx, val) {
       val.infoLoading = true
       this.getLoanDetail('/creditLoan/queryCreditLoanInfo.do', { loanId: val.loanId }).then(res => {
-        this.details = res
-        this.dialogInfoVisible = true
-        val.infoLoading = false
+        if (res) {
+          this.details = res
+          this.dialogInfoVisible = true
+          val.infoLoading = false
+        }
       })
     },
     fresh () {

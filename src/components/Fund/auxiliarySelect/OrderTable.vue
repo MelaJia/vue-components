@@ -75,13 +75,17 @@ export default {
     handleInfo (idx, val) {
       val.infoLoading = true
       this.getLoanDetail('/auxiliaryFunction/searchSupplierOrderDetail.do', { vendorCode: val.vendorCode, poNumber: val.poNumber, poItem: val.poItem, plantCode: val.plantCode }).then(res => {
-        this.details = res
-        this.dialogInfoVisible = true
-        val.infoLoading = false
+        if (res) {
+          this.details = res
+          this.dialogInfoVisible = true
+          val.infoLoading = false
+        }
       })
       // 附件信息展示
       this.axios.post('/auxiliaryFunction/searchPOFile.do', { vendorCode: val.vendorCode, poNumber: val.poNumber, plantCode: val.plantCode }).then(res => {
-        this.filedetails = res.data.data
+        if (res) {
+          this.filedetails = res.data.data
+        }
       }).catch(err => {
         console.log(err)
       })

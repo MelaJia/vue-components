@@ -184,13 +184,17 @@ export default {
     handleInfo (idx, val) {
       val.infoLoading = true
       this.getLoanDetail('/auxiliaryFunction/searchSupplierStatementDetail.do', { vendorCode: val.vendorCode, statementNo: val.statementNo, corpCode: val.corpCode }).then(res => {
-        this.details = res
-        this.dialogInfoVisible = true
-        val.infoLoading = false
+        if (res) {
+          this.details = res
+          this.dialogInfoVisible = true
+          val.infoLoading = false
+        }
       })
       // 附件信息展示
       this.axios.post('/auxiliaryFunction/searchSupplierStatementFile.do', { invoiceCode: val.invoiceCode, invoiceNo: val.invoiceNo, corpCode: val.corpCode }).then(res => {
-        this.filedetails = res.data.data
+        if (res) {
+          this.filedetails = res.data.data
+        }
       }).catch(err => {
         console.log(err)
       })

@@ -211,9 +211,11 @@ export default {
     handleInfo (idx, val) {
       val.infoLoading = true
       this.getLoanDetail('/creditLoan/queryCreditLoanInfo.do', { loanId: val.loanId }).then(res => {
-        this.details = res
-        this.dialogInfoVisible = true
-        val.infoLoading = false
+        if (res) {
+          this.details = res
+          this.dialogInfoVisible = true
+          val.infoLoading = false
+        }
       })
     },
     fresh () {
@@ -223,9 +225,11 @@ export default {
     repayMent (idx, val) {
       val.repayLoading = true
       this.getLoanDetail('/factoringCreditLoan/queryCreditLoanRepayInfo.do', { loanId: val.loanId, periodNo: val.periodNo }).then(res => {
-        this.details = res
-        this.dialogRepay = true
-        val.infoLoading = false
+        if (res) {
+          this.details = res
+          this.dialogRepay = true
+          val.infoLoading = false
+        }
       })
     }
   }
