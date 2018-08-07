@@ -49,7 +49,9 @@ export default {
   mixins: [Dialog],
   mounted () {
     getDataBase.call(this, 'creditLoan/queryCreditAmount.do').then(res => {
-      this.details = res
+      if (res) {
+        this.details = res
+      }
     })
   },
   components: {
@@ -68,7 +70,9 @@ export default {
     fresh () {
       // 重新获取金额
       getDataBase.call(this, 'creditLoan/queryCreditAmount.do').then(res => {
-        this.details = res
+        if (res) {
+          this.details = res
+        }
       })
       this.$emit('refresh')
     }

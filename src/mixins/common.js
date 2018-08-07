@@ -1,5 +1,4 @@
-import {loadingConf} from '@/config/common' // 获取加载配置
-import { postDataBase, thousandth, throttle } from '@/util/util' // 发送数据函数
+import { postDataBase, thousandth, throttle, getDataBase } from '@/util/util' // 发送数据函数
 export default {
   methods: {
     // 按下左键
@@ -48,24 +47,10 @@ export default {
       })
     },
     // 获取放款详情接口
-    getLoanDetail (url, param) {
+    async getLoanDetail (url, param) {
       // 显示加载图标
-      const loading = this.$loading(loadingConf.sub())
-      return this.axios.post(url, param).then(res => {
-        // 关闭加载图标
-        loading.close()
-        if (res.data.status) {
-          return res.data.data
-        } else {
-          this.$message({
-            type: 'error',
-            message: res.data.msg
-          })
-        }
-      }).catch((err) => {
-        // 错误提示
-        erroShow.call(this, err, loading)
-      })
+      let res = await getDataBase.call(this, url, param, true)
+      return res
     },
     /**
      * 操作类基础请求
@@ -114,16 +99,6 @@ export default {
       return `${val}%`
     }
   }
-}
-// 错误提示函数
-function erroShow (err, loading) {
-  this.$alert(`网络错误${err}`, '系统提示', {
-    confirmButtonText: '确定',
-    callback: action => {
-      // 关闭加载图标
-      loading.close()
-    }
-  })
 }
 // 鼠标单击事件
 function mouseDown (e) {

@@ -51,8 +51,10 @@ export default {
     handleInfo (idx, val) {
       // 引入mixins/common.js中getLoanDetail其中包含有加载loading
       this.getLoanDetail('/loan2/queryLoanInfo.do', { masterChainId: val.masterChainId }).then(res => {
-        this.details = res
-        this.dialogInfoVisible = true
+        if (res) {
+          this.details = res
+          this.dialogInfoVisible = true
+        }
       })
     }
   }
@@ -70,7 +72,7 @@ export default {
   margin-bottom: 0;
   width: 50%;
 }
- /* 更多菜单样式 */
+/* 更多菜单样式 */
 .el-dropdown {
   margin-left: 20px;
 }
