@@ -1186,7 +1186,7 @@ export const dataDetails={
     },
     "msg":"返回结果正常",
     "recordsTotal":null,
-    "status":0
+    "status":1
     }
 export const contract = {
     "data":{

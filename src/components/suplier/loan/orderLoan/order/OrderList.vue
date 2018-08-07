@@ -40,7 +40,7 @@
         </el-table-column>
         <el-table-column align="center" label="法人单位" prop="corpName">
         </el-table-column>
-        <el-table-column align="center" label="金额" prop="poAmount">
+        <el-table-column align="right" header-align="center" label="金额" prop="poAmount" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName">
         </el-table-column>
@@ -175,8 +175,11 @@ export default {
 }
 // 详情函数
 function handleInfo (idx, val) {
+  let param = {
+    loanId: val.loanId
+  }
   // 获取数据
-  getDataBase.call(this, '/creditLoan/queryCreditLoanInfo.do', val.loanId, true).then(res => {
+  getDataBase.call(this, '/creditLoan/queryCreditLoanInfo.do', param, true).then(res => {
     if (res) {
       console.log(res)
       this.details = res

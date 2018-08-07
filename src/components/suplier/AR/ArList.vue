@@ -21,7 +21,7 @@
       </el-table-column>
       <el-table-column align="center" label="币别" prop="currencyDesc">
       </el-table-column>
-      <el-table-column align="center" label="转让金额" prop="transAmt" :formatter="regexNum">
+      <el-table-column align="right" header-align="center" label="转让金额" prop="transAmt" :formatter="regexNum">
       </el-table-column>
       <el-table-column align="center" label="转让日期" sortable prop="transDate" min-width="120" :formatter="dateFormat">
       </el-table-column>

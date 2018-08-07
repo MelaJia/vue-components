@@ -52,7 +52,7 @@
           <span>实际放款金额: <em>{{this.detailsP.actualDiscountAmt | regexNum}}</em></span>
         </li>
         <li class="w-50">
-         <span>手续费: <em>{{this.detailsP.overdueRate |addPercent}}</em></span>
+         <span>服务费率: <em>{{this.detailsP.overdueRate |addPercent}}</em></span>
         </li>
       </ul>
       <ul class="height-auto">

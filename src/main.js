@@ -17,9 +17,7 @@ import dateInit from '@/plugs/date'
 import {
   apiUrl
 } from '@/config/env.js'
-import {
-  monitorInit
-} from '@/monitorDatas'
+import { monitorInit } from '@/monitorDatas'
 import preview from 'vue-photo-preview'
 import 'vue-photo-preview/dist/skin.css'
 Vue.use(preview)// 图片预览
@@ -62,10 +60,12 @@ axios.interceptors.response.use(
               }
             })
           }
+          ElementUI.Message({
+            showClose: true,
+            message: '会话超时，请重新登录',
+            type: 'error'
+          })
       }
-    }
-    if (error.response) {
-      return Promise.reject(error.response.data) // 返回接口返回的错误信息
     }
     return Promise.reject(error) // 返回接口返回的错误信息
   })

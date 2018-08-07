@@ -201,9 +201,9 @@ export default {
           },
           secData: { // 第二个数据
             value: 3515,
-            name: '利息'
+            name: '收益'
           },
-          path: 'loan', // 路径
+          path: 'loaned', // 路径
           bcolor: '#5b9bd5' // 背景色
         },
         loaned: {
@@ -214,9 +214,9 @@ export default {
           },
           secData: { // 第二个数据
             value: 3515,
-            name: '利息'
+            name: '收益'
           },
-          path: 'loan', // 路径
+          path: 'loanfinish', // 路径
           bcolor: '#9f9f9f' // 背景色
         }
       },
@@ -280,7 +280,7 @@ function getdata (scope) {
         // 设置右侧列表数据
         if (element.key === 'loanedNo' || element.key === 'loaned') {
           scope.dataArr[element.key].firData.value = res.data.data[`${element.key}FinishPrincipal`]
-          scope.dataArr[element.key].secData.value = res.data.data[`${element.key}FinishInterest`]
+          scope.dataArr[element.key].secData.value = res.data.data[`${element.key}FinishProfit`]
           // 填充饼图数据
           if (element.key === 'loanedNo') {
             amtArr.push({ value: res.data.data[`${element.key}FinishPrincipal`], name: element.text })
@@ -295,6 +295,7 @@ function getdata (scope) {
         }
       }
     }
+    console.log(scope.dataArr)
     return { amt: amtArr, bColor: bColorArr }
   })
 }

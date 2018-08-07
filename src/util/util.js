@@ -483,9 +483,10 @@ export const erroShow = function (err, loading) {
   if(loading) {
     loading.close()
   }
+  debugger
   if(err.response && err.response.status === 401){
   }else{
-    this.$alert(`网络错误${err}`, '系统提示', {
+    this.$alert(`系统错误${err}`, '系统提示', {
       confirmButtonText: '确定',
       callback: action => {
       }
@@ -600,6 +601,8 @@ export const thousandth = function (val) {
     }
   } else if (typeof val === 'number') {
     return val.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+  }else if(val === undefined||val ===null){
+    return '0.00'
   }
   return result
 }

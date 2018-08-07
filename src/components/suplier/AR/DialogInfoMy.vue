@@ -38,8 +38,8 @@
           <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
         </li>
         <li v-if="!detailsP.isMasterAr">
-          <el-tooltip :content="'对手单位:'+this.detailsP.transUnitName" placement="bottom" effect="light">
-           <span>对手单位: <em>{{this.detailsP.transUnitName}}</em></span>
+          <el-tooltip :content="'原始AR单位:'+this.detailsP.transUnitName" placement="bottom" effect="light">
+           <span>原始AR单位: <em>{{this.detailsP.transUnitName}}</em></span>
           </el-tooltip>
         </li>
       </ul>

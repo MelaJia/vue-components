@@ -13,7 +13,7 @@
       </el-table-column>
       <el-table-column align="center" label="贴现客户" prop="custFromName">
       </el-table-column>
-      <el-table-column align="center" label="贴现金额" prop="billBookAmt" :formatter="regexNum">
+      <el-table-column align="right" header-align="center" label="贴现金额" prop="billBookAmt" :formatter="regexNum">
       </el-table-column>
       <el-table-column align="center" label="币别" prop="currencyDesc">
       </el-table-column>

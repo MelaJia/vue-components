@@ -12,6 +12,7 @@ const monitorInit = ()=>{
   Mock.mock('https://jurongtest.foxconn.com/sit/loan2/showGenerateContract.do', contract)
   Mock.mock('https://jurongtest.foxconn.com/sit/loanFee2/getCustLoanFeeListTable.do', DataFee)
   Mock.mock('https://jurongtest.foxconn.com/sit/loanQuery/loanQueryLOANEDManage.do', LoanedDatas)
+  Mock.mock('https://jurongtest.foxconn.com/sit/loanQuery/loanQueryREJECTManage.do', LoanedDatas)
   Mock.mock('https://jurongtest.foxconn.com/sit/commonAr/queryCurr.do', commonDatas.moneyTypes)
   Mock.mock('https://jurongtest.foxconn.com/sit/commonAr/queryARStatusType.do', commonDatas.arStatus)
   Mock.mock('https://jurongtest.foxconn.com/sit/myAr/initiateDiscount.do', commonDatas.comdata)
@@ -262,7 +263,7 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/queryCreditLoanInfo.do'
   "status": true
 })
 // 融资情况列表
-Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/supplierCreditLoanManageList.do', {
+Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/creditLoanManageList.do', {
   "data":[
       {
         loanId: '123', // 融资编号

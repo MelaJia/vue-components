@@ -49,7 +49,7 @@
         prop="currencyDesc"
         >
         </el-table-column>
-        <el-table-column align="center"
+        <el-table-column align="right" header-align="center"
         label="转让金额"
         prop="transAmt"
         :formatter="regexNum"

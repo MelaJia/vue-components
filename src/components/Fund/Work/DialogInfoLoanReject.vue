@@ -62,42 +62,8 @@
   </el-dialog>
 </section>
 </template>
-<style scoped>
-#title {
-  color: #931719;
-  line-height: 24px;
-  font-size: 18px;
-}
-
-section {
-  padding: 0px 20px;
-}
-
-ul {
-  position: relative;
-  border-top: 0.5px solid #931719;
-  margin: 0;
-  border-right: 0.5px solid #931719;
-  padding: 0;
-  height: 32px;
-}
-
-ul:last-of-type {
-  border-bottom: 0.5px solid #931719;
-}
-
-li {
-  list-style: none;
-  width: 48%;
-  display: inline-block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  line-height: 32px;
-  border-left: 0.5px solid #931719;
-  text-align: left;
-  padding-left: 5px;
-}
+<style scoped lang="scss">
+@import "@/assets/css/_dialog.scss";
 </style>
 
 <script>
