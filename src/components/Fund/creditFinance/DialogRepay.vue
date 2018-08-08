@@ -7,7 +7,7 @@
       </span>
     </header>
     <section>
-      <el-form ref="form" :model="detailsP" status-icon :rules="rules" label-width="130px">
+      <el-form ref="form" :model="detailsP" status-icon :rules="rules" label-width="160px">
         <el-row>
           <el-col :span="12" class="flex">
             <el-form-item label="还款单位:" prop="repayCompany">
@@ -29,7 +29,7 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="应还款金额:" prop="repayAmt">
+            <el-form-item label="本期应还款金额:" prop="repayAmt">
               <span>{{detailsP.repayAmt | regexNum}}</span>
             </el-form-item>
           </el-col>
@@ -40,19 +40,36 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-form-item label="客户还款金额:" prop="actualRepayAmt">
+          <el-col :span="12">
+            <el-form-item label="今日提前还清应还金额:" prop="repayAmt">
+              <span>{{detailsP.repayAmt | regexNum}}</span>
+            </el-form-item>
+          </el-col>
+          <el-col :span="10" :pull="2">
+            <el-form-item>
+              <el-checkbox v-model="confirmCheck">确认提前还清</el-checkbox>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <!-- <el-form-item label="客户还款金额:" prop="actualRepayAmt">
             <el-input v-model="detailsP.actualRepayAmt">
               <template slot="append"><a href="javascript:;" @click.prevent="getFull" class="getFull">代入应还金额</a></template>
+              <template slot="append"></template>
             </el-input>
-          </el-form-item>
+            <a href="javascript:;" @click.prevent="getFull" class="getFull">代入提前还清应还金额</a>
+          </el-form-item> -->
+          <el-col :span="12">
+            <el-form-item label="客户还款金额:" prop="actualRepayAmt">
+              <el-input v-model="detailsP.actualRepayAmt"></el-input>
+            </el-form-item>
+          </el-col>
+          <!-- <el-col :span="12"><a href="javascript:;" @click.prevent="getFull" class="getFull">代入应还金额</a><a href="javascript:;" @click.prevent="getFull" class="getFull">代入提前还清应还金额</a></el-col> -->
+          <el-col :span="12"><el-button @click="getFull" class="getFull">代入应还金额</el-button><el-button @click="getAdvanceFull" class="getFull">代入提前还清应还金额</el-button></el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="实际还款日期:" prop="actualRepayDate">
-              <!-- <el-date-picker :editable="false" :picker-options="pickerOptions" v-model="detailsP.actualRepayDate" type="date" placeholder="选择日期">
-              </el-date-picker> -->
-              <!-- <el-date-picker :editable="false" v-model="detailsP.actualRepayDate" type="date" placeholder="选择日期" :formatter="dateFormat">
-              </el-date-picker> -->
               <el-date-picker :editable="false" v-model="detailsP.actualRepayDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd">
               </el-date-picker>
             </el-form-item>
@@ -71,6 +88,7 @@
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleRepay">还款</el-button>
+      <el-button type="danger" :disabled="this.confirmCheck === false ? true : false" @click="advanceRepay">提前还清</el-button>
       <el-button type="default" @click="handleClose">取消</el-button>
     </footer>
   </el-dialog>
@@ -86,8 +104,11 @@ ul:last-child{
     line-height: 45px;
   }
 }
+.el-form-item{
+  margin-bottom: 15px;
+}
 .getFull{
-  text-decoration: none;
+  margin-left: 10px;
   color: #333;
 }
 </style>
@@ -102,6 +123,7 @@ export default {
   mixins: [DialogClose, Common],
   data () {
     return {
+      confirmCheck: false, // 确认提前还清选择框
       rules: {
         actualRepayAmt: [
           { required: true, message: '请输入客户还款金额', trigger: 'blur' },
@@ -127,7 +149,12 @@ export default {
   methods: {
     // 还款
     handleRepay: debounce(submit, 1000, true),
+    // 代入应还金额
     getFull () {
+      this.detailsP.actualRepayAmt = this.detailsP.repayAmt
+    },
+    // 代入提前还清应还金额
+    getAdvanceFull () {
       this.detailsP.actualRepayAmt = this.detailsP.repayAmt
     }
   }

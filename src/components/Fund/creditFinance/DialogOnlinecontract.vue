@@ -18,7 +18,7 @@
           </el-col>
           <el-col :span="11" class="flex">
             <el-form-item label="还款日期: " prop="repayDate">
-              <span>{{detailsP.repayDate|dateFormat}}</span>
+              <span>{{detailsP.repayDate | dateFormat}}</span>
             </el-form-item>
           </el-col>
         </el-row>
@@ -122,16 +122,17 @@ export default {
 function submit () {
   // 表单验证
   this.$refs.form.validate((valid) => {
+    console.log(this.fileList)
     if (valid) {
       // 组合数据
       const param = {
         loanId: this.detailsP.loanId, // 融资编号Id
         applyAmt: this.detailsP.applyAmt, // 实放金额
         repayDate: this.detailsP.repayDate, // 还款日期
-        contractUploadFileUrl: this.fileList // 合同列表
+        contractUploadFileList: this.fileList // 合同列表
       }
-      // 提交数据
       postDataBase.call(this, '/factoringCreditLoan/generateContract.do', param, true).then(res => {
+        console.log(param)
         // 操作成功关闭弹窗刷新数据
         if (res.data.status) {
           this.$parent.fresh()
@@ -145,6 +146,7 @@ function submit () {
 // 上传成功调用此事件给fileList中添加数据
 function getUrl (obj) {
   let { val, file } = obj
+  console.log(val)
   console.log(file)
   if (val) {
     if (val.status) {
