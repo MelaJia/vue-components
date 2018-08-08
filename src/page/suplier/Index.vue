@@ -403,7 +403,7 @@ function getdata (scope) {
         // 设置右侧列表数据
         if (element.key !== 'onReceiveAmout') {
           scope.rightDataArr[element.key].data.firData.value = res.data.data[`${element.key}AvailableAmout`] || 0
-          scope.rightDataArr[element.key].data.secData.value = element.key === ('unOperate' || 'received') ? res.data.data[`${element.key}UnavailableAmout`] || 0 : res.data.data[`${element.key}ExpiredAmout`] || 0
+          scope.rightDataArr[element.key].data.secData.value = element.key === 'unOperate' || element.key === 'received' ? res.data.data[`${element.key}UnavailableAmout`] || 0 : res.data.data[`${element.key}ExpiredAmout`] || 0
           if (element.key === 'received') {
             scope.rightDataArr[element.key].data.thirData.value = res.data.data[`${element.key}ExpiredAmout`] || 0
           }
