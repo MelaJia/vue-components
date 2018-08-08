@@ -206,18 +206,19 @@ let validTwo = {
     required: true,
     message: '请输入营业执照所在地',
     trigger: 'blur'
-  }, { max: 225, message: '长度不得超过225个字符', trigger: 'blur' }],
+  }, { max: 128, message: '长度不得超过128个字符', trigger: 'blur' }],
+  registry: [{ max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
   vendorCodes: [{
     required: true,
     validator: check('vendorCodes', '供应商代码'),
     trigger: 'blur'
   }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
-  companyBusinessScope: [{ max: 225, message: '长度不得超过225个字符', trigger: 'blur' }],
+  companyBusinessScope: [{ max: 200, message: '长度不得超过200个字符', trigger: 'blur' }],
   mainProducts: [{
     required: true,
     message: '请输入主营产品',
     trigger: 'blur'
-  }, { max: 225, message: '长度不得超过225个字符', trigger: 'blur' }]
+  }, { max: 200, message: '长度不得超过200个字符', trigger: 'blur' }]
 }
 let validThree = {
   logoUrl: [{

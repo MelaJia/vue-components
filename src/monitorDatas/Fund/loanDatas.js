@@ -505,7 +505,8 @@ export const LoanedDatas={
                     "prepayServiceAmt":0,
                     "payAmt":2,
                     "periodPayDate":1533052800000,
-                    "periodNo":1
+                    "periodNo":1,
+                    isShowRepayButton: 1
                 },
                 {
                     "payPrincipalAmt":200,
@@ -1078,116 +1079,7 @@ export const LoanedDatas={
 }
 
 
-export const dataDetails={
-    "data":{
-    "actualDiscountAmt":1,
-    "actualDiscountTime":null,
-    "actualLoanAmt":1,
-    "actualLoanTime":1,
-    "arAvailableAmt":null,
-    "arSourceDesc":null,
-    "arStatusTypeName":"貼現申請中",
-    "bankAccount":"PBOC0000001",
-    "bankName":"PBOC",
-    "billBookAmt":378705.00,
-    "checkedStatus":22,
-    'needPayAmt': 1250,
-    "companyName":"鴻富泰精密電子(煙台)有限公司",
-    "invoiceCustomList":[
-        {
-            "invoiceAfterTaxAmt":102070.8,
-            "invoiceCurrency":null,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1512576000000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"33759495"
-        },
-        {
-            "invoiceAfterTaxAmt":102070.8,
-            "invoiceCurrency":null,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1512576000000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"33759496"
-        },
-        {
-            "invoiceAfterTaxAmt":102070.8,
-            "invoiceCurrency":null,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1512576000000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"33759497"
-        },
-        {
-            "invoiceAfterTaxAmt":102070.8,
-            "invoiceCurrency":null,
-            "invoiceCurrencyDesc":null,
-            "invoiceDate":1512576000000,
-            "invoiceIsSelected":0,
-            "invoiceNo":"33759498"
-        }
-    ],
-    "contractList":[
-    {
-    "contractId":"8fb5911e-dab3-4504-9aaf-8fee2af2a74e",
-    "contractName":"应收账款质押合同",
-    "contractNo":"8fb5911e-dab3-4504-9aaf-8fee2af2a74e",
-    "contractPlatformId":null,
-    "contractTemplateId":"1808f0a6-1172-4f60-aa6d-026a9ce5a80b",
-    "contractUrl":'www.baidu.com',
-    "createBy":"11031049033568",
-    "createTime":1528970222000,
-    "isNeedPlatformSign":null,
-    "lstUpdBy":"11031049033568",
-    "lstUpdTime":1528970222000,
-    "masterChainId":"AR20171125000008",
-    "status":0,
-    "transSerialNo":null
-    },
-    {
-    "contractId":"b7f89488-7d37-46f9-9ef3-aa086fd80561",
-    "contractName":"收费协议",
-    "contractNo":"b7f89488-7d37-46f9-9ef3-aa086fd80561",
-    "contractPlatformId":null,
-    "contractTemplateId":"271637d3-db9e-4439-91cb-68cade47493f",
-    "contractUrl":'www.baidu.com',
-    "createBy":"11031049033568",
-    "createTime":1528970233000,
-    "isNeedPlatformSign":null,
-    "lstUpdBy":"11031049033568",
-    "lstUpdTime":1528970233000,
-    "masterChainId":"AR20171125000008",
-    "status":0,
-    "transSerialNo":null
-    }
-    ],
-    "currencyDesc":"人民币",
-    "currencyName":"RMB",
-    "custFromId":"f5e55fcb-7ccd-4413-adb2-1305ed69f52f",
-    "custFromName":"管理员1",
-    "custToId":"15c09de8-6600-42c5-8e5a-acfe1951f8b0",
-    "custToName":"CF",
-    "interestRate":1.00,
-    "isMasterAr":0,
-    "l1Supplier":"昆山乙盛機械工業有限公司",
-    "masterChainId":"AR20171125000008",
-    "overdueRate":null,
-    "parentChainId":"AR20171125000007",
-    "payerBankAccount":"ABC0726002",
-    "payerBankName":"中国银行",
-    "poNumber":null,
-    "rejectReason":null,
-    "serviceFeeRate":null,
-    "sourceChainId":"AR20171019000014",
-    "transSerial":"3b20b683b7394a1999ad8cc5d4185218",
-    "transSerialNo":"ca61a9ca-d313-4109-b781-bc1f18f8c4c9",
-    "transType":"discount",
-    "vendorCodes":null
-    },
-    "msg":"返回结果正常",
-    "recordsTotal":null,
-    "status":1
-    }
+export const dataDetails={"data":{"actualRepayAmt":null,"companyName":"深圳市裕展精密科技有限公司","contractList":[{"contractId":"248416b3-31da-43e7-b6f4-48f83dbb27bb","contractName":"应收账款质押合同","contractNo":"248416b3-31da-43e7-b6f4-48f83dbb27bb","contractPlatformId":null,"contractTemplateId":"1808f0a6-1172-4f60-aa6d-026a9ce5a80b","contractUrl":"/pdf/bc652462-5938-4609-b60e-3b484bbcf5fa.pdf","createBy":"fa5c74a9-7b3b-11e8-af59-005056afdfba","createTime":1533607381000,"isNeedPlatformSign":null,"lstUpdBy":"fa5c74a9-7b3b-11e8-af59-005056afdfba","lstUpdTime":1533607733000,"masterChainId":"AR20180807000078","status":4,"transSerialNo":null},{"contractId":"5da6452b-8781-48dd-94d9-8d34f47b600d","contractName":"收费协议","contractNo":"5da6452b-8781-48dd-94d9-8d34f47b600d","contractPlatformId":null,"contractTemplateId":"271637d3-db9e-4439-91cb-68cade47493f","contractUrl":"/pdf/ab6269cd-3d65-4b95-aef3-65e013d3e0b1.pdf","createBy":"fa5c74a9-7b3b-11e8-af59-005056afdfba","createTime":1533607381000,"isNeedPlatformSign":null,"lstUpdBy":"fa5c74a9-7b3b-11e8-af59-005056afdfba","lstUpdTime":1533607733000,"masterChainId":"AR20180807000078","status":4,"transSerialNo":null},{"contractId":"530d4fc8-ab15-4b56-b02a-86673dcf8b7a","contractName":"借款合同（适用于借款人是法人）","contractNo":"530d4fc8-ab15-4b56-b02a-86673dcf8b7a","contractPlatformId":null,"contractTemplateId":"2b19a1c0-c30a-4e49-a2ee-a6361665a2d4","contractUrl":"/pdf/9fdda46b-4ff5-4f9a-b2fe-58d57499d048.pdf","createBy":"fa5c74a9-7b3b-11e8-af59-005056afdfba","createTime":1533607381000,"isNeedPlatformSign":null,"lstUpdBy":"fa5c74a9-7b3b-11e8-af59-005056afdfba","lstUpdTime":1533607733000,"masterChainId":"AR20180807000078","status":4,"transSerialNo":null}],"custFromId":"93ab75cb-30b2-4601-b798-2f72eba084ab","custFromName":"富泰华工业（深圳）有限公司宝源分厂","custToId":"fa5c74a9-7b3b-11e8-af59-005056afdfba","custToName":"深圳市富龍小額貸款有限公司","invoiceCustomList":[{"afterTaxAmt":208731.56,"billId":"NTT3I70863","createBy":"sys","createTime":1533175479000,"currency":1,"currencyDesc":"人民币","exchangeRate":1.00,"hostCode":"YZHJMZSZ","id":"a04ffc79-f0d0-405a-a214-e6ed8d21a771","invoiceDate":1531238400000,"invoiceNo":"10139152","isSelected":1,"localCurrency":1,"localCurrencyAfterTaxAmt":208731.56,"lstUpdBy":null,"lstUpdTime":1533607309000,"masterChainId":"AR20180807000078","plantCode":"A086471","vendorCodes":"VCN0014179"}],"masterChainId":"AR20180807000078","parentChainId":"AR20180802000985","periodNo":1,"receiveBankAccount":"818681286110001","receiveBankName":"招商銀行深圳建安支行","repayAmt":"12252369.21","repayBankAccount":"","repayBankName":"","repayCurrencyName":"人民币","sourceChainId":"AR20180802000985"},"msg":"返回结果正常","recordsTotal":null,"status":1}
 export const contract = {
     "data":{
         "billBookAmt": 3000, 

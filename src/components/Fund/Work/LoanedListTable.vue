@@ -67,7 +67,7 @@
               </el-table-column>
               <el-table-column align="center" width='200px'>
                 <template slot-scope="scope">
-                  <el-button size="mini" type="primary" @click="handleRepay(scope.$index, props.row, scope.row)">还款</el-button>
+                  <el-button v-if="scope.row.isShowRepayButton" size="mini" type="primary" @click="handleRepay(scope.$index, props.row, scope.row)">还款</el-button>
                 </template>
               </el-table-column>
             </el-table>
