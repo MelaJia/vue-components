@@ -111,26 +111,23 @@
 .el-button:hover {
   color: white;
 }
-.register {
-  position: relative;
-}
-.loginError {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+.loginError{
   height: 40px;
+}
+.ipt-group{
+  position: relative;
 }
 .icon-ipt-phone {
   font-size: 24px;
   position: absolute;
-  left: 35px;
-  top: 69px;
+  left: 10px;
+  top: 10px;
 }
 .icon-ipt-pwd {
   font-size: 24px;
   position: absolute;
-  left: 35px;
-  top: 130px;
+  left: 10px;
+  top: 10px;
 }
 .iconfont.light{
   color:#81bcf9;

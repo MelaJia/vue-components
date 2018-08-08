@@ -12,37 +12,37 @@
           label="序号"
           fixed width="60">
         </el-table-column>
-        <el-table-column align="center" label="结账日期" fixed sortable prop="agingDate" width="150" :formatter="dateFormat">
+        <el-table-column align="center" label="结账日期" fixed sortable prop="agingDate" min-width="150" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" prop="vendorCode" width="150">
+        <el-table-column align="center" label="供应商代码" prop="vendorCode" min-width="150">
         </el-table-column>
-        <el-table-column align="center" label="供应商名称" prop="vendorName" width="180">
+        <el-table-column align="center" label="供应商名称" prop="vendorName" min-width="180">
         </el-table-column>
-        <el-table-column align="center" label="客户代码" prop="customerNo" width="180">
+        <el-table-column align="center" label="客户代码" prop="customerNo" min-width="180">
         </el-table-column>
-        <el-table-column align="center" label="管报代码" prop="corpCode" width="120">
+        <el-table-column align="center" label="管报代码" prop="corpCode" min-width="120">
         </el-table-column>
-        <el-table-column align="center" label="客户集团代码" prop="customerGroupNo" width="120">
+        <el-table-column align="center" label="客户集团代码" prop="customerGroupNo" min-width="120">
         </el-table-column>
-        <el-table-column align="center" label="事业群代码" prop="bgCode" width="120">
+        <el-table-column align="center" label="事业群代码" prop="bgCode" min-width="120">
         </el-table-column>
-        <el-table-column align="center" label="事业处代码" prop="buCode" width="120">
+        <el-table-column align="center" label="事业处代码" prop="buCode" min-width="120">
         </el-table-column>
-        <el-table-column align="center" label="生产单位代码" prop="bmCode" width="120">
+        <el-table-column align="center" label="生产单位代码" prop="bmCode" min-width="120">
         </el-table-column>
-        <el-table-column align="center" label="关系单位" prop="isRelativePartyName" width="100">
+        <el-table-column align="center" label="关系单位" prop="isRelativePartyName" min-width="100">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="逾期欠款金额" prop="totalDueARAmount" width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="逾期欠款金额" prop="totalDueARAmount" min-width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="未到期欠款金额" prop="totalUndueARAmount" width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="未到期欠款金额" prop="totalUndueARAmount" min-width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="欠款总金额" prop="totalARAmount" width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="欠款总金额" prop="totalARAmount" min-width="100" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="报表日的预付款余额" prop="advanceReceiptsAmount" width="150" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="报表日的预付款余额" prop="advanceReceiptsAmount" min-width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" width="100">
+        <el-table-column align="center" label="币别" prop="currencyName" min-width="100">
         </el-table-column>
-        <el-table-column align="center" label="创建日期" prop="createTime" width="100" :formatter="dateFormat">
+        <el-table-column align="center" label="创建日期" prop="createTime" min-width="100" :formatter="dateFormat">
         </el-table-column>
         <el-table-column align="center" fixed="right" label="操作" header-align="center" width="100">
           <template slot-scope="scope">

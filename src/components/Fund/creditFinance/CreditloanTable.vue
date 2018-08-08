@@ -16,30 +16,30 @@
           label="序号"
           fixed width="60">
         </el-table-column>
-        <el-table-column align="center" label="融资客户" fixed prop="companyName" width="140">
+        <el-table-column align="center" label="融资客户" fixed prop="companyName" min-width="140">
         </el-table-column>
-        <el-table-column align="center" label="融资编号" sortable prop="loanId" width="140">
+        <el-table-column align="center" label="融资编号" sortable prop="loanId" min-width="140">
         </el-table-column>
-        <el-table-column align="center" label="融资类型" prop="loanTypeName" width="140">
+        <el-table-column align="center" label="融资类型" prop="loanTypeName" min-width="140">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="贴现申请金额" prop="applyAmt" width="140" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="贴现申请金额" prop="applyAmt" min-width="140" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" width="100">
+        <el-table-column align="center" label="币别" prop="currencyName" min-width="100">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="status" width="100">
+        <el-table-column align="center" label="状态" prop="status" min-width="100">
         </el-table-column>
-        <el-table-column align="center" label="还款方式" prop="repaymentType" width="140">
+        <el-table-column align="center" label="还款方式" prop="repaymentType" min-width="140">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" min-width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="信用报告" width="100">
+        <el-table-column align="center" label="信用报告" min-width="100">
           <template slot-scope="scope">
             <a :href="scope.row.riskPlatFormURL" target="_blank">信用报告</a>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="合同签署日期" prop="contractSignedDate" :formatter="dateFormat" width="140">
+        <el-table-column align="center" label="合同签署日期" prop="contractSignedDate" :formatter="dateFormat" min-width="140">
         </el-table-column>
-        <el-table-column align="center" label="还款日期" prop="repayDate" :formatter="dateFormat" width="140">
+        <el-table-column align="center" label="还款日期" prop="repayDate" :formatter="dateFormat" min-width="140">
         </el-table-column>
         <el-table-column align="left" header-align="center" label="操作" width='350px' fixed="right">
         <template slot-scope="scope">

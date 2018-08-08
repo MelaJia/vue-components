@@ -11,23 +11,23 @@
           label="序号"
           fixed width="60" align="center">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="120">
+        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" min-width="120">
         </el-table-column>
-        <el-table-column align="center" fixed label="法人代码" prop="corpCode" width="120">
+        <el-table-column align="center" fixed label="法人代码" prop="corpCode" min-width="120">
         </el-table-column>
-        <el-table-column align="center" label="法人单位" prop="corpName" width="140">
+        <el-table-column align="center" label="法人单位" prop="corpName" min-width="140">
         </el-table-column>
-        <el-table-column align="center" label="订单号" prop="poNumber" width="120">
+        <el-table-column align="center" label="订单号" prop="poNumber" min-width="120">
         </el-table-column>
-        <el-table-column align="center" label="项次" prop="poItem" width="80">
+        <el-table-column align="center" label="项次" prop="poItem" min-width="80">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="金额" prop="poAmount" width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="金额" prop="poAmount" min-width="100" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" width="80">
+        <el-table-column align="center" label="币别" prop="currencyName" min-width="80">
         </el-table-column>
-        <el-table-column align="center" label="订单确认日期" prop="confirmDate" width="100" :formatter="dateFormat">
+        <el-table-column align="center" label="订单确认日期" prop="confirmDate" min-width="100" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" label="约定交货日期" prop="deliveryDate" width="100" :formatter="dateFormat">
+        <el-table-column align="center" label="约定交货日期" prop="deliveryDate" min-width="100" :formatter="dateFormat">
         </el-table-column>
         <el-table-column align="center" label="操作" header-align="center">
           <template slot-scope="scope">
