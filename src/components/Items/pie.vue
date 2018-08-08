@@ -7,10 +7,10 @@ var echarts = require('echarts/lib/echarts')
 // 引入柱状图
 require('echarts/lib/chart/pie')
 export default {
-  props: ['num', 'total', 'color'],
+  props: ['data', 'color'],
   computed: {
     getOption: function () {
-      let datas = [this.num, this.total]
+      let datas = this.data
       return {
         tooltip: {
           trigger: 'item',

@@ -289,7 +289,7 @@
             </el-row>
             <el-row>
               <el-col :span="9">
-                <el-form-item label="开户省市:">
+                <el-form-item label="开户省市:" required="" :error="bankProvinceCityError">
                   <el-cascader
                     :options="options"
                     v-model="getBankAdd"
@@ -506,6 +506,7 @@ export default {
       is2s1Show: true, // 二选一提示
       userInfo: getUserInfo(),
       bankProvinceCity: [], // 银行省市
+      bankProvinceCityError: '', // 错误信息提示
       select: '',
       rulesOne: validConf.getValid('validOne'),
       rulesTwo: { ...arr, ...validConf.getValid('validTwo') },
@@ -540,6 +541,7 @@ export default {
       },
       set: function (newValue) {
         this.bankProvinceCity = newValue
+        this.bankProvinceCityError = ''
       }
     }
   },
@@ -637,6 +639,7 @@ function subHandle (formName) {
     this.checkShow = true
     return
   }
+  this.bankProvinceCityError = this.bankProvinceCity.length > 0 && this.bankProvinceCity[0] !== undefined ? '' : '选择开户省市'
   this.$refs[formName].validate((valid) => {
     if (valid) {
       // 1.处理数据

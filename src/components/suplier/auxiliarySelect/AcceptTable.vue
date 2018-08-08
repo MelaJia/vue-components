@@ -68,7 +68,7 @@
         </el-table-column>
         <el-table-column align="center" label="订单号" prop="poNumber" width="120">
         </el-table-column>
-        <el-table-column align="center" label="类型" prop="dataType" width="80">
+        <el-table-column align="center" label="类型" prop="dataType" min-width="80">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="金额" prop="amount" width="120" :formatter="regexNum">
         </el-table-column>
