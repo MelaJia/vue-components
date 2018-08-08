@@ -29,10 +29,18 @@
       </ul>
       <ul>
         <li>
-          <span>票面金额: <em>{{this.detailsP.billBookAmt | regexNum}}</em></span>
+          <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
         </li>
         <li>
-          <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
+          <span>贴现申请日期: <em>{{this.detailsP.discountApplyDate | dateFormat}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>贴现申请金额: <em>{{this.detailsP.discountApplyAmt | regexNum}}</em></span>
+        </li>
+        <li>
+          <span>贴现确认金额: <em>{{this.detailsP.discountLoanAmt | regexNum}}</em></span>
         </li>
       </ul>
       <ul class="height-auto">

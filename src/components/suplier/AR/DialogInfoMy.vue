@@ -65,6 +65,11 @@
           </div>
         </span>
       </ul>
+      <ul class="height-auto">
+        <span>备注:
+           <em>{{this.detailsP.remark}}</em>
+        </span>
+      </ul>
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
