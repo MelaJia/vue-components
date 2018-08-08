@@ -486,7 +486,8 @@ export const erroShow = function (err, loading) {
   debugger
   if(err.response && err.response.status === 401){
   }else{
-    this.$alert(`系统错误${err}`, '系统提示', {
+    console.log('系统异常',err)
+    this.$alert(`系统异常,请联系管理员!`, '系统提示', {
       confirmButtonText: '确定',
       callback: action => {
       }
@@ -579,15 +580,15 @@ export const postDataBase = function (url, param, showLoading) {
  * @param {number} val 转换值
  */
 export const thousandth = function (val) {
-  var regex = /(\d)(?=(\d\d\d)+(?!\d))/g
+  var regex = /(\d)(?=(\d{3})+$)/g
   var result
   if (typeof val === 'string') {
     let str = val
     if (str.indexOf('.') === -1) {
-      str = str.replace(regex, ',') + '.00'
+      str = str.replace(regex, '$1,') + '.00'
     } else {
       var newStr = str.split('.')
-      var str2 = newStr[0].replace(regex, ',')
+      var str2 = newStr[0].replace(regex, '$1,')
       if (newStr[1].length <= 1) {
         // 小数点后只有一位时
         result = str2 + '.' + newStr[1] + '0'

@@ -140,12 +140,12 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item label="统一社会信用代码:" prop="creditCode" :show-message="!t2oAb">
-                  <el-input :disabled="t2oAb" v-model.trim="getForm.creditCode"></el-input>
+                  <el-input :disabled="t2oAb" v-model.trim="getForm.creditCode" :maxlength="32"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="营业执照编号: " prop="licenseNumber" :show-message="!o2tAb">
-                  <el-input :disabled="o2tAb" v-model="getForm.licenseNumber"></el-input>
+                  <el-input :disabled="o2tAb" v-model="getForm.licenseNumber" ></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
@@ -191,7 +191,7 @@
             <el-row>
               <el-col :span="10">
                 <el-form-item label="注册资本：" prop="registeredCapital">
-                  <el-input placeholder="请输入金额：" v-model.number="getForm.registeredCapital" class="input-with-select">
+                  <el-input placeholder="请输入金额：" :maxlength="12" v-model.number="getForm.registeredCapital" class="input-with-select">
                     <el-select v-model.number="getForm.registeredCurrencyType" slot="append" placeholder="请选择">
                       <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
                     </el-select>
@@ -200,7 +200,7 @@
               </el-col>
               <el-col :span="10" :offset="4">
                 <el-form-item label="实收资本：" prop="paidinCapital">
-                  <el-input v-model.number="getForm.paidinCapital">
+                  <el-input :maxlength="12" v-model.number="getForm.paidinCapital">
                     <el-select v-model.number="getForm.paidinCurrencyType" slot="append" placeholder="请选择">
                       <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
                     </el-select>
@@ -460,6 +460,7 @@ export default {
           key: 'creditCode',
           value: value
         }).then(res => {
+          console.log('yanz')
           if (res.data.status) {
             callback()
           } else {
@@ -482,19 +483,19 @@ export default {
         validator: valido2tfun,
         message: '请输入营业执照编号',
         trigger: 'blur'
-      }],
+      }, { max: 20, message: '长度不得超过20个字符', trigger: 'blur' }],
       organizationNumber: [{
         required: true,
         validator: valido2tfun,
         message: '请输入组织机构代码编号',
         trigger: 'blur'
-      }],
+      }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
       taxNumber: [{
         required: true,
         validator: valido2tfun,
         message: '请输入税务登记证编号',
         trigger: 'blur'
-      }]
+      }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }]
     }
     return {
       step: 0,
