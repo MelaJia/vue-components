@@ -75,9 +75,10 @@ const monitorInit = ()=>{
   Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchIndexList.do', {
     "data":{
       "unOperateSumAmout": function() {
-        return  125.88 // this.unOperateAvailableAmout+this.unOperateExpiredAmout
+        return  this.unOperateAvailableAmout+this.unOperateUnavailableAmout
       },
       "unOperateAvailableAmout|1-20": 5,
+      "unOperateUnavailableAmout|1-20": 5,
       "transferingSumAmout": function() {
         return this.transferingAvailableAmout+this.transferingExpiredAmout
       },
@@ -102,7 +103,8 @@ const monitorInit = ()=>{
         return (this.receivedAvailableAmout*100+this.receivedExpiredAmout*100)/100
       },
       "receivedAvailableAmout": 5555.24,
-      "receivedExpiredAmout": 3500.00,
+      "receivedUnavailableAmout": 2500.00,
+      "receivedExpiredAmout": 1500.00,
       "onReceiveAmout": 2500.00,
     },
     "msg|1":[

@@ -19,27 +19,25 @@
           </div>
         </section>
         <section class="float-left">
-          <article v-for="(item,idx) in rightDataArr" class="text-content" :style="'background:'+item.bcolor" :key="idx">
+          <article v-for="(item,idx) in rightDataArr" class="text-content" :style="`background:${item.bcolor};position:relative`" :key="idx">
             <div class="float-left text">
               <p class="t1">{{item.title}}</p>
               <p class="line"></p>
               <p class="t1" style="margin-top:5px">总金额:
-                <span>{{(item.firData.value*100+item.secData.value*100)/100 | regexNum}}万元</span>
+                <span>{{ sumAdd(item.data) | regexNum}}万元</span>
               </p>
               <div class="t2">
                 <ul>
-                  <li>{{item.firData.name}}</li>
-                  <el-tooltip v-if="item.tip" class="item" effect="light" :content="item.tip" placement="right-end">
-                    <li>{{item.secData.name}}</li>
-                  </el-tooltip>
-                  <li v-else>{{item.secData.name}}</li>
+                  <section v-for="(item2,idx2) in item.data" :key="idx2">
+                    <el-tooltip v-if="item.tip&&item2.name==='不可用金额'" class="item" effect="light" :content="item.tip" placement="right-end">
+                      <li :style="item2.name==='不可用金额'?'color:red':''">{{item2.name}}</li>
+                    </el-tooltip>
+                    <li v-else :style="item2.name==='不可用金额'?'color:red':''">{{item2.name}}</li>
+                  </section>
                 </ul>
                 <ul>
-                  <el-tooltip class="item" effect="dark" :content="thousandth(item.firData.value)+'万元'" placement="bottom-start">
-                    <li>{{item.firData.value | regexNum}}万元</li>
-                  </el-tooltip>
-                  <el-tooltip class="item" effect="dark" :content="thousandth(item.secData.value)+'万元'" placement="bottom-end">
-                    <li>{{item.secData.value | regexNum}}万元</li>
+                  <el-tooltip v-for="(item2,idx2) in item.data" :key="idx2" class="item" effect="dark" :content="thousandth(item2.value)+'万元'" placement="bottom-start">
+                    <li :style="item2.name==='不可用金额'?'color:red':''">{{item2.value | regexNum}}万元</li>
                   </el-tooltip>
                 </ul>
               </div>
@@ -48,7 +46,7 @@
               <div class="url">
                 <router-link :to="item.path">查看明细</router-link>
               </div>
-              <pie ref="child" :num="item.firData" :total="item.secData" :color="color[idx]"></pie>
+              <pie ref="child" :data="getPieArr(item.data)" :color="color[idx]"></pie>
             </div>
           </article>
         </section>
@@ -121,12 +119,16 @@
 .t2 {
   margin-top: 10px;
   font-size: 13px;
+  position: absolute;
+  width: 310px;
 }
 
 .t2 ul {
   padding: 0px 5px;
 }
-
+.t2 > ul > section {
+  display: inline;
+}
 li {
   list-style: none;
   display: inline-block;
@@ -136,8 +138,9 @@ li {
   overflow: hidden;
   white-space: nowrap;
 }
-
+.t2 > ul > section:last-child,
 .t2 > ul > li:last-child {
+  float: right;
   color: black;
 }
 
@@ -209,40 +212,87 @@ export default {
   },
   mixins: [Common],
   data () {
-    return {
-      sortArr: [{
+    let sortArr = [
+      {
         key: 'unOperate',
         text: '未贴现/转让金额',
         bcolor: '#5b9bd5'
       }, {
         key: 'discounted',
         text: '已贴现金额',
-        bcolor: '#ed7d31'
+        bcolor: '#7030a0'
       }, {
         key: 'received',
-        text: '已接收金额',
-        bcolor: '#a5a5a5'
+        text: '已接受未使用',
+        bcolor: '#e96f1b'
       }, {
         key: 'transfered',
         text: '已转让金额',
-        bcolor: '#ffc000'
+        bcolor: '#68aa3c'
       }, {
         key: 'onReceiveAmout',
         text: '待接收金额',
-        bcolor: '#4472c4'
+        bcolor: '#a5a5a5'
       }, {
         key: 'transfering',
         text: '转让中金额',
-        bcolor: '#71b345'
+        bcolor: '#e8b800'
       }, {
         key: 'discounting',
         text: '贴现中金额',
-        bcolor: '#255e91'
-      }],
-      rightDataArr: {
-        unOperate: {
-          title: '未贴现/转让', // 标题
-          tip: '已申请贴现或转让的发票剩余金额', // 提示信息
+        bcolor: '#3568c1'
+      }
+    ]
+    let rightDataArr = {
+      unOperate: {
+        title: '未贴现/转让', // 标题
+        tip: '已申请贴现或转让的发票剩余金额', // 提示信息
+        data: {
+          firData: { // 第一个数据
+            value: null,
+            name: '可用金额'
+          },
+          secData: { // 第二个数据
+            value: null,
+            name: '不可用金额'
+          }
+        },
+        path: 'myar' // 路径
+      },
+      transfering: {
+        title: '转让中', // 标题
+        tip: '', // 提示信息
+        data: {
+          firData: { // 第一个数据
+            value: null,
+            name: '未到期金额'
+          },
+          secData: { // 第二个数据
+            value: null,
+            name: '已到期金额'
+          }
+        },
+        path: 'myar' // 路径
+      },
+      discounting: {
+        title: '贴现中', // 标题
+        tip: '', // 提示信息
+        data: {
+          firData: { // 第一个数据
+            value: null,
+            name: '未到期金额'
+          },
+          secData: { // 第二个数据
+            value: null,
+            name: '已到期金额'
+          }
+        },
+        path: 'myar' // 路径
+      },
+      received: {
+        title: '已接受未使用', // 标题
+        tip: '', // 提示信息
+        data: {
           firData: { // 第一个数据
             value: null,
             name: '可用金额'
@@ -251,88 +301,59 @@ export default {
             value: null,
             name: '不可用金额'
           },
-          path: 'myar', // 路径
-          bcolor: '#5b9bd5' // 背景色
-
-        },
-        transfering: {
-          title: '转让中', // 标题
-          tip: '', // 提示信息
-          firData: { // 第一个数据
-            value: null,
-            name: '未到期金额'
-          },
-          secData: { // 第二个数据
+          thirData: { // 第三个数据
             value: null,
             name: '已到期金额'
-          },
-          path: 'myar', // 路径
-          bcolor: '#71b345' // 背景色
+          }
         },
-        transfered: {
-          title: '已转让', // 标题
-          tip: '', // 提示信息
-          firData: { // 第一个数据
-            value: null,
-            name: '未到期金额'
-          },
-          secData: { // 第二个数据
-            value: null,
-            name: '已到期金额'
-          },
-          path: 'cancelar', // 路径
-          bcolor: '#f1bd00' // 背景色
-        },
-        discounting: {
-          title: '贴现中', // 标题
-          tip: '', // 提示信息
-          firData: { // 第一个数据
-            value: null,
-            name: '未到期金额'
-          },
-          secData: { // 第二个数据
-            value: null,
-            name: '已到期金额'
-          },
-          path: 'myar', // 路径
-          bcolor: '#3f71ca' // 背景色
-        },
-        discounted: {
-          title: '已贴现', // 标题
-          tip: '', // 提示信息
-          firData: { // 第一个数据
-            value: null,
-            name: '未到期金额'
-          },
-          secData: { // 第二个数据
-            value: null,
-            name: '已到期金额'
-          },
-          path: 'myar', // 路径
-          bcolor: '#f67b28' // 背景色
-        },
-        received: {
-          title: '已接收', // 标题
-          tip: '', // 提示信息
-          firData: { // 第一个数据
-            value: null,
-            name: '未到期金额'
-          },
-          secData: { // 第二个数据
-            value: null,
-            name: '已到期金额'
-          },
-          path: 'getar', // 路径
-          bcolor: '#9a9a9a' // 背景色
-        }
+        path: 'getar' // 路径
       },
+      discounted: {
+        title: '已贴现', // 标题
+        tip: '', // 提示信息
+        data: {
+          firData: { // 第一个数据
+            value: null,
+            name: '未到期金额'
+          },
+          secData: { // 第二个数据
+            value: null,
+            name: '已到期金额'
+          }
+        },
+        path: 'myar' // 路径
+      },
+      transfered: {
+        title: '已转让', // 标题
+        tip: '', // 提示信息
+        data: {
+          firData: { // 第一个数据
+            value: null,
+            name: '未到期金额'
+          },
+          secData: { // 第二个数据
+            value: null,
+            name: '已到期金额'
+          }
+        },
+        path: 'cancelar' // 路径
+      }
+    }
+    sortArr.forEach((val, idx) => {
+      if (rightDataArr[val.key]) {
+        rightDataArr[val.key].bcolor = val.bcolor
+      }
+    })
+    return {
+      sortArr: sortArr,
+      rightDataArr: rightDataArr,
       color: {
-        unOperate: ['#fff', '#000'],
+        unOperate: ['#fff', '#ff0000'],
         transfering: ['#fff', '#000'],
         transfered: ['#fff', '#000'],
         discounting: ['#fff', '#000'],
         discounted: ['#fff', '#000'],
-        received: ['#fff', '#000']
+        received: ['#fff', '#ff0000', '#000']
       } // 小饼图颜色数组
     }
   },
@@ -363,7 +384,11 @@ export default {
     })
   },
   methods: {
-    thousandth: thousandth
+    thousandth: thousandth,
+    // 计算总额
+    sumAdd: sumAdd,
+    // 转化数组
+    getPieArr: getPieArr
   }
 }
 // 获取数据
@@ -377,8 +402,11 @@ function getdata (scope) {
         const element = scope.sortArr[key]
         // 设置右侧列表数据
         if (element.key !== 'onReceiveAmout') {
-          scope.rightDataArr[element.key].firData.value = res.data.data[`${element.key}AvailableAmout`] || 0
-          scope.rightDataArr[element.key].secData.value = element.key === 'unOperate' ? res.data.data[`${element.key}UnavailableAmout`] || 0 : res.data.data[`${element.key}ExpiredAmout`] || 0
+          scope.rightDataArr[element.key].data.firData.value = res.data.data[`${element.key}AvailableAmout`] || 0
+          scope.rightDataArr[element.key].data.secData.value = element.key === ('unOperate' || 'received') ? res.data.data[`${element.key}UnavailableAmout`] || 0 : res.data.data[`${element.key}ExpiredAmout`] || 0
+          if (element.key === 'received') {
+            scope.rightDataArr[element.key].data.thirData.value = res.data.data[`${element.key}ExpiredAmout`] || 0
+          }
           // 填充饼图数据
           amtArr.push({
             value: res.data.data[`${element.key}SumAmout`],
@@ -509,5 +537,22 @@ function getOptions (echartData) {
     }]
   }
 }
-
+function sumAdd (object) {
+  let result = 0
+  for (const key in object) {
+    if (object.hasOwnProperty(key) && object[key].value) {
+      result += object[key].value * 100
+    }
+  }
+  return result / 100
+}
+function getPieArr (object) {
+  let result = []
+  for (const key in object) {
+    if (object.hasOwnProperty(key)) {
+      result.push(object[key])
+    }
+  }
+  return result
+}
 </script>
