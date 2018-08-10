@@ -214,12 +214,12 @@ let validTwo = {
     validator: check('vendorCodes', '供应商代码', true),
     trigger: 'blur'
   }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
-  companyBusinessScope: [{ max: 200, message: '长度不得超过200个字符', trigger: 'blur' }],
+  companyBusinessScope: [{ max: 1000, message: '长度不得超过1000个字符', trigger: 'blur' }],
   mainProducts: [{
     required: true,
     message: '请输入主营产品',
     trigger: 'blur'
-  }, { max: 200, message: '长度不得超过200个字符', trigger: 'blur' }]
+  }, { max: 1000, message: '长度不得超过1000个字符', trigger: 'blur' }]
 }
 let validThree = {
   logoUrl: [{
@@ -267,6 +267,11 @@ let validThree = {
     message: '银行账号格式错误',
     trigger: 'blur'
   }],
+  bankAccountName: [{
+    required: true,
+    message: '请输入银行账户名称',
+    trigger: 'blur'
+  }, { max: 128, message: '长度不得超过128个字符', trigger: 'blur' }],
   bankShortName: [{
     required: true,
     message: '请输入开户支行',
