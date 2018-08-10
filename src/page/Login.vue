@@ -19,7 +19,7 @@
     <div class="bigPicture">
       <!-- index_focus end -->
         <form action="" ref="ruleForm" id="register_form">
-          <div class="register" id="div_register1" v-show="!showReg">
+          <div class="register" id="div_register1">
             <!--登录失败提示-->
             <el-alert class="loginError" v-if="loginError"
                 :title="loginErrorInfo"
@@ -37,11 +37,14 @@
                 <input type="password" autocomplete="off" maxlength="20" v-model="ruleForm.pass" class="text iptpassword" ref="input" placeholder="8-20位数字与字母组合的密码" @focus="iptPWDLight=true" @blur="iptPWDLight=false">
               </div>
               <div class="ipt-group picture">
-                <verify ref="verifyC" :is-sure="isVerify" @verify-ok="handleVerify"></verify>
-                <el-alert v-if="sliderShow"
-                  title="请拖动滑块进行验证"
-                  type="error">
-                </el-alert>
+                <input type="text" autocomplete="off" class="text iptviste" name="ipt_renewal" v-model="verify" id="ipt_renewal" onKeyDown="if(event.keyCode===32) return false" placeholder="图形验证" maxlength="4" @input="visteChange">
+                <i class="icon-viste" :class="getVisteClass"></i>
+                <div class="imgviste" @click="visteFresh">
+                  <i hidden :src="getImgUrl"></i>
+                  <img class="renewal" :src="verImgUrl" id="imgCode" alt="点击刷新">
+                  <span class="renewal">看不清，换一张</span>
+                </div>
+                <em class="error">{{visteError}}</em>
               </div>
               <div class="btnGroup">
                 <el-button type="button" id="register" class="btnRed" @click.stop="submitForm('ruleForm')" :loading="loginLoading">登录</el-button>
@@ -111,10 +114,10 @@
 .el-button:hover {
   color: white;
 }
-.loginError{
+.loginError {
   height: 40px;
 }
-.ipt-group{
+.ipt-group {
   position: relative;
 }
 .icon-ipt-phone {
@@ -129,8 +132,21 @@
   left: 10px;
   top: 10px;
 }
-.iconfont.light{
-  color:#81bcf9;
+.icon-viste {
+  position: absolute;
+  top: 17px;
+  left: 160px;
+}
+// 验证码错误
+.el-icon-error {
+  color: #ff0000;
+}
+// 验证码正确
+.el-icon-success {
+  color: #67c23a;
+}
+.iconfont.light {
+  color: #81bcf9;
 }
 </style>
 
@@ -138,14 +154,16 @@
 import * as types from '@/store/types'
 import InputPhone from '@/components/Items/InputPhone'
 import InputPass from '@/components/Items/InputPass'
-import Verify from '@/components/Items/Verify'
 import Roles from '@/config/roles'
+import { apiUrl } from '@/config/env.js'
+import { randomLenNum } from '@/util/util'
 export default {
   data () {
     return {
-      showReg: false,
-      isVerify: false,
-      sliderShow: false, // 滑块验证错误信息显示
+      verImgUrl: `${apiUrl}/kaptcha/getKaptchaImage`,
+      verify: '',
+      isVerify: -1, // -1 未输出 0 验证失败 1 验证成功
+      visteError: '', // 滑块验证错误信息显示
       loginLoading: false, // 登录加载中
       loginError: false, // 登录失败显示
       loginErrorInfo: '', // 登录信息失败提示
@@ -159,98 +177,148 @@ export default {
   },
   components: {
     InputPhone,
-    InputPass,
-    Verify
+    InputPass
   },
   computed: {
     // 获取年
     getYear () {
       let time = new Date()
       return time.getFullYear()
-    }
+    },
+    // 验证码
+    getVisteClass () {
+      return {
+        'el-icon-success': this.isVerify === 1,
+        'el-icon-error': this.isVerify === 0
+      }
+    },
+    getImgUrl: getImgUrl
   },
   methods: {
-    submitForm (formName) {
-      if (!this.isVerify) {
-        this.sliderShow = true
-        return
-      }
-      // 登录前清除信息
-      this.$store.commit(types.LOGOUT)
-      this.$store.commit('DEL_ALL_TAG')
-      this.loginLoading = true // 登录中
-      let param = {
-        phone: this.ruleForm.phone,
-        password: this.ruleForm.pass
-      }
-      if (process.env.NODE_ENV === 'development') { // 调试环境
-        let res = {
-          data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 2, custNickname: '阿拉斯加大型犬' }
-        }
-        if (res.data.status) {
-          this.$store.commit(types.LOGIN, res.data.token)
-          this.$store.commit(types.SETROLE, res.data.custType)
-          this.$store.commit('SET_UINFO', {
-            nickName: res.data.custNickname
-          }) // 保存用户信息
-          this.$store.commit('SET_TAG_WEL', {
-            label: '首页',
-            value: Roles[res.data.custType].layout
-          })
-          let redirect = decodeURIComponent(this.$route.query.redirect || '/')
-          this.$router.push({
-            path: redirect
-          })
-        } else {
-          this.$message({
-            showClose: true,
-            message: res.data.msg,
-            type: 'error'
-          })
-        }
-      } else { // 正式环境
-        this.axios.post('/login/checkLogin2', param).then(res => {
-          this.loginLoading = false // 登录完成
-          if (res.data.status === '1') {
-            this.$store.commit(types.LOGIN, res.data.token)
-            this.$store.commit(types.SETROLE, res.data.custType)
-            this.$store.commit('SET_UINFO', {
-              nickName: res.data.custNickname
-            }) // 保存用户信息
-            this.$store.commit('SET_TAG_WEL', {
-              label: '首页',
-              value: Roles[res.data.custType].layout
-            })
-            let redirect = decodeURIComponent(this.$route.query.redirect || '/')
-            this.$router.push({
-              path: redirect
-            })
-          } else {
-            this.loginError = true
-            this.loginErrorInfo = res.data.msg
-            // 重置验证码
-            this.isVerify = false
-            this.$refs.verifyC.reset()
-          }
-        }).catch(err => {
-          this.loginLoading = false // 登录失败
-          this.loginError = true
-          this.loginErrorInfo = err
-          // 重置验证码
-          this.isVerify = false
-          this.$refs.verifyC.reset()
-        })
-      }
-    },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
-    },
-    // 验证条
-    handleVerify () {
-      this.isVerify = true
-      this.sliderShow = false
-    }
+    submitForm: submitForm,
+    // 验证码验证
+    handleCheckViste: handleCheckViste,
+    // 刷新验证码
+    visteFresh: visteFresh,
+    // 验证码编辑
+    visteChange: visteReset
   }
 }
-
+function getImgUrl () {
+  let random = Math.ceil(Math.random() * 100000000000000).toString().substr(0, 4)
+  random = random + Date.now()
+  this.verImgUrl = `${apiUrl}/kaptcha/getKaptchaImage?${random}`
+  return `${apiUrl}/kaptcha/getKaptchaImage?${random}`
+}
+async function handleCheckViste () {
+  if (this.verify.length !== 4) {
+    // 长度不够
+    this.isVerify = 0
+    this.visteError = this.verify.length === 0 ? '验证码不能为空' : '验证码错误,请重新输入'
+    return
+  }
+  try {
+    let res = await this.axios.post('/kaptcha/getinspectKaptchaImage', { kaptcha: this.verify })
+    if (res.data.status) {
+      // 验证成功
+      this.isVerify = 1
+      this.visteError = ''
+    } else {
+      // 验证失败
+      this.isVerify = 0
+      this.visteError = res.data.msg
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+async function submitForm (formName) {
+  if (this.isVerify !== 1) {
+    await this.handleCheckViste()
+    // 验证失败
+    if (this.isVerify !== 1) {
+      return
+    }
+  }
+  // 验证成功
+  // 登录前清除信息
+  this.$store.commit(types.LOGOUT)
+  this.$store.commit('DEL_ALL_TAG')
+  this.loginLoading = true // 登录中
+  let param = {
+    phone: this.ruleForm.phone,
+    password: this.ruleForm.pass,
+    kaptcha: this.verify
+  }
+  if (process.env.NODE_ENV === 'development') { // 调试环境
+    let res = {
+      data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 2, custNickname: '阿拉斯加大型犬' }
+    }
+    if (res.data.status) {
+      this.$store.commit(types.LOGIN, res.data.token)
+      this.$store.commit(types.SETROLE, res.data.custType)
+      this.$store.commit('SET_UINFO', {
+        nickName: res.data.custNickname
+      }) // 保存用户信息
+      this.$store.commit('SET_TAG_WEL', {
+        label: '首页',
+        value: Roles[res.data.custType].layout
+      })
+      let redirect = decodeURIComponent(this.$route.query.redirect || '/')
+      this.$router.push({
+        path: redirect
+      })
+    } else {
+      this.$message({
+        showClose: true,
+        message: res.data.msg,
+        type: 'error'
+      })
+    }
+  } else { // 正式环境
+    this.axios.post('/login/checkLogin2', param).then(res => {
+      this.loginLoading = false // 登录完成
+      if (res.data.status === '1') {
+        this.$store.commit(types.LOGIN, res.data.token)
+        this.$store.commit(types.SETROLE, res.data.custType)
+        this.$store.commit('SET_UINFO', {
+          nickName: res.data.custNickname
+        }) // 保存用户信息
+        this.$store.commit('SET_TAG_WEL', {
+          label: '首页',
+          value: Roles[res.data.custType].layout
+        })
+        let redirect = decodeURIComponent(this.$route.query.redirect || '/')
+        this.$router.push({
+          path: redirect
+        })
+      } else {
+        this.loginError = true
+        this.loginErrorInfo = res.data.msg
+        // 重置验证码
+        this.isVerify = -1
+      }
+    }).catch(err => {
+      this.loginLoading = false // 登录失败
+      this.loginError = true
+      this.loginErrorInfo = err
+      // 重置验证码
+      this.isVerify = -1
+    })
+  }
+}
+function visteFresh () {
+  // 刷新验证码
+  this.verImgUrl = `${apiUrl}/kaptcha/getKaptchaImage?${randomLenNum(4, true)}`
+  // 重置验证码
+  visteReset.call(this)
+}
+// 重置验证码
+function visteReset () {
+  console.log('触发事件')
+  if (this.isVerify !== -1) {
+    this.isVerify = -1
+    this.visteError = ''
+  }
+}
 </script>

@@ -454,13 +454,12 @@ export default {
     }
     let validt2ofun = (rule, value, callback) => {
       if (!value && !this.getForm.licenseNumber && !this.getForm.organizationNumber && !this.getForm.taxNumber) {
-        callback(new Error('不能为空'))
+        callback(new Error('请输入统一社会信用代码'))
       } else {
         this.axios.post('/cust/check', {
           key: 'creditCode',
           value: value
         }).then(res => {
-          console.log('yanz')
           if (res.data.status) {
             callback()
           } else {

@@ -300,10 +300,6 @@ export default {
           secData: { // 第二个数据
             value: null,
             name: '不可用金额'
-          },
-          thirData: { // 第三个数据
-            value: null,
-            name: '已到期金额'
           }
         },
         path: 'getar' // 路径
@@ -345,8 +341,11 @@ export default {
       }
     })
     return {
+      // 左侧数据
       sortArr: sortArr,
+      // 右侧数据
       rightDataArr: rightDataArr,
+      // 右侧圆饼图颜色组
       color: {
         unOperate: ['#fff', '#ff0000'],
         transfering: ['#fff', '#000'],
@@ -404,21 +403,26 @@ function getdata (scope) {
         if (element.key !== 'onReceiveAmout') {
           scope.rightDataArr[element.key].data.firData.value = res.data.data[`${element.key}AvailableAmout`] || 0
           scope.rightDataArr[element.key].data.secData.value = element.key === 'unOperate' || element.key === 'received' ? res.data.data[`${element.key}UnavailableAmout`] || 0 : res.data.data[`${element.key}ExpiredAmout`] || 0
-          if (element.key === 'received') {
-            scope.rightDataArr[element.key].data.thirData.value = res.data.data[`${element.key}ExpiredAmout`] || 0
-          }
+          // if (element.key === 'received') {
+          //   scope.rightDataArr[element.key].data.thirData.value = res.data.data[`${element.key}ExpiredAmout`] || 0
+          // }
           // 填充饼图数据
-          amtArr.push({
-            value: res.data.data[`${element.key}SumAmout`],
-            name: element.text
-          })
+          if (element.key !== 'discounted' && element.key !== 'transfered') {
+            amtArr.push({
+              value: res.data.data[`${element.key}SumAmout`],
+              name: element.text
+            })
+            // 背景色
+            bColorArr.push(element.bcolor)
+          }
         } else {
           amtArr.push({
             value: res.data.data['onReceiveAmout'],
             name: element.text
           })
+          // 背景色
+          bColorArr.push(element.bcolor)
         }
-        bColorArr.push(element.bcolor)
       }
     }
     return {

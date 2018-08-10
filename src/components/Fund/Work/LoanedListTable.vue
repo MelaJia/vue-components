@@ -93,7 +93,7 @@
         </el-table-column>
         <el-table-column align="right" header-align="center" label="还款利息" prop="payInterestAmt" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款手续费" prop="payServiceAmt" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="服务费" prop="payServiceAmt" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="还款罚息" prop="payFineAmt" :formatter="regexNum">
         </el-table-column>

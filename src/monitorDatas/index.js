@@ -4,29 +4,32 @@ import {regCMPList} from './Admin/arDatas'
 import commonDatas from './Common/common'
 import userInfo from './Suplier/userInfo'
 import subData from './Fund/index'
+import {
+  apiUrl
+} from '@/config/env.js'
 /* eslint-disable */
 const monitorInit = ()=>{
-  Mock.mock('https://jurongtest.foxconn.com/sit/loan2/getLoanManagerListTable.do', Datas)
-  Mock.mock('https://jurongtest.foxconn.com/sit/loan2/queryLoanInfo.do', dataDetails)
-  Mock.mock('https://jurongtest.foxconn.com/sit/loanQuery/queryLoanRepayInfo.do', dataDetails) // 还款详情
-  Mock.mock('https://jurongtest.foxconn.com/sit/loan2/showGenerateContract.do', contract)
-  Mock.mock('https://jurongtest.foxconn.com/sit/loanFee2/getCustLoanFeeListTable.do', DataFee)
-  Mock.mock('https://jurongtest.foxconn.com/sit/loanQuery/loanQueryLOANEDManage.do', LoanedDatas)
-  Mock.mock('https://jurongtest.foxconn.com/sit/loanQuery/loanQueryREJECTManage.do', LoanedDatas)
-  Mock.mock('https://jurongtest.foxconn.com/sit/commonAr/queryCurr.do', commonDatas.moneyTypes)
-  Mock.mock('https://jurongtest.foxconn.com/sit/commonAr/queryARStatusType.do', commonDatas.arStatus)
-  Mock.mock('https://jurongtest.foxconn.com/sit/myAr/initiateDiscount.do', commonDatas.comdata)
-  Mock.mock('https://jurongtest.foxconn.com/sit/myAr/getMyArListTable.do', commonDatas.arDatas)
-  Mock.mock('https://jurongtest.foxconn.com/sit/myAr/queryAr', commonDatas.arDetails)
-  Mock.mock('https://jurongtest.foxconn.com/sit/commonCust/factoringCustomerList.do', commonDatas.factories)
-  Mock.mock('https://jurongtest.foxconn.com/sit/discountAudit/getDiscountAuditListTable.do', commonDatas.fenboList)
-  Mock.mock('https://jurongtest.foxconn.com/sit/discountAudit/queryDiscountAuditInfo.do', commonDatas.fenboDetail)
-  Mock.mock('https://jurongtest.foxconn.com/sit/cust/customerDetailInfo.do', userInfo)
-  Mock.mock('https://jurongtest.foxconn.com/sit/loan2/confirmInitiateSigning.do', subData)
-  Mock.mock('https://jurongtest.foxconn.com/sit/onReceivingAr/getOnReceivingArListTable', commonDatas.getArData)
-  Mock.mock('https://jurongtest.foxconn.com/sit/transferedAr/getTransferedArListTable.do', commonDatas.getArData)
-  Mock.mock('https://jurongtest.foxconn.com/sit/commonCust/arAuditStatusList.do', commonDatas.fenboStatus)
-  Mock.mock('https://jurongtest.foxconn.com/sit/commonCust/queryCustomer.do',{
+  Mock.mock(apiUrl+'/loan2/getLoanManagerListTable.do', Datas)
+  Mock.mock(apiUrl+'/loan2/queryLoanInfo.do', dataDetails)
+  Mock.mock(apiUrl+'/loanQuery/queryLoanRepayInfo.do', dataDetails) // 还款详情
+  Mock.mock(apiUrl+'/loan2/showGenerateContract.do', contract)
+  Mock.mock(apiUrl+'/loanFee2/getCustLoanFeeListTable.do', DataFee)
+  Mock.mock(apiUrl+'/loanQuery/loanQueryLOANEDManage.do', LoanedDatas)
+  Mock.mock(apiUrl+'/loanQuery/loanQueryREJECTManage.do', LoanedDatas)
+  Mock.mock(apiUrl+'/commonAr/queryCurr.do', commonDatas.moneyTypes)
+  Mock.mock(apiUrl+'/commonAr/queryARStatusType.do', commonDatas.arStatus)
+  Mock.mock(apiUrl+'/myAr/initiateDiscount.do', commonDatas.comdata)
+  Mock.mock(apiUrl+'/myAr/getMyArListTable.do', commonDatas.arDatas)
+  Mock.mock(apiUrl+'/myAr/queryAr', commonDatas.arDetails)
+  Mock.mock(apiUrl+'/commonCust/factoringCustomerList.do', commonDatas.factories)
+  Mock.mock(apiUrl+'/discountAudit/getDiscountAuditListTable.do', commonDatas.fenboList)
+  Mock.mock(apiUrl+'/discountAudit/queryDiscountAuditInfo.do', commonDatas.fenboDetail)
+  Mock.mock(apiUrl+'/cust/customerDetailInfo.do', userInfo)
+  Mock.mock(apiUrl+'/loan2/confirmInitiateSigning.do', subData)
+  Mock.mock(apiUrl+'/onReceivingAr/getOnReceivingArListTable', commonDatas.getArData)
+  Mock.mock(apiUrl+'/transferedAr/getTransferedArListTable.do', commonDatas.getArData)
+  Mock.mock(apiUrl+'/commonCust/arAuditStatusList.do', commonDatas.fenboStatus)
+  Mock.mock(apiUrl+'/commonCust/queryCustomer.do',{
     "data":{companyName:'123'},
     "msg|1":[
       "失败",
@@ -34,7 +37,7 @@ const monitorInit = ()=>{
     ],
     "status": true
   })
-  Mock.mock('https://jurongtest.foxconn.com/sit/cust/check', {
+  Mock.mock(apiUrl+'/cust/check', {
     "data":'',
     "msg|1":[
       "失败",
@@ -43,7 +46,7 @@ const monitorInit = ()=>{
     "status": true
   })
   // 注册
-  Mock.mock('https://jurongtest.foxconn.com/sit/cust/userRegister.do', {
+  Mock.mock(apiUrl+'/cust/userRegister.do', {
     "data":'',
     "msg|1":[
       "失败",
@@ -52,7 +55,7 @@ const monitorInit = ()=>{
     "status": true
   })
    // 分拨
-  Mock.mock('https://jurongtest.foxconn.com/sit/discountAudit/approveDiscountAudit.do',{
+  Mock.mock(apiUrl+'/discountAudit/approveDiscountAudit.do',{
     "data":"成功",
     "msg|1":[
       "失败",
@@ -61,7 +64,7 @@ const monitorInit = ()=>{
     "status": true
   })
   // 还款
-  Mock.mock('https://jurongtest.foxconn.com/sit/loanQuery/repayLoan.do', {
+  Mock.mock(apiUrl+'/loanQuery/repayLoan.do', {
     "data":'',
     "msg|1":[
       "失败",
@@ -70,9 +73,9 @@ const monitorInit = ()=>{
     "status": true
   })
   // 企业管理列表
-  Mock.mock('https://jurongtest.foxconn.com/sit/sysRegisteredCompanyManager/getRegisteredCompanyQueryListTable.do', regCMPList)
+  Mock.mock(apiUrl+'/sysRegisteredCompanyManager/getRegisteredCompanyQueryListTable.do', regCMPList)
   // 首页数据
-  Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/searchIndexList.do', {
+  Mock.mock(apiUrl+'/auxiliaryFunction/searchIndexList.do', {
     "data":{
       "unOperateSumAmout": function() {
         return  this.unOperateAvailableAmout+this.unOperateUnavailableAmout
@@ -100,7 +103,7 @@ const monitorInit = ()=>{
       "discountedAvailableAmout|100-2000": 500,
       "discountedExpiredAmout|100-2000": 500,
       "receivedSumAmout|100-2000": function() {
-        return (this.receivedAvailableAmout*100+this.receivedExpiredAmout*100)/100
+        return (this.receivedAvailableAmout*100+this.receivedUnavailableAmout*100)/100
       },
       "receivedAvailableAmout": 5555.24,
       "receivedUnavailableAmout": 2500.00,
@@ -114,7 +117,7 @@ const monitorInit = ()=>{
     "status": true
   })
   // 首页数据
-  Mock.mock('https://jurongtest.foxconn.com/sit/factoringIndex/searchFactoringIndex.do', {
+  Mock.mock(apiUrl+'/factoringIndex/searchFactoringIndex.do', {
     "data":{
       "loanedNoFinishInterest|1-20": 5,
       "loanedNoFinishPrincipal": 125.88,
@@ -130,7 +133,7 @@ const monitorInit = ()=>{
     "status": true
   })
 // 已上传数据
-Mock.mock('https://jurongtest.foxconn.com/sit/crcQuery/getUploadedAccountInformationList.do', {
+Mock.mock(apiUrl+'/crcQuery/getUploadedAccountInformationList.do', {
   "data":[
     {
       index:1,
@@ -150,7 +153,7 @@ Mock.mock('https://jurongtest.foxconn.com/sit/crcQuery/getUploadedAccountInforma
   "status": true
 })
 // 已上传数据
-Mock.mock('https://jurongtest.foxconn.com/sit/crcQuery/getCorporateInformationList.do', {
+Mock.mock(apiUrl+'/crcQuery/getCorporateInformationList.do', {
   "data":[
     {
       index:1,
@@ -167,7 +170,7 @@ Mock.mock('https://jurongtest.foxconn.com/sit/crcQuery/getCorporateInformationLi
   "status": true
 })
 // 资金提供数据
-Mock.mock('https://jurongtest.foxconn.com/sit/crcQuery/getFundProviderInformationList.do', {
+Mock.mock(apiUrl+'/crcQuery/getFundProviderInformationList.do', {
   "data":[
     {
       index:1,
@@ -184,7 +187,7 @@ Mock.mock('https://jurongtest.foxconn.com/sit/crcQuery/getFundProviderInformatio
   "status": true
 })
 // 融资详情数据
-Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/queryCreditLoanInfo.do', {
+Mock.mock(apiUrl+'/creditLoan/queryCreditLoanInfo.do', {
   "data":
     {
       loanId: 123556, // 融资ID
@@ -265,7 +268,7 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/queryCreditLoanInfo.do'
   "status": true
 })
 // 融资情况列表
-Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/creditLoanManageList.do', {
+Mock.mock(apiUrl+'/creditLoan/creditLoanManageList.do', {
   "data":[
       {
         loanId: '123', // 融资编号
@@ -389,7 +392,7 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/creditLoanManageList.do
   "recordsTotal":416,
   "status":1
 })
-Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/availableSupplierOrderList.do', {
+Mock.mock(apiUrl+'/auxiliaryFunction/availableSupplierOrderList.do', {
   "data":[
       {
         vendorCode: '123', // 供应商代码
@@ -442,7 +445,7 @@ Mock.mock('https://jurongtest.foxconn.com/sit/auxiliaryFunction/availableSupplie
   "status":1
 })
 // 金额提供数据
-Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/queryCreditAmount.do', {
+Mock.mock(apiUrl+'/creditLoan/queryCreditAmount.do', {
   "data":{
     totalCreditAmount: 10000, // 总限额
     availableCreditAmount: 8000, // 可融资金额
@@ -455,6 +458,7 @@ Mock.mock('https://jurongtest.foxconn.com/sit/creditLoan/queryCreditAmount.do', 
   ],
   "status": true
 })
+// 验证码
 }
 
 export {monitorInit}

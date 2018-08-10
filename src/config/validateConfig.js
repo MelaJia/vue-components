@@ -13,9 +13,11 @@ Vcg.prototype.getValid = function (name) {
   return this.valid[name]
 }
 const vcg = new Vcg()
-let check = function (key, smsg, url = '/cust/check') {
+let check = function (key, smsg, canNull = false, url = '/cust/check') {
   return (rule, value, callback) => {
-    if (!value) {
+    if (!value && canNull) {
+      callback()
+    } else if (!value) {
       callback(new Error(`${smsg}不能为空`))
     } else {
       let axios = vcg.scope.axios || null
@@ -209,8 +211,7 @@ let validTwo = {
   }, { max: 128, message: '长度不得超过128个字符', trigger: 'blur' }],
   registry: [{ max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
   vendorCodes: [{
-    required: true,
-    validator: check('vendorCodes', '供应商代码'),
+    validator: check('vendorCodes', '供应商代码', true),
     trigger: 'blur'
   }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }],
   companyBusinessScope: [{ max: 200, message: '长度不得超过200个字符', trigger: 'blur' }],
