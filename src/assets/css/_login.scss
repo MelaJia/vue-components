@@ -83,14 +83,45 @@ text-indent: 35px;
 
 
 .bigPicture .register .ipt-group .iptviste {
+  width: 160px!important;
   background: url("~@/assets/img/login/icon.png") no-repeat;
   background-position: 17px -94px;
+}
+.bigPicture .register .ipt-group .imgviste {
+  display: inline-block;
+  float: right;
+  cursor: pointer;
+}
+.bigPicture .register .ipt-group .imgviste img {
+  width: 100px;
+  height: 48px;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+.bigPicture .register .ipt-group .imgviste span {
+  font-size: 12px;
+  color: #666;
+  cursor: pointer;
+  display: block;
+  margin-top: 10px;
+}
+.bigPicture .register .ipt-group .imgviste span:hover {
+  color: #FF3D4B;
 }
 .bigPicture .register .iptChoose {
   font-size: 14px;
   margin-top: 20px;
   color: #666;
   text-indent: 0px;
+}
+.bigPicture .register em.error {
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  color: #ff3d4b;
+  font-size: 12px;
+  margin-left: 50px;
 }
 a.red {
   color: #ff7832;

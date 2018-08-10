@@ -592,12 +592,10 @@ export const thousandth = function (val) {
       if (newStr[1].length <= 1) {
         // 小数点后只有一位时
         result = str2 + '.' + newStr[1] + '0'
-        console.log(result)
       } else if (newStr[1].length > 1) {
         // 小数点后两位以上时
         var decimals = newStr[1].substr(0, 2)
         result = str2 + '.' + decimals
-        console.log(result)
       }
     }
   } else if (typeof val === 'number') {
