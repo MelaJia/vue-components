@@ -585,7 +585,7 @@ export const thousandth = function (val) {
   if (typeof val === 'string') {
     let str = val
     if (str.indexOf('.') === -1) {
-      str = str.replace(regex, '$1,') + '.00'
+      result = str.replace(regex, '$1,') + '.00'
     } else {
       var newStr = str.split('.')
       var str2 = newStr[0].replace(regex, '$1,')

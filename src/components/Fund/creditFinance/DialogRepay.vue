@@ -41,8 +41,8 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="今日提前还清应还金额:" prop="repayAmt">
-              <span>{{detailsP.repayAmt | regexNum}}</span>
+            <el-form-item label="今日提前还清应还金额:" prop="advancerepayAmt">
+              <span>{{detailsP.advancerepayAmt | regexNum}}</span>
             </el-form-item>
           </el-col>
           <el-col :span="10" :pull="2">
@@ -65,7 +65,7 @@
             </el-form-item>
           </el-col>
           <!-- <el-col :span="12"><a href="javascript:;" @click.prevent="getFull" class="getFull">代入应还金额</a><a href="javascript:;" @click.prevent="getFull" class="getFull">代入提前还清应还金额</a></el-col> -->
-          <el-col :span="12"><el-button @click="getFull" class="getFull">代入应还金额</el-button><el-button @click="getAdvanceFull" class="getFull">代入提前还清应还金额</el-button></el-col>
+          <el-col :span="12"><el-button @click="getFull" class="getFull">代入应还金额</el-button><el-button type="default" :disabled="this.confirmCheck === false ? true : false" @click="getAdvanceFull" class="getFull">代入提前还清应还金额</el-button></el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -105,11 +105,10 @@ ul:last-child{
   }
 }
 .el-form-item{
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 .getFull{
   margin-left: 10px;
-  color: #333;
 }
 </style>
 
@@ -149,13 +148,15 @@ export default {
   methods: {
     // 还款
     handleRepay: debounce(submit, 1000, true),
+    // 提前还清
+    advanceRepay: debounce(advanceSubmit, 1000, true),
     // 代入应还金额
     getFull () {
       this.detailsP.actualRepayAmt = this.detailsP.repayAmt
     },
     // 代入提前还清应还金额
     getAdvanceFull () {
-      this.detailsP.actualRepayAmt = this.detailsP.repayAmt
+      this.detailsP.actualRepayAmt = this.detailsP.advancerepayAmt
     }
   }
 }
@@ -201,6 +202,11 @@ function submit () {
     }
   })
 }
+
+// 提前还清
+function advanceSubmit () {
+}
+
 // 数字规则
 var checkNumber = (rule, value, callback) => {
   if (!value) {

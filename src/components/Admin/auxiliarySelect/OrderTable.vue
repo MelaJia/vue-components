@@ -21,7 +21,7 @@
         </el-table-column>
         <el-table-column align="center" label="项次" prop="poItem" min-width="80">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="金额" prop="poAmount" min-width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="金额" prop="poAmount" min-width="140" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" min-width="80">
         </el-table-column>
