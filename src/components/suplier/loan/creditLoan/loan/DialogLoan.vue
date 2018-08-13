@@ -67,7 +67,8 @@ export default {
   data () {
     return {
       bankProvinceCity: [],
-      fileList: [{ name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }, { name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }],
+      fileList: [], // 文件列表
+      fileListCache: [], // 文件缓存列表
       // 校验规则
       rules: {
         repayDate: [
@@ -132,11 +133,18 @@ function submit () {
 }
 // 上传成功调用此事件给fileList中添加数据
 function getUrl (obj) {
-  let { val, file } = obj
-  console.log(file)
+  let { val, file, fileLength } = obj
   if (val) {
     if (val.status) {
-      this.fileList.push({ loanUploadFileUrl: val.data, uid: file.uid, name: file.name })
+      this.fileListCache.push({ loanUploadFileUrl: val.data, uid: file.uid, name: file.name })
+      // 当前文件数
+      let nowlength = this.fileListCache.length + this.fileList.length
+      if (nowlength === fileLength) {
+        // 赋值
+        this.fileList = [...this.fileList, ...this.fileListCache]
+        // 重置fileListCache
+        this.fileListCache = []
+      }
     } else {
       this.$message.error(val.msg)
     }

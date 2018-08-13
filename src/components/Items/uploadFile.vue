@@ -37,6 +37,7 @@ export default {
 }
 // 上传成功事件
 function handleSuccess (res, file, fileList) {
-  this.$emit('get-url', { val: res, file: file }) // 返回到父级
+  console.log('上传成功')
+  this.$emit('get-url', { val: res, file: file, fileLength: fileList.length }) // 返回到父级
 }
 </script>
