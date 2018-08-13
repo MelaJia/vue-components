@@ -276,19 +276,24 @@
               </el-col>
             </el-row>
             <el-row>
-              <el-col :span="9">
+              <el-col :span="8">
                 <el-form-item label="银行名称:" prop="bankName">
                   <el-input v-model.trim="getForm.bankName"></el-input>
                 </el-form-item>
               </el-col>
-              <el-col :span="9" :offset="4" >
+              <el-col :span="8">
                 <el-form-item label="银行账号:" prop="bankAccount">
                   <el-input v-model.trim="getForm.bankAccount"></el-input>
                 </el-form-item>
               </el-col>
+              <el-col :span="8" >
+                <el-form-item label="银行账户名称:" prop="bankAccountName">
+                  <el-input v-model.trim="getForm.bankAccountName"></el-input>
+                </el-form-item>
+              </el-col>
             </el-row>
             <el-row>
-              <el-col :span="9">
+              <el-col :span="8">
                 <el-form-item label="开户省市:" required="" :error="bankProvinceCityError">
                   <el-cascader
                     :options="options"
@@ -297,7 +302,7 @@
                   ></el-cascader>
                 </el-form-item>
               </el-col>
-              <el-col :span="9" :offset="4">
+              <el-col :span="8">
                 <el-form-item label="开户支行:" prop="accountOpeningBranch">
                   <el-input v-model.trim="getForm.accountOpeningBranch"></el-input>
                 </el-form-item>
@@ -731,6 +736,7 @@ function getUserInfo () {
     taxUrl: '', // 税务登记证
     bankName: '', // 银行名称
     bankAccount: '', // 银行账号
+    bankAccountName: '', // 银行账户名称
     bankProvince: '', // 银行开户省
     bankCity: '', // 银行开户市
     accountOpeningBranch: '' // 开户支行

@@ -370,47 +370,49 @@ function getOpera (val) {
   const datas = val
   datas.forEach((item) => {
     const operateArr = []
-    /* 子节点菜单处理 start */
-    if (item.tableData && item.tableData.length > 0) { // 子节点菜单处理
-      const childs = item.tableData
-      childs.map((itemc) => {
-        const operateChild = []
-        switch (itemc.checkedStatus) {
-          case 3:
-            operateChild.push(this.operateArr[4])
-            break
-          case 22:
-            operateChild.push(this.operateArr[1])
-            break
-          case 23:
-            operateChild.push(this.operateArr[3])
-            break
-          default:
-            break
-        }
-        itemc.operateArr = operateChild
-      })
-    }
-    /* 子节点菜单处理 end */
-    switch (item.checkedStatus) {
-      case 1:
-        operateArr.push(this.operateArr[5])
-        break
-      case 2:
-        operateArr.push(this.operateArr[0])
-        operateArr.push(this.operateArr[2])
-        break
-      case 3:
-        operateArr.push(this.operateArr[4])
-        break
-      case 22:
-        operateArr.push(this.operateArr[1])
-        break
-      case 23:
-        operateArr.push(this.operateArr[3])
-        break
-      default:
-        break
+    if (item.operateControllerStatus) {
+      /* 子节点菜单处理 start */
+      if (item.tableData && item.tableData.length > 0) { // 子节点菜单处理
+        const childs = item.tableData
+        childs.map((itemc) => {
+          const operateChild = []
+          switch (itemc.checkedStatus) {
+            case 3:
+              operateChild.push(this.operateArr[4])
+              break
+            case 22:
+              operateChild.push(this.operateArr[1])
+              break
+            case 23:
+              operateChild.push(this.operateArr[3])
+              break
+            default:
+              break
+          }
+          itemc.operateArr = operateChild
+        })
+      }
+      /* 子节点菜单处理 end */
+      switch (item.checkedStatus) {
+        case 1:
+          operateArr.push(this.operateArr[5])
+          break
+        case 2:
+          operateArr.push(this.operateArr[0])
+          operateArr.push(this.operateArr[2])
+          break
+        case 3:
+          operateArr.push(this.operateArr[4])
+          break
+        case 22:
+          operateArr.push(this.operateArr[1])
+          break
+        case 23:
+          operateArr.push(this.operateArr[3])
+          break
+        default:
+          break
+      }
     }
     item.operateArr = operateArr
   })

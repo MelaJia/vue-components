@@ -315,7 +315,6 @@ function visteFresh () {
 }
 // 重置验证码
 function visteReset () {
-  console.log('触发事件')
   if (this.isVerify !== -1) {
     this.isVerify = -1
     this.visteError = ''
