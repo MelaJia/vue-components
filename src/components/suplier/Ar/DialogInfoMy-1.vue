@@ -31,16 +31,24 @@
         <li>
           <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
         </li>
-        <li>
+        <li v-if="this.detailsP.transType==='discount'">
           <span>贴现申请日期: <em>{{this.detailsP.discountApplyDate | dateFormat}}</em></span>
         </li>
+        <li v-if="this.detailsP.transType==='arpay'">
+          <span>转让申请日期: <em>{{this.detailsP.arGenerateDate | dateFormat}}</em></span>
+        </li>
       </ul>
-      <ul>
+      <ul v-if="this.detailsP.transType==='discount'">
         <li>
           <span>贴现申请金额: <em>{{this.detailsP.discountApplyAmt | regexNum}}</em></span>
         </li>
         <li>
           <span>贴现确认金额: <em>{{this.detailsP.discountLoanAmt | regexNum}}</em></span>
+        </li>
+      </ul>
+      <ul v-else-if="this.detailsP.transType==='arpay'">
+        <li>
+          <span>转让金额: <em>{{this.detailsP.billBookAmt | regexNum}}</em></span>
         </li>
       </ul>
       <ul class="height-auto">
