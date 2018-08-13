@@ -15,27 +15,27 @@
               </el-table-column>
               <el-table-column align="center" width="60">
               </el-table-column>
-              <el-table-column align="center" prop="companyName" :width="widthArr.companyName">
+              <el-table-column align="center" :width="widthArr.companyName">
               </el-table-column>
               <el-table-column align="center" :width="widthArr.loanId">
               </el-table-column>
-              <el-table-column align="center" prop="loanTypeName" :width="widthArr.loanTypeName">
+              <el-table-column align="center" :width="widthArr.loanTypeName">
               </el-table-column>
-              <el-table-column align="right" prop="applyAmt" :width="widthArr.applyAmt" :formatter="regexNum">
+              <el-table-column align="right" :width="widthArr.applyAmt">
               </el-table-column>
-              <el-table-column align="center" prop="currency" :width="widthArr.currency">
+              <el-table-column align="center" :width="widthArr.currency">
               </el-table-column>
-              <el-table-column align="center" prop="repaymentType" :width="widthArr.repaymentType">
+              <el-table-column align="center" :width="widthArr.repaymentType">
               </el-table-column>
               <el-table-column align="right" prop="loanAmt" :width="widthArr.loanAmt" :formatter="regexNum">
               </el-table-column>
               <el-table-column align="right" prop="payPrincipalAmt" :width="widthArr.payPrincipalAmt" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="payInterestAmt" :width="widthArr.payInterestAmt">
+              <el-table-column align="right" prop="payInterestAmt" :width="widthArr.payInterestAmt" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="payServiceAmt" :width="widthArr.payServiceAmt">
+              <el-table-column align="right" prop="payServiceAmt" :width="widthArr.payServiceAmt" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="payFineAmt" :width="widthArr.payFineAmt">
+              <el-table-column align="right" prop="payFineAmt" :width="widthArr.payFineAmt" :formatter="regexNum">
               </el-table-column>
               <el-table-column align="center" prop="payFineDays" :width="widthArr.payFineDays">
               </el-table-column>
@@ -43,7 +43,7 @@
               </el-table-column>
               <el-table-column align="right" prop="totalRepayAmt" :width="widthArr.totalRepayAmt" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="contractSignedDate" :width="widthArr.contractSignedDate" :formatter="dateFormat">
+              <el-table-column align="center" :width="widthArr.contractSignedDate" :formatter="dateFormat">
               </el-table-column>
               <el-table-column align="center" prop="repayDate" :width="widthArr.repayDate" :formatter="dateFormat">
               </el-table-column>
@@ -81,11 +81,11 @@
         </el-table-column>
         <el-table-column align="right" header-align="center" label="还款本金" prop="payPrincipalAmt" min-width="100" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="还款利息" prop="payInterestAmt" min-width="100">
+        <el-table-column align="right" header-align="center" label="还款利息" prop="payInterestAmt" min-width="100" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="还款服务费" prop="payServiceAmt" min-width="100">
+        <el-table-column align="right" header-align="center" label="还款服务费" prop="payServiceAmt" min-width="100" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="罚息" prop="payFineAmt" min-width="100">
+        <el-table-column align="right" header-align="center" label="罚息" prop="payFineAmt" min-width="100" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="罚息天数" prop="payFineDays" min-width="100">
         </el-table-column>

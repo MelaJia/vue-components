@@ -52,20 +52,13 @@
           </el-col>
         </el-row>
         <el-row>
-          <!-- <el-form-item label="客户还款金额:" prop="actualRepayAmt">
-            <el-input v-model="detailsP.actualRepayAmt">
-              <template slot="append"><a href="javascript:;" @click.prevent="getFull" class="getFull">代入应还金额</a></template>
-              <template slot="append"></template>
-            </el-input>
-            <a href="javascript:;" @click.prevent="getFull" class="getFull">代入提前还清应还金额</a>
-          </el-form-item> -->
           <el-col :span="12">
             <el-form-item label="客户还款金额:" prop="actualRepayAmt">
               <el-input v-model="detailsP.actualRepayAmt"></el-input>
             </el-form-item>
           </el-col>
           <!-- <el-col :span="12"><a href="javascript:;" @click.prevent="getFull" class="getFull">代入应还金额</a><a href="javascript:;" @click.prevent="getFull" class="getFull">代入提前还清应还金额</a></el-col> -->
-          <el-col :span="12"><el-button @click="getFull" class="getFull">代入应还金额</el-button><el-button type="default" :disabled="this.confirmCheck === false ? true : false" @click="getAdvanceFull" class="getFull">代入提前还清应还金额</el-button></el-col>
+          <el-col :span="12"><el-button :disabled="this.confirmCheck === true ? true : false" @click="getFull" class="getFull">代入应还金额</el-button><el-button type="default" :disabled="this.confirmCheck === false ? true : false" @click="getAdvanceFull" class="getFull">代入提前还清应还金额</el-button></el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -76,7 +69,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-form-item label="合同:" prop="currencyName">
+          <el-form-item label="合同:">
             <span>
               <div class="a-link-group inline-block">
                 <a v-for="item in this.detailsP.contractList" :key="item.contractId" :href="item.contractUrl" target="_blank">{{item.contractName}}</a>
@@ -87,7 +80,7 @@
       </el-form>
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleRepay">还款</el-button>
+      <el-button type="primary" :disabled="this.confirmCheck === true ? true : false" @click="handleRepay">还款</el-button>
       <el-button type="danger" :disabled="this.confirmCheck === false ? true : false" @click="advanceRepay">提前还清</el-button>
       <el-button type="default" @click="handleClose">取消</el-button>
     </footer>
@@ -121,6 +114,40 @@ export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, Common],
   data () {
+    // 金额校验规则
+    var checkNumber = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('不能为空'))
+      }
+      let re = /^(0|[1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
+      if (!this.confirmCheck) {
+        setTimeout(() => {
+          if (!re.test(value)) {
+            callback(new Error('请输入大于等于0的数字'))
+          } else {
+            if (value <= 0) {
+              callback(new Error('必须大于等于0'))
+            } else {
+              callback()
+            }
+          }
+        }, 1000)
+      } else {
+        setTimeout(() => {
+          if (!re.test(value)) {
+            callback(new Error('请输入大于等于0的数字'))
+          } else {
+            if (value <= 0) {
+              callback(new Error('必须大于等于0'))
+            } else if (value < this.detailsP.advancerepayAmt) {
+              callback(new Error('客户还款金额不能小于提前还清应还金额'))
+            } else {
+              callback()
+            }
+          }
+        }, 1000)
+      }
+    }
     return {
       confirmCheck: false, // 确认提前还清选择框
       rules: {
@@ -205,24 +232,43 @@ function submit () {
 
 // 提前还清
 function advanceSubmit () {
-}
-
-// 数字规则
-var checkNumber = (rule, value, callback) => {
-  if (!value) {
-    return callback(new Error('不能为空'))
-  }
-  let re = /^([1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
-  setTimeout(() => {
-    if (!re.test(value)) {
-      callback(new Error('请输入大于等于0的数字'))
-    } else {
-      if (value < 0) {
-        callback(new Error('必须大于等于0'))
-      } else {
-        callback()
+  this.$refs.form.validate((valid) => {
+    if (valid) {
+      const param = {
+        custId: this.detailsP.custId,
+        factoringCustId: this.detailsP.factoringCustId,
+        loanId: this.detailsP.loanId,
+        periodNo: this.detailsP.periodNo,
+        actualRepayAmt: this.detailsP.actualRepayAmt,
+        actualRepayDate: this.detailsP.actualRepayDate
       }
+      console.log(param)
+      // 显示加载图标
+      const loading = this.$loading(loadingConf.sub())
+      // 发送数据
+      this.axios.post('/factoringCreditLoan/repayLoan.do', param).then(res => {
+        let type = res.data.status ? 'success' : 'error'
+        this.$message({
+          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+          type: type
+        })
+        // 关闭加载图标
+        loading.close()
+        // 操作成功关闭弹窗刷新数据
+        if (res.data.status) {
+          this.$parent.fresh()
+          this.handleClose()
+        }
+      }).catch((err) => {
+        console.log(err)
+        this.$message({
+          type: 'info',
+          message: '操作失败'
+        })
+        // 关闭加载图标
+        loading.close()
+      })
     }
-  }, 1000)
+  })
 }
 </script>
