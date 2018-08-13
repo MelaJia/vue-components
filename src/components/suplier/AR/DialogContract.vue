@@ -88,13 +88,13 @@ function submit () {
 }
 // 拒绝操作
 function reject () {
-  if (this.checkList.length !== this.detailsP.contractList.length) {
-    this.$message({
-      type: 'error',
-      message: '有未勾选合同'
-    })
-    return
-  }
+  // if (this.checkList.length !== this.detailsP.contractList.length) {
+  //   this.$message({
+  //     type: 'error',
+  //     message: '有未勾选合同'
+  //   })
+  //   return
+  // }
   // 显示加载图标
   const loading = this.$loading(loadingConf.sub())
   this.axios.post('/myAr/cancelSigningDiscount.do', { masterChainId: this.detailsP.masterChainId }).then(res => {
