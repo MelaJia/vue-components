@@ -94,7 +94,8 @@ export default {
   data () {
     return {
       uploadUrl: apiUrl + '/cust/userFilePicture',
-      fileList: [],
+      fileList: [], // 文件列表
+      fileListCache: [], // 文件缓存列表
       applyAmt: '',
       // 校验规则
       rules: {
@@ -137,7 +138,7 @@ function submit () {
         if (res.data.status) {
           this.$parent.fresh()
           this.handleClose()
-          // this.fileList = []
+          this.fileList = []
         }
       })
     }
@@ -145,10 +146,18 @@ function submit () {
 }
 // 上传成功调用此事件给fileList中添加数据
 function getUrl (obj) {
-  let { val, file } = obj
+  let { val, file, fileLength } = obj
   if (val) {
     if (val.status) {
-      this.fileList.push({ contractUploadFileUrl: val.data, uid: file.uid, name: file.name })
+      this.fileListCache.push({ contractUploadFileUrl: val.data, uid: file.uid, name: file.name })
+      // 当前文件数
+      let nowlength = this.fileListCache.length + this.fileList.length
+      if (nowlength === fileLength) {
+        // 赋值
+        this.fileList = [...this.fileList, ...this.fileListCache]
+        // 重置fileListCache
+        this.fileListCache = []
+      }
     } else {
       this.$message.error(val.msg)
     }

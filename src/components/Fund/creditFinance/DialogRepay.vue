@@ -205,9 +205,10 @@ function submit () {
       const loading = this.$loading(loadingConf.sub())
       // 发送数据
       this.axios.post('/factoringCreditLoan/repayLoan.do', param).then(res => {
+        console.log(res)
         let type = res.data.status ? 'success' : 'error'
         this.$message({
-          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+          message: res.data.msg ? res.data.msg : '返回结果错误，请联系管理员',
           type: type
         })
         // 关闭加载图标
@@ -249,7 +250,7 @@ function advanceSubmit () {
       this.axios.post('/factoringCreditLoan/repayLoan.do', param, true).then(res => {
         let type = res.data.status ? 'success' : 'error'
         this.$message({
-          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+          message: res.data.msg ? res.data.msg : '返回结果错误，请联系管理员',
           type: type
         })
         console.log(res)
