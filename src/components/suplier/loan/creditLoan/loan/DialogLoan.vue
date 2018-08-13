@@ -136,7 +136,7 @@ function getUrl (obj) {
   console.log(file)
   if (val) {
     if (val.status) {
-      this.fileList.push({ loanUploadFileUrl: val.data, uid: file.uid })
+      this.fileList.push({ loanUploadFileUrl: val.data, uid: file.uid, name: file.name })
     } else {
       this.$message.error(val.msg)
     }
