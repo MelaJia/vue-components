@@ -53,7 +53,7 @@
               </el-table-column>
               <el-table-column align="center" label-align="center" width="150">
                 <template slot-scope="scope">
-                  <el-button size="mini" v-if="scope.row.isShowRepayButton == '1' || (scope.row.actualRepayAmt == undefined && scope.row.actualRepayDate == undefined)" type="primary" @click="repayMent(scope.$index, scope.row)">还款</el-button>
+                  <el-button size="mini" v-if="scope.row.isShowRepayButton == '1' || ((scope.row.actualRepayAmt == undefined || scope.row.actualRepayAmt == null) && (scope.row.actualRepayDate == undefined || scope.row.actualRepayDate == null))" type="primary" @click="repayMent(scope.$index, scope.row)">还款</el-button>
                 </template>
               </el-table-column>
             </el-table>

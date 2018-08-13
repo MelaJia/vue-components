@@ -140,7 +140,7 @@ export default {
             if (value <= 0) {
               callback(new Error('必须大于等于0'))
             } else if (value < this.detailsP.advancerepayAmt) {
-              callback(new Error('客户还款金额不能小于提前还清应还金额'))
+              callback(new Error('还款金额不能小于提前还清金额'))
             } else {
               callback()
             }
@@ -204,7 +204,7 @@ function submit () {
       // 显示加载图标
       const loading = this.$loading(loadingConf.sub())
       // 发送数据
-      this.axios.post('/factoringCreditLoan/repayLoan.do', param).then(res => {
+      this.axios.post('/factoringCreditLoan/repayLoan.do', param, true).then(res => {
         let type = res.data.status ? 'success' : 'error'
         this.$message({
           message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
@@ -246,12 +246,13 @@ function advanceSubmit () {
       // 显示加载图标
       const loading = this.$loading(loadingConf.sub())
       // 发送数据
-      this.axios.post('/factoringCreditLoan/repayLoan.do', param).then(res => {
+      this.axios.post('/factoringCreditLoan/repayLoan.do', param, true).then(res => {
         let type = res.data.status ? 'success' : 'error'
         this.$message({
           message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
           type: type
         })
+        console.log(res)
         // 关闭加载图标
         loading.close()
         // 操作成功关闭弹窗刷新数据
