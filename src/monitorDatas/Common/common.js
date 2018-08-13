@@ -404,6 +404,7 @@ const commonDatas = {
             "loanAmt":100000,
             "masterChainId":"AR20180330000003",
             "parentChainId":"",
+            operateControllerStatus:1,
             "tableData":[
                 {
                     "arStatusTypeName":"貼現取消",
