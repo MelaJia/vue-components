@@ -204,7 +204,7 @@ function submit () {
       // 显示加载图标
       const loading = this.$loading(loadingConf.sub())
       // 发送数据
-      this.axios.post('/factoringCreditLoan/repayLoan.do', param, true).then(res => {
+      this.axios.post('/factoringCreditLoan/repayLoan.do', param).then(res => {
         let type = res.data.status ? 'success' : 'error'
         this.$message({
           message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',

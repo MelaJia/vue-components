@@ -132,6 +132,7 @@ function submit () {
         contractUploadFileList: this.fileList // 合同列表
       }
       postDataBase.call(this, '/factoringCreditLoan/generateContract.do', param, true).then(res => {
+        console.log(param)
         // 操作成功关闭弹窗刷新数据
         if (res.data.status) {
           this.$parent.fresh()
@@ -147,7 +148,7 @@ function getUrl (obj) {
   let { val, file } = obj
   if (val) {
     if (val.status) {
-      this.fileList.push({ contractUploadFileUrl: val.data, uid: file.uid })
+      this.fileList.push({ contractUploadFileUrl: val.data, uid: file.uid, name: file.name })
     } else {
       this.$message.error(val.msg)
     }
