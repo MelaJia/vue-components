@@ -38,11 +38,11 @@ import {
 } from '@/config/env.js'
 import {mapGetters} from 'vuex'
 export default {
-  props: ['param', 'oImgUrl'],
+  props: ['param', 'oImgUrl', 'apiUrl'],
   data () {
     return {
       imgurl: '',
-      uploadUrl: apiUrl + '/cust/uploadPicture',
+      uploadUrl: apiUrl + this.apiUrl,
       videoFlag: false
     }
   },

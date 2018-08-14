@@ -1,5 +1,5 @@
 <template>
-  <el-upload class="avatar-uploader" :data="param" :headers="{'Authorization':token}" :action="uploadUrl" :show-file-list="false" :on-progress="uploadVideoProcess" :before-upload="beforeAvatarUpload"  :on-success="handleAvatarSuccess" :on-error="uploadError">
+  <el-upload class="avatar-uploader" :data="param" :action="uploadUrl" :show-file-list="false" :on-progress="uploadVideoProcess" :before-upload="beforeAvatarUpload"  :on-success="handleAvatarSuccess" :on-error="uploadError">
     <el-progress v-if="videoFlag == true" type="circle" :percentage="videoUploadPercent" :status="status" :width="120"></el-progress>
     <img v-else-if="imgurl" :src="imgurl" class="avatar">
     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -37,7 +37,6 @@
 import {
   apiUrl
 } from '@/config/env.js'
-import { mapGetters } from 'vuex'
 export default {
   props: ['param', 'oImgUrl'],
   data () {
@@ -48,9 +47,6 @@ export default {
       videoUploadPercent: 0, // 进度
       status: '' // 状态
     }
-  },
-  computed: {
-    ...mapGetters(['token'])
   },
   methods: {
     // 图片上传成功

@@ -7,14 +7,18 @@
   </el-upload>
 </template>
 <script>
+/** 参数 param请求参数、 file-list文件列表、api-url请求地址
+ *  事件 get-url 上传成功触发事件function(val:服务器返回参数,file:当前文件,fileLength:上传插件中当前文件数)
+ **/
 import {
-  apiUrl
+  apiUrl, baseUrl
 } from '@/config/env.js'
 export default {
-  props: ['param', 'fileList'],
+  // param请求参数、 fileList文件列表、apiUrl请求地址、showFileList是否显示文件列表
+  props: ['param', 'fileList', 'apiUrl'],
   data () {
     return {
-      uploadUrl: apiUrl + '/cust/userFilePicture'
+      uploadUrl: apiUrl + this.apiUrl
     }
   },
   methods: {
@@ -31,6 +35,9 @@ export default {
     },
     handlePreview (file) {
       console.log(file)
+      let reg = /^http:/
+      let url = reg.test(file.previewUrl) ? file.previewUrl : `${baseUrl}${file.previewUrl}`
+      window.open(url, '_File')
     },
     handleSuccess: handleSuccess
   }

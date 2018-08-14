@@ -56,9 +56,9 @@
     <section class="layout form">
       <el-row>
         <el-col :span="8" class="flex"><label>贴现金额：</label><el-input v-model.number="transAmt" placeholder="请输入贴现金额：："></el-input></el-col>
-        <el-col :span="6">
-          <el-tooltip class="item" effect="dark" :content="`已勾选发票总金额${thousandth(sum)}`" placement="top-start">
-            <label class="sum-content">{{sum | regexNum}}</label>
+        <el-col :span="6" v-if="sum">
+          <el-tooltip class="item" effect="dark" :content="`已勾选发票金额合计:${thousandth(sum)}`" placement="top-start">
+            <label class="sum-content">金额上限:{{sum | regexNum}}</label>
           </el-tooltip>
         </el-col>
       </el-row>
@@ -109,7 +109,7 @@ export default {
       // 已选发票置空
       console.log('发票置空')
       this.checkList = []
-      this.sum = []
+      this.sum = 0
       this.transAmt = 0
     }
   },

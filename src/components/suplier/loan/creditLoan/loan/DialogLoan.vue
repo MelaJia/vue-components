@@ -35,7 +35,7 @@
         <el-row>
           <el-col :span="12" :offset="6">
             <el-form-item label="上传附件:">
-            <upload :param="{typename:'files'}" :file-list.sync="fileList" @get-url="getUrl"></upload>
+            <upload :param="{typename:'files'}" :file-list.sync="fileList" :api-url="'/creditLoan/creditLoanUploadFile.do'" @get-url="getUrl"></upload>
             </el-form-item>
           </el-col>
         </el-row>
@@ -136,7 +136,7 @@ function getUrl (obj) {
   let { val, file, fileLength } = obj
   if (val) {
     if (val.status) {
-      this.fileListCache.push({ loanUploadFileUrl: val.data, uid: file.uid, name: file.name })
+      this.fileListCache.push({ previewUrl: val.data, loanUploadFileUrl: val.data, uid: file.uid, name: file.name })
       // 当前文件数
       let nowlength = this.fileListCache.length + this.fileList.length
       if (nowlength === fileLength) {
