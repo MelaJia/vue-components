@@ -38,7 +38,7 @@
               </div>
               <div class="ipt-group picture">
                 <input type="text" autocomplete="off" class="text iptviste" name="ipt_renewal" v-model="verify" id="ipt_renewal" onKeyDown="if(event.keyCode===32) return false" placeholder="图形验证" maxlength="4" @input="visteChange">
-                <i class="icon-viste" :class="getVisteClass"></i>
+                <i class="icon-viste" :class="getVisteClass" @click="handleDelete"></i>
                 <div class="imgviste" @click="visteFresh">
                   <i hidden :src="getImgUrl"></i>
                   <img class="renewal" :src="verImgUrl" id="imgCode" alt="点击刷新">
@@ -201,7 +201,9 @@ export default {
     // 刷新验证码
     visteFresh: visteFresh,
     // 验证码编辑
-    visteChange: visteReset
+    visteChange: visteReset,
+    // 删除验证码
+    handleDelete: visteDelete
   }
 }
 function getImgUrl () {
@@ -319,5 +321,10 @@ function visteReset () {
     this.isVerify = -1
     this.visteError = ''
   }
+}
+// 删除已输验证码
+function visteDelete () {
+  this.verify = ''
+  this.visteError = ''
 }
 </script>
