@@ -25,7 +25,7 @@
         <el-row>
           <el-col>
             <el-form-item label="合同上传:">
-              <upload :param="{typename:'files'}" :file-list.sync="fileList" @get-url="getUrl">
+              <upload :param="{typename:'files'}" :file-list.sync="fileList" :api-url="'/creditLoan/creditLoanUploadFile.do'" @get-url="getUrl">
                 <template slot="tip">上传pdf文件,可上传多个文件</template>
               </upload>
             </el-form-item>
