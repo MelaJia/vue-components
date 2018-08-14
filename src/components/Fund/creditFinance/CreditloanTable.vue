@@ -205,6 +205,7 @@ function handleAccept (idx, val) {
 //     })
 //   })
 // }
+// 拒绝
 function handleReject (idx, val) {
   this.$prompt(`融资编号为${val.loanId}的贴现申请确认拒绝`, `提示`, {
     confirmButtonText: '确定',
