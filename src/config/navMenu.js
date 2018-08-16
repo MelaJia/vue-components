@@ -20,7 +20,7 @@ const navs = {
         lClass: 'line',
         hClass: 'circle'
       }, {
-        idx: 'cancelar',
+        idx: 'transfer',
         text: '转让AR管理',
         disabled: false,
         lClass: 'line',

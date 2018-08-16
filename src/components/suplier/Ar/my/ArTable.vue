@@ -199,15 +199,15 @@ export default {
   mixins: [TableMixIn, Common],
   components: {
     'dialog-contract': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogContract'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogContract'),
     'dialog-transfer': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogTransfer'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogTransfer'),
     'dialog-discount': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogDiscount'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogDiscount'),
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogInfoMy'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogInfoMy'),
     'dialog-info-1': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogInfoMy-1')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogInfoMy-1')
   },
   data () {
     return {

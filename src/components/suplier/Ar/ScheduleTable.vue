@@ -98,7 +98,7 @@ export default {
     'dialog-schedule': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogSchedule'),
     'dialog-contract': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogContract')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogContract')
   },
   data () {
     return {

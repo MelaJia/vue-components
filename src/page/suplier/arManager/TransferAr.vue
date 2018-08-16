@@ -6,12 +6,12 @@
           <img src="~@/assets/img/juxin_06.png" alt="查询条件">
           <span>查询条件</span>
         </div>
-        <search @handle-search="searchSubmit"></search>
+        <search @handle-search="handleSearch"></search>
       </el-card>
     </div>
     <div class="body">
       <el-card class="box-card">
-        <ar-table :data-loading="loading" :data-table="tableData5" @refresh="handleRefresh"></ar-table>
+        <ar-list :data-table="tableData5" :data-loading="loading"  @refresh="handleRefresh"></ar-list>
         <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -28,21 +28,20 @@
 </template>
 
 <script>
-import ArTable from '@/components/suplier/Ar/ArTableHistory'
-import Search from '@/components/suplier/Ar/SearchMyAr'
+import ArList from '@/components/suplier/Ar/transfer/ArList'
+import Search from '@/components/suplier/Ar/transfer/Search'
 import Table from '@/mixins/suplier/Ar/Table'
 export default {
   mixins: [Table],
   data () {
     return {
-      loading: false,
-      postUrl: '/myAr/getMyArListTable.do',
-      dataStr: 'data',
-      totalStr: 'recordsTotal'
+      postUrl: '/transferedAr/getTransferedArListTable.do',
+      totalStr: 'recordsTotal', // 服务器返回总数参数名
+      dataStr: 'data' // 服务器返回数据参数名
     }
   },
   components: {
-    'ar-table': ArTable,
+    'ar-list': ArList,
     'search': Search
   },
   mounted () {
@@ -60,14 +59,15 @@ export default {
       })
   },
   methods: {
-    searchSubmit (val) {
+    // 条件查询
+    handleSearch (val) {
+      console.log(val)
       let form = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
       let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
-      /* 修改请求参数 */
       this.param = {
         masterChainId: val.masterChainId, // ar单号
         isMasterAr: val.isMasterAr, // ar来源
-        companyName: val.companyName, // 付款单位
+        custFromName: val.custFromName, // 授让单位
         checkedStatus: val.status, // 状态
         billBookCurr: val.billBookCurr, // 币别
         invoiceNo: val.invoiceNo, // 发票号

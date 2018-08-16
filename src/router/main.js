@@ -21,7 +21,7 @@ const routes = [{
   {
     path: 'myar',
     name: 'myar',
-    component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/MyAr'),
+    component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/arManager/MyAr'),
     meta: {
       title: '我的AR', // 名称
       requireAuth: true // 需要登录验证
@@ -31,17 +31,17 @@ const routes = [{
     path: 'getar',
     name: 'getar',
     component: () =>
-      import(/* webpackChunkName: 'AR' */ '@/page/suplier/GetAr'),
+      import(/* webpackChunkName: 'AR' */ '@/page/suplier/arManager/GetAr'),
     meta: {
       title: '购入AR管理', // 名称
       requireAuth: true // 需要登录验证
     }
   },
   {
-    path: 'cancelar',
-    name: 'cancelar',
+    path: 'transfer',
+    name: 'transfer',
     component: () =>
-      import(/* webpackChunkName: 'AR' */ '@/page/suplier/CancelAr'),
+      import(/* webpackChunkName: 'AR' */ '@/page/suplier/arManager/TransferAr'),
     meta: {
       title: '转让AR管理', // 名称
       requireAuth: true // 需要登录验证
@@ -51,7 +51,7 @@ const routes = [{
     path: 'historyar',
     name: 'historyar',
     component: () =>
-      import(/* webpackChunkName: 'AR' */ '@/page/suplier/HistoryAr'),
+      import(/* webpackChunkName: 'AR' */ '@/page/suplier/arManager/HistoryAr'),
     meta: {
       title: '历史AR', // 名称
       requireAuth: true // 需要登录验证

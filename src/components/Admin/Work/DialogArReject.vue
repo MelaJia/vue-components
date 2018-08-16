@@ -69,7 +69,8 @@ export default {
     }
   },
   methods: {
-    handleSubmit: debounce(submit, 1000, true)
+    handleSubmit: debounce(submit, 1000, true),
+    init: Init
   }
 }
 // 提交操作
@@ -99,5 +100,9 @@ function submit () {
     // 错误提示
     erroShow.call(this, err, loading)
   })
+}
+// 初始化
+function Init () {
+  this.form.rejectedReason = ''
 }
 </script>

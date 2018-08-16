@@ -254,7 +254,7 @@ async function submitForm (formName) {
   }
   if (process.env.NODE_ENV === 'development') { // 调试环境
     let res = {
-      data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 2, custNickname: '阿拉斯加大型犬' }
+      data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 0, custNickname: '阿拉斯加大型犬' }
     }
     if (res.data.status) {
       this.$store.commit(types.LOGIN, res.data.token)

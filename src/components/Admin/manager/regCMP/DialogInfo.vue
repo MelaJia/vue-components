@@ -105,7 +105,9 @@
           <span>企业银行账户: <em>{{this.detailsP.bankAccount}}</em></span>
         </li>
         <li class="wd-3">
-          <span>企业银行支行: <em>{{this.detailsP.accountOpeningBranch}}</em></span>
+          <el-tooltip :content="'企业银行支行:'+this.detailsP.accountOpeningBranch" placement="bottom" effect="light">
+            <span>企业银行支行: <em>{{this.detailsP.accountOpeningBranch}}</em></span>
+          </el-tooltip>
         </li>
       </ul>
        <el-row>
@@ -135,44 +137,6 @@
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
-#title {
-  color: #931719;
-  line-height: 24px;
-  font-size: 18px;
-}
-
-section {
-  padding: 0px 20px;
-}
-
-ul {
-  position: relative;
-  border-top: 0.5px solid #931719;
-  margin: 0;
-  border-right: 0.5px solid #931719;
-  padding: 0;
-  height: 32px;
-}
-
-ul:last-of-type {
-  border-bottom: 0.5px solid #931719;
-}
-
-li {
-  list-style: none;
-  width: 48%;
-  display: inline-block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  line-height: 32px;
-  border-left: 0.5px solid #931719;
-  text-align: left;
-  padding-left: 5px;
-}
-.wd-3 {
-  width: 31%;
-}
 </style>
 
 <script>

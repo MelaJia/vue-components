@@ -88,7 +88,7 @@ export default {
   watch: {
     getTitle: function () {
       // 置空
-      this.payAmt = 0
+      this.init()
     }
   },
   computed: {
@@ -99,7 +99,9 @@ export default {
   },
   methods: {
     handleFill: handleFill,
-    handleSubmit: debounce(handleSubmit, 1000, true)
+    handleSubmit: debounce(handleSubmit, 1000, true),
+    // 置空方法
+    init: Init
   }
 }
 // 填入应还金额
@@ -124,5 +126,9 @@ function handleSubmit () {
       this.handleClose()
     }
   })
+}
+// 初始化
+function Init () {
+  this.payAmt = 0
 }
 </script>

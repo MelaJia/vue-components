@@ -81,7 +81,7 @@
     line-height: 40px;
   }
 }
-.sum-content{
+.sum-content {
   height: 40px;
   line-height: 40px;
 }
@@ -104,15 +104,6 @@ export default {
       sum: 0 // 勾选发票总金额
     }
   },
-  watch: {
-    getTitle: function () {
-      // 已选发票置空
-      console.log('发票置空')
-      this.checkList = []
-      this.sum = 0
-      this.transAmt = 0
-    }
-  },
   computed: {
     getTitle () {
       return this.detailsP.masterChainId + '贴现'
@@ -121,7 +112,9 @@ export default {
   methods: {
     handleSubmit: debounce(handleSubmit, 1000, true),
     // 发票修改事件
-    handleCheckedChange: handleCheckedChange
+    handleCheckedChange: handleCheckedChange,
+    // 置空
+    init: Init
   }
 }
 function handleSubmit () {
@@ -208,5 +201,12 @@ function handleCheckedChange (value) {
   }, 0)
   // 赋值
   this.transAmt = this.sum = sum
+}
+// 初始化
+function Init () {
+  // 已选发票置空
+  this.checkList = []
+  this.sum = 0
+  this.transAmt = 0
 }
 </script>

@@ -49,7 +49,7 @@ export default {
   mixins: [ListMinxIn, Common, Dialog],
   components: {
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogInfo')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/get/DialogInfo')
   },
   methods: {
     // 接受转让

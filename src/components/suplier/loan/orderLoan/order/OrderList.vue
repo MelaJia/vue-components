@@ -107,7 +107,7 @@ export default {
   mixins: [TableMixIn, Common],
   components: {
     'dialog-contract': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogContract'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogContract'),
     'dialog-info': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/orderLoan/order/DialogInfo')
   },
@@ -176,10 +176,13 @@ export default {
 // 详情函数
 function handleInfo (idx, val) {
   let param = {
-    loanId: val.loanId
+    vendorCode: val.vendorCode, // 供应商代码
+    poNumber: val.poNumber, // 订单号
+    poItem: val.poItem, // 项次
+    plantCode: val.plantCode // 法人工厂代码
   }
   // 获取数据
-  getDataBase.call(this, '/creditLoan/queryCreditLoanInfo.do', param, true).then(res => {
+  getDataBase.call(this, '/supplierOrderLoan/availableSupplierOrderDetail.do', param, true).then(res => {
     if (res) {
       console.log(res)
       this.details = res

@@ -332,7 +332,7 @@ export default {
             name: '已到期金额'
           }
         },
-        path: 'cancelar' // 路径
+        path: 'transfer' // 路径
       }
     }
     sortArr.forEach((val, idx) => {

@@ -151,7 +151,7 @@ export default {
   mixins: [TableMixIn, Common],
   components: {
     'dialog-contract': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogContract'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogContract'),
     'dialog-info': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/orderLoan/loan/DialogInfo')
   },

@@ -116,12 +116,6 @@ export default {
     }
   },
   watch: {
-    // 发票置空
-    getTitle: function () {
-      // 已选发票置空
-      console.log('发票置空')
-      Init.call(this)
-    },
     receiveCustId: debounce(function (val) {
       this.axios.post('/commonCust/queryCustomer.do', { 'custId': val, 'companyName': '' }).then(res => {
         if (res.data.status) {
@@ -143,7 +137,8 @@ export default {
     // 提交事件
     handleSubmit: debounce(submit, 1000, true),
     // 发票修改事件
-    handleCheckedChange: handleCheckedChange
+    handleCheckedChange: handleCheckedChange,
+    init: Init
   }
 }
 // 提交操作
