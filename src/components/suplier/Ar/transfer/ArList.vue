@@ -98,7 +98,7 @@ export default {
   mixins: [Common, ListMinxIn, Dialog],
   components: {
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogInfoCancelTrans')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/transfer/DialogInfoCancelTrans')
   },
   methods: {
     handleCancle (idx, val) {

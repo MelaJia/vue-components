@@ -7,28 +7,28 @@
       </span>
     </header>
     <section>
-      <ul>
+       <ul>
         <li>
-          <span>付款单位: <em>{{this.detailsP.companyName}}</em></span>
+          <el-tooltip :content="'付款单位:'+this.detailsP.companyName" placement="bottom" effect="light">
+            <span>付款单位: <em>{{this.detailsP.companyName}}</em></span>
+          </el-tooltip>
         </li>
         <li>
-          <span>贴现客户: <em>{{this.detailsP.custFromName}}</em></span>
+          <el-tooltip :content="'贴现客户:'+this.detailsP.custFromName" placement="bottom" effect="light">
+            <span>贴现客户: <em>{{this.detailsP.custFromName}}</em></span>
+          </el-tooltip>
         </li>
       </ul>
-      <!-- <ul>
-        <li>
-          <span>付款银行名称: <em>{{this.detailsP.payerBankName}}</em></span>
-        </li>
-        <li>
-          <span>付款银款账号: <em>{{this.detailsP.payerBankAccount}}</em></span>
-        </li>
-      </ul> -->
       <ul>
         <li>
-          <span>贴现客户收款银行: <em>{{this.detailsP.bankName}}</em></span>
+          <el-tooltip :content="'贴现客户收款银行:'+this.detailsP.bankName" placement="bottom" effect="light">
+            <span>贴现客户收款银行: <em>{{this.detailsP.bankName}}</em></span>
+          </el-tooltip>
         </li>
         <li>
-          <span>贴现客户收款银行: <em>{{this.detailsP.bankAccount}}</em></span>
+          <el-tooltip :content="'贴现客户收款银行:'+this.detailsP.bankAccount" placement="bottom" effect="light">
+             <span>贴现客户收款银行: <em>{{this.detailsP.bankAccount}}</em></span>
+          </el-tooltip>
         </li>
       </ul>
       <ul>

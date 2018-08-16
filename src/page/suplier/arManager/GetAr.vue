@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import ArList from '@/components/suplier/Ar/ArList'
-import Search from '@/components/suplier/Ar/SearchGet'
+import ArList from '@/components/suplier/Ar/get/ArList'
+import Search from '@/components/suplier/Ar/get/SearchGet'
 import Table from '@/mixins/suplier/Ar/Table' // handleCurrentChange
 export default {
   mixins: [Table],

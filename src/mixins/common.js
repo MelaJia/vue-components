@@ -1,6 +1,15 @@
-import { postDataBase, thousandth, throttle, getDataBase } from '@/util/util' // 发送数据函数
+import { postDataBase, thousandth, getDataBase, mouseDown } from '@/util/util' // 发送数据函数
 export default {
+  // 监听器
+  watch: {
+    getTitle: function () {
+      this.init()
+    }
+  },
+  // 方法
   methods: {
+    // 初始化操作
+    init () {},
     // 按下左键
     mouseDown: mouseDown,
     // 时间格式化
@@ -98,36 +107,5 @@ export default {
       }
       return `${val}%`
     }
-  }
-}
-// 鼠标单击事件
-function mouseDown (e) {
-  // 获取单击位置
-  var disX = e.clientX
-  var t = document.querySelector(':not(td)>.el-table>.el-table__body-wrapper')
-  // 判断是否需要滑动
-  if (t.className.indexOf('is-scrolling-none') > 0) {
-    return
-  }
-  // 改变鼠标
-  t.style.cursor = `url(./static/cnd/icon/left-right.cur) 12 12,move`
-  // 获取dom节点
-  // 绑定鼠标移动事件
-  document.onmousemove = throttle(function (e) {
-    // 获取鼠标移动距离
-    var l = e.clientX - disX
-    // 起始点终点判断
-    if ((l > 0 && t.className.indexOf('right') < 0) || (l < 0 && t.className.indexOf('left') < 0)) {
-      // 设置表格拖动
-      t.scrollLeft += l
-    }
-    // 移动到终点处理
-  }, 100)
-  // 鼠标松开 移除绑定事件
-  document.onmouseup = function (e) {
-    document.onmousemove = null
-    document.onmouseup = null
-    // 恢复鼠标指针
-    t.style.cursor = 'auto'
   }
 }

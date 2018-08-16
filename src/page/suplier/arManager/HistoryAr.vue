@@ -1,6 +1,6 @@
 <template>
-  <section class="main">
-    <article class="body">
+  <div class="main">
+    <div class="body">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
           <img src="~@/assets/img/juxin_06.png" alt="查询条件">
@@ -8,33 +8,35 @@
         </div>
         <search @handle-search="searchSubmit"></search>
       </el-card>
-    </article>
-    <article class="body">
-      <el-card class="box-card text-align-center">
+    </div>
+    <div class="body">
+      <el-card class="box-card">
         <ar-table :data-loading="loading" :data-table="tableData5" @refresh="handleRefresh"></ar-table>
-        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="pageSizesArr" :page-size="psize"
-          :current-page.sync="currentPage" layout="total, sizes, prev, pager, next, jumper" :total="total">
-        </el-pagination>
+        <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :page-sizes="pageSizesArr"
+      :page-size="psize"
+      :current-page.sync="currentPage"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
       </el-card>
-    </article>
-  </section>
+    </div>
+  </div>
+
 </template>
-<style scope>
-.text-align-center {
-  text-align: center;
-}
-</style>
 
 <script>
-import ArTable from '@/components/suplier/Ar/arTable'
-import Search from '@/components/suplier/Ar/SearchMyAr'
+import ArTable from '@/components/suplier/Ar/history/ArTableHistory'
+import Search from '@/components/suplier/Ar/history/Search'
 import Table from '@/mixins/suplier/Ar/Table'
 export default {
   mixins: [Table],
   data () {
     return {
       loading: false,
-      postUrl: '/myAr/getMyArListTable.do',
+      postUrl: '/historyAr/getHistoryArListTable.do',
       dataStr: 'data',
       totalStr: 'recordsTotal'
     }
@@ -44,15 +46,13 @@ export default {
     'search': Search
   },
   mounted () {
+    const that = this
     this.getdata(1, this.psize)
-      .then(res => {
-        if (res.data.status) {
-          this.tableData5 = res.data[this.dataStr]
-          this.total = res.data[this.totalStr]
-        } else {
-          this.tableData5 = []
-          this.total = 0
-          this.$message.error(res.data.msg)
+      .then(function (response) {
+        console.log(response)
+        if (response) {
+          that.tableData5 = response.data[that.dataStr]
+          that.total = response.data[that.totalStr]
         }
       })
       .catch(function (error) {
@@ -73,29 +73,31 @@ export default {
         invoiceNo: val.invoiceNo, // 发票号
         from: form, // 日期
         to: to,
-        billId: val.billId // 结报号
+        transSerialNo: val.transSerialNo // 交易流水号
       }
-      this.handleRefresh()
-    },
-    handleRefresh () {
       if (this.total && this.currentPage !== 1) {
         this.total = 0 // 分页的当前页数变动会触发 从而获取数据
       } else {
-        this.getdata(1, this.psize)
-          .then(res => {
-            if (res.data.status) {
-              this.tableData5 = res.data[this.dataStr]
-              this.total = res.data[this.totalStr]
-            } else {
-              this.tableData5 = []
-              this.total = 0
-              this.$message.error(res.data.msg)
-            }
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
+        this.getdata(1, this.psize).then(res => {
+          if (res) {
+            this.tableData5 = res.data[this.dataStr]
+            this.total = res.data[this.totalStr]
+          }
+        })
       }
+    },
+    handleRefresh () {
+      const that = this
+      this.getdata(that.currentPage, that.psize)
+        .then(res => {
+          if (res) {
+            this.tableData5 = res.data[this.dataStr]
+            this.total = res.data[this.totalStr]
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     }
   }
 }

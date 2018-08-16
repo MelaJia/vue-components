@@ -42,14 +42,8 @@ export default {
     handleReject: debounce(reject, 1000, {
       'leading': true,
       'trailing': false
-    })
-  },
-  watch: {
-    // 发票置空
-    getTitle: function () {
-      // 置空
-      this.checkList = []
-    }
+    }),
+    init: Init
   },
   computed: {
     getTitle () {
@@ -111,5 +105,9 @@ function reject () {
     // 错误提示
     erroShow.call(this, err, loading)
   })
+}
+// 初始化
+function Init () {
+  this.checkList = []
 }
 </script>

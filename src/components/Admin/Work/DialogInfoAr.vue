@@ -9,20 +9,24 @@
     <section>
       <ul>
         <li>
-          <span>付款单位: <em>{{this.detailsP.companyName}}</em></span>
+          <el-tooltip :content="'付款单位:'+this.detailsP.companyName" placement="bottom" effect="light">
+            <span>付款单位: <em>{{this.detailsP.companyName}}</em></span>
+          </el-tooltip>
         </li>
         <li>
-          <span>贴现单位: <em>{{this.detailsP.custFromName}}</em></span>
+          <el-tooltip :content="'贴现单位:'+this.detailsP.custFromName" placement="bottom" effect="light">
+            <span>贴现单位: <em>{{this.detailsP.custFromName}}</em></span>
+          </el-tooltip>
         </li>
       </ul>
       <ul>
-        <li>
           <span>一级供应商: <em>{{this.detailsP.companyNameOfL1}}</em></span>
-        </li>
       </ul>
       <ul>
         <li>
+          <el-tooltip :content="'付款银行:'+this.detailsP.payBankName" placement="bottom" effect="light">
           <span>付款银行: <em>{{this.detailsP.payBankName}}</em></span>
+          </el-tooltip>
         </li>
         <li>
           <span>付款银行账号: <em>{{this.detailsP.payBankAccount}}</em></span>
@@ -30,17 +34,29 @@
       </ul>
       <ul>
         <li>
+          <el-tooltip :content="'收款银行:'+this.detailsP.receiveBankName" placement="bottom" effect="light">
           <span>收款银行: <em>{{this.detailsP.receiveBankName}}</em></span>
+          </el-tooltip>
         </li>
         <li>
           <span>收款银行账号: <em>{{this.detailsP.receiveBankAccount}}</em></span>
         </li>
       </ul>
-      <ul>
+      <ul v-if="this.detailsP.auditedTypeId===2">
+          <li>
+            <span>状态: <em>{{this.detailsP.auditedTypeName}}</em></span>
+          </li>
+      </ul>
+      <ul v-if="this.detailsP.auditedTypeId===2" class="height-auto">
+          <span>拒绝理由:
+            <em>{{this.detailsP.rejectedReason}}</em>
+          </span>
+      </ul>
+      <ul v-else>
         <li>
           <span>状态: <em>{{this.detailsP.auditedTypeName}}</em></span>
         </li>
-        <li>
+        <li v-if="this.detailsP.auditedTypeId===1">
           <span>保理方: <em>{{this.detailsP.custToName}}</em></span>
         </li>
       </ul>
@@ -52,42 +68,8 @@
   </el-dialog>
   </section>
 </template>
-<style scoped>
-#title {
-  color: #931719;
-  line-height: 24px;
-  font-size: 18px;
-}
-
-section {
-  padding: 0px 20px;
-}
-
-ul {
-  position: relative;
-  border-top: 0.5px solid #931719;
-  margin: 0;
-  border-right: 0.5px solid #931719;
-  padding: 0;
-  height: 32px;
-}
-
-ul:last-of-type {
-  border-bottom: 0.5px solid #931719;
-}
-
-li {
-  list-style: none;
-  width: 48%;
-  display: inline-block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  line-height: 32px;
-  border-left: 0.5px solid #931719;
-  text-align: left;
-  padding-left: 5px;
-}
+<style scoped lang="scss">
+@import "@/assets/css/_dialog.scss";
 </style>
 
 <script>
