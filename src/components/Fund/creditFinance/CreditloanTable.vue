@@ -5,7 +5,9 @@
     <!--电子合同-->
     <dialog-contract :visible-p.sync="dialogTransferVisible" :details-p="detailsContract"></dialog-contract>
     <!--线下合同-->
-    <dialog-contractonline :visible-p.sync="dialogOnline" :details-p="detailsContract"></dialog-contractonline>
+    <!-- <dialog-contractonline :visible-p.sync="dialogOnline" :details-p="detailsContract"></dialog-contractonline> -->
+    <!--线下合同-->
+    <dialog-contractoffline :visible-p.sync="dialogOnline" :details-p="offlineContract"></dialog-contractoffline>
     <section>
       <el-table ref="table" :data="comDatas" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @mousedown.native="mouseDown"
@@ -76,7 +78,9 @@ export default {
     'dialog-contract': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogLoancontract'),
     'dialog-contractonline': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOnlinecontract')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOnlinecontract'),
+    'dialog-contractoffline': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOfflinecontract')
   },
   data () {
     return {
@@ -84,6 +88,7 @@ export default {
       dialogOnline: false,
       details: {}, // 详情数据
       detailsContract: {},
+      offlineContract: {}, // 线下合同详情
       operateArr: [{ key: 'contrac', name: '合同生成' }, { key: 'confirm', name: '发起确认' }, { key: 'accept', name: '放款' }, { key: 'reject', name: '拒绝' }] // 操作数据
     }
   },
@@ -147,6 +152,17 @@ function handleContrac (idx, val) {
         this.dialogTransferVisible = true // 显示电子合同
       } else {
         this.dialogOnline = true // 显示线下上传合同
+        // 线下合同查询接口列表
+        this.axios.post('/factoringCreditLoan/queryManualContract.do', { loanId: val.loanId }).then(res => {
+          if (res.data.status) {
+            this.offlineContract = res.data.data
+          } else {
+            this.$message.error(res.data.msg)
+          }
+          loading.close()
+        }).catch((err) => {
+          erroShow.call(this, err, loading)
+        })
       }
     } else {
       this.$message.error(res.data.msg)

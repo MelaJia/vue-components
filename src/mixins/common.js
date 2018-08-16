@@ -6,7 +6,7 @@ export default {
     // 时间格式化
     dateFormat: function (row, column) {
       var date = row[column.property]
-      if (date === undefined || date === null) {
+      if (date === undefined || date === null || date === '') {
         return ''
       }
       return new Date(date).Format('yyyy-MM-dd')

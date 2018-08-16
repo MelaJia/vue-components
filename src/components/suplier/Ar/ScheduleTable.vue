@@ -17,8 +17,8 @@
         </el-table-column>
         <el-table-column align="center" label="结报单号" prop="billId" width="120px">
         </el-table-column>
-        <el-table-column align="center" label="AR来源" prop="isMasterAr" :formatter="originFormat">
-        </el-table-column>
+        <!-- <el-table-column align="center" label="AR来源" prop="isMasterAr" :formatter="originFormat">
+        </el-table-column> -->
         <el-table-column align="center" label="付款单位/对手单位" prop="transUnitName" width="180px">
         </el-table-column>
         <el-table-column align="center" label="状态" prop="arStatusTypeName" width="120px">

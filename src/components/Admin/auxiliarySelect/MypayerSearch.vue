@@ -103,10 +103,10 @@ export default {
       },
       rules: {
         rcvAmtOriginStart: [
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ],
         rcvAmtOriginEnd: [
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ]
       }
     }

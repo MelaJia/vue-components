@@ -134,10 +134,10 @@ export default {
       },
       rules: {
         amountBegin: [
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'chnage' }
         ],
         amountEnd: [
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ]
       }
     }

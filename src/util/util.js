@@ -600,8 +600,8 @@ export const thousandth = function (val) {
     }
   } else if (typeof val === 'number') {
     return val.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
-  }else if(val === undefined||val ===null){
-    return '0.00'
+  }else if(val === undefined||val ===null||val === ''){
+    return ''
   }
   return result
 }

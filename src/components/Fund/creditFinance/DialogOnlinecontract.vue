@@ -34,7 +34,7 @@
       </el-form>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="uploadContract">上传合同</el-button>
+      <el-button type="primary" @click="uploadContract">确定</el-button>
       <el-button type="default" @click="handleClose">取消</el-button>
     </footer>
   </el-dialog>

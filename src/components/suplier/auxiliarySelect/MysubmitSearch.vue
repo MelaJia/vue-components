@@ -135,22 +135,22 @@ export default {
       },
       rules: {
         oriAmtBegin: [
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ],
         oriAmtEnd: [
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ],
         oriPaidAmtBegin: [
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ],
         oriPaidAmtEnd: [
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ],
         oriUnPaidAmtBegin: [
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ],
         oriUnPaidAmtEnd: [
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ]
       }
     }

@@ -3,7 +3,7 @@
     <!-- 详情 -->
     <dialog-creditloaned :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-creditloaned>
     <!--还款-->
-    <dialog-repay :visible-p.sync="dialogRepay" :details-p="details"></dialog-repay>
+    <dialog-repay :visible-p.sync="dialogRepay" :details-p="details" :repayDetail="repayDetail"></dialog-repay>
     <section>
       <el-table ref="table" :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle" @mousedown.native="mouseDown"
@@ -91,7 +91,7 @@
         </el-table-column>
         <el-table-column align="center" label="提前还款手续费" prop="prepaymentDeductInterest" min-width="100">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款合计" prop="totalRepayAmt" min-width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="还款合计" prop="totalRepayAmt" min-width="120" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="合同签署日期" prop="contractSignedDate" min-width="150" :formatter="dateFormat">
         </el-table-column>
@@ -164,7 +164,7 @@ export default {
       dialogInfoVisible: false,
       dialogRepay: false,
       details: {}, // 详情数据
-      filedetails: {}, // 附件数据
+      repayDetail: {}, // 附件数据
       widthArr: {
         companyName: '120',
         loanId: '120',
@@ -180,7 +180,7 @@ export default {
         payFineAmt: '100',
         payFineDays: '100',
         prepaymentDeductInterest: '100',
-        totalRepayAmt: '100',
+        totalRepayAmt: '120',
         contractSignedDate: '150',
         repayDate: '150',
         actualRepayAmt: '120',
@@ -224,12 +224,21 @@ export default {
     // 还款详情查看
     repayMent (idx, val) {
       val.repayLoading = true
+      // 获取还款详情接口
       this.getLoanDetail('/factoringCreditLoan/queryCreditLoanRepayInfo.do', { loanId: val.loanId, periodNo: val.periodNo }).then(res => {
         if (res) {
           this.details = res
           this.dialogRepay = true
           val.infoLoading = false
         }
+      })
+      // 获取提前还清还款的接口
+      this.axios.post('/factoringCreditLoan/prepaySettleLoanTrial.do', { custId: val.custId, factoringCustId: val.factoringCustId, masterChainId: val.masterChainId }).then(res => {
+        if (res) {
+          this.repayDetail = res.data.data
+        }
+      }).catch(err => {
+        console.log(err)
       })
     }
   }

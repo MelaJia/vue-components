@@ -1,13 +1,13 @@
 <template>
   <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini" label-width="150px">
     <el-row>
-      <el-col :span="8">
+      <!-- <el-col :span="8">
         <el-form-item label="AR来源">
           <el-select v-model="formInline.isMasterAr" clearable placeholder="全部">
             <el-option v-for="(item,index) in selectData.origin" :key="index" :label="item.lable" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
-      </el-col>
+      </el-col> -->
       <el-col :span="8">
         <el-form-item label="付款单位/对手单位">
           <el-input v-model.trim="formInline.companyName" placeholder=""></el-input>
@@ -15,13 +15,11 @@
       </el-col>
       <el-col :span="8">
         <el-form-item label="状态">
-          <el-select v-model="formInline.checkedStatus" placeholder="">
-            <el-option v-for="(item,index) in statusList" :key="index" :label="item.arStatusTypeName" :value="item.checkedStatus"></el-option>
+          <el-select v-model="formInline.checkedStatus" placeholder="全部">
+            <el-option v-for="(item,index) in arStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
-    </el-row>
-    <el-row>
       <el-col :span="8">
         <el-form-item label="币别">
           <el-select v-model="formInline.billBookCurr" clearable placeholder="全部">
@@ -29,6 +27,8 @@
           </el-select>
         </el-form-item>
       </el-col>
+    </el-row>
+    <el-row>
       <el-col :span="8">
         <el-form-item label="AR单号">
           <el-input v-model.trim="formInline.masterChainId" placeholder=""></el-input>
@@ -84,16 +84,16 @@ export default {
   mixins: [SearchMixIn, commonDatas],
   data () {
     return {
-      statusList: [
-        {
-          checkedStatus: 23,
-          arStatusTypeName: '贴现合同签署中'
-        }
-      ],
+      // statusList: [
+      //   {
+      //     checkedStatus: 23,
+      //     arStatusTypeName: '合同签署中'
+      //   }
+      // ],
       formInline: {
-        isMasterAr: '', // AR来源
+        // isMasterAr: '', // AR来源
         companyName: '', // 付款单位
-        checkedStatus: 23, // 状态
+        checkedStatus: '', // 状态
         billBookCurr: '', // 币别
         masterChainId: '', // AR单号
         invoiceNo: '', // 发票号

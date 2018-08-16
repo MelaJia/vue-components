@@ -41,13 +41,13 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="今日提前还清应还金额:" prop="advancerepayAmt">
-              <span>{{detailsP.advancerepayAmt | regexNum}}</span>
+            <el-form-item label="今日提前还清应还金额:" prop="settlePrepayAmt">
+              <span>{{repayDetail.settlePrepayAmt | regexNum}}</span>
             </el-form-item>
           </el-col>
           <el-col :span="10" :pull="2">
             <el-form-item>
-              <el-checkbox v-model="confirmCheck">确认提前还清</el-checkbox>
+              <el-checkbox v-model="confirmCheck" v-on:change="change">确认提前还清</el-checkbox>
             </el-form-item>
           </el-col>
         </el-row>
@@ -111,7 +111,7 @@ import { debounce } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 import Common from '@/mixins/common'
 export default {
-  props: ['visibleP', 'detailsP'],
+  props: ['visibleP', 'detailsP', 'repayDetail'],
   mixins: [DialogClose, Common],
   data () {
     // 金额校验规则
@@ -139,7 +139,7 @@ export default {
           } else {
             if (value <= 0) {
               callback(new Error('必须大于等于0'))
-            } else if (value < this.detailsP.advancerepayAmt) {
+            } else if (value < this.detailsP.settlePrepayAmt) {
               callback(new Error('还款金额不能小于提前还清金额'))
             } else {
               callback()
@@ -150,9 +150,10 @@ export default {
     }
     return {
       confirmCheck: false, // 确认提前还清选择框
+      isConfirmSettled: 0,
       rules: {
         actualRepayAmt: [
-          { required: true, message: '请输入客户还款金额', trigger: 'blur' },
+          { required: true, message: '请输入客户还款金额', trigger: 'change' },
           { validator: checkNumber, trigger: 'blur' }
         ],
         actualRepayDate: [
@@ -183,7 +184,18 @@ export default {
     },
     // 代入提前还清应还金额
     getAdvanceFull () {
-      this.detailsP.actualRepayAmt = this.detailsP.advancerepayAmt
+      if (this.repayDetail.settlePrepayAmt === '' || this.repayDetail.settlePrepayAmt === undefined) {
+        this.detailsP.actualRepayAmt = 0
+      }
+      this.detailsP.actualRepayAmt = this.repayDetail.settlePrepayAmt
+    },
+    // 选择框改变将boolean值改为number
+    change (val) {
+      if (val === true) {
+        this.isConfirmSettled = 1
+      } else {
+        this.isConfirmSettled = 0
+      }
     }
   }
 }
@@ -200,7 +212,6 @@ function submit () {
         actualRepayAmt: this.detailsP.actualRepayAmt,
         actualRepayDate: this.detailsP.actualRepayDate
       }
-      console.log(param)
       // 显示加载图标
       const loading = this.$loading(loadingConf.sub())
       // 发送数据
@@ -238,16 +249,15 @@ function advanceSubmit () {
       const param = {
         custId: this.detailsP.custId,
         factoringCustId: this.detailsP.factoringCustId,
-        loanId: this.detailsP.loanId,
-        periodNo: this.detailsP.periodNo,
         actualRepayAmt: this.detailsP.actualRepayAmt,
-        actualRepayDate: this.detailsP.actualRepayDate
+        masterChainId: this.repayDetail.masterChainId,
+        isConfirmSettled: this.isConfirmSettled
       }
-      console.log(param)
       // 显示加载图标
       const loading = this.$loading(loadingConf.sub())
+      console.log(param)
       // 发送数据
-      this.axios.post('/factoringCreditLoan/repayLoan.do', param, true).then(res => {
+      this.axios.post('/factoringCreditLoan/prepaySettleLoan.do', param, true).then(res => {
         let type = res.data.status ? 'success' : 'error'
         this.$message({
           message: res.data.msg ? res.data.msg : '返回结果错误，请联系管理员',

@@ -17,7 +17,7 @@
       </ul>
       <ul>
         <li>
-          <span>还款日期: <em>{{this.detailsP.repayDate}}</em></span>
+          <span>还款日期: <em>{{this.detailsP.repayDate | dateFormat}}</em></span>
         </li>
         <li>
           <span>币别: <em>{{this.detailsP.currencyName}}</em></span>

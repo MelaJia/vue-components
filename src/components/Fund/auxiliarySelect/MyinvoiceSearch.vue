@@ -150,10 +150,10 @@ export default {
       },
       rules: {
         taxTotalStart: [
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ],
         taxTotalEnd: [
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ]
       }
     }

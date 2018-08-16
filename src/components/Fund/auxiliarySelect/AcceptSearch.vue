@@ -135,11 +135,11 @@ export default {
       rules: {
         amountBegin: [
           // { message: '请输入金额', trigger: 'blur' },
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ],
         amountEnd: [
           // { required: true, message: '请输入金额', trigger: 'blur' },
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ]
       }
     }

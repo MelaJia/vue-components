@@ -130,10 +130,10 @@ export default {
       },
       rules: {
         amountBegin: [
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ],
         amountEnd: [
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ]
       }
     }
