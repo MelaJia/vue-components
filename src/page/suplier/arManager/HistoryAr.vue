@@ -63,17 +63,19 @@ export default {
     searchSubmit (val) {
       let form = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
       let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
+      let payFromDate = val.payDate ? val.payDate[0].Format('yyyy-MM-dd') : ''
+      let payToDate = val.payDate ? val.payDate[1].Format('yyyy-MM-dd') : ''
       /* 修改请求参数 */
       this.param = {
         masterChainId: val.masterChainId, // ar单号
         isMasterAr: val.isMasterAr, // ar来源
         companyName: val.companyName, // 付款单位
-        checkedStatus: val.status, // 状态
         billBookCurr: val.billBookCurr, // 币别
         invoiceNo: val.invoiceNo, // 发票号
         from: form, // 日期
         to: to,
-        transSerialNo: val.transSerialNo // 交易流水号
+        payFromDate: payFromDate, // 还款时期起始
+        payToDate: payToDate // 还款时期结束
       }
       if (this.total && this.currentPage !== 1) {
         this.total = 0 // 分页的当前页数变动会触发 从而获取数据

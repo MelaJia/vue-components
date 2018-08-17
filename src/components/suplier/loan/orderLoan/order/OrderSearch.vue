@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="150px">
+  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
       <el-col :span="7">
         <el-form-item label="法人代码">

@@ -78,9 +78,9 @@ export default {
     'dialog-contract': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogLoancontract'),
     'dialog-contractonline': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOnlinecontract'),
-    'dialog-contractoffline': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOfflinecontract')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOnlinecontract')
+    // 'dialog-contractoffline': () =>
+    //   import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOfflinecontract')
   },
   data () {
     return {

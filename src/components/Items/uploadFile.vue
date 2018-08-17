@@ -23,6 +23,14 @@ export default {
   },
   methods: {
     submitUpload () {
+      // let files = this.$refs.upload.uploadFiles
+      // let formData = new FormData()
+      // for (const file of files) {
+      //   formData.append('file', file.raw)
+      // }
+      // this.axios.post(this.uploadUrl, formData).then(res => {
+      //   console.log(res)
+      // })
       this.$refs.upload.submit()
     },
     handleRemove (file, fileList) {

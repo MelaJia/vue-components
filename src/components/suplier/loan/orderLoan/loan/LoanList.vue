@@ -77,7 +77,7 @@
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="status">
+        <el-table-column align="center" label="状态" prop="statusName">
         </el-table-column>
         <el-table-column align="center" label="还款方式" prop="repaymentType">
         </el-table-column>
