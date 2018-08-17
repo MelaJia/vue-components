@@ -3,7 +3,7 @@
     <header>
       <el-form ref="ordform" :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="融资金额合计" :rules="amtRule" prop="applyAmt">
-          <el-input class="wd-200" v-model="formInline.applyAmt" @change="handleChange"></el-input>元
+          <el-input class="wd-200" v-model.number="formInline.applyAmt" @change="handleChange"></el-input>元
         </el-form-item>
         <el-form-item label="还款日期" :rules="{required: true, message: '请选择日期', trigger: 'blur'}" prop="repayDate">
           <el-date-picker :editable="false" v-model="formInline.repayDate"  :picker-options="pickerOptions" type="date" placeholder="选择日期"></el-date-picker>
@@ -135,7 +135,10 @@ export default {
   },
   computed: {
     comDatas: function () {
-      return this.dataTable
+      return this.dataTable.map(function (item, index, arr) {
+        item.idx = index
+        return item
+      })
     },
     amtRule: function () {
       var checkMax = (rule, value, callback) => {
@@ -195,6 +198,9 @@ function handleSelectionChange (val) {
   // 总金额
   let amount = 0
   this.multipleSelection = val
+  this.multipleSelection.sort((a, b) => {
+    return a.idx - b.idx
+  })
   console.log(this.multipleSelection)
   // 遍历选择项
   val.forEach(item => {
@@ -209,9 +215,18 @@ function handleSelectionChange (val) {
 function handleChange () {
   // 关闭输入框自动更新
   this.flag = false
-  // 置0
-  this.multipleSelection = []
   let sum = 0
+  for (let index = 0; index < this.multipleSelection.length; index++) {
+    const element = this.multipleSelection[index]
+    sum += element.poAmount
+  }
+  console.log(sum)
+  // 置0
+  if (sum >= this.formInline.applyAmt) {
+    return
+  }
+  sum = 0
+  this.multipleSelection = []
   // 清除选中项
   this.$refs.table.clearSelection()
   for (let index = 0; index < this.comDatas.length; index++) {
@@ -236,6 +251,8 @@ function handleChange () {
 }
 // 确认事件
 function handleSub () {
+  console.log(this.dataTable)
+
   this.$refs.ordform.validate((valid) => {
     if (valid) {
       this.$confirm(`您好，请问是否确认申请${this.formInline.applyAmt}元人民币的订单信用融资？`, `提示`, {
@@ -245,11 +262,17 @@ function handleSub () {
         center: true
       }).then(() => {
         // 设置数据
-        let selected = []
-        this.multipleSelection.forEach(item => {
-          selected.push(item.poNumber)
-        })
-        let param = Object.assign({}, this.formInline, { slorder: selected })
+        let sum = 0
+        for (let index = 0; index < this.multipleSelection.length - 1; index++) {
+          const element = this.multipleSelection[index]
+          element.applyPoAmount = element.poAmount
+          sum += element.poAmount
+        }
+        this.multipleSelection[this.multipleSelection.length - 1].applyPoAmount = this.formInline.applyAmt - sum
+        // this.multipleSelection.forEach(item => {
+        //   selected.push(Object.assign({}, item, { applyPoAmount: this.multipleSelection }))
+        // })
+        let param = Object.assign({}, this.formInline, { poLoanInfoList: this.multipleSelection })
         console.log(param)
         postDataBase.call(this, 'creditLoan/supplierOrderApplyDiscount.do', param, true).then(res => {
           if (res.data.status) {

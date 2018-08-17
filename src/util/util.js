@@ -483,7 +483,6 @@ export const erroShow = function (err, loading) {
   if(loading) {
     loading.close()
   }
-  debugger
   if(err.response && err.response.status === 401){
   }else{
     console.log('系统异常',err)

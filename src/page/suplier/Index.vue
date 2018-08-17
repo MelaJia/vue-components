@@ -14,7 +14,7 @@
               <router-link to="myar">去贴现/转让></router-link>
             </div>
             <div class="bg-style bg-gray">
-              <router-link to="historyar">往来明细></router-link>
+              <router-link to="transfer">往来明细></router-link>
             </div>
           </div>
         </section>

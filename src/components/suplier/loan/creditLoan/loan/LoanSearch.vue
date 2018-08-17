@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="150px">
+  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
       <el-col :span="7">
         <el-form-item label="融资编号">
@@ -38,11 +38,11 @@
     <el-row>
       <el-col :span="10">
         <el-form-item label="金额范围">
-          <el-col :span="10">
+          <el-col class="mon-range-start">
             <el-input class="ipt" v-model.number="formInline.amountBegin" placeholder="起始金额"></el-input>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
-          <el-col :span="10">
+          <el-col :span="10" class="mon-range-end">
             <el-input v-model.number="formInline.amountEnd" placeholder="结束金额"></el-input>
           </el-col>
         </el-form-item>
@@ -59,16 +59,31 @@
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
-@media screen and (min-width: 1512px) and (max-width: 1601px) {
+@media screen and (min-width: 1356px) and (max-width: 1396px){
   .el-form {
-    width: 1199px;
+        width: 1020px;
+    }
+}
+@media screen and (min-width: 1396px) and (max-width: 1440px){
+  .el-form {
+        width: 1100px;
+    }
+}
+@media screen and (min-width: 1431px) and (max-width: 1483px){
+  .el-form {
+        width: 1150px;
+    }
+}
+.mon-range-start{
+  width: 152px;
+  >.el-input.el-input--small{
+    width: 155px;
   }
 }
-.wd-190 {
-  width: 190px;
-}
-form {
-  padding: 10px;
+.mon-range-end{
+  >.el-input.el-input--small{
+    width: 155px;
+  }
 }
 </style>
 

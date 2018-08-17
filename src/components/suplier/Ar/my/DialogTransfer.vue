@@ -64,8 +64,8 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="24">
-          <label>备注:</label><el-input type="textarea" v-model.trim="remark" :maxlength="255" ></el-input>
+        <el-col :span="18" class="flex">
+          <label style="width: 85px;">备注:</label><el-input type="textarea" v-model.trim="remark" :maxlength="255" ></el-input>
         </el-col>
       </el-row>
     </section>
@@ -78,11 +78,14 @@
 @import "@/assets/css/_dialog.scss";
 .layout.form {
   margin-top: 10px;
+  .el-row {
+    margin-bottom: 10px;
+  }
 }
 .layout.form .flex {
   display: flex;
   > label {
-    width: 120px;
+    width: 100px;
     height: 40px;
     line-height: 40px;
   }

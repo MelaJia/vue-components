@@ -345,41 +345,9 @@ function getOptions (echartData) {
     }
   }
   return {
-    title: {
-      text: '总额度(万元)',
-      left: 'center',
-      top: '50%',
-      padding: [24, 0],
-      textStyle: {
-        color: '#000',
-        fontSize: 16 * scale,
-        align: 'center'
-      }
-    },
     tooltip: {
       trigger: 'item',
       formatter: '{b}: {c} ({d}%)'
-    },
-    legend: {
-      selectedMode: false,
-      formatter: function (name) {
-        var total = 0 // 总和
-        echartData.amt.forEach(function (value, index, array) {
-          total += value.value * 100
-        })
-        total = thousandth(total / 100)
-        return '{total|' + total + '}'
-      },
-      data: ['已放款/未完结'],
-      left: 'center',
-      top: '45%',
-      icon: 'none',
-      align: 'center',
-      textStyle: {
-        color: '#000',
-        fontSize: 16 * scale,
-        rich: rich
-      }
     },
     series: [{
       name: '总考生数量',
