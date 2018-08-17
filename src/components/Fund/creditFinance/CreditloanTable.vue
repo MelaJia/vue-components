@@ -155,6 +155,7 @@ function handleContrac (idx, val) {
         // 线下合同查询接口列表
         this.axios.post('/factoringCreditLoan/queryManualContract.do', { loanId: val.loanId }).then(res => {
           if (res.data.status) {
+            console.log(res.data.data)
             this.offlineContract = res.data.data
           } else {
             this.$message.error(res.data.msg)
