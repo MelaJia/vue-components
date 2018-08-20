@@ -40,9 +40,9 @@
               </el-table-column>
               <el-table-column align="center" prop="payFineDays" :width="widthArr.payFineDays">
               </el-table-column>
-              <el-table-column align="center" prop="prepaymentDeductInterest" :width="widthArr.prepaymentDeductInterest" :formatter="regexNum">
+              <el-table-column align="right" prop="prepaymentDeductInterest" :width="widthArr.prepaymentDeductInterest" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="totalRepayAmt" :width="widthArr.totalRepayAmt" :formatter="regexNum">
+              <el-table-column align="right" prop="totalRepayAmt" :width="widthArr.totalRepayAmt" :formatter="regexNum">
               </el-table-column>
               <el-table-column align="center" prop="contractSignedDate" :width="widthArr.contractSignedDate" :formatter="dateFormat">
               </el-table-column>
@@ -256,13 +256,10 @@ function getOpera (val) {
   datas.forEach((item) => {
     const operateArr = []
     switch (item.status) {
-      case 2:
+      case 22:
         operateArr.push(this.operateArr[0])
         break
-      case 3:
-        operateArr.push(this.operateArr[1])
-        break
-      case 22:
+      case 23:
         operateArr.push(this.operateArr[1])
         break
       default:

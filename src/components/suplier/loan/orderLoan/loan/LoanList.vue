@@ -20,7 +20,7 @@
               </el-table-column>
               <el-table-column align="center" prop="loanId" :width="widthArr.loanId">
               </el-table-column>
-              <el-table-column align="right" header-align="center" prop="applyAmt" :width="widthArr.applyAmt">
+              <el-table-column align="right" prop="applyAmt" :formatter="regexNum" :width="widthArr.applyAmt">
               </el-table-column>
               <el-table-column align="center" :width="widthArr.currencyDesc" >
               </el-table-column>
@@ -28,21 +28,21 @@
               </el-table-column>
               <el-table-column align="center" prop="repaymentType" :width="widthArr.repaymentType">
               </el-table-column>
-              <el-table-column align="right" header-align="center" prop="loanAmt" :width="widthArr.loanAmt">
+              <el-table-column align="right" prop="loanAmt" :formatter="regexNum" :width="widthArr.loanAmt">
               </el-table-column>
-              <el-table-column align="right" header-align="center" prop="payPrincipalAmt" :width="widthArr.payPrincipalAmt">
+              <el-table-column align="right" prop="payPrincipalAmt" :formatter="regexNum" :width="widthArr.payPrincipalAmt">
               </el-table-column>
-              <el-table-column align="right" header-align="center" prop="payInterestAmt" :width="widthArr.payInterestAmt">
+              <el-table-column align="right" prop="payInterestAmt" :formatter="regexNum" :width="widthArr.payInterestAmt">
               </el-table-column>
-              <el-table-column align="right" header-align="center" prop="payServiceAmt" :width="widthArr.payServiceAmt">
+              <el-table-column align="right" prop="payServiceAmt" :formatter="regexNum" :width="widthArr.payServiceAmt">
               </el-table-column>
-              <el-table-column align="right" header-align="center" prop="payFineAmt" :width="widthArr.payFineAmt">
+              <el-table-column align="right" prop="payFineAmt" :formatter="regexNum" :width="widthArr.payFineAmt">
               </el-table-column>
               <el-table-column align="center" prop="payFineDays" :width="widthArr.payFineDays">
               </el-table-column>
-              <el-table-column align="right" header-align="center" prop="prepaymentDeductInterest" :width="widthArr.prepaymentDeductInterest">
+              <el-table-column align="right" prop="prepaymentDeductInterest" :formatter="regexNum" :width="widthArr.prepaymentDeductInterest">
               </el-table-column>
-              <el-table-column align="right" header-align="center" prop="totalRepayAmt" :width="widthArr.totalRepayAmt">
+              <el-table-column align="right" prop="totalRepayAmt" :formatter="regexNum" :width="widthArr.totalRepayAmt">
               </el-table-column>
               <el-table-column align="center" prop="contractSignedDate" :width="widthArr.contractSignedDate" :formatter="dateFormat">
               </el-table-column>
@@ -93,7 +93,7 @@
         </el-table-column>
         <el-table-column align="center" label="罚息天数" prop="payFineDays">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepaymentDeductInterest" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepaymentDeductInterest" :formatter="regexNum" width="120">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="还款合计" prop="totalRepayAmt" :formatter="regexNum"  width="120">
         </el-table-column>
@@ -256,13 +256,10 @@ function getOpera (val) {
   datas.forEach((item) => {
     const operateArr = []
     switch (item.status) {
-      case 2:
+      case 22:
         operateArr.push(this.operateArr[0])
         break
-      case 3:
-        operateArr.push(this.operateArr[1])
-        break
-      case 22:
+      case 23:
         operateArr.push(this.operateArr[1])
         break
       default:

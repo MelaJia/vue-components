@@ -58,7 +58,7 @@
         </el-table-column>
         <el-table-column align="center" label="融资编号" fixed sortable prop="loanId" width="150">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="融资申请金额" prop="applyAmt" width="150">
+        <el-table-column align="right" header-align="center" label="融资申请金额" prop="applyAmt" :formatter="regexNum" width="150">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" >
         </el-table-column>
@@ -78,7 +78,7 @@
         </el-table-column>
         <el-table-column align="center" label="罚息天数" prop="payFineDays">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepaymentDeductInterest" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepaymentDeductInterest" :formatter="regexNum" width="120">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="还款合计" prop="totalRepayAmt" :formatter="regexNum" width="120">
         </el-table-column>

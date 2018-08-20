@@ -37,11 +37,32 @@
         <li>
           <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
         </li>
-        <li v-if="!detailsP.isMasterAr">
+        <li>
+          <span>打款状态:
+            <el-tooltip class="item" effect="light" placement="top-start">
+                <div slot="content" class="status-tooltip">
+                  <ul>
+                    <li :style="this.detailsP.signStatusId===0?'color:red':''">会计确认</li><span>-></span>
+                    <li :style="this.detailsP.signStatusId===1?'color:red':''">财务确认</li><span>-></span>
+                    <li :style="this.detailsP.signStatusId===2?'color:red':''">财务已付款</li><span>-></span>
+                    <li :style="this.detailsP.signStatusId===3?'color:red':''">付款单确认</li>
+                  </ul>
+                  <ul>
+                    <li :style="this.detailsP.signStatusId===0?'color:red':''">{{this.detailsP.signStatusId===0&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                    <li :style="this.detailsP.signStatusId===1?'color:red':''">{{this.detailsP.signStatusId===1&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                    <li :style="this.detailsP.signStatusId===2?'color:red':''">{{this.detailsP.signStatusId===2&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                    <li :style="this.detailsP.signStatusId===3?'color:red':''">{{this.detailsP.signStatusId===3&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                  </ul>
+                </div>
+                  <em>{{this.detailsP.billPayStatus}}</em>
+              </el-tooltip>
+            </span>
+        </li>
+      </ul>
+      <ul v-if="!detailsP.isMasterAr">
           <el-tooltip :content="'原始AR单位:'+this.detailsP.originalUnitName" placement="bottom" effect="light">
            <span>原始AR单位: <em>{{this.detailsP.originalUnitName}}</em></span>
           </el-tooltip>
-        </li>
       </ul>
       <ul class="height-auto">
         <span>未勾选发票:

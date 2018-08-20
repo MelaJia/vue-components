@@ -8,9 +8,8 @@ $text-color:#606266;//内容颜色
 
 section {
   padding: 0px 20px;
-}
-
-ul {
+// 非提示列样式
+>ul {
   position: relative;
   border-top: .5px solid #931719;
   border-left: .5px solid #931719;
@@ -19,11 +18,11 @@ ul {
   padding: 0;
   text-align: left;
 }
-ul:not(.height-auto) {
+>ul:not(.height-auto) {
   height: 44px;
   line-height: 44px;
 }
-ul:last-of-type {
+>ul:last-of-type {
   border-bottom: 0.5px solid #931719;
 }
 
@@ -42,7 +41,7 @@ li {
 li:not(:first-of-type) {
   border-left: 0.5px solid #931719;
 }
-
+}
 .inline-blox {
   display: inline-block;
 }
@@ -75,6 +74,24 @@ span>em {
 }
 .wd-3 {
   width: 31%;
+}
+// 提示样式
+.status-tooltip {
+  ul {
+    padding: 0;
+  }
+  li {
+    list-style: none;
+    display: inline-block;
+  }
+  ul:last-child {
+    li {
+      width: 63px;
+    }
+    li:nth-of-type(n + 3) {
+      width: 75px;
+    }
+  }
 }
 @media screen and (min-width:0\0) {
   .el-input {

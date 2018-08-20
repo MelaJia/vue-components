@@ -215,28 +215,28 @@ function handleSelectionChange (val) {
 function handleChange () {
   // 关闭输入框自动更新
   this.flag = false
+  let sum = computeMethod.call(this, this.multipleSelection)
+  if (sum < this.formInline.applyAmt) {
+    computeMethod.call(this, this.comDatas)
+  }
+  // 开启输入框自动更新
+  updateOpen.call(this)
+}
+// 金额选中项联动
+function computeMethod (data) {
   let sum = 0
-  for (let index = 0; index < this.multipleSelection.length; index++) {
-    const element = this.multipleSelection[index]
-    sum += element.poAmount
-  }
-  console.log(sum)
-  // 置0
-  if (sum >= this.formInline.applyAmt) {
-    return
-  }
-  sum = 0
-  this.multipleSelection = []
+  let selectAuto = []
   // 清除选中项
   this.$refs.table.clearSelection()
-  for (let index = 0; index < this.comDatas.length; index++) {
-    const element = this.comDatas[index]
+  for (let index = 0; index < data.length; index++) {
+    const element = data[index]
     sum += element.poAmount
     // 加入选中项
     this.$refs.table.toggleRowSelection(element)
-    this.multipleSelection.push(element)
+    selectAuto.push(element)
     // 判断大小
-    if (sum >= this.formInline.applyAmt) {
+    if (sum >= this.formInline.applyAmt) { // 所选金额超出填写金额
+      this.multipleSelection = selectAuto // 赋值
       this.isover = false
       // 跳出循环
       break
@@ -244,7 +244,9 @@ function handleChange () {
       this.isover = true
     }
   }
-  // 开启输入框自动更新
+  return sum
+}
+function updateOpen () {
   setTimeout(() => {
     this.flag = true
   }, 1000)

@@ -29,13 +29,13 @@
       </ul> -->
       <ul>
         <li>
-          <el-tooltip :content="'贴现客户收款银行:'+this.detailsP.bankName" placement="bottom" effect="light">
-            <span>贴现客户收款银行: <em>{{this.detailsP.bankName}}</em></span>
+          <el-tooltip :content="'贴现客户收款银行名称:'+this.detailsP.bankName" placement="bottom" effect="light">
+            <span>贴现客户收款银行名称: <em>{{this.detailsP.bankName}}</em></span>
           </el-tooltip>
         </li>
         <li>
-          <el-tooltip :content="'贴现客户收款银行:'+this.detailsP.bankAccount" placement="bottom" effect="light">
-             <span>贴现客户收款银行: <em>{{this.detailsP.bankAccount}}</em></span>
+          <el-tooltip :content="'贴现客户收款银行账号:'+this.detailsP.bankAccount" placement="bottom" effect="light">
+             <span>贴现客户收款银行账号: <em>{{this.detailsP.bankAccount}}</em></span>
           </el-tooltip>
         </li>
       </ul>

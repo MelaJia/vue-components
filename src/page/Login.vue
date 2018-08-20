@@ -96,11 +96,13 @@
     <!-- 数据总览 end -->
     <div class="activeFotter" style="background: #03022e ">
       <p class="daBG">
-        <span><img src="@/assets/img/login/iconJY.png" />Copyright © {{getYear}} 钜亿科技(深圳)有限公司</span>
-        <span>深圳市龙华新区</span>
-      <span>服务热线：0755-66838888-25806</span>
+        <span><img src="@/assets/img/login/iconJY.png" />钜亿科技(深圳)有限公司 © Copyright {{getYear}}. All Rights Reserved.</span>
       </p>
-
+      <p>
+        <span>粤ICP备13021698号</span>
+        <span>深圳市龙华新区</span>
+        <span>服务热线：0755-66838888-25806</span>
+      </p>
     </div>
   </section>
 
@@ -194,6 +196,12 @@ export default {
     },
     getImgUrl: getImgUrl
   },
+  mounted () {
+    // 协议生成
+    this.axios.post('/juXinProtocol').then(res => {
+      console.log(res)
+    })
+  },
   methods: {
     submitForm: submitForm,
     // 验证码验证
@@ -254,7 +262,7 @@ async function submitForm (formName) {
   }
   if (process.env.NODE_ENV === 'development') { // 调试环境
     let res = {
-      data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 0, custNickname: '阿拉斯加大型犬' }
+      data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 3, custNickname: '阿拉斯加大型犬' }
     }
     if (res.data.status) {
       this.$store.commit(types.LOGIN, res.data.token)

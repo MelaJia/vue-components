@@ -17,7 +17,7 @@ import dateInit from '@/plugs/date'
 import {
   apiUrl
 } from '@/config/env.js'
-import { monitorInit } from '@/monitorDatas'
+// import { monitorInit } from '@/monitorDatas'
 import preview from 'vue-photo-preview'
 import 'vue-photo-preview/dist/skin.css'
 Vue.use(preview)// 图片预览
@@ -25,7 +25,7 @@ Vue.use(dateInit) // 格式化日期注册
 axios.defaults.baseURL = apiUrl
 if (process.env.NODE_ENV === 'development') {
   axios.defaults.withCredentials = true // 允许远端跨域cookie
-  monitorInit() // 模拟数据初始化
+  // monitorInit() // 模拟数据初始化
 }
 // 设置请求拦截器
 if (process.env.NODE_ENV === 'production') {

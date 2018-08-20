@@ -46,9 +46,51 @@
           <span>贴现确认金额: <em>{{this.detailsP.discountLoanAmt | regexNum}}</em></span>
         </li>
       </ul>
+      <ul v-if="this.detailsP.transType==='discount'">
+          <span>打款状态:
+            <el-tooltip class="item" effect="light" placement="top-start">
+                <div slot="content" class="status-tooltip">
+                  <ul>
+                    <li :style="this.detailsP.signStatusId===0?'color:red':''">会计确认</li><span>-></span>
+                    <li :style="this.detailsP.signStatusId===1?'color:red':''">财务确认</li><span>-></span>
+                    <li :style="this.detailsP.signStatusId===2?'color:red':''">财务已付款</li><span>-></span>
+                    <li :style="this.detailsP.signStatusId===3?'color:red':''">付款单确认</li>
+                  </ul>
+                  <ul>
+                    <li :style="this.detailsP.signStatusId===0?'color:red':''">{{this.detailsP.signStatusId===0&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                    <li :style="this.detailsP.signStatusId===1?'color:red':''">{{this.detailsP.signStatusId===1&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                    <li :style="this.detailsP.signStatusId===2?'color:red':''">{{this.detailsP.signStatusId===2&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                    <li :style="this.detailsP.signStatusId===3?'color:red':''">{{this.detailsP.signStatusId===3&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                  </ul>
+                </div>
+                  <em>{{this.detailsP.billPayStatus}}</em>
+              </el-tooltip>
+            </span>
+      </ul>
       <ul v-else-if="this.detailsP.transType==='arpay'">
         <li>
           <span>转让金额: <em>{{this.detailsP.billBookAmt | regexNum}}</em></span>
+        </li>
+        <li>
+          <span>打款状态:
+            <el-tooltip class="item" effect="light" placement="top-start">
+                <div slot="content" class="status-tooltip">
+                  <ul>
+                    <li :style="this.detailsP.signStatusId===0?'color:red':''">会计确认</li><span>-></span>
+                    <li :style="this.detailsP.signStatusId===1?'color:red':''">财务确认</li><span>-></span>
+                    <li :style="this.detailsP.signStatusId===2?'color:red':''">财务已付款</li><span>-></span>
+                    <li :style="this.detailsP.signStatusId===3?'color:red':''">付款单确认</li>
+                  </ul>
+                  <ul>
+                    <li :style="this.detailsP.signStatusId===0?'color:red':''">{{this.detailsP.signStatusId===0&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                    <li :style="this.detailsP.signStatusId===1?'color:red':''">{{this.detailsP.signStatusId===1&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                    <li :style="this.detailsP.signStatusId===2?'color:red':''">{{this.detailsP.signStatusId===2&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                    <li :style="this.detailsP.signStatusId===3?'color:red':''">{{this.detailsP.signStatusId===3&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                  </ul>
+                </div>
+                  <em>{{this.detailsP.billPayStatus}}</em>
+              </el-tooltip>
+            </span>
         </li>
       </ul>
       <ul class="height-auto">

@@ -7,12 +7,11 @@
     </div>
     <div class="width-50">
       <div class="header-right">
-        <!-- <el-button v-if="this.$store.getters.roles=='2'" type="danger" size="medium" :class="'process'" icon="el-icon-caret-right" @click="goPage">我的待办 <el-badge :value="scheduleNumber" :max="99" class="item">
-</el-badge></el-button> -->
         <el-button v-if="this.$store.getters.roles=='2'" type="danger" size="medium" :class="'process'" icon="el-icon-caret-right" @click="goPage">我的待办</el-button>
         <el-dropdown @command="handleCommand">
           <span style="color:#fff">你好，{{this.$store.state.user.userinfos.nickName}}<img src="@/assets/img/juxin_18.png" alt=""></span>
           <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="pwdChange">密码修改</el-dropdown-item>
             <el-dropdown-item command="logout">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -75,33 +74,19 @@
 <script>
 import * as types from '@/store/types'
 export default {
+  data () {
+    return {
+      dialogPassVisible: false
+    }
+  },
   methods: {
+    pwdChange: pwdChange,
+    logout: logout,
     handleCommand (command) {
       if (command === 'logout') {
-        let param = {
-          ssoId: this.$store.getters.token
-        }
-        this.axios.post('/login/logout2', param).then(res => {
-          if (res.data.status) {
-            this.$message({
-              message: '恭喜你，登出成功',
-              type: 'success'
-            })
-          } else {
-            this.$message({
-              message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-              type: 'success'
-            })
-          }
-        }).catch(err => {
-          console.log(err)
-        })
-        this.$store.commit(types.LOGOUT)
-        this.$store.commit('DEL_ALL_TAG')
-        this.$router.replace({
-          path: '/login',
-          query: { redirect: this.$router.currentRoute.fullPath }
-        })
+        this.logout()
+      } else {
+        this.pwdChange()
       }
     },
     // 路由跳转
@@ -117,5 +102,34 @@ export default {
   //     return this.$store.getters.scheduleNumber
   //   }
   // }
+}
+function logout () {
+  let param = {
+    ssoId: this.$store.getters.token
+  }
+  this.axios.post('/login/logout2', param).then(res => {
+    if (res.data.status) {
+      this.$message({
+        message: '恭喜你，登出成功',
+        type: 'success'
+      })
+    } else {
+      this.$message({
+        message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+        type: 'success'
+      })
+    }
+  }).catch(err => {
+    console.log(err)
+  })
+  this.$store.commit(types.LOGOUT)
+  this.$store.commit('DEL_ALL_TAG')
+  this.$router.replace({
+    path: '/login',
+    query: { redirect: this.$router.currentRoute.fullPath }
+  })
+}
+function pwdChange () {
+  this.$emit('pwd-chage')
 }
 </script>

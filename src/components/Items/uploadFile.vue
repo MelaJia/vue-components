@@ -1,5 +1,5 @@
 <template>
-  <el-upload class="upload-demo" ref="upload" :data="param" :action="uploadUrl"
+  <el-upload class="upload-demo" ref="upload" :data="param" :action="uploadUrl" :headers="{'Authorization':token}"
     :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleSuccess" :file-list="fileList" :auto-upload="false">
     <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
     <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
@@ -13,6 +13,7 @@
 import {
   apiUrl, baseUrl
 } from '@/config/env.js'
+import {mapGetters} from 'vuex'
 export default {
   // param请求参数、 fileList文件列表、apiUrl请求地址、showFileList是否显示文件列表
   props: ['param', 'fileList', 'apiUrl'],
@@ -20,6 +21,9 @@ export default {
     return {
       uploadUrl: apiUrl + this.apiUrl
     }
+  },
+  computed: {
+    ...mapGetters(['token'])
   },
   methods: {
     submitUpload () {

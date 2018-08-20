@@ -164,6 +164,7 @@ header {
 import TableMixIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common' // fresh刷新数据函数
 import Width from '@/mixins/Fund/width' // 宽度
+import { getDataBase } from '@/util/util'
 export default {
   props: ['dataLoading', 'dataTable'],
   mixins: [TableMixIn, Common, Width],
@@ -214,13 +215,25 @@ function handleRepay (idx, val1, val2) {
     masterChainId: val1.masterChainId,
     periodNo: val2.periodNo
   }
+  let param2 = {
+    factoringCustId: val1.factoringCustId, masterChainId: val1.masterChainId
+  }
   console.log(param)
 
   this.getLoanDetail('/loanQuery/queryLoanRepayInfo.do', param).then(res => {
     if (res) {
-      this.details = res
+      this.details = Object.assign(this.details, res)
       this.dialogRepayVisible = true
     }
+  })
+  // 获取提前还清还款的接口
+  getDataBase.call(this, '/factoringCreditLoan/prepaySettleLoanTrial.do', param2).then(res => {
+    if (res) {
+      this.repayDetail = Object.assign(this.details, res)
+      this.dialogRepayVisible = true
+    }
+  }).catch(err => {
+    console.log(err)
   })
 }
 </script>
