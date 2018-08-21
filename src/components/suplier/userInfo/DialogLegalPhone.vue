@@ -93,7 +93,7 @@ export default {
         console.log('请输入正确的手机号')
         return false
       }
-      this.axios.post('/cust/toverificationCode.do', { ssoId: 'a11c0b29d53794b2ecf1986ca3ad41d58803724b491121fa59aa0d85f5c46e7e', contactPhone: this.form.legalPhone }).then(res => {
+      this.axios.post('/cust/toverificationCode.do', { contactPhone: this.form.legalPhone }).then(res => {
         if (res.data.status) {
           let that = this
           let time = 60

@@ -27,13 +27,13 @@
           </el-input>
         </el-form-item>
         <div v-show="isPassShow" class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~32位的字符串.</div>
-        <el-form-item label="新密码" prop="pass">
-          <el-input :type="pShow?'text':'password'" v-model="ruleForm2.pass" @blur="passBlur" @focus="passFocus" auto-complete="off">
+        <el-form-item label="新密码" prop="custPassword">
+          <el-input :type="pShow?'text':'password'" v-model="ruleForm2.custPassword" @blur="passBlur" @focus="passFocus" auto-complete="off">
                     <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pShow')"></a>
           </el-input>
         </el-form-item>
-        <el-form-item label="确认密码" prop="checkPass">
-          <el-input :type="pcShow?'text':'password'" v-model="ruleForm2.checkPass" auto-complete="off">
+        <el-form-item label="确认密码" prop="confirmPassword">
+          <el-input :type="pcShow?'text':'password'" v-model="ruleForm2.confirmPassword" auto-complete="off">
                     <a slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pcShow')"></a>
           </el-input>
         </el-form-item>
@@ -61,6 +61,7 @@ footer {
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import { debounce, postDataBase } from '@/util/util' // 防抖函数
+import * as types from '@/store/types' // 存储类型
 /* 合同确认 */
 export default {
   props: ['visibleP'],
@@ -82,8 +83,8 @@ export default {
           value: value
         }).then(res => {
           if (res.data.status) {
-            if (this.ruleForm2.checkPass !== '') {
-              this.$refs.ruleForm2.validateField('checkPass')
+            if (this.ruleForm2.confirmPassword !== '') {
+              this.$refs.ruleForm2.validateField('confirmPassword')
             }
             callback()
           } else {
@@ -99,7 +100,7 @@ export default {
       let _this = this
       if (value === '') {
         callback(new Error('请再次输入密码'))
-      } else if (value !== _this.ruleForm2.pass) {
+      } else if (value !== _this.ruleForm2.custPassword) {
         callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
@@ -113,18 +114,18 @@ export default {
       phone: this.$store.state.user.userinfos.legalPhone, // 手机号
       ruleForm2: {
         originPass: '', // 原密码
-        pass: '',
-        checkPass: '',
+        custPassword: '',
+        confirmPassword: '',
         verify: ''
       },
       rules2: {
         verify: [
           { required: true, message: '验证码不能为空', trigger: 'blur' }
         ],
-        pass: [
+        custPassword: [
           { validator: validatePass, trigger: 'blur' }
         ],
-        checkPass: [
+        confirmPassword: [
           { validator: validatePass2, trigger: 'blur' }
         ]
       },
@@ -140,6 +141,7 @@ export default {
   },
   methods: {
     handleSubmit: debounce(submitForm, 1000),
+    logout: logout,
     init: Init,
     // 密码框获取焦点时显示提示信息
     passFocus: passFocus,
@@ -157,20 +159,43 @@ export default {
 function submitForm (formName) {
   this.$refs[formName].validate((valid) => {
     if (valid) {
-      let param = {
-      }
+      let param = Object.assign({}, this.ruleForm2)
       // 提交数据
-      postDataBase.call(this, '/creditLoan/creditApplyDiscount.do', param, true).then(res => {
-        // 操作成功关闭弹窗刷新数据
-        if (res.data.status) {
-          this.$parent.fresh()
-          this.handleClose()
-        }
+      postDataBase.call(this, '/cust/updatepassword.do', param, true).then(res => {
+        // 密码修改成功 登出
+        this.logout()
       })
     } else {
       console.log('error submit!!')
       return false
     }
+  })
+}
+// 退出
+function logout () {
+  let param = {
+    ssoId: this.$store.getters.token
+  }
+  this.axios.post('/login/logout2', param).then(res => {
+    if (res.data.status) {
+      this.$message({
+        message: '恭喜你，登出成功',
+        type: 'success'
+      })
+    } else {
+      this.$message({
+        message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+        type: 'success'
+      })
+    }
+  }).catch(err => {
+    console.log(err)
+  })
+  this.$store.commit(types.LOGOUT)
+  this.$store.commit('DEL_ALL_TAG')
+  this.$router.replace({
+    path: '/login',
+    query: { redirect: this.$router.currentRoute.fullPath }
   })
 }
 // 初始化
