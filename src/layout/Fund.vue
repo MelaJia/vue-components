@@ -5,11 +5,13 @@
     <el-container>
       <el-header height="auto" style="position: fixed;width: 100%;z-index: 9;top:0px;">
         <header>
-          <header-section></header-section>
+          <header-section @pwd-chage="pwdChange"></header-section>
 
         </header>
       </el-header>
       <el-container style="margin-top: 84px;">
+        <!-- 密码修改 -->
+        <dialog-pass-update :visible-p.sync="dialogPassVisible"></dialog-pass-update>
         <el-aside style="width: 220px;position: fixed;height: 100%;overflow-y: auto;z-index:9;">
           <nav-t :nav-items="navItems"></nav-t>
         </el-aside>

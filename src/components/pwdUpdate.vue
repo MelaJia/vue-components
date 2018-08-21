@@ -1,6 +1,26 @@
 <template>
   <el-dialog :visible.sync="visibleP" :before-close="handleClose">
     <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="注册手机号">
+            <el-col :span="6">
+              <el-select v-model="phone" placeholder="请选择验证的手机号" size="small">
+                <el-option
+                  v-for="item in getPhones"
+                  :key="item.value"
+                  :label="item.value"
+                  :value="item.value">
+                  <span style="float: left">{{ item.value }}</span>
+                  <span style="float: right; color: #8492a6; font-size: 13px">{{ item.text }}</span>
+                </el-option>
+              </el-select>
+            </el-col>
+        </el-form-item>
+        <el-form-item label="验证码" prop="verify">
+            <el-col :span="6" >
+              <el-input v-model.trim="ruleForm2.verify" auto-complete="off" size="small"></el-input>
+            </el-col>
+            <el-button :type="btntype" size="small" @click="sendMessage">{{word}}</el-button>
+        </el-form-item>
         <el-form-item label="原密码" prop="originPass">
           <el-input :type="opShow?'text':'password'" v-model="ruleForm2.originPass" auto-complete="off">
                     <a slot="suffix" :class="`iconfont ${opShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('opShow')"></a>
@@ -13,7 +33,7 @@
           </el-input>
         </el-form-item>
         <el-form-item label="确认密码" prop="checkPass">
-          <el-input :type="pcShow?'text':'password'" v-model="ruleForm2.checkPass" @blur="passBlur" @focus="passFocus" auto-complete="off">
+          <el-input :type="pcShow?'text':'password'" v-model="ruleForm2.checkPass" auto-complete="off">
                     <a slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pcShow')"></a>
           </el-input>
         </el-form-item>
@@ -90,19 +110,32 @@ export default {
       opShow: false, // 原密码是否可见
       pShow: false, // 密码是否可见
       pcShow: false, // 密码确认是是否可见
+      phone: this.$store.state.user.userinfos.legalPhone, // 手机号
       ruleForm2: {
         originPass: '', // 原密码
         pass: '',
-        checkPass: ''
+        checkPass: '',
+        verify: ''
       },
       rules2: {
+        verify: [
+          { required: true, message: '验证码不能为空', trigger: 'blur' }
+        ],
         pass: [
           { validator: validatePass, trigger: 'blur' }
         ],
         checkPass: [
           { validator: validatePass2, trigger: 'blur' }
         ]
-      }
+      },
+      word: '发送验证码',
+      isOvertime: false,
+      btntype: 'primary' // 验证码按钮样式
+    }
+  },
+  computed: {
+    getPhones () {
+      return [{ text: '法人手机号', value: this.$store.state.user.userinfos.legalPhone }, { text: '联系人手机号', value: this.$store.state.user.userinfos.contactPhone }]
     }
   },
   methods: {
@@ -116,7 +149,8 @@ export default {
     handlePShowChange: handlePShowChange,
     resetForm (formName) {
       this.$refs[formName].resetFields()
-    }
+    },
+    sendMessage: sendMessage
   }
 }
 
@@ -154,5 +188,34 @@ function passBlur () {
 // 可见修改
 function handlePShowChange (val) {
   this[val] = !this[val]
+}
+// 获取验证码
+function sendMessage () {
+  if (this.phone.length <= 0) {
+    this.$message.error('请选择需要验证的手机')
+    return
+  }
+  this.axios.post('/cust/toverificationCode.do', {
+    contactPhone: this.phone
+  }).then(res => {
+    if (res.data.status) {
+      let that = this
+      let time = 60
+      this.btntype = ''
+      var sendTimer = setInterval(function () {
+        that.isOvertime = true
+        time--
+        that.word = '重新发送' + time
+        if (time < 0) {
+          that.isOvertime = false
+          this.btntype = 'primary'
+          clearInterval(sendTimer)
+          that.word = '获取验证码'
+        }
+      }, 1000)
+    } else {
+      this.$message.error(res.data.msg)
+    }
+  })
 }
 </script>

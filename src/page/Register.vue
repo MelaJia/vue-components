@@ -441,7 +441,6 @@ import {
   getStore,
   setStore
 } from '@/util/store'
-import { baseUrl } from '@/config/env.js'
 /* 企业认证 */
 export default {
   props: ['visibleP', 'form'],
@@ -508,7 +507,7 @@ export default {
       show: true,
       checked: false,
       checkShow: false, // 协议未勾选错误信息显示
-      pdfUrl: `${baseUrl}/upload/pdf/JuXinProtocol/JuXinProtocolService.pdf`, // 服务协议文件地址
+      pdfUrl: `/upload/pdf/JuXinProtocol/JuXinProtocolService.pdf`, // 服务协议文件地址
       isPassShow: false, // 密码提示信息显示
       is2s1Show: true, // 二选一提示
       userInfo: getUserInfo(),

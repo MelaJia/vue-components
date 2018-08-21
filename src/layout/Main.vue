@@ -3,12 +3,12 @@
     <el-container>
       <el-header height="auto" style="position: fixed;width: 100%;z-index: 9;top:0px;">
         <header>
-          <header-section v-on:pwd-chage="pwdChange"></header-section>
+          <header-section @pwd-chage="pwdChange"></header-section>
 
         </header>
       </el-header>
       <el-container style="margin-top: 84px;">
-          <!-- 详情 -->
+          <!-- 密码修改 -->
         <dialog-pass-update :visible-p.sync="dialogPassVisible"></dialog-pass-update>
         <el-aside style="width: 220px;position: fixed;height: 100%;overflow-y: auto;z-index:9;">
           <nav-t :nav-items="navItems"></nav-t>
@@ -63,15 +63,12 @@ export default {
   mixins: [ComponentsInit],
   data () {
     return {
-      height: '900',
-      dialogPassVisible: false
+      height: '900'
     }
   },
   components: {
     'nav-t': Nav,
-    Tags,
-    'dialog-pass-update': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/pwdUpdate')
+    Tags
   },
   created () {
     // var winHeight = 0
@@ -84,14 +81,6 @@ export default {
     // window.onresize = () => {
     //   this.height = document.body.clientHeight
     // }
-  },
-  methods: {
-    pwdChange: pwdChange
   }
-}
-// 密码修改
-function pwdChange () {
-  console.log('修改密码')
-  this.dialogPassVisible = true
 }
 </script>

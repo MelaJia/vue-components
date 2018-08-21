@@ -262,13 +262,15 @@ async function submitForm (formName) {
   }
   if (process.env.NODE_ENV === 'development') { // 调试环境
     let res = {
-      data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 3, custNickname: '阿拉斯加大型犬' }
+      data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 3, custNickname: '阿拉斯加大型犬', legalPhone: '+86-13510970745', contactPhone: '13510970745' }
     }
     if (res.data.status) {
       this.$store.commit(types.LOGIN, res.data.token)
       this.$store.commit(types.SETROLE, res.data.custType)
       this.$store.commit('SET_UINFO', {
-        nickName: res.data.custNickname
+        nickName: res.data.custNickname,
+        legalPhone: res.data.legalPhone,
+        contactPhone: res.data.contactPhone
       }) // 保存用户信息
       this.$store.commit('SET_TAG_WEL', {
         label: '首页',
@@ -288,11 +290,13 @@ async function submitForm (formName) {
   } else { // 正式环境
     this.axios.post('/login/checkLogin2', param).then(res => {
       this.loginLoading = false // 登录完成
-      if (res.data.status === '1') {
+      if (res.data.status) {
         this.$store.commit(types.LOGIN, res.data.token)
         this.$store.commit(types.SETROLE, res.data.custType)
         this.$store.commit('SET_UINFO', {
-          nickName: res.data.custNickname
+          nickName: res.data.custNickname,
+          legalPhone: res.data.legalPhone,
+          contactPhone: res.data.contactPhone
         }) // 保存用户信息
         this.$store.commit('SET_TAG_WEL', {
           label: '首页',
