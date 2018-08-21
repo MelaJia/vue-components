@@ -198,7 +198,7 @@ export default {
   },
   mounted () {
     // 协议生成
-    this.axios.post('/juXinProtocol').then(res => {
+    this.axios.post('/login/juXinProtocol').then(res => {
       console.log(res)
     })
   },
