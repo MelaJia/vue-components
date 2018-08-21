@@ -61,7 +61,7 @@
           <el-col :span="11" :offset="1" class="flex">
             <el-form-item label="还款方式: " prop="repaymentType">
              <el-select v-model="detailsP.repaymentType" clearable placeholder="还款方式">
-              <el-option v-for="(item,index) in repayTypes" :key="index" :label="item.RepaymentTypeName" :value="item.RepaymentType"></el-option>
+              <el-option v-for="(item,index) in RepaymentTypes" :key="index" :label="item.RepaymentTypeName" :value="item.RepaymentType"></el-option>
             </el-select>
             </el-form-item>
           </el-col>
@@ -131,7 +131,7 @@ export default {
     return {
       transAmt: 0,
       checkList: [],
-      moneyTypes: [{
+      RepaymentTypes: [{
         RepaymentType: 2,
         RepaymentTypeName: '一期还息，期末清偿法'
       },
@@ -214,7 +214,7 @@ function submit () {
     if (valid) {
       const param = {
         loanId: this.detailsP.loanId,
-        supplierCustId: this.detailsP.supplierCustId,
+        supplierCustId: this.detailsP.custId,
         applyAmt: this.detailsP.applyAmt, // 贴现金额
         loanPer: this.loanPer, // 放款比例
         loanAmt: this.detailsP.loanAmt || '', // 实放金額 修复只根据放款比例计算得到结果

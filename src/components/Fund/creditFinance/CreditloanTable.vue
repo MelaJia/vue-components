@@ -66,7 +66,7 @@
 import ListMinxIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
-import { firstToUpperCase, debounce, erroShow } from '@/util/util' // 首字母大写 防抖函数
+import { postDataBase, firstToUpperCase, debounce, erroShow } from '@/util/util' // 首字母大写 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 /* 我的Ar列表 */
 export default {
@@ -77,10 +77,10 @@ export default {
       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogCreditloan'),
     'dialog-contract': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogLoancontract'),
-    'dialog-contractonline': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOnlinecontract')
-    // 'dialog-contractoffline': () =>
-    //   import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOfflinecontract')
+    // 'dialog-contractonline': () =>
+    //  import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOnlinecontract')
+    'dialog-contractoffline': () =>
+       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOfflinecontract')
   },
   data () {
     return {
@@ -120,7 +120,21 @@ export default {
     // 拒绝
     handleReject: handleReject,
     // 按钮菜单显隐处理
-    getOpera: getOpera
+    getOpera: getOpera,
+    /**
+     * 取消基础请求
+     * @param {str} url 请求地址
+     * @param {str} id 请求参数(ar单号)
+     */
+    cancelBase (url, param) {
+      postDataBase.call(this, url, param, true).then(res => {
+        console.log(res)
+        // 操作成功刷新数据
+        if (res && res.data.status) {
+          this.$emit('refresh')
+        }
+      })
+    }
   }
 }
 // 详情函数
@@ -134,46 +148,89 @@ function handleInfo (idx, val) {
   })
 }
 // 合同生成
+// function handleContrac (idx, val) {
+//   // 1.显示加载图标
+//   const loading = this.$loading(loadingConf.get())
+//   // 2.获取数据
+//   this.axios.post('/factoringCreditLoan/showElectronicsContract.do', { loanId: val.loanId }).then(res => {
+//     console.log(res)
+//     if (res.data.status) {
+//       // 放款比例初始化否则先输入实际放款金额会造成不联动
+//       res.data.data.loanPer = res.data.data.loanPer || 1
+//       res.data.data.loanAmt = res.data.data.loanAmt || res.data.data.applyAmt * res.data.data.loanPer / 100
+//       res.data.data.repaymentType = res.data.data.repaymentType ? parseInt(res.data.data.repaymentType) : null
+//       // 3.设置数据
+//       this.detailsContract = res.data.data
+//       // 4.显示弹窗
+//       if (val.contractSignType === 1) {
+//         this.dialogTransferVisible = true // 显示电子合同
+//       } else {
+//         this.dialogOnline = true // 显示线下上传合同
+//         // 线下合同查询接口列表
+//         this.axios.post('/factoringCreditLoan/queryManualContract.do', { loanId: val.loanId }).then(res => {
+//           if (res.data.status) {
+//             console.log(res.data.data)
+//             this.offlineContract = res.data.data
+//           } else {
+//             this.$message.error(res.data.msg)
+//           }
+//           loading.close()
+//         }).catch((err) => {
+//           erroShow.call(this, err, loading)
+//         })
+//       }
+//     } else {
+//       this.$message.error(res.data.msg)
+//     }
+//     loading.close() // 关闭加载图标
+//   }).catch((err) => {
+//     // 错误提示
+//     erroShow.call(this, err, loading)
+//   })
+// }
+
+// 合同生成
 function handleContrac (idx, val) {
+  console.log(val)
   // 1.显示加载图标
   const loading = this.$loading(loadingConf.get())
   // 2.获取数据
-  this.axios.post('/factoringCreditLoan/showElectronicsContract.do', { loanId: val.loanId }).then(res => {
-    console.log(res)
-    if (res.data.status) {
-      // 放款比例初始化否则先输入实际放款金额会造成不联动
-      res.data.data.loanPer = res.data.data.loanPer || 1
-      res.data.data.loanAmt = res.data.data.loanAmt || res.data.data.applyAmt * res.data.data.loanPer / 100
-      res.data.data.repaymentType = res.data.data.repaymentType ? parseInt(res.data.data.repaymentType) : null
-      // 3.设置数据
-      this.detailsContract = res.data.data
-      // 4.显示弹窗
-      if (val.contractSignType === 1) {
+  if (val.contractSignType === 1) {
+    this.axios.post('/factoringCreditLoan/showElectronicsContract.do', { loanId: val.loanId }).then(res => {
+      console.log(res)
+      if (res.data.status) {
+        // 放款比例初始化否则先输入实际放款金额会造成不联动
+        res.data.data.loanPer = res.data.data.loanPer || 1
+        res.data.data.loanAmt = res.data.data.loanAmt || res.data.data.applyAmt * res.data.data.loanPer / 100
+        res.data.data.repaymentType = res.data.data.repaymentType ? parseInt(res.data.data.repaymentType) : null
+        // 3.设置数据
         this.dialogTransferVisible = true // 显示电子合同
+        this.detailsContract = res.data.data
+        console.log(this.detailsContract)
       } else {
-        this.dialogOnline = true // 显示线下上传合同
-        // 线下合同查询接口列表
-        this.axios.post('/factoringCreditLoan/queryManualContract.do', { loanId: val.loanId }).then(res => {
-          if (res.data.status) {
-            console.log(res.data.data)
-            this.offlineContract = res.data.data
-          } else {
-            this.$message.error(res.data.msg)
-          }
-          loading.close()
-        }).catch((err) => {
-          erroShow.call(this, err, loading)
-        })
+        this.$message.error(res.data.msg)
       }
-    } else {
-      this.$message.error(res.data.msg)
-    }
-    loading.close() // 关闭加载图标
-  }).catch((err) => {
-    // 错误提示
-    erroShow.call(this, err, loading)
-  })
+      loading.close()
+    }).catch(err => {
+      erroShow.call(this, err, loading)
+    })
+  } else {
+    // 线下合同查询接口列表
+    this.axios.post('/factoringCreditLoan/queryManualContract.do', { loanId: val.loanId }).then(res => {
+      if (res.data.status) {
+        console.log(res.data.data)
+        this.dialogOnline = true // 显示线下上传合同
+        this.offlineContract = res.data.data
+      } else {
+        this.$message.error(res.data.msg)
+      }
+      loading.close()
+    }).catch((err) => {
+      erroShow.call(this, err, loading)
+    })
+  }
 }
+
 // 发起确认
 function handleConfirm (idx, val) {
   this.$confirm(`单号为${val.loanId}的贴现合同确认发起确认?`, `提示`, {
@@ -182,7 +239,7 @@ function handleConfirm (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.cancelBase('/factoringCreditLoan/confirmInitiateSigning.do', val.loanId) // 调用common混合中公共方法
+    this.cancelBase('/factoringCreditLoan/confirmInitiateSigning.do', {loanId: val.loanId}) // 调用common混合中公共方法
   }).catch(() => {
     this.$message({
       type: 'info',
@@ -198,7 +255,7 @@ function handleAccept (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.cancelBase('/factoringCreditLoan/completeLoan.do', val.loanId) // 调用common混合中公共方法
+    this.cancelBase('/factoringCreditLoan/completeLoan.do', {loanId: val.loanId}) // 调用common混合中公共方法
   }).catch(() => {
     this.$message({
       type: 'info',

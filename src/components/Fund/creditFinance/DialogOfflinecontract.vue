@@ -10,8 +10,8 @@
       <el-form ref="form" :model="detailsP" :rules="rules" status-icon label-width="130px">
         <el-row>
           <el-col :span="11" class="flex">
-            <el-form-item label="实放金额:" prop="applyAmt">
-              <el-input v-model="detailsP.applyAmt">
+            <el-form-item label="实放金额:" prop="loanAmt">
+              <el-input v-model="detailsP.loanAmt">
                 <template slot="append">元</template>
               </el-input>
             </el-form-item>
@@ -114,10 +114,10 @@ export default {
     return {
       // uploadUrl: apiUrl + '/creditLoan/creditLoanUploadFile.do', // 文件上传地址
       fileInfo: '', // 文件信息
-      applyAmt: '',
+      loanAmt: '',
       // 校验规则
       rules: {
-        applyAmt: [
+        loanAmt: [
           { required: true, message: '请输入实放金额', trigger: 'blur' }
         ]
       }
@@ -155,7 +155,7 @@ export default {
       } else {
         // 显示加载动画
         const loading = this.$loading(loadingConf.get())
-        this.axios.post('/creditLoan/creditLoanUploadFile.do', formData).then(res => {
+        this.axios.post('/factoringCreditLoan/creditLoanManualContractUploadFile.do', formData).then(res => {
           if (res.data.status) {
             var contractListInfo = {
               'contractUploadFileUrl': res.data.data.contractUploadFileUrl,
@@ -180,7 +180,7 @@ export default {
         type: 'warning',
         center: true
       }).then(() => {
-        this.axios.post('/factoringCreditLoan/creditLoanManualContractDeleteFile.do', { loanId: this.detailsP.loanId, contractUploadFileUrl: this.contractList.contractUploadFileUrl }).then(res => {
+        this.axios.post('/factoringCreditLoan/creditLoanManualContractDeleteFile.do', { loanId: this.detailsP.loanId, contractUploadFileUrl: this.contractList[index].contractUploadFileUrl }).then(res => {
           if (res.data.status) {
             this.$message({
               type: 'success',

@@ -29,7 +29,10 @@
               </el-table-column>
               <el-table-column align="right" :width="widthArr.loanAmt" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="right" prop="payPrincipalAmt" :width="widthArr.payPrincipalAmt" :formatter="regexNum">
+              <el-table-column align="right" prop="payPrincipalAmt" :width="widthArr.payPrincipalAmt">
+                <template slot-scope="scope">
+                  <span v-if="scope.row.payPrincipalAmt !== null || scope.row.payPrincipalAmt !== 0">{{scope.row.payPrincipalAmt | filterNum}}</span>
+                </template>
               </el-table-column>
               <el-table-column align="right" prop="payInterestAmt" :width="widthArr.payInterestAmt" :formatter="regexNum">
               </el-table-column>
@@ -200,6 +203,9 @@ export default {
     //   return datas
     // }
   },
+  filters: {
+    filterNum: thousand
+  },
   methods: {
     // 子table列表背景色
     // getColor ({row, rowIndex}) {
@@ -224,6 +230,38 @@ export default {
       this.$emit('refresh')
     }
   }
+}
+
+// 该页面中的子table中还款本金金额单独格式化
+function thousand (val) {
+  var regex = /(\d)(?=(\d{3})+$)/g
+  var result
+  if (typeof val === 'string') {
+    let str = val
+    if (str.indexOf('.') === -1) {
+      result = str.replace(regex, '$1,') + '.00'
+    } else {
+      var newStr = str.split('.')
+      var str2 = newStr[0].replace(regex, '$1,')
+      if (newStr[1].length <= 1) {
+        // 小数点后只有一位时
+        result = str2 + '.' + newStr[1] + '0'
+      } else if (newStr[1].length > 1) {
+        // 小数点后两位以上时
+        var decimals = newStr[1].substr(0, 2)
+        result = str2 + '.' + decimals
+      }
+    }
+  } else if (typeof val === 'number') {
+    // 当金额为0的时候，不显示
+    if (val === 0) {
+      return ''
+    }
+    return val.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+  } else if (val === undefined || val === null || val === '') {
+    return ''
+  }
+  return result
 }
 // 错误提示函数
 // function erroShow (err, loading) {

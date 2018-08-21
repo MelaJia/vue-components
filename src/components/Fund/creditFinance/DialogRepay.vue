@@ -250,7 +250,7 @@ function advanceSubmit () {
         custId: this.detailsP.custId,
         factoringCustId: this.detailsP.factoringCustId,
         actualRepayAmt: this.detailsP.actualRepayAmt,
-        masterChainId: this.repayDetail.masterChainId,
+        loanId: this.detailsP.loanId,
         isConfirmSettled: this.isConfirmSettled
       }
       // 显示加载图标
