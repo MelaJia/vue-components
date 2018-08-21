@@ -151,7 +151,7 @@ export default {
   mixins: [TableMixIn, Common],
   components: {
     'dialog-contract': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogContract'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/orderLoan/loan/DialogContract'),
     'dialog-info': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/orderLoan/loan/DialogInfo')
   },
@@ -255,7 +255,7 @@ function getOpera (val) {
   const datas = val
   datas.forEach((item) => {
     const operateArr = []
-    switch (item.status) {
+    switch (Number(item.status)) {
       case 22:
         operateArr.push(this.operateArr[0])
         break

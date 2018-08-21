@@ -180,12 +180,6 @@ const navs = {
         idx: '4-2',
         text: '银行卡管理',
         disabled: true,
-        lClass: 'line',
-        hClass: 'circle'
-      }, {
-        idx: '4-3',
-        text: '密码修改',
-        disabled: true,
         lClass: 'end-line',
         hClass: 'circle'
       }
@@ -340,7 +334,7 @@ const navs = {
       idx: '4',
       text: '账户管理',
       disabled: false,
-      lClass: 'end-line',
+      lClass: 'line',
       hClass: 'header-circle bg-icon-3',
       childrens: [{
         idx: 'lolanuserinfo',
@@ -354,12 +348,6 @@ const navs = {
         text: '银行卡管理',
         disabled: true,
         lClass: 'line',
-        hClass: 'circle'
-      }, {
-        idx: '4-3',
-        text: '密码修改',
-        disabled: true,
-        lClass: 'end-line',
         hClass: 'circle'
       }
       ]
@@ -381,7 +369,7 @@ const navs = {
         idx: 'crc',
         text: '中证网查询',
         disabled: false,
-        lClass: 'line',
+        lClass: 'end-line',
         hClass: 'circle'
       }
       ]

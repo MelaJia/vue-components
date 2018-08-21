@@ -2,13 +2,20 @@
   <el-dialog :visible.sync="visibleP" :before-close="handleClose">
     <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
         <el-form-item label="原密码" prop="originPass">
-          <el-input type="password" v-model="ruleForm2.originPass" auto-complete="off"></el-input>
+          <el-input :type="opShow?'text':'password'" v-model="ruleForm2.originPass" auto-complete="off">
+                    <a slot="suffix" :class="`iconfont ${opShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('opShow')"></a>
+          </el-input>
         </el-form-item>
+        <div v-show="isPassShow" class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~32位的字符串.</div>
         <el-form-item label="新密码" prop="pass">
-          <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
+          <el-input :type="pShow?'text':'password'" v-model="ruleForm2.pass" @blur="passBlur" @focus="passFocus" auto-complete="off">
+                    <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pShow')"></a>
+          </el-input>
         </el-form-item>
         <el-form-item label="确认密码" prop="checkPass">
-          <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
+          <el-input :type="pcShow?'text':'password'" v-model="ruleForm2.checkPass" @blur="passBlur" @focus="passFocus" auto-complete="off">
+                    <a slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pcShow')"></a>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSubmit('ruleForm2')">提交</el-button>
@@ -19,6 +26,14 @@
 </template>
 <style scoped>
 footer {
+  text-align: center;
+}
+/* 密码提示信息样式 */
+.text-error {
+  color: #f56c6c;
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px;
   text-align: center;
 }
 </style>
@@ -71,6 +86,10 @@ export default {
       }
     }
     return {
+      isPassShow: false, // 密码提示信息显示
+      opShow: false, // 原密码是否可见
+      pShow: false, // 密码是否可见
+      pcShow: false, // 密码确认是是否可见
       ruleForm2: {
         originPass: '', // 原密码
         pass: '',
@@ -89,6 +108,12 @@ export default {
   methods: {
     handleSubmit: debounce(submitForm, 1000),
     init: Init,
+    // 密码框获取焦点时显示提示信息
+    passFocus: passFocus,
+    // 密码框失去焦点时隐藏提示信息
+    passBlur: passBlur,
+    // 可见修改
+    handlePShowChange: handlePShowChange,
     resetForm (formName) {
       this.$refs[formName].resetFields()
     }
@@ -117,5 +142,17 @@ function submitForm (formName) {
 // 初始化
 function Init () {
   this.checkList = []
+}
+// 显示密码提示信息
+function passFocus () {
+  this.isPassShow = true
+}
+//  隐藏密码提示信息
+function passBlur () {
+  this.isPassShow = false
+}
+// 可见修改
+function handlePShowChange (val) {
+  this[val] = !this[val]
 }
 </script>

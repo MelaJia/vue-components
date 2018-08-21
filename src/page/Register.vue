@@ -419,6 +419,7 @@
 .loginLine {
   color: #8ec1f4;
 }
+// 密码提示信息样式
 .text-error {
   color: #f56c6c;
   font-size: 12px;
@@ -426,6 +427,7 @@
   padding: 4px;
   text-align: center;
 }
+// 服务协议样式
 .iptChoose {
   padding: 20px 50px;
 }
