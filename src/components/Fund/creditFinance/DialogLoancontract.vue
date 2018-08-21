@@ -74,8 +74,9 @@
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
             <el-form-item label="还款日期: " prop="repayDate">
-             <el-date-picker :editable="false" v-model="detailsP.repayDate" type="date" placeholder="选择日期">
-            </el-date-picker>
+             <!-- <el-date-picker :editable="false" v-model="detailsP.repayDate" type="date" placeholder="选择日期">
+            </el-date-picker> -->
+            <span>{{detailsP.repayDate | dateFormat}}</span>
             </el-form-item>
           </el-col>
         </el-row>
