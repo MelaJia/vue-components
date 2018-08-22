@@ -15,7 +15,7 @@
       </el-col>
       <el-col :span="8">
         <el-form-item label="状态">
-          <el-select v-model="formInline.checkedStatus" placeholder="全部">
+          <el-select v-model="formInline.checkedStatus" placeholder="">
             <el-option v-for="(item,index) in arStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
           </el-select>
         </el-form-item>
@@ -93,7 +93,7 @@ export default {
       formInline: {
         // isMasterAr: '', // AR来源
         companyName: '', // 付款单位
-        checkedStatus: '', // 状态
+        checkedStatus: 23, // 状态
         billBookCurr: '', // 币别
         masterChainId: '', // AR单号
         invoiceNo: '', // 发票号

@@ -51,7 +51,7 @@ export default {
     'search': Search
   },
   mounted () {
-    // this.param = Object.assign({checkedStatus: 23}, this.param)
+    this.param = Object.assign({checkedStatus: 23}, this.param)
     this.getdata(1, this.psize)
       .then(res => {
         if (res.data.status) {

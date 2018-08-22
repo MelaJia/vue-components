@@ -82,7 +82,7 @@
           <el-form ref="form-3" :model="getForm" label-width="150px">
             <el-row>
               <el-col :span="14" :offset="5">
-                  <span>修改成功，将于60秒后跳转至登陆界面，如没有跳转请直接点击完成按钮</span>
+                  <span>{{note}}，将于{{time}}秒后跳转至登陆界面，如没有跳转请直接点击完成按钮</span>
               </el-col>
             </el-row>
           </el-form>
@@ -94,7 +94,7 @@
             <el-button v-if="step!=0&&step<2" type="primary" size="mini" @click="prevHandle()">上一步</el-button>
             <el-button :disabled="showNext" v-if="step<1" type="primary" size="mini" @click="nextHandle(`form-${step+1}`)">下一步</el-button>
             <el-button v-if="step==1" type="primary" size="mini" @click="subHandle('form-3')" style="width:68px;">提 交</el-button>
-            <el-button v-if="step==2" type="primary" size="mini">完成</el-button>
+            <el-button v-if="step==2" type="primary" size="mini" @click="goLogin">完成</el-button>
           </el-col>
         </el-row>
       </footer>
@@ -208,6 +208,7 @@
 // import validConf from '@/config/validateConfig'
 // import { getStore, setStore } from '@/util/store'
 // import { baseUrl } from '@/config/env.js'
+// import { postDataBase } from '@/util/util'
 export default {
   data () {
     // 验证手机号码
@@ -225,13 +226,20 @@ export default {
             let type = res.data.status ? 'success' : 'error'
             if (res.data.status) {
               this.showCheckBtn = false
-              this.$message({
-                type: type,
-                message: res.data.msg ? res.data.msg : '手机号不存在，请联系管理员'
-              })
+              if (typeof res.data.data === 'string') {
+                this.$message({
+                  showClose: true,
+                  message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+                  type: type
+                })
+              } else {
+                this.$message({
+                  showClose: true,
+                  message: res.data.data.message ? res.data.data.message : res.data.msg,
+                  type: type
+                })
+              }
               callback()
-            } else {
-              callback(new Error(res.data.msg))
             }
           }).catch(err => {
             console.log(err)
@@ -248,16 +256,28 @@ export default {
       } else {
         // 请求校验验证码接口获取登录名
         this.axios.post('/cust/validVerificationCode.do', {contactPhone: this.getForm.contactPhone, verificationCode: value}).then(res => {
-          console.log(res)
+          let type = res.data.status ? 'success' : 'error'
           if (res.data.status) {
             this.showNext = false
-            this.custUsername = res.data.data.custUsername
-            this.custId = res.data.data.custId
+            if (typeof res.data.data === 'string') {
+              this.$message({
+                showClose: true,
+                message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+                type: type
+              })
+            } else {
+              this.$message({
+                showClose: true,
+                message: res.data.data.message ? res.data.data.message : res.data.msg,
+                type: type
+              })
+            }
+            callback()
             callback()
           }
         }).catch(err => {
           console.log(err)
-          callback(new Error(`验证失败请联系管理员`))
+          callback(new Error(err))
         })
       }
     }
@@ -305,6 +325,8 @@ export default {
       isPassShow: false, // 密码提示信息显示
       pShow: false, // 密码是否可见
       pcShow: false, // 密码确认是是否可见
+      note: '修改成功', // 修改成功或失败信息提示
+      time: 60, // 倒计时
       getForm: {
         contactPhone: '', // 手机号码
         verificationCode: '', // 验证码
@@ -336,10 +358,6 @@ export default {
         ]
       }
     }
-  },
-  computed: {
-  },
-  mounted () {
   },
   methods: {
     // 上一页
@@ -386,6 +404,12 @@ export default {
           this.$message.error(res.data.msg)
         }
       })
+    },
+    // 路由跳转,跳转到登录页面
+    goLogin () {
+      this.$router.push({
+        name: 'Login' // 跳转到登录
+      })
     }
   }
 }
@@ -427,7 +451,19 @@ function subHandle (formName) {
         confirmPassword: this.getForm.confirmPassword
       }
       this.axios.post('/cust/updatePassword.do', param).then(res => {
-        console.log(res)
+        // let type = res.data.status ? 'success' : 'error'
+        if (res.data.status) {
+          if (typeof res.data.data === 'string') {
+            this.note = res.data.data ? res.data.data : '返回结果错误，请联系管理员'
+          } else {
+            this.note = res.data.data.message ? res.data.data.message : res.data.msg
+          }
+          setTimeout(() => {
+            this.$router.push({
+              name: 'Login' // 跳转到登录
+            })
+          }, 60000)
+        }
       }).catch(err => {
         console.log(err)
       })
