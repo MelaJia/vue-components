@@ -79,7 +79,7 @@ function reject () {
   //   })
   //   return
   // }
-  postDataBase.apply(this, ['/creditLoan/cancelSigningDiscount.do', { loanId: this.detailsP.loanId }, true]).then(res => {
+  postDataBase.apply(this, ['/creditLoan/rejectSigningDiscount.do', { loanId: this.detailsP.loanId }, true]).then(res => {
     // 操作成功 关闭弹窗
     if (res.data.status) {
       this.handleClose() // 关闭弹窗
