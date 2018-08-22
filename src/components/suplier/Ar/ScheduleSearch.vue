@@ -80,7 +80,7 @@ import SearchMixIn from '@/mixins/suplier/Ar/Search'
 import commonDatas from '@/mixins/commonDatas'
 /* 我的验收单查询搜索 */
 export default {
-  name: 'loanPage', // 待办查询
+  name: 'onDealSupplierPage', // 待办查询
   mixins: [SearchMixIn, commonDatas],
   data () {
     return {
