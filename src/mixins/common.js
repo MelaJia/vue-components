@@ -44,16 +44,14 @@ export default {
      * @param {str} url 请求地址
      * @param {str} id 请求参数(ar单号)
      */
-    cancelBase (url, id) {
-      postDataBase.call(this, url, {
-        masterChainId: id
-      }, true).then(res => {
-        console.log(res)
-        // 操作成功刷新数据
-        if (res && res.data.status) {
-          this.$emit('refresh')
-        }
-      })
+    async cancelBase (url, id) {
+      debugger
+      let res = await this.post(url, { masterChainId: id })
+      console.log(res)
+      // 操作成功刷新数据
+      if (res && res.data.status) {
+        this.$emit('refresh')
+      }
     },
     // 获取放款详情接口
     async getLoanDetail (url, param) {
@@ -66,14 +64,21 @@ export default {
      * @param {str} url 请求地址
      * @param {obj} param 请求参数
      */
-    postBase (url, param) {
-      postDataBase.call(this, url, param, true).then(res => {
-        console.log(res)
-        // 操作成功刷新数据
-        if (res && res.data.status) {
-          this.fresh()
-        }
-      })
+    async postBase (url, param) {
+      let res = await this.post(url, param)
+      console.log(res)
+      // 操作成功刷新数据
+      if (res && res.data.status) {
+        this.fresh()
+      }
+    },
+    /*
+    *发送post请求
+    *显示加载框
+    */
+    async post (url, param) {
+      let res = await postDataBase.call(this, url, param, true)
+      return res
     },
     /**
      * 刷新父页面数据

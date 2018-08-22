@@ -107,13 +107,11 @@ export default {
   },
   watch: {
     getTitle: function () {
-      // 置空
-      this.init()
+      this.init() // 置空
     }
   },
   computed: {
     getTitle () {
-      console.log(this.detailsP.masterChainId)
       return this.detailsP.masterChainId + '还款'
     }
   },

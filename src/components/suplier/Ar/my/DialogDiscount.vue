@@ -90,8 +90,7 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
-import { debounce, erroShow } from '@/util/util' // 防抖函数
-import { loadingConf } from '@/config/common' // 获取加载配置
+import { debounce } from '@/util/util' // 防抖函数
 
 export default {
   name: 'ardiscount', // 贴现弹窗
@@ -154,17 +153,7 @@ function handleSubmit () {
     })
     return
   }
-  // 显示加载图标
-  const loading = this.$loading(loadingConf.sub())
-  this.axios.post('/myAr/initiateDiscount.do', data).then(res => {
-    console.log(res)
-    let type = res.data.status ? 'success' : 'error'
-    this.$message({
-      message: res.data.data.message ? res.data.data.message : '返回结果错误，请联系管理员',
-      type: type
-    })
-    // 关闭加载图标
-    loading.close()
+  this.post('/myAr/initiateDiscount.do', data).then(res => {
     // 操作成功 关闭弹窗
     if (res.data.status) {
       // 已选发票置空
@@ -176,7 +165,7 @@ function handleSubmit () {
     }
   }).catch((err) => {
     // 错误提示
-    erroShow.call(this, err, loading)
+    console.log(err)
   })
 }
 // 改变选项

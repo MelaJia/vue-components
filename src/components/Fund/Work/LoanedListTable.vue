@@ -227,9 +227,9 @@ function handleRepay (idx, val1, val2) {
     }
   })
   // 获取提前还清还款的接口
-  getDataBase.call(this, '/factoringCreditLoan/prepaySettleLoanTrial.do', param2).then(res => {
+  getDataBase.call(this, '/loanQuery/prepaySettleLoanTrial.do', param2).then(res => {
     if (res) {
-      this.repayDetail = Object.assign(this.details, res)
+      this.details = Object.assign(this.details, res)
       this.dialogRepayVisible = true
     }
   }).catch(err => {

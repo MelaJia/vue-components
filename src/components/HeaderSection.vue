@@ -9,7 +9,7 @@
       <div class="header-right">
         <el-button v-if="this.$store.getters.roles=='2'" type="danger" size="medium" :class="'process'" icon="el-icon-caret-right" @click="goPage">我的待办</el-button>
         <el-dropdown @command="handleCommand">
-          <span style="color:#fff">你好，{{this.$store.state.user.userinfos.nickName}}<img src="@/assets/img/juxin_18.png" alt=""></span>
+          <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}<img src="@/assets/img/juxin_18.png" alt=""></span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="pwdChange">密码修改</el-dropdown-item>
             <el-dropdown-item command="logout">退出</el-dropdown-item>

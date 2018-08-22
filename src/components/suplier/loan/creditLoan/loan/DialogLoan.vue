@@ -103,7 +103,8 @@ export default {
   methods: {
     subHandle: debounce(submit, 1000, true),
     // 上传图片更新fileList
-    getUrl: getUrl
+    getUrl: getUrl,
+    init: init
   }
 }
 
@@ -124,6 +125,7 @@ function submit () {
       postDataBase.call(this, '/creditLoan/creditApplyDiscount.do', param, true).then(res => {
         // 操作成功关闭弹窗刷新数据
         if (res.data.status) {
+          this.init()
           this.$parent.fresh()
           this.handleClose()
         }
@@ -149,5 +151,9 @@ function getUrl (obj) {
       this.$message.error(val.msg)
     }
   }
+}
+function init () {
+  this.fileList = []
+  Object.assign(this.formInline, { applyAmt: '', repayDate: null })
 }
 </script>

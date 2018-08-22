@@ -30,11 +30,11 @@
             <div class="iptContext">
               <div class="ipt-group">
                 <i class="icon-ipt-phone iconfont icon-yonghuming" :class="iptPhoneLight?'light': ''"></i>
-                <input type="text" autocomplete="off" v-model="ruleForm.phone" class="text iptphone" @focus="iptPhoneLight=true" @blur="iptPhoneLight=false">
+                <input type="text" autocomplete="off" v-model="ruleForm.phone" class="text iptphone" @focus="iptPhoneLight=true" @blur="loginError=iptPhoneLight=false">
               </div>
               <div class="ipt-group">
                 <i class="icon-ipt-pwd iconfont icon-mimaicon" :class="iptPWDLight?'light': ''"></i>
-                <input type="password" autocomplete="off" maxlength="20" v-model="ruleForm.pass" class="text iptpassword" ref="input" placeholder="8-20位数字与字母组合的密码" @focus="iptPWDLight=true" @blur="iptPWDLight=false">
+                <input type="password" autocomplete="off" maxlength="20" v-model="ruleForm.pass" class="text iptpassword" ref="input" placeholder="8-20位数字与字母组合的密码" @focus="iptPWDLight=true" @blur="loginError=iptPWDLight=false">
               </div>
               <div class="ipt-group picture">
                 <input type="text" autocomplete="off" class="text iptviste" name="ipt_renewal" v-model="verify" id="ipt_renewal" onKeyDown="if(event.keyCode===32) return false" placeholder="图形验证" maxlength="4" @input="visteChange">
@@ -265,16 +265,13 @@ async function submitForm (formName) {
       data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 3, custNickname: '阿拉斯加大型犬', legalPhone: '+86-13510970745', contactPhone: '13510970745' }
     }
     if (res.data.status) {
-      this.$store.commit(types.LOGIN, res.data.token)
-      this.$store.commit(types.SETROLE, res.data.custType)
-      this.$store.commit('SET_UINFO', {
-        nickName: res.data.custNickname,
-        legalPhone: res.data.legalPhone,
-        contactPhone: res.data.contactPhone
-      }) // 保存用户信息
+      let datas = Object.assign({}, res.data, res.data.data)
+      this.$store.commit(types.LOGIN, datas.token)
+      this.$store.commit(types.SETROLE, datas.custType)
+      this.$store.commit('SET_UINFO', datas) // 保存用户信息
       this.$store.commit('SET_TAG_WEL', {
         label: '首页',
-        value: Roles[res.data.custType].layout
+        value: Roles[datas.custType].layout
       })
       let redirect = decodeURIComponent(this.$route.query.redirect || '/')
       this.$router.push({
@@ -291,16 +288,13 @@ async function submitForm (formName) {
     this.axios.post('/login/checkLogin2', param).then(res => {
       this.loginLoading = false // 登录完成
       if (res.data.status) {
-        this.$store.commit(types.LOGIN, res.data.token)
-        this.$store.commit(types.SETROLE, res.data.custType)
-        this.$store.commit('SET_UINFO', {
-          nickName: res.data.custNickname,
-          legalPhone: res.data.legalPhone,
-          contactPhone: res.data.contactPhone
-        }) // 保存用户信息
+        let datas = Object.assign({}, res.data, res.data.data)
+        this.$store.commit(types.LOGIN, datas.token)
+        this.$store.commit(types.SETROLE, datas.custType)
+        this.$store.commit('SET_UINFO', datas) // 保存用户信息
         this.$store.commit('SET_TAG_WEL', {
           label: '首页',
-          value: Roles[res.data.custType].layout
+          value: Roles[datas.custType].layout
         })
         let redirect = decodeURIComponent(this.$route.query.redirect || '/')
         this.$router.push({

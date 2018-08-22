@@ -562,6 +562,12 @@ export const postDataBase = function (url, param, showLoading) {
         message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
         type: type
       })
+    }else {
+      this.$message({
+        showClose: true,
+        message: res.data.msg ? res.data.msg : '返回结果错误，请联系管理员',
+        type: type
+      })
     }
     return res
   }).catch((err) => {
