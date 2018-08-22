@@ -84,12 +84,6 @@ export default {
   mixins: [SearchMixIn, commonDatas],
   data () {
     return {
-      // statusList: [
-      //   {
-      //     checkedStatus: 23,
-      //     arStatusTypeName: '合同签署中'
-      //   }
-      // ],
       formInline: {
         // isMasterAr: '', // AR来源
         companyName: '', // 付款单位

@@ -36,7 +36,7 @@ import ScheduleTable from '@/components/suplier/Ar/ScheduleTable'
 import Search from '@/components/suplier/Ar/ScheduleSearch'
 import Table from '@/mixins/suplier/Ar/Table'
 export default {
-  name: 'loanPage', // 我的待办
+  // name: 'loanPage', // 我的待办
   mixins: [Table],
   data () {
     return {
@@ -51,7 +51,19 @@ export default {
     'search': Search
   },
   mounted () {
-    this.param = Object.assign({checkedStatus: 23}, this.param)
+    this.param = {
+      iDisplayStart: 1,
+      iDisplayLength: 10,
+      isMasterAr: '',
+      companyName: '',
+      checkedStatus: 23,
+      billBookCurr: '',
+      masterChainId: '',
+      invoiceNo: '',
+      billId: '',
+      from: '',
+      to: ''
+    }
     this.getdata(1, this.psize)
       .then(res => {
         if (res.data.status) {

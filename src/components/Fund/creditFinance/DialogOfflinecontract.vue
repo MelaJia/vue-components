@@ -184,7 +184,7 @@ export default {
           if (res.data.status) {
             this.$message({
               type: 'success',
-              message: res.data.msg
+              message: res.data.data
             })
             this.contractList.splice(index, 1)
             this.$parent.fresh()
@@ -226,7 +226,7 @@ function submit () {
           let type = res.data.status ? 'success' : 'error'
           this.$message({
             showClose: true,
-            message: res.data.msg ? res.data.msg : '返回结果错误，请联系管理员',
+            message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
             type: type
           })
           if (res.data.status) {

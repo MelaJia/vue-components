@@ -26,11 +26,6 @@
         <section class="reg-step-1" v-show="step==0">
           <el-form ref="form-1" :model="getForm" :rules="rulesOne" label-width="130px">
             <el-row>
-              <el-col :span="24">
-                <div v-show="isPassShow" class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~32位的字符串.</div>
-              </el-col>
-            </el-row>
-            <el-row>
               <el-col :span="12" :offset="6">
                 <el-form-item label="注册手机号: " prop="contactPhone">
                   <el-input v-model.trim="getForm.contactPhone"></el-input>
@@ -51,6 +46,11 @@
         </section>
         <section class="reg-step-2" v-show="step==1">
           <el-form ref="form-2" :model="getForm" :rules="rulesTwo" label-width="150px">
+            <el-row>
+              <el-col :span="24">
+                <div v-show="isPassShow" class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~32位的字符串.</div>
+              </el-col>
+            </el-row>
             <el-row>
               <el-col :span="12" :offset="6">
                 <el-form-item label="登录名: " prop="custUsername">
@@ -82,7 +82,7 @@
           <el-form ref="form-3" :model="getForm" label-width="150px">
             <el-row>
               <el-col :span="14" :offset="5">
-                  <span>{{note}}，将于{{time}}秒后跳转至登陆界面，如没有跳转请直接点击完成按钮</span>
+                  <span><span :class="textColor ? 'green' : 'red' ">{{note}}</span>，将于{{time}}秒后跳转至登陆界面，如没有跳转请直接点击完成按钮</span>
               </el-col>
             </el-row>
           </el-form>
@@ -148,6 +148,12 @@
   a.red:hover {
     text-decoration: underline;
   }
+}
+.green{
+  color: green;
+}
+.red{
+  color: red;
 }
 // ie10步骤条兼容处理
 .ie10 {
@@ -266,6 +272,8 @@ export default {
                 type: type
               })
             } else {
+              this.getForm.custUsername = res.data.data.custUsername
+              this.getForm.custId = res.data.data.custId
               this.$message({
                 showClose: true,
                 message: res.data.data.message ? res.data.data.message : res.data.msg,
@@ -273,12 +281,14 @@ export default {
               })
             }
             callback()
-            callback()
+          } else {
+            this.$message.error(res.data.msg)
           }
         }).catch(err => {
           console.log(err)
           callback(new Error(err))
         })
+        callback()
       }
     }
     // 验证新密码函数
@@ -320,13 +330,15 @@ export default {
       word: '发送验证码',
       btntype: 'primary',
       showCheckBtn: true, // 显示发送验证码按钮
-      showNext: false, // 显示下一步
+      showNext: true, // 显示下一步
       isOvertime: false,
       isPassShow: false, // 密码提示信息显示
       pShow: false, // 密码是否可见
       pcShow: false, // 密码确认是是否可见
       note: '修改成功', // 修改成功或失败信息提示
+      times: null, // 定时器
       time: 60, // 倒计时
+      textColor: true,
       getForm: {
         contactPhone: '', // 手机号码
         verificationCode: '', // 验证码
@@ -441,6 +453,7 @@ function handlePShowChange (val) {
 }
 // 提交
 function subHandle (formName) {
+  clearInterval(this.times)
   this.$refs[formName].validate((valid) => {
     if (valid) {
       this.step = 2
@@ -452,17 +465,27 @@ function subHandle (formName) {
       }
       this.axios.post('/cust/updatePassword.do', param).then(res => {
         // let type = res.data.status ? 'success' : 'error'
+        // this.textColor = res.data.status ? 'true' : 'false'
         if (res.data.status) {
+          this.textColor = true
           if (typeof res.data.data === 'string') {
             this.note = res.data.data ? res.data.data : '返回结果错误，请联系管理员'
           } else {
             this.note = res.data.data.message ? res.data.data.message : res.data.msg
           }
-          setTimeout(() => {
-            this.$router.push({
-              name: 'Login' // 跳转到登录
-            })
-          }, 60000)
+          // 定时器60秒后返回到登录页面
+          this.times = setInterval(() => {
+            this.time--
+            if (this.time === 0) {
+              this.time = 0
+              this.$router.push({
+                name: 'Login' // 跳转到登录
+              })
+            }
+          }, 1000)
+        } else {
+          this.$message.error(res.data.msg)
+          this.textColor = false
         }
       }).catch(err => {
         console.log(err)

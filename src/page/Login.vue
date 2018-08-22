@@ -51,6 +51,7 @@
               </div>
               <p class="account">如果没有账号，请
                 <router-link to="/register" class="red">注册</router-link>
+                <router-link to="/forget" class="red forgetPassword">忘记密码?</router-link>
               </p>
             </div>
           </div>
@@ -149,6 +150,9 @@
 }
 .iconfont.light {
   color: #81bcf9;
+}
+.forgetPassword {
+  float: right;
 }
 </style>
 
