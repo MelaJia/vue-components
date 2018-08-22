@@ -140,7 +140,7 @@ function handleConfirm (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.cancelBase('/loan2/confirmInitiateSigning.do', val.masterChainId) // 调用common混合中公共方法
+    this.postWithId('/loan2/confirmInitiateSigning.do', val.masterChainId) // 调用common混合中公共方法
   }).catch(() => {
     this.$message({
       type: 'info',
@@ -156,7 +156,7 @@ function handleAccept (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.cancelBase('/loan2/completeLoan.do', val.masterChainId) // 调用common混合中公共方法
+    this.postWithId('/loan2/completeLoan.do', val.masterChainId) // 调用common混合中公共方法
   }).catch(() => {
     this.$message({
       type: 'info',
@@ -172,7 +172,7 @@ function handleReject (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.cancelBase('/loan2/rejectLoan.do', val.masterChainId) // 调用common混合中公共方法
+    this.postWithId('/loan2/rejectLoan.do', val.masterChainId) // 调用common混合中公共方法
   }).catch(() => {
     this.$message({
       type: 'info',

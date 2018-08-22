@@ -66,7 +66,7 @@
 import ListMinxIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
-import { postDataBase, firstToUpperCase, debounce, erroShow } from '@/util/util' // 首字母大写 防抖函数
+import { firstToUpperCase, debounce, erroShow } from '@/util/util' // 首字母大写 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 /* 我的Ar列表 */
 export default {
@@ -120,21 +120,7 @@ export default {
     // 拒绝
     handleReject: handleReject,
     // 按钮菜单显隐处理
-    getOpera: getOpera,
-    /**
-     * 取消基础请求
-     * @param {str} url 请求地址
-     * @param {str} id 请求参数(ar单号)
-     */
-    cancelBase (url, param) {
-      postDataBase.call(this, url, param, true).then(res => {
-        console.log(res)
-        // 操作成功刷新数据
-        if (res && res.data.status) {
-          this.$emit('refresh')
-        }
-      })
-    }
+    getOpera: getOpera
   }
 }
 // 详情函数
@@ -239,7 +225,7 @@ function handleConfirm (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.cancelBase('/factoringCreditLoan/confirmInitiateSigning.do', {loanId: val.loanId}) // 调用common混合中公共方法
+    this.postResultFresh('/factoringCreditLoan/confirmInitiateSigning.do', {loanId: val.loanId}) // 调用common混合中公共方法
   }).catch(() => {
     this.$message({
       type: 'info',
@@ -255,7 +241,7 @@ function handleAccept (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.cancelBase('/factoringCreditLoan/completeLoan.do', {loanId: val.loanId}) // 调用common混合中公共方法
+    this.postResultFresh('/factoringCreditLoan/completeLoan.do', {loanId: val.loanId}) // 调用common混合中公共方法
   }).catch(() => {
     this.$message({
       type: 'info',
@@ -263,22 +249,6 @@ function handleAccept (idx, val) {
     })
   })
 }
-// 拒绝
-// function handleReject (idx, val) {
-//   this.$confirm(`融资编号为${val.loanId}的贴现申请确认拒绝?`, `提示`, {
-//     confirmButtonText: '确定',
-//     cancelButtonText: '取消',
-//     type: 'warning',
-//     center: true
-//   }).then(() => {
-//     this.cancelBase('/factoringCreditLoan/rejectLoan.do', {loanId: val.loanId, rejectReason: ''}) // 调用common混合中公共方法
-//   }).catch(() => {
-//     this.$message({
-//       type: 'info',
-//       message: '操作已取消'
-//     })
-//   })
-// }
 // 拒绝
 function handleReject (idx, val) {
   this.$prompt(`融资编号为${val.loanId}的贴现申请确认拒绝`, `提示`, {
@@ -292,7 +262,7 @@ function handleReject (idx, val) {
     center: true
   }).then(({value}) => {
     console.log(value)
-    this.cancelBase('/factoringCreditLoan/rejectLoan.do', {loanId: val.loanId, rejectReason: value}) // 调用common混合中公共方法
+    this.postResultFresh('/factoringCreditLoan/rejectLoan.do', {loanId: val.loanId, rejectReason: value}) // 调用common混合中公共方法
   }).catch(() => {
     this.$message({
       type: 'info',

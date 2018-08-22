@@ -40,17 +40,17 @@ export default {
       return row[column.property] === 1 ? '自有' : '购入'
     },
     /**
-     * 取消基础请求
+     * 操作固定参数请求
+     * 操作成功刷新父页面
      * @param {str} url 请求地址
      * @param {str} id 请求参数(ar单号)
      */
-    async cancelBase (url, id) {
-      debugger
+    async postWithId (url, id) {
       let res = await this.post(url, { masterChainId: id })
       console.log(res)
       // 操作成功刷新数据
       if (res && res.data.status) {
-        this.$emit('refresh')
+        this.fresh()
       }
     },
     // 获取放款详情接口
@@ -61,10 +61,11 @@ export default {
     },
     /**
      * 操作类基础请求
+     * 操作成功刷新父页面
      * @param {str} url 请求地址
      * @param {obj} param 请求参数
      */
-    async postBase (url, param) {
+    async postResultFresh (url, param) {
       let res = await this.post(url, param)
       console.log(res)
       // 操作成功刷新数据

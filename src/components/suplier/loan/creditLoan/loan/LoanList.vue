@@ -223,8 +223,9 @@ function handleCancle (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.postBase('/creditLoan/cancelCreditDiscount.do', { loanId: val.loanId })
-  }).catch(() => {
+    this.postResultFresh('/creditLoan/cancelCreditDiscount.do', { loanId: val.loanId })
+  }).catch((err) => {
+    console.log(err)
     this.$message({
       type: 'info',
       message: '操作已取消'

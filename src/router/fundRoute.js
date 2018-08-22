@@ -149,7 +149,7 @@ const routes = [
       path: 'crc',
       name: 'crc',
       meta: {
-        title: '中证网查询', // 名称
+        title: '中征网查询', // 名称
         requireAuth: true // 需要登录验证
       },
       component: () => import(/* webpackChunkName: 'Fund' */ '@/page/funder/outSource/CRC')

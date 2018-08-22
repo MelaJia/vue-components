@@ -108,7 +108,7 @@ export default {
         type: 'warning',
         center: true
       }).then(() => {
-        this.cancelBase('/transferedAr/cancelTranfered.do', val.masterChainId)
+        this.postWithId('/transferedAr/cancelTranfered.do', val.masterChainId)
       }).catch(() => {
         this.$message({
           type: 'info',

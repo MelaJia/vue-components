@@ -223,7 +223,7 @@ function handleCancle (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.postBase('/supplierOrderLoan/supplierOrderCancelCreditDiscount.do', { loanId: val.loanId })
+    this.postResultFresh('/supplierOrderLoan/supplierOrderCancelCreditDiscount.do', { loanId: val.loanId })
   }).catch(() => {
     this.$message({
       type: 'info',

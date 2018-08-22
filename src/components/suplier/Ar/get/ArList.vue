@@ -67,7 +67,7 @@ function handleAccept (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.cancelBase('/onReceivingAr/receiveTranfer.do', val.masterChainId)
+    this.postWithId('/onReceivingAr/receiveTranfer.do', val.masterChainId)
   }).catch(() => {
     this.$message({
       type: 'info',
@@ -83,7 +83,7 @@ function handleReject (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.cancelBase('/onReceivingAr/rejectTranfer.do', val.masterChainId)
+    this.postWithId('/onReceivingAr/rejectTranfer.do', val.masterChainId)
   }).catch(() => {
     this.$message({
       type: 'info',

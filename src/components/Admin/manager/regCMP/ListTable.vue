@@ -121,7 +121,7 @@ function handleStop (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.postBase('/sysRegisteredCompanyManager/disableRegisteredCompany.do', { custId: val.custId })
+    this.postResultFresh('/sysRegisteredCompanyManager/disableRegisteredCompany.do', { custId: val.custId })
   }).catch(() => {
     this.$message({
       showClose: true,
@@ -138,7 +138,7 @@ function handleStart (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.postBase('/sysRegisteredCompanyManager/enableRegisteredCompany.do', { custId: val.custId })
+    this.postResultFresh('/sysRegisteredCompanyManager/enableRegisteredCompany.do', { custId: val.custId })
   }).catch(() => {
     this.$message({
       showClose: true,
@@ -161,7 +161,7 @@ function handleUpdate (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.postBase('/sysRegisteredCompanyManager/sycCompanyAR.do', param)
+    this.postResultFresh('/sysRegisteredCompanyManager/sycCompanyAR.do', param)
   }).catch(() => {
     this.$message({
       showClose: true,

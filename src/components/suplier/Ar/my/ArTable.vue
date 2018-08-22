@@ -260,7 +260,7 @@ function handleCancleTrans (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.cancelBase('/myAr/cancelTrans.do', val.masterChainId)
+    this.postWithId('/myAr/cancelTrans.do', val.masterChainId)
   }).catch(() => {
     this.$message({
       type: 'info',
@@ -286,7 +286,7 @@ function handleCancleDiscount (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.cancelBase('/myAr/cancelDiscount.do', val.masterChainId)
+    this.postWithId('/myAr/cancelDiscount.do', val.masterChainId)
   }).catch(() => {
     this.$message({
       type: 'info',
@@ -312,7 +312,7 @@ function handleApply (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.cancelBase('/myAr/auditApplyDiscount.do', val.masterChainId)
+    this.postWithId('/myAr/auditApplyDiscount.do', val.masterChainId)
   }).catch(() => {
     this.$message({
       type: 'info',

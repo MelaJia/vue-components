@@ -367,7 +367,7 @@ const navs = {
       },
       {
         idx: 'crc',
-        text: '中证网查询',
+        text: '中征网查询',
         disabled: false,
         lClass: 'end-line',
         hClass: 'circle'
