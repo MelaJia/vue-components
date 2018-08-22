@@ -226,6 +226,7 @@ function submit () {
         repaymentType: this.detailsP.repaymentType || '', // 还款方式
         fineGraceDays: this.detailsP.fineGraceDays || '', // 宽容天数
         repayDate: this.detailsP.repayDate // 还款日期
+        // repayDate: new Date(this.detailsP.repayDate).Format('yyyy-MM-dd') // 还款日期
         // billDueDate: this.detailsP.billDueDate // 预计还款日期
       }
       console.log(param)

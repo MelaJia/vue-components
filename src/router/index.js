@@ -36,6 +36,12 @@ const routes = [
     component: () =>
       import('@/page/Register')
   },
+  {
+    path: '/forget',
+    name: 'Forgetpassword',
+    component: () =>
+      import('@/page/Forgetpassword')
+  },
   ...Main, ...Fund, ...Admin
 ]
 // 页面刷新，重新设置token

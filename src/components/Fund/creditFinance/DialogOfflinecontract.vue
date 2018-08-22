@@ -142,8 +142,6 @@ export default {
     // 上传文件
     uploadFile () {
       var formData = new FormData(this.$refs.uploadForm)
-      // 做测试用的
-      // formData.append('file', this.fileInfo)
       formData.append('contractUploadFile', this.fileInfo)
       formData.append('loanId', this.detailsP.loanId)
       formData.append('contractUploadFileName', this.fileInfo.name)
@@ -168,7 +166,8 @@ export default {
           }
           loading.close()
         }).catch(err => {
-          erroShow.call(this, err, loading)
+          console.log(err)
+          // erroShow.call(this, err, loading)
         })
       }
     },
