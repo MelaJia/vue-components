@@ -152,16 +152,17 @@ export default {
         })
       } else {
         // 显示加载动画
-        const loading = this.$loading(loadingConf.get())
+        // const loading = this.$loading(loadingConf.get())
         this.axios.post('/factoringCreditLoan/creditLoanManualContractUploadFile.do', formData).then(res => {
           if (res.data.status) {
-            loading.close()
+            // loading.close()
             var contractListInfo = {
               'contractUploadFileUrl': res.data.data.contractUploadFileUrl,
               'contractUploadFileName': res.data.data.contractUploadFileName
             }
             this.contractList.push(contractListInfo)
             this.$refs.selectFile.value = ''
+            this.$parent.fresh()
           } else {
             this.$message.error(res.data.msg)
           }
@@ -229,11 +230,11 @@ function submit () {
             type: type
           })
           if (res.data.status) {
+            loading.close()
             this.$parent.fresh()
             this.contractList = []
             this.handleClose()
           }
-          loading.close()
         }).catch(err => {
           console.log(err)
           // erroShow.call(this, err, loading)

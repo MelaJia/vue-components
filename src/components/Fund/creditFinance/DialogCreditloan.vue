@@ -57,7 +57,7 @@
       <ul>
         <span>
           <div class="a-link-group inline-block">
-            附件:<a v-for="(item, index) in this.detailsP.loanUploadFileList" :key="index" :href="item.fileUrl">{{item.fileName}}</a>
+            附件:<a v-for="(item, index) in this.detailsP.loanUploadFileList" :key="index" :href="item.fileUrl" target="_blank">{{item.fileName}}</a>
           </div>
         </span>
       </ul>

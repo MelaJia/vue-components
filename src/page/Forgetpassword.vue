@@ -44,7 +44,7 @@
                     <el-input v-model.trim="getForm.verificationCode"></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="7" :offset="1"><el-button @click="sendMessage">{{word}}</el-button></el-col>
+                <el-col :span="7" :offset="1"><el-button :disabled="showCheckBtn" :type="btntype" @click="sendMessage">{{word}}</el-button></el-col>
               </el-col>
             </el-row>
           </el-form>
@@ -53,15 +53,15 @@
           <el-form ref="form-2" :model="getForm" :rules="rulesTwo" label-width="150px">
             <el-row>
               <el-col :span="12" :offset="6">
-                <el-form-item label="登录名: " prop="loginName">
-                  <el-input v-model.trim="getForm.loginName" readonly=""></el-input>
+                <el-form-item label="登录名: " prop="custUsername">
+                  <el-input v-model.trim="getForm.custUsername" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12" :offset="6">
-                <el-form-item label="新密码: " prop="newPassword">
-                  <el-input :type="pShow?'text':'password'" v-model.trim="getForm.newPassword" @blur="passBlur" @focus="passFocus">
+                <el-form-item label="新密码: " prop="custPassword">
+                  <el-input :type="pShow?'text':'password'" v-model.trim="getForm.custPassword" @blur="passBlur" @focus="passFocus">
                     <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pShow')"></a>
                   </el-input>
                 </el-form-item>
@@ -91,9 +91,10 @@
       <footer>
         <el-row>
           <el-col :span="6" :offset="10">
-            <el-button v-if="step!=0" type="primary" size="mini" @click="prevHandle()">上一步</el-button>
-            <el-button v-if="step!=1" type="primary" size="mini" @click="nextHandle(`form-1`)">下一步</el-button>
-            <el-button v-if="step==1" type="primary" size="mini" @click="subHandle('form-3')">提交</el-button>
+            <el-button v-if="step!=0&&step<2" type="primary" size="mini" @click="prevHandle()">上一步</el-button>
+            <el-button :disabled="showNext" v-if="step<1" type="primary" size="mini" @click="nextHandle(`form-${step+1}`)">下一步</el-button>
+            <el-button v-if="step==1" type="primary" size="mini" @click="subHandle('form-3')" style="width:68px;">提 交</el-button>
+            <el-button v-if="step==2" type="primary" size="mini">完成</el-button>
           </el-col>
         </el-row>
       </footer>
@@ -186,6 +187,9 @@
 .loginLine {
   color: #8ec1f4;
 }
+.reg-step-3{
+  margin-bottom: 40px;
+}
 // 密码提示信息样式
 .text-error {
   color: #f56c6c;
@@ -206,6 +210,58 @@
 // import { baseUrl } from '@/config/env.js'
 export default {
   data () {
+    // 验证手机号码
+    let verifyPhone = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error(`手机号不能为空`))
+      }
+      let re = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
+      setTimeout(() => {
+        if (!re.test(value)) {
+          callback(new Error('手机格式错误'))
+        } else {
+          // 校验手机接口
+          this.axios.post('/cust/validContactPhone.do', {contactPhone: this.getForm.contactPhone}).then(res => {
+            let type = res.data.status ? 'success' : 'error'
+            if (res.data.status) {
+              this.showCheckBtn = false
+              this.$message({
+                type: type,
+                message: res.data.msg ? res.data.msg : '手机号不存在，请联系管理员'
+              })
+              callback()
+            } else {
+              callback(new Error(res.data.msg))
+            }
+          }).catch(err => {
+            console.log(err)
+            callback(new Error(`验证失败请联系管理员`))
+          })
+          callback()
+        }
+      }, 1000)
+    }
+    // 验证校验码
+    let verifyCode = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error(`验证码不能为空`))
+      } else {
+        // 请求校验验证码接口获取登录名
+        this.axios.post('/cust/validVerificationCode.do', {contactPhone: this.getForm.contactPhone, verificationCode: value}).then(res => {
+          console.log(res)
+          if (res.data.status) {
+            this.showNext = false
+            this.custUsername = res.data.data.custUsername
+            this.custId = res.data.data.custId
+            callback()
+          }
+        }).catch(err => {
+          console.log(err)
+          callback(new Error(`验证失败请联系管理员`))
+        })
+      }
+    }
+    // 验证新密码函数
     let validatePass = (rule, value, callback) => {
       if (!value) {
         callback(new Error(`新密码不能为空`))
@@ -228,11 +284,12 @@ export default {
         })
       }
     }
+    // 验证确认密码函数
     let validatePass2 = (rule, value, callback) => {
       let _this = this
       if (value === '') {
         callback(new Error('请再次输入密码'))
-      } else if (value !== _this.getForm.newPassword) {
+      } else if (value !== _this.getForm.custPassword) {
         callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
@@ -241,6 +298,9 @@ export default {
     return {
       step: 0,
       word: '发送验证码',
+      btntype: 'primary',
+      showCheckBtn: true, // 显示发送验证码按钮
+      showNext: false, // 显示下一步
       isOvertime: false,
       isPassShow: false, // 密码提示信息显示
       pShow: false, // 密码是否可见
@@ -248,23 +308,25 @@ export default {
       getForm: {
         contactPhone: '', // 手机号码
         verificationCode: '', // 验证码
-        loginName: '', // 登录名
-        newPassword: '', // 新密码
+        custId: '', // 用户ID
+        custUsername: '', // 登录名
+        custPassword: '', // 新密码
         confirmPassword: '' // 确认密码
       },
       rulesOne: {
         // 手机号校验
         contactPhone: [
           {required: true, message: '手机号不能为空', trigger: 'blur'},
-          {pattern: /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/, message: '手机号格式错误', trigger: 'blur'}
+          {validator: verifyPhone, message: '手机号格式错误', trigger: 'blur'}
         ],
         // 验证码校验
         verificationCode: [
-          {required: true, message: '请输入验证码', trigger: 'blur'}
+          {required: true, message: '请输入验证码', trigger: 'blur'},
+          {validator: verifyCode, trigger: 'blur'}
         ]
       },
       rulesTwo: {
-        newPassword: [
+        custPassword: [
           {required: true, message: '新密码不能为空', trigger: 'blur'},
           { validator: validatePass, trigger: 'blur' }
         ],
@@ -292,15 +354,19 @@ export default {
     passBlur: passBlur,
     // 提交
     subHandle: subHandle,
+    // 验证码失去焦点调用接口
+    // verifyCode: verifyCode,
+    // 验证手机号是否存在
+    // verifyPhone: verifyPhone,
     // 发送验证码
     sendMessage () {
       let phoneRegExp = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
-      if (this.isOvertime || !phoneRegExp.test(this.getForm.mobileMumber)) {
+      if (this.isOvertime || !phoneRegExp.test(this.getForm.contactPhone)) {
         this.$message.error('请输入正确的手机号')
         console.log('请输入正确的手机号')
         return false
       }
-      this.axios.post('/cust/toverificationCode.do', { contactPhone: this.getForm.mobileMumber }).then(res => {
+      this.axios.post('/cust/toverificationCode.do', { contactPhone: this.getForm.contactPhone }).then(res => {
         if (res.data.status) {
           let that = this
           let time = 60
@@ -351,5 +417,21 @@ function handlePShowChange (val) {
 }
 // 提交
 function subHandle (formName) {
+  this.$refs[formName].validate((valid) => {
+    if (valid) {
+      this.step = 2
+      let param = {
+        custId: this.getForm.custId,
+        verificationCode: this.getForm.verificationCode,
+        custPassword: this.getForm.custPassword,
+        confirmPassword: this.getForm.confirmPassword
+      }
+      this.axios.post('/cust/updatePassword.do', param).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  })
 }
 </script>

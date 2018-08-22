@@ -36,7 +36,7 @@ import ScheduleTable from '@/components/suplier/Ar/ScheduleTable'
 import Search from '@/components/suplier/Ar/ScheduleSearch'
 import Table from '@/mixins/suplier/Ar/Table'
 export default {
-  name: 'myschedule', // 我的待办
+  name: 'loanPage', // 我的待办
   mixins: [Table],
   data () {
     return {
