@@ -42,11 +42,12 @@ export default {
     /**
      * 操作固定参数请求
      * 操作成功刷新父页面
+     * 显示加载框
      * @param {str} url 请求地址
      * @param {str} id 请求参数(ar单号)
      */
     async postWithId (url, id) {
-      let res = await this.post(url, { masterChainId: id })
+      let res = await this.post(url, { masterChainId: id }, true)
       console.log(res)
       // 操作成功刷新数据
       if (res && res.data.status) {
@@ -62,11 +63,12 @@ export default {
     /**
      * 操作类基础请求
      * 操作成功刷新父页面
+     * 显示加载框
      * @param {str} url 请求地址
      * @param {obj} param 请求参数
      */
     async postResultFresh (url, param) {
-      let res = await this.post(url, param)
+      let res = await this.post(url, param, true)
       console.log(res)
       // 操作成功刷新数据
       if (res && res.data.status) {
@@ -75,10 +77,10 @@ export default {
     },
     /*
     *发送post请求
-    *显示加载框
+    *默认不显示加载框
     */
-    async post (url, param) {
-      let res = await postDataBase.call(this, url, param, true)
+    async post (url, param, loading = false) {
+      let res = await postDataBase.call(this, url, param, loading)
       return res
     },
     /**

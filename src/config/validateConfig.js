@@ -144,7 +144,7 @@ let validOne = {
   ],
   contactPhone: [{
     required: true,
-    message: '请输入联系人手机号',
+    validator: check('contactPhone', '手机号码'),
     trigger: 'blur'
   },
   {
