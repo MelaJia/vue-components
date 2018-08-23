@@ -4,15 +4,15 @@
     <el-row>
       <el-col :span="6">
         总限额：
-        <span class="red">{{details.totalCreditAmount}}元</span>
+        <span class="red">{{details.totalCreditAmount |regexNum}}元</span>
       </el-col>
       <el-col :span="6">
         可融资金额:
-        <span class="red">{{details.availableCreditAmount}}元</span>
+        <span class="red">{{details.availableCreditAmount |regexNum}}元</span>
       </el-col>
       <el-col :span="6">
         已融资金额:
-        <span class="red">{{details.usedCreditAmount}}元</span>
+        <span class="red">{{details.usedCreditAmount |regexNum}}元</span>
       </el-col>
       <el-col :span="6">
         <el-button type="danger" @click="handleInfo">申请融资</el-button>
@@ -35,6 +35,7 @@ section {
 
 <script>
 import Dialog from '@/mixins/suplier/Ar/Dialog'
+import Common from '@/mixins/common'
 import { getDataBase } from '@/util/util'
 export default {
   data () {
@@ -46,7 +47,7 @@ export default {
       }
     }
   },
-  mixins: [Dialog],
+  mixins: [Dialog, Common],
   mounted () {
     getDataBase.call(this, 'creditLoan/queryCreditAmount.do').then(res => {
       if (res) {

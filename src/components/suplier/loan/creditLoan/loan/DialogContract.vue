@@ -22,11 +22,12 @@ footer {
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+import Common from '@/mixins/common'
 import { debounce, postDataBase } from '@/util/util' // 防抖函数
 /* 合同确认 */
 export default {
   props: ['visibleP', 'detailsP'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, Common],
   data () {
     return {
       checkList: [],

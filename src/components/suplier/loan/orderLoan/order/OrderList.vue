@@ -3,7 +3,7 @@
     <header>
       <el-form ref="ordform" :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="融资金额合计" :rules="amtRule" prop="applyAmt">
-          <el-input class="wd-200" v-model.number="formInline.applyAmt" @change="handleChange"></el-input>元
+          <el-input class="wd-200" v-model.number="displayApplyAmt" @blur="handleChange" @focus="handleFocus"></el-input>元
         </el-form-item>
         <el-form-item label="还款日期" :rules="{required: true, message: '请选择日期', trigger: 'blur'}" prop="repayDate">
           <el-date-picker :editable="false" v-model="formInline.repayDate"  :picker-options="pickerOptions" type="date" placeholder="选择日期"></el-date-picker>
@@ -118,6 +118,7 @@ export default {
       multipleSelection: [], // 选择的数据
       details: {}, // 详情数据
       widthArr: widhConf.crL, // 宽度配置
+      displayApplyAmt: '',
       // 表单数据
       formInline: {
         applyAmt: '', // 融资申请金额
@@ -160,6 +161,8 @@ export default {
     handleSelectionChange: debounce(handleSelectionChange, 1000),
     // 输入金额事件
     handleChange: handleChange,
+    // 聚焦事件
+    handleFocus: resetInput,
     // 融资确认
     handleSub: handleSub,
     // 详情
@@ -208,11 +211,18 @@ function handleSelectionChange (val) {
   })
   // 输入框赋值总金额
   if (this.flag) {
+    // 赋值
     this.formInline.applyAmt = amount
+    // 格式化
+    this.displayApplyAmt = this.thousandth(amount)
   }
 }
 // 输入金额事件
-function handleChange () {
+function handleChange (val) {
+  // 赋值
+  this.formInline.applyAmt = this.displayApplyAmt
+  // 格式化
+  this.displayApplyAmt = this.thousandth(this.displayApplyAmt)
   // 关闭输入框自动更新
   this.flag = false
   let sum = computeMethod.call(this, this.multipleSelection)
@@ -250,6 +260,10 @@ function updateOpen () {
   setTimeout(() => {
     this.flag = true
   }, 1000)
+}
+// 输入框恢复数字
+function resetInput () {
+  this.displayApplyAmt = this.formInline.applyAmt
 }
 // 确认事件
 function handleSub () {

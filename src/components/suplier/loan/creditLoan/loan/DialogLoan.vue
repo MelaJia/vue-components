@@ -11,14 +11,14 @@
         <el-row>
           <el-col :span="12" :offset="6">
             <el-form-item label="可融资金额: ">
-              <span class="red">{{form.availableCreditAmount}}元</span>
+              <span class="red">{{form.availableCreditAmount|regexNum}}元</span>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12" :offset="6">
-            <el-form-item label="融资申请金额:" :rules="applyRule" prop="applyAmt">
-              <el-input v-model="formInline.applyAmt">
+            <el-form-item label="融资申请金额:" :rules="applyRule" prop="money">
+              <el-input v-model.number="displayMoney" @blur="handleBlur" @focus="handleFocus">
                 <template slot="append">元</template>
               </el-input>
             </el-form-item>
@@ -55,12 +55,13 @@
 </style>
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
+import Common from '@/mixins/common' // 关闭弹窗handleClose
 import { debounce, postDataBase } from '@/util/util' // 防抖函数
 import { checkNumberPire } from '@/util/validate' // 校验数字
 import Upload from '@/components/Items/uploadFile'
 export default {
   props: ['visibleP', 'form'],
-  mixins: [DialogClose],
+  mixins: [DialogClose, Common],
   components: {
     Upload
   },
@@ -81,9 +82,10 @@ export default {
           return time.getTime() < Date.now()
         }
       },
+      displayMoney: '', // 显示数据
       // 表单数据
       formInline: {
-        applyAmt: '', // 融资申请金额
+        money: '', // 融资申请金额
         repayDate: null // 还款日期
       }
     }
@@ -102,6 +104,9 @@ export default {
   },
   methods: {
     subHandle: debounce(submit, 1000, true),
+    // 输入金额事件
+    handleBlur: handleBlur,
+    handleFocus: resetInput,
     // 上传图片更新fileList
     getUrl: getUrl,
     init: init
@@ -117,7 +122,7 @@ function submit () {
       // 组合数据
       const param = {
         custId: this.form.custId, // 供應商Id
-        applyAmt: this.formInline.applyAmt, // 融资申请金额
+        applyAmt: this.formInline.money, // 融资申请金额
         repayDate: this.formInline.repayDate, // 还款日期
         loanUploadFileUrl: this.fileList // 附件列表
       }
@@ -155,5 +160,16 @@ function getUrl (obj) {
 function init () {
   this.fileList = []
   Object.assign(this.formInline, { applyAmt: '', repayDate: null })
+}
+// 输入金额事件
+function handleBlur () {
+  // 赋值
+  this.formInline.money = this.displayMoney
+  // 格式化
+  this.displayMoney = this.thousandth(this.displayMoney)
+}
+// 输入框恢复数字
+function resetInput () {
+  this.displayMoney = this.formInline.money
 }
 </script>

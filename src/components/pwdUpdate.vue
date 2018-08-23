@@ -1,6 +1,6 @@
 <template>
   <el-dialog :visible.sync="visibleP" :before-close="handleClose">
-    <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+    <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
         <el-form-item label="注册手机号">
             <el-col :span="6">
               <el-select v-model="phone" placeholder="请选择验证的手机号" size="small">
@@ -22,18 +22,18 @@
             <el-button :type="btntype" size="small" @click="sendMessage">{{word}}</el-button>
         </el-form-item>
         <el-form-item label="原密码" prop="originPass">
-          <el-input :type="opShow?'text':'password'" v-model="ruleForm2.originPass" auto-complete="off">
+          <el-input :type="opShow?'text':'password'" v-model.trim="ruleForm2.originPass" auto-complete="off">
                     <a slot="suffix" :class="`iconfont ${opShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('opShow')"></a>
           </el-input>
         </el-form-item>
         <div v-show="isPassShow" class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~32位的字符串.</div>
         <el-form-item label="新密码" prop="custPassword">
-          <el-input :type="pShow?'text':'password'" v-model="ruleForm2.custPassword" @blur="passBlur" @focus="passFocus" auto-complete="off">
+          <el-input :type="pShow?'text':'password'" v-model.trim="ruleForm2.custPassword" @blur="passBlur" @focus="passFocus" auto-complete="off">
                     <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pShow')"></a>
           </el-input>
         </el-form-item>
         <el-form-item label="确认密码" prop="confirmPassword">
-          <el-input :type="pcShow?'text':'password'" v-model="ruleForm2.confirmPassword" auto-complete="off">
+          <el-input :type="pcShow?'text':'password'" v-model.trim="ruleForm2.confirmPassword" auto-complete="off">
                     <a slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pcShow')"></a>
           </el-input>
         </el-form-item>
