@@ -39,7 +39,7 @@
                     <el-input v-model.trim="getForm.verificationCode"></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="7" :offset="1"><el-button :disabled="showCheckBtn" :type="btntype" @click="sendMessage">{{word}}</el-button></el-col>
+                <el-col :span="7" :push="2"><el-button :disabled="showCheckBtn" :type="btntype" @click="sendMessage">{{word}}</el-button></el-col>
               </el-col>
             </el-row>
           </el-form>
