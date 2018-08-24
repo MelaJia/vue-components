@@ -552,7 +552,7 @@ export default {
       }
     }
   },
-  mounted () {
+  async mounted () {
     this.moneyTypes = getStore({
       name: 'moneyTypes'
     })
@@ -560,7 +560,7 @@ export default {
     if (!this.moneyTypes) {
       console.log('从服务器获取通用数据')
       // 获取货币类型并保存
-      this.axios.get('/commonAr/queryCurr.do').then(res => {
+      await this.axios.get('/commonAr/queryCurr.do').then(res => {
         if (res.data.status) {
           setStore({
             name: 'moneyTypes',
@@ -576,15 +576,17 @@ export default {
         this.$message.error(`网络错误,请求数据失败!${err}`)
       })
     }
-    // 全部索引
-    let idx = this.moneyTypes.findIndex(val => {
-      return val.currencyId === null
-    })
-    // 去除全部
-    this.moneyTypes.splice(idx, 1)
-    this.moneyTypes.map((val, idx) => {
-      this.moneyTypes[idx].currencyId = this.moneyTypes[idx].currencyId.toString()
-    })
+    if (this.moneyTypes) {
+      // 全部索引
+      let idx = this.moneyTypes.findIndex(val => {
+        return val.currencyId === null
+      })
+      // 去除全部
+      this.moneyTypes.splice(idx, 1)
+      this.moneyTypes.map((val, idx) => {
+        this.moneyTypes[idx].currencyId = this.moneyTypes[idx].currencyId.toString()
+      })
+    }
   },
   methods: {
     // 上一页
