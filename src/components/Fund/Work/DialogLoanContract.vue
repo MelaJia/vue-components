@@ -101,6 +101,7 @@
     </section>
     <footer slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleSubmit">确认</el-button>
+      <el-button @click="handleClose">取消</el-button>
     </footer>
   </el-dialog>
 </template>

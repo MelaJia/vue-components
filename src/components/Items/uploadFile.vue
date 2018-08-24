@@ -1,9 +1,9 @@
 <template>
   <el-upload class="upload-demo" ref="upload" :data="param" :action="uploadUrl" :headers="{'Authorization':token}"
-    :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleSuccess" :file-list="fileList" :auto-upload="false">
+    :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeAvatarUpload" :on-success="handleSuccess" :file-list="fileList" :auto-upload="false">
     <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
     <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-    <div><slot name="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</slot></div>
+    <div><slot name="tip" class="el-upload__tip">只能上传xls,pdf,doc,gif,JPG,jpge,xlsx文件,且大小不能超过 4MB</slot></div>
   </el-upload>
 </template>
 <script>
@@ -51,12 +51,30 @@ export default {
       let url = reg.test(file.previewUrl) ? file.previewUrl : `${baseUrl}${file.previewUrl}`
       window.open(url, '_File')
     },
-    handleSuccess: handleSuccess
+    handleSuccess: handleSuccess,
+    // 上传前检查类型
+    beforeAvatarUpload: beforeAvatarUpload
   }
 }
 // 上传成功事件
 function handleSuccess (res, file, fileList) {
   console.log('上传成功')
   this.$emit('get-url', { val: res, file: file, fileLength: fileList.length }) // 返回到父级
+}
+// 检查上传文件
+function beforeAvatarUpload (file) {
+  console.log(file)
+  let typeName = file.name.substr(file.name.lastIndexOf('.') + 1)
+  const typeReg = /(gif|jpg|jpeg|png|GIF|JPG|JPEG|PNG|xls|pdf|doc|xlsx)$/
+  const isIMG = typeReg.test(typeName)
+  const isLt4M = file.size / 1024 / 1024 < 4
+
+  if (!isIMG) {
+    this.$message.error('上传文件只能是xls,pdf,doc,gif,JPG,jpge,xlsx格式!')
+  }
+  if (!isLt4M) {
+    this.$message.error('上传文件大小不能超过 4MB!')
+  }
+  return isIMG && isLt4M
 }
 </script>

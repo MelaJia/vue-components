@@ -211,6 +211,9 @@ function handleSelectionChange (val) {
   })
   // 输入框赋值总金额
   if (this.flag) {
+    // 校验重置
+    this.$refs.ordform.clearValidate()
+    this.isover = false
     // 赋值
     this.formInline.applyAmt = amount
     // 格式化

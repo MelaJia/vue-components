@@ -18,20 +18,6 @@
         </el-col>
     </el-row>
     <el-row>
-        <el-col :span="10">
-          <el-form-item label="订单确认日期">
-            <el-date-picker :editable="false" v-model="formInline.confirmDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="10">
-          <el-form-item label="约定交货日期">
-            <el-date-picker :editable="false" v-model="formInline.deliveryDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-    </el-row>
-    <el-row>
       <el-col :span="7">
            <el-form-item label="币别">
               <el-select class="wd-190" v-model="formInline.currency" clearable placeholder="全部">
@@ -50,6 +36,20 @@
           </el-col>
         </el-form-item>
       </el-col>
+    </el-row>
+    <el-row>
+        <el-col :span="10">
+          <el-form-item label="订单确认日期">
+            <el-date-picker :editable="false" v-model="formInline.confirmDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="10">
+          <el-form-item label="约定交货日期">
+            <el-date-picker :editable="false" v-model="formInline.deliveryDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
     </el-row>
     <el-row>
       <el-col :span="2" :offset="11">

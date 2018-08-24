@@ -55,8 +55,8 @@
     </section>
     <section class="layout form">
       <el-row>
-        <el-col :span="8" class="flex"><label>授让公司Id:</label><el-input v-model.trim="receiveCustId" placeholder="请输入授让公司Id"></el-input></el-col>
-        <el-col :span="8" :offset="2" class="flex"><label>转让金额:</label><el-input v-model.number="transAmt" type="number" placeholder="请输入转让金额："></el-input></el-col>
+        <el-col :span="9" class="flex"><label>授让公司Id:</label><el-input v-model.trim="receiveCustId" placeholder="请输入授让公司Id"></el-input></el-col>
+        <el-col :span="8" :offset="1" class="flex"><label style="width: 80px;">转让金额:</label><el-input v-model.number="transAmt" type="number" placeholder="请输入转让金额："></el-input></el-col>
         <el-col :span="6" v-if="sum">
           <el-tooltip class="item" effect="dark" :content="`已勾选发票金额合计:${thousandth(sum)}`" placement="top-start">
             <label class="sum-content">金额上限:{{sum | regexNum}}</label>
@@ -65,21 +65,23 @@
       </el-row>
       <el-row>
         <el-col :span="18" class="flex">
-          <label style="width: 85px;">备注:</label><el-input type="textarea" v-model.trim="remark" :maxlength="255" ></el-input>
+          <label style="width: 40px;">备注:</label><el-input  type="textarea" :autosize="{ minRows: 3, maxRows: 5}" v-model.trim="remark" :maxlength="255" ></el-input>
         </el-col>
       </el-row>
     </section>
     <footer slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleSubmit" >确认</el-button>
+      <el-button type="default" @click="handleClose">取消</el-button>
     </footer>
   </el-dialog>
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
 .layout.form {
-  margin-top: 10px;
+  margin-top: 20px;
   .el-row {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    padding-left: 5px;
   }
 }
 .layout.form .flex {
@@ -88,6 +90,8 @@
     width: 100px;
     height: 40px;
     line-height: 40px;
+    text-align: left;
+    margin-right: 5px
   }
 }
 .sum-content{

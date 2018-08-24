@@ -192,7 +192,7 @@
               <el-col :span="10">
                 <el-form-item label="注册资本：" prop="registeredCapital">
                   <el-input placeholder="请输入金额：" :maxlength="12" v-model.number="getForm.registeredCapital" class="input-with-select">
-                    <el-select v-model.number="getForm.registeredCurrencyType" slot="append" placeholder="请选择">
+                    <el-select v-model="getForm.registeredCurrencyType" slot="append" placeholder="请选择">
                       <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
                     </el-select>
                   </el-input>
@@ -201,7 +201,7 @@
               <el-col :span="10" :offset="4">
                 <el-form-item label="实收资本：" prop="paidinCapital">
                   <el-input :maxlength="12" v-model.number="getForm.paidinCapital">
-                    <el-select v-model.number="getForm.paidinCurrencyType" slot="append" placeholder="请选择">
+                    <el-select v-model="getForm.paidinCurrencyType" slot="append" placeholder="请选择">
                       <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
                     </el-select>
                   </el-input>
@@ -224,8 +224,8 @@
             </el-row>
             <el-row>
               <el-col :span="12">
-                <el-form-item label="营业执照日期:" prop="compuDate">
-                  <el-date-picker :editable="false" v-model="getForm.compuDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+                <el-form-item label="营业执照日期:">
+                  <el-date-picker :editable="false" v-model="compuDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
                   </el-date-picker>
                 </el-form-item>
               </el-col>
@@ -511,6 +511,7 @@ export default {
       isPassShow: false, // 密码提示信息显示
       is2s1Show: true, // 二选一提示
       userInfo: getUserInfo(),
+      compuDate: [], // 营业执照日期
       bankProvinceCity: [], // 银行省市
       bankProvinceCityError: '', // 错误信息提示
       select: '',
@@ -581,6 +582,9 @@ export default {
     })
     // 去除全部
     this.moneyTypes.splice(idx, 1)
+    this.moneyTypes.map((val, idx) => {
+      this.moneyTypes[idx].currencyId = this.moneyTypes[idx].currencyId.toString()
+    })
   },
   methods: {
     // 上一页
@@ -649,10 +653,8 @@ function subHandle (formName) {
   this.$refs[formName].validate((valid) => {
     if (valid) {
       // 1.处理数据
-      let businessStartDate = this.userInfo.compuDate ? this.userInfo.compuDate[0] : ''
-      let businessEndDate = this.userInfo.compuDate ? this.userInfo.compuDate[1] : ''
-      this.userInfo.registeredCurrencyType = this.userInfo.registeredCurrencyType.toString() // 注册资本币别
-      this.userInfo.paidinCurrencyType = this.userInfo.paidinCurrencyType.toString() // 实收资本币别
+      let businessStartDate = this.compuDate.length > 0 ? this.compuDate[0] : null
+      let businessEndDate = this.compuDate.length > 1 ? this.compuDate[1] : null
       this.userInfo.businessStartDate = businessStartDate // 营业执照开始日期
       this.userInfo.businessEndDate = businessEndDate // 营业执照结束日期
       this.userInfo.bankProvince = this.bankProvinceCity[0] !== undefined ? this.bankProvinceCity[0] : ''
@@ -672,6 +674,7 @@ function subHandle (formName) {
       //   }
       // }
       // 5.传送数据
+      console.log(Object.keys(this.userInfo).length)
       this.axios.post('/cust/userRegister.do', this.userInfo).then(res => {
         let _this = this
         let type = res.data.status ? 'success' : 'error'
@@ -721,9 +724,9 @@ function getUserInfo () {
     registry: '', // 公司登记机构
     vendorCodes: '', // 供应商代码
     registeredCapital: 0, // 注册资本
-    registeredCurrencyType: 1, // 注册资本币别
+    registeredCurrencyType: '1', // 注册资本币别
     paidinCapital: 0, // 实收资本
-    paidinCurrencyType: 1, // 实收资本币别
+    paidinCurrencyType: '1', // 实收资本币别
     establishDate: null, // 公司成立日期
     companyRegisterDate: null, // 公司登记日期
     businessStartDate: null, // 营业执照开始日期
@@ -757,7 +760,12 @@ function getUserInfo () {
     legalPerson: 'a', // 法人姓名
     legalIdcardNum: '433121199912103562', // 法人身份证
     legalPhone: '13713384377', // 法人电话
-    legalMail: '11@qq.com' // 法人邮箱
+    legalMail: '11@qq.com', // 法人邮箱
+    logoUrl: '111123.png', // 公司LOGO
+    licenseUrl: '111123.png', // 营业执照
+    licenseViceUrl: '111123.png', // 营业执照副本
+    organizationUrl: '111123.png', // 组织机构代码证
+    taxUrl: '111123.png' // 税务登记证
   }
   var object = require('lodash/fp/object')
   return process.env.NODE_ENV === 'development' ? object.assign(infos, devInfos) : infos
