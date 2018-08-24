@@ -154,7 +154,7 @@ export default {
       rules: {
         actualRepayAmt: [
           { required: true, message: '请输入客户还款金额', trigger: 'change' },
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkNumber, trigger: 'change' }
         ],
         actualRepayDate: [
           { required: true, message: '请输入实际还款日期', trigger: 'blur' }
@@ -180,12 +180,17 @@ export default {
     advanceRepay: debounce(advanceSubmit, 1000, true),
     // 代入应还金额
     getFull () {
+      if (this.detailsP.repayAmt === '' || this.detailsP.repayAmt === undefined) {
+        this.detailsP.actualRepayAmt = 0
+        return
+      }
       this.detailsP.actualRepayAmt = this.detailsP.repayAmt
     },
     // 代入提前还清应还金额
     getAdvanceFull () {
       if (this.repayDetail.settlePrepayAmt === '' || this.repayDetail.settlePrepayAmt === undefined) {
         this.detailsP.actualRepayAmt = 0
+        return
       }
       this.detailsP.actualRepayAmt = this.repayDetail.settlePrepayAmt
     },
