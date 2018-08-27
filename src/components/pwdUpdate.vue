@@ -17,7 +17,7 @@
         </el-form-item>
         <el-form-item label="验证码" prop="verificationCode">
             <el-col :span="6" >
-              <el-input v-model.trim="ruleForm2.verificationCode" auto-complete="off" :maxlength="4" size="small"></el-input>
+              <el-input v-model.trim="ruleForm2.verificationCode" auto-complete="off" :maxlength="6" size="small"></el-input>
             </el-col>
             <el-button :type="btntype" size="small" @click="sendMessage">{{word}}</el-button>
         </el-form-item>
