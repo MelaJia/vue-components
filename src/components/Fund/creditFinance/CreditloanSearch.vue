@@ -95,7 +95,7 @@ import SearchMixIn from '@/mixins/suplier/Ar/Search'
 import commonDatas from '@/mixins/commonDatas'
 /* 我的验收单查询搜索 */
 export default {
-  name: 'creditrejectsearch', // 信用拒绝查询
+  name: 'creditLoanPage', // 信用拒绝查询
   mixins: [SearchMixIn, commonDatas],
   data () {
     return {

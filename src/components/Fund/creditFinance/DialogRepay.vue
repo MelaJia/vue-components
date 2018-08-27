@@ -191,8 +191,10 @@ export default {
     // 选择框改变将boolean值改为number
     change (val) {
       if (val === true) {
+        this.detailsP.actualRepayAmt = this.repayDetail.settlePrepayAmt
         this.isConfirmSettled = 1
       } else {
+        this.detailsP.actualRepayAmt = this.detailsP.repayAmt
         this.isConfirmSettled = 0
       }
     }

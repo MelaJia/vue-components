@@ -130,11 +130,31 @@ export default {
     ...mapGetters(['token']),
     // 附件列表
     contractList () {
-      return this.detailsP.contractUploadFileList
+      return this.uniqueData(this.detailsP.contractUploadFileList)
+      // return this.detailsP.contractUploadFileList
     }
   },
   methods: {
+    // 生成合同
     uploadContract: debounce(submit, 1000, true),
+    // 去重数据
+    uniqueData (list) {
+      var newArr = [this.detailsP.contractUploadFileList[0]]
+      for (var i = 1; i < list.length; i++) {
+        var listItem = list[i]
+        var repeat = false
+        for (var j = 0; j < newArr.length; j++) {
+          if (listItem.contractUploadFileName === newArr[j].contractUploadFileName) {
+            repeat = true
+            break
+          }
+        }
+        if (!repeat) {
+          newArr.push(listItem)
+        }
+      }
+      return newArr
+    },
     // 选择文件
     selectFile (e) {
       this.fileInfo = e.target.files[0]

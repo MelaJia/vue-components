@@ -44,7 +44,7 @@
               </el-table-column>
               <el-table-column align="center" prop="prepaymentDeductInterest" :width="widthArr.prepaymentDeductInterest">
               </el-table-column>
-              <el-table-column align="right" prop="prepaymentInterest" :width="widthArr.prepaymentInterest" :formatter="regexNum">
+              <el-table-column align="right" prop="periodReliefAmt" :width="widthArr.periodReliefAmt" :formatter="regexNum">
               </el-table-column>
               <el-table-column align="right" prop="totalRepayAmt" :width="widthArr.totalRepayAmt" :formatter="regexNum">
               </el-table-column>
@@ -106,7 +106,7 @@
         </el-table-column>
         <el-table-column align="center" label="提前还款手续费" prop="prepaymentDeductInterest" min-width="100">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款优惠金额" prop="prepaymentInterest" width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="还款优惠金额" prop="periodReliefAmt" width="100" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="还款合计" prop="totalRepayAmt" min-width="120" :formatter="regexNum">
         </el-table-column>
@@ -188,7 +188,7 @@ export default {
         payFineAmt: '100',
         payFineDays: '100',
         prepaymentDeductInterest: '100',
-        prepaymentInterest: '100',
+        periodReliefAmt: '100',
         totalRepayAmt: '120',
         contractSignedDate: '150',
         repayDate: '150',

@@ -82,7 +82,7 @@
           <el-form ref="form-3" :model="getForm" label-width="150px">
             <el-row>
               <el-col :span="14" :offset="5">
-                  <span><span :class="textColor ? 'green' : 'red' ">{{note}}</span>，将于{{time}}秒后跳转至登陆界面，如没有跳转请直接点击完成按钮</span>
+                  <span><span class="green">修改成功</span>，将于{{time}}秒后跳转至登陆界面，如没有跳转请直接点击完成按钮</span>
               </el-col>
             </el-row>
           </el-form>
@@ -151,9 +151,6 @@
 }
 .green{
   color: green;
-}
-.red{
-  color: red;
 }
 // ie10步骤条兼容处理
 .ie10 {
@@ -246,6 +243,8 @@ export default {
                 })
               }
               callback()
+            } else {
+              this.$message.error(res.data.data)
             }
           }).catch(err => {
             console.log(err)
@@ -351,12 +350,12 @@ export default {
         // 手机号校验
         contactPhone: [
           {required: true, message: '手机号不能为空', trigger: 'blur'},
-          {validator: verifyPhone, message: '手机号格式错误', trigger: 'blur'}
+          {validator: verifyPhone, message: '手机号格式错误', trigger: 'change'}
         ],
         // 验证码校验
         verificationCode: [
           {required: true, message: '请输入验证码', trigger: 'blur'},
-          {validator: verifyCode, trigger: 'blur'}
+          {validator: verifyCode, trigger: 'change'}
         ]
       },
       rulesTwo: {
@@ -456,7 +455,6 @@ function subHandle (formName) {
   clearInterval(this.times)
   this.$refs[formName].validate((valid) => {
     if (valid) {
-      this.step = 2
       let param = {
         custId: this.getForm.custId,
         verificationCode: this.getForm.verificationCode,
@@ -464,14 +462,22 @@ function subHandle (formName) {
         confirmPassword: this.getForm.confirmPassword
       }
       this.axios.post('/cust/updatePassword.do', param).then(res => {
-        // let type = res.data.status ? 'success' : 'error'
+        let type = res.data.status ? 'success' : 'error'
         // this.textColor = res.data.status ? 'true' : 'false'
         if (res.data.status) {
-          this.textColor = true
+          this.step = 2
           if (typeof res.data.data === 'string') {
-            this.note = res.data.data ? res.data.data : '返回结果错误，请联系管理员'
+            this.$message({
+              showClose: true,
+              message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+              type: type
+            })
           } else {
-            this.note = res.data.data.message ? res.data.data.message : res.data.msg
+            this.$message({
+              showClose: true,
+              message: res.data.data.message ? res.data.data.message : res.data.msg,
+              type: type
+            })
           }
           // 定时器60秒后返回到登录页面
           this.times = setInterval(() => {
@@ -485,7 +491,6 @@ function subHandle (formName) {
           }, 1000)
         } else {
           this.$message.error(res.data.msg)
-          this.textColor = false
         }
       }).catch(err => {
         console.log(err)
