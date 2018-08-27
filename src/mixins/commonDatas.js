@@ -11,7 +11,7 @@ export default {
       repayTypes: [] // 还款方式
     }
   },
-  async mounted () {
+  mounted () {
     // 从storage获取通用数据
     console.log('从storage获取通用数据')
 
@@ -32,7 +32,7 @@ export default {
     let lisN = this.loanTypes ? this.loanTypes[0].loanTypeName : null
     if (!this.loanTypes | lisN === null) {
       // 获取融资类型
-      await this.axios.get('/commonTrans/queryLoanType.do').then(res => {
+      this.axios.get('/commonTrans/queryLoanType.do').then(res => {
         if (res.data.status) {
           setStore({
             name: 'loanTypes',
@@ -51,7 +51,7 @@ export default {
     }
     if (!this.repayTypes) {
       // 获取还款方式类型
-      await this.axios.get('/commonTrans/queryRepaymentType.do').then(res => {
+      this.axios.get('/commonTrans/queryRepaymentType.do').then(res => {
         if (res.data.status) {
           setStore({
             name: 'repayTypes',
@@ -74,7 +74,7 @@ export default {
     if (!this.moneyTypes | misN === null) {
       console.log('从服务器获取通用数据')
       // 获取货币类型并保存
-      await this.axios.get('/commonAr/queryCurr.do').then(res => {
+      this.axios.get('/commonAr/queryCurr.do').then(res => {
         if (res.data.status) {
           setStore({
             name: 'moneyTypes',
@@ -100,7 +100,7 @@ export default {
     } else {
       // storage中无数据
       // 获取ar状态并保存
-      await this.axios.get('/commonAr/queryARStatusType.do').then(res => {
+      this.axios.get('/commonAr/queryARStatusType.do').then(res => {
         if (res.data.status) {
           setStore({
             name: 'arStatus',
