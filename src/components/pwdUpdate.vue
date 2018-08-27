@@ -15,14 +15,14 @@
               </el-select>
             </el-col>
         </el-form-item>
-        <el-form-item label="验证码" prop="verify">
+        <el-form-item label="验证码" prop="verificationCode">
             <el-col :span="6" >
-              <el-input v-model.trim="ruleForm2.verify" auto-complete="off" size="small"></el-input>
+              <el-input v-model.trim="ruleForm2.verificationCode" auto-complete="off" :maxlength="4" size="small"></el-input>
             </el-col>
             <el-button :type="btntype" size="small" @click="sendMessage">{{word}}</el-button>
         </el-form-item>
-        <el-form-item label="原密码" prop="originPass">
-          <el-input :type="opShow?'text':'password'" v-model.trim="ruleForm2.originPass" auto-complete="off">
+        <el-form-item label="原密码" prop="originalCustPassword">
+          <el-input :type="opShow?'text':'password'" v-model.trim="ruleForm2.originalCustPassword" auto-complete="off">
                     <a slot="suffix" :class="`iconfont ${opShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('opShow')"></a>
           </el-input>
         </el-form-item>
@@ -66,6 +66,11 @@ import * as types from '@/store/types' // 存储类型
 export default {
   props: ['visibleP'],
   mixins: [DialogClose],
+  watch: {
+    visibleP: function () {
+      this.init()
+    }
+  },
   data () {
     // 密码校验规则
     /**
@@ -74,6 +79,43 @@ export default {
  * @param {string} smsg 提示信息
  * @param {str} url 地址
  */
+    let validateVerify = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error(`验证码不能为空`))
+      } else {
+        this.axios.post('/cust/validVerificationCode.do', {
+          contactPhone: this.phone,
+          verificationCode: value
+        }).then(res => {
+          if (res.data.status) {
+            callback()
+          } else {
+            callback(new Error(res.data.msg))
+          }
+        }).catch(err => {
+          console.log(err)
+          callback(new Error(`验证失败请联系管理员`))
+        })
+      }
+    }
+    let validateOriginPass = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error(`原密码不能为空`))
+      } else {
+        this.axios.post('/cust/validPassword.do', {
+          originalCustPassword: value
+        }).then(res => {
+          if (res.data.status) {
+            callback()
+          } else {
+            callback(new Error(res.data.msg))
+          }
+        }).catch(err => {
+          console.log(err)
+          callback(new Error(`验证失败请联系管理员`))
+        })
+      }
+    }
     let validatePass = (rule, value, callback) => {
       if (!value) {
         callback(new Error(`新密码不能为空`))
@@ -113,14 +155,17 @@ export default {
       pcShow: false, // 密码确认是是否可见
       phone: this.$store.state.user.userinfos.legalPhone, // 手机号
       ruleForm2: {
-        originPass: '', // 原密码
+        originalCustPassword: '', // 原密码
         custPassword: '',
         confirmPassword: '',
-        verify: ''
+        verificationCode: ''
       },
       rules2: {
-        verify: [
-          { required: true, message: '验证码不能为空', trigger: 'blur' }
+        verificationCode: [
+          { validator: validateVerify, trigger: 'blur' }
+        ],
+        originalCustPassword: [
+          { validator: validateOriginPass, trigger: 'blur' }
         ],
         custPassword: [
           { validator: validatePass, trigger: 'blur' }
@@ -161,7 +206,7 @@ function submitForm (formName) {
     if (valid) {
       let param = Object.assign({}, this.ruleForm2)
       // 提交数据
-      postDataBase.call(this, '/cust/updatepassword.do', param, true).then(res => {
+      postDataBase.call(this, '/cust/updatePassword.do', param, true).then(res => {
         // 密码修改成功 登出
         this.logout()
       })
@@ -200,7 +245,9 @@ function logout () {
 }
 // 初始化
 function Init () {
-  this.checkList = []
+  if (this.$refs['ruleForm2']) {
+    this.$refs['ruleForm2'].resetFields()
+  }
 }
 // 显示密码提示信息
 function passFocus () {
@@ -218,6 +265,9 @@ function handlePShowChange (val) {
 function sendMessage () {
   if (this.phone.length <= 0) {
     this.$message.error('请选择需要验证的手机')
+    return
+  }
+  if (this.isOvertime) {
     return
   }
   this.axios.post('/cust/toverificationCode.do', {

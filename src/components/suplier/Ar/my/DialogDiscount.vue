@@ -72,7 +72,11 @@
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
 .layout.form {
-  margin-top: 10px;
+  margin-top: 20px;
+  .el-row {
+    margin-bottom: 20px;
+    padding-left: 5px;
+  }
 }
 .layout.form .flex {
   display: flex;

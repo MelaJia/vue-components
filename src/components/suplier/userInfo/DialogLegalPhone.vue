@@ -88,10 +88,13 @@ export default {
     // 验证码
     sendMessage () {
       let phoneRegExp = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
-      if (this.isOvertime || !phoneRegExp.test(this.form.legalPhone)) {
+      if (!phoneRegExp.test(this.form.legalPhone)) {
         this.$message.error('请输入正确的手机号')
         console.log('请输入正确的手机号')
         return false
+      }
+      if (this.isOvertime) {
+        return
       }
       this.axios.post('/cust/toverificationCode.do', { contactPhone: this.form.legalPhone }).then(res => {
         if (res.data.status) {

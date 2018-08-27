@@ -3,7 +3,7 @@
     :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeAvatarUpload" :on-success="handleSuccess" :file-list="fileList" :auto-upload="false">
     <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
     <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-    <div><slot name="tip" class="el-upload__tip">只能上传xls,pdf,doc,gif,JPG,jpge,xlsx文件,且大小不能超过 4MB</slot></div>
+    <div><slot name="tip" class="el-upload__tip">只能上传xls,pdf,doc,gif,JPG,jpeg,xlsx文件,且大小不能超过 4MB</slot></div>
   </el-upload>
 </template>
 <script>
@@ -70,7 +70,7 @@ function beforeAvatarUpload (file) {
   const isLt4M = file.size / 1024 / 1024 < 4
 
   if (!isIMG) {
-    this.$message.error('上传文件只能是xls,pdf,doc,gif,JPG,jpge,xlsx格式!')
+    this.$message.error('上传文件只能是xls,pdf,doc,gif,JPG,jpeg,xlsx格式!')
   }
   if (!isLt4M) {
     this.$message.error('上传文件大小不能超过 4MB!')

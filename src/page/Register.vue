@@ -690,9 +690,10 @@ function subHandle (formName) {
           }
         }, 2000)
       }).catch(err => {
+        console.log(err)
         this.$message({
           type: 'info',
-          message: `操作失败${err}`
+          message: `系统错误，请联系管理员`
         })
       })
     }

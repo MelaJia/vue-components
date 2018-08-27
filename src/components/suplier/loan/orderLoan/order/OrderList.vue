@@ -293,7 +293,7 @@ function handleSub () {
         // })
         let param = Object.assign({}, this.formInline, { poLoanInfoList: this.multipleSelection })
         console.log(param)
-        postDataBase.call(this, 'creditLoan/supplierOrderApplyDiscount.do', param, true).then(res => {
+        postDataBase.call(this, 'supplierOrderLoan/supplierOrderApplyDiscount.do', param, true).then(res => {
           if (res.data.status) {
             // 成功刷新数据
             this.fresh()

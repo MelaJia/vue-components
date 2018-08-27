@@ -52,7 +52,7 @@
             <span>今日提前还清应还金额: <em>{{this.detailsP.settlePrepayAmt | regexNum}}</em></span>
           </li>
           <li>
-             <el-checkbox v-model="confirmCheck" v-on:change="change">确认提前还清</el-checkbox>
+             <el-checkbox v-model="confirmCheck" >确认提前还清</el-checkbox>
           </li>
         </ul>
       <ul>
@@ -106,8 +106,11 @@ export default {
     }
   },
   watch: {
-    getTitle: function () {
-      this.init() // 置空
+    confirmCheck: function () {
+      this.payAmt = 0
+    },
+    visibleP: function () {
+      this.init()
     }
   },
   computed: {
@@ -167,6 +170,8 @@ function handleSubmit () {
       this.$parent.fresh()
       this.handleClose()
     }
+  }).catch(err => {
+    console.log(err)
   })
 }
 // 提前还清
@@ -196,10 +201,13 @@ function advanceSubmit () {
       this.$parent.fresh()
       this.handleClose()
     }
+  }).catch(err => {
+    console.log(err)
   })
 }
 // 初始化
 function Init () {
   this.payAmt = 0
+  this.confirmCheck = false
 }
 </script>

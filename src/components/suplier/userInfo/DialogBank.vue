@@ -44,7 +44,7 @@
         <el-row>
           <el-col :span="12" :offset="4">
             <el-form-item label="账号名称:">
-              <el-input v-model.trim="form.bankShortName"></el-input>
+              <el-input v-model.trim="form.bankAccountName"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

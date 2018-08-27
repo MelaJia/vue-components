@@ -164,7 +164,6 @@ header {
 import TableMixIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common' // fresh刷新数据函数
 import Width from '@/mixins/Fund/width' // 宽度
-import { getDataBase } from '@/util/util'
 export default {
   props: ['dataLoading', 'dataTable'],
   mixins: [TableMixIn, Common, Width],
@@ -208,7 +207,7 @@ function handleInfo (idx, val) {
 /**
  * 还款
  */
-function handleRepay (idx, val1, val2) {
+async function handleRepay (idx, val1, val2) {
   // 获取数据
   // 引入mixins/common.js中getLoanDetail其中包含有加载loading
   let param = {
@@ -218,22 +217,49 @@ function handleRepay (idx, val1, val2) {
   let param2 = {
     factoringCustId: val1.factoringCustId, masterChainId: val1.masterChainId
   }
-  console.log(param)
-
-  this.getLoanDetail('/loanQuery/queryLoanRepayInfo.do', param).then(res => {
-    if (res) {
-      this.details = Object.assign(this.details, res)
+  // 显示加载图标
+  const loading = this.$loading({
+    lock: true,
+    text: 'Loading',
+    spinner: 'el-icon-loading',
+    background: 'rgba(0, 0, 0, 0.7)'
+  })
+  try {
+    let res1 = await this.axios.post('/loanQuery/queryLoanRepayInfo.do', param)
+    // 获取提前还清还款的接口
+    let res2 = await this.axios.post('/loanQuery/prepaySettleLoanTrial.do', param2)
+    loading.close()
+    if (res1.data.status) {
+      this.details = Object.assign({}, res1.data.data)
+    } else {
+      this.$message({
+        showClose: true,
+        message: res1.data.msg,
+        type: 'error'
+      })
+      return false
+    }
+    if (res2.data.status) {
+      this.details = Object.assign(this.details, res2.data.data)
+    } else {
+      this.$message({
+        showClose: true,
+        message: res2.data.msg,
+        type: 'error'
+      })
+      return false
+    }
+    if (res1.data.status && res2.data.status) {
       this.dialogRepayVisible = true
     }
-  })
-  // 获取提前还清还款的接口
-  getDataBase.call(this, '/loanQuery/prepaySettleLoanTrial.do', param2).then(res => {
-    if (res) {
-      this.details = Object.assign(this.details, res)
-      this.dialogRepayVisible = true
-    }
-  }).catch(err => {
-    console.log(err)
-  })
+  } catch (error) {
+    loading.close()
+    console.log('系统异常', error)
+    this.$alert(`系统异常,请联系管理员!`, '系统提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+      }
+    })
+  }
 }
 </script>
