@@ -7,16 +7,14 @@
         </el-form-item>
       </el-col>
       <el-col :span="7" :offset="3">
-          <el-form-item label="状态">
-            <el-select class="wd-190" v-model="formInline.status" clearable placeholder="全部">
-              <el-option v-for="(item,index) in arStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
-            </el-select>
+          <el-form-item label="订单号">
+            <el-input class="wd-190" v-model.trim="formInline.poNumber" placeholder=""></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="7">
-           <el-form-item label="币别">
-              <el-select class="wd-190" v-model="formInline.currency" clearable placeholder="全部">
-                <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
+           <el-form-item label="状态">
+              <el-select class="wd-190" v-model="formInline.status" clearable placeholder="全部">
+                <el-option v-for="(item,index) in arStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
               </el-select>
             </el-form-item>
         </el-col>
@@ -47,6 +45,13 @@
           </el-col>
         </el-form-item>
       </el-col>
+      <el-col :span="7">
+           <el-form-item label="币别">
+              <el-select class="wd-190" v-model="formInline.currency" clearable placeholder="全部">
+                <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
+              </el-select>
+            </el-form-item>
+        </el-col>
     </el-row>
     <el-row>
       <el-col :span="2" :offset="11">
@@ -83,6 +88,7 @@ export default {
     return {
       formInline: {
         loanId: '', // 融资编号
+        poNumber: '', // 订单号
         status: null, // 状态
         currency: '', // 币别
         repayDate: '', // 还款日期
