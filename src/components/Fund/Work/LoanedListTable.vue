@@ -225,9 +225,8 @@ async function handleRepay (idx, val1, val2) {
     background: 'rgba(0, 0, 0, 0.7)'
   })
   try {
-    let res1 = await this.axios.post('/loanQuery/queryLoanRepayInfo.do', param)
+    let [res1, res2] = await Promise.all([this.axios.post('/loanQuery/queryLoanRepayInfo.do', param), this.axios.post('/loanQuery/prepaySettleLoanTrial.do', param2)])
     // 获取提前还清还款的接口
-    let res2 = await this.axios.post('/loanQuery/prepaySettleLoanTrial.do', param2)
     loading.close()
     if (res1.data.status) {
       this.details = Object.assign({}, res1.data.data)
