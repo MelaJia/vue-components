@@ -54,7 +54,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="客户还款金额:" prop="actualRepayAmt">
-              <el-input v-model="detailsP.actualRepayAmt"></el-input>
+              <el-input v-model.number="detailsP.actualRepayAmt"></el-input>
             </el-form-item>
           </el-col>
           <!-- <el-col :span="12"><a href="javascript:;" @click.prevent="getFull" class="getFull">代入应还金额</a><a href="javascript:;" @click.prevent="getFull" class="getFull">代入提前还清应还金额</a></el-col> -->
@@ -139,7 +139,7 @@ export default {
           } else {
             if (value <= 0) {
               callback(new Error('必须大于等于0'))
-            } else if (value < this.detailsP.settlePrepayAmt) {
+            } else if (value < this.repayDetail.settlePrepayAmt) {
               callback(new Error('还款金额不能小于提前还清金额'))
             } else {
               callback()
@@ -160,12 +160,6 @@ export default {
           { required: true, message: '请输入实际还款日期', trigger: 'blur' }
         ]
       }
-      // 日期选择器配置
-      // pickerOptions: {
-      //   disabledDate (time) {
-      //     return time.getTime() <= Date.now()
-      //   }
-      // }
     }
   },
   computed: {
