@@ -23,7 +23,7 @@
       <el-col :span="8">
         <el-form-item label="状态">
           <el-select v-model="formInline.status" clearable placeholder="全部">
-            <el-option v-for="(item,index) in creditStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
+            <el-option v-for="(item,index) in arStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
           </el-select>
         </el-form-item>
       </el-col>

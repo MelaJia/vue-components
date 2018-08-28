@@ -7,7 +7,7 @@
       </span>
     </header>
     <section class="layout loan-contract-form">
-      <el-form ref="form" :model="detailsP" status-icon :rules="rules" label-width="130px">
+      <el-form ref="form" :model="detailsP" status-icon :rules="rules" label-width="150px">
         <el-row>
           <el-col :span="11" class="flex">
             <el-form-item label="贴现金额: " prop="applyAmt">
@@ -29,7 +29,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
-            <el-form-item label="贴现利率: " prop="interestRate">
+            <el-form-item label="年利率: " prop="interestRate">
              <el-input v-model="detailsP.interestRate" placeholder="贴现利率">
                <template slot="append">%</template>
              </el-input>
@@ -54,7 +54,7 @@
         </el-row>
         <el-row>
           <el-col :span="11" class="flex">
-            <el-form-item label="提前还款手续费: " prop="prepaymentDeductInterest">
+            <el-form-item label="提前还款手续费率: " prop="prepaymentDeductInterest">
               <el-input v-model="detailsP.prepaymentDeductInterest"  placeholder="提前还款手续费"></el-input>
             </el-form-item>
           </el-col>

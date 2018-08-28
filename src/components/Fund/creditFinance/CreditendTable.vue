@@ -23,7 +23,7 @@
               </el-table-column>
               <el-table-column align="center" :width="widthArr.currencyName">
               </el-table-column>
-              <el-table-column align="center" :width="widthArr.status">
+              <el-table-column align="center" :width="widthArr.statusName">
               </el-table-column>
               <el-table-column align="center" :width="widthArr.repaymentType">
               </el-table-column>
@@ -88,7 +88,7 @@
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" min-width="80">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="status" min-width="80">
+        <el-table-column align="center" label="状态" prop="statusName" min-width="80">
         </el-table-column>
         <el-table-column align="center" label="还款方式" prop="repaymentType" min-width="150">
         </el-table-column>
@@ -179,7 +179,7 @@ export default {
         loanTypeName: '100',
         applyAmt: '150',
         currencyName: '80',
-        status: '80',
+        statusName: '80',
         repaymentType: '150',
         loanAmt: '100',
         payPrincipalAmt: '100',

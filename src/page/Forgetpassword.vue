@@ -92,7 +92,7 @@
         <el-row>
           <el-col :span="6" :offset="10">
             <el-button v-if="step!=0&&step<2" type="primary" size="mini" @click="prevHandle()">上一步</el-button>
-            <el-button :disabled="showNext" v-if="step<1" type="primary" size="mini" @click="nextHandle(`form-${step+1}`)">下一步</el-button>
+            <el-button v-if="step<1" type="primary" size="mini" @click="nextHandle(`form-${step+1}`)">下一步</el-button>
             <el-button v-if="step==1" type="primary" size="mini" @click="subHandle('form-3')" style="width:68px;">提 交</el-button>
             <el-button v-if="step==2" type="primary" size="mini" @click="goLogin">完成</el-button>
           </el-col>
@@ -226,25 +226,26 @@ export default {
         } else {
           // 校验手机接口
           this.axios.post('/cust/validContactPhone.do', {contactPhone: this.getForm.contactPhone}).then(res => {
-            let type = res.data.status ? 'success' : 'error'
+            // let type = res.data.status ? 'success' : 'error'
             if (res.data.status) {
               this.showCheckBtn = false
-              if (typeof res.data.data === 'string') {
-                this.$message({
-                  showClose: true,
-                  message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-                  type: type
-                })
-              } else {
-                this.$message({
-                  showClose: true,
-                  message: res.data.data.message ? res.data.data.message : res.data.msg,
-                  type: type
-                })
-              }
+              // if (typeof res.data.data === 'string') {
+              //   this.$message({
+              //     showClose: true,
+              //     message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+              //     type: type
+              //   })
+              // } else {
+              //   this.$message({
+              //     showClose: true,
+              //     message: res.data.data.message ? res.data.data.message : res.data.msg,
+              //     type: type
+              //   })
+              // }
               callback()
             } else {
-              this.$message.error(res.data.data)
+              // this.$message.error(res.data.data)
+              callback(new Error(res.data.data))
             }
           }).catch(err => {
             console.log(err)
@@ -255,41 +256,51 @@ export default {
       }, 1000)
     }
     // 验证校验码
+    // let verifyCode = (rule, value, callback) => {
+    //   if (!value) {
+    //     callback(new Error(`验证码不能为空`))
+    //   } else {
+    //     // 请求校验验证码接口获取登录名
+    //     this.axios.post('/cust/validVerificationCode.do', {contactPhone: this.getForm.contactPhone, verificationCode: value}).then(res => {
+    //       let type = res.data.status ? 'success' : 'error'
+    //       if (res.data.status) {
+    //         this.showNext = false
+    //         if (typeof res.data.data === 'string') {
+    //           this.$message({
+    //             showClose: true,
+    //             message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+    //             type: type
+    //           })
+    //         } else {
+    //           this.getForm.custUsername = res.data.data.custUsername
+    //           this.getForm.custId = res.data.data.custId
+    //           this.$message({
+    //             showClose: true,
+    //             message: res.data.data.message ? res.data.data.message : res.data.msg,
+    //             type: type
+    //           })
+    //         }
+    //         callback()
+    //       } else {
+    //         this.$message.error(res.data.msg)
+    //       }
+    //     }).catch(err => {
+    //       console.log(err)
+    //       callback(new Error(err))
+    //     })
+    //     callback()
+    //   }
+    // }
+
+    // 验证验证码
     let verifyCode = (rule, value, callback) => {
       if (!value) {
         callback(new Error(`验证码不能为空`))
       } else {
-        // 请求校验验证码接口获取登录名
-        this.axios.post('/cust/validVerificationCode.do', {contactPhone: this.getForm.contactPhone, verificationCode: value}).then(res => {
-          let type = res.data.status ? 'success' : 'error'
-          if (res.data.status) {
-            this.showNext = false
-            if (typeof res.data.data === 'string') {
-              this.$message({
-                showClose: true,
-                message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-                type: type
-              })
-            } else {
-              this.getForm.custUsername = res.data.data.custUsername
-              this.getForm.custId = res.data.data.custId
-              this.$message({
-                showClose: true,
-                message: res.data.data.message ? res.data.data.message : res.data.msg,
-                type: type
-              })
-            }
-            callback()
-          } else {
-            this.$message.error(res.data.msg)
-          }
-        }).catch(err => {
-          console.log(err)
-          callback(new Error(err))
-        })
         callback()
       }
     }
+
     // 验证新密码函数
     let validatePass = (rule, value, callback) => {
       if (!value) {
@@ -329,14 +340,15 @@ export default {
       word: '发送验证码',
       btntype: 'primary',
       showCheckBtn: true, // 显示发送验证码按钮
-      showNext: true, // 显示下一步
+      // showNext: true, // 显示下一步
       isOvertime: false,
       isPassShow: false, // 密码提示信息显示
       pShow: false, // 密码是否可见
       pcShow: false, // 密码确认是是否可见
       note: '修改成功', // 修改成功或失败信息提示
       times: null, // 定时器
-      time: 60, // 倒计时
+      time: 60,
+      backTime: 60, // 倒计时
       textColor: true,
       getForm: {
         contactPhone: '', // 手机号码
@@ -355,7 +367,7 @@ export default {
         // 验证码校验
         verificationCode: [
           {required: true, message: '请输入验证码', trigger: 'blur'},
-          {validator: verifyCode, trigger: 'change'}
+          {validator: verifyCode, trigger: 'blur'}
         ]
       },
       rulesTwo: {
@@ -392,22 +404,25 @@ export default {
       let phoneRegExp = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
       if (this.isOvertime || !phoneRegExp.test(this.getForm.contactPhone)) {
         this.$message.error('请输入正确的手机号')
-        console.log('请输入正确的手机号')
         return false
+      }
+      if (this.isOvertime) {
+        return
       }
       this.axios.post('/cust/toverificationCode.do', { contactPhone: this.getForm.contactPhone }).then(res => {
         if (res.data.status) {
           let that = this
-          let time = 60
           this.btntype = ''
           var sendTimer = setInterval(function () {
             that.isOvertime = true
-            time--
-            that.word = '重新发送' + time
-            if (time < 0) {
+            that.time--
+            that.word = '重新发送' + that.time
+            that.showCheckBtn = true
+            if (that.time < 0) {
               that.isOvertime = false
               this.btntype = 'primary'
               clearInterval(sendTimer)
+              that.showCheckBtn = false
               that.word = '获取验证码'
             }
           }, 1000)
@@ -433,8 +448,35 @@ function nextHandle (formName) {
   // 校验操作
   this.$refs[formName].validate((valid) => {
     if (valid) {
-      // 校验成功显示下一步骤
-      this.step = this.step < 2 ? this.step + 1 : this.step
+      // 校验码去调接口获取登录名
+      this.axios.post('/cust/validVerificationCode.do', {contactPhone: this.getForm.contactPhone, verificationCode: this.getForm.verificationCode}).then(res => {
+        let type = res.data.status ? 'success' : 'error'
+        if (res.data.status) {
+          // 校验成功显示下一步骤
+          this.step = this.step < 2 ? this.step + 1 : this.step
+          if (typeof res.data.data === 'string') {
+            this.getForm.custUsername = res.data.data.custUsername
+            this.getForm.custId = res.data.data.custId
+            this.$message({
+              showClose: true,
+              message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+              type: type
+            })
+          } else {
+            this.getForm.custUsername = res.data.data.custUsername
+            this.getForm.custId = res.data.data.custId
+            this.$message({
+              showClose: true,
+              message: res.data.data.message ? res.data.data.message : res.data.msg,
+              type: type
+            })
+          }
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     }
   })
 }
@@ -481,9 +523,9 @@ function subHandle (formName) {
           }
           // 定时器60秒后返回到登录页面
           this.times = setInterval(() => {
-            this.time--
-            if (this.time === 0) {
-              this.time = 0
+            this.backTime--
+            if (this.backTime === 0) {
+              this.backTime = 0
               this.$router.push({
                 name: 'Login' // 跳转到登录
               })
