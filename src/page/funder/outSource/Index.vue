@@ -74,6 +74,13 @@
 * {
   margin: 0;
 }
+.box-card {
+  min-width: 1200px;
+}
+
+.header {
+  text-align: center;
+}
 .u-line>div {
     display: inline-block;
 }

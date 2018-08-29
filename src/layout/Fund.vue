@@ -17,9 +17,9 @@
         </el-aside>
         <el-main style="margin-left: 200px;padding-top:0px;">
           <tags ref="nav" class="nav"></tags>
-         <main :style="'background-color:#fff;height:auto;margin-top: 40px;'">
+         <section :style="'background-color:#fff;height:auto;margin-top: 40px;'">
             <router-view></router-view>
-          </main>
+          </section>
         </el-main>
       </el-container>
     </el-container>

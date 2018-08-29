@@ -101,13 +101,13 @@ export default {
   mixins: [DialogClose, Common],
   data () {
     return {
-      payAmt: 0,
+      payAmt: '',
       confirmCheck: false // 确认提前还清选择框
     }
   },
   watch: {
     confirmCheck: function () {
-      this.payAmt = 0
+      this.payAmt = ''
     },
     visibleP: function () {
       this.init()
@@ -133,7 +133,7 @@ export default {
 // 填入应还金额
 function handleFill () {
   if (this.detailsP.repayAmt === '' || this.detailsP.repayAmt === undefined) {
-    this.payAmt = 0
+    this.payAmt = ''
     return
   }
   this.payAmt = this.detailsP.repayAmt
@@ -142,7 +142,7 @@ function handleFill () {
 function getAdvanceFull () {
   console.log(this.detailsP.settlePrepayAmt)
   if (this.detailsP.settlePrepayAmt === '' || this.detailsP.settlePrepayAmt === undefined) {
-    this.payAmt = 0
+    this.payAmt = ''
     return
   }
   this.payAmt = this.detailsP.settlePrepayAmt
@@ -207,7 +207,7 @@ function advanceSubmit () {
 }
 // 初始化
 function Init () {
-  this.payAmt = 0
+  this.payAmt = ''
   this.confirmCheck = false
 }
 </script>

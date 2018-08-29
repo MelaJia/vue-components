@@ -5,12 +5,20 @@
         {{getTitle}}
       </span>
     </header>
-    <el-checkbox-group v-model="checkList">
+    <section v-if="step===1">
+      <el-checkbox-group v-model="checkList">
       <el-checkbox v-for="item in this.detailsP.contractList" :key="item.contractId" :label="item.contractId"><a :href="item.contractUrl" target="_blank" @click="constractHandle(item.contractUrl)">{{item.contractName}}</a></el-checkbox>
-    </el-checkbox-group>
-    <footer slot="footer">
-      <el-button round @click="handleSubmit" type="primary" v-loading.fullscreen.lock="isLoading">同意签署</el-button>
-       <el-button round @click="handleReject" type="warning" v-loading.fullscreen.lock="isLoading">拒绝退回</el-button>
+      </el-checkbox-group>
+    </section>
+    <section style="padding-left:200px" v-if="step===2">
+      <verify :captcha.sync="captcha"></verify>
+    </section>
+    <footer slot="footer" v-if="step===1">
+        <el-button round @click="beforeSubmit" type="primary" v-loading.fullscreen.lock="isLoading">同意签署</el-button>
+        <el-button round @click="handleReject" type="warning" v-loading.fullscreen.lock="isLoading">拒绝退回</el-button>
+    </footer>
+    <footer slot="footer" v-if="step===2">
+        <el-button round @click="handleSubmit" type="primary" >确认</el-button>
     </footer>
   </el-dialog>
 </template>
@@ -24,10 +32,11 @@ footer {
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
 import { debounce, postDataBase } from '@/util/util' // 防抖函数
+import mixVerify from '@/mixins/common/dialogContract'
 /* 合同确认 */
 export default {
   props: ['visibleP', 'detailsP'],
-  mixins: [DialogClose, Common],
+  mixins: [DialogClose, Common, mixVerify],
   data () {
     return {
       checkList: [],
@@ -42,8 +51,7 @@ export default {
     handleReject: debounce(reject, 1000, {
       'leading': true,
       'trailing': false
-    }),
-    init: Init
+    })
   },
   computed: {
     getTitle () {
@@ -51,7 +59,6 @@ export default {
     }
   }
 }
-
 function submit () {
   if (this.checkList.length !== this.detailsP.contractList.length) {
     this.$message({
@@ -60,7 +67,14 @@ function submit () {
     })
     return
   }
-  postDataBase.apply(this, ['/creditLoan/completeSigningDiscount.do', { loanId: this.detailsP.loanId }, true]).then(res => {
+  if (this.captcha.length === 0) {
+    this.$message({
+      type: 'error',
+      message: '验证码不能为空'
+    })
+    return
+  }
+  postDataBase.apply(this, ['/creditLoan/completeSigningDiscount.do', { loanId: this.detailsP.loanId, verificationCode: this.captcha }, true]).then(res => {
     // 操作成功 关闭弹窗
     if (res.data.status) {
       this.handleClose() // 关闭弹窗
@@ -90,9 +104,5 @@ function reject () {
     // 错误提示
     console.log(err)
   })
-}
-// 初始化
-function Init () {
-  this.checkList = []
 }
 </script>

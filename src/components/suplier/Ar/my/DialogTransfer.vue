@@ -35,7 +35,7 @@
         </li>
       </ul>
       <ul>
-          <span>授让公司名：<em>{{rc.name}}</em></span>
+          <span>授让公司名: <em>{{rc.name}}</em></span>
       </ul>
       <ul class="height-auto">
           <span>已勾选发票:
@@ -53,11 +53,19 @@
           </span>
       </ul>
     </section>
-    <section class="layout form">
+    <el-form class="layout form" label-width="100px">
       <el-row>
-        <el-col :span="8" class="flex"><label>授让公司Id:</label><el-input v-model.trim="receiveCustId" placeholder="请输入授让公司Id"></el-input></el-col>
-        <el-col :span="8" :offset="2" class="flex"><label>转让金额:</label><el-input v-model.number="transAmt" type="number" placeholder="请输入转让金额："></el-input></el-col>
-        <el-col :span="6" v-if="sum">
+        <el-col :span="9" class="flex">
+          <el-form-item label="授让公司Id:" prop="receiveCustId">
+             <el-input v-model.trim="receiveCustId" placeholder="请输入授让公司Id"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="9" class="flex">
+          <el-form-item label="转让金额:" prop="receiveCustId">
+             <el-input v-model.number="transAmt" type="number" placeholder="请输入转让金额："></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4" v-if="sum">
           <el-tooltip class="item" effect="dark" :content="`已勾选发票金额合计:${thousandth(sum)}`" placement="top-start">
             <label class="sum-content">金额上限:{{sum | regexNum}}</label>
           </el-tooltip>
@@ -65,10 +73,12 @@
       </el-row>
       <el-row>
         <el-col :span="18" class="flex">
-          <label style="width: 85px;">备注:</label><el-input type="textarea" v-model.trim="remark" :maxlength="255" ></el-input>
+           <el-form-item label="备注:" prop="receiveCustId">
+            <el-input type="textarea" v-model.trim="remark" :maxlength="255" :autosize="{ minRows: 3, maxRows: 6}"></el-input>
+          </el-form-item>
         </el-col>
       </el-row>
-    </section>
+    </el-form>
     <footer slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleSubmit" >确认</el-button>
     </footer>
@@ -78,18 +88,6 @@
 @import "@/assets/css/_dialog.scss";
 .layout.form {
   margin-top: 20px;
-  .el-row {
-    margin-bottom: 20px;
-    padding-left: 5px;
-  }
-}
-.layout.form .flex {
-  display: flex;
-  > label {
-    width: 120px;
-    height: 40px;
-    line-height: 40px;
-  }
 }
 .sum-content{
   height: 40px;
