@@ -8,6 +8,8 @@
     <!-- <dialog-contractonline :visible-p.sync="dialogOnline" :details-p="detailsContract"></dialog-contractonline> -->
     <!--线下合同-->
     <dialog-contractoffline :visible-p.sync="dialogOnline" :details-p="offlineContract"></dialog-contractoffline>
+    <!--校验手机号-->
+    <dialog-checkphone :visible-p.sync="dialogCheckPhone" :details-p="checkDetail"></dialog-checkphone>
     <section>
       <el-table ref="table" :data="comDatas" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @mousedown.native="mouseDown"
@@ -80,15 +82,19 @@ export default {
     // 'dialog-contractonline': () =>
     //  import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOnlinecontract')
     'dialog-contractoffline': () =>
-       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOfflinecontract')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOfflinecontract'),
+    'dialog-checkphone': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogCheckphone')
   },
   data () {
     return {
       dialogInfoVisible: false,
       dialogOnline: false,
+      dialogCheckPhone: false,
       details: {}, // 详情数据
       detailsContract: {},
       offlineContract: {}, // 线下合同详情
+      checkDetail: {},
       operateArr: [{ key: 'contrac', name: '合同生成' }, { key: 'confirm', name: '发起确认' }, { key: 'accept', name: '放款' }, { key: 'reject', name: '拒绝' }] // 操作数据
     }
   },
@@ -133,47 +139,6 @@ function handleInfo (idx, val) {
     }
   })
 }
-// 合同生成
-// function handleContrac (idx, val) {
-//   // 1.显示加载图标
-//   const loading = this.$loading(loadingConf.get())
-//   // 2.获取数据
-//   this.axios.post('/factoringCreditLoan/showElectronicsContract.do', { loanId: val.loanId }).then(res => {
-//     console.log(res)
-//     if (res.data.status) {
-//       // 放款比例初始化否则先输入实际放款金额会造成不联动
-//       res.data.data.loanPer = res.data.data.loanPer || 1
-//       res.data.data.loanAmt = res.data.data.loanAmt || res.data.data.applyAmt * res.data.data.loanPer / 100
-//       res.data.data.repaymentType = res.data.data.repaymentType ? parseInt(res.data.data.repaymentType) : null
-//       // 3.设置数据
-//       this.detailsContract = res.data.data
-//       // 4.显示弹窗
-//       if (val.contractSignType === 1) {
-//         this.dialogTransferVisible = true // 显示电子合同
-//       } else {
-//         this.dialogOnline = true // 显示线下上传合同
-//         // 线下合同查询接口列表
-//         this.axios.post('/factoringCreditLoan/queryManualContract.do', { loanId: val.loanId }).then(res => {
-//           if (res.data.status) {
-//             console.log(res.data.data)
-//             this.offlineContract = res.data.data
-//           } else {
-//             this.$message.error(res.data.msg)
-//           }
-//           loading.close()
-//         }).catch((err) => {
-//           erroShow.call(this, err, loading)
-//         })
-//       }
-//     } else {
-//       this.$message.error(res.data.msg)
-//     }
-//     loading.close() // 关闭加载图标
-//   }).catch((err) => {
-//     // 错误提示
-//     erroShow.call(this, err, loading)
-//   })
-// }
 
 // 合同生成
 function handleContrac (idx, val) {
@@ -218,6 +183,21 @@ function handleContrac (idx, val) {
 }
 
 // 发起确认
+// function handleConfirm (idx, val) {
+//   this.$confirm(`单号为${val.loanId}的贴现合同确认发起确认?`, `提示`, {
+//     confirmButtonText: '确定',
+//     cancelButtonText: '取消',
+//     type: 'warning',
+//     center: true
+//   }).then(() => {
+//     this.postResultFresh('/factoringCreditLoan/confirmInitiateSigning.do', {loanId: val.loanId}) // 调用common混合中公共方法
+//   }).catch(() => {
+//     this.$message({
+//       type: 'info',
+//       message: '操作已取消'
+//     })
+//   })
+// }
 function handleConfirm (idx, val) {
   this.$confirm(`单号为${val.loanId}的贴现合同确认发起确认?`, `提示`, {
     confirmButtonText: '确定',
@@ -225,7 +205,9 @@ function handleConfirm (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.postResultFresh('/factoringCreditLoan/confirmInitiateSigning.do', {loanId: val.loanId}) // 调用common混合中公共方法
+    this.dialogCheckPhone = true
+    this.checkDetail = val
+    console.log(val)
   }).catch(() => {
     this.$message({
       type: 'info',

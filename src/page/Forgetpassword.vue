@@ -36,7 +36,7 @@
               <el-col :span="12" :offset="6">
                 <el-col :span="16">
                   <el-form-item label="验证码: " prop="verificationCode">
-                    <el-input v-model.trim="getForm.verificationCode"></el-input>
+                    <el-input v-model.trim="getForm.verificationCode" :maxlength="6"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="7" :push="2"><el-button :disabled="showCheckBtn" :type="btntype" @click="sendMessage">{{word}}</el-button></el-col>
