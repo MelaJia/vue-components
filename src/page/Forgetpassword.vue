@@ -82,7 +82,7 @@
           <el-form ref="form-3" :model="getForm" label-width="150px">
             <el-row>
               <el-col :span="14" :offset="5">
-                  <span><span class="green">修改成功</span>，将于{{time}}秒后跳转至登陆界面，如没有跳转请直接点击完成按钮</span>
+                  <span><span class="green">修改成功</span>，将于{{backTime}}秒后跳转至登陆界面，如没有跳转请直接点击完成按钮</span>
               </el-col>
             </el-row>
           </el-form>
@@ -222,36 +222,22 @@ export default {
       let re = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
       setTimeout(() => {
         if (!re.test(value)) {
-          callback(new Error('手机格式错误'))
+          callback(new Error('手机号格式错误'))
+          this.showCheckBtn = true
         } else {
           // 校验手机接口
           this.axios.post('/cust/validContactPhone.do', {contactPhone: this.getForm.contactPhone}).then(res => {
-            // let type = res.data.status ? 'success' : 'error'
             if (res.data.status) {
               this.showCheckBtn = false
-              // if (typeof res.data.data === 'string') {
-              //   this.$message({
-              //     showClose: true,
-              //     message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-              //     type: type
-              //   })
-              // } else {
-              //   this.$message({
-              //     showClose: true,
-              //     message: res.data.data.message ? res.data.data.message : res.data.msg,
-              //     type: type
-              //   })
-              // }
               callback()
             } else {
-              // this.$message.error(res.data.data)
+              this.showCheckBtn = true
               callback(new Error(res.data.data))
             }
           }).catch(err => {
             console.log(err)
-            callback(new Error(`验证失败请联系管理员`))
+            callback(new Error(`手机号验证失败`))
           })
-          callback()
         }
       }, 1000)
     }
@@ -347,7 +333,7 @@ export default {
       pcShow: false, // 密码确认是是否可见
       note: '修改成功', // 修改成功或失败信息提示
       times: null, // 定时器
-      time: 60,
+      // time: 60,
       backTime: 60, // 倒计时
       textColor: true,
       getForm: {
@@ -361,12 +347,12 @@ export default {
       rulesOne: {
         // 手机号校验
         contactPhone: [
-          {required: true, message: '手机号不能为空', trigger: 'blur'},
-          {validator: verifyPhone, message: '手机号格式错误', trigger: 'change'}
+          // {required: true, message: '手机号不能为空', trigger: 'blur'},
+          {validator: verifyPhone, trigger: 'change'}
         ],
         // 验证码校验
         verificationCode: [
-          {required: true, message: '请输入验证码', trigger: 'blur'},
+          // {required: true, message: '请输入验证码', trigger: 'blur'},
           {validator: verifyCode, trigger: 'blur'}
         ]
       },
@@ -395,42 +381,12 @@ export default {
     passBlur: passBlur,
     // 提交
     subHandle: subHandle,
+    sendMessage: sendMessage,
     // 验证码失去焦点调用接口
     // verifyCode: verifyCode,
     // 验证手机号是否存在
     // verifyPhone: verifyPhone,
     // 发送验证码
-    sendMessage () {
-      let phoneRegExp = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
-      if (this.isOvertime || !phoneRegExp.test(this.getForm.contactPhone)) {
-        this.$message.error('请输入正确的手机号')
-        return false
-      }
-      if (this.isOvertime) {
-        return
-      }
-      this.axios.post('/cust/toverificationCode.do', { contactPhone: this.getForm.contactPhone }).then(res => {
-        if (res.data.status) {
-          let that = this
-          this.btntype = ''
-          var sendTimer = setInterval(function () {
-            that.isOvertime = true
-            that.time--
-            that.word = '重新发送' + that.time
-            that.showCheckBtn = true
-            if (that.time < 0) {
-              that.isOvertime = false
-              this.btntype = 'primary'
-              clearInterval(sendTimer)
-              that.showCheckBtn = false
-              that.word = '获取验证码'
-            }
-          }, 1000)
-        } else {
-          this.$message.error(res.data.msg)
-        }
-      })
-    },
     // 路由跳转,跳转到登录页面
     goLogin () {
       this.$router.push({
@@ -438,6 +394,37 @@ export default {
       })
     }
   }
+}
+// 发送验证码
+function sendMessage () {
+  let phoneRegExp = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
+  if (this.isOvertime || !phoneRegExp.test(this.getForm.contactPhone)) {
+    this.$message.error('请输入正确的手机号')
+    return false
+  }
+  this.axios.post('/cust/toverificationCode.do', { contactPhone: this.getForm.contactPhone }).then(res => {
+    if (res.data.status) {
+      let that = this
+      let time = 60
+      this.btntype = 'default'
+      var sendTimer = setInterval(function () {
+        that.isOvertime = true
+        time--
+        that.word = '重新发送' + time + 's'
+        that.showCheckBtn = true
+        if (time < 0) {
+          // that.time = 60
+          that.isOvertime = false
+          that.btntype = 'primary'
+          clearInterval(sendTimer)
+          that.showCheckBtn = false
+          that.word = '获取验证码'
+        }
+      }, 1000)
+    } else {
+      this.$message.error(res.data.msg)
+    }
+  })
 }
 // 上一页函数
 function prevHandle (formName) {
@@ -526,6 +513,7 @@ function subHandle (formName) {
             this.backTime--
             if (this.backTime === 0) {
               this.backTime = 0
+              clearInterval(this.times)
               this.$router.push({
                 name: 'Login' // 跳转到登录
               })

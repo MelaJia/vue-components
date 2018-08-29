@@ -7,9 +7,9 @@
       </span>
     </header>
     <section>
-      <el-form ref="form" :model="detailsP" status-icon :rules="rules" label-width="160px">
+      <el-form ref="form" :model="detailsP" status-icon :rules="rules" label-width="170px">
         <el-row>
-          <el-col :span="12" class="flex">
+          <el-col :span="24" class="flex">
             <el-form-item label="还款单位:" prop="repayCompany">
               <span>{{detailsP.repayCompany}}</span>
             </el-form-item>

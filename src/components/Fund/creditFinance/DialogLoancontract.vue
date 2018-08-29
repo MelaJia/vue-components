@@ -30,7 +30,7 @@
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
             <el-form-item label="年利率: " prop="interestRate">
-             <el-input v-model="detailsP.interestRate" placeholder="贴现利率">
+             <el-input v-model="detailsP.interestRate" placeholder="贴现利率" @keyup.native="handleRate($event)">
                <template slot="append">%</template>
              </el-input>
             </el-form-item>
@@ -39,14 +39,14 @@
         <el-row>
           <el-col :span="11" class="flex">
              <el-form-item label="服务费率: " prop="serviceFeeRate">
-              <el-input v-model="detailsP.serviceFeeRate" placeholder="服务费率">
+              <el-input v-model="detailsP.serviceFeeRate" placeholder="服务费率" @keyup.native="handleService($event)">
                 <template slot="append">%</template>
               </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
              <el-form-item label="逾期利率: " prop="overdueRate">
-             <el-input v-model="detailsP.overdueRate" placeholder="逾期利率">
+             <el-input v-model="detailsP.overdueRate" placeholder="逾期利率" @keyup.native="handleDue($event)">
                <template slot="append">%</template>
              </el-input>
             </el-form-item>
@@ -55,7 +55,7 @@
         <el-row>
           <el-col :span="11" class="flex">
             <el-form-item label="提前还款手续费率: " prop="prepaymentDeductInterest">
-              <el-input v-model="detailsP.prepaymentDeductInterest"  placeholder="提前还款手续费"></el-input>
+              <el-input v-model="detailsP.prepaymentDeductInterest"  placeholder="提前还款手续费" @keyup.native="handlePay($event)"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
@@ -152,23 +152,23 @@ export default {
         ],
         interestRate: [
           { required: true, message: '请输入贴现利率', trigger: 'blur' },
-          { validator: checkRate, trigger: 'blur' }
+          { validator: checkFate, trigger: 'blur' }
         ],
         serviceFeeRate: [
           { required: true, message: '请输入服务费率', trigger: 'blur' },
-          { validator: checkRate, trigger: 'blur' }
+          { validator: checkFate, trigger: 'blur' }
         ],
         overdueRate: [
           { required: true, message: '请输入逾期利率', trigger: 'blur' },
-          { validator: checkRate, trigger: 'blur' }
+          { validator: checkFate, trigger: 'blur' }
         ],
         prepaymentDeductInterest: [
           { required: true, message: '请输入提前还款手续费', trigger: 'blur' },
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkFate, trigger: 'blur' }
         ],
         fineGraceDays: [
           { required: true, message: '请输入宽容天数', trigger: 'blur' },
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkDay, trigger: 'blur' }
         ],
         repayDate: [
           { required: true, message: '请输入预计还款日期', trigger: 'blur' }
@@ -205,7 +205,27 @@ export default {
     }
   },
   methods: {
-    handleSubmit: debounce(submit, 1000, true)
+    handleSubmit: debounce(submit, 1000, true),
+    // 检验年利率
+    handleRate (e) {
+      e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null
+      this.detailsP.interestRate = e.target.value
+    },
+    // 检验服务费率
+    handleService (e) {
+      e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null
+      this.detailsP.serviceFeeRate = e.target.value
+    },
+    // 检验逾期利率
+    handleDue (e) {
+      e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null
+      this.detailsP.overdueRate = e.target.value
+    },
+    // 检验提前还款手续费率
+    handlePay (e) {
+      e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null
+      this.detailsP.prepaymentDeductInterest = e.target.value
+    }
   }
 }
 // 提交操作
@@ -224,10 +244,9 @@ function submit () {
         overdueRate: this.detailsP.overdueRate || '', // 逾期利率
         prepaymentDeductInterest: this.detailsP.prepaymentDeductInterest || '', // 提前还款手续费
         repaymentType: this.detailsP.repaymentType || '', // 还款方式
-        fineGraceDays: this.detailsP.fineGraceDays || '', // 宽容天数
+        fineGraceDays: Number(this.detailsP.fineGraceDays) || '', // 宽容天数
         repayDate: this.detailsP.repayDate // 还款日期
         // repayDate: new Date(this.detailsP.repayDate).Format('yyyy-MM-dd') // 还款日期
-        // billDueDate: this.detailsP.billDueDate // 预计还款日期
       }
       console.log(param)
       // 显示加载图标
@@ -277,6 +296,24 @@ var checkRate = (rule, value, callback) => {
     }
   }, 1000)
 }
+// 年利率规则
+var checkFate = (rule, value, callback) => {
+  if (!value) {
+    return callback(new Error('不能为空'))
+  }
+  let re = /^\d+(\.\d{0,2})?$/
+  setTimeout(() => {
+    if (!re.test(value)) {
+      callback(new Error('请输入正数或者带两位小数的正数'))
+    } else {
+      if (value < 0 || value > 100) {
+        callback(new Error('必须为0-100之间'))
+      } else {
+        callback()
+      }
+    }
+  }, 1000)
+}
 // 数字规则
 var checkNumber = (rule, value, callback) => {
   if (!value) {
@@ -292,6 +329,20 @@ var checkNumber = (rule, value, callback) => {
       } else {
         callback()
       }
+    }
+  }, 1000)
+}
+// 验证宽容天数
+var checkDay = (rule, value, callback) => {
+  if (!value) {
+    return callback(new Error('不能为空'))
+  }
+  let re = /^[1-9]\d*$/
+  setTimeout(() => {
+    if (!re.test(value)) {
+      callback(new Error('请输入正整数'))
+    } else {
+      callback()
     }
   }, 1000)
 }
