@@ -173,13 +173,6 @@ const navs = {
         idx: 'userinfo',
         text: '基本信息',
         disabled: false,
-        lClass: 'line',
-        hClass: 'circle'
-      },
-      {
-        idx: '4-2',
-        text: '银行卡管理',
-        disabled: true,
         lClass: 'end-line',
         hClass: 'circle'
       }
@@ -386,6 +379,13 @@ const navs = {
       childrens: [{
         idx: 'regcmp',
         text: '注册企业管理',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'fundcmp',
+        text: '保理企业管理',
         disabled: false,
         lClass: 'line',
         hClass: 'circle'

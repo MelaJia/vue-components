@@ -25,7 +25,7 @@
       <el-table ref="table" :data="comDatas" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%"
         @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle" @mousedown.native="mouseDown">
-        <el-table-column type="selection" fixed width="40">
+        <el-table-column type="selection" fixed width="40" :selectable="disableHandle">
         </el-table-column>
         <el-table-column
           type="index"
@@ -167,6 +167,8 @@ export default {
     handleSub: handleSub,
     // 详情
     handleInfo: debounce(handleInfo, 1000, true),
+    // 是否可选择
+    disableHandle: disableHandle,
     // 更多事件
     handleCommand (obj) {
       let key = `handle${firstToUpperCase(obj.key)}` // 方法为handle+ key首字母大写化组成
@@ -308,5 +310,10 @@ function handleSub () {
       })
     }
   })
+}
+// 可选项
+function disableHandle (row, index) {
+  let result = row.currencyId === 1
+  return result
 }
 </script>

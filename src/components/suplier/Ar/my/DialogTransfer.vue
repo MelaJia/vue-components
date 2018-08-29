@@ -246,5 +246,6 @@ function Init () {
   this.sum = 0
   this.transAmt = 0
   this.receiveCustId = ''
+  this.remark = ''
 }
 </script>

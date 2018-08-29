@@ -182,6 +182,7 @@ export function validatenumber (num) {
 }
 /**
  * 判断是否为整数
+ * type = 2 是否为小数
   */
 export function validatenum (num, type) {
   let regName = /[^\d.]/g

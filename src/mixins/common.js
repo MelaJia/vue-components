@@ -2,7 +2,7 @@ import { postDataBase, thousandth, getDataBase, mouseDown } from '@/util/util' /
 export default {
   // 监听器
   watch: {
-    getTitle: function () {
+    visibleP: function () {
       this.init()
     }
   },

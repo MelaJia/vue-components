@@ -35,6 +35,16 @@ const routes = [
       }
     },
     {
+      path: 'fundcmp',
+      name: 'fundcmp',
+      component: () =>
+        import(/* webpackChunkName: 'admin' */ '@/page/admin/managers/fundCMP'),
+      meta: {
+        title: '保理企业管理', // 名称
+        requireAuth: true // 需要登录验证
+      }
+    },
+    {
       path: 'ordersearch',
       name: 'ordersearchAdminAdmin',
       component: () =>

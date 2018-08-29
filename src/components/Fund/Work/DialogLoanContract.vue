@@ -32,30 +32,30 @@
         <el-row>
           <el-col :span="11" class="flex">
             <el-form-item label="年利率: " prop="interestRate">
-             <el-input v-model="detailsP.interestRate" placeholder="年利率">
+             <el-jx-input v-model="detailsP.interestRate" placeholder="年利率">
                <template slot="append">%</template>
-             </el-input>
+             </el-jx-input>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
              <el-form-item label="服务费率: " prop="serviceFeeRate">
-              <el-input v-model="detailsP.serviceFeeRate" placeholder="服务费率">
+              <el-jx-input v-model="detailsP.serviceFeeRate" placeholder="服务费率">
                 <template slot="append">%</template>
-              </el-input>
+              </el-jx-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11" class="flex">
              <el-form-item label="逾期利率: " prop="overdueRate">
-             <el-input v-model="detailsP.overdueRate" placeholder="逾期利率">
+             <el-jx-input v-model="detailsP.overdueRate" placeholder="逾期利率">
                <template slot="append">%</template>
-             </el-input>
+             </el-jx-input>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
             <el-form-item label="提前还款手续费: " prop="prepaymentDeductInterest">
-              <el-input v-model="detailsP.prepaymentDeductInterest"  placeholder="提前还款手续费"></el-input>
+              <el-jx-input v-model="detailsP.prepaymentDeductInterest"  placeholder="提前还款手续费"></el-jx-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -140,10 +140,14 @@ import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
 import { debounce } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
-
+import { validatenum } from '@/util/validate'
+import Input from '@/components/Items/inputNumber'
 export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, Common],
+  components: {
+    'el-jx-input': Input
+  },
   data () {
     return {
       transAmt: 0,
@@ -184,7 +188,7 @@ export default {
         ],
         fineGraceDays: [
           { required: true, message: '请输入宽容天数', trigger: 'blur' },
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkDay, trigger: 'blur' }
         ]
       }
     }
@@ -273,6 +277,7 @@ function submit () {
 // async 校验规则
 // 利率规则
 var checkRate = (rule, value, callback) => {
+  console.log(rule)
   if (!value) {
     return callback(new Error('不能为空'))
   }
@@ -306,5 +311,17 @@ var checkNumber = (rule, value, callback) => {
       }
     }
   }, 1000)
+}
+// 校验天数
+var checkDay = (rule, value, callback) => {
+  console.log(validatenum(value, 2))
+  if (!value) {
+    return callback(new Error('不能为空'))
+  }
+  if (validatenum(value, 2) | value < 0) {
+    callback(new Error('必须为大于0的整数'))
+  } else {
+    callback()
+  }
 }
 </script>

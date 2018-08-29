@@ -102,7 +102,9 @@
           <span>企业银行名称: <em>{{this.detailsP.bankName}}</em></span>
         </li>
         <li class="wd-3">
-          <span>企业银行账户: <em>{{this.detailsP.bankAccount}}</em></span>
+          <el-tooltip :content="'企业银行账户:'+this.detailsP.bankAccount" placement="bottom" effect="light">
+            <span>企业银行账户: <em>{{this.detailsP.bankAccount}}</em></span>
+          </el-tooltip>
         </li>
         <li class="wd-3">
           <el-tooltip :content="'企业银行支行:'+this.detailsP.accountOpeningBranch" placement="bottom" effect="light">

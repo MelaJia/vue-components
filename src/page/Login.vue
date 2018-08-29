@@ -37,7 +37,7 @@
                 <input type="password" autocomplete="off" maxlength="20" v-model="ruleForm.pass" class="text iptpassword" ref="input" placeholder="8-20位数字与字母组合的密码" @focus="iptPWDLight=true" @blur="loginError=iptPWDLight=false">
               </div>
               <div class="ipt-group picture">
-                <input type="text" autocomplete="off" class="text iptviste" name="ipt_renewal" v-model="verify" id="ipt_renewal" onKeyDown="if(event.keyCode===32) return false" placeholder="图形验证" maxlength="4" @input="visteChange">
+                <input type="text" autocomplete="off" class="text iptviste" name="ipt_renewal" v-model="verify" id="ipt_renewal" onKeyDown="if(event.keyCode===32) return false" @keyup.enter="submitForm('ruleForm')"  placeholder="图形验证" maxlength="4" @input="visteChange">
                 <i class="icon-viste" :class="getVisteClass" @click="handleDelete"></i>
                 <div class="imgviste" @click="visteFresh">
                   <i hidden :src="getImgUrl"></i>
@@ -247,18 +247,18 @@ async function handleCheckViste () {
   }
 }
 async function submitForm (formName) {
-  if (this.isVerify !== 1) {
-    await this.handleCheckViste()
-    // 验证失败
-    if (this.isVerify !== 1) {
-      return
-    }
-  }
+  this.loginLoading = true // 登录中
+  // if (this.isVerify !== 1) {
+  //   await this.handleCheckViste()
+  //   // 验证失败
+  //   if (this.isVerify !== 1) {
+  //     return
+  //   }
+  // }
   // 验证成功
   // 登录前清除信息
   this.$store.commit(types.LOGOUT)
   this.$store.commit('DEL_ALL_TAG')
-  this.loginLoading = true // 登录中
   let param = {
     phone: this.ruleForm.phone,
     password: this.ruleForm.pass,
@@ -266,9 +266,9 @@ async function submitForm (formName) {
   }
   if (process.env.NODE_ENV === 'development') { // 调试环境
     let res = {
-      data: { status: 1, token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 2, custNickname: '阿拉斯加大型犬', legalPhone: '+86-15112663977', contactPhone: '15112663977' }
+      data: { status: 1, msg: '验证码错误', token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 2, custNickname: '阿拉斯加大型犬', legalPhone: '+86-15112663977', contactPhone: '15112663977' }
     }
-    if (res.data.status) {
+    if (res.data.status === 1) {
       let datas = Object.assign({}, res.data, res.data.data)
       this.$store.commit(types.LOGIN, datas.token)
       this.$store.commit(types.SETROLE, datas.custType)
@@ -281,6 +281,10 @@ async function submitForm (formName) {
       this.$router.push({
         path: redirect
       })
+    } else if (res.data.status === 3) {
+      // 验证失败
+      this.isVerify = 0
+      this.visteError = res.data.msg
     } else {
       this.$message({
         showClose: true,
@@ -288,10 +292,10 @@ async function submitForm (formName) {
         type: 'error'
       })
     }
+    this.loginLoading = false // 登录完成
   } else { // 正式环境
     this.axios.post('/login/checkLogin2', param).then(res => {
-      this.loginLoading = false // 登录完成
-      if (res.data.status) {
+      if (res.data.status === 1) {
         let datas = Object.assign({}, res.data, res.data.data)
         this.$store.commit(types.LOGIN, datas.token)
         this.$store.commit(types.SETROLE, datas.custType)
@@ -304,12 +308,17 @@ async function submitForm (formName) {
         this.$router.push({
           path: redirect
         })
+      } else if (res.data.status === 3) {
+        // 验证失败
+        this.isVerify = 0
+        this.visteError = res.data.msg
       } else {
         this.loginError = true
         this.loginErrorInfo = res.data.msg
         // 重置验证码
         this.isVerify = -1
       }
+      this.loginLoading = false // 登录完成
     }).catch(err => {
       this.loginLoading = false // 登录失败
       this.loginError = true
@@ -334,6 +343,7 @@ function visteReset () {
 }
 // 删除已输验证码
 function visteDelete () {
+  this.isVerify = -1
   this.verify = ''
   this.visteError = ''
 }

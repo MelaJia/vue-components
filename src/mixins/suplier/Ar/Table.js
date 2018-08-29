@@ -50,7 +50,7 @@ export default {
       row.pend = !row.pend
     },
     getPendedColor ({row, rowIndex}) {
-      if (row.loanStatus === '05') {
+      if (row.isOverDue) {
         return 'warning-row'
       }
       return 'expendcolor'
