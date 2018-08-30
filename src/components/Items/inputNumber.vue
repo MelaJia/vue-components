@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     maxLength () {
-      let idx = this.value ? this.value.indexOf('.') : -4
+      let idx = this.value ? String(this.value).indexOf('.') : -4
       console.log(idx)
       if (idx === -1) {
         idx = -4

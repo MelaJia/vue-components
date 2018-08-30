@@ -18,7 +18,7 @@
         </li>
       </ul>
       <ul>
-          <span>对手单位: <em>{{this.detailsP.custFromName}}</em></span>
+          <span>对手单位: <em>{{this.detailsP.historyCustToName}}</em></span>
       </ul>
       <ul>
         <li>
