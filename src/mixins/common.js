@@ -29,7 +29,9 @@ export default {
       return `${val}%`
     },
     // 千分位原始方法
-    thousandth: thousandth,
+    thousandth: function (val) {
+      return `${thousandth(val)}元`
+    },
     // 千分位formatter方法
     regexNum: function (row, column) {
       var val = row[column.property]
@@ -107,7 +109,9 @@ export default {
       return value === 1 ? '自有' : '购入'
     },
     // 千分位
-    regexNum: thousandth,
+    regexNum: function (val) {
+      return `${thousandth(val)}元`
+    },
     // 添加%
     addPercent: function (val) {
       if (val === undefined || val === null || val === '') {

@@ -18,7 +18,7 @@
       </el-table-column>
       <el-table-column align="center" label="公司状态" prop="status" :formatter="statusFormat">
       </el-table-column>
-       <el-table-column align="center" label="合同签署方式" prop="contractSigningTypeName">
+       <el-table-column align="center" label="合同签署方式" prop="contractSignName">
       </el-table-column>
       <el-table-column align="center" label="公司地址" prop="companyAddress">
       </el-table-column>

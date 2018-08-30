@@ -9,10 +9,10 @@
     <section>
       <ul>
         <li>
-          <span>申请金额: <em>{{this.detailsP.applyAmt}}</em></span>
+          <span>申请金额: <em>{{this.detailsP.applyAmt  | regexNum}}</em></span>
         </li>
         <li>
-         <span>实放金额: <em>{{this.detailsP.loanAmt}}</em></span>
+         <span>实放金额: <em>{{this.detailsP.loanAmt  | regexNum}}</em></span>
         </li>
       </ul>
       <ul>
@@ -25,23 +25,23 @@
       </ul>
       <ul>
         <li>
-          <span>利率: <em>{{this.detailsP.interestRate}}</em></span>
+          <span>年利率: <em>{{this.detailsP.interestRate | addPercent}}</em></span>
         </li>
         <li>
-          <span>手续费率: <em>{{this.detailsP.serviceFeeRate}}</em></span>
+          <span>提前还款手续费率: <em>{{this.detailsP.serviceFeeRate | addPercent}}</em></span>
         </li>
       </ul>
       <ul>
          <li>
-          <span>罚息利率: <em>{{this.detailsP.overdueRate}}</em></span>
+          <span>罚息利率: <em>{{this.detailsP.overdueRate | addPercent}}</em></span>
         </li>
         <li>
-          <span>提前还款手续费: <em>{{this.detailsP.prepaymentDeductInterest}}</em></span>
+          <span>提前还款手续费: <em>{{this.detailsP.prepaymentDeductInterest | regexNum}}</em></span>
         </li>
       </ul>
       <ul>
          <li>
-          <span>宽容天数: <em>{{this.detailsP.fineGraceDays}}</em></span>
+          <span>宽容天数: <em>{{this.detailsP.fineGraceDays}}天</em></span>
         </li>
         <li>
           <span>还款方式: <em>{{this.detailsP.repaymentType}}</em></span>

@@ -45,8 +45,7 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
-import { debounce, erroShow } from '@/util/util' // 防抖函数
-import { loadingConf } from '@/config/common' // 获取加载配置
+import { debounce } from '@/util/util' // 防抖函数
 export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, Common],
@@ -74,32 +73,22 @@ export default {
   }
 }
 // 提交操作
-function submit () {
+async function submit () {
   const param = {
     custId: this.detailsP.custId, // 客户Id
     contractSignType: this.radio // 付款法人代码
   }
   console.log(param)
-  // 显示加载图标
-  const loading = this.$loading(loadingConf.sub())
-  this.axios.post('/sysCompanyUserManager/factoringContractSignTypeConfig.do', param).then(res => {
-    let type = res.data.status ? 'success' : 'error'
-    this.$message({
-      showClose: true,
-      message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-      type: type
-    })
-    // 关闭加载图标
-    loading.close()
+  try {
+    let res = await this.post('/sysCompanyUserManager/factoringContractSignTypeConfig.do', param, true)
     // 操作成功关闭弹窗刷新数据
     if (res.data.status) {
       this.handleClose() // 关闭弹窗
       this.$parent.fresh() // 刷新数据
     }
-  }).catch((err) => {
-    // 错误提示
-    erroShow.call(this, err, loading)
-  })
+  } catch (error) {
+    console.log(error)
+  }
 }
 function Init () {
   console.log(this.detailsP)
