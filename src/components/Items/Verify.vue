@@ -62,7 +62,7 @@ function sendMessage () {
   }).then(res => {
     if (res.data.status) {
       this.$message({
-        message: res.data.data,
+        message: res.data.msg,
         type: 'success'
       })
       this.isInput = false
