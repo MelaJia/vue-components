@@ -1,5 +1,5 @@
 <template>
-  <el-input v-model="valueProp" :placeholder="placeholder" :maxlength="maxLength" onKeyDown="console.log(event.keyCode); if (event.keyCode >= 8 && event.keyCode < 32 | event.keyCode > 32 && event.keyCode <= 46 | event.keyCode >= 48 && event.keyCode <= 57 | event.keyCode >= 96 && event.keyCode <= 105 | event.keyCode === 110 | event.keyCode === 190) { return true }else {return false}" @input.native="$emit('input', $event.target.value)">
+  <el-input v-model="valueProp" :placeholder="placeholder" :maxlength="maxLength" onKeyDown="if (event.keyCode >= 8 && event.keyCode < 32 | event.keyCode > 32 && event.keyCode <= 46 | event.keyCode >= 48 && event.keyCode <= 57 | event.keyCode >= 96 && event.keyCode <= 105 | event.keyCode === 110 | event.keyCode === 190) { return true }else {return false}" @input.native="$emit('input', $event.target.value)">
     <template slot="append"><slot name="append"></slot></template>
   </el-input>
 </template>
