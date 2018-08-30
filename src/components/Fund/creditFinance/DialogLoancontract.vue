@@ -16,7 +16,7 @@
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
             <el-form-item label="放款比例: " prop="loanPer">
-             <el-input v-model="detailsP.loanPer"  placeholder="放款比例">
+             <el-input v-model="detailsP.loanPer"  placeholder="放款比例" @keyup.native="handleRate($event)">
                <template slot="append">%</template>
              </el-input>
             </el-form-item>
@@ -210,12 +210,12 @@ export default {
     }
   },
   methods: {
-    handleSubmit: debounce(submit, 1000, true)
+    handleSubmit: debounce(submit, 1000, true),
     // // 检验年利率
-    // handleRate (e) {
-    //   e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null
-    //   this.detailsP.interestRate = e.target.value
-    // }
+    handleRate (e) {
+      e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null
+      this.detailsP.loanPer = e.target.value
+    }
     // // 检验服务费率
     // handleService (e) {
     //   e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null
