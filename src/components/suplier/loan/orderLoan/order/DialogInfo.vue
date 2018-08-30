@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     getTitle () {
-      return '融资编号' + this.detailsP.loanId
+      return '订单' + this.detailsP.poNumber
     }
   },
   methods: {
