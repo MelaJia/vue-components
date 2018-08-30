@@ -61,6 +61,10 @@ function sendMessage () {
     contactPhone: this.getPhones
   }).then(res => {
     if (res.data.status) {
+      this.$message({
+        message: res.data.data,
+        type: 'success'
+      })
       this.isInput = false
       let that = this
       let time = 60
