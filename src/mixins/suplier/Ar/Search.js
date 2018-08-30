@@ -1,4 +1,8 @@
+import Input from '@/components/Items/inputNumber'
 export default {
+  components: {
+    'el-jx-input': Input
+  },
   data () {
     return {
       selectData: {

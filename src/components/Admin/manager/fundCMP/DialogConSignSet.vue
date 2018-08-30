@@ -82,7 +82,7 @@ function submit () {
   console.log(param)
   // 显示加载图标
   const loading = this.$loading(loadingConf.sub())
-  this.axios.post('/sysCompanyUserManager/contractSignedTypeConfig.do', param).then(res => {
+  this.axios.post('/sysCompanyUserManager/factoringContractSignTypeConfig.do', param).then(res => {
     let type = res.data.status ? 'success' : 'error'
     this.$message({
       showClose: true,
