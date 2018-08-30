@@ -56,8 +56,8 @@
               </el-table-column>
               <el-table-column align="center" prop="actualRepayDate" :width="widthArr.actualRepayDate" :formatter="dateFormat">
               </el-table-column>
-              <el-table-column align="center" prop="actualLoanDate" :width="widthArr.actualLoanDate" :formatter="dateFormat">
-              </el-table-column>
+              <!-- <el-table-column align="center" prop="actualLoanDate" :width="widthArr.actualLoanDate" :formatter="dateFormat">
+              </el-table-column> -->
               <el-table-column align="left" label-align="center" width="150">
                 <template slot-scope="scope">
                   <!-- <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row, true)" >详情</el-button> -->
@@ -120,8 +120,8 @@
         </el-table-column>
         <el-table-column align="center" label="实际还款日期" prop="actualRepayDate" min-width="150" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" label="实际放款日期" prop="actualLoanDate" min-width="150" :formatter="dateFormat">
-        </el-table-column>
+        <!-- <el-table-column align="center" label="实际放款日期" prop="actualLoanDate" min-width="150" :formatter="dateFormat">
+        </el-table-column> -->
         <el-table-column align="center" label="操作" fixed="right" header-align="center" width="150">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>

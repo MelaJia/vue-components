@@ -55,6 +55,11 @@
           <span>还款方式: <em>{{this.detailsP.repaymentType}}</em></span>
         </li>
       </ul>
+      <ul>
+        <li>
+          <span>实际放款时间: <em>{{this.detailsP.actualLoanDate | dateFormat}}</em></span>
+        </li>
+      </ul>
       <!-- <ul class="height-auto">
         <span>
           <div class="a-link-group inline-block">

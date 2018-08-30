@@ -215,7 +215,7 @@ export default {
     // handleRate (e) {
     //   e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null
     //   this.detailsP.interestRate = e.target.value
-    // },
+    // }
     // // 检验服务费率
     // handleService (e) {
     //   e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null

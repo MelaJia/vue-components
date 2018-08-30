@@ -131,6 +131,7 @@ export default {
     fresh () {
       this.$emit('refresh')
     },
+    // 合同签署
     confirmContract (idx, val) {
       val.infoLoading = true
       this.getLoanDetail('/myAr/queryAr.do', { masterChainId: val.masterChainId }).then(res => {

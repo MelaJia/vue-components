@@ -205,8 +205,12 @@ function handleConfirm (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.dialogCheckPhone = true
-    this.checkDetail = val
+    if (val.contractSignType === 1) {
+      this.checkDetail = val
+      this.dialogCheckPhone = true
+    } else {
+      this.postResultFresh('/factoringCreditLoan/confirmInitiateSigning.do', {loanId: val.loanId}) // 调用common混合中公共方法
+    }
     console.log(val)
   }).catch(() => {
     this.$message({
