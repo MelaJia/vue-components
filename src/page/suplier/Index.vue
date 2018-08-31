@@ -71,7 +71,6 @@
   width: 100%;
   min-width: 1200px;
   margin: auto;
-  overflow: auto;
 }
 
 .index-style {
@@ -272,7 +271,7 @@ export default {
             name: '已到期金额'
           }
         },
-        path: 'myar' // 路径
+        path: 'transfer' // 路径
       },
       discounting: {
         title: '贴现中', // 标题
