@@ -10,13 +10,11 @@ export default {
     return { valueProp: this.value }
   },
   updated () {
-    console.log('gengxin')
     this.valueProp = this.value
   },
   computed: {
     maxLength () {
       let idx = this.value ? String(this.value).indexOf('.') : -4
-      console.log(idx)
       if (idx === -1) {
         return null
       }

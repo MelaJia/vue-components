@@ -37,11 +37,11 @@
       <el-col :span="10">
         <el-form-item label="金额范围">
           <el-col :span="10">
-            <el-input class="ipt" v-model.number="formInline.amountBegin" placeholder="起始金额"></el-input>
+            <el-jx-input class="ipt" v-model="formInline.amountBegin" placeholder="起始金额"></el-jx-input>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="10">
-            <el-input v-model.number="formInline.amountEnd" placeholder="结束金额"></el-input>
+            <el-jx-input v-model="formInline.amountEnd" placeholder="结束金额"></el-jx-input>
           </el-col>
         </el-form-item>
       </el-col>

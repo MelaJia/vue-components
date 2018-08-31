@@ -36,11 +36,11 @@
       <el-col :span="10">
         <el-form-item label="贴现金额">
           <el-col :span="10">
-            <el-input v-model.number="formInline.discountAmtScopeFrom" placeholder="起始金额"></el-input>
+            <el-jx-input v-model="formInline.discountAmtScopeFrom" placeholder="起始金额"></el-jx-input>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="10">
-            <el-input v-model.number="formInline.discountAmtScopeTo" placeholder="结束金额"></el-input>
+            <el-jx-input v-model="formInline.discountAmtScopeTo" placeholder="结束金额"></el-jx-input>
           </el-col>
         </el-form-item>
       </el-col>
