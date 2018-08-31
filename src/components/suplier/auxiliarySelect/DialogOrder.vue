@@ -20,7 +20,7 @@
           <span>订单项次: <em>{{this.detailsP.poItem}}</em></span>
         </li>
         <li>
-          <span>金额: <em>{{this.detailsP.poAmount | regexNum}}</em>元</span>
+          <span>金额: <em>{{this.detailsP.poAmount | regexNum}}</em></span>
         </li>
       </ul>
       <ul>

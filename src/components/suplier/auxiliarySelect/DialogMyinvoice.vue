@@ -17,15 +17,15 @@
       </ul>
       <ul>
         <li>
-          <span>金额: <em>{{this.detailsP.amount | regexNum}}</em>元</span>
+          <span>金额: <em>{{this.detailsP.amount | regexNum}}</em></span>
         </li>
         <li>
-          <span>税额: <em>{{this.detailsP.taxAmount | regexNum}}</em>元</span>
+          <span>税额: <em>{{this.detailsP.taxAmount | regexNum}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>税价总计: <em>{{this.detailsP.total | regexNum}}</em>元</span>
+          <span>税价总计: <em>{{this.detailsP.total | regexNum}}</em></span>
         </li>
         <li>
           <span>发票类型: <em>{{this.detailsP.invoiceTypeName}}</em></span>

@@ -17,7 +17,7 @@
       </ul>
       <ul>
         <li>
-          <span>金额: <em>{{this.detailsP.poAmount | regexNum}}</em>元</span>
+          <span>金额: <em>{{this.detailsP.poAmount | regexNum}}</em></span>
         </li>
         <li>
           <span>币别: <em>{{this.detailsP.currencyName}}</em></span>

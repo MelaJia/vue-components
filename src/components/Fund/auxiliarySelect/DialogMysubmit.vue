@@ -28,15 +28,15 @@
           <span>结报申请付款日期: <em>{{this.detailsP.dueDate}}</em></span>
         </li>
         <li>
-          <span>应付金额: <em>{{this.detailsP.oriAmt | regexNum}}</em>元</span>
+          <span>应付金额: <em>{{this.detailsP.oriAmt | regexNum}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>已付金额: <em>{{this.detailsP.oriPaidAmt | regexNum}}</em>元</span>
+          <span>已付金额: <em>{{this.detailsP.oriPaidAmt | regexNum}}</em></span>
         </li>
         <li>
-          <span>未付金额: <em>{{this.detailsP.oriUnPaidAmt | regexNum}}</em>元</span>
+          <span>未付金额: <em>{{this.detailsP.oriUnPaidAmt | regexNum}}</em></span>
         </li>
       </ul>
       <ul>

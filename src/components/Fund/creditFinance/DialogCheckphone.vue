@@ -164,9 +164,11 @@ function confirm () {
           this.$parent.fresh()
           this.handleClose()
         } else {
+          loading.close()
           this.$message.error(res.data.msg)
         }
       }).catch(err => {
+        loading.close()
         console.log(err)
       })
     }

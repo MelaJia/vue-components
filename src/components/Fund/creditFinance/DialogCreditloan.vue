@@ -25,23 +25,23 @@
       </ul>
       <ul>
         <li>
-          <span>利率: <em>{{this.detailsP.interestRate}}</em></span>
+          <span>利率: <em>{{this.detailsP.interestRate | addPercent}}</em></span>
         </li>
         <li>
-          <span>手续费率: <em>{{this.detailsP.serviceFeeRate}}</em></span>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <span>罚息利率: <em>{{this.detailsP.overdueRate}}</em></span>
-        </li>
-        <li>
-          <span>提前还款手续费: <em>{{this.detailsP.prepaymentDeductInterest}}</em></span>
+          <span>手续费率: <em>{{this.detailsP.serviceFeeRate | addPercent}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>宽容天数: <em>{{this.detailsP.fineGraceDays}}</em></span>
+          <span>罚息利率: <em>{{this.detailsP.overdueRate | addPercent}}</em></span>
+        </li>
+        <li>
+          <span>提前还款手续费: <em>{{this.detailsP.prepaymentDeductInterest | addPercent}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>宽容天数: <em>{{this.detailsP.fineGraceDays}}</em>天</span>
         </li>
         <li>
           <span>还款方式: <em>{{this.detailsP.repaymentType}}</em></span>

@@ -17,7 +17,7 @@
       </ul>
       <ul>
         <li>
-          <span>实际付款金额: <em>{{this.detailsP.rcvAmtOrigin | regexNum}}</em>元</span>
+          <span>实际付款金额: <em>{{this.detailsP.rcvAmtOrigin | regexNum}}</em></span>
         </li>
         <li>
           <span>币别: <em>{{this.detailsP.currencyName}}</em></span>

@@ -283,6 +283,7 @@ export default {
       if (!value) {
         callback(new Error(`验证码不能为空`))
       } else {
+        console.log(value.length)
         callback()
       }
     }
@@ -347,13 +348,13 @@ export default {
       rulesOne: {
         // 手机号校验
         contactPhone: [
-          // {required: true, message: '手机号不能为空', trigger: 'blur'},
+          {required: true, message: '手机号不能为空', trigger: 'change'},
           {validator: verifyPhone, trigger: 'change'}
         ],
         // 验证码校验
         verificationCode: [
-          // {required: true, message: '请输入验证码', trigger: 'blur'},
-          {validator: verifyCode, trigger: 'blur'}
+          {required: true, message: '请输入验证码', trigger: 'change'},
+          {validator: verifyCode, trigger: 'change'}
         ]
       },
       rulesTwo: {
@@ -403,10 +404,17 @@ function sendMessage () {
     return false
   }
   this.axios.post('/cust/toverificationCode.do', { contactPhone: this.getForm.contactPhone }).then(res => {
+    let type = res.data.status ? 'success' : 'error'
     if (res.data.status) {
       let that = this
       let time = 60
       this.btntype = 'default'
+      // 发送验证码成功弹出提示用户
+      this.$message({
+        showClose: true,
+        message: res.data.data,
+        type: type
+      })
       var sendTimer = setInterval(function () {
         that.isOvertime = true
         time--
