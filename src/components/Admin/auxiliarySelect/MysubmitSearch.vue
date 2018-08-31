@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" :rules="rules" class="demo-form-inline" size="mini" label-width="150px">
+  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini" label-width="150px">
     <el-row>
       <el-col :span="8">
         <el-form-item label="供应商代码">
@@ -36,7 +36,7 @@
         </el-form-item>
       </el-col>
     </el-row>
-    <el-row class="money">
+    <el-row>
       <el-col :span="12">
         <el-form-item label="结报申请付款日期" style="text-align:left;">
           <el-date-picker :editable="false" v-model="formInline.dueDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
@@ -46,47 +46,35 @@
       <el-col :span="12">
         <el-form-item label="应付金额">
           <el-col :span="11">
-            <el-form-item prop="oriAmtBegin">
-              <el-input v-model="formInline.oriAmtBegin" clearable placeholder="起始金额"></el-input>
-            </el-form-item>
+              <el-jx-input v-model="formInline.oriAmtBegin" clearable placeholder="起始金额"></el-jx-input>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
-            <el-form-item prop="oriAmtEnd">
-              <el-input v-model="formInline.oriAmtEnd" clearable placeholder="结束金额"></el-input>
-            </el-form-item>
+              <el-jx-input v-model="formInline.oriAmtEnd" clearable placeholder="结束金额"></el-jx-input>
           </el-col>
         </el-form-item>
       </el-col>
     </el-row>
-    <el-row class="money">
+    <el-row>
       <el-col :span="12">
         <el-form-item label="已付金额">
           <el-col :span="11">
-            <el-form-item prop="oriPaidAmtBegin">
-              <el-input v-model="formInline.oriPaidAmtBegin" placeholder="起始金额"></el-input>
-            </el-form-item>
+              <el-jx-input v-model="formInline.oriPaidAmtBegin" placeholder="起始金额"></el-jx-input>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
-            <el-form-item prop="oriPaidAmtEnd">
-              <el-input v-model="formInline.oriPaidAmtEnd" placeholder="结束金额"></el-input>
-            </el-form-item>
+              <el-jx-input v-model="formInline.oriPaidAmtEnd" placeholder="结束金额"></el-jx-input>
           </el-col>
         </el-form-item>
       </el-col>
       <el-col :span="12">
         <el-form-item label="未付金额">
           <el-col :span="11">
-            <el-form-item prop="oriUnPaidAmtBegin">
-              <el-input v-model="formInline.oriUnPaidAmtBegin" placeholder="起始金额"></el-input>
-            </el-form-item>
+              <el-jx-input v-model="formInline.oriUnPaidAmtBegin" placeholder="起始金额"></el-jx-input>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
-            <el-form-item prop="oriUnPaidAmtEnd">
-              <el-input v-model="formInline.oriUnPaidAmtEnd" placeholder="结束金额"></el-input>
-            </el-form-item>
+              <el-jx-input v-model="formInline.oriUnPaidAmtEnd" placeholder="结束金额"></el-jx-input>
           </el-col>
         </el-form-item>
       </el-col>
@@ -105,11 +93,6 @@
 @import "@/assets/css/_searchBase.scss";
 .el-select.el-select--mini{
   width:178px;
-}
-.money {
-  .el-form-item.el-form-item--mini{
-    margin-bottom: 10px;
-  }
 }
 </style>
 
@@ -136,46 +119,8 @@ export default {
         oriPaidAmtEnd: '', // 已付结束金额
         oriUnPaidAmtBegin: '', // 未付开始金额
         oriUnPaidAmtEnd: '' // 未付结束金额
-      },
-      rules: {
-        oriAmtBegin: [
-          { validator: checkNumber, trigger: 'change' }
-        ],
-        oriAmtEnd: [
-          { validator: checkNumber, trigger: 'change' }
-        ],
-        oriPaidAmtBegin: [
-          { validator: checkNumber, trigger: 'change' }
-        ],
-        oriPaidAmtEnd: [
-          { validator: checkNumber, trigger: 'change' }
-        ],
-        oriUnPaidAmtBegin: [
-          { validator: checkNumber, trigger: 'change' }
-        ],
-        oriUnPaidAmtEnd: [
-          { validator: checkNumber, trigger: 'change' }
-        ]
       }
     }
   }
-}
-// 数字规则
-var checkNumber = (rule, value, callback) => {
-  // if (!value) {
-  //   return callback(new Error('不能为空'))
-  // }
-  let re = /^(0|[1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
-  setTimeout(() => {
-    if (!re.test(value)) {
-      callback(new Error('请输入大于等于0的数字'))
-    } else {
-      if (value < 0) {
-        callback(new Error('必须大于等于0'))
-      } else {
-        callback()
-      }
-    }
-  }, 1000)
 }
 </script>

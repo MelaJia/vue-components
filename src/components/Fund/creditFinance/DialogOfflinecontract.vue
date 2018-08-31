@@ -251,8 +251,12 @@ function submit () {
             this.$parent.fresh()
             this.contractList = []
             this.handleClose()
+          } else {
+            loading.close()
+            this.$message.error(res.data.msg)
           }
         }).catch(err => {
+          loading.close()
           console.log(err)
           // erroShow.call(this, err, loading)
         })

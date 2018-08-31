@@ -10,38 +10,38 @@
       <el-form ref="form" :model="detailsP" status-icon :rules="rules" label-width="170px">
         <el-row>
           <el-col :span="24" class="flex">
-            <el-form-item label="还款单位:" prop="repayCompany">
+            <el-form-item label="还款单位:" prop="repayCompany" class="textPosition">
               <span>{{detailsP.repayCompany}}</span>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="还款银行名称:" prop="repayBankName">
+            <el-form-item label="还款银行名称:" prop="repayBankName" class="textPosition">
               <span>{{detailsP.repayBankName}}</span>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="还款银行账号:" prop="repayBankAccount">
+            <el-form-item label="还款银行账号:" prop="repayBankAccount" class="textPosition">
               <span>{{detailsP.repayBankAccount}}</span>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="本期应还款金额:" prop="repayAmt">
+            <el-form-item label="本期应还款金额:" prop="repayAmt" class="textPosition">
               <span>{{detailsP.repayAmt | regexNum}}</span>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="币别:" prop="currencyName">
+            <el-form-item label="币别:" prop="currencyName" class="textPosition">
               <span>{{detailsP.currencyName}}</span>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="今日提前还清应还金额:" prop="settlePrepayAmt">
+            <el-form-item label="今日提前还清应还金额:" prop="settlePrepayAmt" class="textPosition">
               <span>{{repayDetail.settlePrepayAmt | regexNum}}</span>
             </el-form-item>
           </el-col>
@@ -54,11 +54,11 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="客户还款金额:" prop="actualRepayAmt">
-              <el-input v-model.number="detailsP.actualRepayAmt"></el-input>
+              <el-input v-model.number="detailsP.actualRepayAmt" @keyup.native="checkHanle($event)"></el-input>
             </el-form-item>
           </el-col>
           <!-- <el-col :span="12"><a href="javascript:;" @click.prevent="getFull" class="getFull">代入应还金额</a><a href="javascript:;" @click.prevent="getFull" class="getFull">代入提前还清应还金额</a></el-col> -->
-          <el-col :span="12"><el-button :disabled="this.confirmCheck === true ? true : false" @click="getFull" class="getFull">代入应还金额</el-button><el-button type="default" :disabled="this.confirmCheck === false ? true : false" @click="getAdvanceFull" class="getFull">代入提前还清应还金额</el-button></el-col>
+          <el-col :span="12"><el-button :disabled="this.confirmCheck === true ? true : false" @click.prevent="getFull" class="getFull">代入应还金额</el-button><el-button type="default" :disabled="this.confirmCheck === false ? true : false" @click.prevent="getAdvanceFull" class="getFull">代入提前还清应还金额</el-button></el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -70,7 +70,7 @@
         </el-row>
         <el-row>
           <el-form-item label="合同:">
-            <span>
+            <span class="textPosition">
               <div class="a-link-group inline-block">
                 <a v-for="item in this.detailsP.contractList" :key="item.contractId" :href="item.contractUrl" target="_blank">{{item.contractName}}</a>
               </div>
@@ -103,16 +103,20 @@ ul:last-child{
 .getFull{
   margin-left: 10px;
 }
+.textPosition{
+  text-align: left;
+}
 </style>
 
 <script>
+import SearchMixIn from '@/mixins/suplier/Ar/Search'
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import { debounce } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 import Common from '@/mixins/common'
 export default {
   props: ['visibleP', 'detailsP', 'repayDetail'],
-  mixins: [DialogClose, Common],
+  mixins: [DialogClose, Common, SearchMixIn],
   data () {
     // 金额校验规则
     var checkNumber = (rule, value, callback) => {
@@ -120,41 +124,25 @@ export default {
         return callback(new Error('不能为空'))
       }
       let re = /^(0|[1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
-      if (!this.confirmCheck) {
-        setTimeout(() => {
-          if (!re.test(value)) {
-            callback(new Error('请输入大于等于0的数字'))
+      setTimeout(() => {
+        if (!re.test(value)) {
+          callback(new Error('请输入大于等于0的数字'))
+        } else {
+          if (value <= 0) {
+            callback(new Error('必须大于等于0'))
           } else {
-            if (value <= 0) {
-              callback(new Error('必须大于等于0'))
-            } else {
-              callback()
-            }
+            callback()
           }
-        }, 1000)
-      } else {
-        setTimeout(() => {
-          if (!re.test(value)) {
-            callback(new Error('请输入大于等于0的数字'))
-          } else {
-            if (value <= 0) {
-              callback(new Error('必须大于等于0'))
-            } else if (value < this.repayDetail.settlePrepayAmt) {
-              callback(new Error('还款金额不能小于提前还清金额'))
-            } else {
-              callback()
-            }
-          }
-        }, 1000)
-      }
+        }
+      }, 1000)
     }
     return {
       confirmCheck: false, // 确认提前还清选择框
       isConfirmSettled: 0,
       rules: {
         actualRepayAmt: [
-          { required: true, message: '请输入客户还款金额', trigger: 'change' },
-          { validator: checkNumber, trigger: 'change' }
+          { required: true, message: '请输入客户还款金额', trigger: 'blur' },
+          { validator: checkNumber, trigger: 'blur' }
         ],
         actualRepayDate: [
           { required: true, message: '请输入实际还款日期', trigger: 'blur' }
@@ -197,6 +185,10 @@ export default {
         this.detailsP.actualRepayAmt = this.detailsP.repayAmt
         this.isConfirmSettled = 0
       }
+    },
+    checkHanle (e) {
+      e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null
+      this.detailsP.actualRepayAmt = e.target.value
     }
   }
 }
@@ -254,33 +246,40 @@ function advanceSubmit () {
         loanId: this.detailsP.loanId,
         isConfirmSettled: this.isConfirmSettled
       }
-      // 显示加载图标
-      const loading = this.$loading(loadingConf.sub())
+
       console.log(param)
       // 发送数据
-      this.axios.post('/factoringCreditLoan/prepaySettleLoan.do', param, true).then(res => {
-        let type = res.data.status ? 'success' : 'error'
-        this.$message({
-          message: res.data.msg ? res.data.msg : '返回结果错误，请联系管理员',
-          type: type
+      if (this.detailsP.actualRepayAmt < this.repayDetail.settlePrepayAmt) {
+        this.$message.error('客户还款金额不得小于提前还清应还金额')
+      } else {
+        // 显示加载图标
+        const loading = this.$loading(loadingConf.sub())
+        this.axios.post('/factoringCreditLoan/prepaySettleLoan.do', param, true).then(res => {
+          let type = res.data.status ? 'success' : 'error'
+          this.$message({
+            message: res.data.msg ? res.data.msg : '返回结果错误，请联系管理员',
+            type: type
+          })
+          // 关闭加载图标
+          loading.close()
+          // 操作成功关闭弹窗刷新数据
+          if (res.data.status) {
+            this.$parent.fresh()
+            this.handleClose()
+          } else {
+            loading.close()
+            this.$message.error(res.data.msg)
+          }
+        }).catch((err) => {
+          console.log(err)
+          this.$message({
+            type: 'info',
+            message: '操作失败'
+          })
+          // 关闭加载图标
+          loading.close()
         })
-        console.log(res)
-        // 关闭加载图标
-        loading.close()
-        // 操作成功关闭弹窗刷新数据
-        if (res.data.status) {
-          this.$parent.fresh()
-          this.handleClose()
-        }
-      }).catch((err) => {
-        console.log(err)
-        this.$message({
-          type: 'info',
-          message: '操作失败'
-        })
-        // 关闭加载图标
-        loading.close()
-      })
+      }
     }
   })
 }

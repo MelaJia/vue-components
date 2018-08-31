@@ -71,7 +71,7 @@ const routes = [
       component: () =>
         import(/* webpackChunkName: 'Fund' */ '@/page/funder/UserInfo'),
       meta: {
-        title: '个基础信息', // 名称
+        title: '个人基础信息', // 名称
         requireAuth: true // 需要登录验证
       }
     },
