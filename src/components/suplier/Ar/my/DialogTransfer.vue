@@ -62,7 +62,9 @@
         </el-col>
         <el-col :span="9" class="flex">
           <el-form-item label="转让金额:" prop="receiveCustId">
-             <el-input v-model.number="transAmt" type="number" placeholder="请输入转让金额："></el-input>
+             <el-input v-model.number="transAmt" type="number" placeholder="请输入转让金额：">
+               <template slot="append">元</template>
+             </el-input>
           </el-form-item>
         </el-col>
         <el-col :span="4" v-if="sum">
@@ -92,6 +94,9 @@
 .sum-content{
   height: 40px;
   line-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
 
