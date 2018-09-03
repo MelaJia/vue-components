@@ -54,7 +54,7 @@
           </div>
         </span>
       </ul>
-      <table class="tableList" border="1">
+      <table class="tableList" border="1" style="border:1px solid #931719">
         <thead>
           <tr>
             <th>法人代码</th>
@@ -100,12 +100,13 @@
 }
 .tableList{
   width: 100%;
-  border: 0.5px solid #931719;
   border-collapse: collapse;
   thead tr{
     height: 30px;
+    border-color: #931719;
     th{
       font-weight: normal;
+      border-color: #931719;
     }
   }
   tbody tr{
@@ -115,6 +116,7 @@
       border-bottom: none;
       td{
         border-bottom: none;
+        border-color: #931719;
         span{
           margin-right: 10px;
         }
