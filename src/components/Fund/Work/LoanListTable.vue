@@ -31,6 +31,13 @@
       </el-table-column>
       <el-table-column align="center" label="贴现状态" prop="arStatusTypeName">
       </el-table-column>
+      <el-table-column align="center" label="打款处理状态" min-width="100">
+          <template slot-scope="scope">
+            <el-tooltip class="item" effect="dark" content="会计确认->财务确认->财务已付款->付款单确认" placement="top">
+              <span>{{scope.row.billPayStatus}}</span>
+            </el-tooltip>
+          </template>
+      </el-table-column>
       <el-table-column align="left" header-align="center" label="操作" width='350px' fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>

@@ -50,7 +50,7 @@
         </el-table-column>
         <el-table-column align="center" label="交易条件" prop="paymenttermName">
         </el-table-column>
-        <el-table-column align="center" header-align="center" label="操作" width='200px' class-name="">
+        <el-table-column align="center" header-align="center" label="操作" width='200px' class-name="" fixed="right">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           </template>
