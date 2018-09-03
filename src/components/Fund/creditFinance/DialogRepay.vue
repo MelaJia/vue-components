@@ -192,13 +192,15 @@ export default {
           if (res.data.status) {
             this.settlePrepayAmt = res.data.data.settlePrepayAmt
             this.detailsP.actualRepayAmt = res.data.data.settlePrepayAmt
+            this.isConfirmSettled = 1
           } else {
+            this.isConfirmSettled = 0
+            this.confirmCheck = false
             this.$message.error(res.data.msg)
           }
         }).catch(err => {
           console.log(err)
         })
-        this.isConfirmSettled = 1
       } else {
         this.detailsP.actualRepayAmt = this.detailsP.repayAmt
         this.isConfirmSettled = 0
@@ -268,7 +270,7 @@ function advanceSubmit () {
 
       console.log(param)
       // 发送数据
-      if (this.detailsP.actualRepayAmt < this.repayDetail.settlePrepayAmt) {
+      if (this.detailsP.actualRepayAmt < this.settlePrepayAmt) {
         this.$message.error('客户还款金额不得小于提前还清应还金额')
       } else {
         // 显示加载图标
