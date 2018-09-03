@@ -60,7 +60,7 @@
               <el-table-column align="center" label-align="center" width="150">
                 <template slot-scope="scope">
                   <span v-if="scope.row.isShowRepayButton === 1">
-                    <el-button v-if="scope.row.actualRepayAmt == undefined && scope.row.actualRepayDate == undefined" size="mini" type="primary" @click="repayMent(scope.$index, props.row, scope.row)">还款</el-button>
+                    <el-button v-if="scope.row.actualRepayAmt == undefined && scope.row.actualRepayDate == undefined" size="mini" type="primary" @click="repayMent(scope.$index, scope.row)">还款</el-button>
                   </span>
                   <!-- <el-button v-if="scope.row.isShowRepayButton === 1 && (scope.row.actualRepayAmt == undefined && scope.row.actualRepayDate == undefined)" size="mini" type="primary" @click="repayMent(scope.$index, scope.row)">还款</el-button> -->
                 </template>
@@ -158,7 +158,7 @@ header {
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
-import { getDataBase } from '@/util/util' // 首字母大写 防抖函数
+// import { getDataBase } from '@/util/util' // 首字母大写 防抖函数
 // import { loadingConf } from '@/config/common' // 获取加载配置
 /* 我的Ar列表 */
 export default {
@@ -239,34 +239,18 @@ export default {
       this.$emit('refresh')
     },
     // 还款详情查看
-    repayMent (idx, val1, val2) {
-      let param1 = {
-        loanId: val1.loanId,
-        periodNo: val2.periodNo
-      }
-      // console.log(param1)
-      let param2 = {
-        loanId: val1.loanId,
-        custId: val2.custId,
-        factoringCustId: val2.factoringCustId
+    repayMent (idx, val) {
+      let param = {
+        loanId: val.loanId,
+        periodNo: val.periodNo
       }
       // console.log(param2)
       // 获取还款详情接口
-      this.getLoanDetail('/factoringCreditLoan/queryCreditLoanRepayInfo.do', param1).then(res => {
+      this.getLoanDetail('/factoringCreditLoan/queryCreditLoanRepayInfo.do', param).then(res => {
         if (res) {
           this.details = res
           this.dialogRepay = true
         }
-      })
-      // 获取提前还清还款的接口
-      getDataBase.call(this, '/factoringCreditLoan/prepaySettleLoanTrial.do', param2).then(res => {
-        if (res) {
-          console.log(res)
-          this.repayDetail = res
-          this.dialogRepayVisible = true
-        }
-      }).catch(err => {
-        console.log(err)
       })
     }
   }

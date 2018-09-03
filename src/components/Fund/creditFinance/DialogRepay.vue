@@ -42,7 +42,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="今日提前还清应还金额:" prop="settlePrepayAmt" class="textPosition">
-              <span>{{repayDetail.settlePrepayAmt | regexNum}}</span>
+              <span>{{settlePrepayAmt | regexNum}}</span>
             </el-form-item>
           </el-col>
           <el-col :span="10" :pull="2">
@@ -139,6 +139,7 @@ export default {
     return {
       confirmCheck: false, // 确认提前还清选择框
       isConfirmSettled: 0,
+      settlePrepayAmt: 0,
       rules: {
         actualRepayAmt: [
           { required: true, message: '请输入客户还款金额', trigger: 'blur' },
@@ -148,6 +149,11 @@ export default {
           { required: true, message: '请输入实际还款日期', trigger: 'blur' }
         ]
       }
+    }
+  },
+  watch: {
+    visibleP: function () {
+      this.init()
     }
   },
   computed: {
@@ -160,6 +166,8 @@ export default {
     handleRepay: debounce(submit, 1000, true),
     // 提前还清
     advanceRepay: debounce(advanceSubmit, 1000, true),
+    // 置空方法
+    init: Init,
     // 代入应还金额
     getFull () {
       if (this.detailsP.repayAmt === '' || this.detailsP.repayAmt === undefined) {
@@ -179,7 +187,17 @@ export default {
     // 选择框改变将boolean值改为number
     change (val) {
       if (val === true) {
-        this.detailsP.actualRepayAmt = this.repayDetail.settlePrepayAmt
+        // this.detailsP.actualRepayAmt = this.repayDetail.settlePrepayAmt
+        this.axios.post('/factoringCreditLoan/prepaySettleLoanTrial.do', {loanId: this.detailsP.loanId, custId: '', factoringCustId: ''}).then(res => {
+          if (res.data.status) {
+            this.settlePrepayAmt = res.data.data.settlePrepayAmt
+            this.detailsP.actualRepayAmt = res.data.data.settlePrepayAmt
+          } else {
+            this.$message.error(res.data.msg)
+          }
+        }).catch(err => {
+          console.log(err)
+        })
         this.isConfirmSettled = 1
       } else {
         this.detailsP.actualRepayAmt = this.detailsP.repayAmt
@@ -219,6 +237,7 @@ function submit () {
         loading.close()
         // 操作成功关闭弹窗刷新数据
         if (res.data.status) {
+          this.init()
           this.$parent.fresh()
           this.handleClose()
         }
@@ -264,6 +283,7 @@ function advanceSubmit () {
           loading.close()
           // 操作成功关闭弹窗刷新数据
           if (res.data.status) {
+            this.init()
             this.$parent.fresh()
             this.handleClose()
           } else {
@@ -282,5 +302,12 @@ function advanceSubmit () {
       }
     }
   })
+}
+function Init () {
+  this.settlePrepayAmt = 0
+  this.confirmCheck = false
+  if (this.$refs.form) {
+    this.$refs.form.resetFields()
+  }
 }
 </script>
