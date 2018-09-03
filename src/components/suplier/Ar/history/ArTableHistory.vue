@@ -3,7 +3,7 @@
     <!-- 详情 -->
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-info>
     <section>
-      <el-table :data="dataTable" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+      <el-table :data="dataTable" v-loading.fullscreen="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)" :summary-method="sumHandle([7,8])" border style="width: 100%" :row-class-name="tableRowClassName"
         @expand-change="expendhandle" @header-dragend="widthHandle" @mousedown.native="mouseDown">
         <el-table-column type="expand" fixed>

@@ -78,6 +78,7 @@ function searchSubmit (val) {
   /* 修改请求参数 */
   this.param = {
     loanId: val.loanId, // 融资编号
+    poNumber: val.poNumber, // 订单号
     currency: val.currency, // 币别
     amountBegin: val.amountBegin, // 金额范围开始
     amountEnd: val.amountEnd, // 金额范围结束

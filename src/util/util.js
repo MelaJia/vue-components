@@ -641,3 +641,9 @@ export const mouseDown = function (e) {
     t.style.cursor = 'auto'
   }
 }
+export const isIE = function()  {
+  if (!!window.ActiveXObject || "ActiveXObject" in window)
+   return true;
+   else
+   return false;
+  }

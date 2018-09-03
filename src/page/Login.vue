@@ -162,7 +162,7 @@ import InputPhone from '@/components/Items/InputPhone'
 import InputPass from '@/components/Items/InputPass'
 import Roles from '@/config/roles'
 import { apiUrl } from '@/config/env.js'
-import { randomLenNum } from '@/util/util'
+import { randomLenNum, debounce } from '@/util/util'
 export default {
   data () {
     return {
@@ -207,7 +207,7 @@ export default {
     })
   },
   methods: {
-    submitForm: submitForm,
+    submitForm: debounce(submitForm, 1000, true),
     // 验证码验证
     handleCheckViste: handleCheckViste,
     // 刷新验证码
@@ -247,6 +247,10 @@ async function handleCheckViste () {
   }
 }
 async function submitForm (formName) {
+  if (this.loginLoading === true) {
+    return
+  }
+  console.log('登录')
   this.loginLoading = true // 登录中
   // if (this.isVerify !== 1) {
   //   await this.handleCheckViste()

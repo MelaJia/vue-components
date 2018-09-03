@@ -158,7 +158,7 @@ function handleSubmit () {
     })
     return
   }
-  this.post('/myAr/initiateDiscount.do', data).then(res => {
+  this.post('/myAr/initiateDiscount.do', data, true).then(res => {
     // 操作成功 关闭弹窗
     if (res.data.status) {
       // 已选发票置空

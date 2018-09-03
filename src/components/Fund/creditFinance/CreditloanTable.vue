@@ -11,7 +11,7 @@
     <!--校验手机号-->
     <dialog-checkphone :visible-p.sync="dialogCheckPhone" :details-p="checkDetail"></dialog-checkphone>
     <section>
-      <el-table ref="table" :data="comDatas" v-loading="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+      <el-table ref="table" :data="comDatas" v-loading.fullscreen="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @mousedown.native="mouseDown"
         >
         <el-table-column

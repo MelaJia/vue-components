@@ -37,7 +37,7 @@
     </el-row>
     <el-row>
       <el-col :span="10">
-        <el-form-item label="金额范围">
+        <el-form-item label="金额申请金额">
           <el-col class="mon-range-start">
             <el-jx-input class="ipt" v-model="formInline.amountBegin" placeholder="起始金额"></el-jx-input>
           </el-col>

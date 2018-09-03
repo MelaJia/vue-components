@@ -1,4 +1,5 @@
 import Input from '@/components/Items/inputNumber'
+import { debounce } from '@/util/util' // 防抖函数
 export default {
   components: {
     'el-jx-input': Input
@@ -53,9 +54,10 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
-      console.log('submit!')
-      this.$emit('handle-search', this.formInline)
-    }
+    onSubmit: debounce(onSubmit, 1000, true)
   }
+}
+function onSubmit () {
+  console.log('submit!')
+  this.$emit('handle-search', this.formInline)
 }

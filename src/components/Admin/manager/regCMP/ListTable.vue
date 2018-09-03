@@ -4,7 +4,7 @@
     <dialog-cs :visible-p.sync="dialogTransferVisible" :details-p="details"></dialog-cs>
     <dialog-cm :visible-p.sync="dialogRejectVisible" :details-p="details"></dialog-cm>
     <section>
-    <el-table :data="comDatas" v-loading="dataLoading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+    <el-table :data="comDatas" v-loading.fullscreen="dataLoading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)" border  :summary-method="sumHandle([5,6])" sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
       @expand-change="expendhandle" @mousedown.native="mouseDown">
       <el-table-column align="center" fixed type="index" label="序号" width="60">
@@ -69,7 +69,7 @@ export default {
   methods: {
     // 状态格式化
     statusFormat: function (row, column) {
-      return row[column.property] === '0' ? '不可用' : row[column.property] === '1' ? '可用' : '待确认'
+      return row[column.property] === '0' ? '待确认' : row[column.property] === '1' ? '可用' : '不可用'
     },
     // 签核方式格式化
     signtypeFormat: function (row, column) {
