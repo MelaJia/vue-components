@@ -47,7 +47,7 @@
           </el-col>
           <el-col :span="10" :pull="2">
             <el-form-item>
-              <el-checkbox v-model="confirmCheck" v-on:change="change">确认提前还清</el-checkbox>
+              <el-checkbox v-model="confirmCheck" v-on:change="change" :disabled="disableCheck">确认提前还清</el-checkbox>
             </el-form-item>
           </el-col>
         </el-row>
@@ -63,7 +63,9 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="实际还款日期:" prop="actualRepayDate">
-              <el-date-picker :editable="false" v-model="detailsP.actualRepayDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd">
+              <!-- <el-date-picker :editable="false" v-model="detailsP.actualRepayDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd">
+              </el-date-picker> -->
+              <el-date-picker :editable="false" v-model="detailsP.actualRepayDate" type="date" placeholder="选择日期">
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -140,6 +142,7 @@ export default {
       confirmCheck: false, // 确认提前还清选择框
       isConfirmSettled: 0,
       settlePrepayAmt: 0,
+      disableCheck: false,
       rules: {
         actualRepayAmt: [
           { required: true, message: '请输入客户还款金额', trigger: 'blur' },
@@ -154,11 +157,20 @@ export default {
   watch: {
     visibleP: function () {
       this.init()
+    },
+    repayDate: function () {
+      // 判断日期的大小，还款日期是否小于当前日期，如果小于，就禁用当前页面中的提前还清的checkbox
+      if (new Date(this.detailsP.repayDate).Format('yyyy-MM-dd') <= new Date().Format('yyyy-MM-dd')) {
+        this.disableCheck = true
+      }
     }
   },
   computed: {
     getTitle () {
       return this.detailsP.loanId + '还款'
+    },
+    repayDate () {
+      return this.detailsP.repayDate
     }
   },
   methods: {
@@ -178,11 +190,11 @@ export default {
     },
     // 代入提前还清应还金额
     getAdvanceFull () {
-      if (this.repayDetail.settlePrepayAmt === '' || this.repayDetail.settlePrepayAmt === undefined) {
+      if (this.settlePrepayAmt === '' || this.settlePrepayAmt === undefined) {
         this.detailsP.actualRepayAmt = 0
         return
       }
-      this.detailsP.actualRepayAmt = this.repayDetail.settlePrepayAmt
+      this.detailsP.actualRepayAmt = this.settlePrepayAmt
     },
     // 选择框改变将boolean值改为number
     change (val) {
@@ -308,6 +320,7 @@ function advanceSubmit () {
 function Init () {
   this.settlePrepayAmt = 0
   this.confirmCheck = false
+  this.disableCheck = false
   if (this.$refs.form) {
     this.$refs.form.resetFields()
   }

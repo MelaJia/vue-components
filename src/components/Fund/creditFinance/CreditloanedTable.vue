@@ -244,11 +244,9 @@ export default {
         loanId: val.loanId,
         periodNo: val.periodNo
       }
-      // console.log(param2)
-      // 获取还款详情接口
       this.getLoanDetail('/factoringCreditLoan/queryCreditLoanRepayInfo.do', param).then(res => {
         if (res) {
-          this.details = res
+          this.details = Object.assign(res, {repayDate: val.repayDate})
           this.dialogRepay = true
         }
       })

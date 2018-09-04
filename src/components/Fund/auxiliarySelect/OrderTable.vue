@@ -30,7 +30,7 @@
         </el-table-column>
         <el-table-column align="center" label="约定交货日期" prop="deliveryDate" min-width="100" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" label="操作" header-align="center">
+        <el-table-column align="center" label="操作" header-align="center" fixed="right">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           </template>

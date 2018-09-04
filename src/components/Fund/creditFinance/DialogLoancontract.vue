@@ -185,7 +185,10 @@ export default {
     /** 修复只根据放款比例计算得到结果 输入的值无法获取  */
     loanPer: debounce(function (val) {
       this.detailsP.loanAmt = this.detailsP.applyAmt * val / 100
-    }, 1000)
+    }, 1000),
+    visibleP: function () {
+      this.init()
+    }
   },
   computed: {
     loanPer () {
@@ -210,7 +213,8 @@ export default {
     }
   },
   methods: {
-    handleSubmit: debounce(submit, 1000, true)
+    handleSubmit: debounce(submit, 1000, true),
+    init: Init
     // // 检验年利率
     // handleRate (e) {
     //   e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null
@@ -347,6 +351,12 @@ var checkDay = (rule, value, callback) => {
     callback(new Error('必须为大于0的整数'))
   } else {
     callback()
+  }
+}
+// 初始化
+function Init () {
+  if (this.$refs.form) {
+    this.$refs.form.resetFields()
   }
 }
 </script>
