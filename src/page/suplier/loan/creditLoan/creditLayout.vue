@@ -1,7 +1,7 @@
 <template>
   <section>
     <dialog-info :visible-p.sync="dialogInfoVisible" :form="details"></dialog-info>
-    <el-row>
+    <el-row :style="{fontSize: fontSize + 'px'}">
       <el-col :span="7">
         总限额：
         <span class="red">{{details.totalCreditAmount |regexNum}}</span>
@@ -25,7 +25,6 @@ section {
   padding: 10px 10px;
 }
 .el-col {
-  font-size: 24px;
   font-weight: 500;
 }
 .red {
@@ -40,6 +39,7 @@ import { getDataBase } from '@/util/util'
 export default {
   data () {
     return {
+      fontSize: '24',
       details: {
         totalCreditAmount: '', // 总限额
         availableCreditAmount: '', // 可融资金额
@@ -49,6 +49,13 @@ export default {
   },
   mixins: [Dialog, Common],
   mounted () {
+    window.onresize = setHtmlFontSize
+    const _this = this
+    function setHtmlFontSize () {
+      const htmlWidth = document.documentElement.clientWidth || document.body.clientWidth
+      _this.fontSize = htmlWidth > 1380 ? 24 : 20
+    }
+    setHtmlFontSize()
     getDataBase.call(this, 'creditLoan/queryCreditAmount.do').then(res => {
       if (res) {
         this.details = res
@@ -58,16 +65,6 @@ export default {
   components: {
     'dialog-info': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/creditLoan/loan/DialogLoan')
-  },
-  filters: {
-    // 千分位
-    regexNum: function (val) {
-      val = Number(val)
-      let newVal = val / 10000
-      console.log(newVal)
-      console.log(typeof newVal)
-      return newVal > 10 ? `${newVal.toFixed(4).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}万元` : `${val.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}元`
-    }
   },
   methods: {
     // 申请融资
