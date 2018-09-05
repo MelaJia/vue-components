@@ -62,7 +62,7 @@ if (getStore({name: 'userinfos'})) {
   store.commit('SET_UINFO', getStore({name: 'userinfos'}))
 }
 const router = new Router({
-  mode: 'history',
+  // mode: 'history',
   routes
 })
 router.beforeEach((to, from, next) => {
