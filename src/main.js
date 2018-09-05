@@ -63,7 +63,7 @@ axios.interceptors.response.use(
           }
           ElementUI.Message({
             showClose: true,
-            message: '会话超时，请重新登录',
+            message: '登录超时，请重新登录',
             type: 'error'
           })
       }
