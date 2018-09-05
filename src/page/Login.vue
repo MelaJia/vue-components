@@ -324,9 +324,12 @@ async function submitForm (formName) {
       }
       this.loginLoading = false // 登录完成
     }).catch(err => {
+      var t = Object.keys(err)
+      console.log(t)
+      console.log(err.response)
       this.loginLoading = false // 登录失败
       this.loginError = true
-      this.loginErrorInfo = err
+      this.loginErrorInfo = err.response === undefined ? '服务器错误，请联系管理员' : err.response.status
       // 重置验证码
       this.isVerify = -1
     })
