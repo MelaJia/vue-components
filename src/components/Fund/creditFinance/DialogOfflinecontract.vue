@@ -23,18 +23,22 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col>
+          <!-- <el-col>
+            <el-form-item label="合同上传:">
+              <form ref="uploadForm" method="post" name="fileInfo" enctype="multipart/form-data">
+                <input ref="selectFile" type="file" name="contractUploadFile" @change="selectFile" style="float:left;margin-top:8px;">
+                <el-button type="primary" size="mini" @click="uploadFile" style="float:left;margin-top:6px;margin-left:10px;">上传</el-button>
+              </form>
+            </el-form-item>
+          </el-col> -->
+          <el-col :span="10">
             <el-form-item label="合同上传:">
               <form ref="uploadForm" method="post" name="fileInfo" enctype="multipart/form-data">
                 <input ref="selectFile" type="file" name="contractUploadFile" @change="selectFile">
-                <el-button type="primary" size="mini" @click="uploadFile">上传</el-button>
               </form>
-              <!-- <el-upload class="upload-demo" ref="upload" :action="uploadUrl" :auto-upload="false" :on-success="handleSuccess">
-                <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传</el-button>
-              </el-upload> -->
             </el-form-item>
           </el-col>
+          <el-col :span="4"><el-button type="primary" size="mini" @click="uploadFile" style="margin-top:6px;">上传</el-button></el-col>
         </el-row>
         <el-row>
             <el-col>
@@ -103,6 +107,7 @@ import { debounce } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 // import { apiUrl } from '@/config/env.js'
 import { mapGetters } from 'vuex'
+let loadash = require('lodash') // 引用loadash
 
 export default {
   props: ['visibleP', 'detailsP'],
@@ -120,6 +125,11 @@ export default {
       }
     }
   },
+  watch: {
+    visibleP: function () {
+      this.init()
+    }
+  },
   computed: {
     getTitle () {
       return this.detailsP.loanId + '合同确认'
@@ -128,30 +138,15 @@ export default {
     // 附件列表
     contractList () {
       // return this.uniqueData(this.detailsP.contractUploadFileList)
-      return this.detailsP.contractUploadFileList
+      // return this.detailsP.contractUploadFileList
+      return loadash.uniqWith(this.detailsP.contractUploadFileList, loadash.isEqual) // json数组去重
     }
   },
   methods: {
     // 生成合同
     uploadContract: debounce(submit, 1000, true),
-    // 去重数据
-    // uniqueData (list) {
-    //   var newArr = [this.detailsP.contractUploadFileList[0]]
-    //   for (var i = 1; i < list.length; i++) {
-    //     var listItem = list[i]
-    //     var repeat = false
-    //     for (var j = 0; j < newArr.length; j++) {
-    //       if (listItem.contractUploadFileName === newArr[j].contractUploadFileName) {
-    //         repeat = true
-    //         break
-    //       }
-    //     }
-    //     if (!repeat) {
-    //       newArr.push(listItem)
-    //     }
-    //   }
-    //   return newArr
-    // },
+    // 重置
+    init: Init,
     // 选择文件
     selectFile (e) {
       this.fileInfo = e.target.files[0]
@@ -263,5 +258,16 @@ function submit () {
       }
     }
   })
+}
+// 重置函数
+function Init () {
+  // 重置选择文件显示
+  if (this.$refs.selectFile) {
+    this.$refs.selectFile.value = ''
+  }
+  // 重置表单校验
+  if (this.$refs.form) {
+    this.$refs.form.resetFields()
+  }
 }
 </script>

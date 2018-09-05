@@ -317,6 +317,7 @@ function advanceSubmit () {
     }
   })
 }
+// 重置函数
 function Init () {
   this.settlePrepayAmt = 0
   this.confirmCheck = false
