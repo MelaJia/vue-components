@@ -4,9 +4,10 @@ import store from '@/store'
 import * as types from '@/store/types'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
-import Main from './main'
+import Main from './mainRoute'
 import Fund from './fundRoute'
 import Admin from './adminRoute'
+import ErrorRoute from './errorRoute'
 import Roles from '@/config/roles'
 import {
   getStore
@@ -42,7 +43,7 @@ const routes = [
     component: () =>
       import('@/page/Forgetpassword')
   },
-  ...Main, ...Fund, ...Admin
+  ...Main, ...Fund, ...Admin, ...ErrorRoute
 ]
 // 页面刷新，重新设置token
 if (getStore({name: 'token'})) {
@@ -61,6 +62,7 @@ if (getStore({name: 'userinfos'})) {
   store.commit('SET_UINFO', getStore({name: 'userinfos'}))
 }
 const router = new Router({
+  mode: 'history',
   routes
 })
 router.beforeEach((to, from, next) => {
