@@ -162,6 +162,8 @@ export default {
       // 判断日期的大小，还款日期是否小于当前日期，如果小于，就禁用当前页面中的提前还清的checkbox
       if (new Date(this.detailsP.repayDate).Format('yyyy-MM-dd') <= new Date().Format('yyyy-MM-dd')) {
         this.disableCheck = true
+      } else {
+        this.disableCheck = false
       }
     }
   },
@@ -321,7 +323,11 @@ function advanceSubmit () {
 function Init () {
   this.settlePrepayAmt = 0
   this.confirmCheck = false
-  this.disableCheck = false
+  if (this.disableCheck) {
+    this.disableCheck = true
+  } else {
+    this.disableCheck = false
+  }
   if (this.$refs.form) {
     this.$refs.form.resetFields()
   }
