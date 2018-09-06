@@ -3,7 +3,7 @@
     <div class="body">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <img src="~@/assets/img/juxin_06.png" alt="查询条件">
+          <i class="el-icon-search"></i>
           <span>查询条件</span>
         </div>
         <search @handle-search="handleSearch"></search>

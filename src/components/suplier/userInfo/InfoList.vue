@@ -2,13 +2,17 @@
   <div>
     <el-card class="box-card">
       <div slot="header" class="clearfix">
+        <i class="el-icon-document"></i>
         <span>企业基础信息</span>
       </div>
       <ul>
-        <li :span="8"><span>企业状态：</span>{{infos.isUsableDesc}}</li>
+        <li :span="8"><span>企业状态：</span>
+          <span class="iconfont icon-yuan tag-item-icon" :class="[infos.isUsableDesc === '可用' ? 'status-success' : 'status-danger']"></span>
+          {{infos.isUsableDesc}}
+        </li>
         <li :span="8"><span>所属客户经理：</span>{{infos.sourceName}}</li>
-        <li :span="8">
-          <el-tooltip :content="'公司ID:'+infos.custId" placement="bottom" effect="light">
+        <li :span="8" style="cursor:pointer" @click="handleCopy">
+          <el-tooltip :content="'单击复制'+infos.custId" placement="top" effect="dark">
             <span>公司ID: <em>{{infos.custId}}</em></span>
           </el-tooltip>
         </li>
@@ -16,7 +20,7 @@
       <ul>
         <li :span="8"><span>企业电话：</span>{{infos.companyPhone}}</li>
         <li :span="8">
-          <el-tooltip :content="'企业地址:'+infos.companyAddress" placement="bottom" effect="light">
+          <el-tooltip :content="'企业地址:'+infos.companyAddress" placement="top" effect="light">
             <span>企业地址: <em>{{infos.companyAddress}}</em></span>
           </el-tooltip>
         </li>
@@ -72,6 +76,13 @@
     </table> -->
   </div>
 </template>
+<style lang="scss" scoped>
+@import "@/assets/css/_status.scss";
+ul {
+  margin: 2px 0px;
+}
+</style>
+
 <script>
 /* 用户信息列表 */
 import Common from '@/mixins/common'
@@ -101,6 +112,21 @@ export default {
         })
       }
       return result ? result.currencyDesc : ''
+    }
+  },
+  methods: {
+    handleCopy () {
+      var oInput = document.createElement('input')
+      oInput.value = this.infos.custId
+      document.body.appendChild(oInput)
+      oInput.select() // 选择对象
+      document.execCommand('Copy') // 执行浏览器复制命令
+      oInput.className = 'oInput'
+      oInput.style.display = 'none'
+      this.$message({
+        message: '复制成功',
+        type: 'success'
+      })
     }
   }
 }

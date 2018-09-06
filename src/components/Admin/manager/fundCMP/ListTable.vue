@@ -40,6 +40,9 @@
 </template>
 <style lang="scss" scoped>
 @import "@/assets/css/_status.scss";
+.tag-item-icon{
+  margin-left: 15px;
+}
 </style>
 
 <script>
