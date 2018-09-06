@@ -85,11 +85,6 @@
         <el-table-column align="center" label="付款单位/对手单位" prop="transUnitName" width="150" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="center" label="状态" prop="arStatusTypeName">
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.arStatusTypeName === '已確認' ? 'success' : 'info'"
-              disable-transitions>{{scope.row.arStatusTypeName}}</el-tag>
-          </template>
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyDesc" :formatter="nullDealWith">
         </el-table-column>
