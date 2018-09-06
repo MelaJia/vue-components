@@ -30,8 +30,8 @@
       <el-table-column align="center" label="操作" width='230px' fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-          <el-button v-if="scope.row.checkedStatus==3" size="mini" type="primary" @click="handleAccept(scope.$index, scope.row)">接受</el-button>
-          <el-button v-if="scope.row.checkedStatus==3" size="mini" type="primary" @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
+          <el-button v-if="scope.row.checkedStatus==3" size="mini" @click="handleAccept(scope.$index, scope.row)">接受</el-button>
+          <el-button v-if="scope.row.checkedStatus==3" size="mini" @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
         </template>
       </el-table-column>
     </el-table>

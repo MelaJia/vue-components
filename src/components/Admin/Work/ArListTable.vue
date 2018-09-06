@@ -22,7 +22,7 @@
       <el-table-column align="left" header-align="center" label="操作" width='220px' fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-          <el-button v-for="(item, index) in scope.row.operateArr" :key="index"  size="mini"  type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" v-loading.fullscreen.lock="item.isLoading">{{item.name}}</el-button>
+          <el-button v-for="(item, index) in scope.row.operateArr" :key="index"  size="mini"  @click="handleCommand({key:item.key, idx:index, val:scope.row})" v-loading.fullscreen.lock="item.isLoading">{{item.name}}</el-button>
         </template>
       </el-table-column>
     </el-table>

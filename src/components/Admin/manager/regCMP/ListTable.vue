@@ -19,7 +19,11 @@
       </el-table-column>
       <el-table-column align="center" label="币别" prop="currencyName">
       </el-table-column>
-      <el-table-column align="center" label="公司状态" prop="status" :formatter="statusFormat">
+      <el-table-column align="left" header-align="center"  label="公司状态" prop="status" width="100">
+        <template slot-scope="scope">
+          <span class="iconfont icon-yuan tag-item-icon" :class="[Number(scope.row.status) === 1 ? 'status-success' : Number(scope.row.status) === 0 ? 'status-info': 'status-danger' ]"></span>
+          <span class="tag-text">{{scope.row.status | statusFormat}}</span>
+        </template>
       </el-table-column>
       <el-table-column align="center" label="公司地址" prop="companyAddress">
       </el-table-column>
@@ -28,16 +32,19 @@
       <el-table-column align="left" header-align="center" label="操作" width='390px' fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-          <el-button v-if="scope.row.status==0||scope.row.status==2" size="mini" type="primary" @click="handleStart(scope.$index, scope.row)">启用</el-button>
-          <el-button v-else size="mini" type="primary" @click="handleStop(scope.$index, scope.row)">停用</el-button>
-          <el-button size="mini" type="primary" @click="handleCustManagerSet(scope.$index, scope.row)">客户经理设置</el-button>
-           <el-button size="mini" type="primary" @click="handleUpdate(scope.$index, scope.row)">更新同步</el-button>
+          <el-button v-if="scope.row.status==0||scope.row.status==2" size="mini" type="success" @click="handleStart(scope.$index, scope.row)">启用</el-button>
+          <el-button v-else size="mini" type="danger" @click="handleStop(scope.$index, scope.row)">停用</el-button>
+          <el-button size="mini"  @click="handleCustManagerSet(scope.$index, scope.row)">客户经理设置</el-button>
+           <el-button size="mini"  @click="handleUpdate(scope.$index, scope.row)">更新同步</el-button>
         </template>
       </el-table-column>
     </el-table>
   </section>
   </div>
 </template>
+<style lang="scss" scoped>
+@import "@/assets/css/_status.scss";
+</style>
 
 <script>
 import ListMinxIn from '@/mixins/suplier/Ar/Table'
@@ -64,6 +71,11 @@ export default {
   computed: {
     comDatas: function () {
       return this.dataTable
+    }
+  },
+  filters: {
+    statusFormat: function (val) {
+      return Number(val) === 0 ? '待确认' : Number(val) === 1 ? '可用' : '不可用'
     }
   },
   methods: {

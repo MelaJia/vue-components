@@ -80,7 +80,6 @@
             @click="handleInfo(scope.$index, scope.row)">详情</el-button>
             <el-button
             size="mini"
-            type="primary"
             @click="handleCancle(scope.$index, scope.row)" v-if="scope.row.checkedStatus==3">取消授让</el-button>
         </template>
         </el-table-column>
