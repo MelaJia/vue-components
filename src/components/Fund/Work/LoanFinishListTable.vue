@@ -17,24 +17,25 @@
           <template slot-scope="props">
             <el-table :data="props.row.tableData" border style="width: 100%" :show-header="false" :row-class-name="getPendedColor">
               <el-table-column width="48">
-
+                <template slot-scope="scope">
+                  - -
+                </template>
               </el-table-column>
-              <el-table-column align="center" prop="masterChainId" :width="widthArr.masterChainId">
+              <el-table-column align="center" prop="masterChainId" :width="widthArr.masterChainId" :formatter="nullDealWith">
               </el-table-column>
-              <el-table-column align="center" prop="billId" :width="widthArr.billId">
+              <el-table-column align="center" prop="billId" :width="widthArr.billId" :formatter="nullDealWith">
               </el-table-column>
-              <el-table-column align="center" prop="companyName" :width="widthArr.companyName">
-                >
+              <el-table-column align="center" prop="companyName" :width="widthArr.companyName" :formatter="nullDealWith">
               </el-table-column>
-              <el-table-column align="center" prop="custFromName" :width="widthArr.custFromName">
+              <el-table-column align="center" prop="custFromName" :width="widthArr.custFromName" :formatter="nullDealWith">
               </el-table-column>
               <el-table-column align="right" header-align="center" prop="billBookAmt" :width="widthArr.billBookAmt" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="currencyDesc" :width="widthArr.currencyDesc">
+              <el-table-column align="center" prop="currencyDesc" :width="widthArr.currencyDesc" :formatter="nullDealWith">
               </el-table-column>
-              <el-table-column align="center" prop="repaymentType" :width="widthArr.repaymentType">
+              <el-table-column align="center" prop="repaymentType" :width="widthArr.repaymentType" :formatter="nullDealWith">
               </el-table-column>
-              <el-table-column align="center" prop="fineGraceDays" :width="widthArr.fineGraceDays">
+              <el-table-column align="center" prop="fineGraceDays" :width="widthArr.fineGraceDays" :formatter="nullDealWith">
               </el-table-column>
               <el-table-column align="right" header-align="center" prop="payPrincipalAmt" :width="widthArr.payPrincipalAmt" :formatter="regexNum">
               </el-table-column>
@@ -44,7 +45,7 @@
               </el-table-column>
               <el-table-column align="right" header-align="center" prop="payFineAmt" :width="widthArr.payFineAmt" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="payFineDays" :width="widthArr.payFineDays">
+              <el-table-column align="center" prop="payFineDays" :width="widthArr.payFineDays" :formatter="nullDealWith">
               </el-table-column>
               <el-table-column align="right" header-align="center" prop="prepayServiceAmt" :width="widthArr.prepayServiceAmt" :formatter="regexNum">
               </el-table-column>
@@ -60,8 +61,9 @@
               </el-table-column>
               <el-table-column align="center" prop="actualRepayDate" :width="widthArr.actualRepayDate" :formatter="dateFormat" >
               </el-table-column>
-              <el-table-column align="center" width='200px'>
+              <el-table-column align="center" width='100px'>
                 <template slot-scope="scope">
+                  - -
                 </template>
               </el-table-column>
             </el-table>
@@ -91,7 +93,7 @@
         </el-table-column>
         <el-table-column align="right" header-align="center" label="还款罚息" prop="payFineAmt" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="罚息天数" prop="payFineDays">
+        <el-table-column align="center" label="罚息天数" prop="payFineDays" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepayServiceAmt" :formatter="regexNum">
         </el-table-column>
@@ -107,19 +109,9 @@
         </el-table-column>
         <el-table-column align="center" label="实际还款日期" prop="actualRepayDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="center" header-align="center" label="操作" width='200px' class-name="" fixed="right">
+        <el-table-column align="center" header-align="center" label="操作" width='100px' class-name="" fixed="right">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-            <!-- <el-dropdown>
-              <el-button type="primary">
-                更多菜单<i class="el-icon-arrow-down el-icon--right"></i>
-              </el-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item><el-button size="mini" type="primary" @click="handleTransfer(scope.$index, scope.row)">转让</el-button></el-dropdown-item>
-                <el-dropdown-item><el-button size="mini" type="primary" @click="handleCancle(scope.$index, scope.row)">取消</el-button></el-dropdown-item>
-                <el-dropdown-item><el-button size="mini" type="primary" @click="handleApply(scope.$index, scope.row)">贴现审核申请</el-button></el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown> -->
             </template>
         </el-table-column>
       </el-table>

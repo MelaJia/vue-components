@@ -21,7 +21,7 @@
       </el-table-column>
       <el-table-column align="center" label="预计回款日期" prop="billPayDate" min-width="120" :formatter="dateFormat">
       </el-table-column>
-      <el-table-column align="center" label="操作" width='230px' fixed="right">
+      <el-table-column align="center" label="操作" width='100px' fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
         </template>

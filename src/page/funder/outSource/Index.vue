@@ -273,6 +273,12 @@ export default {
   },
   methods: {
     thousandth: thousandth
+  },
+  filters: {
+    // 千分位
+    regexNum: function (val) {
+      return `${thousandth(val)}`
+    }
   }
 }
 // 获取数据
@@ -354,10 +360,13 @@ function getOptions (echartData) {
   return {
     tooltip: {
       trigger: 'item',
-      formatter: '{b}: {c} ({d}%)'
+      formatter: function (params, ticket, callback) {
+        var res = `${params.seriesName}</br>${params.name}:${thousandth(params.value)}(万元)</br> 比例:${params.percent}%`
+        return res
+      }
     },
     series: [{
-      name: '总考生数量',
+      name: '资产概况',
       type: 'pie',
       radius: ['27%', '45%'],
       hoverAnimation: false,

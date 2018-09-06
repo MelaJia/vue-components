@@ -19,24 +19,25 @@
           <template slot-scope="props">
             <el-table :data="props.row.tableData" border style="width: 100%" :show-header="false" :row-class-name="getPendedColor">
               <el-table-column width="48">
-
+                <template slot-scope="scope">
+                - -
+                </template>
               </el-table-column>
-              <el-table-column align="center" prop="masterChainId" :width="widthArr.masterChainId">
+              <el-table-column align="center" prop="masterChainId" :width="widthArr.masterChainId" :formatter="nullDealWith">
               </el-table-column>
-              <el-table-column align="center" prop="billId" :width="widthArr.billId">
+              <el-table-column align="center" prop="billId" :width="widthArr.billId" :formatter="nullDealWith">
               </el-table-column>
-              <el-table-column align="center" prop="companyName" :width="widthArr.companyName">
-                >
+              <el-table-column align="center" prop="companyName" :width="widthArr.companyName" :formatter="nullDealWith">
               </el-table-column>
-              <el-table-column align="center" prop="custFromName" :width="widthArr.custFromName">
+              <el-table-column align="center" prop="custFromName" :width="widthArr.custFromName" :formatter="nullDealWith">
               </el-table-column>
               <el-table-column align="right" header-align="center" prop="billBookAmt" :width="widthArr.billBookAmt" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="currencyDesc" :width="widthArr.currencyDesc">
+              <el-table-column align="center" prop="currencyDesc" :width="widthArr.currencyDesc" :formatter="nullDealWith">
               </el-table-column>
-              <el-table-column align="center" prop="repaymentType" :width="widthArr.repaymentType">
+              <el-table-column align="center" prop="repaymentType" :width="widthArr.repaymentType" :formatter="nullDealWith">
               </el-table-column>
-              <el-table-column align="center" prop="fineGraceDays" :width="widthArr.fineGraceDays">
+              <el-table-column align="center" prop="fineGraceDays" :width="widthArr.fineGraceDays" :formatter="nullDealWith">
               </el-table-column>
               <el-table-column align="right" header-align="center" prop="payPrincipalAmt" :width="widthArr.payPrincipalAmt" :formatter="regexNum">
               </el-table-column>
@@ -46,7 +47,7 @@
               </el-table-column>
               <el-table-column align="right" header-align="center" prop="payFineAmt" :width="widthArr.payFineAmt" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="center" prop="payFineDays" :width="widthArr.payFineDays">
+              <el-table-column align="center" prop="payFineDays" :width="widthArr.payFineDays" :formatter="nullDealWith">
               </el-table-column>
               <el-table-column align="right" header-align="center" prop="prepayServiceAmt" :width="widthArr.prepayServiceAmt" :formatter="regexNum">
               </el-table-column>
@@ -65,7 +66,7 @@
                   </el-tooltip>
                 </template>
               </el-table-column>
-              <el-table-column align="center" width='200px'>
+              <el-table-column align="center" width='100px'>
                 <template slot-scope="scope">
                   <el-button v-if="scope.row.isShowRepayButton" size="mini" type="primary" @click="handleRepay(scope.$index, props.row, scope.row)">还款</el-button>
                 </template>
@@ -87,7 +88,7 @@
         </el-table-column>
         <el-table-column align="center" label="还款方式" prop="repaymentType">
         </el-table-column>
-        <el-table-column align="center" label="宽容天数" prop="fineGraceDays">
+        <el-table-column align="center" label="宽容天数" prop="fineGraceDays" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="还款本金" prop="payPrincipalAmt" :formatter="regexNum">
         </el-table-column>
@@ -97,7 +98,7 @@
         </el-table-column>
         <el-table-column align="right" header-align="center" label="还款罚息" prop="payFineAmt" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="罚息天数" prop="payFineDays">
+        <el-table-column align="center" label="罚息天数" prop="payFineDays" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepayServiceAmt" :formatter="regexNum">
         </el-table-column>
@@ -116,7 +117,7 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column align="center" header-align="center" label="操作" width='200px' class-name="" fixed="right">
+        <el-table-column align="center" header-align="center" label="操作" width='100px' class-name="" fixed="right">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
             <!-- <el-dropdown>
@@ -225,7 +226,9 @@ async function handleRepay (idx, val1, val2) {
     background: 'rgba(0, 0, 0, 0.7)'
   })
   try {
-    let [res1, res2] = await Promise.all([this.axios.post('/loanQuery/queryLoanRepayInfo.do', param), this.axios.post('/loanQuery/prepaySettleLoanTrial.do', param2)])
+    let res1 = await this.axios.post('/loanQuery/queryLoanRepayInfo.do', param)
+    let res2 = await this.axios.post('/loanQuery/prepaySettleLoanTrial.do', param2)
+
     // 获取提前还清还款的接口
     loading.close()
     if (res1.data.status) {

@@ -11,19 +11,19 @@
       </el-table-column>
       <el-table-column align="center" label="供应商代码" prop="vendorCode">
       </el-table-column>
-      <el-table-column align="center" label="放款比例" prop="loanPer" :formatter="addPercent">
+      <el-table-column align="right" header-align="center" label="放款比例(%)" prop="loanPer" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="宽容天数" prop="fineGraceDays">
+      <el-table-column align="right" header-align="center" label="宽容天数(天)" prop="fineGraceDays" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="年利率" prop="interestRate" :formatter="addPercent">
+      <el-table-column align="right" header-align="center" label="年利率(%)" prop="interestRate" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="服务费率" prop="serviceFeeRate" :formatter="addPercent">
+      <el-table-column align="right" header-align="center" label="服务费率(%)" prop="serviceFeeRate" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="逾期利率" prop="fineGraceDayRate" :formatter="addPercent">
+      <el-table-column align="right" header-align="center" label="逾期利率(%)" prop="fineGraceDayRate" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="提前还款手续费" prop="prepaymentDeductRate" min-width="120" >
+      <el-table-column align="right" header-align="center" label="提前还款手续费率(%)" prop="prepaymentDeductRate" min-width="120" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="操作" width='230px' fixed="right">
+      <el-table-column align="center" label="操作" width='80px' fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">修改</el-button>
         </template>

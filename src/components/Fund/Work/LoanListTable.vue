@@ -10,13 +10,13 @@
       @expand-change="expendhandle" @mousedown.native="mouseDown">
       <el-table-column align="center" fixed type="index" label="序号" width="60">
       </el-table-column>
-      <el-table-column align="center" fixed sortable label="AR单号" prop="masterChainId" width="130">
+      <el-table-column align="center" fixed sortable label="AR单号" prop="masterChainId" width="130" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="结报单号" prop="billId">
+      <el-table-column align="center" label="结报单号" prop="billId" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="贴现客户" prop="custFromName">
+      <el-table-column align="center" label="贴现客户" prop="custFromName" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="币别" prop="currencyDesc">
+      <el-table-column align="center" label="币别" prop="currencyDesc" :formatter="nullDealWith">
       </el-table-column>
       <el-table-column align="right" header-align="center" label="贴现金额" prop="billBookAmt" :formatter="regexNum">
       </el-table-column>

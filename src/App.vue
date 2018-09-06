@@ -43,7 +43,9 @@ html,body,#app,#app>div,#app>div>main,.main-section,.main-section>div{
 .el-card__header{
   padding: 10px 20px;
 }
-.el-card.box-card,
+.el-card.box-card{
+  min-width: 990px;
+}
 .el-card__body {
         min-width: 950px;
     }

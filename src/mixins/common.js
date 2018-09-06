@@ -16,15 +16,23 @@ export default {
     dateFormat: function (row, column) {
       var date = row[column.property]
       if (date === undefined || date === null || date === '') {
-        return ''
+        return '- -'
       }
       return new Date(date).Format('yyyy-MM-dd')
+    },
+    // 空值处理
+    nullDealWith: function (row, column) {
+      var val = row[column.property]
+      if (val === undefined || val === null || val === '') {
+        return '- -'
+      }
+      return val
     },
     // 添加%
     addPercent: function (row, column) {
       var val = row[column.property]
       if (val === undefined) {
-        return ''
+        return '- -'
       }
       return `${val}%`
     },
@@ -100,7 +108,7 @@ export default {
      */
     dateFormat: function (value) {
       if (value === null || value === undefined || value === '') {
-        return ' '
+        return '- -'
       }
       return new Date(value).Format('yyyy-MM-dd')
     },
@@ -115,7 +123,7 @@ export default {
     // 添加%
     addPercent: function (val) {
       if (val === undefined || val === null || val === '') {
-        return ''
+        return '- -'
       }
       return `${val}%`
     }

@@ -2,6 +2,7 @@
   <div ref="pie" id="pie" style="width: 85px;height:85px;"></div>
 </template>
 <script>
+import {thousandth} from '@/util/util'
 // 引入 ECharts 主模块
 var echarts = require('echarts/lib/echarts')
 // 引入柱状图
@@ -10,16 +11,19 @@ export default {
   props: ['data', 'color'],
   computed: {
     getOption: function () {
-      let datas = this.data
+      let {title, datas} = this.data
       return {
         tooltip: {
           trigger: 'item',
-          formatter: '{b}: {c} ({d}%)'
+          formatter: function (params, ticket, callback) {
+            var res = `${params.seriesName}</br>${params.name}:${thousandth(params.value)}(万元)</br> 比例:${params.percent}%`
+            return res
+          }
         },
         color: this.color,
         series: [
           {
-            name: '数据来源',
+            name: title,
             type: 'pie',
             radius: ['50%', '70%'],
             hoverAnimation: false,

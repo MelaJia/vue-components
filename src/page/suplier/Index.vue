@@ -46,7 +46,7 @@
               <div class="url">
                 <router-link :to="item.path">查看明细</router-link>
               </div>
-              <pie ref="child" :data="getPieArr(item.data)" :color="color[idx]"></pie>
+              <pie ref="child" :data="getPieArr(item.title,item.data)" :color="color[idx]"></pie>
             </div>
           </article>
         </section>
@@ -192,9 +192,7 @@ li {
 
 <script>
 import Pie from '@/components/items/pie'
-import {
-  thousandth
-} from '@/util/util'
+import {thousandth} from '@/util/util'
 import Common from '@/mixins/common'
 
 // 引入 ECharts 主模块
@@ -387,6 +385,12 @@ export default {
     sumAdd: sumAdd,
     // 转化数组
     getPieArr: getPieArr
+  },
+  filters: {
+    // 千分位
+    regexNum: function (val) {
+      return `${thousandth(val)}`
+    }
   }
 }
 // 获取数据
@@ -489,7 +493,11 @@ function getOptions (echartData) {
     },
     tooltip: {
       trigger: 'item',
-      formatter: '{b}: {c} ({d}%)'
+      // formatter: '{b}: {c} ({d}%)'
+      formatter: function (params, ticket, callback) {
+        var res = `${params.seriesName}</br>${params.name}:${thousandth(params.value)}(万元)</br> 比例:${params.percent}%`
+        return res
+      }
     },
     legend: {
       selectedMode: false,
@@ -549,13 +557,13 @@ function sumAdd (object) {
   }
   return result / 100
 }
-function getPieArr (object) {
+function getPieArr (title, object) {
   let result = []
   for (const key in object) {
     if (object.hasOwnProperty(key)) {
       result.push(object[key])
     }
   }
-  return result
+  return {title: title, datas: result}
 }
 </script>

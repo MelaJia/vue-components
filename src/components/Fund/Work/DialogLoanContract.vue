@@ -7,7 +7,7 @@
       </span>
     </header>
     <section class="layout loan-contract-form">
-      <el-form ref="form" :model="detailsP" status-icon :rules="rules" label-width="130px">
+      <el-form ref="form" :model="detailsP" status-icon :rules="rules" label-width="160px">
         <el-row>
           <el-col :span="11" class="flex">
             <el-form-item label="贴现金额: " prop="billBookAmt">
@@ -15,46 +15,42 @@
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
-            <el-form-item label="放款比例: " prop="loanPer">
+            <el-form-item label="放款比例(%): " prop="loanPer">
              <el-input v-model="detailsP.loanPer"  placeholder="放款比例">
-               <template slot="append">%</template>
              </el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11"  class="flex">
-            <el-form-item label="实放金额: " prop="actualDiscountAmt">
+            <el-form-item label="实放金额(元): " prop="actualDiscountAmt">
              <el-input v-model="actualDiscountAmt" placeholder="实放金额"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11" class="flex">
-            <el-form-item label="年利率: " prop="interestRate">
+            <el-form-item label="年利率(%): " prop="interestRate">
              <el-jx-input v-model="detailsP.interestRate" placeholder="年利率">
-               <template slot="append">%</template>
              </el-jx-input>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
-             <el-form-item label="服务费率: " prop="serviceFeeRate">
+             <el-form-item label="服务费率(%): " prop="serviceFeeRate">
               <el-jx-input v-model="detailsP.serviceFeeRate" placeholder="服务费率">
-                <template slot="append">%</template>
               </el-jx-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11" class="flex">
-             <el-form-item label="逾期利率: " prop="overdueRate">
+             <el-form-item label="逾期利率(%): " prop="overdueRate">
              <el-jx-input v-model="detailsP.overdueRate" placeholder="逾期利率">
-               <template slot="append">%</template>
              </el-jx-input>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
-            <el-form-item label="提前还款手续费: " prop="prepaymentDeductInterest">
+            <el-form-item label="提前还款手续费率(%): " prop="prepaymentDeductInterest">
               <el-jx-input v-model="detailsP.prepaymentDeductInterest"  placeholder="提前还款手续费"></el-jx-input>
             </el-form-item>
           </el-col>
@@ -68,7 +64,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
-             <el-form-item label="宽容天数: " prop="fineGraceDays">
+             <el-form-item label="宽容天数(天): " prop="fineGraceDays">
              <el-input v-model="detailsP.fineGraceDays"  placeholder="宽容天数"></el-input>
             </el-form-item>
           </el-col>

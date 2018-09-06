@@ -7,49 +7,45 @@
       </span>
     </header>
     <section>
-      <el-form ref="form" :model="form" label-width="130px" status-icon :rules="rules" label-position="left">
+      <el-form ref="form" :model="form" label-width="150px" status-icon :rules="rules" label-position="right">
         <el-row>
           <el-col :span="11">
-            <el-form-item label="放款比例:" prop="loanPer">
+            <el-form-item label="放款比例(%):" prop="loanPer">
               <el-input v-model="form.loanPer">
-                <template slot="append">%</template>
               </el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11">
-            <el-form-item label="宽容天数:" prop="fineGraceDays">
+            <el-form-item label="宽容天数(天):" prop="fineGraceDays">
               <el-input v-model="form.fineGraceDays"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" >
-            <el-form-item label="年利率:" prop="interestRate">
+            <el-form-item label="年利率(%):" prop="interestRate">
               <el-input v-model="form.interestRate">
-                 <template slot="append">%</template>
               </el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11">
-            <el-form-item label="服务费率:" prop="serviceFeeRate">
+            <el-form-item label="服务费率(%):" prop="serviceFeeRate">
               <el-input v-model="form.serviceFeeRate">
-                 <template slot="append">%</template>
               </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="1" >
-            <el-form-item label="逾期利率:" prop="fineGraceDayRate">
+            <el-form-item label="逾期利率(%):" prop="fineGraceDayRate">
               <el-input v-model="form.fineGraceDayRate">
-                 <template slot="append">%</template>
               </el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11" >
-            <el-form-item label="提前还款手续费:" prop="prepaymentDeductRate">
+            <el-form-item label="提前还款手续费率(%):" prop="prepaymentDeductRate">
               <el-input v-model="form.prepaymentDeductRate"></el-input>
             </el-form-item>
           </el-col>

@@ -25,26 +25,30 @@
           <template slot-scope="props">
             <el-table :data="props.row.tableData" border style="width: 100%" :show-header="false" :row-class-name="getPendedColor">
               <el-table-column width="48">
-
+                <template slot-scope="scope">
+                  - -
+                </template>
               </el-table-column>
               <el-table-column align="center" width="40">
+                <template slot-scope="scope">
+                  - -
+                </template>
               </el-table-column>
               <el-table-column align="center" prop="masterChainId" :width="widthArr.masterChainId">
               </el-table-column>
               <el-table-column align="center" prop="billId" :width="widthArr.billId">
               </el-table-column>
-              <el-table-column align="center" :width="widthArr.isMasterAr" >
-                >
+              <el-table-column align="center" :width="widthArr.isMasterAr" :formatter="nullDealWith">
               </el-table-column>
-              <el-table-column align="center" prop="transUnitName" :width="widthArr.transUnitName">
+              <el-table-column align="center" prop="transUnitName" :width="widthArr.transUnitName" :formatter="nullDealWith">
               </el-table-column>
               <el-table-column align="center" prop="arStatusTypeName" :width="widthArr.arStatusTypeName">
               </el-table-column>
-              <el-table-column align="center" prop="currencyDesc" :width="widthArr.currencyDesc">
+              <el-table-column align="center" prop="currencyDesc" :width="widthArr.currencyDesc" :formatter="nullDealWith">
               </el-table-column>
-              <el-table-column align="right" prop="billBookAmt" :formatter="regexNum" :width="widthArr.billBookAmt">
+              <el-table-column align="right" prop="billBookAmt" :width="widthArr.billBookAmt" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="right"  :width="widthArr.loanAmt">
+              <el-table-column align="right"  :width="widthArr.loanAmt" :formatter="regexNum">
               </el-table-column>
               <el-table-column align="center" prop="billPayDate" :width="widthArr.billPayDate" :formatter="dateFormat">
               </el-table-column>
@@ -78,11 +82,16 @@
         </el-table-column>
         <el-table-column align="center" label="AR来源" prop="isMasterAr" :formatter="originFormat">
         </el-table-column>
-        <el-table-column align="center" label="付款单位/对手单位" prop="transUnitName" width="150">
+        <el-table-column align="center" label="付款单位/对手单位" prop="transUnitName" width="150" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="center" label="状态" prop="arStatusTypeName">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.arStatusTypeName === '已確認' ? 'success' : 'info'"
+              disable-transitions>{{scope.row.arStatusTypeName}}</el-tag>
+          </template>
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyDesc">
+        <el-table-column align="center" label="币别" prop="currencyDesc" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="票面金额" prop="billBookAmt" :formatter="regexNum">
         </el-table-column>
