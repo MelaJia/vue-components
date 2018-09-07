@@ -10,6 +10,8 @@
     <dialog-contractoffline :visible-p.sync="dialogOnline" :details-p="offlineContract"></dialog-contractoffline>
     <!--校验手机号-->
     <dialog-checkphone :visible-p.sync="dialogCheckPhone" :details-p="checkDetail"></dialog-checkphone>
+    <!--拒绝理由-->
+    <dialog-reject :visible-p.sync="dialogRejectVisible" :details-p="details"></dialog-reject>
     <section>
       <el-table ref="table" :data="comDatas" v-loading.fullscreen="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @mousedown.native="mouseDown"
@@ -48,7 +50,7 @@
         <el-table-column align="left" header-align="center" label="操作" width='350px' fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-          <el-button v-for="(item, index) in scope.row.operateArr" :key="index" size="mini" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})" >{{item.name}}</el-button>
+          <el-button v-for="(item, index) in scope.row.operateArr" :key="index" size="mini" @click="handleCommand({key:item.key, idx:index, val:scope.row})" >{{item.name}}</el-button>
           <!-- <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length!==0">
             <span class="el-dropdown-link">
               更多<i class="el-icon-arrow-down el-icon--right"></i>
@@ -79,8 +81,8 @@ export default {
       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogCreditloan'),
     'dialog-contract': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogLoancontract'),
-    // 'dialog-contractonline': () =>
-    //  import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOnlinecontract')
+    'dialog-reject': () =>
+     import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogReject'),
     'dialog-contractoffline': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOfflinecontract'),
     'dialog-checkphone': () =>
@@ -91,6 +93,7 @@ export default {
       dialogInfoVisible: false,
       dialogOnline: false,
       dialogCheckPhone: false,
+      dialogRejectVisible: false,
       details: {}, // 详情数据
       detailsContract: {},
       offlineContract: {}, // 线下合同详情
@@ -123,10 +126,13 @@ export default {
     handleConfirm: handleConfirm,
     // 放款
     handleAccept: handleAccept,
-    // 拒绝
-    handleReject: handleReject,
     // 按钮菜单显隐处理
-    getOpera: getOpera
+    getOpera: getOpera,
+    // 拒绝
+    handleReject (idx, val) {
+      this.details = val
+      this.dialogRejectVisible = true
+    }
   }
 }
 // 详情函数
@@ -236,26 +242,27 @@ function handleAccept (idx, val) {
   })
 }
 // 拒绝
-function handleReject (idx, val) {
-  this.$prompt(`融资编号为${val.loanId}的贴现申请确认拒绝`, `提示`, {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-    inputPlaceholder: '请输入拒绝理由',
-    inputType: 'textarea',
-    inputPattern: /^\S+$/,
-    inputErrorMessage: '拒绝理由不能为空',
-    center: true
-  }).then(({value}) => {
-    console.log(value)
-    this.postResultFresh('/factoringCreditLoan/rejectLoan.do', {loanId: val.loanId, rejectReason: value}) // 调用common混合中公共方法
-  }).catch(() => {
-    this.$message({
-      type: 'info',
-      message: '操作已取消'
-    })
-  })
-}
+// function handleReject (idx, val) {
+//   this.$prompt(`融资编号为${val.loanId}的贴现申请确认拒绝`, `提示`, {
+//     confirmButtonText: '确定',
+//     cancelButtonText: '取消',
+//     type: 'warning',
+//     inputPlaceholder: '请输入拒绝理由',
+//     inputType: 'textarea',
+//     // inputPattern: /^\S+$/,
+//     inputPattern: /(^\s*)|(\s*$)/g,
+//     inputErrorMessage: '拒绝理由不能为空',
+//     center: true
+//   }).then(({value}) => {
+//     console.log(value)
+//     this.postResultFresh('/factoringCreditLoan/rejectLoan.do', {loanId: val.loanId, rejectReason: value}) // 调用common混合中公共方法
+//   }).catch(() => {
+//     this.$message({
+//       type: 'info',
+//       message: '操作已取消'
+//     })
+//   })
+// }
 /* 按钮菜单显隐处理
     ** val 节点数据
     ** ischild 是否是子数据
