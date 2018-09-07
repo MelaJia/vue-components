@@ -12,7 +12,7 @@
       </el-row>
       <el-row>
         <el-col :span="16" :offset="4" class="flex"><label>拒绝理由:</label>
-          <el-input type="textarea" v-model="form.rejectedReason"></el-input>
+          <el-input type="textarea" v-model.trim="form.rejectedReason"></el-input>
         </el-col>
       </el-row>
     </section>

@@ -226,33 +226,51 @@ async function handleRepay (idx, val1, val2) {
     background: 'rgba(0, 0, 0, 0.7)'
   })
   try {
-    let res1 = await this.axios.post('/loanQuery/queryLoanRepayInfo.do', param)
-    let res2 = await this.axios.post('/loanQuery/prepaySettleLoanTrial.do', param2)
-
-    // 获取提前还清还款的接口
-    loading.close()
-    if (res1.data.status) {
-      this.details = Object.assign({}, res1.data.data)
+    if (new Date(val2.periodPayDate) > new Date()) {
+      let res1 = await this.axios.post('/loanQuery/queryLoanRepayInfo.do', param)
+      let res2 = await this.axios.post('/loanQuery/prepaySettleLoanTrial.do', param2)
+      // 获取提前还清还款的接口
+      loading.close()
+      if (res1.data.status) {
+        this.details = Object.assign({}, res1.data.data)
+      } else {
+        this.$message({
+          showClose: true,
+          message: res1.data.msg,
+          type: 'error'
+        })
+        return false
+      }
+      if (res2.data.status) {
+        this.details = Object.assign(this.details, res2.data.data)
+      } else {
+        this.$message({
+          showClose: true,
+          message: res2.data.msg,
+          type: 'error'
+        })
+        return false
+      }
+      if (res1.data.status && res2.data.status) {
+        this.dialogRepayVisible = true
+      }
     } else {
-      this.$message({
-        showClose: true,
-        message: res1.data.msg,
-        type: 'error'
-      })
-      return false
-    }
-    if (res2.data.status) {
-      this.details = Object.assign(this.details, res2.data.data)
-    } else {
-      this.$message({
-        showClose: true,
-        message: res2.data.msg,
-        type: 'error'
-      })
-      return false
-    }
-    if (res1.data.status && res2.data.status) {
-      this.dialogRepayVisible = true
+      let res1 = await this.axios.post('/loanQuery/queryLoanRepayInfo.do', param)
+      // 获取提前还清还款的接口
+      loading.close()
+      if (res1.data.status) {
+        this.details = Object.assign({}, res1.data.data)
+      } else {
+        this.$message({
+          showClose: true,
+          message: res1.data.msg,
+          type: 'error'
+        })
+        return false
+      }
+      if (res1.data.status) {
+        this.dialogRepayVisible = true
+      }
     }
   } catch (error) {
     loading.close()

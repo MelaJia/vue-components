@@ -53,16 +53,20 @@
           </span>
       </ul>
     </section>
-    <section class="layout form">
+    <el-form class="layout form" label-width="100px">
       <el-row>
-        <el-col :span="8" class="flex"><label>贴现金额：</label><el-input v-model.number="transAmt" placeholder="请输入贴现金额：："><template slot="append">元</template></el-input></el-col>
+        <el-col :span="8" class="flex">
+          <el-form-item label="贴现金额(元):" prop="receiveCustId">
+             <el-input v-model.number="transAmt" placeholder="请输入贴现金额"></el-input>
+          </el-form-item>
+        </el-col>
         <el-col :span="6" v-if="sum">
           <el-tooltip class="item" effect="dark" :content="`已勾选发票金额合计:${thousandth(sum)}`" placement="top-start">
             <label class="sum-content">金额上限:{{sum | regexNum}}</label>
           </el-tooltip>
         </el-col>
       </el-row>
-    </section>
+    </el-form>
     <footer slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleSubmit">确认</el-button>
       <el-button type="default" @click="handleClose">取消</el-button>
@@ -73,6 +77,7 @@
 @import "@/assets/css/_dialog.scss";
 .layout.form {
   margin-top: 20px;
+  padding-left: 15px;
   .el-row {
     margin-bottom: 20px;
     padding-left: 5px;
@@ -81,7 +86,7 @@
 .layout.form .flex {
   display: flex;
   > label {
-    width: 100px;
+    width: 120px;
     height: 40px;
     line-height: 40px;
   }
@@ -89,6 +94,7 @@
 .sum-content {
   height: 40px;
   line-height: 40px;
+  padding-left: 8px;
 }
 </style>
 

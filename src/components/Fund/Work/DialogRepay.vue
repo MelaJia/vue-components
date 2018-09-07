@@ -52,7 +52,7 @@
             <span>今日提前还清应还金额: <em>{{this.detailsP.settlePrepayAmt | regexNum}}</em></span>
           </li>
           <li>
-             <el-checkbox v-model="confirmCheck" >确认提前还清</el-checkbox>
+             <el-checkbox v-model="confirmCheck" :disabled="!this.detailsP.settlePrepayAmt">确认提前还清</el-checkbox>
           </li>
         </ul>
       <ul>
