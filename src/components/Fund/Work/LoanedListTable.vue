@@ -227,8 +227,7 @@ async function handleRepay (idx, val1, val2) {
   })
   try {
     if (new Date(val2.periodPayDate) > new Date()) {
-      let res1 = await this.axios.post('/loanQuery/queryLoanRepayInfo.do', param)
-      let res2 = await this.axios.post('/loanQuery/prepaySettleLoanTrial.do', param2)
+      let [res1, res2] = await Promise.all([this.axios.post('/loanQuery/queryLoanRepayInfo.do', param), this.axios.post('/loanQuery/prepaySettleLoanTrial.do', param2)])
       // 获取提前还清还款的接口
       loading.close()
       if (res1.data.status) {
