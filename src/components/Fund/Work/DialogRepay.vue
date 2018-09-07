@@ -57,14 +57,16 @@
         </ul>
       <ul>
          <span>客户还款金额: </span>
-         <el-input size="mini" v-model.number="payAmt"></el-input>
-         <el-button type="text" @click.prevent="handleFill" :disabled="this.confirmCheck === true ? true : false">代入应还金额</el-button>
-         <el-button type="text" @click.prevent="getAdvanceFull" :disabled="this.confirmCheck === false ? true : false">代入提前还清应还金额</el-button>
+         <span v-if="confirmCheck">{{payAmt | regexNum}}</span>
+         <template v-else>
+          <el-input size="mini" v-model.number="payAmt"></el-input>
+          <el-button type="text" @click.prevent="handleFill" :disabled="confirmCheck">代入应还金额</el-button>
+         </template>
       </ul>
       <ul class="height-auto">
         <span >对应发票号:
           <div class="a-link-group inline-block">
-            <label v-for="item in detailsP.invoiceCustomList" :key="item.invoiceNo">{{item.invoiceNo}}</label>
+            <label v-for="(item, index) in detailsP.invoiceCustomList" :class="{'first-child':index===0}" :key="item.invoiceNo">{{item.invoiceNo}}</label>
           </div>
         </span>
       </ul>
@@ -89,6 +91,9 @@
 .el-input {
   width: 150px;
 }
+.el-checkbox{
+  margin-left: 0;
+}
 </style>
 
 <script>
@@ -102,12 +107,17 @@ export default {
   data () {
     return {
       payAmt: '',
+      inputAble: false,
       confirmCheck: false // 确认提前还清选择框
     }
   },
   watch: {
-    confirmCheck: function () {
-      this.payAmt = ''
+    confirmCheck: function (val) {
+      if (val) {
+        this.payAmt = this.detailsP.settlePrepayAmt
+      } else {
+        this.payAmt = ''
+      }
     },
     visibleP: function () {
       this.init()
@@ -146,6 +156,7 @@ function getAdvanceFull () {
     return
   }
   this.payAmt = this.detailsP.settlePrepayAmt
+  console.log(this.payAmt)
 }
 // 提交
 function handleSubmit () {

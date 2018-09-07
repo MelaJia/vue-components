@@ -25,18 +25,15 @@
           <template slot-scope="props">
             <el-table :data="props.row.tableData" border style="width: 100%" :show-header="false" :row-class-name="getPendedColor">
               <el-table-column width="48">
-                <template slot-scope="scope">
-                  - -
-                </template>
               </el-table-column>
               <el-table-column align="center" width="40">
                 <template slot-scope="scope">
                   - -
                 </template>
               </el-table-column>
-              <el-table-column align="center" prop="masterChainId" :width="widthArr.masterChainId">
+              <el-table-column align="center" prop="masterChainId" :width="widthArr.masterChainId" :formatter="nullDealWith" >
               </el-table-column>
-              <el-table-column align="center" prop="billId" :width="widthArr.billId">
+              <el-table-column align="center" prop="billId" :width="widthArr.billId" :formatter="nullDealWith" >
               </el-table-column>
               <el-table-column align="center" :width="widthArr.isMasterAr" :formatter="nullDealWith">
               </el-table-column>
@@ -84,7 +81,7 @@
         </el-table-column>
         <el-table-column align="center" label="付款单位/对手单位" prop="transUnitName" width="150" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="arStatusTypeName">
+        <el-table-column align="center" label="状态" prop="arStatusTypeName" :formatter="nullDealWith" >
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyDesc" :formatter="nullDealWith">
         </el-table-column>

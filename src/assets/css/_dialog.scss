@@ -63,6 +63,9 @@ ul>span {
   margin-left: 5px;
   color: $text-color;
 }
+.a-link-group>label.first-child {
+  margin-left: 30px;
+}
 
 .a-link-group>label:not(:last-of-type)::after {
   content: ','

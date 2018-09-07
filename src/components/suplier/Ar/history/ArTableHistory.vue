@@ -10,9 +10,6 @@
           <template slot-scope="props">
             <el-table :data="props.row.tableData" border style="width: 100%" :show-header="false" :row-class-name="getPendedColor">
               <el-table-column width="48">
-                <template slot-scope="scope">
-                  - -
-                </template>
               </el-table-column>
               <el-table-column align="center" width="40">
                 <template slot-scope="scope">
@@ -25,11 +22,11 @@
               </el-table-column>
               <el-table-column align="center" :width="widthArr.isMasterAr" :formatter="nullDealWith" >
               </el-table-column>
-              <el-table-column align="center" prop="transUnitName" :width="widthArr.transUnitName">
+              <el-table-column align="center" prop="transUnitName" :width="widthArr.transUnitName" :formatter="nullDealWith" >
               </el-table-column>
-              <el-table-column align="center" prop="arStatusTypeName" :width="widthArr.arStatusTypeName">
+              <el-table-column align="center" prop="arStatusTypeName" :width="widthArr.arStatusTypeName" :formatter="nullDealWith" >
               </el-table-column>
-              <el-table-column align="center" prop="currencyDesc" :width="widthArr.currencyDesc">
+              <el-table-column align="center" prop="currencyDesc" :width="widthArr.currencyDesc" :formatter="nullDealWith" >
               </el-table-column>
               <el-table-column align="right" prop="availableAmt" :formatter="regexNum" :width="widthArr.availableAmt">
               </el-table-column>

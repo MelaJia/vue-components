@@ -9,15 +9,15 @@
       @expand-change="expendhandle" @mousedown.native="mouseDown">
       <el-table-column align="center" fixed type="index" label="序号" width="60">
       </el-table-column>
-      <el-table-column align="center" fixed sortable label="贴现客户" prop="custFromName" width="130">
+      <el-table-column align="center" fixed sortable label="贴现客户" prop="custFromName" width="130" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="center" label="一级供应商" prop="companyNameOfL1">
+      <el-table-column align="center" label="一级供应商" prop="companyNameOfL1" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="center" label="付款单位" prop="companyName">
+      <el-table-column align="center" label="付款单位" prop="companyName" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="center" label="保理方" prop="custToName">
+      <el-table-column align="center" label="保理方" prop="custToName" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="center" label="状态" prop="auditedTypeName">
+      <el-table-column align="center" label="状态" prop="auditedTypeName" :formatter="nullDealWith" >
       </el-table-column>
       <el-table-column align="left" header-align="center" label="操作" width='220px' fixed="right">
         <template slot-scope="scope">

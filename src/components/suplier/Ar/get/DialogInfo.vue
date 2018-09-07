@@ -88,7 +88,7 @@
         <ul class="height-auto">
           <span>AR单号:
             <div class="a-link-group inline-block">
-              <label>{{this.detailsP.masterChainId}}</label>
+              <label class="first-child">{{this.detailsP.masterChainId}}</label>
               <!-- <label v-for="item in detailsP.arIdList" :key="item.arId">{{item.arId}}</label> -->
             </div>
           </span>
@@ -96,7 +96,7 @@
         <ul class="height-auto" v-if="detailsP.checkedStatus!==6&&detailsP.checkedStatus!==9">
           <span>对应发票号:
             <div class="a-link-group inline-block">
-              <label v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo">{{item.invoiceNo}}</label>
+              <label v-for="(item,index) in detailsP.invoiceListSelected" :class="{'first-child':index===0}" :key="item.invoiceNo">{{item.invoiceNo}}</label>
             </div>
           </span>
         </ul>

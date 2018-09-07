@@ -7,19 +7,19 @@
       @expand-change="expendhandle" :span-method="objectSpanMethod" @mousedown.native="mouseDown">
       <el-table-column align="center" fixed type="index" label="序号" width="60">
       </el-table-column>
-      <el-table-column align="center" fixed sortable label="AR单号" prop="masterChainId" width="130">
+      <el-table-column align="center" fixed sortable label="AR单号" prop="masterChainId" width="130" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="center" fixed sortable label="结报单号" prop="billId" width="130">
+      <el-table-column align="center" fixed sortable label="结报单号" prop="billId" width="130" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="center" label="付款单位" prop="company">
+      <el-table-column align="center" label="付款单位" prop="company" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="center" label="转让单位" prop="custFromName">
+      <el-table-column align="center" label="转让单位" prop="custFromName" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="center" sortable label="交易流水号" prop="transSerialNo" min-width="120">
+      <el-table-column align="center" sortable label="交易流水号" prop="transSerialNo" min-width="120" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="center" label="状态" prop="arStatusTypeName">
+      <el-table-column align="center" label="状态" prop="arStatusTypeName" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="center" label="币别" prop="currencyDesc">
+      <el-table-column align="center" label="币别" prop="currencyDesc" :formatter="nullDealWith" >
       </el-table-column>
       <el-table-column align="right" header-align="center" label="转让金额" prop="transAmt" :formatter="regexNum">
       </el-table-column>

@@ -18,18 +18,20 @@
         label="AR单号"
         prop="masterChainId"
         sortable
-        min-width="130">
+        min-width="130" :formatter="nullDealWith" >
         </el-table-column>
-        <el-table-column align="center" fixed sortable label="结报单号" prop="billId" width="130">
+        <el-table-column align="center" fixed sortable label="结报单号" prop="billId" width="130" :formatter="nullDealWith" >
       </el-table-column>
         <el-table-column align="center"
         label="付款单位"
         prop="company"
+        :formatter="nullDealWith"
         >
         </el-table-column>
         <el-table-column align="center"
         label="授让单位"
         prop="custFromName"
+        :formatter="nullDealWith"
         >
         </el-table-column>
         <el-table-column align="center"
@@ -37,16 +39,19 @@
         sortable
         min-width="120"
         prop="transSerialNo"
+        :formatter="nullDealWith"
         >
         </el-table-column>
         <el-table-column align="center"
         label="状态"
         prop="arStatusTypeName"
+        :formatter="nullDealWith"
         >
         </el-table-column>
         <el-table-column align="center"
         label="币别"
         prop="currencyDesc"
+        :formatter="nullDealWith"
         >
         </el-table-column>
         <el-table-column align="right" header-align="center"

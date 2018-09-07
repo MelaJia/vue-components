@@ -9,25 +9,25 @@
       @expand-change="expendhandle" @mousedown.native="mouseDown">
       <el-table-column align="center" fixed type="index" label="序号" width="60">
       </el-table-column>
-      <el-table-column align="center" fixed sortable label="公司名称" prop="companyName" width="130">
+      <el-table-column align="center" fixed sortable label="公司名称" prop="companyName" width="130" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="公司法人代表" prop="legalPerson">
+      <el-table-column align="center" label="公司法人代表" prop="legalPerson" :formatter="nullDealWith">
       </el-table-column>
       <el-table-column align="center" label="公司成立日期" prop="establishDate" :formatter="dateFormat">
       </el-table-column>
-      <el-table-column align="center" label="公司注册资本" prop="registeredCapital">
+      <el-table-column align="right" header-align="center" label="公司注册资本" prop="registeredCapital" :formatter="regexNum">
       </el-table-column>
-      <el-table-column align="center" label="币别" prop="currencyName">
+      <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="left" header-align="center"  label="公司状态" prop="status" width="100">
+      <el-table-column align="left" header-align="center"  label="公司状态" prop="status" width="100" >
         <template slot-scope="scope">
           <span class="iconfont icon-yuan tag-item-icon" :class="[Number(scope.row.status) === 1 ? 'status-success' : Number(scope.row.status) === 0 ? 'status-info': 'status-danger' ]"></span>
           <span class="tag-text">{{scope.row.status | statusFormat}}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="公司地址" prop="companyAddress">
+      <el-table-column align="center" label="公司地址" prop="companyAddress" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="客户经理" prop="customerManagerName">
+      <el-table-column align="center" label="客户经理" prop="customerManagerName" :formatter="nullDealWith">
       </el-table-column>
       <el-table-column align="left" header-align="center" label="操作" width='390px' fixed="right">
         <template slot-scope="scope">

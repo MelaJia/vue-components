@@ -19,9 +19,6 @@
           <template slot-scope="props">
             <el-table :data="props.row.tableData" border style="width: 100%" :show-header="false" :row-class-name="getPendedColor">
               <el-table-column width="48">
-                <template slot-scope="scope">
-                - -
-                </template>
               </el-table-column>
               <el-table-column align="center" prop="masterChainId" :width="widthArr.masterChainId" :formatter="nullDealWith">
               </el-table-column>
