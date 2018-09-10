@@ -18,7 +18,7 @@ const routes = [
     {
       path: 'fenbo',
       name: 'fenbo',
-      component: () => import(/* webpackChunkName: 'admin' */ '@/page/admin/ArFenBoList'),
+      component: () => import(/* webpackChunkName: 'admin' */ '@/page/admin/work/ArFenBoList'),
       meta: {
         title: 'AR分拨', // 名称
         requireAuth: true // 需要登录验证

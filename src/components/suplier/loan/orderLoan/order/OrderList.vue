@@ -2,8 +2,8 @@
   <div class="ar-table">
     <header>
       <el-form ref="ordform" :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item label="融资金额合计" :rules="amtRule" prop="applyAmt">
-          <el-input class="wd-200" v-model.number="displayApplyAmt" @blur="handleChange" @focus="handleFocus"></el-input>元
+        <el-form-item label="融资金额合计(元)" :rules="amtRule" prop="applyAmt">
+          <el-input class="wd-200" v-model.number="displayApplyAmt" @blur="handleChange" @focus="handleFocus"></el-input>
         </el-form-item>
         <el-form-item label="还款日期" :rules="{required: true, message: '请选择日期', trigger: 'blur'}" prop="repayDate">
           <el-date-picker :editable="false" v-model="formInline.repayDate"  :picker-options="pickerOptions" type="date" placeholder="选择日期"></el-date-picker>
@@ -12,12 +12,6 @@
           <el-button round @click="handleSub" :disabled="isover">融资确认</el-button>
         </el-form-item>
       </el-form>
-      <!-- <span>融资金额合计:</span>
-      <el-input class="wd-200" :class="isover ? 'red': ''" v-model.number="formInline.applyAmt" @change="handleChange">
-      </el-input>元
-      <span>还款日期:</span>
-      <el-date-picker :editable="false" v-model="formInline.repayDate"  :picker-options="pickerOptions" type="date" placeholder="选择日期"></el-date-picker>
-      <el-button round @click="dialogConfirmVisible = true" :disabled="isover">融资确认</el-button> -->
     </header>
     <!-- 详情 -->
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-info>
@@ -98,7 +92,7 @@ header {
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
-import { firstToUpperCase, debounce, getDataBase, postDataBase } from '@/util/util' // 首字母大写 防抖函数
+import { debounce, getDataBase, postDataBase, thousandth } from '@/util/util' // 首字母大写 防抖函数
 import { validatenumber } from '@/util/validate' // 首字母大写 防抖函数
 import widhConf from '@/config/width' // 宽度配置
 /* 我的Ar列表 */
@@ -169,12 +163,6 @@ export default {
     handleInfo: debounce(handleInfo, 1000, true),
     // 是否可选择
     disableHandle: disableHandle,
-    // 更多事件
-    handleCommand (obj) {
-      let key = `handle${firstToUpperCase(obj.key)}` // 方法为handle+ key首字母大写化组成
-      // 执行方法
-      this[key](obj.idx, obj.val)
-    },
     // 刷新数据
     fresh () {
       this.$emit('refresh')
@@ -219,7 +207,7 @@ function handleSelectionChange (val) {
     // 赋值
     this.formInline.applyAmt = amount
     // 格式化
-    this.displayApplyAmt = this.thousandth(amount)
+    this.displayApplyAmt = thousandth(amount)
   }
 }
 // 输入金额事件
@@ -227,7 +215,7 @@ function handleChange (val) {
   // 赋值
   this.formInline.applyAmt = this.displayApplyAmt
   // 格式化
-  this.displayApplyAmt = this.thousandth(this.displayApplyAmt)
+  this.displayApplyAmt = thousandth(this.displayApplyAmt)
   // 关闭输入框自动更新
   this.flag = false
   let sum = computeMethod.call(this, this.multipleSelection)
@@ -244,6 +232,10 @@ function computeMethod (data) {
   // 清除选中项
   this.$refs.table.clearSelection()
   for (let index = 0; index < data.length; index++) {
+    // 不是人民币时跳出
+    if (data[index].currencyId !== 1) {
+      continue
+    }
     const element = data[index]
     sum += element.poAmount
     // 加入选中项
@@ -261,6 +253,7 @@ function computeMethod (data) {
   }
   return sum
 }
+// 更新开启
 function updateOpen () {
   setTimeout(() => {
     this.flag = true
@@ -276,7 +269,7 @@ function handleSub () {
 
   this.$refs.ordform.validate((valid) => {
     if (valid) {
-      this.$confirm(`您好，请问是否确认申请${this.formInline.applyAmt}元人民币的订单信用融资？`, `提示`, {
+      this.$confirm(`您好，请问是否确认申请${thousandth(this.formInline.applyAmt)}元人民币的订单信用融资？`, `提示`, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
@@ -311,7 +304,7 @@ function handleSub () {
     }
   })
 }
-// 可选项
+// 可选项（金额为人民币）
 function disableHandle (row, index) {
   let result = row.currencyId === 1
   return result

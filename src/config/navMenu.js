@@ -108,6 +108,13 @@ const navs = {
       lClass: 'line',
       hClass: 'header-circle bg-icon-2',
       childrens: [{
+        idx: 'index',
+        text: '首页',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
         idx: 'ordersearch',
         text: '我的订单',
         disabled: false,
@@ -151,12 +158,6 @@ const navs = {
       {
         idx: 'myarrear',
         text: '我的欠款',
-        disabled: false,
-        lClass: 'line',
-        hClass: 'circle'
-      }, {
-        idx: 'index',
-        text: '首页',
         disabled: false,
         lClass: 'line',
         hClass: 'circle'

@@ -7,25 +7,24 @@
       </span>
     </header>
     <section>
-      <el-form ref="form" :model="formInline" label-width="130px" status-icon label-position="right">
+      <el-form ref="form" :model="formInline" label-width="140px" status-icon label-position="right">
         <el-row>
-          <el-col :span="12" :offset="6">
+          <el-col :span="18" :offset="3">
             <el-form-item label="可融资金额: ">
-              <span class="red">{{form.availableCreditAmount|regexNum}}元</span>
+              <span class="red">{{form.availableCreditAmount|regexNum}}</span>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12" :offset="6">
-            <el-form-item label="融资申请金额:" :rules="applyRule" prop="money">
+          <el-col :span="18" :offset="3">
+            <el-form-item label="融资申请金额(元):" :rules="applyRule" prop="money">
               <el-input v-model.number="displayMoney" @blur="handleBlur" @focus="handleFocus">
-                <template slot="append">元</template>
               </el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12" :offset="6">
+          <el-col :span="18" :offset="3">
             <el-form-item label="还款日期:" :rules="rules.repayDate" prop="repayDate">
             <el-date-picker :editable="false" v-model="formInline.repayDate"  :picker-options="pickerOptions" type="date" placeholder="选择日期">
             </el-date-picker>
@@ -33,22 +32,29 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12" :offset="6">
+          <el-col :span="18" :offset="3">
             <el-form-item label="上传附件:">
             <upload :param="{typename:'files'}" :file-list.sync="fileList" :api-url="'/creditLoan/creditLoanUploadFile.do'" @get-url="getUrl"></upload>
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col :span="18" :offset="3">
+            <el-form-item>
+            <el-button type="primary" @click="subHandle">确认</el-button>
+            <el-button @click="handleClose">取消</el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
     </section>
-    <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="subHandle">确认</el-button>
-      <el-button @click="handleClose">取消</el-button>
-    </footer>
   </el-dialog>
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+.el-input{
+  width: 220px;
+}
 .red {
   color: red;
 }
@@ -56,7 +62,7 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
 import Common from '@/mixins/common' // 关闭弹窗handleClose
-import { debounce, postDataBase } from '@/util/util' // 防抖函数
+import { debounce, postDataBase, thousandth } from '@/util/util' // 防抖函数
 import { checkNumberPire } from '@/util/validate' // 校验数字
 import Upload from '@/components/Items/uploadFile'
 export default {
@@ -97,7 +103,6 @@ export default {
     // 金额校验规则动态
     applyRule () {
       return [
-        { required: true, message: '请输入融资金额', trigger: 'blur' },
         { validator: checkNumberPire({ max: this.form.availableCreditAmount }), trigger: 'blur' }
       ]
     }
@@ -166,7 +171,7 @@ function handleBlur () {
   // 赋值
   this.formInline.money = this.displayMoney
   // 格式化
-  this.displayMoney = this.thousandth(this.displayMoney)
+  this.displayMoney = thousandth(this.displayMoney)
 }
 // 输入框恢复数字
 function resetInput () {

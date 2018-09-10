@@ -19,7 +19,7 @@ const routes = [
     {
       path: 'loan',
       name: 'loan',
-      component: () => import(/* webpackChunkName: 'Fund' */ '@/page/funder/LoanList'),
+      component: () => import(/* webpackChunkName: 'Fund' */ '@/page/funder/work/LoanList'),
       meta: {
         title: '放款处理', // 名称
         requireAuth: true // 需要登录验证
@@ -29,7 +29,7 @@ const routes = [
       path: 'loanreject',
       name: 'loanreject',
       component: () =>
-        import(/* webpackChunkName: 'Fund' */ '@/page/funder/LoanRejectList'),
+        import(/* webpackChunkName: 'Fund' */ '@/page/funder/work/LoanRejectList'),
       meta: {
         title: '拒绝放款查询', // 名称
         requireAuth: true // 需要登录验证
@@ -39,7 +39,7 @@ const routes = [
       path: 'loaned',
       name: 'loaned',
       component: () =>
-        import(/* webpackChunkName: 'Fund' */ '@/page/funder/LoanedList'),
+        import(/* webpackChunkName: 'Fund' */ '@/page/funder/work/LoanedList'),
       meta: {
         title: '已放款查询', // 名称
         requireAuth: true // 需要登录验证
@@ -49,7 +49,7 @@ const routes = [
       path: 'loanfinish',
       name: 'loanfinish',
       component: () =>
-        import(/* webpackChunkName: 'Fund' */ '@/page/funder/LoanFinishList'),
+        import(/* webpackChunkName: 'Fund' */ '@/page/funder/work/LoanFinishList'),
       meta: {
         title: '已完结查询', // 名称
         requireAuth: true // 需要登录验证
@@ -59,7 +59,7 @@ const routes = [
       path: 'cstLoanFee',
       name: 'cstLoanFee',
       component: () =>
-        import(/* webpackChunkName: 'Fund' */ '@/page/funder/LoanFeeList'),
+        import(/* webpackChunkName: 'Fund' */ '@/page/funder/custInformation/LoanFeeList'),
       meta: {
         title: '客户利率维护', // 名称
         requireAuth: true // 需要登录验证
