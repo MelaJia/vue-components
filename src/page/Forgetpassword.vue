@@ -366,7 +366,7 @@ function checkPhone () {
       this.showCheckBtn = false
       this.$message({
         type: 'success',
-        message: res.data.msg
+        message: '手机验证成功'
       })
     } else {
       this.showCheckBtn = true
@@ -393,7 +393,7 @@ function sendMessage () {
       // 发送验证码成功弹出提示用户
       this.$message({
         showClose: true,
-        message: res.data.data,
+        message: res.data.msg,
         type: type
       })
       var sendTimer = setInterval(function () {
