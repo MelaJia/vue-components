@@ -54,7 +54,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="客户还款金额:" prop="actualRepayAmt">
-              <el-input v-model.number="detailsP.actualRepayAmt" @keyup.native="checkHanle($event)"></el-input>
+              <el-input v-model.number="detailsP.actualRepayAmt" @keyup.native="checkHandle($event)"></el-input>
             </el-form-item>
           </el-col>
           <!-- <el-col :span="12"><a href="javascript:;" @click.prevent="getFull" class="getFull">代入应还金额</a><a href="javascript:;" @click.prevent="getFull" class="getFull">代入提前还清应还金额</a></el-col> -->
@@ -220,7 +220,7 @@ export default {
         this.isConfirmSettled = 0
       }
     },
-    checkHanle (e) {
+    checkHandle (e) {
       e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null
       this.detailsP.actualRepayAmt = e.target.value
     }
