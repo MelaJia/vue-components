@@ -27,9 +27,12 @@
           <el-form ref="form-1" :model="getForm" :rules="rulesOne" label-width="130px">
             <el-row>
               <el-col :span="12" :offset="6">
-                <el-form-item label="注册手机号: " prop="contactPhone">
-                  <el-input v-model.trim="getForm.contactPhone"></el-input>
-                </el-form-item>
+                <el-col :span="16">
+                  <el-form-item label="注册手机号: " prop="contactPhone">
+                    <el-input v-model.trim="getForm.contactPhone"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="7" :push="2"><el-button type="default" :disabled="showPhone" @click="checkPhone">校验手机号</el-button></el-col>
               </el-col>
             </el-row>
             <el-row>
@@ -225,59 +228,10 @@ export default {
           callback(new Error('手机号格式错误'))
           this.showCheckBtn = true
         } else {
-          // 校验手机接口
-          this.axios.post('/cust/validContactPhone.do', {contactPhone: this.getForm.contactPhone}).then(res => {
-            if (res.data.status) {
-              this.showCheckBtn = false
-              callback()
-            } else {
-              this.showCheckBtn = true
-              callback(new Error(res.data.data))
-            }
-          }).catch(err => {
-            console.log(err)
-            callback(new Error(`手机号验证失败`))
-          })
+          callback()
         }
       }, 1000)
     }
-    // 验证校验码
-    // let verifyCode = (rule, value, callback) => {
-    //   if (!value) {
-    //     callback(new Error(`验证码不能为空`))
-    //   } else {
-    //     // 请求校验验证码接口获取登录名
-    //     this.axios.post('/cust/validVerificationCode.do', {contactPhone: this.getForm.contactPhone, verificationCode: value}).then(res => {
-    //       let type = res.data.status ? 'success' : 'error'
-    //       if (res.data.status) {
-    //         this.showNext = false
-    //         if (typeof res.data.data === 'string') {
-    //           this.$message({
-    //             showClose: true,
-    //             message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-    //             type: type
-    //           })
-    //         } else {
-    //           this.getForm.custUsername = res.data.data.custUsername
-    //           this.getForm.custId = res.data.data.custId
-    //           this.$message({
-    //             showClose: true,
-    //             message: res.data.data.message ? res.data.data.message : res.data.msg,
-    //             type: type
-    //           })
-    //         }
-    //         callback()
-    //       } else {
-    //         this.$message.error(res.data.msg)
-    //       }
-    //     }).catch(err => {
-    //       console.log(err)
-    //       callback(new Error(err))
-    //     })
-    //     callback()
-    //   }
-    // }
-
     // 验证验证码
     let verifyCode = (rule, value, callback) => {
       if (!value) {
@@ -327,6 +281,7 @@ export default {
       word: '发送验证码',
       btntype: 'primary',
       showCheckBtn: true, // 显示发送验证码按钮
+      showPhone: false,
       // showNext: true, // 显示下一步
       isOvertime: false,
       isPassShow: false, // 密码提示信息显示
@@ -348,8 +303,8 @@ export default {
       rulesOne: {
         // 手机号校验
         contactPhone: [
-          {required: true, message: '手机号不能为空', trigger: 'change'},
-          {validator: verifyPhone, trigger: 'change'}
+          {required: true, message: '手机号不能为空', trigger: 'blur'},
+          {validator: verifyPhone, trigger: 'blur'}
         ],
         // 验证码校验
         verificationCode: [
@@ -383,6 +338,8 @@ export default {
     // 提交
     subHandle: subHandle,
     sendMessage: sendMessage,
+    // 校验手机号
+    checkPhone: checkPhone,
     // 验证码失去焦点调用接口
     // verifyCode: verifyCode,
     // 验证手机号是否存在
@@ -395,6 +352,29 @@ export default {
       })
     }
   }
+}
+// 校验手机号
+function checkPhone () {
+  let phoneRegExp = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
+  if (!phoneRegExp.test(this.getForm.contactPhone)) {
+    this.$message.error('请输入正确的手机号')
+    return false
+  }
+  // 校验手机接口
+  this.axios.post('/cust/validContactPhone.do', {contactPhone: this.getForm.contactPhone}).then(res => {
+    if (res.data.status) {
+      this.showCheckBtn = false
+      this.$message({
+        type: 'success',
+        message: res.data.msg
+      })
+    } else {
+      this.showCheckBtn = true
+      this.$message.error(res.data.data)
+    }
+  }).catch(err => {
+    console.log(err)
+  })
 }
 // 发送验证码
 function sendMessage () {
@@ -409,6 +389,7 @@ function sendMessage () {
       let that = this
       let time = 60
       this.btntype = 'default'
+      this.showPhone = true
       // 发送验证码成功弹出提示用户
       this.$message({
         showClose: true,
@@ -418,7 +399,7 @@ function sendMessage () {
       var sendTimer = setInterval(function () {
         that.isOvertime = true
         time--
-        that.word = '重新发送' + time + 's'
+        that.word = '重新发送' + time
         that.showCheckBtn = true
         if (time < 0) {
           // that.time = 60
@@ -426,6 +407,7 @@ function sendMessage () {
           that.btntype = 'primary'
           clearInterval(sendTimer)
           that.showCheckBtn = false
+          that.showPhone = false
           that.word = '获取验证码'
         }
       }, 1000)
