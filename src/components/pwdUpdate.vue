@@ -45,17 +45,17 @@
   </el-dialog>
 </template>
 <style lang="scss">
-.up-pass-style{
-  >.el-dialog{
+.up-pass-style {
+  > .el-dialog {
     max-width: 600px;
   }
-   .el-input.el-input--suffix{
+  .el-input.el-input--suffix {
     width: 300px;
   }
-  .el-select.el-select--small.el-input--suffix,.el-input.el-input--small{
+  .el-select.el-select--small.el-input--suffix,
+  .el-input.el-input--small {
     width: 190px;
   }
-
 }
 </style>
 
@@ -75,7 +75,7 @@ footer {
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-import { debounce, postDataBase } from '@/util/util' // 防抖函数
+import { debounce, postDataBase, erroShow } from '@/util/util' // 防抖函数
 import * as types from '@/store/types' // 存储类型
 /* 合同确认 */
 export default {
@@ -189,7 +189,7 @@ export default {
           { validator: validatePass2, trigger: 'blur' }
         ]
       },
-      word: '发送验证码',
+      word: '获取验证码',
       isOvertime: false,
       btntype: 'primary' // 验证码按钮样式
     }
@@ -215,7 +215,7 @@ export default {
     sendMessage: sendMessage
   }
 }
-
+var sendTimer
 function submitForm (formName) {
   this.$refs[formName].validate((valid) => {
     if (valid) {
@@ -263,6 +263,10 @@ function Init () {
   if (this.$refs['ruleForm2']) {
     this.$refs['ruleForm2'].resetFields()
   }
+  this.isOvertime = false
+  this.btntype = 'primary'
+  clearInterval(sendTimer)
+  this.word = '获取验证码'
 }
 // 显示密码提示信息
 function passFocus () {
@@ -285,27 +289,36 @@ function sendMessage () {
   if (this.isOvertime) {
     return
   }
+  this.isOvertime = true // 验证码获取中
   this.axios.post('/cust/toverificationCode.do', {
     contactPhone: this.phone
   }).then(res => {
     if (res.data.status) {
+      this.$message({
+        message: res.data.msg,
+        type: 'success'
+      })
       let that = this
       let time = 60
       this.btntype = ''
-      var sendTimer = setInterval(function () {
-        that.isOvertime = true
+      sendTimer = setInterval(function () {
         time--
-        that.word = '重新发送' + time
+        that.word = `${time}秒后重新发送`
         if (time < 0) {
-          that.isOvertime = false
-          this.btntype = 'primary'
+          that.isOvertime = false // 重置可发送验证码
+          that.btntype = 'primary'
           clearInterval(sendTimer)
-          that.word = '获取验证码'
+          that.word = '重新获取验证码'
         }
       }, 1000)
     } else {
+      this.isOvertime = false // 重置可发送验证码
       this.$message.error(res.data.msg)
     }
+  }).catch(err => {
+    this.isOvertime = false // 重置可发送验证码
+    console.log(err)
+    erroShow.call(this, err)
   })
 }
 </script>
