@@ -108,7 +108,7 @@
       </section>
       <footer class="no-print" slot="footer" :style="'clear:both'">
         <el-button type="primary" @click="handleClose">确认</el-button>
-        <el-button type="primary" @click="print('print')">打印</el-button>
+        <el-button @click="print('print')">打印</el-button>
       </footer>
     </el-dialog>
   </section>
