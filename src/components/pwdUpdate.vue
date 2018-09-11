@@ -1,8 +1,7 @@
 <template>
-  <el-dialog :visible.sync="visibleP" :before-close="handleClose">
+  <el-dialog :class="'up-pass-style'" :visible.sync="visibleP" :before-close="handleClose">
     <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
         <el-form-item label="注册手机号">
-            <el-col :span="6">
               <el-select v-model="phone" placeholder="请选择验证的手机号" size="small">
                 <el-option
                   v-for="item in getPhones"
@@ -13,13 +12,14 @@
                   <span style="float: right; color: #8492a6; font-size: 13px">{{ item.text }}</span>
                 </el-option>
               </el-select>
-            </el-col>
         </el-form-item>
         <el-form-item label="验证码" prop="verificationCode">
-            <el-col :span="6" >
+            <el-col :span="10" >
               <el-input v-model.trim="ruleForm2.verificationCode" auto-complete="off" :maxlength="6" size="small"></el-input>
             </el-col>
-            <el-button :type="btntype" size="small" @click="sendMessage">{{word}}</el-button>
+            <el-col :span="6" :offset="1">
+              <el-button :type="btntype" size="small" @click="sendMessage">{{word}}</el-button>
+            </el-col>
         </el-form-item>
         <el-form-item label="原密码" prop="originalCustPassword">
           <el-input :type="opShow?'text':'password'" v-model.trim="ruleForm2.originalCustPassword" auto-complete="off">
@@ -44,6 +44,21 @@
     </el-form>
   </el-dialog>
 </template>
+<style lang="scss">
+.up-pass-style{
+  >.el-dialog{
+    max-width: 600px;
+  }
+   .el-input.el-input--suffix{
+    width: 300px;
+  }
+  .el-select.el-select--small.el-input--suffix,.el-input.el-input--small{
+    width: 190px;
+  }
+
+}
+</style>
+
 <style scoped>
 footer {
   text-align: center;
