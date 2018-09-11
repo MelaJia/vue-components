@@ -26,23 +26,23 @@
           label="序号"
           fixed width="40">
         </el-table-column>
-        <el-table-column align="center" label="订单号" fixed prop="poNumber" width="150">
+        <el-table-column align="center" label="订单号" fixed prop="poNumber" width="150" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="项次" prop="poItem" width="150">
+        <el-table-column align="center" label="项次" prop="poItem" width="150" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="法人代码" prop="corpCode">
+        <el-table-column align="center" label="法人代码" prop="corpCode" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="法人单位" prop="corpName">
+        <el-table-column align="center" label="法人单位" prop="corpName" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="金额" prop="poAmount" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName">
+        <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="center" label="订单确认日期" prop="confirmDate" :formatter="dateFormat" width="120">
         </el-table-column>
         <el-table-column align="center" label="约定交货日期" prop="deliveryDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="center" label="交易条件" prop="paymenttermName">
+        <el-table-column align="center" label="交易条件" prop="paymenttermName" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="center" header-align="center" label="操作" width='200px' class-name="" fixed="right">
           <template slot-scope="scope">
