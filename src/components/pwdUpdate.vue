@@ -200,7 +200,7 @@ export default {
     }
   },
   methods: {
-    handleSubmit: debounce(submitForm, 1000),
+    handleSubmit: debounce(submitForm, 1000, true),
     logout: logout,
     init: Init,
     // 密码框获取焦点时显示提示信息
@@ -212,7 +212,7 @@ export default {
     resetForm (formName) {
       this.$refs[formName].resetFields()
     },
-    sendMessage: sendMessage
+    sendMessage: debounce(sendMessage, 1000, true)
   }
 }
 var sendTimer
