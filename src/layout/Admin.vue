@@ -3,21 +3,26 @@
     <header>
     </header>
     <el-container>
-      <el-header height="auto" style="position: fixed;width: 100%;z-index: 9;top:0px;">
+      <el-header height="84px" style="position: fixed;width: 100%;z-index: 9;top:0px;">
         <header>
           <header-section></header-section>
 
         </header>
       </el-header>
       <el-container style="margin-top: 84px;">
-        <el-aside style="width: 220px;position: fixed;height: 100%;overflow-y: auto;z-index:9;">
-          <nav-t :nav-items="navItems"></nav-t>
-        </el-aside>
-        <el-main style="margin-left: 200px;padding-top:0px;">
+        <i class="iconfont" :class="width===0?'icon-open':'icon-close'" style="position: fixed;font-size:24px;z-index: 99;top: 50%; transition: all 1s;" :style="{'left': width+'px'}"  @click="width=width===0?180:0"></i>
+          <!-- 密码修改 -->
+        <dialog-pass-update :visible-p.sync="dialogPassVisible"></dialog-pass-update>
+        <transition name="custom-classes-transition" enter-active-class="animated slideInLeft" leave-active-class="animated slideOutLeft">
+          <el-aside v-show="width>0" style="position: fixed;width:180px;height: 100%;overflow-y: auto;z-index:9;" >
+            <nav-t :nav-items="navItems"></nav-t>
+          </el-aside>
+        </transition>
+        <el-main style="padding-top:0px; transition: all 1s;" :style="{'margin-left': width +'px'}">
           <tags ref="nav" class="nav"></tags>
-         <main :style="'background-color:#fff;height:auto;margin-top: 40px;'">
+          <section :style="'background-color:#fff;height:auto;margin-top: 40px;'">
             <router-view></router-view>
-          </main>
+          </section>
         </el-main>
       </el-container>
     </el-container>
