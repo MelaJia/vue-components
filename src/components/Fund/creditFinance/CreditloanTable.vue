@@ -26,11 +26,11 @@
         </el-table-column>
         <el-table-column align="center" label="融资编号" sortable prop="loanId" min-width="140">
         </el-table-column>
-        <el-table-column align="center" label="融资类型" prop="loanTypeName" min-width="140">
+        <el-table-column align="center" label="融资类型" prop="loanTypeName" min-width="100">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="贴现申请金额" prop="applyAmt" min-width="140" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="贴现申请金额" prop="applyAmt" min-width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" min-width="100">
+        <el-table-column align="center" label="币别" prop="currencyName" min-width="80">
         </el-table-column>
         <el-table-column align="center" label="状态" prop="status" min-width="100">
         </el-table-column>
@@ -38,14 +38,14 @@
         </el-table-column>
         <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" min-width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="信用报告" min-width="100">
+        <el-table-column align="center" label="信用报告" min-width="80">
           <template slot-scope="scope">
             <a :href="scope.row.riskPlatFormURL" target="_blank">信用报告</a>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="合同签署日期" prop="contractSignedDate" :formatter="dateFormat" min-width="140">
+        <el-table-column align="center" label="合同签署日期" prop="contractSignedDate" :formatter="dateFormat" min-width="100">
         </el-table-column>
-        <el-table-column align="center" label="还款日期" prop="repayDate" :formatter="dateFormat" min-width="140">
+        <el-table-column align="center" label="还款日期" prop="repayDate" :formatter="dateFormat" min-width="100">
         </el-table-column>
         <el-table-column align="left" header-align="center" label="操作" width='350px' fixed="right">
         <template slot-scope="scope">
@@ -205,41 +205,57 @@ function handleContrac (idx, val) {
 //   })
 // }
 function handleConfirm (idx, val) {
-  this.$confirm(`单号为${val.loanId}的贴现合同确认发起确认?`, `提示`, {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-    center: true
-  }).then(() => {
-    if (val.contractSignType === 1) {
-      this.checkDetail = val
-      this.dialogCheckPhone = true
-    } else {
-      this.postResultFresh('/factoringCreditLoan/confirmInitiateSigning.do', {loanId: val.loanId}) // 调用common混合中公共方法
-    }
-    console.log(val)
-  }).catch(() => {
+  if (new Date(val.repayDate).Format('yyyy-MM-dd') <= new Date().Format('yyyy-MM-dd')) {
     this.$message({
-      type: 'info',
-      message: '操作已取消'
+      showClose: true,
+      type: 'warning',
+      message: '还款日期小于当前日期，不能发起确认'
     })
-  })
+  } else {
+    this.$confirm(`单号为${val.loanId}的贴现合同确认发起确认?`, `提示`, {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+      center: true
+    }).then(() => {
+      if (val.contractSignType === 1) {
+        this.checkDetail = val
+        this.dialogCheckPhone = true
+      } else {
+        this.postResultFresh('/factoringCreditLoan/confirmInitiateSigning.do', {loanId: val.loanId}) // 调用common混合中公共方法
+      }
+      console.log(val)
+    }).catch(() => {
+      this.$message({
+        type: 'info',
+        message: '操作已取消'
+      })
+    })
+  }
 }
 // 放款
 function handleAccept (idx, val) {
-  this.$confirm(`融资编号为${val.loanId}的贴现申请确认放款?`, `提示`, {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-    center: true
-  }).then(() => {
-    this.postResultFresh('/factoringCreditLoan/completeLoan.do', {loanId: val.loanId}) // 调用common混合中公共方法
-  }).catch(() => {
+  if (new Date(val.repayDate).Format('yyyy-MM-dd') <= new Date().Format('yyyy-MM-dd')) {
     this.$message({
-      type: 'info',
-      message: '操作已取消'
+      showClose: true,
+      type: 'warning',
+      message: '还款日期小于当前日期，不能放款'
     })
-  })
+  } else {
+    this.$confirm(`融资编号为${val.loanId}的贴现申请确认放款?`, `提示`, {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+      center: true
+    }).then(() => {
+      this.postResultFresh('/factoringCreditLoan/completeLoan.do', {loanId: val.loanId}) // 调用common混合中公共方法
+    }).catch(() => {
+      this.$message({
+        type: 'info',
+        message: '操作已取消'
+      })
+    })
+  }
 }
 // 拒绝
 // function handleReject (idx, val) {

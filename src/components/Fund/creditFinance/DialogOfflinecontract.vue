@@ -34,11 +34,15 @@
           <el-col :span="10">
             <el-form-item label="合同上传:">
               <form ref="uploadForm" method="post" name="fileInfo" enctype="multipart/form-data">
-                <input ref="selectFile" type="file" name="contractUploadFile" @change="selectFile">
+                <div class="fileDiv">
+                <input ref="selectFile" type="file" class="fileField" name="contractUploadFile" @change="selectFile">
+                <input type='text' class="textfield" v-model="chooseFile" />
+                <button class="selectBtn">选择</button>
+                </div>
               </form>
             </el-form-item>
           </el-col>
-          <el-col :span="4"><el-button type="primary" size="mini" @click="uploadFile" style="margin-top:6px;">上传</el-button></el-col>
+          <el-col :span="4"><el-button type="primary" size="mini" @click="uploadFile" style="margin-top:6px;margin-left:60px;">上传</el-button></el-col>
         </el-row>
         <el-row>
             <el-col>
@@ -54,7 +58,7 @@
                   <tbody>
                     <tr style="height:40px;" v-for="(item, index) in this.contractList" :key="index">
                       <td style="width:80px;">{{index + 1}}</td>
-                      <td><a :href="item.contractUploadFileUrl" style="display:block;" target="_blank">{{item.contractUploadFileName}}</a></td>
+                      <td><a :href="item.contractUploadFileUrl" style="display:block;" target="_blank" @click="constractHandle(item.contractUploadFileUrl)">{{item.contractUploadFileName}}</a></td>
                       <td style="width:120px;"><el-button type="danger" size="mini" @click="deleteFile(index)">删除</el-button></td>
                     </tr>
                   </tbody>
@@ -97,6 +101,43 @@
     padding: 0 5px;
   }
 }
+.fileDiv {
+  position: relative;
+  .textfield {
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #dcdfe6;
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+    top: 3px;
+    z-index: 2;
+  }
+  .fileField{
+    width: 245px;
+    height: 30px;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    z-index: 4;
+    cursor: pointer;
+  }
+  .selectBtn {
+    padding: 0;
+    margin: 0;
+    margin-left: 160px;
+    height: 30px;
+    line-height: 30px;
+    width: 80px;
+    background-color: #dcdfe6;
+    border-radius: 2px;
+    border: none;
+    color: #666;
+  }
+}
 </style>
 
 <script>
@@ -107,7 +148,7 @@ import { debounce } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 // import { apiUrl } from '@/config/env.js'
 import { mapGetters } from 'vuex'
-let loadash = require('lodash') // 引用loadash
+// let loadash = require('lodash') // 引用loadash
 
 export default {
   props: ['visibleP', 'detailsP'],
@@ -117,6 +158,7 @@ export default {
       // uploadUrl: apiUrl + '/creditLoan/creditLoanUploadFile.do', // 文件上传地址
       fileInfo: '', // 文件信息
       loanAmt: '',
+      chooseFile: '',
       // 校验规则
       rules: {
         loanAmt: [
@@ -138,8 +180,8 @@ export default {
     // 附件列表
     contractList () {
       // return this.uniqueData(this.detailsP.contractUploadFileList)
-      // return this.detailsP.contractUploadFileList
-      return loadash.uniqWith(this.detailsP.contractUploadFileList, loadash.isEqual) // json数组去重
+      return this.detailsP.contractUploadFileList
+      // return loadash.uniqWith(this.detailsP.contractUploadFileList, loadash.isEqual) // json数组去重
     }
   },
   methods: {
@@ -147,9 +189,33 @@ export default {
     uploadContract: debounce(submit, 1000, true),
     // 重置
     init: Init,
+    // 数组去重
+    // uniqueData (paylist) {
+    //   if (this.detailsP.contractUploadFileList === undefined) {
+    //     return
+    //   } else {
+    //     var payArr = [this.detailsP.contractUploadFileList[0]]
+    //   }
+    //   for (var i = 1; i < paylist.length; i++) {
+    //     var payItem = paylist[i]
+    //     var repeat = false
+    //     for (var j = 0; j < payArr.length; j++) {
+    //       if (payItem.contractUploadFileName === payArr[j].contractUploadFileName) {
+    //         repeat = true
+    //         break
+    //       }
+    //     }
+    //     if (!repeat) {
+    //       payArr.push(payItem)
+    //     }
+    //   }
+    //   return payArr
+    // },
     // 选择文件
     selectFile (e) {
       this.fileInfo = e.target.files[0]
+      console.log(e.target.files[0])
+      this.chooseFile = e.target.files[0].name
     },
     // 上传文件
     uploadFile () {
@@ -157,7 +223,7 @@ export default {
       formData.append('contractUploadFile', this.fileInfo)
       formData.append('loanId', this.detailsP.loanId)
       formData.append('contractUploadFileName', this.fileInfo.name)
-      if (this.fileInfo.length === 0 || this.$refs.selectFile.value === '' || this.$refs.selectFile.value === null) {
+      if (this.chooseFile === '' || this.fileInfo.length === 0 || this.$refs.selectFile.value === '' || this.$refs.selectFile.value === null) {
         this.$message({
           type: 'error',
           message: '请选择文件之后再上传'
@@ -174,6 +240,7 @@ export default {
             }
             this.contractList.push(contractListInfo)
             this.$refs.selectFile.value = ''
+            this.chooseFile = ''
             this.$parent.fresh()
           } else {
             this.$message.error(res.data.msg)
@@ -199,6 +266,7 @@ export default {
               message: res.data.data
             })
             this.contractList.splice(index, 1)
+            console.log(this.contractList)
             this.$parent.fresh()
           } else {
             this.$message.error(res.data.msg)
@@ -221,7 +289,7 @@ function submit () {
       // 组合数据
       const param = {
         loanId: this.detailsP.loanId, // 融资编号Id
-        applyAmt: this.detailsP.applyAmt, // 实放金额
+        loanAmt: this.detailsP.loanAmt, // 实放金额
         repayDate: this.detailsP.repayDate, // 还款日期
         contractUploadFileList: this.contractList // 合同列表
       }
@@ -261,6 +329,7 @@ function submit () {
 }
 // 重置函数
 function Init () {
+  this.chooseFile = ''
   // 重置选择文件显示
   if (this.$refs.selectFile) {
     this.$refs.selectFile.value = ''

@@ -86,7 +86,7 @@
         </el-table-column>
         <el-table-column align="center" label="融资类型" prop="loanTypeName" min-width="100">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="贴现申请金额" prop="applyAmt" min-width="150" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="贴现申请金额" prop="applyAmt" min-width="120" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" min-width="80">
         </el-table-column>
@@ -112,17 +112,17 @@
         </el-table-column>
         <el-table-column align="right" header-align="center" label="还款合计" prop="totalRepayAmt" min-width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="合同签署日期" prop="contractSignedDate" min-width="150" :formatter="dateFormat">
+        <el-table-column align="center" label="合同签署日期" prop="contractSignedDate" min-width="100" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" label="还款日期" prop="repayDate" min-width="150" :formatter="dateFormat">
+        <el-table-column align="center" label="还款日期" prop="repayDate" min-width="100" :formatter="dateFormat">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="实际还款金额" prop="actualRepayAmt" min-width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="实际还款日期" prop="actualRepayDate" min-width="150" :formatter="dateFormat">
+        <el-table-column align="center" label="实际还款日期" prop="actualRepayDate" min-width="100" :formatter="dateFormat">
         </el-table-column>
         <!-- <el-table-column align="center" label="实际放款日期" prop="actualLoanDate" min-width="150" :formatter="dateFormat">
         </el-table-column> -->
-        <el-table-column align="center" label="操作" fixed="right" header-align="center" width="150">
+        <el-table-column align="center" label="操作" fixed="right" header-align="center" width="100">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           </template>
@@ -181,7 +181,7 @@ export default {
         companyName: '120',
         loanId: '120',
         loanTypeName: '100',
-        applyAmt: '150',
+        applyAmt: '120',
         currencyName: '80',
         statusName: '80',
         repaymentType: '150',
@@ -194,11 +194,11 @@ export default {
         prepaymentDeductInterest: '100',
         periodReliefAmt: '100',
         totalRepayAmt: '120',
-        contractSignedDate: '150',
-        repayDate: '150',
+        contractSignedDate: '100',
+        repayDate: '100',
         actualRepayAmt: '120',
-        actualRepayDate: '150',
-        actualLoanDate: '150'
+        actualRepayDate: '100',
+        actualLoanDate: '100'
       }
     }
   },

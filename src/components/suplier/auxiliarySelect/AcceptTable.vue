@@ -74,11 +74,11 @@
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" min-width="80">
         </el-table-column>
-        <el-table-column align="center" label="约定交货日期" prop="deliveryDate" min-width="150" :formatter="dateFormat">
+        <el-table-column align="center" label="约定交货日期" prop="deliveryDate" min-width="100" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" label="进货验收单日期" prop="confirmDate" min-width="150" :formatter="dateFormat">
+        <el-table-column align="center" label="进货验收单日期" prop="confirmDate" min-width="100" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" fixed="right" label="操作" header-align="center" width="150">
+        <el-table-column align="center" fixed="right" label="操作" header-align="center" width="100">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           </template>
@@ -143,8 +143,8 @@ export default {
         dataType: '80',
         amount: '120',
         currencyName: '80',
-        deliveryDate: '150',
-        confirmDate: '150',
+        deliveryDate: '100',
+        confirmDate: '100',
         operate: '200'
       }
     }

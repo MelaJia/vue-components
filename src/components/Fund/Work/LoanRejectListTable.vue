@@ -19,7 +19,7 @@
       </el-table-column>
       <el-table-column align="center" label="付款单位" prop="companyName" >
       </el-table-column>
-      <el-table-column align="center" label="预计回款日期" prop="billPayDate" min-width="120" :formatter="dateFormat">
+      <el-table-column align="center" label="预计回款日期" prop="billPayDate" min-width="100" :formatter="dateFormat">
       </el-table-column>
       <el-table-column align="center" label="操作" width='100px' fixed="right">
         <template slot-scope="scope">

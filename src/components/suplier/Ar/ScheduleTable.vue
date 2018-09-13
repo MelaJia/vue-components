@@ -25,11 +25,11 @@
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyDesc">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="票面金额" prop="billBookAmt" width="120px" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="票面金额" prop="billBookAmt" width="100px" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="实际放款金额" prop="loanAmt" width="120px" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="实际放款金额" prop="loanAmt" width="100px" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120px">
+        <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="100px">
         </el-table-column>
         <el-table-column align="center" label="打款处理状态" prop="billPayStatus" width="140px">
           <template slot-scope="scope">
@@ -54,7 +54,7 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="操作" header-align="left" width='200px' fixed="right">
+        <el-table-column align="center" label="操作" header-align="center" width='180px' fixed="right">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
             <el-button :disabled="scope.row.operateControllerStatus=='0'?true:false" size="mini" type="primary" @click="confirmContract(scope.$index, scope.row)">合同确认</el-button>

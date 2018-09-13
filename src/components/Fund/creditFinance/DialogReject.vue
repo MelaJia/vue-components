@@ -78,7 +78,7 @@ export default {
 function submit () {
   let param = {
     loanId: this.detailsP.loanId, // 融资Id
-    rejectedReason: this.form.rejectedReason // 拒绝理由
+    rejectReason: this.form.rejectedReason // 拒绝理由
   }
   // 显示加载图标
   const loading = this.$loading(loadingConf.sub())

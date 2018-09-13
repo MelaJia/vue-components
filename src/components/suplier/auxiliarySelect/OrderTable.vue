@@ -19,11 +19,11 @@
         </el-table-column>
         <el-table-column align="center" label="订单号" prop="poNumber">
         </el-table-column>
-        <el-table-column align="center" label="项次" prop="poItem">
+        <el-table-column align="center" label="项次" prop="poItem" min-width="78">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="金额" prop="poAmount" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName">
+        <el-table-column align="center" label="币别" prop="currencyName" min-width="88">
         </el-table-column>
         <el-table-column align="center" label="订单确认日期" prop="confirmDate" :formatter="dateFormat">
         </el-table-column>
@@ -56,7 +56,11 @@ export default {
     return {
       dialogInfoVisible: false,
       details: {}, // 详情数据
-      filedetails: {}
+      filedetails: {},
+      widthArr: {
+        poItem: '78',
+        currencyName: '88'
+      }
     }
   },
   computed: {

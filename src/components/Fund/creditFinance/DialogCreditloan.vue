@@ -50,14 +50,14 @@
       <ul class="height-auto">
           <span>
           <div class="a-link-group inline-block">
-            合同:<a v-for="item in this.detailsP.contractList" :key="item.contractId" :href="item.contractUrl" target="_blank">{{item.contractName}}</a>
+            合同:<a v-for="item in this.detailsP.contractList" :key="item.contractId" :href="item.contractUrl" target="_blank" @click="constractHandle(item.contractUrl)">{{item.contractName}}</a>
           </div>
         </span>
       </ul>
       <ul>
         <span>
           <div class="a-link-group inline-block">
-            附件:<a v-for="(item, index) in this.detailsP.loanUploadFileList" :key="index" :href="item.fileUrl" target="_blank">{{item.fileName}}</a>
+            附件:<a v-for="(item, index) in this.detailsP.loanUploadFileList" :key="index" :href="item.fileUrl" target="_blank" @click="constractHandle(item.fileUrl)">{{item.fileName}}</a>
           </div>
         </span>
       </ul>

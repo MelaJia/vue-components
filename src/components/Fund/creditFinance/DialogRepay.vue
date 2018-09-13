@@ -74,7 +74,7 @@
           <el-form-item label="合同:">
             <span class="textPosition">
               <div class="a-link-group inline-block">
-                <a v-for="item in this.detailsP.contractList" :key="item.contractId" :href="item.contractUrl" target="_blank">{{item.contractName}}</a>
+                <a v-for="item in this.detailsP.contractList" :key="item.contractId" :href="item.contractUrl" target="_blank" @click="constractHandle(item.contractUrl)">{{item.contractName}}</a>
               </div>
             </span>
           </el-form-item>
