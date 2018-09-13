@@ -36,11 +36,11 @@
     <el-row>
       <el-col :span="10">
         <el-form-item label="实放金额">
-          <el-col :span="10">
+          <el-col :span="10" class="mon-range-end">
             <el-jx-input class="ipt" v-model="formInline.amountBegin" placeholder="起始金额"></el-jx-input>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
-          <el-col :span="10">
+          <el-col :span="10" class="mon-range-end">
             <el-jx-input v-model="formInline.amountEnd" placeholder="结束金额"></el-jx-input>
           </el-col>
         </el-form-item>
@@ -57,17 +57,8 @@
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
-@media screen and (min-width: 1512px) and (max-width: 1601px) {
-  .el-form {
-    width: 1199px;
-  }
-}
-.wd-190 {
-  width: 190px;
-}
-form {
-  padding: 10px;
-}
+@import "@/assets/css/_loanSearch.scss";
+
 </style>
 
 <script>

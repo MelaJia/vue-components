@@ -12,21 +12,21 @@ export default {
 
 <style lang="scss">
 @import './assets/css/ie.scss';
-@media screen and (min-width: 1356px) and (max-width: 1396px){
-  .body:first-child .el-card__body {
-        width: 1020px;
-    }
-}
-@media screen and (min-width: 1396px) and (max-width: 1440px){
-  .body:first-child .el-card__body {
-        width: 1150px;
-    }
-}
-@media screen and (min-width: 1431px) and (max-width: 1483px){
-  .body:first-child .el-card__body {
-        width: 1150px;
-    }
-}
+// @media screen and (min-width: 1356px) and (max-width: 1396px){
+//   .body:first-child .el-card__body {
+//         width: 1020px;
+//     }
+// }
+// @media screen and (min-width: 1396px) and (max-width: 1440px){
+//   .body:first-child .el-card__body {
+//         width: 1150px;
+//     }
+// }
+// @media screen and (min-width: 1431px) and (max-width: 1483px){
+//   .body:first-child .el-card__body {
+//         width: 1150px;
+//     }
+// }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -60,4 +60,13 @@ html,body,#app,#app>div,#app>div>main,.main-section,.main-section>div{
 td>.el-table--scrollable-x .el-table__body-wrapper {
     overflow-x: hidden;
 }
+ // 搜索区域
+ .search-box-card>.el-card__body{
+    padding: 0px 20px 0px 20px;
+    position: relative;
+ }
+ .search-box-card>.el-card__header{
+    padding: 8px 20px;
+    position: relative;
+ }
 </style>

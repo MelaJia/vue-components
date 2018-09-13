@@ -52,32 +52,7 @@
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
-@media screen and (min-width: 1356px) and (max-width: 1396px){
-  .el-form {
-        width: 1020px;
-    }
-}
-@media screen and (min-width: 1396px) and (max-width: 1440px){
-  .el-form {
-        width: 1100px;
-    }
-}
-@media screen and (min-width: 1431px) and (max-width: 1483px){
-  .el-form {
-        width: 1150px;
-    }
-}
-.mon-range-start{
-  width: 152px;
-  >.el-input.el-input--small{
-    width: 155px;
-  }
-}
-.mon-range-end{
-  >.el-input.el-input--small{
-    width: 155px;
-  }
-}
+@import "@/assets/css/_loanSearch.scss";
 </style>
 
 <script>

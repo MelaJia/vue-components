@@ -36,7 +36,8 @@ export default {
         billPayDate: '120',
         billPayStatus: '120',
         operate: '250'
-      }
+      },
+      searchShow: true // 搜索区
     }
   },
   methods: {

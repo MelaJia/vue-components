@@ -1,0 +1,15 @@
+.mon-range-start{
+  width: 135px;
+  >.el-input.el-input--small{
+    width: 135px;
+  }
+}
+.mon-range-end{
+  >.el-input.el-input--small{
+    width: 135px;
+  }
+}
+// 输入框宽度
+.el-input.el-input--small, .el-select.el-select--small{
+  width: 165px;
+}
