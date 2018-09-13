@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="100px">
+  <el-form :inline="true" :model="formInline" class="demo-form-inline loan-search-style" size="small" label-width="100px">
     <el-row>
       <el-col :span="7">
         <el-form-item label="融资编号">
@@ -38,7 +38,7 @@
     <el-row>
       <el-col :span="10">
         <el-form-item label="金额申请金额">
-          <el-col class="mon-range-start">
+          <el-col :span="10" class="mon-range-start">
             <el-jx-input class="ipt" v-model="formInline.amountBegin" placeholder="起始金额"></el-jx-input>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
@@ -57,8 +57,10 @@
     </el-row>
   </el-form>
 </template>
+
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
+@import "@/assets/css/_loanSearch.scss";
 @media screen and (min-width: 1356px) and (max-width: 1396px){
   .el-form {
         width: 1020px;
@@ -73,17 +75,6 @@
   .el-form {
         width: 1150px;
     }
-}
-.mon-range-start{
-  width: 152px;
-  >.el-input.el-input--small{
-    width: 155px;
-  }
-}
-.mon-range-end{
-  >.el-input.el-input--small{
-    width: 155px;
-  }
 }
 </style>
 

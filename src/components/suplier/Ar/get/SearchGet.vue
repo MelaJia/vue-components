@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="150px">
+  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="130px">
     <el-row>
       <el-col :span="8"><el-form-item label="AR单号">
       <el-input v-model.trim="formInline.masterChainId" placeholder=""></el-input>

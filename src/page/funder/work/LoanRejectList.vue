@@ -1,12 +1,20 @@
 <template>
   <div class="main">
     <div class="body">
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
+      <el-card class="box-card search-box-card">
+        <div slot="header" class="clearfix" style="position:relative">
           <i class="el-icon-search"></i>
           <span>查询条件</span>
+          <el-tooltip class="item" effect="dark" content="点我收起" placement="right-start">
+            <i class="el-icon-arrow-down" v-show="searchShow" @click="searchShow=!searchShow" style="position: absolute;right: 0;"></i>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="点我展开" placement="right-start">
+            <i class="el-icon-arrow-right" v-show="!searchShow" @click="searchShow=!searchShow" style="position: absolute;right: 0;"></i>
+          </el-tooltip>
         </div>
-        <search  @handle-search="handleSearch"></search>
+        <transition name="custom-classes-transition" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
+        <search v-show="searchShow" @handle-search="searchSubmit"></search>
+        </transition>
       </el-card>
     </div>
     <div class="body">
@@ -70,7 +78,7 @@ export default {
   },
   methods: {
     // 条件查询
-    handleSearch (val) {
+    searchSubmit (val) {
       console.log('内容')
       this.param = {
         masterChainId: val.masterChainId, // ar单号

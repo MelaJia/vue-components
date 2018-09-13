@@ -2,6 +2,12 @@
   <div class="ar-table">
     <header>
       <el-form ref="ordform" :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form-item label="已选订单金额合计(元)">
+          {{displaySumAmt}}
+        </el-form-item>
+        <el-form-item>
+          <el-button round size="small" @click="handleClearSelection">取消已勾选</el-button>
+        </el-form-item>
         <el-form-item label="融资金额合计(元)" :rules="amtRule" prop="applyAmt">
           <el-input class="wd-200" v-model.number="displayApplyAmt" @blur="handleChange" @focus="handleFocus"></el-input>
         </el-form-item>
@@ -9,40 +15,43 @@
           <el-date-picker :editable="false" v-model="formInline.repayDate"  :picker-options="pickerOptions" type="date" placeholder="选择日期"></el-date-picker>
         </el-form-item>
         <el-form-item>
-          <el-button round @click="handleSub" :disabled="isover">融资确认</el-button>
+          <el-button round @click="handleSub" type="primary" :disabled="isover">融资确认</el-button>
         </el-form-item>
       </el-form>
     </header>
     <!-- 详情 -->
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-info>
+    <!-- 融资确认信息 -->
+    <!-- <dialog-loan :visible-p.sync="dialogLoanVisible" :details-p="loanDetails" ></dialog-loan> -->
     <section>
       <el-table ref="table" :data="comDatas" v-loading.fullscreen="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%"
+        row-key="poNumber"
         @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle" @mousedown.native="mouseDown">
-        <el-table-column type="selection" fixed width="40" :selectable="disableHandle">
+        <el-table-column type="selection" fixed width="40" :selectable="disableHandle" :reserve-selection="true">
         </el-table-column>
         <el-table-column
           type="index"
           label="序号"
           fixed width="40">
         </el-table-column>
-        <el-table-column align="center" label="订单号" fixed prop="poNumber" width="150">
+        <el-table-column align="center" label="订单号" fixed prop="poNumber" width="150" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="项次" prop="poItem" width="150">
+        <el-table-column align="center" label="项次" prop="poItem" width="150" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="法人代码" prop="corpCode">
+        <el-table-column align="center" label="法人代码" prop="corpCode" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="法人单位" prop="corpName">
+        <el-table-column align="center" label="法人单位" prop="corpName" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="金额" prop="poAmount" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName">
+        <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="center" label="订单确认日期" prop="confirmDate" :formatter="dateFormat" width="120">
         </el-table-column>
         <el-table-column align="center" label="约定交货日期" prop="deliveryDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="center" label="交易条件" prop="paymenttermName">
+        <el-table-column align="center" label="交易条件" prop="paymenttermName" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="center" header-align="center" label="操作" width='200px' class-name="" fixed="right">
           <template slot-scope="scope">
@@ -100,8 +109,8 @@ export default {
   props: ['dataLoading', 'dataTable'],
   mixins: [TableMixIn, Common],
   components: {
-    'dialog-contract': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogContract'),
+    'dialog-loan': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/orderLoan/order/DialogLoan'),
     'dialog-info': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/orderLoan/order/DialogInfo')
   },
@@ -111,7 +120,10 @@ export default {
       dialogInfoVisible: false, // 详情显示
       multipleSelection: [], // 选择的数据
       details: {}, // 详情数据
+      // dialogLoanVisible: false, // 融资显示
+      // loanDetails: {}, // 融资数据
       widthArr: widhConf.crL, // 宽度配置
+      displaySumAmt: '', // 已选总金额
       displayApplyAmt: '',
       // 表单数据
       formInline: {
@@ -163,6 +175,7 @@ export default {
     handleInfo: debounce(handleInfo, 1000, true),
     // 是否可选择
     disableHandle: disableHandle,
+    handleClearSelection: clearSelection,
     // 刷新数据
     fresh () {
       this.$emit('refresh')
@@ -190,10 +203,11 @@ function handleInfo (idx, val) {
 function handleSelectionChange (val) {
   // 总金额
   let amount = 0
+  console.log(this.multipleSelection)
   this.multipleSelection = val
-  this.multipleSelection.sort((a, b) => {
-    return a.idx - b.idx
-  })
+  // this.multipleSelection.sort((a, b) => {
+  //   return a.idx - b.idx
+  // })
   console.log(this.multipleSelection)
   // 遍历选择项
   val.forEach(item => {
@@ -208,6 +222,7 @@ function handleSelectionChange (val) {
     this.formInline.applyAmt = amount
     // 格式化
     this.displayApplyAmt = thousandth(amount)
+    this.displaySumAmt = this.displayApplyAmt
   }
 }
 // 输入金额事件
@@ -217,42 +232,54 @@ function handleChange (val) {
   // 格式化
   this.displayApplyAmt = thousandth(this.displayApplyAmt)
   // 关闭输入框自动更新
-  this.flag = false
-  let sum = computeMethod.call(this, this.multipleSelection)
-  if (sum < this.formInline.applyAmt) {
-    computeMethod.call(this, this.comDatas)
+  // this.flag = false
+  let sum = 0
+  for (let index = 0; index < this.multipleSelection.length; index++) {
+    const element = this.multipleSelection[index]
+    sum += element.poAmount
   }
+  console.log(sum)
+  if (sum < this.formInline.applyAmt) {
+    this.isover = true
+  } else {
+    this.isover = false
+  }
+  // ***************************************************************************金额改变勾选项
+  // let sum = computeMethod.call(this, this.multipleSelection)
+  // if (sum < this.formInline.applyAmt) {
+  //   computeMethod.call(this, this.comDatas)
+  // }
   // 开启输入框自动更新
   updateOpen.call(this)
 }
-// 金额选中项联动
-function computeMethod (data) {
-  let sum = 0
-  let selectAuto = []
-  // 清除选中项
-  this.$refs.table.clearSelection()
-  for (let index = 0; index < data.length; index++) {
-    // 不是人民币时跳出
-    if (data[index].currencyId !== 1) {
-      continue
-    }
-    const element = data[index]
-    sum += element.poAmount
-    // 加入选中项
-    this.$refs.table.toggleRowSelection(element)
-    selectAuto.push(element)
-    // 判断大小
-    if (sum >= this.formInline.applyAmt) { // 所选金额超出填写金额
-      this.multipleSelection = selectAuto // 赋值
-      this.isover = false
-      // 跳出循环
-      break
-    } else {
-      this.isover = true
-    }
-  }
-  return sum
-}
+// *****************************************金额选中项联动
+// function computeMethod (data) {
+//   let sum = 0
+//   let selectAuto = []
+//   // 清除选中项
+//   this.$refs.table.clearSelection()
+//   for (let index = 0; index < data.length; index++) {
+//     // 不是人民币时跳出
+//     if (data[index].currencyId !== 1) {
+//       continue
+//     }
+//     const element = data[index]
+//     sum += element.poAmount
+//     // 加入选中项
+//     this.$refs.table.toggleRowSelection(element)
+//     selectAuto.push(element)
+//     // 判断大小
+//     if (sum >= this.formInline.applyAmt) { // 所选金额超出填写金额
+//       this.multipleSelection = selectAuto // 赋值
+//       this.isover = false
+//       // 跳出循环
+//       break
+//     } else {
+//       this.isover = true
+//     }
+//   }
+//   return sum
+// }
 // 更新开启
 function updateOpen () {
   setTimeout(() => {
@@ -265,10 +292,40 @@ function resetInput () {
 }
 // 确认事件
 function handleSub () {
-  console.log(this.dataTable)
-
+  if (this.multipleSelection.length === 0) {
+    this.$alert(`未勾选订单!`, '系统提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+      }
+    })
+    return
+  }
   this.$refs.ordform.validate((valid) => {
     if (valid) {
+      // *****************************************弹窗确认
+      // 设置数据
+      // let sum = 0
+      // let flag = true
+      // for (let index = 0; index < this.multipleSelection.length; index++) {
+      //   console.log(index)
+      //   const element = this.multipleSelection[index]
+      //   sum += element.poAmount
+      //   console.log(sum)
+      //   if (this.formInline.applyAmt >= sum) {
+      //     element.applyPoAmount = element.poAmount
+      //   } else if (flag) {
+      //     element.applyPoAmount = element.poAmount + this.formInline.applyAmt - sum
+      //     flag = false
+      //   } else {
+      //     element.applyPoAmount = 0
+      //   }
+      // }
+      // let param = Object.assign({}, this.formInline, { poLoanInfoList: this.multipleSelection })
+      // this.loanDetails = param
+      // this.dialogLoanVisible = true
+      // if (this.dialogLoanVisible) {
+      //   return
+      // }
       this.$confirm(`您好，请问是否确认申请${thousandth(this.formInline.applyAmt)}元人民币的订单信用融资？`, `提示`, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -277,21 +334,28 @@ function handleSub () {
       }).then(() => {
         // 设置数据
         let sum = 0
-        for (let index = 0; index < this.multipleSelection.length - 1; index++) {
+        let flag = true
+        for (let index = 0; index < this.multipleSelection.length; index++) {
+          console.log(index)
           const element = this.multipleSelection[index]
-          element.applyPoAmount = element.poAmount
           sum += element.poAmount
+          console.log(sum)
+          if (this.formInline.applyAmt >= sum) {
+            element.applyPoAmount = element.poAmount
+          } else if (flag) {
+            element.applyPoAmount = element.poAmount + this.formInline.applyAmt - sum
+            flag = false
+          } else {
+            element.applyPoAmount = 0
+          }
         }
-        this.multipleSelection[this.multipleSelection.length - 1].applyPoAmount = this.formInline.applyAmt - sum
-        // this.multipleSelection.forEach(item => {
-        //   selected.push(Object.assign({}, item, { applyPoAmount: this.multipleSelection }))
-        // })
         let param = Object.assign({}, this.formInline, { poLoanInfoList: this.multipleSelection })
         console.log(param)
         postDataBase.call(this, 'supplierOrderLoan/supplierOrderApplyDiscount.do', param, true).then(res => {
           if (res.data.status) {
             // 成功刷新数据
             this.fresh()
+            this.handleClearSelection()
           }
         })
       }).catch((err) => {
@@ -308,5 +372,8 @@ function handleSub () {
 function disableHandle (row, index) {
   let result = row.currencyId === 1
   return result
+}
+function clearSelection () {
+  this.$refs.table.clearSelection()
 }
 </script>

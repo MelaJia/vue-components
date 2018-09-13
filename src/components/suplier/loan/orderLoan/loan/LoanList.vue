@@ -18,15 +18,15 @@
               </el-table-column>
               <el-table-column align="center" width="40">
               </el-table-column>
-              <el-table-column align="center" prop="loanId" :width="widthArr.loanId">
+              <el-table-column align="center" prop="loanId" :width="widthArr.loanId" :formatter="nullDealWith">
               </el-table-column>
               <el-table-column align="right" prop="applyAmt" :formatter="regexNum" :width="widthArr.applyAmt">
               </el-table-column>
-              <el-table-column align="center" :width="widthArr.currencyDesc" >
+              <el-table-column align="center" :width="widthArr.currencyDesc" :formatter="nullDealWith">
               </el-table-column>
-              <el-table-column align="center" prop="status" :width="widthArr.status">
+              <el-table-column align="center" prop="status" :width="widthArr.status" :formatter="nullDealWith">
               </el-table-column>
-              <el-table-column align="center" prop="repaymentType" :width="widthArr.repaymentType">
+              <el-table-column align="center" prop="repaymentType" :width="widthArr.repaymentType" :formatter="nullDealWith">
               </el-table-column>
               <el-table-column align="right" prop="loanAmt" :formatter="regexNum" :width="widthArr.loanAmt">
               </el-table-column>
@@ -38,7 +38,7 @@
               </el-table-column>
               <el-table-column align="right" prop="payFineAmt" :formatter="regexNum" :width="widthArr.payFineAmt">
               </el-table-column>
-              <el-table-column align="center" prop="payFineDays" :width="widthArr.payFineDays">
+              <el-table-column align="center" prop="payFineDays" :width="widthArr.payFineDays" :formatter="nullDealWith">
               </el-table-column>
               <el-table-column align="right" prop="prepaymentDeductInterest" :formatter="regexNum" :width="widthArr.prepaymentDeductInterest">
               </el-table-column>
@@ -71,15 +71,15 @@
           label="序号"
           fixed width="40">
         </el-table-column>
-        <el-table-column align="center" label="融资编号" fixed sortable prop="loanId" width="150">
+        <el-table-column align="center" label="融资编号" fixed sortable prop="loanId" width="150" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="贴现申请金额" prop="applyAmt" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName">
+        <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="statusName">
+        <el-table-column align="center" label="状态" prop="statusName" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="还款方式" prop="repaymentType">
+        <el-table-column align="center" label="还款方式" prop="repaymentType" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" :formatter="regexNum"  width="120">
         </el-table-column>
@@ -91,7 +91,7 @@
         </el-table-column>
         <el-table-column align="right" header-align="center" label="罚息" prop="payFineAmt" :formatter="regexNum"  width="120">
         </el-table-column>
-        <el-table-column align="center" label="罚息天数" prop="payFineDays">
+        <el-table-column align="center" label="罚息天数" prop="payFineDays" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepaymentDeductInterest" :formatter="regexNum" width="120">
         </el-table-column>

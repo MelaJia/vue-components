@@ -6,10 +6,12 @@
             </el-col>
         </el-form-item>
         <el-form-item label="验证码" prop="verificationCode">
-            <el-col :span="8">
-              <el-input v-model.trim="verify" auto-complete="off" :maxlength="6" size="small" :disabled="isInput"></el-input>
+            <el-col :span="8" >
+             <el-input v-model.trim="verify" auto-complete="off" :maxlength="6" size="small" :disabled="isInput"></el-input>
             </el-col>
-            <el-button :type="btntype" size="small" @click="sendMessage">{{word}}</el-button>
+            <el-col :span="8" :offset="1">
+             <el-button :type="btntype" size="small" @click="sendMessage">{{word}}</el-button>
+            </el-col>
         </el-form-item>
   </el-form>
 </template>
@@ -20,11 +22,12 @@ form.el-form {
 </style>
 
 <script>
+import { erroShow } from '@/util/util' // 防抖函数
 export default {
   data () {
     return {
       phone: '', // 手机号
-      word: '发送验证码',
+      word: '获取验证码',
       isOvertime: false,
       btntype: 'primary', // 验证码按钮样式
       verify: '', // 验证码
@@ -57,6 +60,7 @@ function sendMessage () {
   if (this.isOvertime) {
     return
   }
+  this.isOvertime = true // 验证码获取中
   this.axios.post('/commonCust/getContractPlatformVerificationCode.do', {
     contactPhone: this.getPhones
   }).then(res => {
@@ -70,19 +74,23 @@ function sendMessage () {
       let time = 60
       this.btntype = ''
       sendTimer = setInterval(function () {
-        that.isOvertime = true
         time--
-        that.word = '重新发送' + time
+        that.word = `${time}秒后重新发送`
         if (time < 0) {
-          that.isOvertime = false
-          this.btntype = 'primary'
+          that.isOvertime = false // 重置可发送验证码
+          that.btntype = 'primary'
           clearInterval(sendTimer)
-          that.word = '获取验证码'
+          that.word = '重新获取验证码'
         }
       }, 1000)
     } else {
+      this.isOvertime = false // 重置可发送验证码
       this.$message.error(res.data.msg)
     }
+  }).catch(err => {
+    this.isOvertime = false // 重置可发送验证码
+    console.log(err)
+    erroShow.call(this, err)
   })
 }
 function Init () {

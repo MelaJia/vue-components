@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="150px">
+  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="130px">
     <el-row>
       <el-col :span="8">
         <el-form-item label="AR来源">
@@ -41,23 +41,21 @@
         </el-col>
     </el-row>
     <el-row>
+        <el-col :span="8">
+            <el-form-item label="结报单号">
+              <el-input v-model.trim="formInline.billId" placeholder=""></el-input>
+            </el-form-item>
+        </el-col>
         <el-col :span="12">
           <el-form-item label="预计回款日期">
             <el-date-picker :editable="false" v-model="formInline.moneyDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
             </el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col :span="8" :offset="4">
-            <el-form-item label="结报单号">
-              <el-input v-model.trim="formInline.billId" placeholder=""></el-input>
-            </el-form-item>
-        </el-col>
     </el-row>
     <el-row>
       <el-col :span="2" :offset="11">
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">查询</el-button>
-        </el-form-item>
+          <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
       </el-col>
     </el-row>
   </el-form>

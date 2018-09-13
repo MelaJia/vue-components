@@ -32,14 +32,14 @@
 <style lang="scss">
 @import "../assets/css/base";
 .nav-menu {
-  height: 100%;
+  // height: 100%;
   // li i[class*="el-icon-arrow-down"]:before {
   //   content: none;
   // }
   ul {
     background: $navbg;
     border-right: none;
-    height: 100%;
+    // height: 100%;
   }
   ul li.el-menu-item.is-active {
     &::before{

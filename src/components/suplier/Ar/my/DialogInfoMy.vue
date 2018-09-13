@@ -82,7 +82,6 @@
           <span>合同:
           <div class="a-link-group inline-block">
             <a v-for="item in detailsP.contractList" :key="item.contractId" :href="item.contractUrl" target="_blank" @click="constractHandle(item.contractUrl)">{{item.contractName}}</a>
-            <!-- <a v-for="item in detailsP.contractList" :key="item.contractId" href="http://" @click.prevent="constractHandle(item.contractId)">{{item.contractName}}</a> -->
           </div>
         </span>
       </ul>
@@ -94,7 +93,7 @@
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
-      <el-button type="primary" @click="print('print')">打印</el-button>
+      <el-button @click="print('print')">打印</el-button>
     </footer>
   </el-dialog>
   </section>

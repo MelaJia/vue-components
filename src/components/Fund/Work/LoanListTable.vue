@@ -147,6 +147,14 @@ function handleContrac (idx, val) {
 }
 // 发起确认
 function handleConfirm (idx, val) {
+  if (new Date(val.billPayDate) <= new Date()) {
+    this.$alert(`预计回款日期小于当前日期，不能发起确认!`, '系统提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+      }
+    })
+    return
+  }
   this.$confirm(`单号为${val.masterChainId}的贴现合同确认发起?`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
