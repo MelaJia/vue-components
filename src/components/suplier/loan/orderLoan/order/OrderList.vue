@@ -2,6 +2,9 @@
   <div class="ar-table">
     <header>
       <el-form ref="ordform" :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form-item label="已选订单金额合计(元)">
+          {{displaySumAmt}}
+        </el-form-item>
         <el-form-item>
           <el-button round size="small" @click="handleClearSelection">取消已勾选</el-button>
         </el-form-item>
@@ -19,7 +22,7 @@
     <!-- 详情 -->
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-info>
     <!-- 融资确认信息 -->
-    <dialog-loan :visible-p.sync="dialogLoanVisible" :details-p="loanDetails" ></dialog-loan>
+    <!-- <dialog-loan :visible-p.sync="dialogLoanVisible" :details-p="loanDetails" ></dialog-loan> -->
     <section>
       <el-table ref="table" :data="comDatas" v-loading.fullscreen="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%"
@@ -117,9 +120,10 @@ export default {
       dialogInfoVisible: false, // 详情显示
       multipleSelection: [], // 选择的数据
       details: {}, // 详情数据
-      dialogLoanVisible: false, // 融资显示
-      loanDetails: {}, // 融资数据
+      // dialogLoanVisible: false, // 融资显示
+      // loanDetails: {}, // 融资数据
       widthArr: widhConf.crL, // 宽度配置
+      displaySumAmt: '', // 已选总金额
       displayApplyAmt: '',
       // 表单数据
       formInline: {
@@ -218,6 +222,7 @@ function handleSelectionChange (val) {
     this.formInline.applyAmt = amount
     // 格式化
     this.displayApplyAmt = thousandth(amount)
+    this.displaySumAmt = this.displayApplyAmt
   }
 }
 // 输入金额事件
@@ -239,6 +244,7 @@ function handleChange (val) {
   } else {
     this.isover = false
   }
+  // ***************************************************************************金额改变勾选项
   // let sum = computeMethod.call(this, this.multipleSelection)
   // if (sum < this.formInline.applyAmt) {
   //   computeMethod.call(this, this.comDatas)
@@ -246,7 +252,7 @@ function handleChange (val) {
   // 开启输入框自动更新
   updateOpen.call(this)
 }
-// 金额选中项联动
+// *****************************************金额选中项联动
 // function computeMethod (data) {
 //   let sum = 0
 //   let selectAuto = []
@@ -286,33 +292,40 @@ function resetInput () {
 }
 // 确认事件
 function handleSub () {
-  console.log(this.dataTable)
-
+  if (this.multipleSelection.length === 0) {
+    this.$alert(`未勾选订单!`, '系统提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+      }
+    })
+    return
+  }
   this.$refs.ordform.validate((valid) => {
     if (valid) {
+      // *****************************************弹窗确认
       // 设置数据
-      let sum = 0
-      let flag = true
-      for (let index = 0; index < this.multipleSelection.length; index++) {
-        console.log(index)
-        const element = this.multipleSelection[index]
-        sum += element.poAmount
-        console.log(sum)
-        if (this.formInline.applyAmt >= sum) {
-          element.applyPoAmount = element.poAmount
-        } else if (flag) {
-          element.applyPoAmount = element.poAmount + this.formInline.applyAmt - sum
-          flag = false
-        } else {
-          element.applyPoAmount = 0
-        }
-      }
-      let param = Object.assign({}, this.formInline, { poLoanInfoList: this.multipleSelection })
-      this.loanDetails = param
-      this.dialogLoanVisible = true
-      if (this.dialogLoanVisible) {
-        return
-      }
+      // let sum = 0
+      // let flag = true
+      // for (let index = 0; index < this.multipleSelection.length; index++) {
+      //   console.log(index)
+      //   const element = this.multipleSelection[index]
+      //   sum += element.poAmount
+      //   console.log(sum)
+      //   if (this.formInline.applyAmt >= sum) {
+      //     element.applyPoAmount = element.poAmount
+      //   } else if (flag) {
+      //     element.applyPoAmount = element.poAmount + this.formInline.applyAmt - sum
+      //     flag = false
+      //   } else {
+      //     element.applyPoAmount = 0
+      //   }
+      // }
+      // let param = Object.assign({}, this.formInline, { poLoanInfoList: this.multipleSelection })
+      // this.loanDetails = param
+      // this.dialogLoanVisible = true
+      // if (this.dialogLoanVisible) {
+      //   return
+      // }
       this.$confirm(`您好，请问是否确认申请${thousandth(this.formInline.applyAmt)}元人民币的订单信用融资？`, `提示`, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -342,6 +355,7 @@ function handleSub () {
           if (res.data.status) {
             // 成功刷新数据
             this.fresh()
+            this.handleClearSelection()
           }
         })
       }).catch((err) => {
