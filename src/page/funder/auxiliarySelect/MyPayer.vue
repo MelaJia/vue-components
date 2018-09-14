@@ -1,19 +1,19 @@
 <template>
   <div class="main">
     <div class="body">
-      <el-card class="box-card">
-        <div slot="header" class="clearfix" style="position:relative;">
+      <el-card class="box-card search-box-card">
+        <div slot="header" class="clearfix" style="position:relative">
           <i class="el-icon-search"></i>
           <span>查询条件</span>
-          <el-tooltip class="item" effect="dark" content="点击我展开查询条件" placement="left">
-            <i class="el-icon-arrow-down" v-show="!boxshow" @click="togglebox" style="cursor:pointer;position:absolute;right:0;top:3px"></i>
+          <el-tooltip class="item" effect="dark" content="点我收起" placement="right-start">
+            <i class="el-icon-arrow-down" v-show="searchShow" @click="searchShow=!searchShow" style="position: absolute;right: 0;color:#409EFF;top:3px;cursor:pointer;"></i>
           </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="点击我收缩查询条件" placement="left">
-            <i class="el-icon-arrow-up" v-show="boxshow" @click="togglebox" style="cursor:pointer;position:absolute;right:0;top:3px;"></i>
+          <el-tooltip class="item" effect="dark" content="点我展开" placement="right-start">
+            <i class="el-icon-arrow-right" v-show="!searchShow" @click="searchShow=!searchShow" style="position: absolute;right: 0;color:#409EFF;top:3px;cursor:pointer;"></i>
           </el-tooltip>
         </div>
-        <transition enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
-          <search @handle-search="searchSubmit" v-show="boxshow"></search>
+        <transition name="custom-classes-transition" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
+          <search @handle-search="searchSubmit" v-show="searchShow"></search>
         </transition>
       </el-card>
     </div>
@@ -55,7 +55,6 @@ export default {
   data () {
     return {
       loading: false,
-      boxshow: true, // 查询条件显示和隐藏
       postUrl: '/auxiliaryFunction/searchSupplierPaymentList.do',
       dataStr: 'data',
       totalStr: 'recordsTotal'
@@ -133,10 +132,6 @@ export default {
         .catch(function (error) {
           console.log(error)
         })
-    },
-    // 查询条件显示和隐藏
-    togglebox: function () {
-      this.boxshow = !this.boxshow
     }
   }
 }

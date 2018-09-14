@@ -6,15 +6,16 @@
         {{getTitle}}
       </span>
     </header>
-    <section class="layout form">
-      <!-- <el-row>
-        <el-col :span="16" :offset="4" class="flex"><span>确定拒绝{{detailsP.companyName}}公司的申请贴现请求？</span></el-col>
-      </el-row> -->
-      <el-row>
-        <el-col :span="16" :offset="4" class="flex"><label>拒绝理由:</label>
-          <el-input type="textarea" v-model.trim="form.rejectedReason"></el-input>
-        </el-col>
-      </el-row>
+    <section>
+      <el-form ref="form" :model="form" :rules="rules" label-width="130px">
+        <el-row>
+          <el-col :span="16" :offset="4" class="flex">
+            <el-form-item label="拒绝理由:" prop="rejectedReason">
+              <el-input type="textarea" v-model.trim="form.rejectedReason"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
     </section>
     <footer slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleSubmit">确认</el-button>
@@ -61,6 +62,11 @@ export default {
     return {
       form: {
         rejectedReason: '' // 拒绝理由
+      },
+      rules: {
+        rejectedReason: [
+          { required: true, message: '拒绝理由不能为空', trigger: 'blur' }
+        ]
       }
     }
   },
@@ -76,36 +82,43 @@ export default {
 }
 // 提交操作
 function submit () {
-  let param = {
-    loanId: this.detailsP.loanId, // 融资Id
-    rejectReason: this.form.rejectedReason // 拒绝理由
-  }
-  // 显示加载图标
-  const loading = this.$loading(loadingConf.sub())
-  // 发送数据
-  this.axios.post('/factoringCreditLoan/rejectLoan.do', param).then(res => {
-    let type = res.data.status ? 'success' : 'error'
-    this.$message({
-      message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-      type: type
-    })
-    // 关闭加载图标
-    loading.close()
-    // 操作成功关闭弹窗刷新数据
-    if (res.data.status) {
-      this.handleClose() // 关闭弹窗
-      this.$parent.fresh() // 刷新数据
-    } else {
-      loading.close()
-      this.$message.error(res.data.msg)
+  this.$refs.form.validate((valid) => {
+    if (valid) {
+      let param = {
+        loanId: this.detailsP.loanId, // 融资Id
+        rejectReason: this.form.rejectedReason // 拒绝理由
+      }
+      // 显示加载图标
+      const loading = this.$loading(loadingConf.sub())
+      // 发送数据
+      this.axios.post('/factoringCreditLoan/rejectLoan.do', param).then(res => {
+        let type = res.data.status ? 'success' : 'error'
+        this.$message({
+          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+          type: type
+        })
+        // 关闭加载图标
+        loading.close()
+        // 操作成功关闭弹窗刷新数据
+        if (res.data.status) {
+          this.handleClose() // 关闭弹窗
+          this.$parent.fresh() // 刷新数据
+        } else {
+          loading.close()
+          this.$message.error(res.data.msg)
+        }
+      }).catch((err) => {
+        // 错误提示
+        erroShow.call(this, err, loading)
+      })
     }
-  }).catch((err) => {
-    // 错误提示
-    erroShow.call(this, err, loading)
   })
 }
 // 初始化
 function Init () {
   this.form.rejectedReason = ''
+  if (this.$refs.form) {
+    this.$refs.form.resetFields()
+  }
 }
 </script>

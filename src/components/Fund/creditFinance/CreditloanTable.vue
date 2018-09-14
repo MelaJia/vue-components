@@ -206,10 +206,10 @@ function handleContrac (idx, val) {
 // }
 function handleConfirm (idx, val) {
   if (new Date(val.repayDate).Format('yyyy-MM-dd') <= new Date().Format('yyyy-MM-dd')) {
-    this.$message({
-      showClose: true,
-      type: 'warning',
-      message: '还款日期小于当前日期，不能发起确认'
+    this.$alert(`还款日期小于当前日期，不能发起确认!`, '系统提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+      }
     })
   } else {
     this.$confirm(`单号为${val.loanId}的贴现合同确认发起确认?`, `提示`, {
@@ -236,10 +236,10 @@ function handleConfirm (idx, val) {
 // 放款
 function handleAccept (idx, val) {
   if (new Date(val.repayDate).Format('yyyy-MM-dd') <= new Date().Format('yyyy-MM-dd')) {
-    this.$message({
-      showClose: true,
-      type: 'warning',
-      message: '还款日期小于当前日期，不能放款'
+    this.$alert(`还款日期小于当前日期，不能放款!`, '系统提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+      }
     })
   } else {
     this.$confirm(`融资编号为${val.loanId}的贴现申请确认放款?`, `提示`, {

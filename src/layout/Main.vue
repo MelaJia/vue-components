@@ -8,7 +8,7 @@
         </header>
       </el-header>
       <el-container style="margin-top: 84px;">
-        <i class="iconfont" :class="width===0?'icon-open':'icon-close'" style="position: fixed;font-size:24px;z-index: 99;top: 50%; transition: all 1s;color:#409EFF;" :style="{'left': width+'px'}"  @click="width=width===0?180:0"></i>
+        <i class="iconfont" :class="width===0?'icon-open':'icon-close'" style="position: fixed;font-size:24px;z-index: 99;top: 50%; transition: all 1s;color:#409EFF;cursor:pointer;" :style="{'left': width+'px'}"  @click="width=width===0?180:0"></i>
           <!-- 密码修改 -->
         <dialog-pass-update :visible-p.sync="dialogPassVisible"></dialog-pass-update>
         <transition name="custom-classes-transition" enter-active-class="animated slideInLeft" leave-active-class="animated slideOutLeft">
