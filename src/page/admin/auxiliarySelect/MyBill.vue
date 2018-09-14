@@ -76,8 +76,8 @@ export default {
           this.$message.error(res.data.msg)
         }
       })
-      .catch(function (error) {
-        console.log(error)
+      .catch(function (err) {
+        throw new Error(err)
       })
   },
   methods: {

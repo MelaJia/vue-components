@@ -66,8 +66,8 @@ export default {
           this.total = res.data[this.totalStr]
         }
       })
-      .catch(function (error) {
-        console.log(error)
+      .catch(function (err) {
+        throw new Error(err)
       })
   },
   methods: {

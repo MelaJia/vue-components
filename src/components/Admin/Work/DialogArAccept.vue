@@ -99,10 +99,7 @@ export default {
         this.factoringCusts = res.data.data
       }
     }).catch((err) => {
-      this.$message({
-        type: 'info',
-        message: err
-      })
+      throw new Error(err)
     })
   },
   computed: {

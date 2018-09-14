@@ -13,8 +13,6 @@ export default {
   },
   mounted () {
     // 从storage获取通用数据
-    console.log('从storage获取通用数据')
-
     let pageName = this.$options.name ? this.$options.name : 'all'
     const statusArr = getStore({
       name: 'arStatus'
@@ -46,7 +44,7 @@ export default {
           console.log(res.data.msg)
         }
       }).catch(err => {
-        console.log(err)
+        throw new Error(err)
       })
     }
     if (!this.repayTypes) {
@@ -65,7 +63,7 @@ export default {
           console.log(res.data.msg)
         }
       }).catch(err => {
-        console.log(err)
+        throw new Error(err)
       })
     }
     // 判断值是否为空
@@ -87,7 +85,7 @@ export default {
           console.log(res.data.msg)
         }
       }).catch(err => {
-        console.log(err)
+        throw new Error(err)
       })
     }
     if (statusArr) {
@@ -117,7 +115,7 @@ export default {
           console.log(res.data.msg)
         }
       }).catch(err => {
-        console.log(err)
+        throw new Error(err)
       })
     }
   }

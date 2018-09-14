@@ -191,7 +191,6 @@ export default {
     })
     // storage中无数据
     if (!this.moneyTypes) {
-      console.log('从服务器获取通用数据')
       // 获取货币类型并保存
       this.axios.get('/commonAr/queryCurr.do').then(res => {
         if (res.data.status) {
