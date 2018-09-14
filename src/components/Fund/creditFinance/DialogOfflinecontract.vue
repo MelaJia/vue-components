@@ -179,9 +179,12 @@ export default {
     ...mapGetters(['token']),
     // 附件列表
     contractList () {
-      // return this.uniqueData(this.detailsP.contractUploadFileList)
+      // return this.UniquePay(this.detailsP.contractUploadFileList)
       return this.detailsP.contractUploadFileList
       // return loadash.uniqWith(this.detailsP.contractUploadFileList, loadash.isEqual) // json数组去重
+      // if (this.detailsP.contractUploadFileList) {
+      //   return this.uniqueArray(this.detailsP.contractUploadFileList, this.detailsP.contractUploadFileList.contractUploadFileName)
+      // }
     }
   },
   methods: {
@@ -196,6 +199,23 @@ export default {
     //   } else {
     //     var payArr = [this.detailsP.contractUploadFileList[0]]
     //   }
+    //   for (var i = 1; i < paylist.length; i++) {
+    //     var payItem = paylist[i]
+    //     var repeat = false
+    //     for (var j = 0; j < payArr.length; j++) {
+    //       if (payItem.contractUploadFileName === payArr[j].contractUploadFileName) {
+    //         repeat = true
+    //         break
+    //       }
+    //     }
+    //     if (!repeat) {
+    //       payArr.push(payItem)
+    //     }
+    //   }
+    //   return payArr
+    // },
+    // UniquePay (paylist) {
+    //   var payArr = [paylist[0]]
     //   for (var i = 1; i < paylist.length; i++) {
     //     var payItem = paylist[i]
     //     var repeat = false
@@ -239,6 +259,7 @@ export default {
               'contractUploadFileName': res.data.data.contractUploadFileName
             }
             this.contractList.push(contractListInfo)
+            // this.detailsP.contractUploadFileList.push(contractListInfo)
             this.$refs.selectFile.value = ''
             this.chooseFile = ''
             this.$parent.fresh()

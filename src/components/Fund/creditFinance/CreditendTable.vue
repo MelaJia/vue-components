@@ -58,7 +58,7 @@
               </el-table-column>
               <!-- <el-table-column align="center" prop="actualLoanDate" :width="widthArr.actualLoanDate" :formatter="dateFormat">
               </el-table-column> -->
-              <el-table-column align="left" label-align="center" width="100">
+              <el-table-column align="left" label-align="center" width="60">
                 <template slot-scope="scope">
                   <!-- <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row, true)" >详情</el-button> -->
                   <!-- <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
@@ -122,7 +122,7 @@
         </el-table-column>
         <!-- <el-table-column align="center" label="实际放款日期" prop="actualLoanDate" min-width="150" :formatter="dateFormat">
         </el-table-column> -->
-        <el-table-column align="center" label="操作" fixed="right" header-align="center" width="100">
+        <el-table-column align="center" label="操作" fixed="right" header-align="center" width="60">
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           </template>

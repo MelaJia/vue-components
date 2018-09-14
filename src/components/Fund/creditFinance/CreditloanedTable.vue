@@ -57,7 +57,7 @@
               </el-table-column>
               <el-table-column align="center" prop="actualLoanDate" :width="widthArr.actualLoanDate" :formatter="dateFormat">
               </el-table-column>
-              <el-table-column align="center" label-align="center" width="100">
+              <el-table-column align="center" label-align="center" width="60">
                 <template slot-scope="scope">
                   <span v-if="scope.row.isShowRepayButton === 1">
                     <el-button size="mini" type="text" v-if="scope.row.actualRepayAmt == undefined && scope.row.actualRepayDate == undefined" @click="repayMent(scope.$index, scope.row)">还款</el-button>
@@ -112,7 +112,7 @@
         </el-table-column>
         <el-table-column align="center" label="实际放款日期" prop="actualLoanDate" min-width="100" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" label="操作" fixed="right" header-align="center" width="100">
+        <el-table-column align="center" label="操作" fixed="right" header-align="center" width="60">
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           </template>

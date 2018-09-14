@@ -44,7 +44,7 @@
         </el-table-column>
         <el-table-column align="center" label="创建日期" prop="createTime" min-width="100" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" fixed="right" label="操作" header-align="center" width="100">
+        <el-table-column align="center" fixed="right" label="操作" header-align="center" width="60">
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           </template>
