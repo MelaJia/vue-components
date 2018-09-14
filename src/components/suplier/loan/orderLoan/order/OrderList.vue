@@ -123,7 +123,7 @@ export default {
       // dialogLoanVisible: false, // 融资显示
       // loanDetails: {}, // 融资数据
       widthArr: widhConf.crL, // 宽度配置
-      displaySumAmt: '', // 已选总金额
+      displaySumAmt: '0.00', // 已选总金额
       displayApplyAmt: '',
       // 表单数据
       formInline: {
@@ -217,12 +217,16 @@ function handleSelectionChange (val) {
   if (this.flag) {
     // 校验重置
     this.$refs.ordform.clearValidate()
-    this.isover = false
-    // 赋值
-    this.formInline.applyAmt = amount
+    // 判断金额是否大于勾选金额
+    if (amount < this.formInline.applyAmt) {
+      this.isover = true
+      this.$refs.ordform.validateField('applyAmt', res => {
+      })
+    } else {
+      this.isover = false
+    }
     // 格式化
-    this.displayApplyAmt = thousandth(amount)
-    this.displaySumAmt = this.displayApplyAmt
+    this.displaySumAmt = thousandth(amount)
   }
 }
 // 输入金额事件
@@ -230,7 +234,7 @@ function handleChange (val) {
   // 赋值
   this.formInline.applyAmt = this.displayApplyAmt
   // 格式化
-  this.displayApplyAmt = thousandth(this.displayApplyAmt)
+  this.displayApplyAmt = this.displayApplyAmt === '' ? '0.00' : thousandth(this.displayApplyAmt)
   // 关闭输入框自动更新
   // this.flag = false
   let sum = 0
