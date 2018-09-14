@@ -34,7 +34,7 @@
               </div>
               <div class="ipt-group">
                 <i class="icon-ipt-pwd iconfont icon-mimaicon" :class="iptPWDLight?'light': ''"></i>
-                <input type="password" autocomplete="off" maxlength="20" v-model="ruleForm.pass" class="text iptpassword" ref="input" placeholder="8-20位数字与字母组合的密码" @focus="iptPWDLight=true" @blur="loginError=iptPWDLight=false">
+                <input type="password" autocomplete="new-password" maxlength="20" v-model="ruleForm.pass" class="text iptpassword" ref="input" placeholder="8-20位数字与字母组合的密码" @focus="iptPWDLight=true" @blur="loginError=iptPWDLight=false">
               </div>
               <div class="ipt-group picture">
                 <input type="text" autocomplete="off" class="text iptviste" name="ipt_renewal" v-model="verify" id="ipt_renewal" onKeyDown="if(event.keyCode===32) return false" @keyup.enter="submitForm('ruleForm')"  placeholder="图形验证" maxlength="4" @input="visteChange">

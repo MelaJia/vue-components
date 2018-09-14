@@ -38,7 +38,7 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item label="登陆密码: " prop="custPassword">
-                  <el-input :type="pShow?'text':'password'" v-model="getForm.custPassword" @blur="passBlur" @focus="passFocus">
+                  <el-input :type="pShow?'text':'password'" auto-complete="new-password" v-model="getForm.custPassword" @blur="passBlur" @focus="passFocus">
                     <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pShow')"></a>
                   </el-input>
                 </el-form-item>

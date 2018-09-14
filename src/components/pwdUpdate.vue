@@ -22,7 +22,7 @@
             </el-col>
         </el-form-item>
         <el-form-item label="原密码" prop="originalCustPassword">
-          <el-input :type="opShow?'text':'password'" v-model.trim="ruleForm2.originalCustPassword" auto-complete="off">
+          <el-input :type="opShow?'text':'password'" v-model.trim="ruleForm2.originalCustPassword" auto-complete="new-password">
                     <a slot="suffix" :class="`iconfont ${opShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('opShow')"></a>
           </el-input>
         </el-form-item>

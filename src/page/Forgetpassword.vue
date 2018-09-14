@@ -64,7 +64,7 @@
             <el-row>
               <el-col :span="12" :offset="6">
                 <el-form-item label="新密码: " prop="custPassword">
-                  <el-input :type="pShow?'text':'password'" v-model.trim="getForm.custPassword" @blur="passBlur" @focus="passFocus">
+                  <el-input :type="pShow?'text':'password'" auto-complete="new-password" v-model.trim="getForm.custPassword" @blur="passBlur" @focus="passFocus">
                     <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pShow')"></a>
                   </el-input>
                 </el-form-item>
