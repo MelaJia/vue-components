@@ -58,7 +58,7 @@
               </el-table-column>
               <!-- <el-table-column align="center" prop="actualLoanDate" :width="widthArr.actualLoanDate" :formatter="dateFormat">
               </el-table-column> -->
-              <el-table-column align="left" label-align="center" width="150">
+              <el-table-column align="left" label-align="center" width="100">
                 <template slot-scope="scope">
                   <!-- <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row, true)" >详情</el-button> -->
                   <!-- <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">

@@ -57,7 +57,7 @@
               </el-table-column>
               <el-table-column align="center" prop="actualLoanDate" :width="widthArr.actualLoanDate" :formatter="dateFormat">
               </el-table-column>
-              <el-table-column align="center" label-align="center" width="150">
+              <el-table-column align="center" label-align="center" width="100">
                 <template slot-scope="scope">
                   <span v-if="scope.row.isShowRepayButton === 1">
                     <el-button v-if="scope.row.actualRepayAmt == undefined && scope.row.actualRepayDate == undefined" size="mini" type="primary" @click="repayMent(scope.$index, scope.row)">还款</el-button>
