@@ -2,11 +2,19 @@
   <div class="main">
     <div class="body">
       <el-card class="box-card">
-        <div slot="header" class="clearfix">
+        <div slot="header" class="clearfix" style="position:relative;">
           <i class="el-icon-search"></i>
           <span>查询条件</span>
+          <el-tooltip class="item" effect="dark" content="点击我展开查询条件" placement="left">
+            <i class="el-icon-arrow-down" v-show="!boxshow" @click="togglebox" style="cursor:pointer;position:absolute;right:0;top:3px"></i>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="点击我收缩查询条件" placement="left">
+            <i class="el-icon-arrow-up" v-show="boxshow" @click="togglebox" style="cursor:pointer;position:absolute;right:0;top:3px;"></i>
+          </el-tooltip>
         </div>
-        <search @handle-search="searchSubmit"></search>
+        <transition enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
+          <search @handle-search="searchSubmit" v-show="boxshow"></search>
+        </transition>
       </el-card>
     </div>
     <div class="body">
@@ -29,6 +37,12 @@
 .text-align-center {
   text-align: center;
 }
+.body:first-child .el-card__header {
+  padding: 8px 20px;
+}
+.body:first-child .el-card__body {
+  padding: 0 20px;
+}
 </style>
 
 <script>
@@ -41,6 +55,7 @@ export default {
   data () {
     return {
       loading: false,
+      boxshow: true, // 查询条件显示隐藏
       postUrl: '/auxiliaryFunction/searchSupplierGRNList.do',
       dataStr: 'data',
       totalStr: 'recordsTotal'
@@ -123,6 +138,10 @@ export default {
         .catch(function (error) {
           console.log(error)
         })
+    },
+    // 查询条件显示和隐藏
+    togglebox: function () {
+      this.boxshow = !this.boxshow
     }
   }
 }

@@ -54,7 +54,11 @@ export default {
     }
   },
   methods: {
-    onSubmit: debounce(onSubmit, 1000, true)
+    onSubmit: debounce(onSubmit, 1000, true),
+    // 重置表单
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
+    }
   }
 }
 function onSubmit () {
