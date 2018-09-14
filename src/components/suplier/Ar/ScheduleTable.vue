@@ -54,10 +54,10 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="操作" header-align="center" width='180px' fixed="right">
+        <el-table-column align="center" label="操作" header-align="center" width='180px' fixed="right" :resizable="false">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-            <el-button :disabled="scope.row.operateControllerStatus=='0'?true:false" size="mini" type="primary" @click="confirmContract(scope.$index, scope.row)">合同确认</el-button>
+            <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+            <el-button size="mini" type="text" :disabled="scope.row.operateControllerStatus=='0'?true:false" @click="confirmContract(scope.$index, scope.row)">合同确认</el-button>
           </template>
         </el-table-column>
       </el-table>

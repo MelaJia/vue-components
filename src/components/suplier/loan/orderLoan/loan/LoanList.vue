@@ -50,7 +50,7 @@
               </el-table-column>
               <el-table-column align="left" label-align="center" width='200px'>
                 <!-- <template slot-scope="scope">
-                  <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row, true)" >详情</el-button>
+                  <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row, true)" >详情</el-button>
                   <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
                     <span class="el-dropdown-link">
                       更多<i class="el-icon-arrow-down el-icon--right"></i>
@@ -101,9 +101,9 @@
         </el-table-column>
         <el-table-column align="center" label="还款日期" prop="repayDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="left" header-align="center" label="操作" width='200px' class-name="" fixed="right">
+        <el-table-column align="left" header-align="center" label="操作" width='200px' class-name="" fixed="right" :resizable="false">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+            <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
             <el-button v-for="(item, index) in scope.row.operateArr" :key="index"  size="mini" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button>
             </template>
         </el-table-column>

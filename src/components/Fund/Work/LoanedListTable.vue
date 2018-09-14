@@ -63,9 +63,9 @@
                   </el-tooltip>
                 </template>
               </el-table-column>
-              <el-table-column align="center" width='100px'>
+              <el-table-column align="center" width='80px'>
                 <template slot-scope="scope">
-                  <el-button v-if="scope.row.isShowRepayButton" size="mini" type="primary" @click="handleRepay(scope.$index, props.row, scope.row)">还款</el-button>
+                  <el-button size="mini" type="text" v-if="scope.row.isShowRepayButton" @click="handleRepay(scope.$index, props.row, scope.row)">还款</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -114,17 +114,17 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column align="center" header-align="center" label="操作" width='100px' class-name="" fixed="right">
+        <el-table-column align="center" header-align="center" label="操作" width='80px' class-name="" fixed="right" :resizable="false">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+            <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
             <!-- <el-dropdown>
               <el-button type="primary">
                 更多菜单<i class="el-icon-arrow-down el-icon--right"></i>
               </el-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item><el-button size="mini" type="primary" @click="handleTransfer(scope.$index, scope.row)">转让</el-button></el-dropdown-item>
-                <el-dropdown-item><el-button size="mini" type="primary" @click="handleCancle(scope.$index, scope.row)">取消</el-button></el-dropdown-item>
-                <el-dropdown-item><el-button size="mini" type="primary" @click="handleApply(scope.$index, scope.row)">贴现审核申请</el-button></el-dropdown-item>
+                <el-dropdown-item><el-button size="mini" type="text" @click="handleTransfer(scope.$index, scope.row)">转让</el-button></el-dropdown-item>
+                <el-dropdown-item><el-button size="mini" type="text" @click="handleCancle(scope.$index, scope.row)">取消</el-button></el-dropdown-item>
+                <el-dropdown-item><el-button size="mini" type="text" @click="handleApply(scope.$index, scope.row)">贴现审核申请</el-button></el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown> -->
             </template>

@@ -585,8 +585,6 @@ export const postDataBase = function (url, param, showLoading) {
  * @param {number} val 转换值
  */
 export const thousandth = function (val) {
-  console.log(val)
-  console.log(typeof val === 'string')
   var regex = /(\d)(?=(\d{3})+$)/g
   var result
   if (typeof val === 'string'&&val!=='') {

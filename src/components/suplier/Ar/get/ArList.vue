@@ -27,11 +27,11 @@
       </el-table-column>
       <el-table-column align="center" label="预计回款日期" prop="billPayDate" min-width="120" :formatter="dateFormat">
       </el-table-column>
-      <el-table-column align="center" label="操作" width='230px' fixed="right">
+      <el-table-column align="center" label="操作" width='130px' fixed="right" :resizable="false">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-          <el-button v-if="scope.row.checkedStatus==3" size="mini" @click="handleAccept(scope.$index, scope.row)">接受</el-button>
-          <el-button v-if="scope.row.checkedStatus==3" size="mini" @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
+          <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+          <el-button size="mini" type="text" v-if="scope.row.checkedStatus==3" @click="handleAccept(scope.$index, scope.row)">接受</el-button>
+          <el-button size="mini" type="text" v-if="scope.row.checkedStatus==3" @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
         </template>
       </el-table-column>
     </el-table>

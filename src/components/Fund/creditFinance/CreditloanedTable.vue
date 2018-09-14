@@ -60,7 +60,7 @@
               <el-table-column align="center" label-align="center" width="100">
                 <template slot-scope="scope">
                   <span v-if="scope.row.isShowRepayButton === 1">
-                    <el-button v-if="scope.row.actualRepayAmt == undefined && scope.row.actualRepayDate == undefined" size="mini" type="primary" @click="repayMent(scope.$index, scope.row)">还款</el-button>
+                    <el-button size="mini" type="text" v-if="scope.row.actualRepayAmt == undefined && scope.row.actualRepayDate == undefined" @click="repayMent(scope.$index, scope.row)">还款</el-button>
                   </span>
                   <!-- <el-button v-if="scope.row.isShowRepayButton === 1 && (scope.row.actualRepayAmt == undefined && scope.row.actualRepayDate == undefined)" size="mini" type="primary" @click="repayMent(scope.$index, scope.row)">还款</el-button> -->
                 </template>
@@ -114,7 +114,7 @@
         </el-table-column>
         <el-table-column align="center" label="操作" fixed="right" header-align="center" width="100">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+            <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           </template>
         </el-table-column>
       </el-table>

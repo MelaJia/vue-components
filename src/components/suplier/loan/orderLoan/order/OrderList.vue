@@ -53,9 +53,9 @@
         </el-table-column>
         <el-table-column align="center" label="交易条件" prop="paymenttermName" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" header-align="center" label="操作" width='200px' class-name="" fixed="right">
+        <el-table-column align="center" header-align="center" label="操作" width='200px' class-name="" fixed="right" :resizable="false">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+            <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           </template>
         </el-table-column>
       </el-table>

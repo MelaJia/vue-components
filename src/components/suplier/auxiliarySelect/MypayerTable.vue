@@ -33,7 +33,7 @@
               </el-table-column>
               <el-table-column align="left" label-align="center" width="150">
                 <template slot-scope="scope">
-                  <!-- <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row, true)" >详情</el-button> -->
+                  <!-- <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row, true)" >详情</el-button> -->
                   <!-- <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
                     <span class="el-dropdown-link">
                       更多<i class="el-icon-arrow-down el-icon--right"></i>
@@ -72,7 +72,7 @@
         </el-table-column>
         <el-table-column align="center" fixed="right" label="操作" header-align="center" width="100">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+            <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           </template>
         </el-table-column>
       </el-table>

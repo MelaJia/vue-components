@@ -29,13 +29,13 @@
       </el-table-column>
       <el-table-column align="center" label="客户经理" prop="customerManagerName" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="left" header-align="center" label="操作" width='390px' fixed="right">
+      <el-table-column align="left" header-align="center" label="操作" width='270px' fixed="right" :resizable="false">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+          <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           <el-button v-if="scope.row.status==0||scope.row.status==2" size="mini" type="success" @click="handleStart(scope.$index, scope.row)">启用</el-button>
           <el-button v-else size="mini" type="danger" @click="handleStop(scope.$index, scope.row)">停用</el-button>
-          <el-button size="mini"  @click="handleCustManagerSet(scope.$index, scope.row)">客户经理设置</el-button>
-           <el-button size="mini"  @click="handleUpdate(scope.$index, scope.row)">更新同步</el-button>
+          <el-button size="mini" type="text" @click="handleCustManagerSet(scope.$index, scope.row)">客户经理设置</el-button>
+           <el-button size="mini" type="text" @click="handleUpdate(scope.$index, scope.row)">更新同步</el-button>
         </template>
       </el-table-column>
     </el-table>
