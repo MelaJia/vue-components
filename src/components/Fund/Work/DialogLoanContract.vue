@@ -135,7 +135,6 @@
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
 import { debounce } from '@/util/util' // 防抖函数
-import { loadingConf } from '@/config/common' // 获取加载配置
 import { validatenum } from '@/util/validate'
 import Input from '@/components/Items/inputNumber'
 export default {
@@ -242,30 +241,13 @@ function submit () {
         billDueDate: this.detailsP.billDueDate // 预计还款日期
       }
       console.log(param)
-      // 显示加载图标
-      const loading = this.$loading(loadingConf.sub())
       // 发送数据
-      this.axios.post('/loan2/generateContract.do', param).then(res => {
-        let type = res.data.status ? 'success' : 'error'
-        this.$message({
-          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-          type: type
-        })
-        // 关闭加载图标
-        loading.close()
+      this.post('/loan2/generateContract.do', param, true).then(res => {
         // 操作成功关闭弹窗刷新数据
         if (res.data.status) {
           this.$parent.fresh()
           this.handleClose()
         }
-      }).catch((err) => {
-        console.log(err)
-        this.$message({
-          type: 'info',
-          message: '操作失败'
-        })
-        // 关闭加载图标
-        loading.close()
       })
     }
   })

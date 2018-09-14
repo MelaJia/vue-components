@@ -79,7 +79,6 @@ export default {
      */
     async postResultFresh (url, param) {
       let res = await this.post(url, param, true)
-      console.log(res)
       // 操作成功刷新数据
       if (res && res.data.status) {
         this.fresh()
