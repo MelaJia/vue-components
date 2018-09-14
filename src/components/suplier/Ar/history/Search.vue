@@ -1,34 +1,34 @@
 <template>
-  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="130px">
+  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="130px">
     <el-row>
       <el-col :span="8">
-        <el-form-item label="AR来源">
+        <el-form-item label="AR来源" prop="isMasterAr">
           <el-select v-model="formInline.isMasterAr" clearable placeholder="全部">
             <el-option v-for="(item,index) in selectData.origin" :key="index" :label="item.lable" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
       <el-col :span="8">
-          <el-form-item label="发票号">
+          <el-form-item label="发票号" prop="invoiceNo">
             <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
           </el-form-item>
         </el-col>
       <el-col :span="8" >
-        <el-form-item label="付款单位/对手单位">
+        <el-form-item label="付款单位/对手单位" prop="companyName">
           <el-input v-model.trim="formInline.companyName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
         <el-col :span="8">
-           <el-form-item label="币别">
+           <el-form-item label="币别" prop="billBookCurr">
               <el-select v-model="formInline.billBookCurr" clearable placeholder="全部">
                 <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
               </el-select>
             </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="预计回款日期">
+          <el-form-item label="预计回款日期" prop="moneyDate">
             <el-date-picker :editable="false" v-model="formInline.moneyDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
             </el-date-picker>
           </el-form-item>
@@ -36,17 +36,16 @@
     </el-row>
     <el-row>
         <el-col :span="12">
-          <el-form-item label="还款日期">
+          <el-form-item label="还款日期" prop="payDate">
             <el-date-picker :editable="false" v-model="formInline.payDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
             </el-date-picker>
           </el-form-item>
         </el-col>
     </el-row>
     <el-row>
-      <el-col :span="2" :offset="11">
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">查询</el-button>
-        </el-form-item>
+      <el-col :span="4" :offset="10">
+        <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
+        <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
       </el-col>
     </el-row>
   </el-form>
@@ -61,7 +60,19 @@ import commonDatas from '@/mixins/commonDatas'
 /* 我的Ar搜索 */
 export default {
   name: 'myArPage',
-  mixins: [SearchMixIn, commonDatas]
+  mixins: [SearchMixIn, commonDatas],
+  data () {
+    return {
+      formInline: {
+        masterChainId: '', // ar单号
+        companyName: '', // 付款单位/对手单位
+        billBookCurr: '', // 币别
+        invoiceNo: '', // 发票号
+        moneyDate: null, // 日期
+        payDate: null // 还款日期
+      }
+    }
+  }
 }
 
 </script>

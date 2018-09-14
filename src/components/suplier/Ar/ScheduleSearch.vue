@@ -9,7 +9,7 @@
         </el-form-item>
       </el-col> -->
       <el-col :span="8">
-        <el-form-item label="付款单位/对手单位">
+        <el-form-item label="付款单位/对手单位" prop="companyName">
           <el-input v-model.trim="formInline.companyName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
@@ -35,7 +35,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="8">
-        <el-form-item label="发票号">
+        <el-form-item label="发票号" prop="invoiceNo">
           <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>

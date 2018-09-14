@@ -62,7 +62,7 @@ td>.el-table--scrollable-x .el-table__body-wrapper {
 }
  // 搜索区域
  .search-box-card>.el-card__body{
-    padding: 0px 20px 0px 20px;
+    padding: 0px 20px 8px 20px;
     position: relative;
  }
  .search-box-card>.el-card__header{

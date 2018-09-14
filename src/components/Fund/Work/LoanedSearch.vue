@@ -1,32 +1,32 @@
 <template>
-  <el-form :inline="true" :model="formInline" class="demo-form-inline" size="small" label-width="100px">
+  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
       <el-col :span="7">
-        <el-form-item label="AR单号">
+        <el-form-item label="AR单号" prop="masterChainId">
           <el-input v-model.trim="formInline.masterChainId" placeholder=""></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="7" :offset="3">
-        <el-form-item label="贴现客户">
+        <el-form-item label="贴现客户" prop="custFromName">
           <el-input v-model.trim="formInline.custFromName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="7">
-        <el-form-item label="付款单位">
+        <el-form-item label="付款单位" prop="companyName">
           <el-input v-model.trim="formInline.companyName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="7">
-        <el-form-item label="币别">
+        <el-form-item label="币别" prop="billBookCurr">
           <el-select v-model="formInline.billBookCurr" placeholder="全部">
             <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
       <el-col :span="7" :offset="3">
-        <el-form-item label="发票号">
+        <el-form-item label="发票号" prop="invoiceNo">
           <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>
@@ -34,7 +34,7 @@
     </el-row>
     <el-row>
       <el-col :span="10">
-        <el-form-item label="贴现金额">
+        <el-form-item label="贴现金额" prop="discountAmtScopeFrom">
           <el-col :span="10">
             <el-jx-input v-model="formInline.discountAmtScopeFrom" placeholder="起始金额"></el-jx-input>
           </el-col>
@@ -45,18 +45,20 @@
         </el-form-item>
       </el-col>
       <el-col :span="10">
-        <el-form-item label="预计回款日期">
+        <el-form-item label="预计回款日期" prop="moneyDate">
           <el-date-picker :editable="false" v-model="formInline.moneyDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期"
             end-placeholder="结束日期">
           </el-date-picker>
         </el-form-item>
       </el-col>
+      <el-col :span="1">
+        <el-form-item prop="discountAmtScopeTo"></el-form-item>
+      </el-col>
     </el-row>
     <el-row>
-      <el-col :span="2" :offset="11">
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">查询</el-button>
-        </el-form-item>
+      <el-col :span="4" :offset="10">
+        <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
+        <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
       </el-col>
     </el-row>
   </el-form>
