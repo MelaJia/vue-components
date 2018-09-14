@@ -16,7 +16,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="2" :offset="11">
+      <el-col :span="4" :offset="10">
         <el-form-item>
           <el-button type="primary" @click="onSubmit">查询</el-button>
         </el-form-item>
