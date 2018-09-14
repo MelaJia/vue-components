@@ -29,9 +29,9 @@
         </el-table-column>
         <el-table-column align="center" label="约定交货日期" prop="deliveryDate" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" label="操作" header-align="center" fixed="right">
+        <el-table-column align="center" label="操作" header-align="center" fixed="right" :resizable="false">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+            <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           </template>
         </el-table-column>
       </el-table>

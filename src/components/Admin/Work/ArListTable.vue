@@ -19,10 +19,10 @@
       </el-table-column>
       <el-table-column align="center" label="状态" prop="auditedTypeName" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="left" header-align="center" label="操作" width='220px' fixed="right">
+      <el-table-column align="center" header-align="center" label="操作" width='125px' fixed="right" :resizable="false">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-          <el-button v-for="(item, index) in scope.row.operateArr" :key="index"  size="mini"  @click="handleCommand({key:item.key, idx:index, val:scope.row})" v-loading.fullscreen.lock="item.isLoading">{{item.name}}</el-button>
+          <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+          <el-button size="mini" type="text"  v-for="(item, index) in scope.row.operateArr" :key="index"  @click="handleCommand({key:item.key, idx:index, val:scope.row})" v-loading.fullscreen.lock="item.isLoading">{{item.name}}</el-button>
         </template>
       </el-table-column>
     </el-table>

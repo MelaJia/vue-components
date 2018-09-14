@@ -38,10 +38,10 @@
             </el-tooltip>
           </template>
       </el-table-column>
-      <el-table-column align="left" header-align="center" label="操作" width='350px' fixed="right">
+      <el-table-column align="center" header-align="center" label="操作" width='125px' fixed="right" :resizable="false">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-          <el-button v-for="(item, index) in scope.row.operateArr" :key="index" size="mini" @click="handleCommand({key:item.key, idx:index, val:scope.row})" >{{item.name}}</el-button>
+          <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+          <el-button size="mini" type="text" v-for="(item, index) in scope.row.operateArr" :key="index" @click="handleCommand({key:item.key, idx:index, val:scope.row})" >{{item.name}}</el-button>
           <!-- <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length!==0">
             <span class="el-dropdown-link">
               更多<i class="el-icon-arrow-down el-icon--right"></i>

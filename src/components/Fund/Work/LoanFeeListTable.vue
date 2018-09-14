@@ -23,9 +23,9 @@
       </el-table-column>
       <el-table-column align="right" header-align="center" label="提前还款手续费率(%)" prop="prepaymentDeductRate" min-width="120" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="操作" width='80px' fixed="right">
+      <el-table-column align="center" label="操作" width='80px' fixed="right" :resizable="false">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">修改</el-button>
+          <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">修改</el-button>
         </template>
       </el-table-column>
     </el-table>

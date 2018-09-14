@@ -49,10 +49,10 @@
               </el-table-column>
               <el-table-column align="center" prop="billPayDate" :width="widthArr.billPayDate" :formatter="dateFormat">
               </el-table-column>
-              <el-table-column align="left" label-align="center" width='250px'>
+              <el-table-column align="left" label-align="center" width='130px'>
                 <template slot-scope="scope">
-                  <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row, true)" >详情</el-button>
-                  <el-button v-for="(item, index) in scope.row.operateArr" :key="index" size="mini" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button>
+                  <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row, true)" >详情</el-button>
+                  <el-button size="mini" type="text" v-for="(item, index) in scope.row.operateArr" :key="index" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button>
                   <!-- <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
                     <span class="el-dropdown-link">
                       更多<i class="el-icon-arrow-down el-icon--right"></i>
@@ -91,10 +91,10 @@
         </el-table-column>
         <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="left" header-align="center" label="操作" width='250px' class-name="" fixed="right">
+        <el-table-column align="left" header-align="center" label="操作" width='130px' class-name="" fixed="right" :resizable="false">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-            <el-button v-for="(item, index) in scope.row.operateArr" :key="index" size="mini" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button>
+            <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+            <el-button size="mini" type="text" v-for="(item, index) in scope.row.operateArr" :key="index" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button>
             <!-- <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
   <span class="el-dropdown-link">
     更多<i class="el-icon-arrow-down el-icon--right"></i>
@@ -108,9 +108,9 @@
                 更多菜单<i class="el-icon-arrow-down el-icon--right"></i>
               </el-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item><el-button size="mini" type="primary" @click="handleTransfer(scope.$index, scope.row)">转让</el-button></el-dropdown-item>
-                <el-dropdown-item><el-button size="mini" type="primary" @click="handleCancle(scope.$index, scope.row)">取消</el-button></el-dropdown-item>
-                <el-dropdown-item><el-button size="mini" type="primary" @click="handleApply(scope.$index, scope.row)">贴现审核申请</el-button></el-dropdown-item>
+                <el-dropdown-item><el-button size="mini" type="text" @click="handleTransfer(scope.$index, scope.row)">转让</el-button></el-dropdown-item>
+                <el-dropdown-item><el-button size="mini" type="text" @click="handleCancle(scope.$index, scope.row)">取消</el-button></el-dropdown-item>
+                <el-dropdown-item><el-button size="mini" type="text" @click="handleApply(scope.$index, scope.row)">贴现审核申请</el-button></el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown> -->
             </template>
