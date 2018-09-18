@@ -500,6 +500,7 @@ export const erroShow = function (err, loading) {
  * @param {str} url 请求地址
  * @param {obj} param 请求参数
  * @param {boolean} showLoading 是否显示加载图标
+ * @param {boolean} auto 是否自动关闭加载图标
  */
 export const getDataBase = function (url, param, showLoading) {
   if(typeof param=='boolean'){
@@ -542,7 +543,7 @@ export const getDataBase = function (url, param, showLoading) {
  * @param {boolean} showLoading 是否显示加载图标
  * @example postDataBase.call(this, url, param, true).then(res=>{console.log(res)})
  */
-export const postDataBase = function (url, param, showLoading) {
+export const postDataBase = function (url, param, showLoading, auto) {
   if(typeof param=='boolean'){
     showLoading = param
     param = null
@@ -552,10 +553,13 @@ export const postDataBase = function (url, param, showLoading) {
    // 2.发送请求
   return this.axios.post(url, param).then((res) => {
     // 关闭加载图标
-    if(loading){
+    if(loading&&auto){
       loading.close()
     }
     let type = res.data.status ? 'success' : 'error'
+    if(!res.data.status){
+      loading.close()
+    }
     if(typeof res.data.data === 'string'){
       this.$message({
         showClose: true,

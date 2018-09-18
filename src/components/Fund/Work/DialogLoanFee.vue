@@ -127,12 +127,12 @@ function submit () {
           message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
           type: type
         })
-        // 关闭加载图标
-        loading.close()
         // 操作成功关闭弹窗刷新数据
         if (res.data.status) {
           this.$parent.fresh()
           this.handleClose()
+        } else {
+          loading.close()
         }
       }).catch(err => {
         this.$message({

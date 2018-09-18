@@ -211,12 +211,13 @@ function submit () {
       message: res.data.data.message ? res.data.data.message : '返回结果错误，请联系管理员',
       type: type
     })
-    loading.close() // 关闭加载图标
     // 操作成功 关闭弹窗
     if (res.data.status) {
       this.checkList = [] // 已选发票置空
       this.handleClose() // 关闭弹窗
       this.$parent.fresh() // 刷新数据
+    } else {
+      loading.close()
     }
   }).catch((err) => {
     // 错误提示

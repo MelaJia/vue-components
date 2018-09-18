@@ -1,4 +1,5 @@
 import {getDataBase} from '@/util/util' // 发送数据函数
+import { loadingConf } from '@/config/common' // 获取加载配置
 export default {
   data () {
     return {
@@ -112,7 +113,8 @@ export default {
      */
     async getdata (page, length) {
       const that = this
-      this.loading = true // 开启加载动画
+      const loading = this.$loading(loadingConf.get())// 开启加载动画
+      loading.setText('获取数据中，请稍候')
       that.param.iDisplayStart = page
       that.param.iDisplayLength = length
       try {
@@ -133,10 +135,12 @@ export default {
           })
         }
         result = response
-        this.loading = false // 关闭加载动画
+        setTimeout(() => {
+          loading.close() // 关闭加载动画
+        }, 5000)
         return Promise.resolve(result)
       } catch (error) {
-        this.loading = false // 关闭加载动画
+        loading.close() // 关闭加载动画
         console.log(error)
       }
     },

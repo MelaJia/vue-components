@@ -14,8 +14,8 @@
       <verify :captcha.sync="captcha"></verify>
     </section>
     <footer slot="footer" v-if="step===1">
-        <el-button round @click="beforeSubmit" type="primary" v-loading.fullscreen.lock="isLoading">同意签署</el-button>
-        <el-button round @click="handleReject" type="warning" v-loading.fullscreen.lock="isLoading">拒绝退回</el-button>
+        <el-button round @click="beforeSubmit" type="primary" >同意签署</el-button>
+        <el-button round @click="handleReject" type="warning" >拒绝退回</el-button>
     </footer>
     <footer slot="footer" v-if="step===2">
         <el-button round @click="handleSubmit" type="primary" >确认</el-button>
@@ -40,8 +40,7 @@ export default {
   mixins: [DialogClose, Common, mixVerify],
   data () {
     return {
-      checkList: [],
-      isLoading: false
+      checkList: []
     }
   },
   destroyed () {
@@ -86,12 +85,12 @@ function submit () {
       message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
       type: type
     })
-    // 关闭加载图标
-    loading.close()
     // 操作成功 关闭弹窗
     if (res.data.status) {
       this.handleClose() // 关闭弹窗
       this.$parent.fresh() // 刷新数据
+    } else {
+      loading.close()
     }
   }).catch((err) => {
     // 错误提示
@@ -115,10 +114,13 @@ function reject () {
       message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
       type: type
     })
-    // 关闭加载图标
-    loading.close()
-    this.handleClose() // 关闭弹窗
-    this.$parent.fresh() // 刷新数据
+    // 操作成功 关闭弹窗
+    if (res.data.status) {
+      this.handleClose() // 关闭弹窗
+      this.$parent.fresh() // 刷新数据
+    } else {
+      loading.close()
+    }
   }).catch((err) => {
     // 错误提示
     erroShow.call(this, err, loading)

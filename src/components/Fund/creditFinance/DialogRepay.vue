@@ -92,20 +92,20 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
-ul:last-child{
+ul:last-child {
   height: auto;
-  span{
+  span {
     padding-left: 0;
     line-height: 45px;
   }
 }
-.el-form-item{
+.el-form-item {
   margin-bottom: 16px;
 }
-.getFull{
+.getFull {
   margin-left: 10px;
 }
-.textPosition{
+.textPosition {
   text-align: left;
 }
 </style>
@@ -202,7 +202,7 @@ export default {
     change (val) {
       if (val === true) {
         // this.detailsP.actualRepayAmt = this.repayDetail.settlePrepayAmt
-        this.axios.post('/factoringCreditLoan/prepaySettleLoanTrial.do', {loanId: this.detailsP.loanId, custId: '', factoringCustId: ''}).then(res => {
+        this.axios.post('/factoringCreditLoan/prepaySettleLoanTrial.do', { loanId: this.detailsP.loanId, custId: '', factoringCustId: '' }).then(res => {
           if (res.data.status) {
             this.settlePrepayAmt = res.data.data.settlePrepayAmt
             this.detailsP.actualRepayAmt = res.data.data.settlePrepayAmt
@@ -249,13 +249,13 @@ function submit () {
           message: res.data.msg ? res.data.msg : '返回结果错误，请联系管理员',
           type: type
         })
-        // 关闭加载图标
-        loading.close()
         // 操作成功关闭弹窗刷新数据
         if (res.data.status) {
           this.init()
           this.$parent.fresh()
           this.handleClose()
+        } else {
+          loading.close()
         }
       }).catch((err) => {
         console.log(err)
@@ -295,8 +295,6 @@ function advanceSubmit () {
             message: res.data.msg ? res.data.msg : '返回结果错误，请联系管理员',
             type: type
           })
-          // 关闭加载图标
-          loading.close()
           // 操作成功关闭弹窗刷新数据
           if (res.data.status) {
             this.init()

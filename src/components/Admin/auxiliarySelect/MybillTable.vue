@@ -203,15 +203,4 @@ export default {
     }
   }
 }
-// 错误提示函数
-// function erroShow (err, loading) {
-//   console.log(this)
-//   this.$alert(`网络错误${err}`, '系统提示', {
-//     confirmButtonText: '确定',
-//     callback: action => {
-//       // 关闭加载图标
-//       loading.close()
-//     }
-//   })
-// }
 </script>

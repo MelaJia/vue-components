@@ -1,6 +1,7 @@
 <template>
   <el-dialog :class="'up-pass-style'" :visible.sync="visibleP" :before-close="handleClose">
     <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+      <div class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~32位的字符串.</div>
         <el-form-item label="注册手机号">
               <el-select v-model="phone" placeholder="请选择验证的手机号" size="small">
                 <el-option
@@ -26,7 +27,6 @@
                     <a slot="suffix" :class="`iconfont ${opShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('opShow')"></a>
           </el-input>
         </el-form-item>
-        <div v-show="isPassShow" class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~32位的字符串.</div>
         <el-form-item label="新密码" prop="custPassword">
           <el-input :type="pShow?'text':'password'" v-model.trim="ruleForm2.custPassword" @blur="passBlur" @focus="passFocus" auto-complete="off">
                     <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pShow')"></a>
@@ -134,6 +134,8 @@ export default {
     let validatePass = (rule, value, callback) => {
       if (!value) {
         callback(new Error(`新密码不能为空`))
+      } else if (value === this.ruleForm2.originalCustPassword) {
+        callback(new Error('新密码不能与原密码相同!'))
       } else {
         this.axios.post('/cust/check', {
           key: 'custPassword',
@@ -223,7 +225,9 @@ function submitForm (formName) {
       // 提交数据
       postDataBase.call(this, '/cust/updatePassword.do', param, true).then(res => {
         // 密码修改成功 登出
-        this.logout()
+        if (res.data.status) {
+          this.logout()
+        }
       })
     } else {
       console.log('error submit!!')

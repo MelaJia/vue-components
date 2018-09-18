@@ -90,12 +90,12 @@ function submit () {
       message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
       type: type
     })
-    // 关闭加载图标
-    loading.close()
     // 操作成功关闭弹窗刷新数据
     if (res.data.status) {
       this.handleClose() // 关闭弹窗
       this.$parent.fresh() // 刷新数据
+    } else {
+      loading.close()
     }
   }).catch((err) => {
     // 错误提示

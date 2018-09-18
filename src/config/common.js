@@ -16,5 +16,14 @@ export const loadingConf = {
       spinner: 'el-icon-loading',
       background: 'rgba(0, 0, 0, 0.7)'
     }
+  },
+  // 获取数据中
+  success: function () {
+    return {
+      lock: true,
+      text: '操作成功，请稍候',
+      spinner: 'el-icon-loading',
+      background: 'rgba(0, 0, 0, 0.7)'
+    }
   }
 }
