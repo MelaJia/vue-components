@@ -40,7 +40,7 @@
         </el-table-column>
         <el-table-column align="center" label="信用报告" min-width="80">
           <template slot-scope="scope">
-            <a :href="scope.row.riskPlatFormURL" target="_blank">信用报告</a>
+            <a :href="scope.row.riskPlatFormURL | addHref" target="_blank">信用报告</a>
           </template>
         </el-table-column>
         <el-table-column align="center" label="合同签署日期" prop="contractSignedDate" :formatter="dateFormat" min-width="100">
@@ -70,6 +70,7 @@
 import ListMinxIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
+import { apiUrl } from '@/config/env.js'
 import { firstToUpperCase, debounce, erroShow } from '@/util/util' // 首字母大写 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 /* 我的Ar列表 */
@@ -99,6 +100,11 @@ export default {
       offlineContract: {}, // 线下合同详情
       checkDetail: {},
       operateArr: [{ key: 'contrac', name: '合同生成' }, { key: 'confirm', name: '发起确认' }, { key: 'accept', name: '放款' }, { key: 'reject', name: '拒绝' }] // 操作数据
+    }
+  },
+  filters: {
+    addHref (val) {
+      return apiUrl + val
     }
   },
   computed: {
