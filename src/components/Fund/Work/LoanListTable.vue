@@ -26,7 +26,7 @@
       </el-table-column>
       <el-table-column align="center" label="信用报告">
         <template slot-scope="scope">
-          <a :href="scope.row.riskPlatFormURL" target="_blank">信用报告</a>
+          <a :href="scope.row.riskPlatFormURL | addHerf" target="_blank">信用报告</a>
         </template>
       </el-table-column>
       <el-table-column align="center" label="贴现状态" prop="arStatusTypeName">
@@ -63,6 +63,7 @@ import Common from '@/mixins/common' // getLoanDetail 刷新数据fresh函数
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 import { firstToUpperCase, debounce, erroShow } from '@/util/util' // 首字母大写 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
+import { apiUrl } from '@/config/env.js'
 export default {
   name: 'loan', // 放款列表页面
   props: ['dataLoading', 'dataTable'],
@@ -87,6 +88,11 @@ export default {
     comDatas: function () {
       const datas = this.getOpera(this.dataTable)
       return datas
+    }
+  },
+  filters: {
+    addHerf (val) {
+      return apiUrl + val
     }
   },
   methods: {
