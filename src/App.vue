@@ -69,4 +69,10 @@ td>.el-table--scrollable-x .el-table__body-wrapper {
     padding: 8px 20px;
     position: relative;
  }
+.is-left .el-button:not(:last-child){
+  margin-right: 10px;
+}
+.is-left .el-button+.el-button{
+  margin-left: 0px;
+}
 </style>

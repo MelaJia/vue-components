@@ -135,9 +135,7 @@ export default {
           })
         }
         result = response
-        setTimeout(() => {
-          loading.close() // 关闭加载动画
-        }, 5000)
+        loading.close() // 关闭加载动画
         return Promise.resolve(result)
       } catch (error) {
         loading.close() // 关闭加载动画

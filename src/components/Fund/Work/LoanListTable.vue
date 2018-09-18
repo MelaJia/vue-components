@@ -38,7 +38,7 @@
             </el-tooltip>
           </template>
       </el-table-column>
-      <el-table-column align="center" header-align="center" label="操作" width='125px' fixed="right" :resizable="false">
+      <el-table-column align="left" header-align="center" label="操作" width='125px' fixed="right" :resizable="false">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           <el-button size="mini" type="text" v-for="(item, index) in scope.row.operateArr" :key="index" @click="handleCommand({key:item.key, idx:index, val:scope.row})" >{{item.name}}</el-button>
