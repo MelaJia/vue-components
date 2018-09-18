@@ -147,7 +147,15 @@ function handleContrac (idx, val) {
 }
 // 发起确认
 function handleConfirm (idx, val) {
-  if (new Date(val.billPayDate) <= new Date()) {
+  console.log(new Date(val.billPayDate))
+  if (val.billPayDate === undefined || val.billPayDate === null || val.billPayDate === '') {
+    this.$alert(`预计回款日期不存在，不能发起确认!`, '系统提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+      }
+    })
+    return
+  } else if (new Date(val.billPayDate) <= new Date()) {
     this.$alert(`预计回款日期小于当前日期，不能发起确认!`, '系统提示', {
       confirmButtonText: '确定',
       callback: action => {

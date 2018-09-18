@@ -46,7 +46,7 @@
               </el-table-column>
               <el-table-column align="center" prop="actualRepayDate" :formatter="dateFormat" :width="widthArr.actualRepayDate">
               </el-table-column>
-              <el-table-column align="center" width='200px'>
+              <el-table-column align="center" width='80px'>
               </el-table-column>
             </el-table>
           </template>
@@ -88,7 +88,7 @@
         </el-table-column>
         <el-table-column align="center" label="实际还款日期" prop="actualRepayDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="center" label="操作" width='200px' class-name="" fixed="right" :resizable="false">
+        <el-table-column align="center" label="操作" width='80px' class-name="" fixed="right" :resizable="false">
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
             </template>

@@ -101,10 +101,10 @@
         </el-table-column>
         <el-table-column align="center" label="还款日期" prop="repayDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="left" header-align="center" label="操作" width='200px' class-name="" fixed="right" :resizable="false">
+        <el-table-column align="left" header-align="center" label="操作" width='120px' class-name="" fixed="right" :resizable="false">
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-            <el-button v-for="(item, index) in scope.row.operateArr" :key="index"  size="mini" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button>
+            <el-button size="mini" type="text" v-for="(item, index) in scope.row.operateArr" :key="index"  @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button>
             </template>
         </el-table-column>
       </el-table>
