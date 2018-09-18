@@ -343,7 +343,7 @@ function submit () {
             type: type
           })
           if (res.data.status) {
-            loading.close()
+            // loading.close()
             this.$parent.fresh()
             this.contractList = []
             this.handleClose()
