@@ -249,6 +249,19 @@ export default {
           message: '请选择文件之后再上传'
         })
       } else {
+        if (this.detailsP.contractUploadFileList) {
+          for (var i = 0; i < this.detailsP.contractUploadFileList.length; i++) {
+            if (this.detailsP.contractUploadFileList[i].contractUploadFileName === this.chooseFile) {
+              this.$message({
+                showClose: true,
+                type: 'warning',
+                message: '上传列表中已存在该文件'
+              })
+              this.chooseFile = ''
+              return
+            }
+          }
+        }
         // 显示加载动画
         // const loading = this.$loading(loadingConf.get())
         this.axios.post('/factoringCreditLoan/creditLoanManualContractUploadFile.do', formData).then(res => {
@@ -258,8 +271,7 @@ export default {
               'contractUploadFileUrl': res.data.data.contractUploadFileUrl,
               'contractUploadFileName': res.data.data.contractUploadFileName
             }
-            this.contractList.push(contractListInfo)
-            // this.detailsP.contractUploadFileList.push(contractListInfo)
+            this.detailsP.contractUploadFileList.push(contractListInfo)
             this.$refs.selectFile.value = ''
             this.chooseFile = ''
             this.$parent.fresh()

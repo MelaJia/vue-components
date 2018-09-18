@@ -47,7 +47,7 @@
         </el-table-column>
         <el-table-column align="center" label="还款日期" prop="repayDate" :formatter="dateFormat" min-width="100">
         </el-table-column>
-        <el-table-column align="left" header-align="center" label="操作" width='220px' fixed="right" :resizable="false">
+        <el-table-column align="left" header-align="center" label="操作" width='125px' fixed="right" :resizable="false">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           <el-button size="mini" type="text" v-for="(item, index) in scope.row.operateArr" :key="index" @click="handleCommand({key:item.key, idx:index, val:scope.row})" >{{item.name}}</el-button>
@@ -205,8 +205,14 @@ function handleContrac (idx, val) {
 //   })
 // }
 function handleConfirm (idx, val) {
-  if (new Date(val.repayDate).Format('yyyy-MM-dd') <= new Date().Format('yyyy-MM-dd')) {
-    this.$alert(`还款日期小于当前日期，不能发起确认!`, '系统提示', {
+  if (val.repayDate === undefined || val.repayDate === null || val.repayDate === '') {
+    this.$alert(`还款日期不存在，不能发起确认!`, '提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+      }
+    })
+  } else if (new Date(val.repayDate).Format('yyyy-MM-dd') <= new Date().Format('yyyy-MM-dd')) {
+    this.$alert(`还款日期小于当前日期，不能发起确认!`, '提示', {
       confirmButtonText: '确定',
       callback: action => {
       }
