@@ -17,7 +17,8 @@ let iconfontUrl = `//at.alicdn.com/t/font_$key.css`
 let codeUrl = `${baseUrl}/code`
 let protocol = document.location.protocol
 let host = document.location.host
-let basePath = document.location.hostname === 'localhost' ? '/JuXin' : getContextPath()
+// let basePath = document.location.hostname === 'localhost' ? '/JuXin' : getContextPath()
+let basePath = '/JuXin'
 if (process.env.NODE_ENV === 'development') {
   baseUrl = `http://10.130.2.220:3000`
   apiUrl = baseUrl
@@ -26,9 +27,9 @@ if (process.env.NODE_ENV === 'development') {
   apiUrl = `${baseUrl}/openapi`
 }
 export { baseUrl, iconfontUrl, iconfontVersion, codeUrl, apiUrl }
-function getContextPath () {
-  var pathName = document.location.pathname
-  var index = pathName.substr(1).indexOf('/')
-  var result = pathName.substr(0, index + 1)
-  return result
-}
+// function getContextPath () {
+//   var pathName = document.location.pathname
+//   var index = pathName.substr(1).indexOf('/')
+//   var result = pathName.substr(0, index + 1)
+//   return result
+// }
