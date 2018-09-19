@@ -37,12 +37,6 @@
 .text-align-center {
   text-align: center;
 }
-.body:first-child .el-card__header {
-  padding: 8px 20px;
-}
-.body:first-child .el-card__body {
-  padding: 0 20px;
-}
 </style>
 
 <script>

@@ -253,7 +253,9 @@ export default {
         }).then(res => {
           if (res.data.status) {
             if (this.getForm.confirmPassword !== '') {
-              this.$refs.getForm.validateField('confirmPassword')
+              if (this.$refs.getForm) {
+                this.$refs.getForm.validateField('confirmPassword')
+              }
             }
             callback()
           } else {
