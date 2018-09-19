@@ -15,35 +15,33 @@
               </el-input>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
           <el-col :span="11">
             <el-form-item label="宽容天数(天):" prop="fineGraceDays">
               <el-input v-model="form.fineGraceDays"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11" :offset="1" >
+        </el-row>
+        <el-row>
+          <el-col :span="11" >
             <el-form-item label="年利率(%):" prop="interestRate">
               <el-input v-model="form.interestRate">
               </el-input>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
           <el-col :span="11">
             <el-form-item label="服务费率(%):" prop="serviceFeeRate">
               <el-input v-model="form.serviceFeeRate">
               </el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11" :offset="1" >
+        </el-row>
+        <el-row>
+          <el-col :span="11" >
             <el-form-item label="逾期利率(%):" prop="fineGraceDayRate">
               <el-input v-model="form.fineGraceDayRate">
               </el-input>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
           <el-col :span="11" >
             <el-form-item label="提前还款手续费率(%):" prop="prepaymentDeductRate">
               <el-input v-model="form.prepaymentDeductRate"></el-input>

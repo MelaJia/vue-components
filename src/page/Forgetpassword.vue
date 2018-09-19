@@ -253,8 +253,9 @@ export default {
         }).then(res => {
           if (res.data.status) {
             if (this.getForm.confirmPassword !== '') {
-              if (this.$refs.getForm) {
-                this.$refs.getForm.validateField('confirmPassword')
+              console.log(this.$refs['form-2'])
+              if (this.$refs['form-2']) {
+                this.$refs['form-2'].validateField('confirmPassword')
               }
             }
             callback()

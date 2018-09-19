@@ -143,7 +143,9 @@ export default {
         }).then(res => {
           if (res.data.status) {
             if (this.ruleForm2.confirmPassword !== '') {
-              this.$refs.ruleForm2.validateField('confirmPassword')
+              if (this.$refs.ruleForm2) {
+                this.$refs.ruleForm2.validateField('confirmPassword')
+              }
             }
             callback()
           } else {
@@ -243,23 +245,23 @@ function logout () {
   this.axios.post('/login/logout2', param).then(res => {
     if (res.data.status) {
       this.$message({
-        message: '恭喜你，登出成功',
+        message: '登出成功',
         type: 'success'
+      })
+      this.$store.commit(types.LOGOUT)
+      this.$store.commit('DEL_ALL_TAG')
+      this.$router.replace({
+        path: '/login',
+        query: { redirect: this.$router.currentRoute.fullPath }
       })
     } else {
       this.$message({
         message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-        type: 'success'
+        type: 'error'
       })
     }
   }).catch(err => {
     console.log(err)
-  })
-  this.$store.commit(types.LOGOUT)
-  this.$store.commit('DEL_ALL_TAG')
-  this.$router.replace({
-    path: '/login',
-    query: { redirect: this.$router.currentRoute.fullPath }
   })
 }
 // 初始化

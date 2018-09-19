@@ -10,7 +10,15 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/openapi': {
+        target: 'http://https://jurongtest.foxconn.com/JuXin/',
+        changeOrigin: true,
+        pathRewrite: {                //需要rewrite重写的, 如果在服务器端做了处理则可以不要这段
+          '^/api': ''
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: '10.130.2.220', // can be overwritten by process.env.HOST

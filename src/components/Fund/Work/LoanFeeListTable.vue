@@ -7,7 +7,7 @@
       @expand-change="expendhandle" @mousedown.native="mouseDown">
       <el-table-column align="center" fixed type="index" label="序号" width="60">
       </el-table-column>
-      <el-table-column align="center" fixed sortable label="客户名称" prop="companyName" width="130">
+      <el-table-column align="center" fixed sortable label="客户名称" prop="companyName" min-width="130">
       </el-table-column>
       <el-table-column align="center" label="供应商代码" prop="vendorCode">
       </el-table-column>
@@ -21,7 +21,7 @@
       </el-table-column>
       <el-table-column align="right" header-align="center" label="逾期利率(%)" prop="fineGraceDayRate" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="right" header-align="center" label="提前还款手续费率(%)" prop="prepaymentDeductRate" min-width="120" :formatter="nullDealWith">
+      <el-table-column align="right" header-align="center" label="提前还款手续费率(%)" prop="prepaymentDeductRate" :formatter="nullDealWith">
       </el-table-column>
       <el-table-column align="center" label="操作" width='80px' fixed="right" :resizable="false">
         <template slot-scope="scope">
