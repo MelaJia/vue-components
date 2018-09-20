@@ -32,7 +32,7 @@
       </el-table-column>
       <el-table-column align="center" label="同步状态" prop="taskSynStatusName" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="同步结束时间" prop="taskSynEndDate" :formatter="dateFormat">
+      <el-table-column align="center" label="最后同步时间" prop="taskSynEndDate" :formatter="dateFormat">
       </el-table-column>
       <el-table-column align="left" header-align="center" label="操作" width='270px' fixed="right" :resizable="false">
         <template slot-scope="scope">

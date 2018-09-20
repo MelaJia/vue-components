@@ -28,11 +28,20 @@ let check = function (key, smsg, canNull = false, url = '/cust/check') {
         }).then(res => {
           console.log(res)
           if (res.data.status) {
+            if (key === 'contactPhone') {
+              vcg.scope.isPhoneRe = false // 可以验证手机号
+            }
             callback()
           } else {
+            if (key === 'contactPhone') {
+              vcg.scope.isPhoneRe = true // 可以验证手机号
+            }
             callback(new Error(res.data.msg))
           }
         }).catch(err => {
+          if (key === 'contactPhone') {
+            vcg.scope.isPhoneRe = true // 可以验证手机号
+          }
           console.log(err)
           callback(new Error(`验证失败请联系管理员`))
         })

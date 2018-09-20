@@ -164,7 +164,7 @@ function handleConfirm (idx, val) {
     })
     return
   } else if (new Date(val.billPayDate) <= new Date()) {
-    this.$alert(`预计回款日期小于当前日期，不能发起确认!`, '系统提示', {
+    this.$alert(`抱歉，还款日期已过，无法进行此操作，请取消或拒绝该单`, '系统提示', {
       confirmButtonText: '确定',
       callback: action => {
       }
@@ -188,6 +188,21 @@ function handleConfirm (idx, val) {
 }
 // 放款
 function handleAccept (idx, val) {
+  if (val.billPayDate === undefined || val.billPayDate === null || val.billPayDate === '') {
+    this.$alert(`预计回款日期不存在，无法进行此操作`, '系统提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+      }
+    })
+    return
+  } else if (new Date(val.billPayDate) <= new Date()) {
+    this.$alert(`抱歉，还款日期已过，无法进行此操作，请取消或拒绝该单`, '系统提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+      }
+    })
+    return
+  }
   this.$confirm(`单号为${val.masterChainId}的贴现申请确认放款?`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
