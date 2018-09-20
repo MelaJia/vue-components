@@ -3,16 +3,7 @@
     <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
       <div class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~32位的字符串.</div>
         <el-form-item label="注册手机号">
-              <el-select v-model="phone" placeholder="请选择验证的手机号" size="small">
-                <el-option
-                  v-for="item in getPhones"
-                  :key="item.value"
-                  :label="item.value"
-                  :value="item.value">
-                  <span style="float: left">{{ item.value }}</span>
-                  <span style="float: right; color: #8492a6; font-size: 13px">{{ item.text }}</span>
-                </el-option>
-              </el-select>
+              <span>{{this.$store.state.user.userinfos.contactPhone}}</span>
         </el-form-item>
         <el-form-item label="验证码" prop="verificationCode">
             <el-col :span="10" >
