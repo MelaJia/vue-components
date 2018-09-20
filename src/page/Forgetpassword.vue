@@ -65,7 +65,7 @@
               <el-col :span="12" :offset="6">
                 <el-form-item label="新密码: " prop="custPassword">
                   <el-input :type="pShow?'text':'password'" auto-complete="new-password" v-model.trim="getForm.custPassword" @blur="passBlur" @focus="passFocus">
-                    <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @keyDown="handlePShowChange('pShow')"></a>
+                    <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="pShow=true" @mouseup="pShow=false" @mousemove.stop="pShow=false"></a>
                   </el-input>
                 </el-form-item>
               </el-col>
@@ -74,7 +74,7 @@
               <el-col :span="12" :offset="6">
                 <el-form-item label="密码确认: " prop="confirmPassword">
                   <el-input :type="pcShow?'text':'password'" v-model.trim="getForm.confirmPassword" auto-complete="off">
-                    <a slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @keyUp="handlePShowChange('pcShow')"></a>
+                    <a slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="pcShow=true" @mouseup="pcShow=false" @mousemove.stop="pcShow=false"></a>
                   </el-input>
                 </el-form-item>
               </el-col>
