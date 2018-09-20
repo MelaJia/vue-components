@@ -88,7 +88,7 @@
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
-// import { debounce } from '@/util/util' // 首字母大写 防抖函数
+import { getDataBase } from '@/util/util' // 首字母大写 防抖函数
 // import { loadingConf } from '@/config/common' // 获取加载配置
 /* 我的Ar列表 */
 export default {
@@ -141,23 +141,36 @@ export default {
     //   })
     // }
     confirmContract (idx, val) {
-      this.$alert('该协议内容由保理方xxx拟定，不由本平台提供，确认签署前需自行对协议内容进行审核', '提示', {
-        confirmButtonText: '我知道了',
-        center: true,
-        type: 'warning'
-      }).then(() => {
-        // val.infoLoading = true
-        this.getLoanDetail('/myAr/queryAr.do', { masterChainId: val.masterChainId }).then(res => {
+      let param = {
+        masterChainId: val.masterChainId
+      }
+      // 获取数据
+      getDataBase.call(this, '/myAr/queryAr.do', param, true).then(res => {
+        if (res) {
+          console.log(res)
+          // 标题赋值
+          // res.masterChainId = val.loanId
           this.details = res
           this.dialogContractVisible = true
-          val.infoLoading = false
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消操作'
-        })
+        }
       })
+      // this.$alert('该协议内容由保理方xxx拟定，不由本平台提供，确认签署前需自行对协议内容进行审核', '提示', {
+      //   confirmButtonText: '我知道了',
+      //   center: true,
+      //   type: 'warning'
+      // }).then(() => {
+      //   // val.infoLoading = true
+      //   this.getLoanDetail('/myAr/queryAr.do', { masterChainId: val.masterChainId }).then(res => {
+      //     this.details = res
+      //     this.dialogContractVisible = true
+      //     val.infoLoading = false
+      //   })
+      // }).catch(() => {
+      //   this.$message({
+      //     type: 'info',
+      //     message: '已取消操作'
+      //   })
+      // })
     }
   }
 }

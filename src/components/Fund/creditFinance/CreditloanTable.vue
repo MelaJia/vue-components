@@ -12,6 +12,8 @@
     <dialog-checkphone :visible-p.sync="dialogCheckPhone" :details-p="checkDetail"></dialog-checkphone>
     <!--拒绝理由-->
     <dialog-reject :visible-p.sync="dialogRejectVisible" :details-p="details"></dialog-reject>
+    <!--发起确认-->
+    <!-- <dialog-confirm :visible-p.sync="dialogConfirmVisible" :details-p="details"></dialog-confirm> -->
     <section>
       <el-table ref="table" :data="comDatas" v-loading.fullscreen="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @mousedown.native="mouseDown"
@@ -88,6 +90,8 @@ export default {
       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogOfflinecontract'),
     'dialog-checkphone': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogCheckphone')
+    // 'dialog-confirm': () =>
+    //   import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/creditFinance/DialogConfirm')
   },
   data () {
     return {
@@ -95,6 +99,7 @@ export default {
       dialogOnline: false,
       dialogCheckPhone: false,
       dialogRejectVisible: false,
+      dialogConfirmVisible: false,
       details: {}, // 详情数据
       detailsContract: {},
       offlineContract: {}, // 线下合同详情
@@ -245,6 +250,29 @@ function handleConfirm (idx, val) {
     })
   }
 }
+// function handleConfirm (idx, val) {
+//   if (val.repayDate === undefined || val.repayDate === null || val.repayDate === '') {
+//     this.$alert(`还款日期不存在，不能发起确认!`, '提示', {
+//       confirmButtonText: '确定',
+//       callback: action => {
+//       }
+//     })
+//   } else if (new Date(val.repayDate).Format('yyyy-MM-dd') <= new Date().Format('yyyy-MM-dd')) {
+//     this.$alert(`还款日期小于当前日期，不能发起确认!`, '提示', {
+//       confirmButtonText: '确定',
+//       callback: action => {
+//       }
+//     })
+//   } else {
+//     if (val.contractSignType === 1) {
+//       this.details = val
+//       this.dialogConfirmVisible = true
+//     } else {
+//       this.postResultFresh('/factoringCreditLoan/confirmInitiateSigning.do', {loanId: val.loanId}) // 调用common混合中公共方法
+//     }
+//     console.log(val)
+//   }
+// }
 // 放款
 function handleAccept (idx, val) {
   if (new Date(val.repayDate).Format('yyyy-MM-dd') <= new Date().Format('yyyy-MM-dd')) {

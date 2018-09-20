@@ -205,7 +205,7 @@ export default {
       }, 1000)
     },
     getTitle () {
-      return this.detailsP.loanId + '合同确认'
+      return this.detailsP.loanId + '合同生成'
     }
   },
   methods: {

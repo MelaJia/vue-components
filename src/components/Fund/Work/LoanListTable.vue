@@ -4,6 +4,7 @@
     <dialog-contract :visible-p.sync="dialogTransferVisible" :details-p="detailsContract"></dialog-contract>
     <!--校验手机号-->
     <dialog-check-phone :visible-p.sync="dialogCheckPhone" :details-p="checkDetail"></dialog-check-phone>
+    <!-- <dialog-confirm :visible-p.sync="dialogConfirm" :details-p="checkDetail"></dialog-confirm> -->
     <section>
     <el-table :data="comDatas" v-loading.fullscreen="dataLoading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)" border  :summary-method="sumHandle([5,6])" sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
@@ -70,6 +71,7 @@ export default {
   data () {
     return {
       dialogCheckPhone: false, // 校验手机弹窗
+      dialogConfirm: false,
       checkDetail: {}, // 校验详情
       detailsContract: '',
       operateArr: [{ key: 'contrac', name: '合同生成' }, { key: 'confirm', name: '发起确认' }, { key: 'accept', name: '放款' }, { key: 'reject', name: '拒绝' }] // 操作数据

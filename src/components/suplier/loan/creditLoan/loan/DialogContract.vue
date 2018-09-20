@@ -1,23 +1,30 @@
 <template>
   <el-dialog :visible.sync="visibleP" :before-close="handleClose">
-     <header slot="title">
+     <header slot="title" v-show="step!==1">
       <span class="title">
         {{getTitle}}
       </span>
     </header>
     <section v-if="step===1">
+      <span class="note">温馨提示</span>
+      <p>该协议内容由保理方{{this.detailsP.transUnitName}}拟定，不由本平台提供，确认签署前需自行对协议内容进行审核</p>
+    </section>
+    <section v-if="step===2">
       <el-checkbox-group v-model="checkList">
       <el-checkbox v-for="item in this.detailsP.contractList" :key="item.contractId" :label="item.contractId"><a :href="item.contractUrl" target="_blank" @click="constractHandle(item.contractUrl)">{{item.contractName}}</a></el-checkbox>
       </el-checkbox-group>
     </section>
-    <section style="padding-left:200px" v-if="step===2">
+    <section style="padding-left:200px" v-if="step===3">
       <verify :captcha.sync="captcha"></verify>
     </section>
     <footer slot="footer" v-if="step===1">
+        <el-button round @click="handleNext" type="primary" >我知道了</el-button>
+    </footer>
+    <footer slot="footer" v-if="step===2">
         <el-button round @click="beforeSubmit" type="primary" v-loading.fullscreen.lock="isLoading">同意签署</el-button>
         <el-button round @click="handleReject" type="warning" v-loading.fullscreen.lock="isLoading">拒绝退回</el-button>
     </footer>
-    <footer slot="footer" v-if="step===2">
+    <footer slot="footer" v-if="step===3">
         <el-button round @click="handleSubmit" type="primary" >确认</el-button>
     </footer>
   </el-dialog>
@@ -25,6 +32,9 @@
 <style scoped>
 footer {
   text-align: center;
+}
+.note {
+  color: #f00;
 }
 </style>
 

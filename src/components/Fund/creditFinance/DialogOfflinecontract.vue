@@ -174,7 +174,7 @@ export default {
   },
   computed: {
     getTitle () {
-      return this.detailsP.loanId + '合同确认'
+      return this.detailsP.loanId + '合同生成'
     },
     ...mapGetters(['token']),
     // 附件列表
