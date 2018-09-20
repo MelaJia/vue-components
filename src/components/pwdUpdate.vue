@@ -3,7 +3,7 @@
     <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
       <div class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~20位的字符串.</div>
         <el-form-item label="注册手机号">
-              <span>{{this.$store.state.user.userinfos.contactPhone}}</span>
+              <span>{{getContactPhone}}</span>
         </el-form-item>
         <el-form-item label="验证码" prop="verificationCode">
             <el-col :span="10" >
@@ -112,6 +112,11 @@ export default {
           originalCustPassword: value
         }).then(res => {
           if (res.data.status) {
+            if (this.ruleForm2.custPassword !== '') {
+              if (this.$refs.ruleForm2) {
+                this.$refs.ruleForm2.validateField('custPassword')
+              }
+            }
             callback()
           } else {
             callback(new Error(res.data.msg))
@@ -190,8 +195,8 @@ export default {
     }
   },
   computed: {
-    getPhones () {
-      return [{ text: '法人手机号', value: this.$store.state.user.userinfos.legalPhone }, { text: '联系人手机号', value: this.$store.state.user.userinfos.contactPhone }]
+    getContactPhone () {
+      return this.$store.state.user.userinfos.contactPhone
     }
   },
   methods: {
@@ -214,7 +219,7 @@ var sendTimer
 function submitForm (formName) {
   this.$refs[formName].validate((valid) => {
     if (valid) {
-      let param = Object.assign({}, this.ruleForm2)
+      let param = Object.assign({}, this.ruleForm2, {contactPhone: this.getContactPhone})
       // 提交数据
       postDataBase.call(this, '/cust/updatePassword.do', param, true).then(res => {
         // 密码修改成功 登出
@@ -279,7 +284,7 @@ function handlePShowChange (val) {
 }
 // 获取验证码
 function sendMessage () {
-  if (this.phone.length <= 0) {
+  if (this.getContactPhone.length <= 0) {
     this.$message.error('请选择需要验证的手机')
     return
   }
@@ -288,7 +293,8 @@ function sendMessage () {
   }
   this.isOvertime = true // 验证码获取中
   this.axios.post('/cust/toverificationCode.do', {
-    contactPhone: this.phone
+    operationType: 2,
+    contactPhone: this.getContactPhone
   }).then(res => {
     if (res.data.status) {
       this.$message({

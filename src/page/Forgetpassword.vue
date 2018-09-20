@@ -107,7 +107,7 @@
   </section>
 </template>
 <style lang="scss">
-.section{
+.section {
   margin-top: 40px;
 }
 .reg-style {
@@ -152,7 +152,7 @@
     text-decoration: underline;
   }
 }
-.green{
+.green {
   color: green;
 }
 // ie10步骤条兼容处理
@@ -193,7 +193,7 @@
 .loginLine {
   color: #8ec1f4;
 }
-.reg-step-3{
+.reg-step-3 {
   margin-bottom: 40px;
 }
 // 密码提示信息样式
@@ -306,22 +306,22 @@ export default {
       rulesOne: {
         // 手机号校验
         contactPhone: [
-          {required: true, message: '手机号不能为空', trigger: 'blur'},
-          {validator: verifyPhone, trigger: 'blur'}
+          { required: true, message: '手机号不能为空', trigger: 'blur' },
+          { validator: verifyPhone, trigger: 'blur' }
         ],
         // 验证码校验
         verificationCode: [
-          {required: true, message: '请输入验证码', trigger: 'change'},
-          {validator: verifyCode, trigger: 'change'}
+          { required: true, message: '请输入验证码', trigger: 'change' },
+          { validator: verifyCode, trigger: 'change' }
         ]
       },
       rulesTwo: {
         custPassword: [
-          {required: true, message: '新密码不能为空', trigger: 'blur'},
+          { required: true, message: '新密码不能为空', trigger: 'blur' },
           { validator: validatePass, trigger: 'blur' }
         ],
         confirmPassword: [
-          {required: true, message: '密码确认不能为空', trigger: 'blur'},
+          { required: true, message: '密码确认不能为空', trigger: 'blur' },
           { validator: validatePass2, trigger: 'blur' }
         ]
       }
@@ -364,7 +364,7 @@ function checkPhone () {
     return false
   }
   // 校验手机接口
-  this.axios.post('/cust/validContactPhone.do', {contactPhone: this.getForm.contactPhone}).then(res => {
+  this.axios.post('/cust/validContactPhone.do', { contactPhone: this.getForm.contactPhone }).then(res => {
     if (res.data.status) {
       this.showCheckBtn = false
       this.$message({
@@ -386,7 +386,7 @@ function sendMessage () {
     this.$message.error('请输入正确的手机号')
     return false
   }
-  this.axios.post('/cust/toverificationCode.do', { contactPhone: this.getForm.contactPhone, operationType: 3 }).then(res => {
+  this.axios.post('/cust/toverificationCode.do', { operationType: 3, contactPhone: this.getForm.contactPhone }).then(res => {
     let type = res.data.status ? 'success' : 'error'
     if (res.data.status) {
       let that = this
@@ -429,7 +429,7 @@ function nextHandle (formName) {
   this.$refs[formName].validate((valid) => {
     if (valid) {
       // 校验码去调接口获取登录名
-      this.axios.post('/cust/validVerificationCode.do', {contactPhone: this.getForm.contactPhone, verificationCode: this.getForm.verificationCode}).then(res => {
+      this.axios.post('/cust/validVerificationCode.do', { contactPhone: this.getForm.contactPhone, verificationCode: this.getForm.verificationCode }).then(res => {
         let type = res.data.status ? 'success' : 'error'
         if (res.data.status) {
           // 校验成功显示下一步骤

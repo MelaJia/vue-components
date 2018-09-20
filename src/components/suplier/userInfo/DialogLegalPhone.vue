@@ -96,7 +96,7 @@ export default {
       if (this.isOvertime) {
         return
       }
-      this.axios.post('/cust/toverificationCode.do', { contactPhone: this.form.legalPhone }).then(res => {
+      this.axios.post('/cust/toverificationCode.do', { operationType: 5, contactPhone: this.form.legalPhone }).then(res => {
         if (res.data.status) {
           let that = this
           let time = 60

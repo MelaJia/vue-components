@@ -96,7 +96,7 @@ export default {
       if (this.isOvertime) {
         return
       }
-      this.axios.post('/cust/toverificationCode.do', { ssoId: 'a11c0b29d53794b2ecf1986ca3ad41d58803724b491121fa59aa0d85f5c46e7e', contactPhone: this.form.contactPhone }).then(res => {
+      this.axios.post('/cust/toverificationCode.do', { operationType: 4, contactPhone: this.form.contactPhone }).then(res => {
         if (res.data.status) {
           let that = this
           let time = 60
