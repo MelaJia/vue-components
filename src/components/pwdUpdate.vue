@@ -168,7 +168,6 @@ export default {
       opShow: false, // 原密码是否可见
       pShow: false, // 密码是否可见
       pcShow: false, // 密码确认是是否可见
-      phone: this.$store.state.user.userinfos.legalPhone, // 手机号
       ruleForm2: {
         originalCustPassword: '', // 原密码
         custPassword: '',

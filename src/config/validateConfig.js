@@ -151,8 +151,7 @@ let validOne = {
     pattern: /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/,
     message: '手机号码格式错误',
     trigger: 'blur'
-  }
-  ],
+  }],
   contactMail: [{
     required: true,
     message: '请输入邮箱地址',

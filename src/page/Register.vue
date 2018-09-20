@@ -80,10 +80,32 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-row>
+             <el-row>
               <el-col :span="8">
                 <el-form-item label="联系人姓名: " prop="contactPerson">
                   <el-input v-model.trim="getForm.contactPerson"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item label="联系人电话: " prop="contactPhone">
+                  <el-input v-model.trim="getForm.contactPhone"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item label="验证码">
+                  <el-col :span="10" >
+                    <el-input v-model.trim="verificationCode" auto-complete="off" :maxlength="6" size="small" @blur="handleCheckCode"></el-input>
+                  </el-col>
+                  <el-col :span="6" :offset="1">
+                    <el-button :type="btntype" size="small" @click="sendMessage">{{word}}</el-button>
+                  </el-col>
+              </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="8">
+                <el-form-item label="联系人邮箱: " prop="contactMail">
+                  <el-input v-model.trim="getForm.contactMail"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
@@ -94,37 +116,25 @@
             </el-row>
             <el-row>
               <el-col :span="8">
-                <el-form-item label="联系人电话: " prop="contactPhone">
-                  <el-input v-model.trim="getForm.contactPhone"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item label="联系人邮箱: " prop="contactMail">
-                  <el-input v-model.trim="getForm.contactMail"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="8">
                 <el-form-item label="法人姓名: " prop="legalPerson">
                   <el-input v-model.trim="getForm.legalPerson"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="法人身份证: " prop="legalIdcardNum">
-                  <el-input v-model.trim="getForm.legalIdcardNum"></el-input>
+                <el-form-item label="法人电话: " prop="legalPhone">
+                  <el-input v-model.trim="getForm.legalPhone" @change.native="handlePhoneChange"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
-                <el-form-item label="法人电话: " prop="legalPhone">
-                  <el-input v-model.trim="getForm.legalPhone"></el-input>
+                <el-form-item label="法人邮箱: " prop="legalMail">
+                  <el-input v-model.trim="getForm.legalMail"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="法人邮箱: " prop="legalMail">
-                  <el-input v-model.trim="getForm.legalMail"></el-input>
+                <el-form-item label="法人身份证: " prop="legalIdcardNum">
+                  <el-input v-model.trim="getForm.legalIdcardNum"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -445,10 +455,8 @@
 import Upload from '@/components/Items/uploadReg'
 import validConf from '@/config/validateConfig'
 import CityData from '@/mixins/CityData' // 省市数据
-import {
-  getStore,
-  setStore
-} from '@/util/store'
+import { getStore, setStore } from '@/util/store'
+import { debounce, erroShow } from '@/util/util'
 /* 企业认证 */
 export default {
   props: ['visibleP', 'form'],
@@ -529,8 +537,19 @@ export default {
       rulesThree: validConf.getValid('validThree'),
       moneyTypes: [],
       pShow: false, // 密码是否可见
-      pcShow: false // 密码确认是是否可见
-
+      pcShow: false, // 密码确认是是否可见
+      /** 验证码 ****/
+      verificationCode: '',
+      verificationCodeStatus: 0, // 验证状态
+      word: '获取验证码',
+      isOvertime: false,
+      btntype: 'primary' // 验证码按钮样式
+    }
+  },
+  watch: {
+    getcontPhone: function (nval, oldval) {
+      console.log('联系人手机修改了')
+      this.verificationCodeStatus = 0 // 未验证
     }
   },
   computed: {
@@ -559,7 +578,9 @@ export default {
         this.bankProvinceCity = newValue
         this.bankProvinceCityError = ''
       }
-    }
+    },
+    // 获取联系人手机
+    getcontPhone: debounce(getcontPhone, 1000)
   },
   async mounted () {
     this.moneyTypes = getStore({
@@ -635,6 +656,11 @@ export default {
       this.DialogVisible = false
       this.checked = true
       this.checkShow = false
+    },
+    sendMessage: debounce(sendMessage, 1000, true),
+    handleCheckCode: handleCheckCode,
+    handlePhoneChange (e) {
+      console.log(e)
     }
   }
 }
@@ -647,6 +673,17 @@ function nextHandle (formName) {
   // 校验操作
   this.$refs[formName].validate((valid) => {
     if (valid) {
+      // 第一步则校验验证码
+      console.log(this.verificationCodeStatus)
+      if (this.step === 0) {
+        if (this.verificationCodeStatus === 0) {
+          this.$message.error('手机号未校验，请进行校验')
+          return false
+        } else if (this.verificationCodeStatus === 2) {
+          this.$message.error('手机号校验失败，请重新校验')
+          return false
+        }
+      }
       // 校验成功显示下一步骤
       this.step = this.step < 2 ? this.step + 1 : this.step
     }
@@ -727,6 +764,7 @@ function getUserInfo () {
   const infos = {
     custUsername: '', // 登陆名
     custPassword: '', // 登陆密码
+    checkPass: '', // 确认密码
     custNickname: '', // 昵称
     companyName: '', // 公司名称
     companyPhone: '', // 公司电话
@@ -836,6 +874,73 @@ function resetBankNo () {
 function handlePShowChange (val) {
   this[val] = !this[val]
 }
+// 获取验证码
+var sendTimer
+function sendMessage () {
+  const reg = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/
+  if (!reg.test(this.getForm.contactPhone)) {
+    this.$message.error('手机号不能为空')
+    return
+  }
+  if (this.isOvertime) {
+    return
+  }
+  this.isOvertime = true // 验证码获取中
+  this.axios.post('/cust/toverificationCode.do', {
+    operationType: 1,
+    contactPhone: this.getForm.contactPhone
+  }).then(res => {
+    if (res.data.status) {
+      this.$message({
+        message: res.data.msg,
+        type: 'success'
+      })
+      let that = this
+      let time = 60
+      this.btntype = ''
+      sendTimer = setInterval(function () {
+        time--
+        that.word = `${time}秒后重新发送`
+        if (time < 0) {
+          that.isOvertime = false // 重置可发送验证码
+          that.btntype = 'primary'
+          clearInterval(sendTimer)
+          that.word = '重新获取验证码'
+        }
+      }, 1000)
+    } else {
+      this.isOvertime = false // 重置可发送验证码
+      this.$message.error(res.data.msg)
+    }
+  }).catch(err => {
+    this.isOvertime = false // 重置可发送验证码
+    console.log(err)
+    erroShow.call(this, err)
+  })
+}
+function handleCheckCode () {
+  this.axios.post('/cust/registerCheckVerify', {
+    key: 'verificationCode',
+    value: this.verificationCode
+  }).then(res => {
+    console.log(res)
+    if (res.data.status) {
+      this.verificationCodeStatus = 1 // 成功
+      this.$message({
+        message: res.data.msg,
+        type: 'success'
+      })
+    } else {
+      this.$message.error(res.data.msg)
+      this.verificationCodeStatus = 2 // 失败
+      return false
+    }
+  }).catch(err => {
+    this.verificationCodeStatus = 2 // 失败
+    console.log(err)
+    erroShow.call(this, err)
+  })
+}
 // 对象转formdata
 // function objToFormData (config) { // 对象转formdata格式
 //   let formData = new FormData()
@@ -856,4 +961,7 @@ function handlePShowChange (val) {
 //   }
 //   return formData
 // }
+function getcontPhone () {
+  return this.getForm.contactPhone
+}
 </script>
