@@ -65,7 +65,7 @@
               <el-col :span="12" :offset="6">
                 <el-form-item label="新密码: " prop="custPassword">
                   <el-input :type="pShow?'text':'password'" auto-complete="new-password" v-model.trim="getForm.custPassword" @blur="passBlur" @focus="passFocus">
-                    <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="pShow=true" @mouseup="pShow=false" @mousemove.stop="pShow=false"></a>
+                    <a v-show = "ieHide" slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="downN($event)"></a>
                   </el-input>
                 </el-form-item>
               </el-col>
@@ -74,7 +74,7 @@
               <el-col :span="12" :offset="6">
                 <el-form-item label="密码确认: " prop="confirmPassword">
                   <el-input :type="pcShow?'text':'password'" v-model.trim="getForm.confirmPassword" auto-complete="off">
-                    <a slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="pcShow=true" @mouseup="pcShow=false" @mousemove.stop="pcShow=false"></a>
+                    <a v-show="ieHide" slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="downC($event)"></a>
                   </el-input>
                 </el-form-item>
               </el-col>
@@ -290,6 +290,7 @@ export default {
       isPassShow: false, // 密码提示信息显示
       pShow: false, // 密码是否可见
       pcShow: false, // 密码确认是是否可见
+      ieHide: true,
       note: '修改成功', // 修改成功或失败信息提示
       times: null, // 定时器
       // time: 60,
@@ -343,6 +344,9 @@ export default {
     sendMessage: sendMessage,
     // 校验手机号
     checkPhone: checkPhone,
+    downN: downN,
+    downC: downC,
+    // myBrowser: myBrowser,
     // 验证码失去焦点调用接口
     // verifyCode: verifyCode,
     // 验证手机号是否存在
@@ -522,4 +526,62 @@ function subHandle (formName) {
     }
   })
 }
+
+var x = 0
+var y = 0
+// 新密码鼠标按下事件
+function downN (e) {
+  x = e.clientX
+  y = e.clientY
+  this.pShow = true
+  document.onmousemove = (e) => {
+    var l = e.clientX - x
+    var t = e.clientY - y
+    if (l > 5 || l < -5 || t > 5 || t < -5) {
+      this.pShow = false
+    }
+  }
+  document.onmouseup = (e) => {
+    document.onmousemove = null
+    this.pShow = false
+  }
+}
+// 确认密码鼠标按下事件
+function downC (e) {
+  x = e.clientX
+  y = e.clientY
+  this.pcShow = true
+  document.onmousemove = (e) => {
+    var l = e.clientX - x
+    var t = e.clientY - y
+    if (l > 5 || l < -5 || t > 5 || t < -5) {
+      this.pcShow = false
+    }
+  }
+  document.onmouseup = (e) => {
+    document.onmousemove = null
+    this.pcShow = false
+  }
+}
+// 判断IE
+// function myBrowser () {
+//   var userAgent = navigator.userAgent
+//   var isOpera = userAgent.indexOf('Opera') > -1
+//   if (isOpera) {
+//     return 'Opera'
+//   }
+//   if (userAgent.indexOf('Firefox') > -1) {
+//     return 'FF'
+//   }
+//   if (userAgent.indexOf('Chrome') > -1) {
+//     return 'Chrome'
+//   }
+//   if (userAgent.indexOf('Safari') > -1) {
+//     return 'Safari'
+//   }
+//   if (userAgent.indexOf('compatible') > -1 && userAgent.indexOf('MSIE') > -1 && !isOpera) {
+//     this.ieHide = false
+//     return 'IE'
+//   }
+// }
 </script>
