@@ -27,7 +27,7 @@
           <el-form ref="form-1" :model="getForm" :rules="rulesOne" label-width="130px">
             <el-row>
               <el-col :span="24">
-                <div v-show="isPassShow" class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~32位的字符串.</div>
+                <div v-show="isPassShow" class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~20位的字符串.</div>
               </el-col>
             </el-row>
             <el-row>
@@ -336,6 +336,14 @@
       </footer>
     </article>
   </section>
+  <!--阅读协议提醒-->
+  <el-dialog title="温馨提示" :visible.sync="DialogVisible" width="30%" center @close='closeDialog'>
+    <p style="text-align:justify;line-height:1.5;"><span style="color:#000">【审慎阅读】</span>您在申请注册流程中点击同意本协议之前，应当认真阅读本协议。请您务必审慎阅读、充分理解各条款内容，特别是免除或者限制责任的条款、法律适用和争议解决条款。免除或者限制责任的条款将以粗体下划线标识，您应重点阅读。如您对协议有任何疑问，可向钜信网平台客服咨询。</p>
+    <p style="text-align:justify;line-height:1.5;"><span style="color:#000">【签约动作】</span>当您按照注册页面提示填写信息、阅读并同意本协议且完成全部注册程序后，即表示您已充分阅读、理解并接受本协议的全部内容，并与平台达成一致，成为钜信平台“用户”。阅读本协议的过程中，如果您不同意本协议或其中任何条款约定，您应立即停止注册程序；弹出内容不影响原有勾选注册协议流程</p>
+    <span slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="confirmBtn">确 定</el-button>
+    </span>
+  </el-dialog>
   <section class="footer"></section>
   </section>
 </template>
@@ -507,6 +515,7 @@ export default {
       show: true,
       checked: false,
       checkShow: false, // 协议未勾选错误信息显示
+      DialogVisible: false, // 协议弹框提醒
       pdfUrl: `/upload/pdf/JuXinProtocol/JuXinProtocolService.pdf`, // 服务协议文件地址
       isPassShow: false, // 密码提示信息显示
       is2s1Show: true, // 二选一提示
@@ -615,6 +624,17 @@ export default {
       } else {
         this.$message.error(val.msg)
       }
+    },
+    // 协议弹框提醒点击确认
+    confirmBtn () {
+      this.DialogVisible = false
+      this.checked = true
+      this.checkShow = false
+    },
+    closeDialog () {
+      this.DialogVisible = false
+      this.checked = true
+      this.checkShow = false
     }
   }
 }
@@ -642,6 +662,9 @@ function passBlur () {
 }
 // 阅读协议
 function handleCheck (val) {
+  console.log(val)
+  this.checked = false
+  this.DialogVisible = true
   this.checkShow = !val
 }
 // 提交

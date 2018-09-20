@@ -51,7 +51,7 @@
           <el-form ref="form-2" :model="getForm" :rules="rulesTwo" label-width="150px">
             <el-row>
               <el-col :span="24">
-                <div v-show="isPassShow" class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~32位的字符串.</div>
+                <div v-show="isPassShow" class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~20位的字符串.</div>
               </el-col>
             </el-row>
             <el-row>
@@ -65,7 +65,7 @@
               <el-col :span="12" :offset="6">
                 <el-form-item label="新密码: " prop="custPassword">
                   <el-input :type="pShow?'text':'password'" auto-complete="new-password" v-model.trim="getForm.custPassword" @blur="passBlur" @focus="passFocus">
-                    <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pShow')"></a>
+                    <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @keyDown="handlePShowChange('pShow')"></a>
                   </el-input>
                 </el-form-item>
               </el-col>
@@ -74,7 +74,7 @@
               <el-col :span="12" :offset="6">
                 <el-form-item label="密码确认: " prop="confirmPassword">
                   <el-input :type="pcShow?'text':'password'" v-model.trim="getForm.confirmPassword" auto-complete="off">
-                    <a slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pcShow')"></a>
+                    <a slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @keyUp="handlePShowChange('pcShow')"></a>
                   </el-input>
                 </el-form-item>
               </el-col>
@@ -386,7 +386,7 @@ function sendMessage () {
     this.$message.error('请输入正确的手机号')
     return false
   }
-  this.axios.post('/cust/toverificationCode.do', { contactPhone: this.getForm.contactPhone }).then(res => {
+  this.axios.post('/cust/toverificationCode.do', { contactPhone: this.getForm.contactPhone, operationType: 3 }).then(res => {
     let type = res.data.status ? 'success' : 'error'
     if (res.data.status) {
       let that = this
@@ -478,6 +478,7 @@ function subHandle (formName) {
   this.$refs[formName].validate((valid) => {
     if (valid) {
       let param = {
+        contactPhone: this.getForm.contactPhone,
         custId: this.getForm.custId,
         verificationCode: this.getForm.verificationCode,
         custPassword: this.getForm.custPassword,

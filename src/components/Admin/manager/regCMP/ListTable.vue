@@ -3,6 +3,7 @@
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-info>
     <dialog-cs :visible-p.sync="dialogTransferVisible" :details-p="details"></dialog-cs>
     <dialog-cm :visible-p.sync="dialogRejectVisible" :details-p="details"></dialog-cm>
+    <dialog-stop :visible-p.sync="dialogStopVisible" :details-p="details"></dialog-stop>
     <section>
     <el-table :data="comDatas" v-loading.fullscreen="dataLoading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)" border  :summary-method="sumHandle([5,6])" sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
@@ -13,21 +14,25 @@
       </el-table-column>
       <el-table-column align="center" label="公司法人代表" prop="legalPerson" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="公司成立日期" prop="establishDate" :formatter="dateFormat">
-      </el-table-column>
-      <el-table-column align="right" header-align="center" label="公司注册资本" prop="registeredCapital" :formatter="regexNum">
-      </el-table-column>
-      <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
-      </el-table-column>
+      <!-- <el-table-column align="center" label="公司成立日期" prop="establishDate" :formatter="dateFormat">
+      </el-table-column> -->
+      <!-- <el-table-column align="right" header-align="center" label="公司注册资本" prop="registeredCapital" :formatter="regexNum">
+      </el-table-column> -->
+      <!-- <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
+      </el-table-column> -->
       <el-table-column align="left" header-align="center"  label="公司状态" prop="status" width="100" >
         <template slot-scope="scope">
           <span class="iconfont icon-yuan tag-item-icon" :class="[Number(scope.row.status) === 1 ? 'status-success' : Number(scope.row.status) === 0 ? 'status-info': 'status-danger' ]"></span>
           <span class="tag-text">{{scope.row.status | statusFormat}}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="公司地址" prop="companyAddress" :formatter="nullDealWith">
-      </el-table-column>
+      <!-- <el-table-column align="center" label="公司地址" prop="companyAddress" :formatter="nullDealWith">
+      </el-table-column> -->
       <el-table-column align="center" label="客户经理" prop="customerManagerName" :formatter="nullDealWith">
+      </el-table-column>
+      <el-table-column align="center" label="同步状态" prop="taskSynStatusName" :formatter="nullDealWith">
+      </el-table-column>
+      <el-table-column align="center" label="同步结束时间" prop="taskSynEndDate" :formatter="dateFormat">
       </el-table-column>
       <el-table-column align="left" header-align="center" label="操作" width='270px' fixed="right" :resizable="false">
         <template slot-scope="scope">
@@ -59,7 +64,8 @@ export default {
   data () {
     return {
       operateArr: [{ key: 'accept', name: '分拨', isLoading: false }, { key: 'reject', name: '拒绝', isLoading: false }],
-      dialogRejectVisible: false
+      dialogRejectVisible: false,
+      dialogStopVisible: false // 停用弹窗
     }
   },
   mixins: [ListMinxIn, Common, Dialog],
@@ -69,7 +75,9 @@ export default {
     'dialog-cs': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/Admin/manager/regCMP/DialogConSignSet'),
     'dialog-cm': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/Admin/manager/regCMP/DialogCustManagerSet')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Admin/manager/regCMP/DialogCustManagerSet'),
+    'dialog-stop': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Admin/manager/regCMP/DialogStop')
   },
   computed: {
     comDatas: function () {
@@ -129,21 +137,25 @@ function handleInfo (idx, val) {
   })
 }
 // 停用
+// function handleStop (idx, val) {
+//   this.$confirm(`确认停用${val.companyName}?`, `提示`, {
+//     confirmButtonText: '确定',
+//     cancelButtonText: '取消',
+//     type: 'warning',
+//     center: true
+//   }).then(() => {
+//     this.postResultFresh('/sysRegisteredCompanyManager/disableRegisteredCompany.do', { custId: val.custId })
+//   }).catch(() => {
+//     this.$message({
+//       showClose: true,
+//       type: 'info',
+//       message: '操作已取消'
+//     })
+//   })
+// }
 function handleStop (idx, val) {
-  this.$confirm(`确认停用${val.companyName}?`, `提示`, {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-    center: true
-  }).then(() => {
-    this.postResultFresh('/sysRegisteredCompanyManager/disableRegisteredCompany.do', { custId: val.custId })
-  }).catch(() => {
-    this.$message({
-      showClose: true,
-      type: 'info',
-      message: '操作已取消'
-    })
-  })
+  this.details = val
+  this.dialogStopVisible = true
 }
 // 启用
 function handleStart (idx, val) {

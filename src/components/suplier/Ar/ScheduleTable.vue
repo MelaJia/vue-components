@@ -132,12 +132,31 @@ export default {
       this.$emit('refresh')
     },
     // 合同签署
+    // confirmContract (idx, val) {
+    //   val.infoLoading = true
+    //   this.getLoanDetail('/myAr/queryAr.do', { masterChainId: val.masterChainId }).then(res => {
+    //     this.details = res
+    //     this.dialogContractVisible = true
+    //     val.infoLoading = false
+    //   })
+    // }
     confirmContract (idx, val) {
-      val.infoLoading = true
-      this.getLoanDetail('/myAr/queryAr.do', { masterChainId: val.masterChainId }).then(res => {
-        this.details = res
-        this.dialogContractVisible = true
-        val.infoLoading = false
+      this.$alert('该协议内容由保理方xxx拟定，不由本平台提供，确认签署前需自行对协议内容进行审核', '提示', {
+        confirmButtonText: '我知道了',
+        center: true,
+        type: 'warning'
+      }).then(() => {
+        // val.infoLoading = true
+        this.getLoanDetail('/myAr/queryAr.do', { masterChainId: val.masterChainId }).then(res => {
+          this.details = res
+          this.dialogContractVisible = true
+          val.infoLoading = false
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消操作'
+        })
       })
     }
   }

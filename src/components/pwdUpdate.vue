@@ -1,7 +1,7 @@
 <template>
   <el-dialog :class="'up-pass-style'" :visible.sync="visibleP" :before-close="handleClose">
     <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-      <div class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~32位的字符串.</div>
+      <div class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~20位的字符串.</div>
         <el-form-item label="注册手机号">
               <el-select v-model="phone" placeholder="请选择验证的手机号" size="small">
                 <el-option

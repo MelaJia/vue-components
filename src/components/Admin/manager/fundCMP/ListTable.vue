@@ -2,6 +2,7 @@
   <div>
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-info>
     <dialog-cs :visible-p.sync="dialogTransferVisible" :details-p="details"></dialog-cs>
+    <dialog-stop :visible-p.sync="dialogStopVisible" :details-p="details"></dialog-stop>
     <section>
     <el-table :data="comDatas" v-loading.fullscreen="dataLoading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)" border  :summary-method="sumHandle([5,6])" sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
@@ -12,10 +13,10 @@
       </el-table-column>
       <el-table-column align="center" label="公司法人代表" prop="legalPerson" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="center" label="公司成立日期" prop="establishDate" :formatter="dateFormat">
-      </el-table-column>
-      <el-table-column align="right" header-align="center" label="公司注册资本" prop="registeredCapital" :formatter="regexNum" >
-      </el-table-column>
+      <!-- <el-table-column align="center" label="公司成立日期" prop="establishDate" :formatter="dateFormat">
+      </el-table-column> -->
+      <!-- <el-table-column align="right" header-align="center" label="公司注册资本" prop="registeredCapital" :formatter="regexNum" >
+      </el-table-column> -->
       <el-table-column align="left" header-align="center" label="公司状态" prop="status" width="100">
         <template slot-scope="scope">
           <span class="iconfont icon-yuan tag-item-icon" :class="[Number(scope.row.status) === 1 ? 'status-success' : Number(scope.row.status) === 0 ? 'status-info': 'status-danger' ]"></span>
@@ -24,8 +25,8 @@
       </el-table-column>
        <el-table-column align="center" label="合同签署方式" prop="contractSignName" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="公司地址" prop="companyAddress" :formatter="nullDealWith">
-      </el-table-column>
+      <!-- <el-table-column align="center" label="公司地址" prop="companyAddress" :formatter="nullDealWith">
+      </el-table-column> -->
       <el-table-column align="left" header-align="center" label="操作" width='210px' fixed="right" :resizable="false">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
@@ -54,7 +55,8 @@ export default {
   props: ['dataLoading', 'dataTable'],
   data () {
     return {
-      operateArr: [{ key: 'accept', name: '分拨', isLoading: false }, { key: 'reject', name: '拒绝', isLoading: false }]
+      operateArr: [{ key: 'accept', name: '分拨', isLoading: false }, { key: 'reject', name: '拒绝', isLoading: false }],
+      dialogStopVisible: false // 停用弹窗
     }
   },
   mixins: [ListMinxIn, Common, Dialog],
@@ -62,7 +64,9 @@ export default {
     'dialog-info': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/Admin/manager/fundCMP/DialogInfo'),
     'dialog-cs': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/Admin/manager/fundCMP/DialogConSignSet')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Admin/manager/fundCMP/DialogConSignSet'),
+    'dialog-stop': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Admin/manager/fundCMP/DialogStop')
   },
   computed: {
     comDatas: function () {
@@ -117,21 +121,25 @@ function handleInfo (idx, val) {
   })
 }
 // 停用
+// function handleStop (idx, val) {
+//   this.$confirm(`确认停用${val.companyName}?`, `提示`, {
+//     confirmButtonText: '确定',
+//     cancelButtonText: '取消',
+//     type: 'warning',
+//     center: true
+//   }).then(() => {
+//     this.postResultFresh('/sysCompanyUserManager/disableFactoringCompany.do', { custId: val.custId })
+//   }).catch(() => {
+//     this.$message({
+//       showClose: true,
+//       type: 'info',
+//       message: '操作已取消'
+//     })
+//   })
+// }
 function handleStop (idx, val) {
-  this.$confirm(`确认停用${val.companyName}?`, `提示`, {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-    center: true
-  }).then(() => {
-    this.postResultFresh('/sysCompanyUserManager/disableFactoringCompany.do', { custId: val.custId })
-  }).catch(() => {
-    this.$message({
-      showClose: true,
-      type: 'info',
-      message: '操作已取消'
-    })
-  })
+  this.details = val
+  this.dialogStopVisible = true
 }
 // 启用
 function handleStart (idx, val) {
