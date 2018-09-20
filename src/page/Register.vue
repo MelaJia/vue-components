@@ -39,14 +39,14 @@
               <el-col :span="8">
                 <el-form-item label="登陆密码: " prop="custPassword">
                   <el-input :type="pShow?'text':'password'" auto-complete="new-password" v-model="getForm.custPassword" @blur="passBlur" @focus="passFocus">
-                    <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pShow')"></a>
+                    <a slot="suffix" style="cursor: pointer;" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="pShow=true" @mouseup="pShow=false" @mousemove.stop="pShow=false"></a>
                   </el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="确认密码" prop="checkPass">
                   <el-input :type="pcShow?'text':'password'" v-model="getForm.checkPass" auto-complete="off">
-                    <a slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @click="handlePShowChange('pcShow')"></a>
+                    <a slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="pcShow=true" @mouseup="pcShow=false" @mousemove.stop="pcShow=false"></a>
                   </el-input>
                 </el-form-item>
               </el-col>
