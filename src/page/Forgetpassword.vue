@@ -23,7 +23,7 @@
         </el-steps>
       </header>
       <main class="section">
-        <section class="reg-step-1" v-show="step==0">
+        <section class="reg-step-1" v-show="step==0" style="margin-top:20px;">
           <el-form ref="form-1" :model="getForm" :rules="rulesOne" label-width="130px">
             <el-row>
               <el-col :span="12" :offset="6">
@@ -47,7 +47,7 @@
             </el-row>
           </el-form>
         </section>
-        <section class="reg-step-2" v-show="step==1">
+        <section class="reg-step-2" v-show="step==1" style="margin-top:20px;">
           <el-form ref="form-2" :model="getForm" :rules="rulesTwo" label-width="150px">
             <el-row>
               <el-col :span="24">
@@ -65,7 +65,7 @@
               <el-col :span="12" :offset="6">
                 <el-form-item label="新密码: " prop="custPassword">
                   <el-input :type="pShow?'text':'password'" auto-complete="new-password" v-model.trim="getForm.custPassword" @blur="passBlur" @focus="passFocus">
-                    <a v-show = "ieHide" slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="downN($event)"></a>
+                    <a v-show="ieHide" slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="down($event, 'pShow')"></a>
                   </el-input>
                 </el-form-item>
               </el-col>
@@ -74,14 +74,14 @@
               <el-col :span="12" :offset="6">
                 <el-form-item label="密码确认: " prop="confirmPassword">
                   <el-input :type="pcShow?'text':'password'" v-model.trim="getForm.confirmPassword" auto-complete="off">
-                    <a v-show="ieHide" slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="downC($event)"></a>
+                    <a v-show="ieHide" slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="down($event, 'pcShow')"></a>
                   </el-input>
                 </el-form-item>
               </el-col>
             </el-row>
           </el-form>
         </section>
-        <section class="reg-step-3" v-show="step==2">
+        <section class="reg-step-3" v-show="step==2" style="margin-top:20px;">
           <el-form ref="form-3" :model="getForm" label-width="150px">
             <el-row>
               <el-col :span="14" :offset="5">
@@ -328,6 +328,9 @@ export default {
       }
     }
   },
+  created () {
+    this.myBrowser('ieHide')
+  },
   methods: {
     // 上一页
     prevHandle: prevHandle,
@@ -344,9 +347,8 @@ export default {
     sendMessage: sendMessage,
     // 校验手机号
     checkPhone: checkPhone,
-    downN: downN,
-    downC: downC,
-    // myBrowser: myBrowser,
+    down: down,
+    myBrowser: myBrowser,
     // 验证码失去焦点调用接口
     // verifyCode: verifyCode,
     // 验证手机号是否存在
@@ -530,58 +532,72 @@ function subHandle (formName) {
 var x = 0
 var y = 0
 // 新密码鼠标按下事件
-function downN (e) {
+function down (e, attr) {
   x = e.clientX
   y = e.clientY
-  this.pShow = true
+  this[attr] = true
   document.onmousemove = (e) => {
     var l = e.clientX - x
     var t = e.clientY - y
     if (l > 5 || l < -5 || t > 5 || t < -5) {
-      this.pShow = false
+      this[attr] = false
     }
   }
   document.onmouseup = (e) => {
     document.onmousemove = null
-    this.pShow = false
-  }
-}
-// 确认密码鼠标按下事件
-function downC (e) {
-  x = e.clientX
-  y = e.clientY
-  this.pcShow = true
-  document.onmousemove = (e) => {
-    var l = e.clientX - x
-    var t = e.clientY - y
-    if (l > 5 || l < -5 || t > 5 || t < -5) {
-      this.pcShow = false
-    }
-  }
-  document.onmouseup = (e) => {
-    document.onmousemove = null
-    this.pcShow = false
+    this[attr] = false
   }
 }
 // 判断IE
-// function myBrowser () {
-//   var userAgent = navigator.userAgent
-//   var isOpera = userAgent.indexOf('Opera') > -1
-//   if (isOpera) {
-//     return 'Opera'
-//   }
-//   if (userAgent.indexOf('Firefox') > -1) {
-//     return 'FF'
-//   }
-//   if (userAgent.indexOf('Chrome') > -1) {
-//     return 'Chrome'
-//   }
-//   if (userAgent.indexOf('Safari') > -1) {
-//     return 'Safari'
-//   }
-//   if (userAgent.indexOf('compatible') > -1 && userAgent.indexOf('MSIE') > -1 && !isOpera) {
-//     this.ieHide = false
-//     return 'IE'
-//   }
-// }
+function myBrowser (attr) {
+  var userAgent = navigator.userAgent // 取得浏览器的userAgent字符串
+  var isOpera = userAgent.indexOf('Opera') > -1 // 判断是否Opera浏览器
+  var isIE = userAgent.indexOf('compatible') > -1 && userAgent.indexOf('MSIE') > -1 && !isOpera // 判断是否IE浏览器
+  var isEdge = userAgent.indexOf('Windows NT 6.1; Trident/7.0;') > -1 && !isIE // 判断是否IE的Edge浏览器
+  var isFF = userAgent.indexOf('Firefox') > -1 // 判断是否Firefox浏览器
+  var isSafari = userAgent.indexOf('Safari') > -1 && userAgent.indexOf('Chrome') === -1 // 判断是否Safari浏览器
+  var isChrome = userAgent.indexOf('Chrome') > -1 && userAgent.indexOf('Safari') > -1 // 判断Chrome浏览器
+  var compares = (s) => { return (userAgent.indexOf(s) >= 0) }
+  var ie11 = (() => { return ('ActiveXObject' in window) })()
+  if (isIE) {
+    var reIE = new RegExp('MSIE (\\d+\\.\\d+);')
+    reIE.test(userAgent)
+    var fIEVersion = parseFloat(RegExp['$1'])
+    console.log(fIEVersion)
+    if (fIEVersion === 7) {
+      this[attr] = false
+      return 'IE7'
+    } else if (fIEVersion === 8) {
+      this[attr] = false
+      return 'IE8'
+    } else if (fIEVersion === 9) {
+      this[attr] = false
+      return 'IE9'
+    } else if (fIEVersion === 10) {
+      this[attr] = false
+      return 'IE10'
+    } else {
+      return '0'
+    } // IE版本过低
+  }
+  if (compares('MSIE') || ie11) {
+    this[attr] = false
+    return 'ie11'
+  }
+  if (isFF) {
+    return 'FF'
+  }
+  if (isOpera) {
+    return 'Opera'
+  }
+  if (isSafari) {
+    return 'Safari'
+  }
+  if (isChrome) {
+    return 'Chrome'
+  }
+  if (isEdge) {
+    return 'Edge'
+  }
+}
 </script>

@@ -11,7 +11,7 @@
         <el-row>
           <el-col :span="16" :offset="4" class="flex">
             <el-form-item label="停用理由:" prop="stopReason">
-              <el-input type="textarea" v-model.trim="form.stopReason"></el-input>
+              <el-input type="textarea" v-model="form.stopReason" @change="deleteText"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -77,7 +77,10 @@ export default {
   },
   methods: {
     handleSubmit: debounce(submit, 1000, true),
-    init: Init
+    init: Init,
+    deleteText () {
+      this.form.stopReason = this.form.stopReason.replace(/^\s+|\s+$/g, '')
+    }
   }
 }
 // 提交操作

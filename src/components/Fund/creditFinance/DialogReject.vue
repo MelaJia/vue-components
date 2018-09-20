@@ -11,7 +11,7 @@
         <el-row>
           <el-col :span="16" :offset="4" class="flex">
             <el-form-item label="拒绝理由:" prop="rejectedReason">
-              <el-input type="textarea" v-model.trim="form.rejectedReason"></el-input>
+              <el-input type="textarea" v-model="form.rejectedReason" @change="deleteText"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -59,6 +59,13 @@ export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, Common],
   data () {
+    // let checkText = (rule, value, callback) => {
+    //   var re = /^[^/s]*$/
+    //   if (!re.test(value)) {
+    //     console.log(1111)
+    //     callback()
+    //   }
+    // }
     return {
       form: {
         rejectedReason: '' // 拒绝理由
@@ -66,6 +73,7 @@ export default {
       rules: {
         rejectedReason: [
           { required: true, message: '拒绝理由不能为空', trigger: 'blur' }
+          // { validator: checks, trigger: 'blur' }
         ]
       }
     }
@@ -77,7 +85,11 @@ export default {
   },
   methods: {
     handleSubmit: debounce(submit, 1000, true),
-    init: Init
+    init: Init,
+    deleteText () {
+      console.log(111)
+      this.form.rejectedReason = this.form.rejectedReason.replace(/^\s+|\s+$/g, '')
+    }
   }
 }
 // 提交操作
