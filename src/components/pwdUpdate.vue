@@ -15,17 +15,17 @@
         </el-form-item>
         <el-form-item label="原密码" prop="originalCustPassword">
           <el-input :type="opShow?'text':'password'" v-model.trim="ruleForm2.originalCustPassword" auto-complete="new-password">
-                    <a slot="suffix" :class="`iconfont ${opShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="opShow=true" @mouseup="opShow=false" @mousemove.stop="opShow=false"></a>
+            <eye slot="suffix" :item-show.sync="opShow"></eye>
           </el-input>
         </el-form-item>
         <el-form-item label="新密码" prop="custPassword">
           <el-input :type="pShow?'text':'password'" v-model.trim="ruleForm2.custPassword" @blur="passBlur" @focus="passFocus" auto-complete="off">
-                    <a slot="suffix" :class="`iconfont ${pShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="pShow=true" @mouseup="pShow=false" @mousemove.stop="pShow=false"></a>
+            <eye slot="suffix" :item-show.sync="pShow"></eye>
           </el-input>
         </el-form-item>
         <el-form-item label="确认密码" prop="confirmPassword">
           <el-input :type="pcShow?'text':'password'" v-model.trim="ruleForm2.confirmPassword" auto-complete="off">
-                    <a slot="suffix" :class="`iconfont ${pcShow?'icon-yanjing_xianshi':'icon-yanjing_yincang'}`" @mousedown="pcShow=true" @mouseup="pcShow=false" @mousemove.stop="pcShow=false"></a>
+            <eye slot="suffix" :item-show.sync="pcShow"></eye>
           </el-input>
         </el-form-item>
         <el-form-item>
@@ -68,10 +68,14 @@ footer {
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import { debounce, postDataBase, erroShow } from '@/util/util' // 防抖函数
 import * as types from '@/store/types' // 存储类型
+import Eye from '@/components/Items/eye'
 /* 合同确认 */
 export default {
   props: ['visibleP'],
   mixins: [DialogClose],
+  components: {
+    Eye
+  },
   watch: {
     visibleP: function () {
       this.init()
@@ -90,7 +94,7 @@ export default {
         callback(new Error(`验证码不能为空`))
       } else {
         this.axios.post('/cust/validVerificationCode.do', {
-          contactPhone: this.phone,
+          contactPhone: this.getContactPhone,
           verificationCode: value
         }).then(res => {
           if (res.data.status) {
