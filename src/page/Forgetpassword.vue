@@ -96,7 +96,7 @@
           <el-col :span="6" :offset="10">
             <el-button v-if="step!=0&&step<2" type="primary" size="mini" @click="prevHandle()">上一步</el-button>
             <el-button v-if="step<1" type="primary" size="mini" @click="nextHandle(`form-${step+1}`)">下一步</el-button>
-            <el-button v-if="step==1" type="primary" size="mini" @click="subHandle('form-3')" style="width:68px;">提 交</el-button>
+            <el-button v-if="step==1" type="primary" size="mini" @click="subHandle('form-2')" style="width:68px;">提 交</el-button>
             <el-button v-if="step==2" type="primary" size="mini" @click="goLogin">完成</el-button>
           </el-col>
         </el-row>
@@ -246,6 +246,8 @@ export default {
     let validatePass = (rule, value, callback) => {
       if (!value) {
         callback(new Error(`新密码不能为空`))
+      } else if (value.length < 8 || value.length > 20) {
+        callback(new Error('请输入8-20位的密码'))
       } else {
         this.axios.post('/cust/check', {
           key: 'custPassword',
@@ -273,6 +275,8 @@ export default {
       let _this = this
       if (value === '') {
         callback(new Error('请再次输入密码'))
+      } else if (value.length < 8 || value.length > 20) {
+        callback(new Error('请输入8-20位的密码'))
       } else if (value !== _this.getForm.custPassword) {
         callback(new Error('两次输入密码不一致!'))
       } else {
