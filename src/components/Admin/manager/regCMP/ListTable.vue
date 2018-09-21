@@ -179,8 +179,8 @@ function handleUpdate (idx, val) {
   // 设置请求数据
   let param = {
     custId: val.custId,
-    vendorCodes: val.vendorCodes
-
+    vendorCodes: val.vendorCodes,
+    status: val.status
   }
   this.$confirm(`点击确认,将同步更新${val.companyName}的AR资料,订单资料!`, `提示`, {
     confirmButtonText: '确定',
