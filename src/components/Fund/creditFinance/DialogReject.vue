@@ -87,7 +87,6 @@ export default {
     handleSubmit: debounce(submit, 1000, true),
     init: Init,
     deleteText () {
-      console.log(111)
       this.form.rejectedReason = this.form.rejectedReason.replace(/^\s+|\s+$/g, '')
     }
   }

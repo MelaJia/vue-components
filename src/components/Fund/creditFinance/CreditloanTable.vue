@@ -223,7 +223,7 @@ function handleConfirm (idx, val) {
       }
     })
   } else if (new Date(val.repayDate).Format('yyyy-MM-dd') <= new Date().Format('yyyy-MM-dd')) {
-    this.$alert(`还款日期小于当前日期，不能发起确认!`, '提示', {
+    this.$alert(`抱歉，还款日期已过，无法进行此操作，请取消或拒绝该单`, '提示', {
       confirmButtonText: '确定',
       callback: action => {
       }
