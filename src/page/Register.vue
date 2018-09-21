@@ -101,8 +101,8 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="联系人电话: " prop="contactPhone">
-                  <el-input v-model.trim="getForm.contactPhone"></el-input>
+                <el-form-item label="联系人电话:" prop="contactPhone">
+                  <el-input v-model.trim="getForm.contactPhone" placeholder="系统以此号码为准"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
