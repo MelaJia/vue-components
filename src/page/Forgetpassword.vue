@@ -51,7 +51,7 @@
           <el-form ref="form-2" :model="getForm" :rules="rulesTwo" label-width="150px">
             <el-row>
               <el-col :span="24">
-                <div v-show="isPassShow" class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~20位的字符串.</div>
+                <div class="text-error">提示：密码必须是由数字、大写字母、小写字母、特殊符号(包括!&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[]^_&#x60;{|}~)四者组成,且长度为8~20位的字符串.</div>
               </el-col>
             </el-row>
             <el-row>
@@ -200,7 +200,7 @@
 .text-error {
   color: #f56c6c;
   font-size: 12px;
-  line-height: 1;
+  line-height: 1.5;
   padding: 4px;
   text-align: center;
 }
