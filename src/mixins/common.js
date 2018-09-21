@@ -86,10 +86,10 @@ export default {
     },
     /*
     *发送post请求
-    *默认不显示加载框
+    *默认不显示加载框 不自动关闭加载框
     */
-    async post (url, param, loading = false) {
-      let res = await postDataBase.call(this, url, param, loading)
+    async post (url, param, loading = false, auto = false) {
+      let res = await postDataBase.call(this, url, param, loading, auto)
       return res
     },
     /**

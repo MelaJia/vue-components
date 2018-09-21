@@ -541,6 +541,7 @@ export const getDataBase = function (url, param, showLoading) {
  * @param {str} url 请求地址
  * @param {obj} param 请求参数
  * @param {boolean} showLoading 是否显示加载图标
+ * @param {boolean} auto 是否自动关闭加载图标
  * @example postDataBase.call(this, url, param, true).then(res=>{console.log(res)})
  */
 export const postDataBase = function (url, param, showLoading, auto) {

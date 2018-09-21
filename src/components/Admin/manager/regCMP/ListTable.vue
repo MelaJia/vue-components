@@ -49,7 +49,7 @@
 </template>
 <style lang="scss" scoped>
 @import "@/assets/css/_status.scss";
-.tag-item-icon{
+.tag-item-icon {
   margin-left: 15px;
 }
 </style>
@@ -58,7 +58,8 @@
 import ListMinxIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
-import { debounce, getDataBase } from '@/util/util' // 首字母大写 防抖函数
+import { debounce, getDataBase, erroShow } from '@/util/util' // 首字母大写 防抖函数
+import { loadingConf } from '@/config/common' // 获取加载配置
 export default {
   props: ['dataLoading', 'dataTable'],
   data () {
@@ -195,8 +196,20 @@ function handleUpdate (idx, val) {
     cancelButtonText: '取消',
     type: 'warning',
     center: true
-  }).then(() => {
-    this.postResultFresh('/sysRegisteredCompanyManager/sycCompanyAR.do', param)
+  }).then(async () => {
+    // 1.显示加载图标
+    const loading = this.$loading(loadingConf.sub())
+    try {
+      let res = await this.axios.post('/sysRegisteredCompanyManager/sycCompanyAR.do', param)
+      let type = res.data.status ? 'success' : 'error'
+      this.$message({
+        message: res.data.msg,
+        type: type
+      })
+      this.fresh() // 刷新数据
+    } catch (err) {
+      erroShow.call(this, err, loading)
+    }
   }).catch(() => {
     this.$message({
       showClose: true,
