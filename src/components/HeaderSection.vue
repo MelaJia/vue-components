@@ -11,7 +11,7 @@
         <el-dropdown @command="handleCommand">
           <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}<img src="@/assets/img/juxin_18.png" alt=""></span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="pwdChange">密码修改</el-dropdown-item>
+            <el-dropdown-item v-if="this.$store.state.user.roles" command="pwdChange">密码修改</el-dropdown-item>
             <el-dropdown-item command="logout">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -86,6 +86,7 @@ export default {
       if (command === 'logout') {
         this.logout()
       } else {
+        console.log('单击了修改密码')
         this.pwdChange()
       }
     },

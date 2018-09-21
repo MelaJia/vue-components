@@ -5,7 +5,7 @@
     <el-container>
       <el-header height="84px" style="position: fixed;width: 100%;z-index: 9;top:0px;">
         <header>
-          <header-section></header-section>
+          <header-section @pwd-chage="pwdChange"></header-section>
 
         </header>
       </el-header>

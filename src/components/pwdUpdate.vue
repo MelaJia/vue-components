@@ -224,7 +224,7 @@ function submitForm (formName) {
     if (valid) {
       let param = Object.assign({}, this.ruleForm2, {contactPhone: this.getContactPhone})
       // 提交数据
-      postDataBase.call(this, '/cust/updatePassword.do', param, true).then(res => {
+      postDataBase.call(this, '/cust/updatePassword.do', param, true, true).then(res => {
         // 密码修改成功 登出
         if (res.data.status) {
           this.logout()
