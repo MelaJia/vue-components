@@ -104,7 +104,7 @@ export default {
       if (date === undefined || date === null || date === '') {
         return '- -'
       }
-      return new Date(date).Format('yyyy-MM-dd hh:mm:ss')
+      return new Date(date).Format('yyyy-MM-dd HH:mm:ss')
     },
     // 详情
     handleInfo: debounce(handleInfo, 1000, true),
