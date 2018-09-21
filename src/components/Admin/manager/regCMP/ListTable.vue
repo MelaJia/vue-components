@@ -32,7 +32,7 @@
       </el-table-column>
       <el-table-column align="center" label="同步状态" prop="taskSynStatusName" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="最后同步时间" prop="taskSynEndDate" :formatter="dateFormat">
+      <el-table-column align="center" label="最后同步时间" prop="taskSynEndDate" :formatter="datetimeFormat">
       </el-table-column>
       <el-table-column align="left" header-align="center" label="操作" width='270px' fixed="right" :resizable="false">
         <template slot-scope="scope">
@@ -97,6 +97,14 @@ export default {
     // 签核方式格式化
     signtypeFormat: function (row, column) {
       return row[column.property] === 1 ? '线下上传' : row[column.property] === 2 ? '电子签章' : '未知'
+    },
+    // 时间格式化
+    datetimeFormat: function (row, column) {
+      var date = row[column.property]
+      if (date === undefined || date === null || date === '') {
+        return '- -'
+      }
+      return new Date(date).Format('yyyy-MM-dd hh:mm:ss')
     },
     // 详情
     handleInfo: debounce(handleInfo, 1000, true),
