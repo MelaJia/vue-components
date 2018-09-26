@@ -7,7 +7,7 @@
       </span>
     </header>
     <section>
-      <el-form ref="form" :model="form" label-width="150px" status-icon :rules="rules" label-position="right">
+      <el-form ref="form" :model="form" label-width="170px" status-icon :rules="rules" label-position="right">
         <el-row>
           <el-col :span="11">
             <el-form-item label="放款比例(%):" prop="loanPer">
@@ -72,21 +72,31 @@ export default {
           { validator: checkRate, trigger: 'blur' }
         ],
         fineGraceDays: [
+          { required: true, message: '请输入宽容天数', trigger: 'blur' },
           { validator: checkNumber, trigger: 'blur' }
         ],
         interestRate: [
+          { required: true, message: '请输入年利率', trigger: 'blur' },
           { validator: checkRate, trigger: 'blur' }
         ],
         serviceFeeRate: [
+          { required: true, message: '请输入服务费率', trigger: 'blur' },
           { validator: checkRate, trigger: 'blur' }
         ],
         fineGraceDayRate: [
+          { required: true, message: '请输入逾期利率', trigger: 'blur' },
           { validator: checkRate, trigger: 'blur' }
         ],
         prepaymentDeductRate: [
+          { required: true, message: '请输入提前还款手续费率', trigger: 'blur' },
           { validator: checkNumber, trigger: 'blur' }
         ]
       }
+    }
+  },
+  watch: {
+    visibleP: function () {
+      this.init()
     }
   },
   computed: {
@@ -95,7 +105,9 @@ export default {
     }
   },
   methods: {
-    subHandle: debounce(submit, 1000, true)
+    subHandle: debounce(submit, 1000, true),
+    // 置空方法
+    init: Init
   }
 }
 
@@ -174,5 +186,10 @@ var checkNumber = (rule, value, callback) => {
       }
     }
   }, 1000)
+}
+function Init () {
+  if (this.$refs.form) {
+    this.$refs.form.resetFields()
+  }
 }
 </script>

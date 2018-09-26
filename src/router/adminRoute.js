@@ -45,6 +45,16 @@ const routes = [
       }
     },
     {
+      path: 'rolemanage',
+      name: 'rolemanage',
+      component: () =>
+        import(/* webpackChunkName: 'AR' */ '@/page/admin/set/RoleManage'),
+      meta: {
+        title: '角色管理', // 名称
+        requireAuth: true // 需要登录验证
+      }
+    },
+    {
       path: 'ordersearch',
       name: 'ordersearchAdminAdmin',
       component: () =>

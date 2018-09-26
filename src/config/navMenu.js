@@ -394,6 +394,20 @@ const navs = {
     },
     {
       idx: '2',
+      text: '设置',
+      disabled: false,
+      lClass: 'start-line',
+      hClass: 'header-circle bg-icon-1',
+      childrens: [{
+        idx: 'rolemanage',
+        text: '角色管理',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      }]
+    },
+    {
+      idx: '3',
       text: '业务处理',
       disabled: false,
       lClass: 'start-line',
@@ -407,7 +421,7 @@ const navs = {
       }]
     },
     {
-      idx: '3',
+      idx: '4',
       text: '辅助查询',
       disabled: true,
       lClass: 'line',
@@ -462,7 +476,7 @@ const navs = {
         hClass: 'circle'
       }]
     }, {
-      idx: '4',
+      idx: '5',
       text: '区块链',
       disabled: false,
       lClass: 'start-line',

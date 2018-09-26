@@ -242,7 +242,7 @@ function handleContract (idx, val) {
       console.log(res)
       // 标题赋值
       res.masterChainId = val.loanId
-      this.detailsContract = res
+      this.detailsContract = Object.assign(res, {factoringCustName: val.factoringCustName})
       this.dialogContractVisible = true
     }
   })

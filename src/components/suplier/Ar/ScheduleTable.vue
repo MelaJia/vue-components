@@ -98,7 +98,7 @@ export default {
     'dialog-schedule': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogSchedule'),
     'dialog-contract': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogContract')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/DialogContract')
   },
   data () {
     return {
@@ -150,7 +150,7 @@ export default {
           console.log(res)
           // 标题赋值
           // res.masterChainId = val.loanId
-          this.details = res
+          this.details = Object.assign(res, {factoringCustName: val.factoringCustName})
           this.dialogContractVisible = true
         }
       })

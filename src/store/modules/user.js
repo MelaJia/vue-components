@@ -7,8 +7,9 @@ export default {
   state: {
     token: null,
     roles: null,
-    userinfos: null
+    userinfos: null,
     // scheduleNumber: 0
+    roleBelong: [] // 角色所属
   },
   mutations: {
     [types.LOGIN]: (state, data) => {
@@ -48,9 +49,12 @@ export default {
         name: 'userinfos',
         content: state.userinfos
       })
-    }
+    },
     // getScheduleNumber: (state, data) => {
     //   state.scheduleNumber += data
     // }
+    getRoleBelong: (state, data) => {
+      state.roleBelong = data
+    }
   }
 }
