@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="body">
-       <el-card class="box-card search-box-card">
+       <el-card class="box-card search-box-card" :class="{'hideBox':!searchShow}">
         <div slot="header" class="clearfix" style="position:relative">
           <i class="el-icon-search"></i>
           <span>查询条件</span>

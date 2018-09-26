@@ -6,12 +6,22 @@
         {{getTitle}}
       </span>
     </header>
-    <section>
-      <el-form ref="form" :model="form" :rules="rules" label-width="130px">
+    <section class="layout form">
+      <el-form ref="form" :model="form" :rules="rules" size="small" label-width="140px">
         <el-row>
           <el-col :span="16" :offset="4" class="flex">
-            <el-form-item label="拒绝理由:" prop="rejectedReason">
-              <el-input type="textarea" v-model="form.rejectedReason" @change="deleteText"></el-input>
+            <el-form-item label="角色名:" prop="roleName">
+              <el-input v-model="form.roleName" placeholder="请输入角色名" @change="deleteText"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="16" :offset="4" class="flex">
+            <el-form-item label="角色所属:" prop="roleType">
+              <el-select v-model="form.roleType" placeholder="请选择">
+                <el-option v-for="(item, index) in this.$store.getters.roleBelong" :key="index" :label="item.roleTypeName"
+                  :value="item.roleType"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -24,6 +34,12 @@
   </el-dialog>
 </template>
 <style scoped lang="scss">
+.el-input.el-input--small{
+  width:240px;
+}
+.el-select.el-select--small{
+  width:240px;
+}
 .layout.form {
   margin-top: 10px;
   > .el-row {
@@ -33,7 +49,7 @@
 .layout.form .flex {
   display: flex;
   > label {
-    width: 80px;
+    width: 120px;
     height: 40px;
     line-height: 40px;
   }
@@ -53,81 +69,84 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
-import { debounce, erroShow } from '@/util/util' // 防抖函数
+import { debounce } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, Common],
   data () {
-    // let checkText = (rule, value, callback) => {
-    //   var re = /^[^/s]*$/
-    //   if (!re.test(value)) {
-    //     console.log(1111)
-    //     callback()
-    //   }
-    // }
     return {
       form: {
-        rejectedReason: '' // 拒绝理由
+        roleName: '',
+        roleType: ''
       },
       rules: {
-        rejectedReason: [
-          { required: true, message: '拒绝理由不能为空', trigger: 'blur' }
-          // { validator: checks, trigger: 'blur' }
+        roleName: [
+          { required: true, message: '角色名不能为空', trigger: 'blur' }
+        ],
+        roleType: [
+          {required: true, message: '角色所属不能为空', trigger: 'blur'}
         ]
       }
     }
   },
   computed: {
     getTitle () {
-      return `融资编号为${this.detailsP.loanId}的贴现申请确认拒绝`
+      return '角色新增'
     }
+  },
+  mounted () {
   },
   methods: {
     handleSubmit: debounce(submit, 1000, true),
     init: Init,
-    deleteText (val) {
-      this.form.rejectedReason = this.form.rejectedReason.replace(/^\s+|\s+$/g, '')
-      console.log(val)
+    deleteText () {
+      this.form.roleName = this.form.roleName.replace(/^\s+|\s+$/g, '')
     }
   }
 }
-// 提交操作
+// 确认提交
 function submit () {
   this.$refs.form.validate((valid) => {
     if (valid) {
-      let param = {
-        loanId: this.detailsP.loanId, // 融资Id
-        rejectReason: this.form.rejectedReason // 拒绝理由
+      const param = {
+        roleName: this.form.roleName,
+        roleType: this.form.roleType
       }
       // 显示加载图标
       const loading = this.$loading(loadingConf.sub())
       // 发送数据
-      this.axios.post('/factoringCreditLoan/rejectLoan.do', param).then(res => {
+      this.axios.post('/roleAdmin/addRole.do', param).then(res => {
+        console.log(res)
         let type = res.data.status ? 'success' : 'error'
         this.$message({
-          message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+          message: res.data.msg ? res.data.msg : '返回结果错误，请联系管理员',
           type: type
         })
-        console.log(param)
         // 操作成功关闭弹窗刷新数据
         if (res.data.status) {
-          this.handleClose() // 关闭弹窗
-          this.$parent.fresh() // 刷新数据
+          console.log(param)
+          this.init()
+          this.$parent.fresh()
+          this.handleClose()
         } else {
           loading.close()
-          this.$message.error(res.data.msg)
         }
       }).catch((err) => {
-        // 错误提示
-        erroShow.call(this, err, loading)
+        console.log(err)
+        this.$message({
+          type: 'info',
+          message: '操作失败'
+        })
+        // 关闭加载图标
+        loading.close()
       })
     }
   })
 }
 // 初始化
 function Init () {
-  this.form.rejectedReason = ''
+  this.form.roleName = ''
   if (this.$refs.form) {
     this.$refs.form.resetFields()
   }

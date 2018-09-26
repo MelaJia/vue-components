@@ -65,6 +65,9 @@ td>.el-table--scrollable-x .el-table__body-wrapper {
     padding: 0px 20px 8px 20px;
     position: relative;
  }
+ .search-box-card.hideBox>.el-card__body{
+    padding-bottom: 0;
+ }
  .search-box-card>.el-card__header{
     padding: 8px 20px;
     position: relative;

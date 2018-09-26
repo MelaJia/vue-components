@@ -7,7 +7,7 @@
     </header>
     <section v-if="step===1">
       <span class="note">温馨提示</span>
-      <p>该协议内容由保理方{{this.detailsP.factoringCustName}}拟定，不由本平台提供，确认签署前需自行对协议内容进行审核</p>
+      <p>该协议内容由保理方{{this.detailsP.transUnitName}}拟定，不由本平台提供，确认签署前需自行对协议内容进行审核</p>
     </section>
     <section v-if="step===2">
       <el-checkbox-group v-model="checkList">
