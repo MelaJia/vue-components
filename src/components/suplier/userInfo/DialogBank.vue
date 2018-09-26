@@ -6,24 +6,7 @@
         {{getTitle}}
       </span>
     </header>
-    <section style="padding-left:200px" v-if="step===1">
-      <el-form label-width="100px" :model="verifyForm" ref="verifyForm" :rules="rule">
-            <el-form-item label="手机号">
-                <el-col :span="8">
-                  {{getPhones}}
-                </el-col>
-            </el-form-item>
-            <el-form-item label="验证码" prop="captcha">
-                <el-col :span="8" >
-                <el-input v-model.trim="verifyForm.captcha" auto-complete="off" :maxlength="6" size="small" :disabled="isInput"></el-input>
-                </el-col>
-                <el-col :span="8" :offset="1">
-                <el-button :type="btntype" size="small" @click="sendMessage">{{word}}</el-button>
-                </el-col>
-            </el-form-item>
-      </el-form>
-    </section>
-    <section v-if="step===2">
+    <section v-if="step===1">
       <el-form ref="bankForm" :model="getInfo" :rules="rules"  label-width="130px">
         <el-row>
           <el-col :span="12" :offset="4">
@@ -77,10 +60,26 @@
         </el-row>
       </el-form>
     </section>
-
+    <section style="padding-left:200px" v-if="step===2">
+          <el-form label-width="100px" :model="verifyForm" ref="verifyForm" :rules="rule">
+                <el-form-item label="手机号">
+                    <el-col :span="8">
+                      {{getPhones}}
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="验证码" prop="captcha">
+                    <el-col :span="8" >
+                    <el-input v-model.trim="verifyForm.captcha" auto-complete="off" :maxlength="6" size="small" :disabled="isInput"></el-input>
+                    </el-col>
+                    <el-col :span="8" :offset="1">
+                    <el-button :type="btntype" size="small" @click="sendMessage">{{word}}</el-button>
+                    </el-col>
+                </el-form-item>
+          </el-form>
+    </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button v-if="step===1" @click="handleNext" type="primary" >下一步</el-button>
-      <el-button v-if="step===2" type="primary" @click="subHandle('bankForm')">提交</el-button>
+      <el-button v-if="step===1" @click="handleNext" type="primary" >提交</el-button>
+      <el-button v-if="step===2" type="primary" @click="subHandle('bankForm')">确定</el-button>
       <el-button @click="handleClose">取消</el-button>
     </footer>
   </el-dialog>
@@ -141,7 +140,7 @@ export default {
       rule: {
         captcha: [
           { validator: validateVerify, trigger: 'blur' },
-          {required: true, message: '验证码不能为空', trigger: 'blur'}
+          { required: true, message: '验证码不能为空', trigger: 'blur' }
         ]
       }
     }
@@ -154,7 +153,7 @@ export default {
       return this.form
     },
     getPhones () {
-      return this.$store.state.user.userinfos.legalPhone
+      return this.form.contractAuthenticationInfo.contactPhone
     },
     getBankAdd: {
       get: function () {
@@ -172,7 +171,7 @@ export default {
   },
   methods: {
     subHandle (formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs['verifyForm'].validate((valid) => {
         if (valid) {
           this.form.bankProvince = this.bankProvinceCity[0] !== undefined ? this.bankProvinceCity[0] : ''
           this.form.bankCity = this.bankProvinceCity[1] !== undefined ? this.bankProvinceCity[1] : ''
@@ -205,7 +204,7 @@ export default {
   }
 }
 function handleNext () {
-  this.$refs['verifyForm'].validate((valid) => {
+  this.$refs['bankForm'].validate((valid) => {
     if (valid) {
       this.step = 2
     }
