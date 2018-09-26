@@ -105,7 +105,7 @@ export default {
         callback(new Error(`验证码不能为空`))
       } else {
         this.axios.post('/cust/validVerificationCode.do', {
-          contactPhone: this.getContactPhone,
+          contactPhone: this.getPhones,
           verificationCode: value
         }).then(res => {
           if (res.data.status) {
