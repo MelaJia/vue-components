@@ -1,29 +1,36 @@
 <template>
   <div>
     <div class="header">
-      <h3>供应商资产概况-订单信用融资</h3>
+      <h3>保理商资产概况</h3>
     </div>
     <div class="content left-right">
       <!-- 左侧部分 -->
-      <section class="float-left" style="position:relative">
+      <div class="float-left" style="position:relative">
         <!-- 图表区域 -->
         <div ref="pie" id="pie" style="width: 700px;height:600px;"></div>
         <!-- 底部链接区域 -->
         <div class="url-section">
           <div class="u-line">
           <div class="bg-style bg-blue">
-            <router-link to="creditLoanSituation">去贴现></router-link>
+            <router-link to="loan">去放款></router-link>
+          </div>
+          <div class="bg-style bg-gray">
+            <router-link to="loan">往来明细></router-link>
+          </div>
+          </div>
+          <div class="u-line">
+            <div class="bg-style bg-none">
+            <router-link to="cstLoanFee">供应商概况表></router-link>
           </div>
           </div>
         </div>
-      </section>
+      </div>
       <!-- 右侧部分 -->
-      <section class="float-left" style="height:600px">
-        <div style="margin-top: 175px">
-          <!-- 2部分数据 -->
+      <div class="float-left">
+        <!-- 2部分数据 -->
         <div v-for="(item,idx) in dataArr"  class="text-content" :style="'background:'+item.bcolor" :key="idx">
           <div class="float-left text">
-            <p class="t1">{{item.title}} <span>{{item.value | regexNum}}万元</span> </p>
+            <p class="t1">{{item.title}}</p>
             <p class="line"></p>
           </div>
           <div class="float-right w-100">
@@ -35,45 +42,33 @@
           <div class="t2">
               <ul>
                 <li>{{item.firData.name}}</li>
-                <li style="color:#000">{{item.secData.name}}</li>
+                <li>{{item.secData.name}}</li>
               </ul>
               <ul>
                 <li>{{item.firData.value | regexNum}}万元</li>
-                <li style="color:#000">{{item.secData.value | regexNum}}万元</li>
+                <li>{{item.secData.value | regexNum}}万元</li>
               </ul>
           </div>
         </div>
-        <!-- 订单数据 -->
+        <!-- 只有单一数据 -->
         <div v-for="(item,idx) in dataTArr" class="text-content total-style" :style="'background:'+item.bcolor" :key="idx">
-          <div class="t3">
-            <div class="float-left w-haf border-right-white">
-              <div class="center-box">
-                <ul>
-                  <li>{{item.firData.name}}</li>
-                </ul>
-                <ul>
-                  <li>{{item.firData.value | regexNum}}万元</li>
-                </ul>
-              </div>
-            </div>
-            <div class="float-left w-haf">
-              <div class="center-box" style="color:#000">
-                <ul>
-                  <li>{{item.secData.name}}</li>
-                </ul>
-                <ul>
-                  <li>{{item.secData.value | regexNum}}万元</li>
-                </ul>
-              </div>
+          <div class="float-left text">
+            <p class="t1">{{item.title}}</p>
+            <p class="line"></p>
+            <p class="t1" style="margin-top:5px">总金额:</p>
+            <p class="t1 val-text">{{item.totalData.value | regexNum}}万元</p>
+          </div>
+          <div class="float-right w-100">
+            <div class="url">
+              <router-link :to="item.path">{{idx==0?'去放款>':'查看明细>'}}</router-link>
             </div>
           </div>
         </div>
-        </div>
-      </section>
+      </div>
     </div>
   </div>
 </template>
-<style scoped lang="scss">
+<style scoped>
 * {
   margin: 0;
 }
@@ -84,8 +79,8 @@
 .header {
   text-align: center;
 }
-.u-line > div {
-  display: block;
+.u-line>div {
+    display: inline-block;
 }
 .content.left-right {
   width: 1200px;
@@ -131,7 +126,7 @@
   padding: 5px 0px 5px 20px;
   font-size: 18px;
 }
-.t2 ul{
+.t2 ul {
   padding: 0px 5px;
 }
 li {
@@ -169,8 +164,7 @@ li {
 .bg-gray {
   background: #7f7f7f;
 }
-.bg-blue > a,
-.bg-gray > a {
+.bg-blue > a, .bg-gray > a {
   color: #fff;
 }
 .bg-none > a {
@@ -183,32 +177,11 @@ li {
   transform: translateX(-50%);
   width: 500px;
 }
- /* 中间横线样式 */
- .t3 {
-  padding: 5px 0px 5px 20px;
-  font-size: 18px;
-}
-.t3 ul {
-  padding: 0px 5px;
-}
- .float-left.w-haf{
-   height: 110px;
- }
- .border-right-white{
-   border-right: solid 2px;
- }
- .float-left>.center-box{
-   margin-top: 40px;
-   li{
-     text-align:center;
-     width: 160px;
-   }
- }
 </style>
 
 <script>
 import Pie from '@/components/items/pie'
-import { thousandth, firstToUpperCase } from '@/util/util'
+import { thousandth } from '@/util/util'
 import Common from '@/mixins/common'
 // 引入 ECharts 主模块
 const echarts = require('echarts/lib/echarts')
@@ -223,36 +196,53 @@ export default {
   mixins: [Common],
   data () {
     return {
-      sortArr: [{ key: 'used', text: '已使用额度', bcolor: '#ed7d31' }, { key: 'unUsed', text: '未使用额度', bcolor: '#5b9bd5' }],
+      sortArr: [{ key: 'loanedNo', text: '已放款/未完结', bcolor: '#5b9bd5' }, { key: 'loaned', text: '已放款/已完结', bcolor: '#9f9f9f' }, { key: 'onLoaning', text: '待放款', bcolor: '#f07622' }, { key: 'rejectLoan', text: '拒绝放款', bcolor: '#6daf40' }],
       dataArr: {
-        used: {
-          title: '已用额度', // 标题
+        loanedNo: {
+          title: '已放款/未完结', // 标题
           firData: { // 第一个数据
             value: null,
-            name: '信用融资额度'
+            name: '本金'
           },
           secData: { // 第二个数据
             value: null,
-            name: '订单融资额度'
+            name: '收益'
           },
-          value: 0,
-          path: 'creditLoanSituation', // 路径
-          bcolor: '#4d94d3' // 背景色
+          path: 'loaned', // 路径
+          bcolor: '#5b9bd5' // 背景色
+        },
+        loaned: {
+          title: '已放款/已完结', // 标题
+          firData: { // 第一个数据
+            value: null,
+            name: '本金'
+          },
+          secData: { // 第二个数据
+            value: null,
+            name: '收益'
+          },
+          path: 'loanfinish', // 路径
+          bcolor: '#9f9f9f' // 背景色
         }
       },
       dataTArr: {
-        order: {
-          title: '订单额度', // 标题
-          firData: { // 第一个数据
+        onLoaning: {
+          title: '待放款', // 标题
+          totalData: {
             value: null,
-            name: '历史已用订单金额'
-          },
-          secData: { // 第二个数据
-            value: null,
-            name: '当前可用订单金额'
+            name: '总金额'
           },
           path: 'loan', // 路径
-          bcolor: '#f8c200' // 背景色
+          bcolor: '#f07622' // 背景色
+        },
+        rejectLoan: {
+          title: '拒绝放款', // 标题
+          totalData: { // 第一个数据
+            value: null,
+            name: '总金额'
+          },
+          path: 'loanreject', // 路径
+          bcolor: '#6daf40' // 背景色
         }
       }
     }
@@ -292,34 +282,32 @@ export default {
 // 获取数据
 function getdata (scope) {
   // 基于准备好的dom，初始化echarts实例
-  return scope.axios.post('/auxiliaryFunction/searchCreditLoanIndexList.do').then(res => {
+  return scope.axios.post('/factoringIndex/searchFactoringIndex.do').then(res => {
     const amtArr = []
     const bColorArr = []
     for (const key in scope.sortArr) {
       if (scope.sortArr.hasOwnProperty(key)) {
         const element = scope.sortArr[key]
         // 设置右侧列表数据
-        if (element.key === 'used') {
-          scope.dataArr[element.key].value = res.data.data[`${element.key}Amout`]
-          scope.dataArr[element.key].firData.value = res.data.data[`creditLoan${firstToUpperCase(element.key)}Amout`]
-          scope.dataArr[element.key].secData.value = res.data.data[`poLoan${firstToUpperCase(element.key)}Amout`]
+        if (element.key === 'loanedNo' || element.key === 'loaned') {
+          scope.dataArr[element.key].firData.value = res.data.data[`${element.key}FinishPrincipal`]
+          scope.dataArr[element.key].secData.value = res.data.data[`${element.key}FinishProfit`]
           // 填充饼图数据
-          if (element.key === 'used') {
-            amtArr.push({ value: res.data.data[`${element.key}Amout`], name: element.text })
+          if (element.key === 'loanedNo') {
+            amtArr.push({ value: res.data.data[`${element.key}FinishPrincipal`], name: element.text })
             bColorArr.push(element.bcolor)
           }
         } else {
-          scope.dataTArr.order.firData.value = res.data.data[`poLoanUsedHistorySumAmout`]
-          scope.dataTArr.order.secData.value = res.data.data[`availablePoAmout`]
-          if (element.key === 'unUsed') {
-            amtArr.push({ value: res.data.data[`${element.key}Amout`], name: element.text })
+          scope.dataTArr[element.key].totalData.value = res.data.data[`${element.key}SumAmout`]
+          if (element.key === 'onLoaning') {
+            amtArr.push({ value: res.data.data[`${element.key}SumAmout`], name: element.text })
             bColorArr.push(element.bcolor)
           }
         }
       }
     }
     console.log(scope.dataArr)
-    return { amt: amtArr, bColor: bColorArr, creditLinesAmout: res.data.data.creditLinesAmout }
+    return { amt: amtArr, bColor: bColorArr }
   })
 }
 // 异步获取数据
@@ -368,34 +356,6 @@ function getOptions (echartData) {
     }
   }
   return {
-    title: {
-      text: '总额度(万元)',
-      left: 'center',
-      top: '50%',
-      padding: [24, 0],
-      textStyle: {
-        color: '#000',
-        fontSize: 16 * scale,
-        align: 'center'
-      }
-    },
-    legend: {
-      selectedMode: false,
-      formatter: function (name) {
-        let total = thousandth(echartData.creditLinesAmout)
-        return '{total|' + total + '}'
-      },
-      data: ['已使用额度'],
-      left: 'center',
-      top: '45%',
-      icon: 'none',
-      align: 'center',
-      textStyle: {
-        color: '#000',
-        fontSize: 16 * scale,
-        rich: rich
-      }
-    },
     tooltip: {
       trigger: 'item',
       formatter: function (params, ticket, callback) {

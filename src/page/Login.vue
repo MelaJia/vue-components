@@ -324,6 +324,7 @@ async function submitForm (formName) {
       this.loginLoading = false // 登录完成
     }).catch(err => {
       var t = Object.keys(err)
+      console.log(err)
       console.log(t)
       console.log(err.response)
       this.loginLoading = false // 登录失败

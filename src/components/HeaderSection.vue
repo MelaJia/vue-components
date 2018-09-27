@@ -12,7 +12,11 @@
           <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}<img src="@/assets/img/juxin_18.png" alt=""></span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item v-if="this.$store.state.user.roles" command="pwdChange">密码修改</el-dropdown-item>
-            <el-dropdown-item command="logout">退出</el-dropdown-item>
+            <el-dropdown-item command="logout"
+            v-loading.fullscreen.lock="fullscreenLoading"
+            element-loading-text="登出中，请稍候"
+            element-loading-spinner="el-icon-loading"
+            element-loading-background="rgba(0, 0, 0, 0.8)">登出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -76,7 +80,8 @@ import * as types from '@/store/types'
 export default {
   data () {
     return {
-      dialogPassVisible: false
+      dialogPassVisible: false,
+      fullscreenLoading: false
     }
   },
   methods: {
@@ -108,6 +113,7 @@ function logout () {
   let param = {
     ssoId: this.$store.getters.token
   }
+  this.fullscreenLoading = true
   this.axios.post('/login/logout2', param).then(res => {
     if (res.data.status) {
       this.$message({
@@ -116,17 +122,20 @@ function logout () {
       })
       this.$store.commit(types.LOGOUT)
       this.$store.commit('DEL_ALL_TAG')
+      this.fullscreenLoading = false
       this.$router.replace({
         path: '/login',
         query: { redirect: this.$router.currentRoute.fullPath }
       })
     } else {
+      this.fullscreenLoading = false
       this.$message({
         message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
         type: 'error'
       })
     }
   }).catch(err => {
+    this.fullscreenLoading = false
     console.log(err)
   })
 }

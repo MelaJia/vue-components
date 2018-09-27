@@ -2,10 +2,8 @@
   <div class="main index-style">
     <el-card class="box-card">
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="用户管理" name="dialog-index1">用户管理</el-tab-pane>
-        <el-tab-pane label="配置管理" name="dialog-index2">配置管理</el-tab-pane>
-        <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-        <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+        <el-tab-pane label="AR融资概况" name="dialog-index1"></el-tab-pane>
+        <el-tab-pane label="信用融资概况" name="dialog-index2"></el-tab-pane>
       </el-tabs>
       <component v-bind:is="currentTabComponent"></component>
     </el-card>
@@ -18,6 +16,7 @@
 
 .box-card {
   min-width: 1200px;
+  padding-bottom: 20px;
 }
 
 .header {
@@ -157,7 +156,7 @@ export default {
   },
   data () {
     return {
-      activeName: 'second',
+      activeName: 'dialog-index1',
       currentTabComponent: 'dialog-index1'
     }
   },

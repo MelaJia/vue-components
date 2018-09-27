@@ -30,6 +30,7 @@ export default {
     InfoTable
   },
   created () {
+    console.log('进入首页')
     this.getData()
   },
   methods: {

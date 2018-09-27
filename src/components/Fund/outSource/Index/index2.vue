@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <h3>供应商资产概况-订单信用融资</h3>
+      <h3>保理商资产概况-订单信用融资</h3>
     </div>
     <div class="content left-right">
       <!-- 左侧部分 -->
