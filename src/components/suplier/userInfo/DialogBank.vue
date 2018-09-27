@@ -80,7 +80,8 @@
     <footer slot="footer" :style="'clear:both'">
       <el-button v-if="step===1" @click="handleNext" type="primary" >提交</el-button>
       <el-button v-if="step===2" type="primary" @click="subHandle('bankForm')">确定</el-button>
-      <el-button @click="handleClose">取消</el-button>
+      <el-button v-if="step===1" @click="handleClose">取消</el-button>
+      <el-button v-if="step===2" @click="handleBack">返回</el-button>
     </footer>
   </el-dialog>
 </template>
@@ -90,7 +91,7 @@ import CityData from '@/mixins/CityData' // 关闭弹窗handleClose
 import citys from './city'
 import commmon from '@/mixins/common'
 import { debounce, erroShow } from '@/util/util' // 防抖函数
-
+import { loadingConf } from '@/config/common' // 获取加载配置
 /* 修改银行信息 */
 export default {
   props: ['visibleP', 'form'],
@@ -131,10 +132,15 @@ export default {
       // 校验字段
       rules: {
         bankName: [
-          { required: true, message: '请输入银行名称', trigger: 'blur' }
+          { required: true, message: '请输入银行名称', trigger: 'blur' }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' }
         ],
         bankAccount: [
-          { required: true, message: '请输入银行账号', trigger: 'blur' }
+          { required: true, message: '请输入银行账号', trigger: 'blur' }, { max: 32, message: '长度不得超过32个字符', trigger: 'blur' },
+          {
+            pattern: /^\d+$/,
+            message: '银行账号格式错误',
+            trigger: 'blur'
+          }
         ]
       },
       rule: {
@@ -160,45 +166,23 @@ export default {
         console.log(this)
         console.log(this.form)
         let arr = []
-        arr[0] = this.form.bankProvince
-        arr[1] = this.form.bankCity
+        if (this.form) {
+          arr[0] = this.form.bankProvince
+          arr[1] = this.form.bankCity
+        }
         return arr
       },
       set: function (newValue) {
+        this.form.bankProvince = newValue[0]
+        this.form.bankCity = newValue[1]
         this.bankProvinceCity = newValue
       }
     }
   },
   methods: {
-    subHandle (formName) {
-      this.$refs['verifyForm'].validate((valid) => {
-        if (valid) {
-          this.form.bankProvince = this.bankProvinceCity[0] !== undefined ? this.bankProvinceCity[0] : ''
-          this.form.bankCity = this.bankProvinceCity[1] !== undefined ? this.bankProvinceCity[1] : ''
-          console.log(this.form)
-          this.axios.post('/cust/updateBankInfo.do', this.form).then(res => {
-            let type = res.data.status ? 'success' : 'error'
-            this.$message({
-              message: res.data.msg,
-              type: type
-            })
-            if (res.data.status) {
-              this.$parent.fresh()
-              this.handleClose()
-            }
-          }).catch(err => {
-            this.$message({
-              type: 'info',
-              message: `操作失败${err}`
-            })
-          })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    },
+    subHandle: debounce(subHandle, 1000, true),
     handleNext: handleNext,
+    handleBack: handleBack,
     sendMessage: debounce(sendMessage, 1000, true),
     init: Init
   }
@@ -209,6 +193,9 @@ function handleNext () {
       this.step = 2
     }
   })
+}
+function handleBack () {
+  this.step = 1
 }
 var sendTimer
 // 获取验证码
@@ -258,5 +245,44 @@ function Init () {
   clearInterval(sendTimer)
   this.word = '获取验证码'
   this.step = 1
+  if (this.$refs.bankForm) {
+    this.$refs.bankForm.resetFields()
+  }
+}
+/** 提交 */
+function subHandle (formName) {
+  const loading = this.$loading(loadingConf.sub())
+  this.$refs['verifyForm'].validate((valid) => {
+    if (valid) {
+      this.form.bankProvince = this.bankProvinceCity[0] !== undefined ? this.bankProvinceCity[0] : ''
+      this.form.bankCity = this.bankProvinceCity[1] !== undefined ? this.bankProvinceCity[1] : ''
+      console.log(this.form)
+      this.axios.post('/cust/updateBankInfo.do', this.form).then(res => {
+        let type = res.data.status ? 'success' : 'error'
+        if (res.data.status) {
+          loading.setText(res.data.msg)
+          this.$parent.fresh()
+          this.handleClose()
+        } else {
+          loading.close()
+          this.$message({
+            message: res.data.msg,
+            type: type
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+        this.$message({
+          type: 'error',
+          message: `系统错误，请联系管理员`
+        })
+        loading.close()
+      })
+    } else {
+      console.log('error submit!!')
+      loading.close()
+      return false
+    }
+  })
 }
 </script>

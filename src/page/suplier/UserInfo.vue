@@ -7,6 +7,7 @@
 <script>
 import InfoList from '@/components/suplier/userInfo/InfoList'
 import InfoTable from '@/components/suplier/userInfo/InfoTable'
+import { loadingConf } from '@/config/common' // 获取加载配置
 export default {
   data () {
     return {
@@ -33,12 +34,10 @@ export default {
   },
   methods: {
     getData () {
-      const loading = this.$loading({
-        lock: true,
-        text: 'Loading',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
-      })
+      const loading = this.$loading(loadingConf.get())
+      setTimeout(() => {
+        loading.setText('获取数据中，请稍候')
+      }, 1000)
       this.axios.post('/cust/customerDetailInfo.do', {
       }).then(res => {
         if (res.data.status) {
