@@ -55,6 +55,17 @@ const routes = [
       }
     },
     {
+      path: 'authmanage',
+      name: 'authmanage',
+      props: (route) => ({ query: {roleType: Number(route.query.type), roleId: Number(route.query.id)} }),
+      component: () =>
+        import(/* webpackChunkName: 'AR' */ '@/page/admin/set/AuthorityManage'),
+      meta: {
+        title: '权限管理', // 名称
+        requireAuth: true // 需要登录验证
+      }
+    },
+    {
       path: 'ordersearch',
       name: 'ordersearchAdminAdmin',
       component: () =>

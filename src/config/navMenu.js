@@ -396,11 +396,18 @@ const navs = {
       idx: '2',
       text: '设置',
       disabled: false,
-      lClass: 'start-line',
+      lClass: 'line',
       hClass: 'header-circle bg-icon-1',
       childrens: [{
         idx: 'rolemanage',
         text: '角色管理',
+        disabled: false,
+        lClass: 'line',
+        hClass: 'circle'
+      },
+      {
+        idx: 'authmanage',
+        text: '权限配置',
         disabled: false,
         lClass: 'line',
         hClass: 'circle'
@@ -410,7 +417,7 @@ const navs = {
       idx: '3',
       text: '业务处理',
       disabled: false,
-      lClass: 'start-line',
+      lClass: 'line',
       hClass: 'header-circle bg-icon-1',
       childrens: [{
         idx: 'fenbo',
