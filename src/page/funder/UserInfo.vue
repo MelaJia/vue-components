@@ -12,7 +12,7 @@ export default {
     return {
       userInfo: {},
       types: [
-        { typeId: '1', name: '企业', firstNode: 'companyAuthenticationInfo', node: 'companyName' },
+        // { typeId: '1', name: '企业', firstNode: 'companyAuthenticationInfo', node: 'companyName' },
         { typeId: '2', name: '企业银行信息', firstNode: 'companyAuthenticationInfo', node: 'bankName' },
         { typeId: '3', name: '企业法人', firstNode: 'legalAuthenticationInfo', node: 'legalPerson' },
         { typeId: '4', name: '企业法人手机', firstNode: 'legalAuthenticationInfo', node: 'legalPhone' },

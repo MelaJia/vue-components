@@ -52,23 +52,22 @@ export default {
   props: ['authArr', 'infos'],
   data () {
     return {
-      operaNames: ['去认证', '修改', '修改', '修改', '去认证', '去认证', '去认证', '去认证'],
-      currentTabComponent: 'dialog-info',
-      compArr: ['dialog-info', 'dialog-bank', 'dialog-legal', 'dialog-legalphone', 'dialog-legalemail', 'dialog-contact', 'dialog-contactphone', 'dialog-contactemail'],
+      operaNames: ['修改', '修改', '修改', '去认证', '去认证', '去认证', '去认证'],
+      currentTabComponent: 'dialog-bank',
+      compArr: ['dialog-bank', 'dialog-legal', 'dialog-legalphone', 'dialog-legalemail', 'dialog-contact', 'dialog-contactphone', 'dialog-contactemail'],
       dialogVisible: false,
       multipleSelection: [],
-      paName: '' // 额外传参
+      paName: '', // 额外传参
+      getDetails: null
     }
   },
   computed: {
-    getDetails () {
-      console.log(this.infos)
-      return this.infos
-    }
   },
   methods: {
     handleClick (index, row) {
       console.log(index)
+      const info = Object.assign({}, this.infos)
+      this.getDetails = info
       if (index === 4) {
         this.currentTabComponent = this.compArr[index]
         this.paName = 'legalMail'
