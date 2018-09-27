@@ -1,57 +1,57 @@
 <template>
   <div class="main index-style">
-    <el-card class="box-card">
-      <header class="header">
-        <h3>供应商资产概况</h3>
-      </header>
-      <div class="content left-right">
-        <section class="float-left" style="width:60%;position:relative">
-          <!-- 图形区域 -->
-          <div ref="pie" id="pie" style="width:100%;min-width: 700px;height:600px;"></div>
-          <!-- 底部链接区域 -->
-          <div class="url-section">
-            <div class="bg-style bg-blue">
-              <router-link to="myar">去贴现/转让></router-link>
+      <el-card class="box-card">
+        <header class="header">
+          <h3>供应商资产概况</h3>
+        </header>
+        <div class="content left-right">
+          <section class="float-left" style="width:60%;position:relative">
+            <!-- 图形区域 -->
+            <div ref="pie" id="pie" style="width:100%;min-width: 700px;height:600px;"></div>
+            <!-- 底部链接区域 -->
+            <div class="url-section">
+              <div class="bg-style bg-blue">
+                <router-link to="myar">去贴现/转让></router-link>
+              </div>
+              <div class="bg-style bg-gray">
+                <router-link to="transfer">往来明细></router-link>
+              </div>
             </div>
-            <div class="bg-style bg-gray">
-              <router-link to="transfer">往来明细></router-link>
-            </div>
-          </div>
-        </section>
-        <section class="float-left">
-          <article v-for="(item,idx) in rightDataArr" class="text-content" :style="`background:${item.bcolor};position:relative`" :key="idx">
-            <div class="float-left text">
-              <p class="t1">{{item.title}}</p>
-              <p class="line"></p>
-              <p class="t1" style="margin-top:5px">总金额:
-                <span>{{ sumAdd(item.data) | regexNum}}万元</span>
-              </p>
-              <div class="t2">
-                <ul>
-                  <section v-for="(item2,idx2) in item.data" :key="idx2">
-                    <el-tooltip v-if="item.tip&&item2.name==='不可用金额'" class="item" effect="light" :content="item.tip" placement="right-end">
-                      <li :style="item2.name==='不可用金额'?'color:red':''">{{item2.name}}</li>
+          </section>
+          <section class="float-left">
+            <article v-for="(item,idx) in rightDataArr" class="text-content" :style="`background:${item.bcolor};position:relative`" :key="idx">
+              <div class="float-left text">
+                <p class="t1">{{item.title}}</p>
+                <p class="line"></p>
+                <p class="t1" style="margin-top:5px">总金额:
+                  <span>{{ sumAdd(item.data) | regexNum}}万元</span>
+                </p>
+                <div class="t2">
+                  <ul>
+                    <section v-for="(item2,idx2) in item.data" :key="idx2">
+                      <el-tooltip v-if="item.tip&&item2.name==='不可用金额'" class="item" effect="light" :content="item.tip" placement="right-end">
+                        <li :style="item2.name==='不可用金额'?'color:red':''">{{item2.name}}</li>
+                      </el-tooltip>
+                      <li v-else :style="item2.name==='不可用金额'?'color:red':''">{{item2.name}}</li>
+                    </section>
+                  </ul>
+                  <ul>
+                    <el-tooltip v-for="(item2,idx2) in item.data" :key="idx2" class="item" effect="dark" :content="thousandth(item2.value)+'万元'" placement="bottom-start">
+                      <li :style="item2.name==='不可用金额'?'color:red':''">{{item2.value | regexNum}}万元</li>
                     </el-tooltip>
-                    <li v-else :style="item2.name==='不可用金额'?'color:red':''">{{item2.name}}</li>
-                  </section>
-                </ul>
-                <ul>
-                  <el-tooltip v-for="(item2,idx2) in item.data" :key="idx2" class="item" effect="dark" :content="thousandth(item2.value)+'万元'" placement="bottom-start">
-                    <li :style="item2.name==='不可用金额'?'color:red':''">{{item2.value | regexNum}}万元</li>
-                  </el-tooltip>
-                </ul>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="float-right">
-              <div class="url">
-                <router-link :to="item.path">查看明细</router-link>
+              <div class="float-right">
+                <div class="url">
+                  <router-link :to="item.path">查看明细</router-link>
+                </div>
+                <pie ref="child" :data="getPieArr(item.title,item.data)" :color="color[idx]"></pie>
               </div>
-              <pie ref="child" :data="getPieArr(item.title,item.data)" :color="color[idx]"></pie>
-            </div>
-          </article>
-        </section>
-      </div>
-    </el-card>
+            </article>
+          </section>
+        </div>
+      </el-card>
   </div>
 </template>
 <style scoped>
@@ -337,11 +337,60 @@ export default {
         rightDataArr[val.key].bcolor = val.bcolor
       }
     })
+    let sortArr1 = [
+      {
+        key: 'amountUsed',
+        text: '已用额度',
+        bcolor: '#5b9bd5'
+      }, {
+        key: 'history',
+        text: '',
+        bcolor: '#e8b800'
+      }
+    ]
+    let rightDataArr1 = {
+      amountUsed: {
+        title: '已用额度', // 标题
+        // tip: '已申请贴现或转让的发票剩余金额', // 提示信息
+        data: {
+          firData: { // 第一个数据
+            value: null,
+            name: '信用融资额度'
+          },
+          secData: { // 第二个数据
+            value: null,
+            name: '订单融资额度'
+          }
+        },
+        path: ''
+      },
+      history: {
+        // title: '', // 标题
+        // tip: '已申请贴现或转让的发票剩余金额', // 提示信息
+        data: {
+          firData: { // 第一个数据
+            value: null,
+            name: '历史已用订单金额'
+          },
+          secData: { // 第二个数据
+            value: null,
+            name: '当前可用订单金额'
+          }
+        }
+      }
+    }
+    sortArr1.forEach((val, idx) => {
+      if (rightDataArr1[val.key]) {
+        rightDataArr1[val.key].bcolor = val.bcolor
+      }
+    })
     return {
       // 左侧数据
       sortArr: sortArr,
+      sortArr1: sortArr1,
       // 右侧数据
       rightDataArr: rightDataArr,
+      rightDataArr1: rightDataArr1,
       // 右侧圆饼图颜色组
       color: {
         unOperate: ['#fff', '#ff0000'],
@@ -350,7 +399,12 @@ export default {
         discounting: ['#fff', '#000'],
         discounted: ['#fff', '#000'],
         received: ['#fff', '#ff0000', '#000']
-      } // 小饼图颜色数组
+      }, // 小饼图颜色数组
+      color1: {
+        amountUsed: ['#fff', '#ff0000'],
+        history: ['#fff', '#000']
+      },
+      activeName: 'first'
     }
   },
   mounted () {

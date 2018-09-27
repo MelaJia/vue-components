@@ -20,16 +20,44 @@ export default {
     this.moneyTypes = getStore({
       name: 'moneyTypes'
     })
-    this.loanTypes = getStore({
+    const loanTypeArr = getStore({
       name: 'loanTypes'
     })
     this.repayTypes = getStore({
       name: 'repayTypes'
     })
     // 判断值是否为空
-    let lisN = this.loanTypes ? this.loanTypes[0].loanTypeName : null
-    if (!this.loanTypes | lisN === null) {
-      // 获取融资类型
+    // let lisN = this.loanTypes ? this.loanTypes[0].loanTypeName : null
+    // if (!this.loanTypes | lisN === null) {
+    //   // 获取融资类型
+    //   this.axios.get('/commonTrans/queryLoanType.do').then(res => {
+    //     if (res.data.status) {
+    //       setStore({
+    //         name: 'loanTypes',
+    //         content: res.data.data,
+    //         type: true
+    //       })
+    //       // 赋值
+    //       this.loanTypes = res.data.data
+    //       console.log(res.data.data)
+    //     } else {
+    //       console.log(res.data.msg)
+    //     }
+    //   }).catch(err => {
+    //     throw new Error(err)
+    //   })
+    // }
+    // 融资类型
+    if (loanTypeArr) {
+      // storage中有数据
+      for (const iterator of loanTypeArr) {
+        if (iterator.pageName === pageName) {
+          this.loanTypes = iterator.loanTypeList
+        }
+      }
+    } else {
+      // storage中无数据
+      // 获取ar状态并保存
       this.axios.get('/commonTrans/queryLoanType.do').then(res => {
         if (res.data.status) {
           setStore({
@@ -38,8 +66,11 @@ export default {
             type: true
           })
           // 赋值
-          this.loanTypes = res.data.data
-          console.log(res.data.data)
+          for (const iterator of res.data.data) {
+            if (iterator.pageName === pageName) {
+              this.arStatus = iterator.loanTypeList
+            }
+          }
         } else {
           console.log(res.data.msg)
         }

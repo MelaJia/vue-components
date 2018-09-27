@@ -32,7 +32,7 @@
             <el-button size="mini" type="text" @click="handleModify(scope.$index, scope.row)">修改</el-button>
             <el-button v-if="scope.row.status==0||scope.row.status==2" size="mini" type="success" @click="handleStart(scope.$index, scope.row)">启用</el-button>
             <el-button v-else size="mini" type="danger" @click="handleStop(scope.$index, scope.row)">停用</el-button>
-            <el-button size="mini" type="text">权限配置</el-button>
+            <el-button size="mini" type="text" @click="authDelivery(scope.$index, scope.row)">权限配置</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -127,7 +127,9 @@ export default {
       })
     },
     handleStart: handleStart, // 启用
-    handleStop: handleStop // 停用
+    handleStop: handleStop, // 停用
+    // 权限配置
+    authDelivery: authDelivery
   }
 }
 // 启用
@@ -160,6 +162,17 @@ function handleStop (idx, val) {
       type: 'info',
       message: '操作已取消'
     })
+  })
+}
+// 权限配置
+function authDelivery (idx, val) {
+  console.log(val)
+  this.$router.push({
+    path: 'fundcmp',
+    name: '',
+    query: {
+      roleId: val.roleId
+    }
   })
 }
 </script>

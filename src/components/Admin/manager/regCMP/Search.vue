@@ -30,6 +30,13 @@
           </el-select>
         </el-form-item>
       </el-col>
+      <el-col :span="8">
+        <el-form-item label="角色" prop="roleId">
+          <el-select v-model="formInline.roleId" clearable placeholder="全部">
+            <el-option v-for="(item,index) in roleTypes" :key="index" :label="item.roleName" :value="item.roleId"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
     </el-row>
     <el-row>
       <el-col :span="4" :offset="10">
@@ -51,13 +58,20 @@ export default {
   data () {
     return {
       arStatus: [],
+      roleTypes: [], // 角色
       formInline: {
         companyName: '', // 公司名称
         legalPerson: '', // 公司法人代表
         contactPerson: '', // 公司联系人
         customerManagerId: '', // 客户经理
-        status: '' // 状态
+        status: '', // 状态
+        roleId: ''
       }
+    }
+  },
+  computed: {
+    roleBelong () {
+      return this.$store.getters.roleBelong
     }
   },
   mounted () {
@@ -65,6 +79,16 @@ export default {
       if (res) {
         this.arStatus = res
       }
+    })
+    this.axios.get('/commonTrans/queryAvailableRoleList.do').then(res => {
+      if (res.data.status) {
+        this.roleTypes = res.data.data
+        this.$store.commit('getRoleBelong', res.data.data) // 将角色存入到store里面
+      } else {
+        this.$message.error(res.data.msg)
+      }
+    }).catch(err => {
+      console.log(err)
     })
   }
 }

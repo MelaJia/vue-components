@@ -1,7 +1,7 @@
 <template>
   <div>
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-info>
-    <dialog-cs :visible-p.sync="dialogTransferVisible" :details-p="details"></dialog-cs>
+    <dialog-cs :visible-p.sync="dialogTransferVisible" :details-p="details" :contract="contractDetails"></dialog-cs>
     <dialog-stop :visible-p.sync="dialogStopVisible" :details-p="details"></dialog-stop>
     <section>
     <el-table :data="comDatas" v-loading.fullscreen="dataLoading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
@@ -9,7 +9,9 @@
       @expand-change="expendhandle" @mousedown.native="mouseDown">
       <el-table-column align="center" fixed type="index" label="序号" width="60">
       </el-table-column>
-      <el-table-column align="center" fixed sortable label="公司名称" prop="companyName" width="220" :formatter="nullDealWith" >
+      <el-table-column align="center" label="角色" prop="roleDes" :formatter="nullDealWith" >
+      </el-table-column>
+      <el-table-column align="center" sortable label="公司名称" prop="companyName" width="220" :formatter="nullDealWith" >
       </el-table-column>
       <el-table-column align="center" label="公司法人代表" prop="legalPerson" :formatter="nullDealWith" >
       </el-table-column>
@@ -27,12 +29,12 @@
       </el-table-column>
       <!-- <el-table-column align="center" label="公司地址" prop="companyAddress" :formatter="nullDealWith">
       </el-table-column> -->
-      <el-table-column align="left" header-align="center" label="操作" width='210px' fixed="right" :resizable="false">
+      <el-table-column align="left" header-align="center" label="操作" width='170px' fixed="right" :resizable="false">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           <el-button v-if="scope.row.status==0||scope.row.status==2" size="mini" type="success" @click="handleStart(scope.$index, scope.row)">启用</el-button>
           <el-button v-else size="mini" type="danger" @click="handleStop(scope.$index, scope.row)">停用</el-button>
-          <el-button size="mini" type="text" @click="handleConSignSet(scope.$index, scope.row)">合同签署设置</el-button>
+          <el-button size="mini" type="text" @click="handleConSignSet(scope.$index, scope.row)">修改</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -56,7 +58,8 @@ export default {
   data () {
     return {
       operateArr: [{ key: 'accept', name: '分拨', isLoading: false }, { key: 'reject', name: '拒绝', isLoading: false }],
-      dialogStopVisible: false // 停用弹窗
+      dialogStopVisible: false, // 停用弹窗
+      contractDetails: {}
     }
   },
   mixins: [ListMinxIn, Common, Dialog],
@@ -95,8 +98,15 @@ export default {
     handleStart: handleStart,
     // 合同签署设置
     handleConSignSet (idx, val) {
-      this.details = val
+      var infos = Object.assign({}, val)
+      this.details = infos
       this.dialogTransferVisible = true
+      this.getLoanDetail('/sysCompanyUserManager/showFactoringContractSignType.do', { custId: val.custId }).then(res => {
+        if (res) {
+          this.contractDetails = res
+          console.log(this.contractDetails)
+        }
+      })
     },
     // 更新同步
     handleUpdate: handleUpdate

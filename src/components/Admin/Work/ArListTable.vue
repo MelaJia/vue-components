@@ -15,7 +15,13 @@
       </el-table-column>
       <el-table-column align="center" label="付款单位" prop="companyName" :formatter="nullDealWith" >
       </el-table-column>
+      <el-table-column align="center" label="融资类型" prop="loanTypeName" :formatter="nullDealWith" >
+      </el-table-column>
       <el-table-column align="center" label="保理方" prop="custToName" :formatter="nullDealWith" >
+      </el-table-column>
+      <el-table-column align="center" label="监管银行" prop="superviseBankName" :formatter="nullDealWith" >
+      </el-table-column>
+      <el-table-column align="center" label="监管账号" prop="superviseBankAccount" :formatter="nullDealWith" >
       </el-table-column>
       <el-table-column align="center" label="状态" prop="auditedTypeName" :formatter="nullDealWith" >
       </el-table-column>
@@ -70,7 +76,8 @@ export default {
     },
     // 分拨
     handleAccept (idx, val) {
-      this.details = val
+      var infos = Object.assign({}, val)
+      this.details = infos
       this.dialogTransferVisible = true
     },
     // 拒绝

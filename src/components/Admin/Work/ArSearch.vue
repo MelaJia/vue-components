@@ -30,6 +30,13 @@
           </el-select>
         </el-form-item>
       </el-col>
+      <el-col :span="8">
+        <el-form-item label="融资类型" prop="loanType">
+          <el-select v-model="formInline.loanType" clearable placeholder="融资类型">
+            <el-option v-for="(item,index) in loanTypes" :key="index" :label="item.loanTypeName" :value="item.loanType "></el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
     </el-row>
     <el-row>
       <el-col :span="4" :offset="10">
@@ -45,8 +52,10 @@
 
 <script>
 import SearchMixIn from '@/mixins/suplier/Ar/Search'
+import commonDatas from '@/mixins/commonDatas'
 export default {
-  mixins: [SearchMixIn],
+  name: 'fundPartyPage',
+  mixins: [SearchMixIn, commonDatas],
   data () {
     return {
       arStatus: [],
@@ -55,7 +64,8 @@ export default {
         companyNameOfL1: '', // 一级供应商
         companyName: '', // 付款单位
         custToName: '', // 保理方
-        auditedTypeId: '' // 状态
+        auditedTypeId: '', // 状态
+        loanType: '' // 融资类型
       }
     }
   },

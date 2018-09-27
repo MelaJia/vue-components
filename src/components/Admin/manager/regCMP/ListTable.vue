@@ -10,7 +10,9 @@
       @expand-change="expendhandle" @mousedown.native="mouseDown">
       <el-table-column align="center" fixed type="index" label="序号" width="60">
       </el-table-column>
-      <el-table-column align="center" fixed sortable label="公司名称" prop="companyName" width="130" :formatter="nullDealWith">
+      <el-table-column align="center" fixed label="角色" prop="roleDes" width="130" :formatter="nullDealWith">
+      </el-table-column>
+      <el-table-column align="center" fixed label="公司名称" prop="companyName" width="130" :formatter="nullDealWith">
       </el-table-column>
       <el-table-column align="center" label="公司法人代表" prop="legalPerson" :formatter="nullDealWith">
       </el-table-column>
@@ -34,12 +36,12 @@
       </el-table-column>
       <el-table-column align="center" label="最后同步时间" prop="taskSynEndDate" :formatter="datetimeFormat">
       </el-table-column>
-      <el-table-column align="left" header-align="center" label="操作" width='270px' fixed="right" :resizable="false">
+      <el-table-column align="left" header-align="center" label="操作" width='240px' fixed="right" :resizable="false">
         <template slot-scope="scope">
           <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
           <el-button v-if="scope.row.status==0||scope.row.status==2" size="mini" type="success" @click="handleStart(scope.$index, scope.row)">启用</el-button>
           <el-button v-else size="mini" type="danger" @click="handleStop(scope.$index, scope.row)">停用</el-button>
-          <el-button size="mini" type="text" @click="handleCustManagerSet(scope.$index, scope.row)">客户经理设置</el-button>
+          <el-button size="mini" type="text" @click="handleCustManagerSet(scope.$index, scope.row)">修改</el-button>
            <el-button size="mini" type="text" @click="handleUpdate(scope.$index, scope.row)">更新同步</el-button>
         </template>
       </el-table-column>
@@ -120,7 +122,9 @@ export default {
     },
     // 客户经理设置
     handleCustManagerSet (idx, val) {
-      this.details = val
+      var infos = Object.assign({}, val)
+      this.details = infos
+      console.log(val)
       this.dialogRejectVisible = true
     },
     // 更新同步

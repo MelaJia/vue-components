@@ -7,10 +7,29 @@
       </span>
     </header>
     <section class="layout form">
-      <el-row>
+      <!-- <el-row>
         <el-radio v-model="radio" :label="1">电子合同</el-radio>
         <el-radio v-model="radio" :label="2">线下合同</el-radio>
-      </el-row>
+      </el-row> -->
+      <el-form ref="form" :model="getform" size="small" label-width="140px">
+        <el-row>
+          <el-col :span="16" :offset="4" class="flex">
+            <el-form-item label="合同签署设置:">
+              <el-select v-model="getform.contractSignType" placeholder="请选择">
+                <el-option v-for="(item, index) in this.contract" :key="index" :label="item.contractSignName" :value="item.contractSignType"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="16" :offset="4" class="flex">
+            <el-form-item label="角色:" prop="roleDes">
+              <el-select v-model="getform.roleDes" placeholder="请选择">
+                <el-option v-for="(item, index) in this.$store.getters.roleBelong" :key="index" :label="item.roleName"
+                  :value="item.roleName"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
     </section>
     <footer slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleSubmit">确认</el-button>
@@ -47,7 +66,7 @@ import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
 import { debounce } from '@/util/util' // 防抖函数
 export default {
-  props: ['visibleP', 'detailsP'],
+  props: ['visibleP', 'detailsP', 'contract'],
   mixins: [DialogClose, Common],
   data () {
     return {
@@ -64,7 +83,10 @@ export default {
   },
   computed: {
     getTitle () {
-      return this.detailsP.companyName
+      return this.detailsP.companyName + '修改页面'
+    },
+    getform () {
+      return this.detailsP
     }
   },
   methods: {
@@ -76,11 +98,13 @@ export default {
 async function submit () {
   const param = {
     custId: this.detailsP.custId, // 客户Id
-    contractSignType: this.radio // 付款法人代码
+    contractSignType: this.getform.contractSignType, // 合同签署方式
+    roleId: this.detailsP.roleId,
+    roleDes: this.detailsP.roleDes
   }
   console.log(param)
   try {
-    let res = await this.post('/sysCompanyUserManager/factoringContractSignTypeConfig.do', param, true)
+    let res = await this.post('/sysCompanyUserManager/factoringAdjustConfig.do', param, true)
     // 操作成功关闭弹窗刷新数据
     if (res.data.status) {
       this.handleClose() // 关闭弹窗

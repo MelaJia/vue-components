@@ -7,18 +7,30 @@
       </span>
     </header>
     <section class="layout form">
-      <el-row>
-        <el-col :span="16" :offset="4" class="flex"><label>客户经理设置:</label>
-          <el-select v-model="value" placeholder="请选择" @change="change">
-            <el-option
-              v-for="item in customerManagerList"
-              :key="item.customerManagerId"
-              :label="item.customerManagerName"
-              :value="item">
-            </el-option>
-          </el-select>
-        </el-col>
-      </el-row>
+      <el-form ref="form" :model="getform" size="small" label-width="140px">
+        <el-row>
+          <el-col :span="16" :offset="4" class="flex">
+            <el-form-item label="客户经理设置:">
+              <el-select v-model="value" placeholder="请选择" @change="change">
+                <el-option
+                  v-for="item in customerManagerList"
+                  :key="item.customerManagerId"
+                  :label="item.customerManagerName"
+                  :value="item">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="16" :offset="4" class="flex">
+            <el-form-item label="角色:" prop="roleDes">
+              <el-select v-model="getform.roleDes" placeholder="请选择" @change="change">
+                <el-option v-for="(item, index) in this.$store.getters.roleBelong" :key="index" :label="item.roleName"
+                  :value="item.roleName"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
     </section>
     <footer slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleSubmit">确认</el-button>
@@ -79,7 +91,10 @@ export default {
   },
   computed: {
     getTitle () {
-      return this.detailsP.companyName
+      return this.detailsP.companyName + '修改页面'
+    },
+    getform () {
+      return this.detailsP
     }
   },
   methods: {
@@ -102,10 +117,13 @@ function submit () {
   let param = {
     custId: this.detailsP.custId, // 客户Id
     customerManagerId: this.value.customerManagerId, // 客户经理Id
-    customerManagerName: this.value.customerManagerName // 客户经理名称
+    customerManagerName: this.value.customerManagerName, // 客户经理名称
+    roleId: this.detailsP.roleId,
+    roleDes: this.getform.roleDes
   }
   // 发送数据
-  postDataBase.call(this, '/discountAudit/rejectDiscountAudit.do', param, true).then(res => {
+  postDataBase.call(this, '/sysRegisteredCompanyManager/registeredCompanyAdjust.do', param, true).then(res => {
+    console.log(param)
     // 操作成功关闭弹窗刷新数据
     if (res.data.status) {
       this.handleClose() // 关闭弹窗
