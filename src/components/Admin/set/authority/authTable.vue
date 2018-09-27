@@ -18,7 +18,6 @@
               show-checkbox
               node-key="menuId"
               :default-expanded-keys="[2, 3]"
-              :default-checked-keys="[5]"
               :props="defaultMenuProps"
               >
             </el-tree>
@@ -94,6 +93,7 @@ function handleNodeClick (data) {
   this.axios.post('/authorizationAdmin/authorizationManageList.do', param).then(res => {
     if (res.data.status) {
       this.menutList = res.data.data.menutList
+      this.$refs.menuTree.setCheckedKeys([5])
     } else {
       this.$message.error(res.data.msg)
     }
