@@ -134,13 +134,13 @@ export default {
 }
 // 启用
 function handleStart (idx, val) {
-  this.$confirm(`角色为${val.roleId}确定启用?`, `提示`, {
+  this.$confirm(`角色为${val.roleName}确定启用?`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
     center: true
   }).then(() => {
-    this.postWithId('/roleAdmin/enableRole.do', val.roleId) // 调用common混合中公共方法
+    this.postResultFresh('/roleAdmin/enableRole.do', { roleId: val.roleId }) // 调用common混合中公共方法
   }).catch(() => {
     this.$message({
       type: 'info',
@@ -150,13 +150,13 @@ function handleStart (idx, val) {
 }
 // 停用
 function handleStop (idx, val) {
-  this.$confirm(`角色为${val.roleId}确定停用?`, `提示`, {
+  this.$confirm(`角色为${val.roleName}确定停用?`, `提示`, {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
     center: true
   }).then(() => {
-    this.postWithId('/roleAdmin/disableRole.do', val.roleId) // 调用common混合中公共方法
+    this.postResultFresh('/roleAdmin/disableRole.do', { roleId: val.roleId }) // 调用common混合中公共方法
   }).catch(() => {
     this.$message({
       type: 'info',
@@ -166,12 +166,12 @@ function handleStop (idx, val) {
 }
 // 权限配置
 function authDelivery (idx, val) {
-  console.log(val)
   this.$router.push({
-    path: 'fundcmp',
+    path: 'authmanage',
     name: '',
     query: {
-      roleId: val.roleId
+      roleId: val.roleId,
+      roleType: val.roleType
     }
   })
 }

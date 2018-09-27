@@ -22,9 +22,9 @@
           </el-col>
           <el-col :span="16" :offset="4" class="flex">
             <el-form-item label="角色:" prop="roleDes">
-              <el-select v-model="getform.roleDes" placeholder="请选择">
+              <el-select v-model="getform.roleId" placeholder="请选择">
                 <el-option v-for="(item, index) in this.$store.getters.roleBelong" :key="index" :label="item.roleName"
-                  :value="item.roleName"></el-option>
+                  :value="item.roleId"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -96,11 +96,14 @@ export default {
 }
 // 提交操作
 async function submit () {
+  let roleObj = this.$store.getters.roleBelong.find((item) => {
+    return item.roleId === this.getform.roleId
+  })
   const param = {
     custId: this.detailsP.custId, // 客户Id
     contractSignType: this.getform.contractSignType, // 合同签署方式
-    roleId: this.detailsP.roleId,
-    roleDes: this.detailsP.roleDes
+    roleId: this.getform.roleId,
+    roleDes: roleObj.roleName
   }
   console.log(param)
   try {

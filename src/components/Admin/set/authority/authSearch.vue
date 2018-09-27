@@ -43,7 +43,7 @@ export default {
   computed: {
   },
   mounted () {
-    this.axios.get('/commonTrans/queryRoleTypeList.do').then(res => {
+    this.axios.post('/commonTrans/queryRoleTypeList.do').then(res => {
       if (res.data.status) {
         this.roleTypes = res.data.data
         this.$store.commit('getRoleBelong', res.data.data) // 将角色存入到store里面

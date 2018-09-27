@@ -61,7 +61,7 @@ export default {
     }
   },
   mounted () {
-    this.axios.get('/commonTrans/queryApplyStatusList.do').then(res => {
+    this.axios.post('/commonTrans/queryApplyStatusList.do').then(res => {
       if (res.data.status) {
         this.statusTypes = res.data.data
         console.log(this.statusTypes)
@@ -71,7 +71,7 @@ export default {
     }).catch(err => {
       console.log(err)
     })
-    this.axios.get('/commonTrans/queryRoleTypeList.do').then(res => {
+    this.axios.post('/commonTrans/queryRoleTypeList.do').then(res => {
       if (res.data.status) {
         this.roleTypes = res.data.data
         this.$store.commit('getRoleBelong', res.data.data) // 将角色存入到store里面

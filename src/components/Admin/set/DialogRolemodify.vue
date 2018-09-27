@@ -88,7 +88,7 @@ export default {
   },
   computed: {
     getTitle () {
-      return this.detailsP.roleId + '角色修改'
+      return '角色修改页面'
     },
     getform () {
       return this.detailsP

@@ -72,7 +72,7 @@ export default {
       isOvertime: false,
       btntype: 'primary',
       showInput: true,
-      phone: this.$store.state.user.userinfos.legalPhone, // 手机号
+      phone: this.$store.state.user.userinfos.contactPhone, // 手机号
       getForm: {
         verificationCode: '' // 验证码
       },

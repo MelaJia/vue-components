@@ -80,7 +80,7 @@ export default {
         this.arStatus = res
       }
     })
-    this.axios.get('/commonTrans/queryAvailableRoleList.do').then(res => {
+    this.axios.post('/commonTrans/queryAvailableRoleList.do').then(res => {
       if (res.data.status) {
         this.roleTypes = res.data.data
         this.$store.commit('getRoleBelong', res.data.data) // 将角色存入到store里面

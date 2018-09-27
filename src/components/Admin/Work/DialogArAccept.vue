@@ -41,12 +41,12 @@
         <el-row>
           <el-col :span="12" class="flex">
             <el-form-item prop="superviseBankName" label="监管银行:">
-              <el-input v-model="detailsP.superviseBankName"></el-input>
+              <el-input v-model="detailsP.superviseBankName" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12" class="flex">
             <el-form-item prop="superviseBankAccount" label="监管账号:">
-              <el-input v-model="detailsP.superviseBankAccount"></el-input>
+              <el-input v-model="detailsP.superviseBankAccount" clearable></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -68,6 +68,9 @@
   </el-dialog>
 </template>
 <style scoped lang="scss">
+.el-input.el-input--small {
+  width: 215px;
+}
 .layout.form {
   margin-top: 10px;
   > .el-row {
@@ -155,7 +158,8 @@ function submit () {
     buyerCustNo: this.detailsP.buyerCustNo, // 付款法人代码
     factoringCustId: this.form.factoringCustId, // 保理单位
     superviseBankName: this.getForm.superviseBankName, // 监管银行
-    superviseBankAccount: this.getForm.superviseBankAccount // 监管账号
+    superviseBankAccount: this.getForm.superviseBankAccount, // 监管账号
+    loanType: this.detailsP.loanType // 融资类型
   }
   console.log(param)
   // 显示加载图标

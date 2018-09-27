@@ -92,7 +92,7 @@ export default {
   },
   computed: {
     getTitle () {
-      return '角色新增'
+      return '角色新增页面'
     }
   },
   mounted () {

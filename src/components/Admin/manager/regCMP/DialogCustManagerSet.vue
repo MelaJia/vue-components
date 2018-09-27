@@ -11,21 +11,21 @@
         <el-row>
           <el-col :span="16" :offset="4" class="flex">
             <el-form-item label="客户经理设置:">
-              <el-select v-model="value" placeholder="请选择" @change="change">
+              <el-select v-model="getform.customerManagerId" placeholder="请选择" @change="change" value-key="customerManagerId">
                 <el-option
                   v-for="item in customerManagerList"
                   :key="item.customerManagerId"
                   :label="item.customerManagerName"
-                  :value="item">
+                  :value="item.customerManagerId">
                 </el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="16" :offset="4" class="flex">
             <el-form-item label="角色:" prop="roleDes">
-              <el-select v-model="getform.roleDes" placeholder="请选择" @change="change">
-                <el-option v-for="(item, index) in this.$store.getters.roleBelong" :key="index" :label="item.roleName"
-                  :value="item.roleName"></el-option>
+              <el-select v-model="getform.roleId" placeholder="请选择" @change="change" value-key="roleId">
+                <el-option v-for="item in this.$store.getters.roleBelong" :key="item.roleId" :label="item.roleName"
+                  :value="item.roleId"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -74,10 +74,13 @@ export default {
   mixins: [DialogClose, Common],
   data () {
     return {
-      value: null, // 选中数据
+      // value: null, // 选中数据
       customerManagerList: [{
         customerManagerId: 1,
-        customerManagerName: '获取数据失败'
+        customerManagerName: 'String'
+      }, {
+        customerManagerId: 2,
+        customerManagerName: 'String1212'
       }]
     }
   },
@@ -100,26 +103,29 @@ export default {
   methods: {
     handleSubmit: debounce(submit, 1000, true),
     change (val) {
-      console.log(val)
-      console.log(this.value)
+      // let obj = this.$store.getters.roleBelong.find((item) => {
+      //   console.log(item.value)
+      //   return item.roleId === val
+      // })
+      // console.log(obj)
+      // console.log(val)
     }
   }
 }
 // 提交操作
 function submit () {
-  if (!this.value) {
-    this.$message({
-      type: 'error',
-      message: '请选择客户经理'
-    })
-    return
-  }
+  let roleObj = this.$store.getters.roleBelong.find((item) => {
+    return item.roleId === this.getform.roleId
+  })
+  let managerObj = this.customerManagerList.find((item) => {
+    return item.customerManagerId === this.getform.customerManagerId
+  })
   let param = {
     custId: this.detailsP.custId, // 客户Id
-    customerManagerId: this.value.customerManagerId, // 客户经理Id
-    customerManagerName: this.value.customerManagerName, // 客户经理名称
-    roleId: this.detailsP.roleId,
-    roleDes: this.getform.roleDes
+    customerManagerId: this.getform.customerManagerId, // 客户经理Id
+    customerManagerName: managerObj.customerManagerName, // 客户经理名称
+    roleId: this.getform.roleId,
+    roleDes: roleObj.roleName
   }
   // 发送数据
   postDataBase.call(this, '/sysRegisteredCompanyManager/registeredCompanyAdjust.do', param, true).then(res => {

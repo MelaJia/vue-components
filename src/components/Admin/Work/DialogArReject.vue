@@ -79,7 +79,8 @@ function submit () {
   let param = {
     custId: this.detailsP.custId, // 客户Id
     buyerCustNo: this.detailsP.buyerCustNo, // 付款法人代码
-    rejectedReason: this.form.rejectedReason // 拒绝理由
+    rejectedReason: this.form.rejectedReason, // 拒绝理由
+    loanType: this.detailsP.loanType // 融资类型
   }
   // 显示加载图标
   const loading = this.$loading(loadingConf.sub())

@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     getPhones () {
-      return this.$store.state.user.userinfos.legalPhone
+      return this.$store.state.user.userinfos.contactPhone
     }
   },
   methods: {
