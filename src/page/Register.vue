@@ -32,13 +32,13 @@
             </el-row>
             <el-row>
               <el-col>
-                <el-form-item label="注册账号类型: " prop="custType" :rules="[{ required: true, message: '账号类型不能为空'}]">
-                  <el-select v-model="getForm.custType" placeholder="请选择">
+                <el-form-item label="注册账号类型: " prop="roleType" :rules="[{ required: true, message: '账号类型不能为空'}]">
+                  <el-select v-model="getForm.roleType" clearable placeholder="请选择">
                     <el-option
                       v-for="item in custTypeOptions"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
+                      :key="item.roleType"
+                      :label="item.roleTypeName"
+                      :value="item.roleType">
                     </el-option>
                   </el-select>
                 </el-form-item>
@@ -553,13 +553,7 @@ export default {
       pShow: false, // 密码是否可见
       pcShow: false, // 密码确认是是否可见
       /** 账号类型 */
-      custTypeOptions: [{
-        value: 2,
-        label: '供应商'
-      }, {
-        value: 3,
-        label: '保理方/资金方'
-      }],
+      custTypeOptions: [],
       /** 验证码 ****/
       isPhoneRe: true, // 可验证
       verificationCode: '',
@@ -640,6 +634,15 @@ export default {
         this.moneyTypes[idx].currencyId = this.moneyTypes[idx].currencyId.toString()
       })
     }
+    this.axios.get('/commonTrans/queryRoleTypeList.do').then(res => {
+      if (res.data.status) {
+        this.custTypeOptions = res.data.data
+      } else {
+        this.$message.error(res.data.msg)
+      }
+    }).catch(err => {
+      console.log(err)
+    })
   },
   methods: {
     // 上一页

@@ -85,7 +85,8 @@ function searchSubmit (val) {
     legalPerson: val.legalPerson, // 公司法人代表
     contactPerson: val.contactPerson, // 公司联系人
     customerManagerId: val.customerManagerId, // 客户经理
-    status: val.status // 状态
+    status: val.status, // 状态
+    roleId: val.roleId
   }
   if (this.total && this.currentPage !== 1) {
     this.total = 0 // 分页的当前页数变动会触发 从而获取数据

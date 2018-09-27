@@ -20,7 +20,7 @@ const routes = [
       name: 'fenbo',
       component: () => import(/* webpackChunkName: 'admin' */ '@/page/admin/work/ArFenBoList'),
       meta: {
-        title: 'AR分拨', // 名称
+        title: '资金方分拨', // 名称
         requireAuth: true // 需要登录验证
       }
     },
@@ -30,7 +30,7 @@ const routes = [
       component: () =>
         import(/* webpackChunkName: 'admin' */ '@/page/admin/managers/regCMP'),
       meta: {
-        title: '注册企业管理', // 名称
+        title: '资金需求方管理', // 名称
         requireAuth: true // 需要登录验证
       }
     },
@@ -40,7 +40,7 @@ const routes = [
       component: () =>
         import(/* webpackChunkName: 'admin' */ '@/page/admin/managers/fundCMP'),
       meta: {
-        title: '保理企业管理', // 名称
+        title: '资金提供方管理', // 名称
         requireAuth: true // 需要登录验证
       }
     },

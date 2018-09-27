@@ -379,14 +379,14 @@ const navs = {
       hClass: 'header-circle bg-icon-1',
       childrens: [{
         idx: 'regcmp',
-        text: '注册企业管理',
+        text: '资金需求方管理',
         disabled: false,
         lClass: 'line',
         hClass: 'circle'
       },
       {
         idx: 'fundcmp',
-        text: '保理企业管理',
+        text: '资金提供方管理',
         disabled: false,
         lClass: 'line',
         hClass: 'circle'
@@ -421,7 +421,7 @@ const navs = {
       hClass: 'header-circle bg-icon-1',
       childrens: [{
         idx: 'fenbo',
-        text: 'AR分拨',
+        text: '资金方分拨',
         disabled: false,
         lClass: 'line',
         hClass: 'circle'

@@ -7,32 +7,59 @@
       </span>
     </header>
     <section class="layout form">
-      <el-row>
-        <el-col :span="11" class="flex"><label>付款单位:</label>
-           <el-tooltip class="item" effect="dark" :content="detailsP.companyName" placement="top">
-            <span>{{detailsP.companyName}}</span>
-           </el-tooltip>
-        </el-col>
-        <el-col :span="11" :offset="1" class="flex"><label>贴现客户:</label>
-          <el-tooltip class="item" effect="dark" :content="detailsP.custFromName" placement="top">
-            <span>{{detailsP.custFromName}}</span>
-           </el-tooltip>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="22" class="flex"><label>一级供应商:</label>
-          <el-tooltip class="item" effect="dark" :content="detailsP.companyNameOfL1" placement="top">
-            <span>{{detailsP.companyNameOfL1}}</span>
-           </el-tooltip>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="22" class="flex"><label>保理单位:</label>
-          <el-select v-model="form.factoringCustId" clearable placeholder="保理单位">
-            <el-option v-for="(item,index) in factoringCusts" :key="index" :label="item.factoringApId" :value="item.factoringCustId"></el-option>
-          </el-select>
-        </el-col>
-      </el-row>
+      <el-form class="demo-form-inline" :model="getForm" size="small" label-width="140px">
+        <el-row>
+          <el-col :span="11" class="flex">
+            <el-form-item label="付款单位:">
+              <el-tooltip class="item" effect="dark" :content="detailsP.companyName" placement="top">
+                <span>{{detailsP.companyName}}</span>
+              </el-tooltip>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11" :offset="1" class="flex">
+            <el-form-item label="贴现客户:">
+              <el-tooltip class="item" effect="dark" :content="detailsP.custFromName" placement="top">
+                <span>{{detailsP.custFromName}}</span>
+              </el-tooltip>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12" class="flex">
+            <el-form-item label="一级供应商:">
+              <el-tooltip class="item" effect="dark" :content="detailsP.companyNameOfL1" placement="top">
+                <span>{{detailsP.companyNameOfL1}}</span>
+              </el-tooltip>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12" class="flex">
+            <el-form-item label="融资类型:">
+              <span>{{detailsP.loanTypeName}}</span>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12" class="flex">
+            <el-form-item prop="superviseBankName" label="监管银行:">
+              <el-input v-model="detailsP.superviseBankName"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12" class="flex">
+            <el-form-item prop="superviseBankAccount" label="监管账号:">
+              <el-input v-model="detailsP.superviseBankAccount"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="22" class="flex">
+            <el-form-item label="保理单位:">
+              <el-select v-model="form.factoringCustId" clearable placeholder="保理单位">
+                <el-option v-for="(item,index) in factoringCusts" :key="index" :label="item.factoringApId" :value="item.factoringCustId"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
     </section>
     <footer slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleSubmit">确认</el-button>
@@ -105,6 +132,9 @@ export default {
   computed: {
     getTitle () {
       return this.detailsP.custFromName
+    },
+    getForm () {
+      return this.detailsP
     }
   },
   methods: {
@@ -123,7 +153,9 @@ function submit () {
   const param = {
     custId: this.detailsP.custId, // 客户Id
     buyerCustNo: this.detailsP.buyerCustNo, // 付款法人代码
-    factoringCustId: this.form.factoringCustId // 保理单位
+    factoringCustId: this.form.factoringCustId, // 保理单位
+    superviseBankName: this.getForm.superviseBankName, // 监管银行
+    superviseBankAccount: this.getForm.superviseBankAccount // 监管账号
   }
   console.log(param)
   // 显示加载图标
