@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="8">
         <el-form-item label="角色所属" prop="roleType">
-          <el-select v-model="formInline.roleType" placeholder="">
+          <el-select v-model="formInline.roleTypeId" placeholder="">
             <el-option v-for="(item,index) in roleTypes" :key="index" :label="item.roleTypeName" :value="item.roleType"></el-option>
           </el-select>
         </el-form-item>
@@ -36,7 +36,7 @@ export default {
     return {
       roleTypes: [], // 角色
       formInline: {
-        roleType: this.type ? Number(this.type) : 1 // 角色所属
+        roleTypeId: this.type ? Number(this.type) : 0 // 角色所属
       }
     }
   },

@@ -57,7 +57,7 @@ const routes = [
     {
       path: 'authmanage',
       name: 'authmanage',
-      props: (route) => ({ query: {roleType: Number(route.query.type), roleId: Number(route.query.id)} }),
+      props: (route) => ({ query: {roleTypeId: Number(route.query.roleType), roleId: Number(route.query.roleId)} }),
       component: () =>
         import(/* webpackChunkName: 'AR' */ '@/page/admin/set/AuthorityManage'),
       meta: {
