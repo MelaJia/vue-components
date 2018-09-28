@@ -19,6 +19,8 @@
       </el-table-column>
       <el-table-column align="center" label="保理方" prop="custToName" :formatter="nullDealWith" >
       </el-table-column>
+      <el-table-column align="center" label="授信额度" prop="totalCreditAmount" :formatter="nullDealWith" >
+      </el-table-column>
       <el-table-column align="center" label="监管银行" prop="superviseBankName" :formatter="nullDealWith" >
       </el-table-column>
       <el-table-column align="center" label="监管账号" prop="superviseBankAccount" :formatter="nullDealWith" >

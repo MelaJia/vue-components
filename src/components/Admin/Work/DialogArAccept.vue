@@ -7,7 +7,7 @@
       </span>
     </header>
     <section class="layout form">
-      <el-form class="demo-form-inline" :model="getForm" size="small" label-width="140px">
+      <el-form class="demo-form-inline" ref="form" :rules="rules" :model="getForm" size="small" label-width="140px">
         <el-row>
           <el-col :span="11" class="flex">
             <el-form-item label="付款单位:">
@@ -38,7 +38,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
+        <el-row v-show="detailsP.loanType === 3">
           <el-col :span="12" class="flex">
             <el-form-item prop="superviseBankName" label="监管银行:">
               <el-input v-model="detailsP.superviseBankName" clearable></el-input>
@@ -46,16 +46,23 @@
           </el-col>
           <el-col :span="12" class="flex">
             <el-form-item prop="superviseBankAccount" label="监管账号:">
-              <el-input v-model="detailsP.superviseBankAccount" clearable></el-input>
+              <el-input v-model.number="detailsP.superviseBankAccount" clearable></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="22" class="flex">
+          <el-col :span="12" class="flex">
             <el-form-item label="保理单位:">
               <el-select v-model="form.factoringCustId" clearable placeholder="保理单位">
                 <el-option v-for="(item,index) in factoringCusts" :key="index" :label="item.factoringApId" :value="item.factoringCustId"></el-option>
               </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12" class="flex" v-show="detailsP.loanType === 4">
+            <el-form-item prop="totalCreditAmount" label="授信额度:">
+              <el-input v-model="detailsP.totalCreditAmount" @keyup.native="checkHandle($event)">
+                <template slot="append">元</template>
+              </el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -109,6 +116,23 @@ export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, Common],
   data () {
+    var checkNumber = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('不能为空'))
+      }
+      let re = /^(0|[1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
+      setTimeout(() => {
+        if (!re.test(value)) {
+          callback(new Error('请输入大于等于0的数字'))
+        } else {
+          if (value <= 0) {
+            callback(new Error('必须大于等于0'))
+          } else {
+            callback()
+          }
+        }
+      }, 1000)
+    }
     return {
       form: {
         custId: this.detailsP.custId, // 客户Id
@@ -120,7 +144,13 @@ export default {
       factoringCusts: [{
         factoringCustId: 1,
         factoringApId: '获取数据失败'
-      }]
+      }],
+      rules: {
+        totalCreditAmount: [
+          {required: true, message: '授信额度不能为空', trigger: 'blur'},
+          {validator: checkNumber, trigger: 'blur'}
+        ]
+      }
     }
   },
   mounted () {
@@ -141,7 +171,11 @@ export default {
     }
   },
   methods: {
-    handleSubmit: debounce(submit, 1000, true)
+    handleSubmit: debounce(submit, 1000, true),
+    checkHandle (e) {
+      e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null
+      this.detailsP.totalCreditAmount = e.target.value
+    }
   }
 }
 // 提交操作
@@ -153,33 +187,71 @@ function submit () {
     })
     return
   }
-  const param = {
-    custId: this.detailsP.custId, // 客户Id
-    buyerCustNo: this.detailsP.buyerCustNo, // 付款法人代码
-    factoringCustId: this.form.factoringCustId, // 保理单位
-    superviseBankName: this.getForm.superviseBankName, // 监管银行
-    superviseBankAccount: this.getForm.superviseBankAccount, // 监管账号
-    loanType: this.detailsP.loanType // 融资类型
-  }
-  console.log(param)
-  // 显示加载图标
-  const loading = this.$loading(loadingConf.sub())
-  this.axios.post('/discountAudit/approveDiscountAudit.do', param).then(res => {
-    let type = res.data.status ? 'success' : 'error'
-    this.$message({
-      message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-      type: type
+  // 授信额度存在的时候要去校验
+  if (this.detailsP.loanType === 4) {
+    this.$refs.form.validate((valid) => {
+      if (valid) {
+        const param = {
+          custId: this.detailsP.custId, // 客户Id
+          buyerCustNo: this.detailsP.buyerCustNo, // 付款法人代码
+          factoringCustId: this.form.factoringCustId, // 保理单位
+          superviseBankName: this.getForm.superviseBankName, // 监管银行
+          superviseBankAccount: this.getForm.superviseBankAccount, // 监管账号
+          loanType: this.detailsP.loanType, // 融资类型
+          totalCreditAmount: this.detailsP.totalCreditAmount // 授信额度
+        }
+        console.log(param)
+        // 显示加载图标
+        const loading = this.$loading(loadingConf.sub())
+        this.axios.post('/discountAudit/approveDiscountAudit.do', param).then(res => {
+          let type = res.data.status ? 'success' : 'error'
+          this.$message({
+            message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+            type: type
+          })
+          // 操作成功关闭弹窗刷新数据
+          if (res.data.status) {
+            this.handleClose() // 关闭弹窗
+            this.$parent.fresh() // 刷新数据
+          } else {
+            loading.close()
+          }
+        }).catch((err) => {
+          // 错误提示
+          erroShow.call(this, err, loading)
+        })
+      }
     })
-    // 操作成功关闭弹窗刷新数据
-    if (res.data.status) {
-      this.handleClose() // 关闭弹窗
-      this.$parent.fresh() // 刷新数据
-    } else {
-      loading.close()
+  } else {
+    const param = {
+      custId: this.detailsP.custId, // 客户Id
+      buyerCustNo: this.detailsP.buyerCustNo, // 付款法人代码
+      factoringCustId: this.form.factoringCustId, // 保理单位
+      superviseBankName: this.getForm.superviseBankName, // 监管银行
+      superviseBankAccount: this.getForm.superviseBankAccount, // 监管账号
+      loanType: this.detailsP.loanType, // 融资类型
+      totalCreditAmount: 0 // 授信额度
     }
-  }).catch((err) => {
-    // 错误提示
-    erroShow.call(this, err, loading)
-  })
+    console.log(param)
+    // 显示加载图标
+    const loading = this.$loading(loadingConf.sub())
+    this.axios.post('/discountAudit/approveDiscountAudit.do', param).then(res => {
+      let type = res.data.status ? 'success' : 'error'
+      this.$message({
+        message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+        type: type
+      })
+      // 操作成功关闭弹窗刷新数据
+      if (res.data.status) {
+        this.handleClose() // 关闭弹窗
+        this.$parent.fresh() // 刷新数据
+      } else {
+        loading.close()
+      }
+    }).catch((err) => {
+      // 错误提示
+      erroShow.call(this, err, loading)
+    })
+  }
 }
 </script>

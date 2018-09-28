@@ -360,9 +360,28 @@ function handleSub () {
             // 成功刷新数据
             this.fresh()
             this.handleClearSelection()
+            // 点击操作成功重置输入框的值和日期
+            this.displayApplyAmt = ''
+            this.formInline.repayDate = null
+            if (this.$refs.ordform) {
+              this.$refs.ordform.resetFields()
+            }
+          } else {
+            // 点击操作失败重置输入框的值和日期
+            this.displayApplyAmt = ''
+            this.formInline.repayDate = null
+            if (this.$refs.ordform) {
+              this.$refs.ordform.resetFields()
+            }
           }
         })
       }).catch((err) => {
+        // 重置输入框的值和日期
+        this.displayApplyAmt = ''
+        this.formInline.repayDate = null
+        if (this.$refs.ordform) {
+          this.$refs.ordform.resetFields()
+        }
         console.log(err)
         this.$message({
           type: 'info',
