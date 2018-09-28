@@ -1,5 +1,5 @@
 <template>
-  <div class="ar-table">
+  <div class="ar-table" ref="resizeContext">
     <header>
       <el-form ref="ordform" :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="已选订单金额合计(元)">

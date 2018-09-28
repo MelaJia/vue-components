@@ -239,7 +239,7 @@ function ieAutoResize () {
     return false
   }
   const tNode = this.$refs.resizeContext
-  if (isIE() && tNode.offsetWidth > 1190) {
+  if (isIE() && tNode.offsetWidth > tNode.querySelector('.el-table__body').offsetWidth) {
     console.log('改变')
     const tNode = this.$refs.resizeContext
     if (tNode.parentElement.offsetWidth !== tNode.offsetWidth + 40) {

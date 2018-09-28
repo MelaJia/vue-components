@@ -1,5 +1,5 @@
 <template>
-  <div class="ar-table">
+  <div class="ar-table" ref="resizeContext">
     <!-- 详情 -->
     <dialog-myarrear :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-myarrear>
     <section>

@@ -1,5 +1,5 @@
 <template>
-  <div class="ar-table">
+  <div class="ar-table" ref="resizeContext">
     <header>
       <!-- <el-button round @click="dialogConfirmVisible = true">批量确认</el-button>
     <el-button round @click="dialogTransferVisible = true">批量转让</el-button>

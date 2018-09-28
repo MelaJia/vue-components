@@ -1,5 +1,5 @@
 <template>
-  <div class="ar-table">
+  <div class="ar-table" ref="resizeContext">
     <header>
     </header>
     <!-- 合同确认 -->

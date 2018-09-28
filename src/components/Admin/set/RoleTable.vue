@@ -1,5 +1,5 @@
 <template>
-  <div class="ar-table">
+  <div class="ar-table" ref="resizeContext">
     <header>
       <el-button type="primary" size="mini" @click="roleAdd">新增</el-button>
     </header>

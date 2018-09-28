@@ -1,5 +1,5 @@
 <template>
-  <div class="ar-table">
+  <div class="ar-table" ref="resizeContext">
     <!-- 详情 -->
     <dialog-creditloan :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-creditloan>
     <!--电子合同-->
