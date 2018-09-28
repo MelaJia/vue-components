@@ -1,5 +1,9 @@
 <template>
-  <div class="ar-table">
+  <div class="ar-table"
+  v-loading="loadingAuth"
+  element-loading-text="获取数据中"
+  element-loading-spinner="el-icon-loading"
+  element-loading-background="rgba(0, 0, 0, 0.8)">
     <header>
     </header>
     <!--列表展示-->
@@ -14,7 +18,7 @@
           <article>
             <el-tree
               ref="menuTree"
-              :data="menutList"
+              :data="menuList"
               show-checkbox
               node-key="menuId"
               :default-expanded-keys="[2, 3]"
@@ -48,6 +52,8 @@ export default {
   },
   data () {
     return {
+      loadingAuth: false, // 权限加载框
+      flag: false, // 是否为自动选择
       forms: {
         roleId: 1
       },
@@ -59,7 +65,7 @@ export default {
         children: 'children',
         label: 'menuName'
       },
-      menutList: []
+      menuList: []
     }
   },
   watch: {
@@ -79,46 +85,109 @@ export default {
       this.$emit('refresh')
     },
     onSubmit: Submit,
-    handleNodeClick: handleNodeClick,
-    Init: Init
+    handleNodeClick: handleNodeClick, // 选择角色
+    Init: Init, // 初始化重置
+    initAuth: initAuth // 置空权限列表
   }
 }
 /** 单击角色 */
 function handleNodeClick (data) {
   console.log(data)
-  let param = {
-    roleType: data.roleType,
-    roleId: data.roleId
+  if (data.children) {
+    return false
   }
-  this.axios.post('/authorizationAdmin/authorizationManageList.do', param).then(res => {
-    if (res.data.status) {
-      this.menutList = res.data.data.menutList
-      this.$refs.menuTree.setCheckedKeys([5])
-    } else {
-      this.$message.error(res.data.msg)
+  getAuth(this, data)
+}
+/**
+ * 权限勾选节点
+ * [object] scope 上下文
+ * [Array] arr 勾选节点的 key 的数组
+*/
+function selectNode (scope, arr) {
+  scope.$refs.menuTree.setCheckedKeys(arr, true)
+}
+/**
+ * 设置角色选中
+ * [object] scope 上下文
+ * [number] key 待被选角色的 key
+ */
+function selectRole (scope, key) {
+  scope.$refs.tree.setCurrentKey(key)
+}
+/**
+ * 获取选中角色节点
+ * [object] scope 上下文
+ */
+function getSelectRoleNode (scope) {
+  return scope.$refs.tree.getCurrentNode()
+}
+/** 初始化 */
+function Init () {
+  return new Promise((resolve, reject) => {
+    // 判断是否传入角色
+    if (isNaN(this.roleId)) {
+      return
     }
-  }).catch(err => {
-    console.log(err)
+    // 选中传入角色
+    console.log(this.roleId)
+    selectRole(this, this.roleId)
+    // 获取选中角色节点
+    var data = getSelectRoleNode(this)
+    // 获取角色权限并设置勾选
+    console.log(data)
+    resolve(getAuth(this, data))
   })
 }
-function Init () {
-  console.log(this.$refs.tree)
-  console.log(this.roleId)
-  this.$refs.tree.setCurrentKey(this.roleId)
-  var data = this.$refs.tree.getCurrentNode()
-  let param = {
-    roleType: data.roleType,
-    roleId: data.roleId
-  }
-  this.axios.post('/authorizationAdmin/authorizationManageList.do', param).then(res => {
-    if (res.data.status) {
-      this.menutList = res.data.data.menutList
-    } else {
-      this.$message.error(res.data.msg)
+/**
+ * 获取权限列表
+ * [object] scope 上下文
+ * [object] data 角色数据
+ */
+function getAuth (scope, data) {
+  return new Promise(async (resolve, reject) => {
+    scope.loadingAuth = true
+    let param = {
+      roleType: data.roleType,
+      roleId: data.roleId
     }
-  }).catch(err => {
-    console.log(err)
+    try {
+      const res = await scope.axios.post('/authorizationAdmin/authorizationManageList.do', param)
+      if (res.data.status) {
+        const menuList = res.data.data.menuList
+        scope.menuList = menuList
+        // 获取勾选权限数组
+        const selectArr = getSelectedKeys(menuList)
+        // 勾选已有权限
+        selectNode(scope, selectArr)
+      } else {
+        scope.$message.error(res.data.msg)
+      }
+      scope.loadingAuth = false
+      resolve({ finish: true, status: 1 })
+    } catch (error) {
+      console.log(error)
+      scope.loadingAuth = false
+      resolve({ finish: true, status: 0 })
+    }
   })
+}
+/**
+ * 获取勾选key数组
+ */
+function getSelectedKeys (object) {
+  const resultArr = []
+  for (const iterator of object) {
+    if (iterator.isSelected) {
+      resultArr.push(iterator.menuId)
+    }
+  }
+  return resultArr
+}
+/**
+ * 置空权限
+ */
+function initAuth () {
+  this.menuList = []
 }
 function Submit () {
   var data = this.$refs.tree.getCurrentNode()
@@ -127,12 +196,13 @@ function Submit () {
   let param = {
     roleType: data.roleType,
     roleId: data.roleId,
-    menutList: this.$refs.menuTree.getCheckedNodes(true, true)
+    menuList: this.$refs.menuTree.getCheckedNodes(true, true)
   }
   console.log(param)
   this.axios.post('/authorizationAdmin/authorizationConfig.do', param).then(res => {
     if (res.data.status) {
-      this.menutList = res.data.data.menutList
+      this.menuList = res.data.data.menuList
+      selectNode(this, [5])
     } else {
       this.$message.error(res.data.msg)
     }

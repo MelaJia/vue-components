@@ -49,6 +49,7 @@ export default {
       return ''
     },
     expendhandle (row, expandedRows) {
+      ieAutoResize.call(this)
       row.pend = !row.pend
     },
     getPendedColor ({row, rowIndex}) {
@@ -223,6 +224,28 @@ export default {
       data.invoiceList = list
       data.invoiceListSelected = listSelected
       return data
+    }
+  }
+}
+function isIE () { // ie?
+  if (!!window.ActiveXObject || 'ActiveXObject' in window) {
+    return true
+  } else {
+    return false
+  }
+}
+function ieAutoResize () {
+  if (!this.$refs.resizeContext) {
+    return false
+  }
+  const tNode = this.$refs.resizeContext
+  if (isIE() && tNode.offsetWidth > 1190) {
+    console.log('改变')
+    const tNode = this.$refs.resizeContext
+    if (tNode.parentElement.offsetWidth !== tNode.offsetWidth + 40) {
+      tNode.style.width = tNode.offsetWidth + 1 + 'px'
+    } else {
+      tNode.style.width = tNode.offsetWidth - 1 + 'px'
     }
   }
 }

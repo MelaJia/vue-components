@@ -13,7 +13,7 @@
           </el-tooltip>
         </div>
         <transition name="custom-classes-transition" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
-          <search @handle-search="searchSubmit" :type="query.roleType" v-show="searchShow"></search>
+          <search @handle-search="searchSubmit" :type="query.roleTypeId" v-show="searchShow"></search>
         </transition>
       </el-card>
     </div>
@@ -31,100 +31,110 @@
 import AuthTable from '@/components/Admin/set/authority/authTable'
 import Search from '@/components/Admin/set/authority/authSearch'
 import Table from '@/mixins/suplier/Ar/Table'
+import { getDataBase } from '@/util/util' // 发送数据函数
+import { loadingConf } from '@/config/common' // 获取加载配置
 export default {
   mixins: [Table],
   props: ['query'],
   data () {
     return {
       loading: false,
-      postUrl: '/roleAdmin/roleManageList.do',
-      dataStr: 'data',
-      totalStr: 'recordsTotal'
+      postUrl: '/roleAdmin/queryRoleList.do',
+      param: { roleTypeId: 0 }
     }
   },
   components: {
     'auth-table': AuthTable,
     'search': Search
   },
-  mounted () {
-    this.getdata(1, this.psize)
-      .then(res => {
-        if (res.data.status) {
-          const arr = [...this.$store.state.user.roleBelong]
-          let name = arr[0].roleTypeName // 设置默认名称
-          for (const iterator of arr) {
-            console.log(iterator.roleType)
-            console.log(this.query.roleType)
-            if (iterator.roleType === this.query.roleType) {
-              name = iterator.roleTypeName
-            }
-          }
-          this.tableData5 = [{ roleName: name, children: res.data[this.dataStr] }]
-          this.total = res.data[this.totalStr]
-          setTimeout(() => {
-            this.$refs.authBox.Init()
-          }, 0)
-        } else {
-          this.tableData5 = []
-          this.total = 0
-          this.$message.error(res.data.msg)
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+  async mounted () {
+    console.log(this.query.roleTypeId)
+    let result = await initGetRoles(this, { roleTypeId: isNaN(this.query.roleTypeId) ? 0 : this.query.roleTypeId })
+    const loading = this.$loading(loadingConf.get())
+    if (isNaN(this.query.roleTypeId)) {
+      loading.close()
+      return false
+    }
+    if (result) {
+      setTimeout(async () => {
+        let t = await this.$refs.authBox.Init()
+        console.log(t)
+        loading.close()
+      }, 0)
+    }
   },
   methods: {
     // 查询
-    searchSubmit (val) {
-      console.log(this.query)
-      /* 修改请求参数 */
-      this.param = {
-        iDisplayStart: 1,
-        iDisplayLength: 10,
-        roleType: val.roleType // 角色所属
-      }
-      if (this.total && this.currentPage !== 1) {
-        this.total = 0 // 分页的当前页数变动会触发 从而获取数据
-      } else {
-        this.getdata(1, this.psize).then(res => {
-          if (res.data.status) {
-            /** 获取角色所属名 */
-            const arr = [...this.$store.state.user.roleBelong]
-            let name = ''
-            for (const iterator of arr) {
-              if (iterator.roleType === val.roleType) {
-                name = iterator.roleTypeName
-              }
-            }
-            this.tableData5 = [{ roleName: name, children: res.data[this.dataStr] }]
-            this.total = res.data[this.totalStr]
-          } else {
-            this.tableData5 = []
-            this.total = 0
-            this.$message.error(res.data.msg)
-          }
-        })
-      }
-    },
+    searchSubmit: searchSubmit,
     // 刷新
     handleRefresh () {
-      const that = this
-      this.getdata(that.currentPage, that.psize)
-        .then(res => {
-          if (res.data.status) {
-            this.tableData5 = res.data[this.dataStr]
-            this.total = res.data[this.totalStr]
-          } else {
-            this.tableData5 = []
-            this.total = 0
-            this.$message.error(res.data.msg)
-          }
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+      getRoles(this, this.param)
     }
   }
+}
+async function searchSubmit (val) {
+  console.log(this.query)
+  /* 修改请求参数 */
+  this.param = {
+    roleTypeId: val.roleTypeId // 角色所属
+  }
+  let result = await getRoles(this, this.param)
+  if (result) {
+    setTimeout(() => {
+      this.$refs.authBox.initAuth()
+    }, 0)
+  }
+}
+/**
+ * 获取角色列表
+ * [object] scope 上下文
+ * [object] data 角色所属
+ */
+function getRoles (scope, data) {
+  return new Promise(async (resolve, reject) => {
+    let res = await getDataBase.call(scope, scope.postUrl, data, true)
+    console.log('获取成功')
+    if (res) {
+      /** 获取角色所属名 */
+      let name = getRoleTypeName(scope, data)
+      scope.tableData5 = [{ roleName: name, children: res }]
+      resolve(true)
+    } else {
+      scope.tableData5 = []
+      scope.$message.error(res.data.msg)
+      resolve(false)
+    }
+  })
+}
+function initGetRoles (scope, data) {
+  return new Promise(async (resolve, reject) => {
+    // 显示加载图标
+    const loading = scope.$loading(loadingConf.get())
+    let res = await scope.axios.post(scope.postUrl, data)
+    if (res.data.status) {
+      /** 获取角色所属名 */
+      let name = getRoleTypeName(scope, data)
+      scope.tableData5 = [{ roleName: name, children: res.data.data }]
+      resolve(true)
+    } else {
+      scope.tableData5 = []
+      scope.$message.error(res.data.msg)
+      loading.close()
+      resolve(false)
+    }
+  })
+}
+/**
+ * 获取选中的角色所属名
+*/
+function getRoleTypeName (scope, data) {
+  const arr = [...scope.$store.state.user.roleBelong]
+  let name = ''
+  for (const iterator of arr) {
+    if (iterator.roleType === data.roleTypeId) {
+      name = iterator.roleTypeName
+    }
+  }
+  return name
 }
 </script>

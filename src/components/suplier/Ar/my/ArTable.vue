@@ -1,5 +1,5 @@
 <template>
-  <div class="ar-table">
+  <div class="ar-table" ref="resizeContext">
     <header>
       <!-- <el-button round @click="dialogConfirmVisible = true">批量确认</el-button>
     <el-button round @click="dialogTransferVisible = true">批量转让</el-button>
@@ -20,7 +20,8 @@
     <section>
       <el-table ref="table" :data="comDatas" v-loading.fullscreen="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%"
-        @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle" @mousedown.native="mouseDown">
+        @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle" @mousedown.native="mouseDown"
+        >
         <el-table-column type="expand" fixed>
           <template slot-scope="props">
             <el-table :data="props.row.tableData" border style="width: 100%" :show-header="false" :row-class-name="getPendedColor">
@@ -91,7 +92,7 @@
         </el-table-column>
         <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="left" header-align="center" label="操作" width='130px' class-name="" fixed="right" :resizable="false">
+        <el-table-column align="left" header-align="center" label="操作" width='130px' class-name="" fixed="right">
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
             <el-button size="mini" type="text" v-for="(item, index) in scope.row.operateArr" :key="index" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button>

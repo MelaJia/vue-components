@@ -15,17 +15,19 @@ let apiUrl = `${baseUrl}/openapi`
 let iconfontVersion = ['567566_lgiis24af44bcsor']
 let iconfontUrl = `//at.alicdn.com/t/font_$key.css`
 let codeUrl = `${baseUrl}/code`
-let protocol = document.location.protocol
-let host = document.location.host
+// let protocol = document.location.protocol
+// let host = document.location.host
 // let basePath = document.location.hostname === 'localhost' ? '/JuXin' : getContextPath()
-let basePath = '/JuXin'
+// let basePath = '/JuXin'
 if (process.env.NODE_ENV === 'development') {
   baseUrl = `http://10.130.2.220:3000`
   // baseUrl = `https://jurongtest.foxconn.com/JuXin/openapi`
   apiUrl = baseUrl
 } else if (process.env.NODE_ENV === 'production') {
-  baseUrl = `${protocol}//${host}${basePath}`
-  apiUrl = `${baseUrl}/openapi`
+  // baseUrl = `${protocol}//${host}${basePath}`
+  // apiUrl = `${baseUrl}/openapi`
+  baseUrl = window.g.baseUrl
+  apiUrl = window.g.apiUrl
 }
 export { baseUrl, iconfontUrl, iconfontVersion, codeUrl, apiUrl }
 // function getContextPath () {
