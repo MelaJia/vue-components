@@ -156,7 +156,7 @@ export default {
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/creditLoan/loan/DialogInfo')
   },
   data () {
-    console.log(widhConf.crL)
+    console.log('宽度配置', widhConf.crL)
     return {
       dialogContractVisible: false, // 控制合同窗
       dialogInfoVisible: false,

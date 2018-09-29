@@ -11,9 +11,9 @@
             <el-table :data="props.row.tableData" border style="width: 100%" :show-header="false" :row-class-name="getPendedColor">
               <el-table-column width="48">
               </el-table-column>
-              <el-table-column align="center" width="60">
+              <el-table-column align="center" width="40">
               </el-table-column>
-              <el-table-column align="center" prop="billNo" :width="widthArr.billNo">
+              <el-table-column align="center" prop="billNo" :width="widthArr.billNo" :formatter="nullDealWith">
               </el-table-column>
               <el-table-column align="center" prop="invoiceNo" :width="widthArr.invoiceNo">
               </el-table-column>
@@ -50,25 +50,25 @@
         <el-table-column
           type="index"
           label="序号"
-          fixed width="60" align="center">
+          fixed width="40" align="center">
         </el-table-column>
-        <el-table-column align="center" label="结报单号" fixed sortable prop="billNo" min-width="150">
+        <el-table-column align="center" label="结报单号" fixed sortable prop="billNo" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="发票单号" prop="invoiceNo" min-width="150">
+        <el-table-column align="center" label="发票单号" prop="invoiceNo">
         </el-table-column>
-        <el-table-column align="center" label="法人代码" prop="corpCode" min-width="180">
+        <el-table-column align="center" label="法人代码" prop="corpCode" width="180">
         </el-table-column>
-        <el-table-column align="center" label="法人单位" prop="corpName" min-width="180">
+        <el-table-column align="center" label="法人单位" prop="corpName" >
         </el-table-column>
-        <el-table-column align="center" label="结报申请付款日期" prop="dueDate" min-width="120" :formatter="dateFormat">
+        <el-table-column align="center" label="结报申请付款日期" prop="dueDate" width="120" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" min-width="80">
+        <el-table-column align="center" label="币别" prop="currencyName" width="120">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="应付金额" prop="oriAmt" min-width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="应付金额" prop="oriAmt"  :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="已付金额" prop="oriPaidAmt" min-width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="已付金额" prop="oriPaidAmt"  :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="未付金额" prop="oriUnPaidAmt" min-width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="未付金额" prop="oriUnPaidAmt" width="120" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" fixed="right" label="操作" header-align="center" width="60">
           <template slot-scope="scope">
@@ -126,14 +126,14 @@ export default {
       details: {}, // 详情数据
       filedetails: {},
       widthArr: {
-        billNo: '150',
-        invoiceNo: '150',
+        billNo: '',
+        invoiceNo: '',
         corpCode: '180',
-        corpName: '180',
+        corpName: '',
         dueDate: '120',
-        currencyName: '80',
-        oriAmt: '120',
-        oriPaidAmt: '120',
+        currencyName: '120',
+        oriAmt: '',
+        oriPaidAmt: '',
         oriUnPaidAmt: '120'
       }
     }

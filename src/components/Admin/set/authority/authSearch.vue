@@ -1,16 +1,14 @@
 <template>
   <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="mini" label-width="150px">
     <el-row>
-      <el-col :span="8">
+      <el-col :span="10">
         <el-form-item label="角色所属" prop="roleType">
           <el-select v-model="formInline.roleTypeId" placeholder="">
             <el-option v-for="(item,index) in roleTypes" :key="index" :label="item.roleTypeName" :value="item.roleType"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="8" :offset="10">
+      <el-col :span="2" >
           <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
       </el-col>
     </el-row>

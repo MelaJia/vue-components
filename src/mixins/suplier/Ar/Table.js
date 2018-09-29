@@ -61,7 +61,7 @@ export default {
     // 父table控制子table宽度控制
     widthHandle (newWidth, oldWidth, column, event) {
       this.widthArr[column.property] = newWidth
-      console.log(this.widthArr)
+      console.log(newWidth)
     },
     /**
      *
