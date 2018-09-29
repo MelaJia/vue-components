@@ -20,7 +20,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-button :type="btntype" @click="sendMessage">{{word}}</el-button>
+          <el-button :type="btntype" @click="sendMessage" :disabled="showCheckBtn">{{word}}</el-button>
         </el-col>
       </el-row>
       <el-row>
@@ -70,6 +70,7 @@ export default {
     return {
       word: '发送验证码',
       isOvertime: false,
+      showCheckBtn: false,
       btntype: 'primary',
       showInput: true,
       phone: this.$store.state.user.userinfos.contactPhone, // 手机号
@@ -116,6 +117,7 @@ function sendMessage () {
       let that = this
       let time = 60
       this.btntype = 'default'
+      this.showCheckBtn = true
       sendTimer = setInterval(function () {
         that.isOvertime = true
         time--
@@ -123,6 +125,7 @@ function sendMessage () {
         if (time < 0) {
           that.isOvertime = false
           that.btntype = 'primary'
+          that.showCheckBtn = false
           clearInterval(sendTimer)
           that.word = '获取验证码'
         }
@@ -177,6 +180,7 @@ function confirm () {
 function Init () {
   this.getForm.verificationCode = ''
   this.isOvertime = false
+  this.showCheckBtn = false
   clearInterval(sendTimer)
   this.word = '发送验证码'
   this.btntype = 'primary'

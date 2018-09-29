@@ -58,29 +58,29 @@
           label="序号"
           fixed width="60" align="center">
         </el-table-column>
-        <el-table-column align="center" label="发票单号" fixed sortable prop="invoiceNo" min-width="150">
+        <el-table-column align="center" label="发票单号" fixed sortable prop="invoiceNo" width="150">
         </el-table-column>
-        <el-table-column align="center" label="对账单号" prop="statementNo" min-width="150">
+        <el-table-column align="center" label="对账单号" prop="statementNo" width="">
         </el-table-column>
-        <el-table-column align="center" label="销方名称" prop="sellerName" min-width="180">
+        <el-table-column align="center" label="销方名称" prop="sellerName" width="180">
         </el-table-column>
-        <el-table-column align="center" label="购方名称" prop="buyerName" min-width="180">
+        <el-table-column align="center" label="购方名称" prop="buyerName" width="180">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="金额" prop="amount" min-width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="金额" prop="amount" width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="税额" prop="taxAmount" min-width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="税额" prop="taxAmount" width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="税价合计" prop="total" min-width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="税价合计" prop="total" width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" min-width="100">
+        <el-table-column align="center" label="币别" prop="currencyName" width="100">
         </el-table-column>
-        <el-table-column align="center" label="发票类型" prop="invoiceTypeName" min-width="100">
+        <el-table-column align="center" label="发票类型" prop="invoiceTypeName" width="100">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="statusName" min-width="100">
+        <el-table-column align="center" label="状态" prop="statusName" width="100">
         </el-table-column>
-        <el-table-column align="center" label="开票日期" prop="entryDate" min-width="100" :formatter="dateFormat">
+        <el-table-column align="center" label="开票日期" prop="entryDate" width="100" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" label="创建日期" prop="creationDate" min-width="100" :formatter="dateFormat">
+        <el-table-column align="center" label="创建日期" prop="creationDate" width="100" :formatter="dateFormat">
         </el-table-column>
         <el-table-column align="center" fixed="right" label="操作" header-align="center" width="60">
           <template slot-scope="scope">
@@ -139,7 +139,7 @@ export default {
       filedetails: {},
       widthArr: {
         invoiceNo: '150',
-        statementNo: '150',
+        statementNo: '',
         sellerName: '180',
         buyerName: '180',
         amount: '120',

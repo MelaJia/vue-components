@@ -64,35 +64,35 @@
           label="序号"
           fixed width="60" align="center">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" min-width="150">
+        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="150">
         </el-table-column>
-        <el-table-column align="center" label="对账单号" prop="statementNo" min-width="150">
+        <el-table-column align="center" label="对账单号" prop="statementNo" width="">
         </el-table-column>
-        <el-table-column align="center" label="进货验收单号" prop="grnNumber" min-width="150">
+        <el-table-column align="center" label="进货验收单号" prop="grnNumber" width="150">
         </el-table-column>
-        <el-table-column align="center" label="销方名称" prop="sellerName" min-width="180">
+        <el-table-column align="center" label="销方名称" prop="sellerName" width="180">
         </el-table-column>
-        <el-table-column align="center" label="销方税号" prop="sellerTaxNo" min-width="180">
+        <el-table-column align="center" label="销方税号" prop="sellerTaxNo" width="180">
         </el-table-column>
-        <el-table-column align="center" label="销方银行账号" prop="sellerBankNo" min-width="200">
+        <el-table-column align="center" label="销方银行账号" prop="sellerBankNo" width="200">
         </el-table-column>
-        <el-table-column align="center" label="购方名称" prop="buyerName" min-width="180">
+        <el-table-column align="center" label="购方名称" prop="buyerName" width="180">
         </el-table-column>
-        <el-table-column align="center" label="购方税号" prop="buyerTaxNo" min-width="180">
+        <el-table-column align="center" label="购方税号" prop="buyerTaxNo" width="180">
         </el-table-column>
-        <el-table-column align="center" label="购方银行账号" prop="buyerBankNo" min-width="200">
+        <el-table-column align="center" label="购方银行账号" prop="buyerBankNo" width="200">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="金额" prop="amount" min-width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="金额" prop="amount" width="100" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="税额" prop="taxAmount" min-width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="税额" prop="taxAmount" width="100" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="税价合计" prop="total" min-width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="税价合计" prop="total" width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="statusName" min-width="80">
+        <el-table-column align="center" label="状态" prop="statusName" width="80">
         </el-table-column>
-        <el-table-column align="center" label="发送状态" prop="postStatusName" min-width="80">
+        <el-table-column align="center" label="发送状态" prop="postStatusName" width="80">
         </el-table-column>
-        <el-table-column align="center" label="录入日期" prop="entryDate" min-width="100" :formatter="dateFormat">
+        <el-table-column align="center" label="录入日期" prop="entryDate" width="100" :formatter="dateFormat">
         </el-table-column>
         <el-table-column align="center" fixed="right" label="操作" header-align="center" width="60">
           <template slot-scope="scope">
@@ -151,7 +151,7 @@ export default {
       filedetails: {},
       widthArr: {
         vendorCode: '150',
-        statementNo: '150',
+        statementNo: '',
         grnNumber: '150',
         sellerName: '180',
         sellerTaxNo: '180',

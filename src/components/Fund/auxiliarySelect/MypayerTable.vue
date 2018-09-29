@@ -55,25 +55,25 @@
           label="序号"
           fixed width="60">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" min-width="150">
+        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="150">
         </el-table-column>
-        <el-table-column align="center" label="付款编号" prop="payNo" min-width="150">
+        <el-table-column align="center" label="付款编号" prop="payNo" width="">
         </el-table-column>
-        <el-table-column align="center" label="付款批次" prop="payBacth" min-width="150">
+        <el-table-column align="center" label="付款批次" prop="payBacth" width="150">
         </el-table-column>
-        <el-table-column align="center" label="结报单号" prop="billNo" min-width="180">
+        <el-table-column align="center" label="结报单号" prop="billNo" width="180">
         </el-table-column>
-        <el-table-column align="center" label="法人代码" prop="corpCode" min-width="180">
+        <el-table-column align="center" label="法人代码" prop="corpCode" width="180">
         </el-table-column>
-        <el-table-column align="center" label="法人单位" prop="corpName" min-width="200">
+        <el-table-column align="center" label="法人单位" prop="corpName" width="200">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="实际付款金额" prop="rcvAmtOrigin" min-width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="实际付款金额" prop="rcvAmtOrigin" width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" min-width="100">
+        <el-table-column align="center" label="币别" prop="currencyName" width="100">
         </el-table-column>
-        <el-table-column align="center" label="付款日期" prop="payDate" min-width="100" :formatter="dateFormat">
+        <el-table-column align="center" label="付款日期" prop="payDate" width="100" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" label="结报日期" prop="billDate" min-width="100" :formatter="dateFormat">
+        <el-table-column align="center" label="结报日期" prop="billDate" width="100" :formatter="dateFormat">
         </el-table-column>
         <el-table-column align="center" fixed="right" label="操作" header-align="center" width="60">
           <template slot-scope="scope">
@@ -131,7 +131,7 @@ export default {
       details: {}, // 详情数据
       widthArr: {
         vendorCode: '150',
-        payNo: '150',
+        payNo: '',
         payBacth: '150',
         billNo: '180',
         corpCode: '180',

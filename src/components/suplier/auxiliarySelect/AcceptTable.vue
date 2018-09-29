@@ -58,25 +58,25 @@
         </el-table-column>
         <!-- <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="120">
         </el-table-column> -->
-        <el-table-column align="center" label="法人代码" prop="corpCode" min-width="100">
+        <el-table-column align="center" label="法人代码" prop="corpCode" width="100">
         </el-table-column>
-        <el-table-column align="center" label="法人单位" prop="corpName" min-width="150">
+        <el-table-column align="center" label="法人单位" prop="corpName" width="">
         </el-table-column>
-        <el-table-column align="center" label="进货验收单号" prop="grnNumber" min-width="120">
+        <el-table-column align="center" label="进货验收单号" prop="grnNumber" width="120">
         </el-table-column>
-        <el-table-column align="center" label="项次" prop="grnItem" min-width="80">
+        <el-table-column align="center" label="项次" prop="grnItem" width="80">
         </el-table-column>
-        <el-table-column align="center" label="订单号" prop="poNumber" min-width="120">
+        <el-table-column align="center" label="订单号" prop="poNumber" width="120">
         </el-table-column>
-        <el-table-column align="center" label="类型" prop="dataType" min-width="80">
+        <el-table-column align="center" label="类型" prop="dataType" width="80">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="金额" prop="amount" min-width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="金额" prop="amount" width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" min-width="80">
+        <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
-        <el-table-column align="center" label="约定交货日期" prop="deliveryDate" min-width="100" :formatter="dateFormat">
+        <el-table-column align="center" label="约定交货日期" prop="deliveryDate" width="100" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="center" label="进货验收单日期" prop="confirmDate" min-width="100" :formatter="dateFormat">
+        <el-table-column align="center" label="进货验收单日期" prop="confirmDate" width="100" :formatter="dateFormat">
         </el-table-column>
         <el-table-column align="center" fixed="right" label="操作" header-align="center" width="60">
           <template slot-scope="scope">
@@ -136,7 +136,7 @@ export default {
       widthArr: {
         // vendorCode: '120',
         corpCode: '100',
-        corpName: '150',
+        corpName: '',
         grnNumber: '120',
         grnItem: '80',
         poNumber: '120',

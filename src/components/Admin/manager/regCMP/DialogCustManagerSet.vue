@@ -13,7 +13,7 @@
             <el-form-item label="客户经理设置:">
               <el-select v-model="getform.customerManagerId" placeholder="请选择" @change="change" value-key="customerManagerId">
                 <el-option
-                  v-for="item in customerManagerList"
+                  v-for="item in this.customerManagerList"
                   :key="item.customerManagerId"
                   :label="item.customerManagerName"
                   :value="item.customerManagerId">

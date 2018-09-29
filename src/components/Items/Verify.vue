@@ -10,7 +10,7 @@
              <el-input v-model.trim="verify" auto-complete="off" :maxlength="6" size="small" :disabled="isInput"></el-input>
             </el-col>
             <el-col :span="8" :offset="1">
-             <el-button :type="btntype" size="small" @click="sendMessage">{{word}}</el-button>
+             <el-button :type="btntype" size="small" :disabled="showCheckBtn" @click="sendMessage">{{word}}</el-button>
             </el-col>
         </el-form-item>
   </el-form>
@@ -29,6 +29,7 @@ export default {
       phone: '', // 手机号
       word: '获取验证码',
       isOvertime: false,
+      showCheckBtn: false,
       btntype: 'primary', // 验证码按钮样式
       verify: '', // 验证码
       isInput: true // 是否可输入
@@ -73,12 +74,14 @@ function sendMessage () {
       let that = this
       let time = 60
       this.btntype = ''
+      this.showCheckBtn = true
       sendTimer = setInterval(function () {
         time--
         that.word = `${time}秒后重新发送`
         if (time < 0) {
           that.isOvertime = false // 重置可发送验证码
           that.btntype = 'primary'
+          that.showCheckBtn = false
           clearInterval(sendTimer)
           that.word = '重新获取验证码'
         }

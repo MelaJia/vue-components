@@ -13,25 +13,25 @@
           label="序号"
           fixed width="60" align="center">
         </el-table-column>
-        <el-table-column align="center" fixed label="AR单号" prop="masterChainId" width="150px">
+        <el-table-column align="center" fixed label="AR单号" prop="masterChainId" width="150">
         </el-table-column>
-        <el-table-column align="center" label="结报单号" prop="billId" width="120px">
+        <el-table-column align="center" label="结报单号" prop="billId" width="120">
         </el-table-column>
         <!-- <el-table-column align="center" label="AR来源" prop="isMasterAr" :formatter="originFormat">
         </el-table-column> -->
-        <el-table-column align="center" label="付款单位/对手单位" prop="transUnitName" width="180px">
+        <el-table-column align="center" label="付款单位/对手单位" prop="transUnitName" width="">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="arStatusTypeName" width="120px">
+        <el-table-column align="center" label="状态" prop="arStatusTypeName" width="120">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyDesc">
+        <el-table-column align="center" label="币别" prop="currencyDesc" width="80">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="票面金额" prop="billBookAmt" width="100px" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="票面金额" prop="billBookAmt" width="100" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="实际放款金额" prop="loanAmt" width="100px" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="实际放款金额" prop="loanAmt" width="100" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="100px">
+        <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="100">
         </el-table-column>
-        <el-table-column align="center" label="打款处理状态" prop="billPayStatus" width="140px">
+        <el-table-column align="center" label="打款处理状态" prop="billPayStatus" width="140">
           <template slot-scope="scope">
             <el-tooltip class="item" effect="light" placement="top-start">
               <div slot="content" class="status-tooltip">
@@ -54,7 +54,7 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="操作" header-align="center" width='120px' fixed="right" :resizable="false">
+        <el-table-column align="center" label="操作" header-align="center" width='120' fixed="right" :resizable="false">
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
             <el-button size="mini" type="text" :disabled="scope.row.operateControllerStatus=='0'?true:false" @click="confirmContract(scope.$index, scope.row)">合同确认</el-button>
