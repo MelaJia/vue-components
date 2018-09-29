@@ -11,9 +11,9 @@
             <el-table :data="props.row.tableData" border style="width: 100%" :show-header="false" :row-class-name="getPendedColor">
               <el-table-column width="48">
               </el-table-column>
-              <el-table-column align="center" width="60">
+              <el-table-column align="center" width="40">
               </el-table-column>
-              <el-table-column align="center" prop="billNo" :width="widthArr.billNo">
+              <el-table-column align="center" prop="billNo" :width="widthArr.billNo" :formatter="nullDealWith">
               </el-table-column>
               <el-table-column align="center" prop="invoiceNo" :width="widthArr.invoiceNo">
               </el-table-column>
@@ -50,7 +50,7 @@
         <el-table-column
           type="index"
           label="序号"
-          fixed width="60" align="center">
+          fixed width="40" align="center">
         </el-table-column>
         <el-table-column align="center" label="结报单号" fixed sortable prop="billNo" width="150">
         </el-table-column>
@@ -126,8 +126,8 @@ export default {
       details: {}, // 详情数据
       filedetails: {},
       widthArr: {
-        billNo: '150',
-        invoiceNo: '150',
+        billNo: '',
+        invoiceNo: '',
         corpCode: '180',
         corpName: '',
         dueDate: '120',
