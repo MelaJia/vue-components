@@ -58,6 +58,7 @@
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
+@import "@/assets/css/_loanSearch.scss";
 </style>
 
 <script>

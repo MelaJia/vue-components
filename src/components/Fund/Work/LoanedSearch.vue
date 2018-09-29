@@ -35,11 +35,11 @@
     <el-row>
       <el-col :span="10">
         <el-form-item label="贴现金额" prop="discountAmtScopeFrom">
-          <el-col :span="10">
+          <el-col :span="10" class="mon-range-start">
             <el-jx-input v-model="formInline.discountAmtScopeFrom" placeholder="起始金额"></el-jx-input>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
-          <el-col :span="10">
+          <el-col :span="10" class="mon-range-end">
             <el-jx-input v-model="formInline.discountAmtScopeTo" placeholder="结束金额"></el-jx-input>
           </el-col>
         </el-form-item>
@@ -65,6 +65,7 @@
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
+@import "@/assets/css/_loanSearch.scss";
 </style>
 
 <script>
