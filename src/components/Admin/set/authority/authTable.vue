@@ -337,7 +337,7 @@ function Submit () {
   console.log(param)
   this.axios.post('/authorizationAdmin/authorizationConfig.do', param).then(res => {
     if (res.data.status) {
-      showLoading(this, '保存成功...') // 显示加载框
+      showLoading(this, res.data.msg) // 显示加载框
       getAuth(this, this.$refs.tree.getCurrentNode()) // 刷新数据
     } else {
       this.$message.error(res.data.msg)
@@ -356,11 +356,12 @@ function Submit () {
 */
 function getDataToSave (scope) {
   const data = scope.$refs.tree.getCurrentNode()
-  const t = scope.$refs.menuTree.getCheckedNodes(true, true)
+  const t = scope.$refs.menuTree.getCheckedNodes(false, false)
+  const hafNode = scope.$refs.menuTree.getHalfCheckedNodes()
   return {
     roleType: data.roleType,
     roleId: data.roleId,
-    menuList: t
+    menuList: [...t, ...hafNode]
   }
 }
 </script>
