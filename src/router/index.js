@@ -53,6 +53,10 @@ if (getStore({name: 'token'})) {
 if (getStore({name: 'roles'}) !== undefined && getStore({name: 'roles'}) !== null) {
   store.commit(types.SETROLE, getStore({name: 'roles'}))
 }
+// 页面刷新，重新获取菜单
+if (getStore({name: 'navitems'}) !== undefined && getStore({name: 'navitems'}) !== null) {
+  store.commit('SET_NAVITEM', getStore({name: 'navitems'}))
+}
 // 页面刷新，重新设置tag_wel
 if (getStore({name: 'tagWel'})) {
   store.commit('SET_TAG_WEL', getStore({name: 'tagWel'}))

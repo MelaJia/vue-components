@@ -271,11 +271,85 @@ async function submitForm (formName) {
     let res = {
       data: { status: 1, msg: '验证码错误', token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 2, custNickname: '阿拉斯加大型犬', legalPhone: '+86-15112663977', contactPhone: '15112663977' }
     }
+    let nav = [{
+      idx: '1',
+      text: '企业/用户管理',
+      childrens: [{
+        idx: 'regcmp',
+        text: '注册企业管理',
+        parentId: 1
+      },
+      {
+        idx: 'fundcmp',
+        text: '保理企业管理',
+        parentId: 1
+      }]
+    },
+    {
+      idx: '2',
+      text: '业务处理',
+      childrens: [{
+        idx: 'fenbo',
+        text: 'AR分拨',
+        parentId: 1
+      }]
+    },
+    {
+      idx: '3',
+      text: '辅助查询',
+      childrens: [{
+        idx: 'ordersearch',
+        text: '订单查询',
+        parentId: 1
+      },
+      {
+        idx: 'acceptsearch',
+        text: '验收单查询',
+        parentId: 1
+      },
+      {
+        idx: 'mybill',
+        text: '对账单查询',
+        parentId: 1
+      },
+      {
+        idx: 'myinvoice',
+        text: '发票查询',
+        parentId: 1
+      },
+      {
+        idx: 'mysubmit',
+        text: '结报查询',
+        parentId: 1
+      },
+      {
+        idx: 'mypayer',
+        text: '付款单查询',
+        parentId: 1
+      },
+      {
+        idx: 'myarrear',
+        text: '欠款查询',
+        parentId: 1
+      }]
+    }, {
+      idx: '4',
+      text: '区块链',
+      childrens: [{
+        idx: 'blockChain',
+        text: '区块链演示',
+        parentId: 1
+      }]
+    }]
+    nav = dealMenu(nav)
+    nav[0].lClass = 'start-line'
+    nav[nav.length - 1].lClass = 'end-line'
     if (res.data.status === 1) {
-      let datas = Object.assign({}, res.data, res.data.data)
+      let datas = Object.assign({}, res.data, res.data.data, { navItems: nav })
       this.$store.commit(types.LOGIN, datas.token)
       this.$store.commit(types.SETROLE, datas.custType)
       this.$store.commit('SET_UINFO', datas) // 保存用户信息
+      this.$store.commit('SET_NAVITEM', datas.navItems) // 保存菜单
       this.$store.commit('SET_TAG_WEL', {
         label: '首页',
         value: Roles[datas.custType].layout
@@ -299,10 +373,16 @@ async function submitForm (formName) {
   } else { // 正式环境
     this.axios.post('/login/checkLogin2', param).then(res => {
       if (res.data.status === 1) {
+        /** 菜单处理 */
+        let navItems = res.data.data.navItems
+        navItems = dealMenu(navItems)
+        navItems[0].lClass = 'start-line'
+        navItems[navItems.length - 1].lClass = 'end-line'
         let datas = Object.assign({}, res.data, res.data.data)
         this.$store.commit(types.LOGIN, datas.token)
         this.$store.commit(types.SETROLE, datas.custType)
         this.$store.commit('SET_UINFO', datas) // 保存用户信息
+        this.$store.commit('SET_NAVITEM', navItems) // 保存菜单
         this.$store.commit('SET_TAG_WEL', {
           label: '首页',
           value: Roles[datas.custType].layout
@@ -353,5 +433,22 @@ function visteDelete () {
   this.isVerify = -1
   this.verify = ''
   this.visteError = ''
+}
+function dealMenu (array) {
+  for (let index = 0; index < array.length; index++) {
+    const element = array[index]
+    /** 头部样式 */
+    if (!element.parentId) {
+      element.hClass = 'header-circle bg-icon-1'
+    } else {
+      element.hClass = 'circle'
+    }
+    element.lClass = 'line'
+    if (element.childrens) {
+      element.childrens = dealMenu(element.childrens)
+    }
+    array[index] = element
+  }
+  return array
 }
 </script>

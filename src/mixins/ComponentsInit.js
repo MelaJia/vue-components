@@ -1,5 +1,5 @@
 import HeaderSection from '@/components/HeaderSection'
-import NavItems from '@/config/navMenu'
+// import NavItems from '@/config/navMenu'
 export default {
   components: {
     HeaderSection,
@@ -9,7 +9,8 @@ export default {
   data () {
     return {
       dialogPassVisible: false, // 密码修改
-      navItems: NavItems[this.$options.name].navItems, // 获取菜单
+      // navItems: NavItems[this.$options.name].navItems, // 获取菜单
+      navItems: this.$store.state.user.navitems, // 获取菜单
       width: 180 // 左边导航栏宽度
     }
   },

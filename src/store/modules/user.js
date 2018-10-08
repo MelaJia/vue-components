@@ -9,7 +9,8 @@ export default {
     roles: null,
     userinfos: null,
     // scheduleNumber: 0
-    roleBelong: [] // 角色所属
+    roleBelong: [], // 角色所属
+    navitems: []
   },
   mutations: {
     [types.LOGIN]: (state, data) => {
@@ -35,6 +36,11 @@ export default {
         name: 'userinfos'
       })
       state.userinfos = null
+      // 清除菜单信息
+      removeStore({
+        name: 'navitems'
+      })
+      state.navitems = null
     },
     [types.SETROLE]: (state, data) => {
       state.roles = data
@@ -55,6 +61,14 @@ export default {
     // }
     getRoleBelong: (state, data) => {
       state.roleBelong = data
+    },
+    SET_NAVITEM: (state, data) => {
+      state.navitems = data
+      setStore({
+        name: 'navitems',
+        content: state.navitems
+      })
     }
+
   }
 }
