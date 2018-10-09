@@ -9,7 +9,9 @@ export default {
     roles: null,
     userinfos: null,
     // scheduleNumber: 0
-    roleBelong: [] // 角色所属
+    roleBelong: [], // 角色所属
+    navitems: [], // 导航菜单数组
+    menu: [] // 路径数组
   },
   mutations: {
     [types.LOGIN]: (state, data) => {
@@ -35,6 +37,16 @@ export default {
         name: 'userinfos'
       })
       state.userinfos = null
+      // 清除菜单信息
+      removeStore({
+        name: 'navitems'
+      })
+      state.navitems = null
+      // 清除用户可用页面信息
+      removeStore({
+        name: 'menu'
+      })
+      state.menu = null
     },
     [types.SETROLE]: (state, data) => {
       state.roles = data
@@ -55,6 +67,21 @@ export default {
     // }
     getRoleBelong: (state, data) => {
       state.roleBelong = data
+    },
+    SET_NAVITEM: (state, data) => {
+      state.navitems = data
+      setStore({
+        name: 'navitems',
+        content: state.navitems
+      })
+    },
+    SET_MENU: (state, data) => {
+      state.menu = data
+      setStore({
+        name: 'menu',
+        content: state.menu
+      })
     }
+
   }
 }

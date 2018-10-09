@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="visibleP" :before-close="handleClose">
+  <el-dialog :visible.sync="visibleP" :before-close="handleClose" :close-on-click-modal="false">
      <header slot="title" v-show="step!==1">
       <span class="title">
         {{getTitle}}

@@ -4,13 +4,13 @@
       @select="handleSelect">
       <tree-menu :list="navItems"></tree-menu>
       <!-- <section v-for="item in navItems" :key="item.idx">
-        <el-submenu v-if="item.childrens" :index="item.idx">
+        <el-submenu v-if="item.children" :index="item.idx">
           <template slot="title">
             <div :class="item.lClass"></div>
             <div :class="item.hClass"></div>
             <span>{{item.text}}</span>
           </template>
-          <el-menu-item v-for="item in item.childrens" :key="item.idx" :index="item.idx" :disabled="item.disabled">
+          <el-menu-item v-for="item in item.children" :key="item.idx" :index="item.idx" :disabled="item.disabled">
             <template slot="title">
               <div :class="item.lClass"></div>
               <div :class="item.hClass"></div>
