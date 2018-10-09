@@ -1,9 +1,5 @@
 const routes = [{
-  path: '/',
-  redirect: '/main/index'
-},
-{
-  path: '/main',
+  path: '/suplier',
   component: () =>
     import('@/layout/Main'),
   children: [{

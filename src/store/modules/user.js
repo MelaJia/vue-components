@@ -10,7 +10,8 @@ export default {
     userinfos: null,
     // scheduleNumber: 0
     roleBelong: [], // 角色所属
-    navitems: []
+    navitems: [], // 导航菜单数组
+    menu: [] // 路径数组
   },
   mutations: {
     [types.LOGIN]: (state, data) => {
@@ -41,6 +42,11 @@ export default {
         name: 'navitems'
       })
       state.navitems = null
+      // 清除用户可用页面信息
+      removeStore({
+        name: 'menu'
+      })
+      state.menu = null
     },
     [types.SETROLE]: (state, data) => {
       state.roles = data
@@ -67,6 +73,13 @@ export default {
       setStore({
         name: 'navitems',
         content: state.navitems
+      })
+    },
+    SET_MENU: (state, data) => {
+      state.menu = data
+      setStore({
+        name: 'menu',
+        content: state.menu
       })
     }
 

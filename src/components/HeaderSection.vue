@@ -124,8 +124,8 @@ function logout () {
       this.$store.commit('DEL_ALL_TAG')
       this.fullscreenLoading = false
       this.$router.replace({
-        path: '/login',
-        query: { redirect: this.$router.currentRoute.fullPath }
+        path: '/login'
+        // query: { redirect: this.$router.currentRoute.fullPath }
       })
     } else {
       this.fullscreenLoading = false

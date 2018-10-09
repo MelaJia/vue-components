@@ -217,6 +217,7 @@ export default {
     handleDelete: visteDelete
   }
 }
+let menuArr = []
 function getImgUrl () {
   let random = Math.ceil(Math.random() * 100000000000000).toString().substr(0, 4)
   random = random + Date.now()
@@ -271,90 +272,27 @@ async function submitForm (formName) {
     let res = {
       data: { status: 1, msg: '验证码错误', token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 2, custNickname: '阿拉斯加大型犬', legalPhone: '+86-15112663977', contactPhone: '15112663977' }
     }
-    let nav = [{
-      idx: '1',
-      text: '企业/用户管理',
-      childrens: [{
-        idx: 'regcmp',
-        text: '注册企业管理',
-        parentId: 1
-      },
-      {
-        idx: 'fundcmp',
-        text: '保理企业管理',
-        parentId: 1
-      }]
-    },
-    {
-      idx: '2',
-      text: '业务处理',
-      childrens: [{
-        idx: 'fenbo',
-        text: 'AR分拨',
-        parentId: 1
-      }]
-    },
-    {
-      idx: '3',
-      text: '辅助查询',
-      childrens: [{
-        idx: 'ordersearch',
-        text: '订单查询',
-        parentId: 1
-      },
-      {
-        idx: 'acceptsearch',
-        text: '验收单查询',
-        parentId: 1
-      },
-      {
-        idx: 'mybill',
-        text: '对账单查询',
-        parentId: 1
-      },
-      {
-        idx: 'myinvoice',
-        text: '发票查询',
-        parentId: 1
-      },
-      {
-        idx: 'mysubmit',
-        text: '结报查询',
-        parentId: 1
-      },
-      {
-        idx: 'mypayer',
-        text: '付款单查询',
-        parentId: 1
-      },
-      {
-        idx: 'myarrear',
-        text: '欠款查询',
-        parentId: 1
-      }]
-    }, {
-      idx: '4',
-      text: '区块链',
-      childrens: [{
-        idx: 'blockChain',
-        text: '区块链演示',
-        parentId: 1
-      }]
-    }]
-    nav = dealMenu(nav)
+    let nav = require('@/config/navMenu')[Roles[res.data.custType].model].navItems
+    console.log(nav)
+    // 菜单处理-开始
+    menuArr = []
+    nav = dealMenuDev(nav, Roles[res.data.custType].layout)
     nav[0].lClass = 'start-line'
     nav[nav.length - 1].lClass = 'end-line'
+    // 菜单处理-结束
     if (res.data.status === 1) {
       let datas = Object.assign({}, res.data, res.data.data, { navItems: nav })
       this.$store.commit(types.LOGIN, datas.token)
       this.$store.commit(types.SETROLE, datas.custType)
       this.$store.commit('SET_UINFO', datas) // 保存用户信息
       this.$store.commit('SET_NAVITEM', datas.navItems) // 保存菜单
+      this.$store.commit('SET_MENU', menuArr) // 保存菜单权限配置 SET_MENU
       this.$store.commit('SET_TAG_WEL', {
         label: '首页',
         value: Roles[datas.custType].layout
       })
-      let redirect = decodeURIComponent(this.$route.query.redirect || '/')
+      console.log(Roles[datas.custType].layout)
+      let redirect = decodeURIComponent(Roles[datas.custType].layout || '/')
       this.$router.push({
         path: redirect
       })
@@ -375,6 +313,7 @@ async function submitForm (formName) {
       if (res.data.status === 1) {
         /** 菜单处理 */
         let navItems = res.data.data.navItems
+        menuArr = []
         navItems = dealMenu(navItems)
         navItems[0].lClass = 'start-line'
         navItems[navItems.length - 1].lClass = 'end-line'
@@ -382,12 +321,14 @@ async function submitForm (formName) {
         this.$store.commit(types.LOGIN, datas.token)
         this.$store.commit(types.SETROLE, datas.custType)
         this.$store.commit('SET_UINFO', datas) // 保存用户信息
-        this.$store.commit('SET_NAVITEM', navItems) // 保存菜单
+        this.$store.commit('SET_NAVITEM', navItems) // 保存菜单 SET_MENU
+        this.$store.commit('SET_MENU', menuArr) // 保存菜单权限配置 SET_MENU
         this.$store.commit('SET_TAG_WEL', {
           label: '首页',
           value: Roles[datas.custType].layout
         })
-        let redirect = decodeURIComponent(this.$route.query.redirect || '/')
+        let redirect = decodeURIComponent(Roles[datas.custType].layout || '/')
+        console.log(redirect)
         this.$router.push({
           path: redirect
         })
@@ -438,16 +379,43 @@ function dealMenu (array) {
   for (let index = 0; index < array.length; index++) {
     const element = array[index]
     /** 头部样式 */
-    if (!element.parentId) {
+    if (!element.menuParent) {
       element.hClass = 'header-circle bg-icon-1'
     } else {
       element.hClass = 'circle'
     }
     element.lClass = 'line'
-    if (element.childrens) {
-      element.childrens = dealMenu(element.childrens)
+    if (element.children) {
+      element.children = dealMenu(element.children)
     }
     array[index] = element
+    // 存储菜单地址
+    if (element.menuUrl && element.menuUrl.length > 0) {
+      menuArr.push(element.menuUrl)
+    }
+  }
+  return array
+}
+// 开发环境
+function dealMenuDev (array, prev) {
+  for (let index = 0; index < array.length; index++) {
+    const element = array[index]
+    /** 头部样式 */
+    if (!element.menuParent) {
+      element.hClass = 'header-circle bg-icon-1'
+    } else {
+      element.hClass = 'circle'
+    }
+    element.lClass = 'line'
+    if (element.children) {
+      element.children = dealMenuDev(element.children, prev)
+    }
+    array[index] = element
+    // 存储菜单地址
+    console.log(prev)
+    if (element.menuUrl && element.menuUrl.length > 0) {
+      menuArr.push(`${prev}/${element.menuUrl}`)
+    }
   }
   return array
 }

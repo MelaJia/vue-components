@@ -1,181 +1,200 @@
 const navs = {
   suplier: {
     navItems: [{
-      idx: '1',
-      text: 'AR管理',
+      menuId: '1',
+      menuName: 'AR管理',
       disabled: false,
       lClass: 'start-line',
       hClass: 'header-circle bg-icon-1',
-      childrens: [{
-        idx: 'myar',
-        text: '我的AR',
+      children: [{
+        menuId: 'myar',
+        menuUrl: 'myar',
+        menuName: '我的AR',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'getar',
-        text: '购入AR管理',
+        menuId: 'getar',
+        menuUrl: 'getar',
+        menuName: '购入AR管理',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }, {
-        idx: 'transfer',
-        text: '转让AR管理',
+        menuId: 'transfer',
+        menuUrl: 'transfer',
+        menuName: '转让AR管理',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'historyar',
-        text: '历史AR',
+        menuId: 'historyar',
+        menuUrl: 'historyar',
+        menuName: '历史AR',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }
       ]
     },
     {
-      idx: '2',
-      text: '其它融资',
+      menuId: '2',
+      menuName: '其它融资',
       disabled: false,
       lClass: 'line',
       hClass: 'header-circle bg-icon-1',
-      childrens: [{
-        idx: '2-1',
-        text: '信用融资',
+      children: [{
+        menuId: '2-1',
+        menuName: '信用融资',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle',
-        childrens: [{
-          idx: 'creditLoanSituation',
-          text: '融资情况',
+        menuParent: 'circle',
+        children: [{
+          menuId: 'creditLoanSituation',
+          menuUrl: 'creditLoanSituation',
+          menuName: '融资情况',
           disabled: false,
           lClass: 'line',
-          hClass: 'circle'
+          menuParent: 'circle'
         },
         {
-          idx: 'creditRepaySituation',
-          text: '还款情况',
+          menuId: 'creditRepaySituation',
+          menuUrl: 'creditRepaySituation',
+          menuName: '还款情况',
           disabled: false,
           lClass: 'line',
-          hClass: 'circle'
+          menuParent: 'circle'
         }
         ]
       },
       {
-        idx: '2-2',
-        text: '订单融资',
+        menuId: '2-2',
+        menuName: '订单融资',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle',
-        childrens: [{
-          idx: 'orderLoanAble',
-          text: '可用订单',
+        menuParent: 'circle',
+        children: [{
+          menuId: 'orderLoanAble',
+          menuUrl: 'orderLoanAble',
+          menuName: '可用订单',
           disabled: false,
           lClass: 'line',
-          hClass: 'circle'
+          menuParent: 'circle'
         },
         {
-          idx: 'orderLoanSituation',
-          text: '融资情况',
+          menuId: 'orderLoanSituation',
+          menuUrl: 'orderLoanSituation',
+          menuName: '融资情况',
           disabled: false,
           lClass: 'line',
-          hClass: 'circle'
+          menuParent: 'circle'
         },
         {
-          idx: 'orderRepaySituation',
-          text: '还款情况',
+          menuId: 'orderRepaySituation',
+          menuUrl: 'orderRepaySituation',
+          menuName: '还款情况',
           disabled: false,
           lClass: 'line',
-          hClass: 'circle'
+          menuParent: 'circle'
         }
         ]
       }
       ]
     },
     {
-      idx: '3',
-      text: '资金管理',
+      menuId: '3',
+      menuUrl: '3',
+      menuName: '资金管理',
       disabled: true,
       lClass: 'line',
       hClass: 'header-circle bg-icon-2'
     },
     {
-      idx: '4',
-      text: '辅助查询',
+      menuId: '4',
+      menuName: '辅助查询',
       disabled: true,
       lClass: 'line',
       hClass: 'header-circle bg-icon-2',
-      childrens: [{
-        idx: 'index',
-        text: '首页',
+      children: [{
+        menuId: 'index',
+        menuUrl: 'index',
+        menuName: '首页',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'ordersearch',
-        text: '我的订单',
+        menuId: 'ordersearch',
+        menuUrl: 'ordersearch',
+        menuName: '我的订单',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'acceptsearch',
-        text: '我的验收单',
+        menuId: 'acceptsearch',
+        menuUrl: 'acceptsearch',
+        menuName: '我的验收单',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }, {
-        idx: 'mybill',
-        text: '我的对账单',
+        menuId: 'mybill',
+        menuUrl: 'mybill',
+        menuName: '我的对账单',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'myinvoice',
-        text: '我的发票',
+        menuId: 'myinvoice',
+        menuUrl: 'myinvoice',
+        menuName: '我的发票',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'mysubmit',
-        text: '我的结报',
+        menuId: 'mysubmit',
+        menuUrl: 'mysubmit',
+        menuName: '我的结报',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'mypayer',
-        text: '我的付款单',
+        menuId: 'mypayer',
+        menuUrl: 'mypayer',
+        menuName: '我的付款单',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'myarrear',
-        text: '我的欠款',
+        menuId: 'myarrear',
+        menuUrl: 'myarrear',
+        menuName: '我的欠款',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }
       ]
     },
     {
-      idx: '5',
-      text: '账户管理',
+      menuId: '5',
+      menuName: '账户管理',
       disabled: false,
       lClass: 'end-line',
       hClass: 'header-circle bg-icon-3',
-      childrens: [{
-        idx: 'userinfo',
-        text: '基本信息',
+      children: [{
+        menuId: 'userinfo',
+        menuUrl: 'userinfo',
+        menuName: '基本信息',
         disabled: false,
         lClass: 'end-line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }
       ]
     }
@@ -183,188 +202,207 @@ const navs = {
   },
   fund: {
     navItems: [{
-      idx: '1',
-      text: '业务处理',
+      menuId: '1',
+      menuName: '业务处理',
       disabled: false,
       lClass: 'start-line',
       hClass: 'header-circle bg-icon-1',
-      childrens: [{
-        idx: 'loan',
-        text: '放款处理',
+      children: [{
+        menuId: 'loan',
+        menuUrl: 'loan',
+        menuName: '放款处理',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'loanreject',
-        text: '拒绝放款查询',
+        menuId: 'loanreject',
+        menuUrl: 'loanreject',
+        menuName: '拒绝放款查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }, {
-        idx: 'loaned',
-        text: '已放款查询',
+        menuId: 'loaned',
+        menuUrl: 'loaned',
+        menuName: '已放款查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'loanfinish',
-        text: '已完结查询',
+        menuId: 'loanfinish',
+        menuUrl: 'loanfinish',
+        menuName: '已完结查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }
       ]
     },
     {
-      idx: '6',
-      text: '信用融资',
+      menuId: '6',
+      menuName: '信用融资',
       disabled: true,
       lClass: 'line',
       hClass: 'header-circle bg-icon-2',
-      childrens: [{
-        idx: 'creditloan',
-        text: '信用放款处理',
+      children: [{
+        menuId: 'creditloan',
+        menuUrl: 'creditloan',
+        menuName: '信用放款处理',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'creditreject',
-        text: '信用拒绝查询',
+        menuId: 'creditreject',
+        menuUrl: 'creditreject',
+        menuName: '信用拒绝查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'creditloaned',
-        text: '信用已放款处理',
+        menuId: 'creditloaned',
+        menuUrl: 'creditloaned',
+        menuName: '信用已放款处理',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'creditend',
-        text: '信用已完结查询',
+        menuId: 'creditend',
+        menuUrl: 'creditend',
+        menuName: '信用已完结查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }
       ]
     },
     {
-      idx: '2',
-      text: '客户资料',
+      menuId: '2',
+      menuName: '客户资料',
       disabled: false,
       lClass: 'line',
       hClass: 'header-circle bg-icon-2',
-      childrens: [{
-        idx: 'cstLoanFee',
-        text: '客户利率维护',
+      children: [{
+        menuId: 'cstLoanFee',
+        menuUrl: 'cstLoanFee',
+        menuName: '客户利率维护',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }]
     },
     {
-      idx: '3',
-      text: '辅助查询',
+      menuId: '3',
+      menuName: '辅助查询',
       disabled: true,
       lClass: 'line',
       hClass: 'header-circle bg-icon-2',
-      childrens: [{
-        idx: 'ordersearch',
-        text: '订单查询',
+      children: [{
+        menuId: 'ordersearch',
+        menuUrl: 'ordersearch',
+        menuName: '订单查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'acceptsearch',
-        text: '验收单查询',
+        menuId: 'acceptsearch',
+        menuUrl: 'acceptsearch',
+        menuName: '验收单查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'mybill',
-        text: '对账单查询',
+        menuId: 'mybill',
+        menuUrl: 'mybill',
+        menuName: '对账单查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'myinvoice',
-        text: '发票查询',
+        menuId: 'myinvoice',
+        menuUrl: 'myinvoice',
+        menuName: '发票查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'mysubmit',
-        text: '结报查询',
+        menuId: 'mysubmit',
+        menuUrl: 'mysubmit',
+        menuName: '结报查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'mypayer',
-        text: '付款单查询',
+        menuId: 'mypayer',
+        menuUrl: 'mypayer',
+        menuName: '付款单查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'myarrear',
-        text: '欠款查询',
+        menuId: 'myarrear',
+        menuUrl: 'myarrear',
+        menuName: '欠款查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }
       ]
     },
     {
-      idx: '4',
-      text: '账户管理',
+      menuId: '4',
+      menuName: '账户管理',
       disabled: false,
       lClass: 'line',
       hClass: 'header-circle bg-icon-3',
-      childrens: [{
-        idx: 'lolanuserinfo',
-        text: '基本信息',
+      children: [{
+        menuId: 'lolanuserinfo',
+        menuUrl: 'lolanuserinfo',
+        menuName: '基本信息',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: '4-2',
-        text: '银行卡管理',
+        menuId: '4-2',
+        menuName: '银行卡管理',
         disabled: true,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }
       ]
     },
     {
-      idx: '5',
-      text: '外部资料',
+      menuId: '5',
+      menuName: '外部资料',
       disabled: false,
       lClass: 'end-line',
       hClass: 'header-circle bg-icon-3',
-      childrens: [{
-        idx: 'index',
-        text: '首页',
+      children: [{
+        menuId: 'index',
+        menuUrl: 'index',
+        menuName: '首页',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'crc',
-        text: '中征网查询',
+        menuId: 'crc',
+        menuUrl: 'crc',
+        menuName: '中征网查询',
         disabled: false,
         lClass: 'end-line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }
       ]
     }
@@ -372,130 +410,144 @@ const navs = {
   },
   admin: {
     navItems: [{
-      idx: '1',
-      text: '企业/用户管理',
+      menuId: '1',
+      menuName: '企业/用户管理',
       disabled: false,
       lClass: 'start-line',
       hClass: 'header-circle bg-icon-1',
-      childrens: [{
-        idx: 'regcmp',
-        text: '资金需求方管理',
+      children: [{
+        menuId: 'regcmp',
+        menuUrl: 'regcmp',
+        menuName: '资金需求方管理',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'fundcmp',
-        text: '资金提供方管理',
+        menuId: 'fundcmp',
+        menuUrl: 'fundcmp',
+        menuName: '资金提供方管理',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }]
     },
     {
-      idx: '2',
-      text: '设置',
+      menuId: '2',
+      menuName: '设置',
       disabled: false,
       lClass: 'line',
       hClass: 'header-circle bg-icon-1',
-      childrens: [{
-        idx: 'rolemanage',
-        text: '角色管理',
+      children: [{
+        menuId: 'rolemanage',
+        menuUrl: 'rolemanage',
+        menuName: '角色管理',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'authmanage',
-        text: '权限配置',
+        menuId: 'authmanage',
+        menuUrl: 'authmanage',
+        menuName: '权限配置',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }]
     },
     {
-      idx: '3',
-      text: '业务处理',
+      menuId: '3',
+      menuName: '业务处理',
       disabled: false,
       lClass: 'line',
       hClass: 'header-circle bg-icon-1',
-      childrens: [{
-        idx: 'fenbo',
-        text: '资金方分拨',
+      children: [{
+        menuId: 'fenbo',
+        menuUrl: 'fenbo',
+        menuName: '资金方分拨',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }]
     },
     {
-      idx: '4',
-      text: '辅助查询',
+      menuId: '4',
+      menuName: '辅助查询',
       disabled: true,
       lClass: 'line',
       hClass: 'header-circle bg-icon-2',
-      childrens: [{
-        idx: 'ordersearch',
-        text: '订单查询',
+      children: [{
+        menuId: 'ordersearch',
+        menuUrl: 'ordersearch',
+        menuName: '订单查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'acceptsearch',
-        text: '验收单查询',
+        menuId: 'acceptsearch',
+        menuUrl: 'acceptsearch',
+        menuName: '验收单查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'mybill',
-        text: '对账单查询',
+        menuId: 'mybill',
+        menuUrl: 'mybill',
+        menuName: '对账单查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'myinvoice',
-        text: '发票查询',
+        menuId: 'myinvoice',
+        menuUrl: 'myinvoice',
+        menuName: '发票查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'mysubmit',
-        text: '结报查询',
+        menuId: 'mysubmit',
+        menuUrl: 'mysubmit',
+        menuName: '结报查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'mypayer',
-        text: '付款单查询',
+        menuId: 'mypayer',
+        menuUrl: 'mypayer',
+        menuName: '付款单查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       },
       {
-        idx: 'myarrear',
-        text: '欠款查询',
+        menuId: 'myarrear',
+        menuUrl: 'myarrear',
+        menuName: '欠款查询',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }]
     }, {
-      idx: '5',
-      text: '区块链',
+      menuId: '5',
+      menuUrl: '5',
+      menuName: '区块链',
       disabled: false,
       lClass: 'start-line',
       hClass: 'header-circle bg-icon-1',
-      childrens: [{
-        idx: 'blockChain',
-        text: '区块链演示',
+      children: [{
+        menuId: 'blockChain',
+        menuUrl: 'blockChain',
+        menuName: '区块链演示',
         disabled: false,
         lClass: 'line',
-        hClass: 'circle'
+        menuParent: 'circle'
       }]
     }]
   }
 }
-export default navs
+module.exports = navs

@@ -23,7 +23,7 @@ NProgress.configure({
 // import CancelAr from '@/components/AR/CancelAr'
 // import HistoryAr from '@/components/AR/HistoryAr'
 Vue.use(Router)
-const whiteList = ['/login', '/register', '/404', '/401', '/lock']
+const whiteList = ['/login', '/register', '/404', '/403', '/401', '/lock']
 const routes = [
   {
     path: '/login',
@@ -43,6 +43,15 @@ const routes = [
     component: () =>
       import('@/page/Forgetpassword')
   },
+  {
+    path: '/',
+    redirect: to => {
+      // 方法接收 目标路由 作为参数
+      // return 重定向的 字符串路径/路径对象
+      // store.getters.roles有值代表已登录，否代表用户未登陆
+      return store.getters.roles ? Roles[store.getters.roles].layout : '/login'
+    }
+  },
   ...Main, ...Fund, ...Admin, ...ErrorRoute
 ]
 // 页面刷新，重新设置token
@@ -56,6 +65,10 @@ if (getStore({name: 'roles'}) !== undefined && getStore({name: 'roles'}) !== nul
 // 页面刷新，重新获取菜单
 if (getStore({name: 'navitems'}) !== undefined && getStore({name: 'navitems'}) !== null) {
   store.commit('SET_NAVITEM', getStore({name: 'navitems'}))
+}
+// 页面刷新，重新获取菜单权限配置
+if (getStore({name: 'menu'}) !== undefined && getStore({name: 'menu'}) !== null) {
+  store.commit('SET_MENU', getStore({name: 'menu'}))
 }
 // 页面刷新，重新设置tag_wel
 if (getStore({name: 'tagWel'})) {
@@ -86,12 +99,15 @@ router.beforeEach((to, from, next) => {
     if (store.getters.token && store.getters.roles !== undefined) { // determine if there has token
       /* has token */
       // 判断是否有权限
-      if (Roles[store.getters.roles].layout === to.matched[0].path) {
+      console.log('当前', to.path)
+      // 获取菜单数组中路径位置
+      console.log(store.getters.menu.findIndex((n) => n === to.path))
+      if (store.getters.menu.findIndex((n) => n === to.path) !== -1) {
         next()
         NProgress.done()
       } else {
         next({
-          path: Roles[store.getters.roles].layout
+          path: '/403'
         })
         NProgress.done()
       }
@@ -101,10 +117,10 @@ router.beforeEach((to, from, next) => {
         next()
       } else {
         next({
-          path: '/login',
-          query: {
-            redirect: to.fullPath
-          }
+          path: '/login'
+          // query: {
+          //   redirect: to.fullPath
+          // }
         })
         NProgress.done()
       }
