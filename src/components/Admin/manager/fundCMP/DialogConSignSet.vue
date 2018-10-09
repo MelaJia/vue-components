@@ -16,7 +16,7 @@
           <el-col :span="16" :offset="4" class="flex">
             <el-form-item label="合同签署设置:">
               <el-select v-model="getform.contractSignType" placeholder="请选择">
-                <el-option v-for="(item, index) in this.contract" :key="index" :label="item.contractSignName" :value="item.contractSignType"></el-option>
+                <el-option v-for="(item, index) in this.contractList" :key="index" :label="item.contractSignName" :value="item.contractSignType"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -64,7 +64,7 @@
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
-import { debounce } from '@/util/util' // 防抖函数
+import { debounce, getDataBase } from '@/util/util' // 防抖函数
 export default {
   props: ['visibleP', 'detailsP', 'contract'],
   mixins: [DialogClose, Common],
@@ -76,10 +76,17 @@ export default {
       factoringCusts: [{
         factoringCustId: 1,
         factoringApId: '获取数据失败'
-      }]
+      }],
+      contractList: [] // 合同列表
     }
   },
   mounted () {
+    // 获取合同列表
+    getDataBase.call(this, '/commonContract/contractSignTypeList.do').then((res) => {
+      if (res) {
+        this.contractList = res
+      }
+    })
   },
   computed: {
     getTitle () {
@@ -99,9 +106,12 @@ async function submit () {
   let roleObj = this.$store.getters.roleBelong.find((item) => {
     return item.roleId === this.getform.roleId
   })
+  let contractObj = this.contractList.find((item) => {
+    return item.contractSignType === this.getform.contractSignType
+  })
   const param = {
     custId: this.detailsP.custId, // 客户Id
-    contractSignType: this.getform.contractSignType, // 合同签署方式
+    contractSignType: contractObj.contractSignType, // 合同签署方式
     roleId: this.getform.roleId,
     roleDes: roleObj.roleName
   }

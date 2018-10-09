@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="mini" label-width="100px">
+  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
       <el-col :span="8">
         <el-form-item label="供应商代码" prop="vendorCode">
@@ -43,7 +43,7 @@
           </el-date-picker>
         </el-form-item>
       </el-col>
-      <el-col :span="12" style="height:50px;">
+      <!-- <el-col :span="12" style="height:50px;">
         <el-form-item label="实际付款金额">
           <el-col :span="11">
             <el-form-item prop="rcvAmtOriginStart">
@@ -57,6 +57,20 @@
             </el-form-item>
           </el-col>
         </el-form-item>
+      </el-col> -->
+      <el-col :span="11">
+        <el-form-item label="实际付款金额" prop="rcvAmtOriginStart">
+          <el-col :span="10" class="mon-range-start">
+            <el-jx-input v-model="formInline.rcvAmtOriginStart" placeholder="起始金额"></el-jx-input>
+          </el-col>
+          <el-col class="line" :span="2">-</el-col>
+          <el-col :span="10" class="mon-range-end">
+            <el-jx-input v-model="formInline.rcvAmtOriginEnd" placeholder="结束金额"></el-jx-input>
+          </el-col>
+        </el-form-item>
+      </el-col>
+      <el-col :span="1">
+        <el-form-item prop="rcvAmtOriginEnd"></el-form-item>
       </el-col>
     </el-row>
     <el-row>
@@ -70,6 +84,7 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
+@import "@/assets/css/_loanSearch.scss";
 .el-select.el-select--mini{
   width:178px;
 }

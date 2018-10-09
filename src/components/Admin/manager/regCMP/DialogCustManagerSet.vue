@@ -119,6 +119,7 @@ function submit () {
   })
   let managerObj = this.customerManagerList.find((item) => {
     return item.customerManagerId === this.getform.customerManagerId
+    // return Number(item.customerManagerId) === this.getform.customerManagerId
   })
   let param = {
     custId: this.detailsP.custId, // 客户Id

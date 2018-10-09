@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="mini" label-width="150px">
+  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="130px">
     <el-row>
       <el-col :span="8">
         <el-form-item label="供应商代码" prop="vendorCode">
@@ -43,7 +43,7 @@
           </el-date-picker>
         </el-form-item>
       </el-col>
-      <el-col :span="12" style="height:50px;">
+      <!-- <el-col :span="12" style="height:50px;">
         <el-form-item label="应付金额">
           <el-col :span="11">
             <el-form-item prop="oriAmtBegin">
@@ -57,38 +57,50 @@
             </el-form-item>
           </el-col>
         </el-form-item>
+      </el-col> -->
+      <el-col :span="11">
+        <el-form-item label="应付金额" prop="oriAmtBegin">
+          <el-col :span="10" class="mon-range-start">
+            <el-jx-input v-model="formInline.oriAmtBegin" placeholder="起始金额"></el-jx-input>
+          </el-col>
+          <el-col class="line" :span="2">-</el-col>
+          <el-col :span="10" class="mon-range-end">
+            <el-jx-input v-model="formInline.oriAmtEnd" placeholder="结束金额"></el-jx-input>
+          </el-col>
+        </el-form-item>
+      </el-col>
+      <el-col :span="1">
+        <el-form-item prop="oriAmtEnd"></el-form-item>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="12" style="height:50px;">
-        <el-form-item label="已付金额">
-          <el-col :span="11">
-            <el-form-item prop="oriPaidAmtBegin">
-              <el-jx-input v-model="formInline.oriPaidAmtBegin" clearable placeholder="起始金额"></el-jx-input>
-            </el-form-item>
+      <el-col :span="11">
+        <el-form-item label="已付金额" prop="oriPaidAmtBegin">
+          <el-col :span="10" class="mon-range-start">
+            <el-jx-input v-model="formInline.oriPaidAmtBegin" placeholder="起始金额"></el-jx-input>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
-          <el-col :span="11">
-            <el-form-item prop="oriPaidAmtEnd">
-              <el-jx-input v-model="formInline.oriPaidAmtEnd" clearable placeholder="结束金额"></el-jx-input>
-            </el-form-item>
+          <el-col :span="10" class="mon-range-end">
+            <el-jx-input v-model="formInline.oriPaidAmtEnd" placeholder="结束金额"></el-jx-input>
           </el-col>
         </el-form-item>
       </el-col>
-      <el-col :span="12" style="height:50px;">
-        <el-form-item label="未付金额">
-          <el-col :span="11">
-            <el-form-item prop="oriUnPaidAmtBegin">
-              <el-jx-input v-model="formInline.oriUnPaidAmtBegin" clearable placeholder="起始金额"></el-jx-input>
-            </el-form-item>
+      <el-col :span="1">
+        <el-form-item prop="oriPaidAmtEnd"></el-form-item>
+      </el-col>
+      <el-col :span="11">
+        <el-form-item label="未付金额" prop="oriUnPaidAmtBegin">
+          <el-col :span="10" class="mon-range-start">
+            <el-jx-input v-model="formInline.oriUnPaidAmtBegin" placeholder="起始金额"></el-jx-input>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
-          <el-col :span="11">
-            <el-form-item prop="oriUnPaidAmtEnd">
-              <el-jx-input v-model="formInline.oriUnPaidAmtEnd" clearable placeholder="结束金额"></el-jx-input>
-            </el-form-item>
+          <el-col :span="10" class="mon-range-end">
+            <el-jx-input v-model="formInline.oriUnPaidAmtEnd" placeholder="结束金额"></el-jx-input>
           </el-col>
         </el-form-item>
+      </el-col>
+      <el-col :span="1">
+        <el-form-item prop="oriUnPaidAmtEnd"></el-form-item>
       </el-col>
     </el-row>
     <el-row>
@@ -102,6 +114,7 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
+@import "@/assets/css/_loanSearch.scss";
 .el-select.el-select--mini{
   width:178px;
 }

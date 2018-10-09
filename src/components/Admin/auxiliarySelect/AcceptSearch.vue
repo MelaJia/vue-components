@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="mini" label-width="150px">
+  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
       <el-col :span="8">
         <el-form-item label="供应商代码" prop="vendorCode">
@@ -44,8 +44,17 @@
             </el-select>
           </el-form-item>
       </el-col>
-      <el-col :span="16" style="height:50px;">
-        <el-form-item label="金额范围">
+      <el-col :span="14">
+        <el-form-item label="金额范围" prop="amountBegin">
+          <el-col :span="10" class="mon-range-start">
+            <el-jx-input v-model="formInline.amountBegin" placeholder="起始金额"></el-jx-input>
+          </el-col>
+          <el-col class="line" :span="2">-</el-col>
+          <el-col :span="10" class="mon-range-end">
+            <el-jx-input v-model="formInline.amountEnd" placeholder="结束金额"></el-jx-input>
+          </el-col>
+        </el-form-item>
+        <!-- <el-form-item label="金额范围">
           <el-col :span="11">
             <el-form-item prop="amountBegin">
               <el-jx-input v-model="formInline.amountBegin" clearable placeholder="起始金额"></el-jx-input>
@@ -57,7 +66,10 @@
               <el-jx-input v-model="formInline.amountEnd" clearable placeholder="结束金额"></el-jx-input>
             </el-form-item>
           </el-col>
-        </el-form-item>
+        </el-form-item> -->
+      </el-col>
+      <el-col :span="1">
+        <el-form-item prop="amountEnd"></el-form-item>
       </el-col>
     </el-row>
     <el-row>
@@ -85,6 +97,7 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
+@import "@/assets/css/_loanSearch.scss";
 .el-select.el-select--mini{
   width:178px;
 }

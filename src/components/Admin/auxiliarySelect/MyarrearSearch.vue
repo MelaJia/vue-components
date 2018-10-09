@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="mini" label-width="100px">
+  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
       <el-col :span="8">
         <el-form-item label="供应商代码" prop="vendorCode">
@@ -57,6 +57,7 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
+@import "@/assets/css/_loanSearch.scss";
 .el-select.el-select--mini{
   width:178px;
 }

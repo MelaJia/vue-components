@@ -19,8 +19,18 @@
     </el-row>
     <el-row>
       <el-col :span="8">
-        <el-form-item label="客户经理" prop="customerManagerId">
+        <!-- <el-form-item label="客户经理" prop="customerManagerId">
           <el-input v-model.trim="formInline.customerManagerId" placeholder="客户经理"></el-input>
+        </el-form-item> -->
+        <el-form-item label="客户经理" prop="customerManagerId">
+          <el-select v-model="formInline.customerManagerId" placeholder="请选择" value-key="customerManagerId">
+            <el-option
+              v-for="item in this.customerManagerList"
+              :key="item.customerManagerId"
+              :label="item.customerManagerName"
+              :value="item.customerManagerId">
+            </el-option>
+          </el-select>
         </el-form-item>
       </el-col>
       <el-col :span="8">
@@ -66,7 +76,8 @@ export default {
         customerManagerId: '', // 客户经理
         status: '', // 状态
         roleId: ''
-      }
+      },
+      customerManagerList: [] // 客户经理
     }
   },
   computed: {
@@ -75,11 +86,19 @@ export default {
     }
   },
   mounted () {
+    // 获取客户经理列表
+    getDataBase.call(this, '/commonCust/customerManagerList.do').then((res) => {
+      if (res) {
+        this.customerManagerList = res
+      }
+    })
+    // 获取状态
     getDataBase.call(this, '/commonCust/companyUserStatusList.do').then((res) => {
       if (res) {
         this.arStatus = res
       }
     })
+    // 获取角色
     this.axios.post('/commonTrans/queryAvailableRoleList.do').then(res => {
       if (res.data.status) {
         this.roleTypes = res.data.data
