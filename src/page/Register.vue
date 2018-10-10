@@ -467,6 +467,7 @@
 
 <script>
 import Upload from '@/components/Items/uploadReg'
+import Eye from '@/components/Items/eye'
 import validConf from '@/config/validateConfig'
 import CityData from '@/mixins/CityData' // 省市数据
 import { getStore, setStore } from '@/util/store'
@@ -476,7 +477,8 @@ export default {
   props: ['visibleP', 'form'],
   mixins: [CityData],
   components: {
-    Upload
+    Upload,
+    Eye
   },
   data () {
     validConf.scope = this
