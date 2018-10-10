@@ -636,7 +636,7 @@ export default {
         this.moneyTypes[idx].currencyId = this.moneyTypes[idx].currencyId.toString()
       })
     }
-    this.axios.get('/commonTrans/queryRoleTypeList.do').then(res => {
+    this.axios.post('/commonTrans/queryRoleTypeList.do').then(res => {
       if (res.data.status) {
         this.custTypeOptions = res.data.data
       } else {
