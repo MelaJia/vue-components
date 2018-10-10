@@ -858,8 +858,7 @@ function getUserInfo () {
     organizationUrl: '111123.png', // 组织机构代码证
     taxUrl: '111123.png' // 税务登记证
   }
-  var object = require('lodash/fp/object')
-  return process.env.NODE_ENV === 'development' ? object.assign(infos, devInfos) : infos
+  return process.env.NODE_ENV === 'development' ? Object.assign(infos, devInfos) : infos
 }
 // 银行账号格式化
 function formatBankNo () {

@@ -18,7 +18,7 @@ const routes = [
     {
       path: 'fenbo',
       name: 'fenbo',
-      component: () => import(/* webpackChunkName: 'admin' */ '@/page/admin/work/ArFenBoList'),
+      component: () => import(/* webpackChunkName: 'chunkAdmin' */ '@/page/admin/work/ArFenBoList'),
       meta: {
         title: '资金方分拨', // 名称
         requireAuth: true // 需要登录验证
@@ -28,7 +28,7 @@ const routes = [
       path: 'regcmp',
       name: 'regcmp',
       component: () =>
-        import(/* webpackChunkName: 'admin' */ '@/page/admin/managers/regCMP'),
+        import(/* webpackChunkName: 'chunkAdmin' */ '@/page/admin/managers/regCMP'),
       meta: {
         title: '资金需求方管理', // 名称
         requireAuth: true // 需要登录验证
@@ -38,7 +38,7 @@ const routes = [
       path: 'fundcmp',
       name: 'fundcmp',
       component: () =>
-        import(/* webpackChunkName: 'admin' */ '@/page/admin/managers/fundCMP'),
+        import(/* webpackChunkName: 'chunkAdmin' */ '@/page/admin/managers/fundCMP'),
       meta: {
         title: '资金提供方管理', // 名称
         requireAuth: true // 需要登录验证
@@ -48,7 +48,7 @@ const routes = [
       path: 'rolemanage',
       name: 'rolemanage',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/admin/set/RoleManage'),
+        import(/* webpackChunkName: 'chunkAdmin' */ '@/page/admin/set/RoleManage'),
       meta: {
         title: '角色管理', // 名称
         requireAuth: true // 需要登录验证
@@ -59,7 +59,7 @@ const routes = [
       name: 'authmanage',
       props: (route) => ({ query: {roleTypeId: Number(route.query.roleType), roleId: Number(route.query.roleId)} }),
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/admin/set/AuthorityManage'),
+        import(/* webpackChunkName: 'chunkAdmin' */ '@/page/admin/set/AuthorityManage'),
       meta: {
         title: '权限管理', // 名称
         requireAuth: true // 需要登录验证
@@ -69,7 +69,7 @@ const routes = [
       path: 'ordersearch',
       name: 'ordersearchAdminAdmin',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/admin/auxiliarySelect/OrderSearch'),
+        import(/* webpackChunkName: 'chunkAdmin' */ '@/page/admin/auxiliarySelect/OrderSearch'),
       meta: {
         title: '订单查询', // 名称
         requireAuth: true // 需要登录验证
@@ -79,7 +79,7 @@ const routes = [
       path: 'acceptsearch',
       name: 'acceptsearchAdmin',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/admin/auxiliarySelect/AcceptanceSearch'),
+        import(/* webpackChunkName: 'chunkAdmin' */ '@/page/admin/auxiliarySelect/AcceptanceSearch'),
       meta: {
         title: '验收单查询', // 名称
         requireAuth: true // 需要登录验证
@@ -89,7 +89,7 @@ const routes = [
       path: 'mybill',
       name: 'mybillAdmin',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/admin/auxiliarySelect/MyBill'),
+        import(/* webpackChunkName: 'chunkAdmin' */ '@/page/admin/auxiliarySelect/MyBill'),
       meta: {
         title: '对账单查询', // 名称
         requireAuth: true // 需要登录验证
@@ -99,7 +99,7 @@ const routes = [
       path: 'mypayer',
       name: 'mypayerAdmin',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/admin/auxiliarySelect/MyPayer'),
+        import(/* webpackChunkName: 'chunkAdmin' */ '@/page/admin/auxiliarySelect/MyPayer'),
       meta: {
         title: '付款单查询', // 名称
         requireAuth: true // 需要登录验证
@@ -109,7 +109,7 @@ const routes = [
       path: 'myinvoice',
       name: 'myinvoiceAdmin',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/admin/auxiliarySelect/MyInvoice'),
+        import(/* webpackChunkName: 'chunkAdmin' */ '@/page/admin/auxiliarySelect/MyInvoice'),
       meta: {
         title: '发票查询', // 名称
         requireAuth: true // 需要登录验证
@@ -119,7 +119,7 @@ const routes = [
       path: 'mysubmit',
       name: 'mysubmitAdmin',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/admin/auxiliarySelect/MySubmit'),
+        import(/* webpackChunkName: 'chunkAdmin' */ '@/page/admin/auxiliarySelect/MySubmit'),
       meta: {
         title: '结报查询', // 名称
         requireAuth: true // 需要登录验证
@@ -129,7 +129,7 @@ const routes = [
       path: 'myarrear',
       name: 'myarrearAdmin',
       component: () =>
-        import(/* webpackChunkName: 'AR' */ '@/page/admin/auxiliarySelect/MyArrear'),
+        import(/* webpackChunkName: 'chunkAdmin' */ '@/page/admin/auxiliarySelect/MyArrear'),
       meta: {
         title: '欠款查询', // 名称
         requireAuth: true // 需要登录验证
@@ -138,7 +138,7 @@ const routes = [
     {
       path: 'blockChain',
       name: 'blockChain',
-      component: () => import(/* webpackChunkName: 'AR' */ '@/page/admin/blockChain/index'),
+      component: () => import(/* webpackChunkName: 'chunkAdmin' */ '@/page/admin/blockChain/index'),
       meta: {
         title: '区块链', // 名称
         requireAuth: true // 需要登录验证

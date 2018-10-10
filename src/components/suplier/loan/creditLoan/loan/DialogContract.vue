@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="visibleP" :before-close="handleClose">
+  <el-dialog :visible.sync="visibleP" :before-close="handleClose" :close-on-click-modal="false">
      <header slot="title" v-show="step!==1">
       <span class="title">
         {{getTitle}}
@@ -21,7 +21,8 @@
         <el-button round @click="handleNext" type="primary" >我知道了</el-button>
     </footer>
     <footer slot="footer" v-if="step===2">
-        <el-button round @click="beforeSubmit" type="primary" v-loading.fullscreen.lock="isLoading">同意签署</el-button>
+        <el-button v-if="detailsP.contractSignType === 1" round @click="beforeSubmit" type="primary" v-loading.fullscreen.lock="isLoading">同意签署</el-button>
+        <el-button v-else round @click="handleSubmit" type="primary" v-loading.fullscreen.lock="isLoading">同意签署</el-button>
         <el-button round @click="handleReject" type="warning" v-loading.fullscreen.lock="isLoading">拒绝退回</el-button>
     </footer>
     <footer slot="footer" v-if="step===3">
@@ -77,7 +78,8 @@ function submit () {
     })
     return
   }
-  if (this.captcha.length === 0) {
+  // 电子合同需要验证码
+  if (this.detailsP.contractSignType === 1 && this.captcha.length === 0) {
     this.$message({
       type: 'error',
       message: '验证码不能为空'

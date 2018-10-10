@@ -8,7 +8,10 @@ var echarts = require('echarts/lib/echarts')
 // 引入柱状图
 require('echarts/lib/chart/pie')
 export default {
-  props: ['data', 'color'],
+  props: {
+    data: Object,
+    color: Array
+  },
   computed: {
     getOption: function () {
       let {title, datas} = this.data

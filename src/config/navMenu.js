@@ -372,13 +372,6 @@ const navs = {
         disabled: false,
         lClass: 'line',
         menuParent: 'circle'
-      },
-      {
-        menuId: '4-2',
-        menuName: '银行卡管理',
-        disabled: true,
-        lClass: 'line',
-        menuParent: 'circle'
       }
       ]
     },

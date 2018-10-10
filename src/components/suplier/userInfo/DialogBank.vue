@@ -1,6 +1,6 @@
 <template>
 
-  <el-dialog custom-class="user-info-dialog" :visible.sync="visibleP" :before-close="handleClose" center="">
+  <el-dialog custom-class="user-info-dialog" :visible.sync="visibleP" :before-close="handleClose" center="" :close-on-click-modal="false">
     <header slot="title">
       <span class="title">
         {{getTitle}}

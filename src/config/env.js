@@ -20,8 +20,8 @@ let codeUrl = `${baseUrl}/code`
 // let basePath = document.location.hostname === 'localhost' ? '/JuXin' : getContextPath()
 // let basePath = '/JuXin'
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = `http://10.130.2.220:3000`
-  // baseUrl = `https://jurongtest.foxconn.com/JuXin/openapi`
+  // baseUrl = `http://10.130.2.220:3000`
+  baseUrl = `https://jurongtest.foxconn.com/JuXin/openapi`
   apiUrl = baseUrl
 } else if (process.env.NODE_ENV === 'production') {
   // baseUrl = `${protocol}//${host}${basePath}`
