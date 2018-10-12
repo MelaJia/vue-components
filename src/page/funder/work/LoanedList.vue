@@ -40,8 +40,8 @@
 </style>
 
 <script>
-import ArTable from '@/components/Fund/Work/LoanedListTable'
-import Search from '@/components/Fund/Work/LoanedSearch'
+import ArTable from '@/components/Fund/Work/Loaned/LoanedListTable'
+import Search from '@/components/Fund/Work/Loaned/LoanedSearch'
 import Table from '@/mixins/suplier/Ar/Table'
 // import { LoanedDatas } from '@/monitorDatas/Fund/loanDatas.js'
 export default {

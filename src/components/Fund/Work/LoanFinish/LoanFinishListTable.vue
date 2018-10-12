@@ -9,10 +9,8 @@
     <!-- <dialog-withdraw :visible-p.sync="dialogWithdrawVisible" :multiple-selection-p="multipleSelection" :options="Options"></dialog-withdraw> -->
     <!-- 详情 -->
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-info>
-    <!-- 还款 -->
-    <dialog-repay :visible-p.sync="dialogRepayVisible" :details-p="details" ></dialog-repay>
     <section>
-      <el-table id="tb" :data="dataTable" v-loading.fullscreen="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
+      <el-table :data="dataTable" v-loading.fullscreen="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([6])" border style="width: 100%"
         @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle" @mousedown.native="mouseDown">
         <el-table-column type="expand" fixed>
@@ -48,6 +46,8 @@
               </el-table-column>
               <el-table-column align="right" header-align="center" prop="prepayServiceAmt" :width="widthArr.prepayServiceAmt" :formatter="regexNum">
               </el-table-column>
+              <el-table-column align="right" header-align="center" prop="periodReliefAmt" :width="widthArr.periodReliefAmt" :formatter="regexNum">
+              </el-table-column>
               <el-table-column align="right" header-align="center" prop="payAmt" :width="widthArr.payAmt" :formatter="regexNum">
               </el-table-column>
               <el-table-column align="center" prop="billPayDate" :width="widthArr.billPayDate" :formatter="dateFormat">
@@ -56,16 +56,11 @@
               </el-table-column>
               <el-table-column align="center" prop="periodPayDate" :width="widthArr.periodPayDate" :formatter="dateFormat">
               </el-table-column>
-              <el-table-column align="center" :width="widthArr.billPayStatus">
-                <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" content="会计确认->财务确认->财务已付款->付款单确认" placement="top">
-                    <span>{{scope.row.billPayStatus}}</span>
-                  </el-tooltip>
-                </template>
+              <el-table-column align="center" prop="actualRepayDate" :width="widthArr.actualRepayDate" :formatter="dateFormat" >
               </el-table-column>
               <el-table-column align="center" width='80px'>
                 <template slot-scope="scope">
-                  <el-button size="mini" type="text" v-if="scope.row.isShowRepayButton" @click="handleRepay(scope.$index, props.row, scope.row)">还款</el-button>
+                  - -
                 </template>
               </el-table-column>
             </el-table>
@@ -85,7 +80,7 @@
         </el-table-column>
         <el-table-column align="center" label="还款方式" prop="repaymentType">
         </el-table-column>
-        <el-table-column align="center" label="宽容天数" prop="fineGraceDays" :formatter="nullDealWith">
+        <el-table-column align="center" label="宽容天数" prop="fineGraceDays">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="还款本金" prop="payPrincipalAmt" :formatter="regexNum">
         </el-table-column>
@@ -99,6 +94,8 @@
         </el-table-column>
         <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepayServiceAmt" :formatter="regexNum">
         </el-table-column>
+         <el-table-column align="right" header-align="center" label="还款优惠金额" prop="periodReliefAmt" :formatter="regexNum">
+        </el-table-column>
         <el-table-column align="right" header-align="center" label="还款总计" prop="payAmt" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120">
@@ -107,26 +104,11 @@
         </el-table-column>
         <el-table-column align="center" label="预计还款日期" prop="periodPayDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="center" label="打款处理状态">
-          <template slot-scope="scope">
-            <el-tooltip class="item" effect="dark" content="会计确认->财务确认->财务已付款->付款单确认" placement="top">
-              <span>{{scope.row.billPayStatus}}</span>
-            </el-tooltip>
-          </template>
+        <el-table-column align="center" label="实际还款日期" prop="actualRepayDate" :formatter="dateFormat" width="120">
         </el-table-column>
         <el-table-column align="center" header-align="center" label="操作" width='80px' class-name="" fixed="right" :resizable="false">
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-            <!-- <el-dropdown>
-              <el-button type="primary">
-                更多菜单<i class="el-icon-arrow-down el-icon--right"></i>
-              </el-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item><el-button size="mini" type="text" @click="handleTransfer(scope.$index, scope.row)">转让</el-button></el-dropdown-item>
-                <el-dropdown-item><el-button size="mini" type="text" @click="handleCancle(scope.$index, scope.row)">取消</el-button></el-dropdown-item>
-                <el-dropdown-item><el-button size="mini" type="text" @click="handleApply(scope.$index, scope.row)">贴现审核申请</el-button></el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown> -->
             </template>
         </el-table-column>
       </el-table>
@@ -167,9 +149,7 @@ export default {
   mixins: [TableMixIn, Common, Width],
   components: {
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/DialogInfoLoaned'),
-    'dialog-repay': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/DialogRepay')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/Loaned/DialogInfoLoaned')
   },
   data () {
     return {
@@ -185,9 +165,7 @@ export default {
       console.log(this.multipleSelection)
     },
     // 详情
-    handleInfo: handleInfo,
-    // 还款
-    handleRepay: handleRepay
+    handleInfo: handleInfo
   }
 }
 /**
@@ -201,81 +179,5 @@ function handleInfo (idx, val) {
       this.dialogInfoVisible = true
     }
   })
-}
-/**
- * 还款
- */
-async function handleRepay (idx, val1, val2) {
-  // 获取数据
-  // 引入mixins/common.js中getLoanDetail其中包含有加载loading
-  let param = {
-    masterChainId: val1.masterChainId,
-    periodNo: val2.periodNo
-  }
-  let param2 = {
-    factoringCustId: val1.factoringCustId, masterChainId: val1.masterChainId
-  }
-  // 显示加载图标
-  const loading = this.$loading({
-    lock: true,
-    text: 'Loading',
-    spinner: 'el-icon-loading',
-    background: 'rgba(0, 0, 0, 0.7)'
-  })
-  try {
-    if (new Date(val2.periodPayDate) > new Date()) {
-      let [res1, res2] = await Promise.all([this.axios.post('/loanQuery/queryLoanRepayInfo.do', param), this.axios.post('/loanQuery/prepaySettleLoanTrial.do', param2)])
-      // 获取提前还清还款的接口
-      loading.close()
-      if (res1.data.status) {
-        this.details = Object.assign({}, res1.data.data)
-      } else {
-        this.$message({
-          showClose: true,
-          message: res1.data.msg,
-          type: 'error'
-        })
-        return false
-      }
-      if (res2.data.status) {
-        this.details = Object.assign(this.details, res2.data.data)
-      } else {
-        this.$message({
-          showClose: true,
-          message: res2.data.msg,
-          type: 'error'
-        })
-        return false
-      }
-      if (res1.data.status && res2.data.status) {
-        this.dialogRepayVisible = true
-      }
-    } else {
-      let res1 = await this.axios.post('/loanQuery/queryLoanRepayInfo.do', param)
-      // 获取提前还清还款的接口
-      loading.close()
-      if (res1.data.status) {
-        this.details = Object.assign({}, res1.data.data)
-      } else {
-        this.$message({
-          showClose: true,
-          message: res1.data.msg,
-          type: 'error'
-        })
-        return false
-      }
-      if (res1.data.status) {
-        this.dialogRepayVisible = true
-      }
-    }
-  } catch (error) {
-    loading.close()
-    console.log('系统异常', error)
-    this.$alert(`系统异常,请联系管理员!`, '系统提示', {
-      confirmButtonText: '确定',
-      callback: action => {
-      }
-    })
-  }
 }
 </script>

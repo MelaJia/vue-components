@@ -36,8 +36,8 @@
 </style>
 
 <script>
-import ArList from '@/components/Fund/Work/LoanListTable'
-import Search from '@/components/Fund/Work/LoanSearch'
+import ArList from '@/components/Fund/Work/Loan//LoanListTable'
+import Search from '@/components/Fund/Work/Loan//LoanSearch'
 import Table from '@/mixins/suplier/Ar/Table'
 // import {Datas} from '@/monitorDatas/Fund/loanDatas'
 export default {

@@ -46,7 +46,7 @@ export default {
   mixins: [ListMinxIn, Common, Dialog],
   components: {
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/DialogLoanFee')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/LoanFee/DialogLoanFee')
   },
   methods: {
     // 详情

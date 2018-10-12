@@ -136,6 +136,10 @@ function logout () {
     }
   }).catch(err => {
     this.fullscreenLoading = false
+    this.$message({
+      message: '返回结果错误，请联系管理员',
+      type: 'error'
+    })
     console.log(err)
   })
 }

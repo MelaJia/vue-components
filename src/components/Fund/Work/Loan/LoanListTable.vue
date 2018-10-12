@@ -80,9 +80,9 @@ export default {
   mixins: [ListMinxIn, Common, Dialog],
   components: {
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/DialogInfoLoan'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/Loan/DialogInfoLoan'),
     'dialog-contract': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/DialogLoanContract'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/Loan/DialogLoanContract'),
     'dialog-check-phone': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/Loan/DialogCheckPhone')
   },
