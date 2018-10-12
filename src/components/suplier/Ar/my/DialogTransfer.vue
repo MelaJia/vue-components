@@ -62,8 +62,8 @@
         </el-col>
         <el-col :span="9" class="flex">
           <el-form-item label="转让金额(元):" prop="receiveCustId">
-             <el-input v-model.number="transAmt" type="number" placeholder="请输入转让金额：">
-             </el-input>
+             <el-jx-input v-model="transAmt" placeholder="请输入转让金额：">
+             </el-jx-input>
           </el-form-item>
         </el-col>
         <el-col :span="4" v-if="sum">
@@ -106,10 +106,14 @@ import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
 import { debounce, erroShow } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
+import Input from '@/components/Items/inputNumber'
 /* 转让弹窗 */
 export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, Common],
+  components: {
+    'el-jx-input': Input
+  },
   data () {
     return {
       receiveCustId: '', // 授让公司id
@@ -192,13 +196,24 @@ function submit () {
     if (isNaN(num)) {
       return
     }
-    return sum + num
-  }, 0)
-  // 5.判断转让金额是否大于勾选发票总金额
+    return sum + num * 100
+  }, 0) / 100
+  // 5.1判断转让金额是否大于勾选发票总金额
+  console.log(Number(this.transAmt))
+  console.log(sum)
+  console.log(Number(this.transAmt) > sum)
   if (Number(this.transAmt) > sum) {
     this.$message({
       type: 'error',
       message: '转让金额不得大于勾选发票总额'
+    })
+    return
+  }
+  // 5.2判断是否大于余额
+  if (Number(this.transAmt) > this.detailsP.arAvailableAmt) {
+    this.$message({
+      type: 'error',
+      message: '转让金额不得大于余额'
     })
     return
   }
@@ -241,10 +256,10 @@ function handleCheckedChange (value) {
     if (isNaN(num)) {
       return
     }
-    return sum + num
-  }, 0)
+    return sum + num * 100
+  }, 0) / 100
   // 赋值
-  this.transAmt = this.sum = sum
+  this.transAmt = this.sum = sum.toFixed(2)
 }
 function Init () {
   this.checkList = []

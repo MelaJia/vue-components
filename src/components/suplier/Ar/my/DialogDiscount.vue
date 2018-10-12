@@ -57,7 +57,7 @@
       <el-row>
         <el-col :span="8" class="flex">
           <el-form-item label="贴现金额(元):" prop="receiveCustId">
-             <el-input v-model.number="transAmt" placeholder="请输入贴现金额"></el-input>
+             <el-jx-input v-model="transAmt" placeholder="请输入贴现金额"></el-jx-input>
           </el-form-item>
         </el-col>
         <el-col :span="6" v-if="sum">
@@ -102,11 +102,14 @@
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
 import { debounce } from '@/util/util' // 防抖函数
-
+import Input from '@/components/Items/inputNumber'
 export default {
   name: 'ardiscount', // 贴现弹窗
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, Common],
+  components: {
+    'el-jx-input': Input
+  },
   data () {
     return {
       transAmt: 0,
@@ -155,12 +158,20 @@ function handleSubmit () {
     if (isNaN(num)) {
       return
     }
-    return sum + num
-  }, 0)
+    return sum + num * 100
+  }, 0) / 100
   if (Number(this.transAmt) > sum) {
     this.$message({
       type: 'error',
       message: '贴现金额不得大于勾选发票总额'
+    })
+    return
+  }
+  // 5.2判断是否大于余额
+  if (Number(this.transAmt) > this.detailsP.arAvailableAmt) {
+    this.$message({
+      type: 'error',
+      message: '贴现金额不得大于余额'
     })
     return
   }
@@ -197,10 +208,10 @@ function handleCheckedChange (value) {
     if (isNaN(num)) {
       return
     }
-    return sum + num
-  }, 0)
+    return sum + num * 100
+  }, 0) / 100
   // 赋值
-  this.transAmt = this.sum = sum
+  this.transAmt = this.sum = sum.toFixed(2)
 }
 // 初始化
 function Init () {
