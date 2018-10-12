@@ -61,7 +61,6 @@ import ListMinxIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 import { debounce, getDataBase, erroShow } from '@/util/util' // 首字母大写 防抖函数
-import { loadingConf } from '@/config/common' // 获取加载配置
 export default {
   props: ['dataLoading', 'dataTable'],
   data () {
@@ -189,6 +188,16 @@ function handleStart (idx, val) {
 }
 // 更新同步
 function handleUpdate (idx, val) {
+  console.log(this.$store.getters.isLock)
+  if (this.$store.getters.isLock) {
+    this.$alert('已有任务正在更新，请稍候再试', '警告', {
+      confirmButtonText: '确定',
+      callback: action => {
+        return false
+      }
+    })
+    return false
+  }
   // 设置请求数据
   let param = {
     custId: val.custId,
@@ -201,18 +210,21 @@ function handleUpdate (idx, val) {
     type: 'warning',
     center: true
   }).then(async () => {
-    // 1.显示加载图标
-    const loading = this.$loading(loadingConf.sub())
+    // 1.关闭再次同步更新
+    this.$store.commit('SET_LOCK') // 锁住同步更新
     try {
       let res = await this.axios.post('/sysRegisteredCompanyManager/sycCompanyAR.do', param)
       let type = res.data.status ? 'success' : 'error'
-      this.$message({
+      this.$notify({
+        title: '同步更新结果',
         message: res.data.msg,
+        offset: 100,
         type: type
       })
-      this.fresh() // 刷新数据
+      this.$store.commit('CLEAR_LOCK') // 释放同步更新
     } catch (err) {
-      erroShow.call(this, err, loading)
+      this.$store.commit('CLEAR_LOCK') // 释放同步更新
+      erroShow.call(this, err)
     }
   }).catch(() => {
     this.$message({

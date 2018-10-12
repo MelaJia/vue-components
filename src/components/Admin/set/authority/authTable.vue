@@ -337,6 +337,11 @@ function Submit () {
   console.log(param)
   this.axios.post('/authorizationAdmin/authorizationConfig.do', param).then(res => {
     if (res.data.status) {
+      this.$message({
+        showClose: true,
+        message: res.data.msg,
+        type: 'success'
+      })
       showLoading(this, res.data.msg) // 显示加载框
       getAuth(this, this.$refs.tree.getCurrentNode()) // 刷新数据
     } else {
