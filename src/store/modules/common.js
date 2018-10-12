@@ -1,10 +1,10 @@
-import { setStore, getStore, removeStore } from '@/util/store'
+import { setStore, getStore } from '@/util/store'
 const common = {
 
   state: {
     isCollapse: false,
     isFullScren: false,
-    isLock: getStore({ name: 'isLock' }) || false,
+    isLock: false, // 是否可同步更新
     lockPasswd: getStore({ name: 'lockPasswd' }) || ''
   },
   mutations: {
@@ -16,7 +16,7 @@ const common = {
     },
     SET_LOCK: (state, action) => {
       state.isLock = true
-      setStore({ name: 'isLock', content: state.isLock, type: 'session' })
+      // setStore({ name: 'isLock', content: state.isLock, type: 'session' })
     },
     SET_LOCK_PASSWD: (state, lockPasswd) => {
       state.lockPasswd = lockPasswd
@@ -24,9 +24,9 @@ const common = {
     },
     CLEAR_LOCK: (state, action) => {
       state.isLock = false
-      state.lockPasswd = ''
-      removeStore({ name: 'lockPasswd' })
-      removeStore({ name: 'isLock' })
+      // state.lockPasswd = ''
+      // removeStore({ name: 'lockPasswd' })
+      // removeStore({ name: 'isLock' })
     }
   }
 }
