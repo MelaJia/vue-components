@@ -1,5 +1,7 @@
 <template>
 <section id="print">
+  <!-- 预还款详情 -->
+  <dialog-info :visible-p.sync="dialogRepayInfoVisible" :details-p="details" ></dialog-info>
   <el-dialog :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
       <span class="title">
@@ -117,6 +119,8 @@
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
       <el-button @click="print('print')">打印</el-button>
+      <el-button v-if="isShowRepayBtn" @click="handleShowRepay">预还款计划</el-button>
+
     </footer>
   </el-dialog>
 </section>
@@ -134,16 +138,33 @@ export default {
   mixins: [DialogClose, Common],
   data () {
     return {
-      radio2: 3
+      radio2: 3,
+      dialogRepayInfoVisible: false,
+      details: {} // 详情数据
     }
   },
   computed: {
     getTitle () {
       return this.detailsP.masterChainId + '详情'
+    },
+    isShowRepayBtn () {
+      return this.detailsP.checkedStatus === 22 || this.detailsP.checkedStatus === 23 || this.detailsP.checkedStatus === 24 || this.detailsP.checkedStatus === 26 || this.detailsP.checkedStatus === 29
     }
   },
+  components: {
+    'dialog-info': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogRepayInfo')
+  },
   methods: {
+    handleShowRepay: handleShowRepay
   }
 }
-
+function handleShowRepay () {
+  this.getLoanDetail('/loan/loanTrialRepaymentScheduleInfo.do', { loanId: this.detailsP.masterChainId }).then(res => {
+    if (res) {
+      this.details = res
+      this.dialogRepayInfoVisible = true
+    }
+  })
+}
 </script>

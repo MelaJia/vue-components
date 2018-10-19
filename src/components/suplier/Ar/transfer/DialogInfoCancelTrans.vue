@@ -54,7 +54,7 @@
       <ul class="height-auto" v-if="detailsP.checkedStatus!==6&&detailsP.checkedStatus!==9">
         <span>对应发票号:
           <div class="a-link-group inline-block">
-            <label v-for="(item,index) in detailsP.invoiceListSelected" :class="{'first-child':index===0}"  :key="item.invoiceNo">{{item.invoiceNo}}</label>
+            <label v-for="(item,index) in detailsP.invoiceListSelected" :class="{'first-child':index===0}"  :key="item.invoiceNo">{{item.invoiceNo}}(金额:{{item.invoiceAfterTaxAmt|regexNum}})</label>
           </div>
         </span>
       </ul>

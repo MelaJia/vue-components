@@ -1,5 +1,7 @@
 <template>
 <section id="print">
+  <!-- 预还款详情 -->
+  <dialog-info :visible-p.sync="dialogRepayInfoVisible" :details-p="details" ></dialog-info>
   <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
       <span class="title">
@@ -63,7 +65,7 @@
       <ul class="height-auto">
         <span>对应发票号:
           <div class="a-link-group inline-block">
-            <label v-for="(item,index) in detailsP.invoiceCustomList" :class="{'first-child':index===0}" :key="item.invoiceNo">{{item.invoiceNo}}</label>
+            <label v-for="(item,index) in detailsP.invoiceCustomList" :class="{'first-child':index===0}" :key="item.invoiceNo">{{item.invoiceNo}}(金额:{{item.invoiceAfterTaxAmt|regexNum}})</label>
           </div>
         </span>
       </ul>
@@ -79,6 +81,7 @@
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
       <el-button @click="print('print')">打印</el-button>
+      <el-button @click="handleShowRepay">预还款计划</el-button>
     </footer>
   </el-dialog>
 </section>
@@ -95,7 +98,8 @@ export default {
   mixins: [DialogClose, common],
   data () {
     return {
-      radio2: 3
+      dialogRepayInfoVisible: false,
+      details: {}
     }
   },
   computed: {
@@ -104,9 +108,20 @@ export default {
       return this.detailsP.masterChainId + '详情'
     }
   },
+  components: {
+    'dialog-info': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogRepayInfo')
+  },
   methods: {
-
+    handleShowRepay: handleShowRepay
   }
 }
-
+function handleShowRepay () {
+  this.getLoanDetail('/loan/loanTrialRepaymentScheduleInfo.do', { loanId: this.detailsP.masterChainId }).then(res => {
+    if (res) {
+      this.details = res
+      this.dialogRepayInfoVisible = true
+    }
+  })
+}
 </script>

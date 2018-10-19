@@ -40,14 +40,14 @@
       <ul class="height-auto">
           <span>已勾选发票:
             <div class="el-check-group inline-block">
-              <el-checkbox v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}(￥{{item.invoiceAfterTaxAmt}})</el-checkbox>
+              <el-checkbox v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}(金额:{{item.invoiceAfterTaxAmt|regexNum}})</el-checkbox>
             </div>
           </span>
       </ul>
       <ul class="height-auto">
           <span>未勾选发票:
             <el-checkbox-group v-model="checkList" class="inline-blox" @change="handleCheckedChange">
-              <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" :label="item.invoiceNo">{{item.invoiceNo}}(￥{{item.invoiceAfterTaxAmt |regexNum}})</el-checkbox>
+              <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" :label="item.invoiceNo">{{item.invoiceNo}}(金额:{{item.invoiceAfterTaxAmt|regexNum}})</el-checkbox>
             </el-checkbox-group>
             <!-- <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected">{{item.invoiceNo}}</el-checkbox> -->
           </span>
