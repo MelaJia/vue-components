@@ -66,6 +66,24 @@ axios.interceptors.response.use(
             message: '登录超时，请重新登录',
             type: 'error'
           })
+          break
+        case 403:
+          // 返回 401 清除token信息并跳转到登录页面
+          store.commit(types.LOGOUT)
+          if (router.currentRoute.name !== 'Login') {
+            router.replace({
+              path: '/login',
+              query: {
+                redirect: router.currentRoute.fullPath
+              }
+            })
+          }
+          ElementUI.Message({
+            showClose: true,
+            message: '角色或权限已变更，请重新登录',
+            type: 'error'
+          })
+          break
       }
     }
     return Promise.reject(error) // 返回接口返回的错误信息

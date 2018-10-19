@@ -59,7 +59,7 @@ const routes = [{
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/Index'),
     meta: {
-      title: '首页', // 名称
+      title: '登录首页', // 名称
       requireAuth: true // 需要登录验证
     }
   },

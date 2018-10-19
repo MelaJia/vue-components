@@ -23,7 +23,7 @@
           <el-col :span="16" :offset="4" class="flex">
             <el-form-item label="角色:" prop="roleDes">
               <el-select v-model="getform.roleId" placeholder="请选择">
-                <el-option v-for="(item, index) in this.$store.getters.roleBelong" :key="index" :label="item.roleName"
+                <el-option v-for="(item, index) in roleTypes" :key="index" :label="item.roleName"
                   :value="item.roleId"></el-option>
               </el-select>
             </el-form-item>
@@ -94,6 +94,13 @@ export default {
     },
     getform () {
       return this.detailsP
+    },
+    roleTypes () {
+      for (const iterator of this.$store.getters.roleBelong) {
+        if (iterator.pageName === 'fundProviderManagementPage') {
+          return iterator.roleList
+        }
+      }
     }
   },
   methods: {
@@ -103,7 +110,7 @@ export default {
 }
 // 提交操作
 async function submit () {
-  let roleObj = this.$store.getters.roleBelong.find((item) => {
+  let roleObj = this.roleTypes.find((item) => {
     return item.roleId === this.getform.roleId
   })
   let contractObj = this.contractList.find((item) => {

@@ -11,7 +11,7 @@ const routes = [
       path: 'index',
       name: 'indexFund',
       meta: {
-        title: '首页', // 名称
+        title: '登录首页', // 名称
         requireAuth: true // 需要登录验证
       },
       component: () => import(/* webpackChunkName: 'Fund' */ '@/page/funder/outSource/Index')
@@ -71,7 +71,7 @@ const routes = [
       component: () =>
         import(/* webpackChunkName: 'Fund' */ '@/page/funder/UserInfo'),
       meta: {
-        title: '个人基础信息', // 名称
+        title: '基础信息', // 名称
         requireAuth: true // 需要登录验证
       }
     },

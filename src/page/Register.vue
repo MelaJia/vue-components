@@ -32,8 +32,8 @@
             </el-row>
             <el-row>
               <el-col>
-                <el-form-item label="注册账号类型: " prop="roleType" :rules="[{ required: true, message: '账号类型不能为空'}]">
-                  <el-select v-model="getForm.roleType" clearable placeholder="请选择">
+                <el-form-item label="注册账号类型: " prop="custType" :rules="[{ required: true, message: '账号类型不能为空'}]">
+                  <el-select v-model="getForm.custType" clearable placeholder="请选择">
                     <el-option
                       v-for="item in custTypeOptions"
                       :key="item.roleType"
@@ -639,6 +639,7 @@ export default {
     this.axios.post('/commonTrans/queryRoleTypeList.do').then(res => {
       if (res.data.status) {
         this.custTypeOptions = res.data.data
+        this.userInfo.custType = 2
       } else {
         this.$message.error(res.data.msg)
       }
@@ -790,7 +791,7 @@ function subHandle (formName) {
 // 获取userInfo格式
 function getUserInfo () {
   const infos = {
-    custType: 2, // 账号类型2 供应商 3 保理方
+    custType: null, // 账号类型2 供应商 3 保理方
     custUsername: '', // 登陆名
     custPassword: '', // 登陆密码
     checkPass: '', // 确认密码

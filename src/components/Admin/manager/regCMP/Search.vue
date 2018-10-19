@@ -64,6 +64,7 @@
 import SearchMixIn from '@/mixins/suplier/Ar/Search'
 import { getDataBase } from '@/util/util'
 export default {
+  name: 'fundDemandManagementPage',
   mixins: [SearchMixIn],
   data () {
     return {
@@ -101,8 +102,14 @@ export default {
     // 获取角色
     this.axios.post('/commonTrans/queryAvailableRoleList.do').then(res => {
       if (res.data.status) {
-        this.roleTypes = res.data.data
         this.$store.commit('getRoleBelong', res.data.data) // 将角色存入到store里面
+        // 赋值
+        let pageName = this.$options.name ? this.$options.name : 'all'
+        for (const iterator of res.data.data) {
+          if (iterator.pageName === pageName) {
+            this.roleTypes = iterator.roleList
+          }
+        }
       } else {
         this.$message.error(res.data.msg)
       }

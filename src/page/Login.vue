@@ -273,12 +273,13 @@ async function submitForm (formName) {
       data: { status: 1, msg: '验证码错误', token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 3, custNickname: '阿拉斯加大型犬', legalPhone: '+86-15112663977', contactPhone: '15112663977' }
     }
     let nav = require('@/config/navMenu')[Roles[res.data.custType].model].navItems
-    console.log(nav)
     // 菜单处理-开始
     menuArr = []
     nav = dealMenuDev(nav, Roles[res.data.custType].layout)
     nav[0].lClass = 'start-line'
     nav[nav.length - 1].lClass = 'end-line'
+    console.log(Roles[res.data.custType].layout)
+    console.log(nav)
     // 菜单处理-结束
     if (res.data.status === 1) {
       let datas = Object.assign({}, res.data, res.data.data, { navItems: nav })
@@ -412,9 +413,9 @@ function dealMenuDev (array, prev) {
     }
     array[index] = element
     // 存储菜单地址
-    console.log(prev)
     if (element.menuUrl && element.menuUrl.length > 0) {
-      menuArr.push(`${prev}/${element.menuUrl}`)
+      element.menuUrl = `${prev}/${element.menuUrl}`
+      menuArr.push(element.menuUrl)
     }
   }
   return array

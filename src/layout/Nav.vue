@@ -154,7 +154,6 @@ export default {
   data () {
     return {
       activeIndex: 'myar'
-
     }
   },
   components: {
@@ -166,6 +165,7 @@ export default {
   methods: {
     handleSelect (key, keyPath) {
       console.log(key, keyPath)
+      console.log(this.activeidx)
     }
   }
 }

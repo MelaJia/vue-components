@@ -120,7 +120,7 @@ const navs = {
       children: [{
         menuId: 'index',
         menuUrl: 'index',
-        menuName: '首页',
+        menuName: '登录首页',
         disabled: false,
         lClass: 'line',
         menuParent: 'circle'
@@ -191,7 +191,7 @@ const navs = {
       children: [{
         menuId: 'userinfo',
         menuUrl: 'userinfo',
-        menuName: '基本信息',
+        menuName: '基础信息',
         disabled: false,
         lClass: 'end-line',
         menuParent: 'circle'
@@ -368,7 +368,7 @@ const navs = {
       children: [{
         menuId: 'lolanuserinfo',
         menuUrl: 'lolanuserinfo',
-        menuName: '基本信息',
+        menuName: '基础信息',
         disabled: false,
         lClass: 'line',
         menuParent: 'circle'
@@ -384,7 +384,7 @@ const navs = {
       children: [{
         menuId: 'index',
         menuUrl: 'index',
-        menuName: '首页',
+        menuName: '登录首页',
         disabled: false,
         lClass: 'line',
         menuParent: 'circle'

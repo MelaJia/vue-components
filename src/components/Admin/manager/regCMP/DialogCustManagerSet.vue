@@ -24,7 +24,7 @@
           <el-col :span="16" :offset="4" class="flex">
             <el-form-item label="角色:" prop="roleDes">
               <el-select v-model="getform.roleId" placeholder="请选择" @change="change" value-key="roleId">
-                <el-option v-for="item in this.$store.getters.roleBelong" :key="item.roleId" :label="item.roleName"
+                <el-option v-for="item in roleTypes" :key="item.roleId" :label="item.roleName"
                   :value="item.roleId"></el-option>
               </el-select>
             </el-form-item>
@@ -98,6 +98,13 @@ export default {
     },
     getform () {
       return this.detailsP
+    },
+    roleTypes () {
+      for (const iterator of this.$store.getters.roleBelong) {
+        if (iterator.pageName === 'fundDemandManagementPage') {
+          return iterator.roleList
+        }
+      }
     }
   },
   methods: {
@@ -114,13 +121,14 @@ export default {
 }
 // 提交操作
 function submit () {
-  let roleObj = this.$store.getters.roleBelong.find((item) => {
+  let roleObj = this.roleTypes.find((item) => {
     return item.roleId === this.getform.roleId
   })
   let managerObj = this.customerManagerList.find((item) => {
     return item.customerManagerId === this.getform.customerManagerId
     // return Number(item.customerManagerId) === this.getform.customerManagerId
   })
+  console.log(roleObj)
   let param = {
     custId: this.detailsP.custId, // 客户Id
     customerManagerId: this.getform.customerManagerId, // 客户经理Id

@@ -13,13 +13,13 @@
       </el-table-column>
       <el-table-column align="center" sortable label="公司名称" prop="companyName" width="220" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="center" label="公司法人代表" prop="legalPerson" :formatter="nullDealWith" >
+      <el-table-column align="center" label="法人代表" prop="legalPerson" :formatter="nullDealWith" >
       </el-table-column>
       <!-- <el-table-column align="center" label="公司成立日期" prop="establishDate" :formatter="dateFormat">
       </el-table-column> -->
       <!-- <el-table-column align="right" header-align="center" label="公司注册资本" prop="registeredCapital" :formatter="regexNum" >
       </el-table-column> -->
-      <el-table-column align="left" header-align="center" label="公司状态" prop="status" width="100">
+      <el-table-column align="left" header-align="center" label="状态" prop="status" width="100">
         <template slot-scope="scope">
           <span class="iconfont icon-yuan tag-item-icon" :class="[Number(scope.row.status) === 1 ? 'status-success' : Number(scope.row.status) === 0 ? 'status-info': 'status-danger' ]"></span>
           <span class="tag-text">{{scope.row.status | statusFormat}}</span>
