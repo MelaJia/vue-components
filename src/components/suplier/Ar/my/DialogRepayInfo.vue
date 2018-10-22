@@ -4,26 +4,28 @@
       <article>
         <header class="repay-header">还款计划表</header>
         <div class="repay-content">
-          <tr>
-            <td class="td-left">客户名称</td>
-            <td class="pad-left-10" colspan="5">{{detailsP.companyName}}</td>
-          </tr>
-          <tr>
-            <td class="td-left">期数</td>
-            <td class="td-right">{{detailsP.periodId}}</td>
-            <td class="td-left">年利率</td>
-            <td class="td-right">{{detailsP.interestRate |addPercent}}</td>
-            <td class="td-left">贷款金额</td>
-            <td class="td-right">{{detailsP.loanAmt | regexNum}}</td>
-          </tr>
-          <tr>
-            <td class="td-left">月还本金</td>
-            <td class="td-right">{{detailsP.periodPrincipal | regexNum}}</td>
-            <td class="td-left">月还利息</td>
-            <td class="td-right">{{detailsP.periodInterest | regexNum}}</td>
-            <td class="td-right"></td>
-            <td class="td-right"></td>
-          </tr>
+          <table>
+            <tr>
+              <td class="td-left">客户名称</td>
+              <td class="pad-left-10" colspan="5">{{detailsP.companyName}}</td>
+            </tr>
+            <tr>
+              <td class="td-left">期数</td>
+              <td class="td-right">{{detailsP.periodId}}</td>
+              <td class="td-left">年利率</td>
+              <td class="td-right">{{detailsP.interestRate |addPercent}}</td>
+              <td class="td-left">贷款金额</td>
+              <td class="td-right">{{detailsP.loanAmt | regexNum}}</td>
+            </tr>
+            <tr>
+              <td class="td-left">月还本金</td>
+              <td class="td-right">{{detailsP.periodPrincipal | regexNum}}</td>
+              <td class="td-left">月还利息</td>
+              <td class="td-right">{{detailsP.periodInterest | regexNum}}</td>
+              <td class="td-right"></td>
+              <td class="td-right"></td>
+            </tr>
+          </table>
         </div>
       </article>
       <article>
@@ -101,6 +103,9 @@
 .repay-content .pad-left-10 {
   padding-left: 10px;
 }
+.repay-content table {
+  border-collapse: collapse
+}
 .repay-content td {
   border: solid 1px;
   height: 32px;
@@ -115,6 +120,10 @@
 .repay-content .td-right {
   width: 133px;
   text-align: center;
+}
+.repay-detail-conten .el-table thead th,.repay-detail-conten .el-table thead tr {
+    background: #ccc;
+    color: #333;
 }
 </style>
 
