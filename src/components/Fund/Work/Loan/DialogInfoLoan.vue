@@ -65,7 +65,8 @@
       <ul class="height-auto">
         <span>对应发票号:
           <div class="a-link-group inline-block">
-            <label v-for="(item,index) in detailsP.invoiceCustomList" :class="{'first-child':index===0}" :key="item.invoiceNo">{{item.invoiceNo}}(金额:{{item.afterTaxAmt|regexNum}})</label>
+            <!-- <label v-for="(item,index) in detailsP.invoiceCustomList" :class="{'first-child':index===0}" :key="item.invoiceNo">{{item.invoiceNo}}(金额:{{item.afterTaxAmt|regexNum}})</label> -->
+            <a href="javascript:;" v-for="(item,index) in detailsP.invoiceCustomList" :class="{'first-child':index===0}" :key="item.invoiceNo" @click.prevent="checkInvoice(index)">{{item.invoiceNo}}(金额:{{item.afterTaxAmt|regexNum}})</a>
           </div>
         </span>
       </ul>
@@ -113,7 +114,23 @@ export default {
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogRepayInfo')
   },
   methods: {
-    handleShowRepay: handleShowRepay
+    handleShowRepay: handleShowRepay,
+    checkInvoice (index) {
+      this.axios.post('/loan2/queryInvoicePic.do', {
+        billId: this.detailsP.invoiceCustomList[index].billId,
+        invoiceNo: this.detailsP.invoiceCustomList[index].invoiceNo,
+        hostCode: this.detailsP.invoiceCustomList[index].hostCode
+      }).then(res => {
+        if (res.data.status) {
+          var fileUrl = res.data.invoiceDetail.fileDownloadUrl
+          window.open(fileUrl)
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
   }
 }
 function handleShowRepay () {
