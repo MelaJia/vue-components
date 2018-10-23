@@ -2,7 +2,7 @@
   <div class="header-section">
     <div class="width-50">
       <div class="header-left">
-        <img src="@/assets/img/juxin_03.png" alt="">
+        <img src="@/assets/img/logo.png" style="height:85px" alt="">
       </div>
     </div>
     <div class="width-50">

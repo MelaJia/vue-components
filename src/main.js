@@ -29,6 +29,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 // 设置请求拦截器
 if (process.env.NODE_ENV === 'production') {
+  // axios.defaults.withCredentials = true // 允许远端跨域cookie
   axios.interceptors.request.use(
     config => {
       console.log(store.getters.token)

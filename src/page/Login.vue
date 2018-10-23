@@ -4,7 +4,7 @@
     <div class="header">
       <div class="wrapper clearfix">
         <a href="#" class="logo">
-          <img src="@/assets/img/login/pread_03.png" alt="">
+          <img src="@/assets/img/logo1.png" alt="">
         </a>
         <div class="phone">
           <!--<a href="#" class="backhome">返回首页</a>-->

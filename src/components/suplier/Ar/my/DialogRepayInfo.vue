@@ -11,7 +11,7 @@
             </tr>
             <tr>
               <td class="td-left">期数</td>
-              <td class="td-right">{{detailsP.periodId}}</td>
+              <td class="td-right">{{detailsP.periodNo}}</td>
               <td class="td-left">年利率</td>
               <td class="td-right">{{detailsP.interestRate |addPercent}}</td>
               <td class="td-left">贷款金额</td>
@@ -38,7 +38,7 @@
             show-summary
             style="width: 100%">
             <el-table-column
-              prop="periodId"
+              prop="periodNo"
               label="期数"
               width="60">
             </el-table-column>
@@ -94,6 +94,9 @@
 <style>
 .style-dia-repay {
   width: 850px;
+}
+.style-dia-repay .repay-detail-conten tbody.has-gutter td.is-center {
+    text-align: right;
 }
 .repay-header {
   font-size: 20px;

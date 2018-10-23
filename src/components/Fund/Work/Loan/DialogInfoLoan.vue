@@ -65,7 +65,7 @@
       <ul class="height-auto">
         <span>对应发票号:
           <div class="a-link-group inline-block">
-            <label v-for="(item,index) in detailsP.invoiceCustomList" :class="{'first-child':index===0}" :key="item.invoiceNo">{{item.invoiceNo}}(金额:{{item.invoiceAfterTaxAmt|regexNum}})</label>
+            <label v-for="(item,index) in detailsP.invoiceCustomList" :class="{'first-child':index===0}" :key="item.invoiceNo">{{item.invoiceNo}}(金额:{{item.afterTaxAmt|regexNum}})</label>
           </div>
         </span>
       </ul>

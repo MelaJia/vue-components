@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav-menu">
+  <nav class="nav-menu" style="padding-bottom: 100px">
     <el-menu :default-active="activeidx" :router="true" unique-opened text-color="#000" active-text-color="#005ac8" class="el-menu-demo" mode="vertical"
       @select="handleSelect">
       <tree-menu :list="navItems"></tree-menu>

@@ -18,7 +18,7 @@
         <el-row>
           <el-col :span="16" :offset="4" class="flex">
             <el-form-item label="角色所属:" prop="roleType">
-              <el-select v-model="getform.roleType" placeholder="请选择">
+              <el-select v-model="getform.roleType" placeholder="请选择" disabled>
                 <el-option v-for="(item, index) in this.$store.getters.roleBelong" :key="index" :label="item.roleTypeName"
                   :value="item.roleType"></el-option>
               </el-select>

@@ -6,6 +6,9 @@
         <span>企业基础信息</span>
       </div>
       <ul>
+        <li :span="8"><span>企业名称：</span>{{infos.companyName}}</li>
+      </ul>
+      <ul>
         <li :span="8"><span>企业状态：</span>
           <span class="iconfont icon-yuan tag-item-icon" :class="[infos.isUsableDesc === '可用' ? 'status-success' : 'status-danger']"></span>
           {{infos.isUsableDesc}}
