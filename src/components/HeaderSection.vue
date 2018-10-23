@@ -9,7 +9,9 @@
       <div class="header-right">
         <el-button v-if="this.$store.getters.roles=='2'" type="danger" size="medium" :class="'process'" icon="el-icon-caret-right" @click="goPage">我的待办</el-button>
         <el-dropdown @command="handleCommand">
-          <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}<img src="@/assets/img/juxin_18.png" alt=""></span>
+          <!-- <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}<img src="@/assets/img/juxin_18.png" alt=""></span> -->
+          <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}</span>
+          <span id="img" src="@/assets/img/juxin_18.png" alt=""></span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item v-if="this.$store.state.user.roles" command="pwdChange">密码修改</el-dropdown-item>
             <el-dropdown-item command="logout"
@@ -54,6 +56,19 @@
   width: 60px;
   height: 60px;
 }
+.header-right #img {
+  background: url('~@/assets/img/juxin_18.png');
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  right: 0;
+  top: -5px;
+  background-position: -5px -7px;
+    background-repeat: no-repeat;
+    background-size: 70px 70px;
+}
 .header-right > span {
   color: #fff;
 }
@@ -73,6 +88,16 @@
 .header-right .process > img {
   width: 32px;
   height: 32px;
+}
+/* 右侧图标 */
+.el-dropdown{
+  padding-top: 30px;
+}
+.el-dropdown>span{
+  margin-right: 80px;
+}
+.el-dropdown>span+span{
+  margin-right: 0px;
 }
 </style>
 <script>
