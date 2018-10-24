@@ -5,8 +5,8 @@
         <header class="repay-header">发票列表</header>
         <div class="list">
           <ul>
-            <li v-for="(item,index) in detailsP.InvoiceDetail" :key="index">
-              <a :href="item.FileDownloadUrl" target="_blank">item.InvoiceNo</a>
+            <li v-for="(item,index) in detailsP.invoiceDetail" :key="index">
+              <a :href="item.fileDownloadUrl" target="_blank">{{item.invoiceNo}}</a>
             </li>
           </ul>
         </div>
@@ -25,7 +25,6 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-import { thousandth } from '@/util/util' // 发送数据函数
 import Common from '@/mixins/common'
 /* 我的Ar详情 */
 export default {
@@ -34,43 +33,6 @@ export default {
   data () {
     return {
     }
-  },
-  computed: {
-    getTitle () {
-      return this.detailsP.masterChainId + '详情'
-    }
-  },
-  methods: {
-    getSummaries: getSummaries
   }
-}
-function getSummaries (param) {
-  const { columns, data } = param
-  const sums = []
-  columns.forEach((column, index) => {
-    if (index === 0) {
-      sums[index] = '合计'
-      return
-    }
-    if (index === 1 || index === 4) {
-      sums[index] = ''
-      return
-    }
-    const values = data.map(item => Number(item[column.property]))
-    if (!values.every(value => isNaN(value))) {
-      sums[index] = values.reduce((prev, curr) => {
-        const value = Number(curr)
-        if (!isNaN(value)) {
-          return prev + curr
-        } else {
-          return prev
-        }
-      }, 0)
-      sums[index] = thousandth(sums[index])
-    } else {
-      sums[index] = ''
-    }
-  })
-  return sums
 }
 </script>
