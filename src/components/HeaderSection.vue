@@ -10,8 +10,7 @@
         <el-button v-if="this.$store.getters.roles=='2'" type="danger" size="medium" :class="'process'" icon="el-icon-caret-right" @click="goPage">我的待办</el-button>
         <el-dropdown @command="handleCommand">
           <!-- <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}<img src="@/assets/img/juxin_18.png" alt=""></span> -->
-          <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}</span>
-          <span id="img" src="@/assets/img/juxin_18.png" alt=""></span>
+          <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}  <span id="img" src="@/assets/img/juxin_18.png" alt=""></span></span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item v-if="this.$store.state.user.roles" command="pwdChange">密码修改</el-dropdown-item>
             <el-dropdown-item command="logout"
@@ -94,10 +93,10 @@
   padding-top: 30px;
 }
 .el-dropdown>span{
-  margin-right: 80px;
+  padding-right: 80px;
 }
 .el-dropdown>span+span{
-  margin-right: 0px;
+  padding-right: 0px;
 }
 </style>
 <script>

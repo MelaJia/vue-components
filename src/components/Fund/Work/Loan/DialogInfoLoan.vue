@@ -2,6 +2,8 @@
 <section id="print">
   <!-- 预还款详情 -->
   <dialog-info :visible-p.sync="dialogRepayInfoVisible" :details-p="details" ></dialog-info>
+  <!-- 发票详情 -->
+  <dialog-list :visible-p.sync="dialogListVisible" :details-p="detailsList" ></dialog-list>
   <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
       <span class="title">
@@ -100,7 +102,9 @@ export default {
   data () {
     return {
       dialogRepayInfoVisible: false,
-      details: {}
+      details: {},
+      dialogListVisible: false,
+      detailsList: {}
     }
   },
   computed: {
@@ -111,7 +115,9 @@ export default {
   },
   components: {
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogRepayInfo')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogRepayInfo'),
+    'dialog-list': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/Loan/DialogList')
   },
   methods: {
     handleShowRepay: handleShowRepay,
@@ -122,8 +128,9 @@ export default {
         hostCode: this.detailsP.invoiceCustomList[index].hostCode
       }).then(res => {
         if (res.data.status) {
-          var fileUrl = res.data.invoiceDetail.fileDownloadUrl
-          window.open(fileUrl)
+          this.detailsList = res.data.data
+          this.dialogListVisible = true
+          // window.open(fileUrl)
         } else {
           this.$message.error(res.data.msg)
         }
