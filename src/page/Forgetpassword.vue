@@ -19,7 +19,6 @@
         <el-steps :active="step" finish-status="success" simple style="margin-top: 20px">
           <el-step title="第一步"></el-step>
           <el-step title="第二步"></el-step>
-          <el-step title="第三步"></el-step>
         </el-steps>
       </header>
       <main class="section">
@@ -360,6 +359,9 @@ export default {
     // 发送验证码
     // 路由跳转,跳转到登录页面
     goLogin () {
+      if (this.times) {
+        clearInterval(this.times)
+      }
       this.$router.push({
         name: 'Login' // 跳转到登录
       })

@@ -11,7 +11,8 @@ export default {
     // scheduleNumber: 0
     roleBelong: [], // 角色所属
     navitems: [], // 导航菜单数组
-    menu: [] // 路径数组
+    menu: [], // 路径数组
+    menuName: [] // 路径数组
   },
   mutations: {
     [types.LOGIN]: (state, data) => {
@@ -47,6 +48,11 @@ export default {
         name: 'menu'
       })
       state.menu = null
+      // 清除用户可用页面名称信息
+      removeStore({
+        name: 'menuName'
+      })
+      state.menuName = null
     },
     [types.SETROLE]: (state, data) => {
       state.roles = data
@@ -80,6 +86,13 @@ export default {
       setStore({
         name: 'menu',
         content: state.menu
+      })
+    },
+    SET_MENUNAME: (state, data) => {
+      state.menuName = data
+      setStore({
+        name: 'menuName',
+        content: state.menuName
       })
     }
 

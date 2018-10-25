@@ -199,7 +199,7 @@ export default {
   },
   computed: {
     getContactPhone () {
-      return this.$store.state.user.userinfos.contactPhone
+      return this.$store.state.user.userinfos ? this.$store.state.user.userinfos.contactPhone : ''
     }
   },
   methods: {
