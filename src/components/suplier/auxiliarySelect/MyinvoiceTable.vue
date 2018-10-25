@@ -175,7 +175,7 @@ export default {
         }
       })
       // 附件信息展示
-      this.axios.post('/auxiliaryFunction/searchSupplierInvoiceFile.do', { statementNo: val.statementNo, corpCode: val.corpCode }).then(res => {
+      this.axios.post('/auxiliaryFunction/searchSupplierInvoiceFile.do', { invoiceCode: val.invoiceCode, invoiceNo: val.invoiceNo, corpCode: val.corpCode }).then(res => {
         if (res) {
           this.filedetails = res.data.data
         }
