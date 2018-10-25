@@ -10,7 +10,7 @@
         <el-button v-if="this.$store.getters.roles=='2'" type="danger" size="medium" :class="'process'" icon="el-icon-caret-right" @click="goPage">我的待办</el-button>
         <el-dropdown @command="handleCommand">
           <!-- <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}<img src="@/assets/img/juxin_18.png" alt=""></span> -->
-          <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}  <span id="img" src="@/assets/img/juxin_18.png" alt=""></span></span>
+          <span style="color:#fff">你好，{{custNickname}}  <span id="img" src="@/assets/img/juxin_18.png" alt=""></span></span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item v-if="this.$store.state.user.roles" command="pwdChange">密码修改</el-dropdown-item>
             <el-dropdown-item command="logout"
@@ -56,7 +56,7 @@
   height: 60px;
 }
 .header-right #img {
-  background: url('~@/assets/img/juxin_18.png');
+  background: url("~@/assets/img/juxin_18.png");
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -65,8 +65,8 @@
   right: 0;
   top: -5px;
   background-position: -5px -7px;
-    background-repeat: no-repeat;
-    background-size: 70px 70px;
+  background-repeat: no-repeat;
+  background-size: 70px 70px;
 }
 .header-right > span {
   color: #fff;
@@ -89,13 +89,13 @@
   height: 32px;
 }
 /* 右侧图标 */
-.el-dropdown{
+.el-dropdown {
   padding-top: 30px;
 }
-.el-dropdown>span{
+.el-dropdown > span {
   padding-right: 80px;
 }
-.el-dropdown>span+span{
+.el-dropdown > span + span {
   padding-right: 0px;
 }
 </style>
@@ -106,6 +106,11 @@ export default {
     return {
       dialogPassVisible: false,
       fullscreenLoading: false
+    }
+  },
+  computed: {
+    custNickname () {
+      return this.$store.state.user.userinfos ? this.$store.state.user.userinfos.custNickname : ''
     }
   },
   methods: {
@@ -147,6 +152,7 @@ function logout () {
       this.$store.commit(types.LOGOUT)
       this.$store.commit('DEL_ALL_TAG')
       this.fullscreenLoading = false
+      console.log('登出')
       this.$router.replace({
         path: '/login'
         // query: { redirect: this.$router.currentRoute.fullPath }

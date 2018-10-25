@@ -50,7 +50,7 @@ const routes = [
       component: () =>
         import(/* webpackChunkName: 'chunkAdmin' */ '@/page/admin/set/RoleManage'),
       meta: {
-        title: '角色设置', // 名称
+        title: '角色管理', // 名称
         requireAuth: true // 需要登录验证
       }
     },

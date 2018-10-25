@@ -2,12 +2,12 @@
   <el-dialog :custom-class="'dia-class style-dia-repay'" :visible.sync="visibleP" :before-close="handleClose" center="">
     <section>
       <article>
-        <header class="repay-header">还款计划表</header>
+        <header class="repay-header">预还款计划表</header>
         <div class="repay-content">
           <table>
             <tr>
               <td class="td-left">客户名称</td>
-              <td class="pad-left-10" colspan="5">{{detailsP.companyName}}</td>
+              <td class="pad-left-10 align-left" colspan="5">{{detailsP.companyName}}</td>
             </tr>
             <tr>
               <td class="td-left">期数</td>
@@ -102,6 +102,7 @@
   font-size: 20px;
   color: #000;
   font-weight: 500;
+  text-align: left;
 }
 .repay-content .pad-left-10 {
   padding-left: 10px;
@@ -113,6 +114,9 @@
   border: solid 1px;
   height: 32px;
   line-height: 32px;
+}
+.repay-content .align-left{
+  text-align: left;
 }
 .repay-content .td-left {
   text-align: right;

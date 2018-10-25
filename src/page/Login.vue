@@ -217,7 +217,8 @@ export default {
     handleDelete: visteDelete
   }
 }
-let menuArr = []
+let menuArr = [] // 菜单数组
+let menuNameArr = [] // 菜单名称数组
 function getImgUrl () {
   let random = Math.ceil(Math.random() * 100000000000000).toString().substr(0, 4)
   random = random + Date.now()
@@ -275,6 +276,7 @@ async function submitForm (formName) {
     let nav = require('@/config/navMenu')[Roles[res.data.custType].model].navItems
     // 菜单处理-开始
     menuArr = []
+    menuNameArr = []
     nav = dealMenuDev(nav, Roles[res.data.custType].layout)
     nav[0].lClass = 'start-line'
     nav[nav.length - 1].lClass = 'end-line'
@@ -288,6 +290,7 @@ async function submitForm (formName) {
       this.$store.commit('SET_UINFO', datas) // 保存用户信息
       this.$store.commit('SET_NAVITEM', datas.navItems) // 保存菜单
       this.$store.commit('SET_MENU', menuArr) // 保存菜单权限配置 SET_MENU
+      this.$store.commit('SET_MENUNAME', menuNameArr) // 保存菜单名称配置 SET_MENUNAME
       this.$store.commit('SET_TAG_WEL', {
         label: '首页',
         value: Roles[datas.custType].layout
@@ -401,6 +404,7 @@ function dealMenu (array) {
 function dealMenuDev (array, prev) {
   for (let index = 0; index < array.length; index++) {
     const element = array[index]
+    const oelement = Object.assign({}, array[index])
     /** 头部样式 */
     if (!element.menuParent) {
       element.hClass = 'header-circle bg-icon-1'
@@ -414,8 +418,9 @@ function dealMenuDev (array, prev) {
     array[index] = element
     // 存储菜单地址
     if (element.menuUrl && element.menuUrl.length > 0) {
-      element.menuUrl = `${prev}/${element.menuUrl}`
-      menuArr.push(element.menuUrl)
+      let menuUrl = `${prev}/${element.menuUrl}`
+      menuArr.push(menuUrl)
+      menuNameArr.push(oelement)
     }
   }
   return array

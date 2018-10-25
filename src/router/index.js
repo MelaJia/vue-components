@@ -88,6 +88,7 @@ router.beforeEach((to, from, next) => {
   const label = to.query.name ? to.query.name : to.meta.title
   if (whiteList.indexOf(value) === -1 && store.getters.roles !== undefined && store.getters.roles !== null) {
     if (Roles[store.getters.roles].layout === to.matched[0].path) {
+      // console.log('tag名称', store.getters.menuName[store.getters.menu.findIndex((n) => n === to.path)])
       store.commit('ADD_TAG', {
         label: label,
         value: value,

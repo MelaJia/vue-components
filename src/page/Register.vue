@@ -599,7 +599,9 @@ export default {
       }
     },
     // 获取联系人手机
-    getcontPhone: debounce(getcontPhone, 1000)
+    getcontPhone () {
+      return this.getForm.contactPhone
+    }
   },
   async mounted () {
     this.moneyTypes = getStore({
@@ -990,7 +992,7 @@ function handleCheckCode () {
 //   }
 //   return formData
 // }
-function getcontPhone () {
-  return this.getForm.contactPhone
-}
+// function getcontPhone () {
+//   return this.getForm.contactPhone
+// }
 </script>

@@ -1,5 +1,7 @@
 <template>
   <section id="print">
+  <!-- 发票详情 -->
+  <dialog-list :visible-p.sync="dialogListVisible" :details-p="detailsList" ></dialog-list>
   <el-dialog :custom-class="'dia-class p'+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
       <span class="title">
@@ -66,8 +68,9 @@
       </ul>
       <ul class="height-auto">
         <span>未勾选发票:
-          <div class="el-check-group inline-block">
-            <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}</el-checkbox>
+          <div class="a-link-group inline-block">
+            <!-- <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}</el-checkbox> -->
+            <a href="javascript:;" v-for="(item,index) in detailsP.invoiceList" :class="{'first-child':index===0}" :key="item.invoiceNo" @click.prevent="checkInvoice(item)">{{item.invoiceNo}}(金额:{{item.invoiceAfterTaxAmt|regexNum}})</a>
           </div>
         </span>
       </ul>
@@ -111,7 +114,9 @@ export default {
   mixins: [DialogClose, Common],
   data () {
     return {
-      radio2: 3
+      radio2: 3,
+      dialogListVisible: false,
+      detailsList: {}
     }
   },
   computed: {
@@ -119,7 +124,28 @@ export default {
       return this.detailsP.masterChainId + '详情'
     }
   },
+  components: {
+    'dialog-list': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/Fund/Work/Loan/DialogList')
+  },
   methods: {
+    checkInvoice (item) {
+      this.axios.post('/loan2/queryInvoicePic.do', {
+        billId: this.detailsP.billId,
+        invoiceNo: item.invoiceNo,
+        hostCode: this.detailsP.hostCode
+      }).then(res => {
+        if (res.data.status) {
+          this.detailsList = res.data.data
+          this.dialogListVisible = true
+          // window.open(fileUrl)
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
   }
 }
 
