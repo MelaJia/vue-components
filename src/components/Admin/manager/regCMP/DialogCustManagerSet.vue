@@ -128,13 +128,13 @@ function submit () {
     return item.customerManagerId === this.getform.customerManagerId
     // return Number(item.customerManagerId) === this.getform.customerManagerId
   })
-  console.log(roleObj)
+  console.log(managerObj)
   let param = {
     custId: this.detailsP.custId, // 客户Id
     customerManagerId: this.getform.customerManagerId, // 客户经理Id
-    customerManagerName: managerObj.customerManagerName, // 客户经理名称
+    customerManagerName: managerObj ? managerObj.customerManagerName : '', // 客户经理名称
     roleId: this.getform.roleId,
-    roleDes: roleObj.roleName
+    roleDes: roleObj ? roleObj.roleName : ''
   }
   // 发送数据
   postDataBase.call(this, '/sysRegisteredCompanyManager/registeredCompanyAdjust.do', param, true).then(res => {

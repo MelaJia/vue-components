@@ -118,9 +118,9 @@ async function submit () {
   })
   const param = {
     custId: this.detailsP.custId, // 客户Id
-    contractSignType: contractObj.contractSignType, // 合同签署方式
+    contractSignType: contractObj ? contractObj.contractSignType : '', // 合同签署方式
     roleId: this.getform.roleId,
-    roleDes: roleObj.roleName
+    roleDes: roleObj ? roleObj.roleName : ''
   }
   console.log(param)
   try {

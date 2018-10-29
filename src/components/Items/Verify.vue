@@ -100,6 +100,7 @@ function Init () {
   this.verify = '' // 验证码
   this.isInput = true // 是否可输入
   this.isOvertime = false
+  this.showCheckBtn = false
   this.btntype = 'primary'
   clearInterval(sendTimer)
   this.word = '获取验证码'

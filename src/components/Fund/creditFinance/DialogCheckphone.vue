@@ -5,32 +5,12 @@
         {{getTitle}}
       </span>
     </header>
-    <el-form ref="ruleForm" :model="getForm" :rules="rule" label-width="100px" class="demo-ruleForm">
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="手机号" class="textPhone">
-            <span>{{phone}}</span>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="验证码" prop="verificationCode">
-            <el-input v-model="getForm.verificationCode" auto-complete="off" :maxlength="6" :disabled="showInput"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-button :type="btntype" @click="sendMessage" :disabled="showCheckBtn">{{word}}</el-button>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="6" :offset="8">
-          <el-form-item>
-            <el-button type="primary" @click="confirm">确认</el-button>
-          </el-form-item>
-        </el-col>
-      </el-row>
-    </el-form>
+    <section style="padding-left:200px">
+      <verify ref="verify" :captcha.sync="captcha"></verify>
+    </section>
+    <footer slot="footer">
+        <el-button round @click="handleSubmit" type="primary" >确认</el-button>
+    </footer>
   </el-dialog>
 </template>
 <style scoped>
@@ -53,12 +33,15 @@ footer {
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'
+import { debounce, erroShow } from '@/util/util' // 防抖函数
+import { loadingConf } from '@/config/common' // 获取加载配置
+import mixVerify from '@/mixins/common/dialogContract'
 // import { debounce } from '@/util/util' // 防抖函数
 // import * as types from '@/store/types' // 存储类型
 /* 合同确认 */
 export default {
   props: ['visibleP', 'detailsP'],
-  mixins: [DialogClose, Common],
+  mixins: [DialogClose, Common, mixVerify],
   data () {
     let verifyCode = (rule, value, callback) => {
       if (!value) {
@@ -85,8 +68,10 @@ export default {
     }
   },
   methods: {
-    sendMessage: sendMessage,
-    confirm: confirm,
+    handleSubmit: debounce(submit, 1000, {
+      'leading': true,
+      'trailing': false
+    }),
     init: Init
   },
   computed: {
@@ -95,98 +80,39 @@ export default {
     }
   }
 }
-// 获取验证码
-var sendTimer
-function sendMessage () {
-  if (this.phone.length <= 0) {
-    this.$message.error('请选择需要验证的手机')
+function submit () {
+  if (this.captcha.length === 0) {
+    this.$message({
+      type: 'error',
+      message: '验证码不能为空'
+    })
     return
   }
-  if (this.isOvertime) {
-    return
-  }
-  this.axios.post('/commonCust/getContractPlatformVerificationCode.do').then(res => {
+  // 显示加载图标
+  const loading = this.$loading(loadingConf.sub())
+  this.axios.post('/factoringCreditLoan/confirmInitiateSigning.do', { loanId: this.detailsP.loanId, verificationCode: this.captcha }).then(res => {
     let type = res.data.status ? 'success' : 'error'
+    this.$message({
+      message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
+      type: type
+    })
+    // 操作成功 关闭弹窗
     if (res.data.status) {
-      this.$message({
-        showClose: true,
-        message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-        type: type
-      })
-      this.showInput = false
-      let that = this
-      let time = 60
-      this.btntype = 'default'
-      this.showCheckBtn = true
-      sendTimer = setInterval(function () {
-        that.isOvertime = true
-        time--
-        that.word = '重新发送' + time + 's'
-        if (time < 0) {
-          that.isOvertime = false
-          that.btntype = 'primary'
-          that.showCheckBtn = false
-          clearInterval(sendTimer)
-          that.word = '获取验证码'
-        }
-      }, 1000)
+      this.handleClose() // 关闭弹窗
+      this.$parent.fresh() // 刷新数据
     } else {
-      this.$message.error(res.data.msg)
+      loading.close()
     }
-  }).catch(err => {
-    console.log(err)
+  }).catch((err) => {
+    // 错误提示
+    erroShow.call(this, err, loading)
   })
 }
-// 确认
-function confirm () {
-  this.$refs.ruleForm.validate((valid) => {
-    if (valid) {
-      const loading = this.$loading({
-        lock: true,
-        text: '加载中',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
-      })
-      this.axios.post('/factoringCreditLoan/confirmInitiateSigning.do', {loanId: this.detailsP.loanId, verificationCode: this.getForm.verificationCode}).then(res => {
-        let type = res.data.status ? 'success' : 'error'
-        if (res.data.status) {
-          loading.close()
-          if (typeof res.data.data === 'string') {
-            this.$message({
-              showClose: true,
-              message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
-              type: type
-            })
-          } else {
-            this.$message({
-              showClose: true,
-              message: res.data.data.message ? res.data.data.message : res.data.msg,
-              type: type
-            })
-          }
-          this.$parent.fresh()
-          this.handleClose()
-        } else {
-          loading.close()
-          this.$message.error(res.data.msg)
-        }
-      }).catch(err => {
-        loading.close()
-        console.log(err)
-      })
-    }
-  })
-}
+// 初始化
 function Init () {
-  this.getForm.verificationCode = ''
-  this.isOvertime = false
-  this.showCheckBtn = false
-  clearInterval(sendTimer)
-  this.word = '发送验证码'
-  this.btntype = 'primary'
-  this.showInput = true
-  if (this.$refs.ruleForm) {
-    this.$refs.ruleForm.resetFields()
+  this.captcha = ''
+  if (this.$refs.verify) {
+    this.$refs.verify.init()
   }
 }
 </script>

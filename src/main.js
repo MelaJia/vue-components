@@ -85,6 +85,23 @@ axios.interceptors.response.use(
             type: 'error'
           })
           break
+        case 406:
+          // 返回 401 清除token信息并跳转到登录页面
+          store.commit(types.LOGOUT)
+          if (router.currentRoute.name !== 'Login') {
+            router.replace({
+              path: '/login',
+              query: {
+                redirect: router.currentRoute.fullPath
+              }
+            })
+          }
+          ElementUI.Message({
+            showClose: true,
+            message: '你的账号已被禁用，请联系管理员',
+            type: 'error'
+          })
+          break
       }
     }
     return Promise.reject(error) // 返回接口返回的错误信息
