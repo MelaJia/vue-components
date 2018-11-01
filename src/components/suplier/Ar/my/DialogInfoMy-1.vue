@@ -1,5 +1,5 @@
 <template>
-<section >
+<section id="print2">
   <!-- 预还款详情 -->
   <dialog-info :visible-p.sync="dialogRepayInfoVisible" :details-p="details" ></dialog-info>
   <el-dialog :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
@@ -118,7 +118,7 @@
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
-      <el-button @click="print('print')">打印</el-button>
+      <el-button @click="print('print2')">打印</el-button>
       <el-button v-if="isShowRepayBtn" @click="handleShowRepay">预还款计划</el-button>
 
     </footer>
