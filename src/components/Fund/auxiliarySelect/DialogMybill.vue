@@ -153,7 +153,7 @@ export default {
       var newWindow = window.open()
       this.axios.post('/commonFile/showFileByUrl.do', {fileUrl: fileDownLoadUrl}).then(res => {
         if (res.data.status) {
-          newWindow.location = `${baseUrl}/static/pdfjs/web/viewer.html?file=${res.data.data.fileName}`
+          newWindow.location = `${baseUrl}${res.data.data.fileName}`
         } else {
           this.$message.error(res.data.msg)
         }
