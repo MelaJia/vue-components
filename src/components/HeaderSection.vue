@@ -12,12 +12,15 @@
           <!-- <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}<img src="@/assets/img/juxin_18.png" alt=""></span> -->
           <span style="color:#fff">你好，{{custNickname}}  <span id="img" src="@/assets/img/juxin_18.png" alt=""></span></span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-if="this.$store.state.user.roles" command="pwdChange">密码修改</el-dropdown-item>
-            <el-dropdown-item command="logout"
-            v-loading.fullscreen.lock="fullscreenLoading"
-            element-loading-text="登出中，请稍候"
-            element-loading-spinner="el-icon-loading"
-            element-loading-background="rgba(0, 0, 0, 0.8)">登出</el-dropdown-item>
+            <template v-if="this.$store.getters.token">
+              <el-dropdown-item v-if="this.$store.state.user.roles" command="pwdChange">密码修改</el-dropdown-item>
+              <el-dropdown-item command="logout"
+              v-loading.fullscreen.lock="fullscreenLoading"
+              element-loading-text="登出中，请稍候"
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="rgba(0, 0, 0, 0.8)">登出</el-dropdown-item>
+            </template>
+            <el-dropdown-item v-else command="login">登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -119,6 +122,10 @@ export default {
     handleCommand (command) {
       if (command === 'logout') {
         this.logout()
+      } else if (command === 'login') {
+        this.$router.replace({
+          path: '/login'
+        })
       } else {
         console.log('单击了修改密码')
         this.pwdChange()

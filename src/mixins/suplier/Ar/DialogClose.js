@@ -1,7 +1,7 @@
 import {
   baseUrl
 } from '@/config/env.js'
-import Print from 'print-js'
+// import Print from 'print-js'
 export default {
   methods: {
     handleClose (done) {
@@ -17,12 +17,14 @@ export default {
       }
     },
     print (val) { // 打印
-      Print({
-        printable: val,
-        type: 'html',
-        // 继承原来的所有样式
-        targetStyles: ['*']
-      })
+      console.log(this)
+      this.$print(this.$refs[val]) // 使用
+      // Print({
+      //   printable: val,
+      //   type: 'html',
+      //   // 继承原来的所有样式
+      //   targetStyles: ['*']
+      // })
     }
   }
 }

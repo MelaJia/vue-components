@@ -233,6 +233,21 @@ function handleCancle (idx, val) {
 }
 // 合同确认
 function handleContract (idx, val) {
+  if (val.repayDate === undefined || val.repayDate === null || val.repayDate === '') {
+    this.$alert(`请先生成合同再进行合同确认!`, '系统提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+      }
+    })
+    return
+  } else if (new Date(val.repayDate) <= new Date()) {
+    this.$alert(`抱歉，还款日期已过，无法进行此操作，请重新确认`, '系统提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+      }
+    })
+    return
+  }
   let param = {
     loanId: val.loanId
   }

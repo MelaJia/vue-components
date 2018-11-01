@@ -20,6 +20,8 @@ import {
 // import { monitorInit } from '@/monitorDatas'
 import preview from 'vue-photo-preview'
 import 'vue-photo-preview/dist/skin.css'
+import Print from '@/plugs/print'
+Vue.use(Print) // 注册
 Vue.use(preview)// 图片预览
 Vue.use(dateInit) // 格式化日期注册
 axios.defaults.baseURL = apiUrl

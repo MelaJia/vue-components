@@ -32,8 +32,8 @@
   </div>
 </template>
 <script>
-import {resolveUrlPath, setUrlPath} from '@/util/util'
-import {mapGetters} from 'vuex'
+import { resolveUrlPath, setUrlPath } from '@/util/util'
+import { mapGetters } from 'vuex'
 export default {
   name: 'tags',
   data () {
@@ -81,14 +81,16 @@ export default {
   methods: {
     init () {
       this.refsTag = this.$refs.tagsPageOpened
-      setTimeout(() => {
-        this.refsTag.forEach((item, index) => {
-          if (this.tag.value === item.attributes.name.value) {
-            let tag = this.refsTag[index]
-            this.moveToView(tag)
-          }
-        })
-      }, 1)
+      if (this.refsTag) {
+        setTimeout(() => {
+          this.refsTag.forEach((item, index) => {
+            if (this.tag.value === item.attributes.name.value) {
+              let tag = this.refsTag[index]
+              this.moveToView(tag)
+            }
+          })
+        }, 1)
+      }
     },
     showCollapse () {
       this.$store.commit('SET_COLLAPSE')

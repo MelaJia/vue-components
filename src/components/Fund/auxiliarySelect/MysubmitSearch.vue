@@ -1,34 +1,17 @@
 <template>
   <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="130px">
     <el-row>
-      <el-col :span="8">
-        <el-form-item label="供应商代码" prop="vendorCode">
-          <el-input v-model.trim="formInline.vendorCode" placeholder=""></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="结报单号" prop="billNo">
           <el-input v-model.trim="formInline.billNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="7" offset="3">
         <el-form-item label="发票单号" prop="invoiceNo">
           <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="8">
-        <el-form-item label="法人代码" prop="corpCode">
-          <el-input v-model.trim="formInline.corpCode" placeholder=""></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="8">
-        <el-form-item label="法人单位" prop="corpName">
-          <el-input v-model.trim="formInline.corpName" placeholder=""></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="币别" prop="currency">
           <el-select v-model="formInline.currency" clearable placeholder="全部">
             <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyName"></el-option>
@@ -37,28 +20,30 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="12">
+      <el-col :span="7">
+        <el-form-item label="法人单位" prop="corpName">
+          <el-input v-model.trim="formInline.corpName" placeholder=""></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="7" offset="3">
+        <el-form-item label="法人代码" prop="corpCode">
+          <el-input v-model.trim="formInline.corpCode" placeholder=""></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="7" v-if="this.$store.getters.roles!==2">
+        <el-form-item label="供应商代码" prop="vendorCode">
+          <el-input v-model.trim="formInline.vendorCode" placeholder=""></el-input>
+        </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="10">
         <el-form-item label="结报申请付款日期" style="text-align:left;" prop="dueDate">
           <el-date-picker :editable="false" v-model="formInline.dueDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
           </el-date-picker>
         </el-form-item>
       </el-col>
-      <!-- <el-col :span="12" style="height:50px;">
-        <el-form-item label="应付金额">
-          <el-col :span="11">
-            <el-form-item prop="oriAmtBegin">
-              <el-jx-input v-model="formInline.oriAmtBegin" clearable placeholder="起始金额"></el-jx-input>
-          </el-form-item>
-          </el-col>
-          <el-col class="line" :span="2">-</el-col>
-          <el-col :span="11">
-            <el-form-item prop="oriAmtEnd">
-              <el-jx-input v-model="formInline.oriAmtEnd" clearable placeholder="结束金额"></el-jx-input>
-            </el-form-item>
-          </el-col>
-        </el-form-item>
-      </el-col> -->
-      <el-col :span="11">
+      <el-col :span="10">
         <el-form-item label="应付金额" prop="oriAmtBegin">
           <el-col :span="10" class="mon-range-start">
             <el-jx-input v-model="formInline.oriAmtBegin" placeholder="起始金额"></el-jx-input>
@@ -74,7 +59,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="11">
+      <el-col :span="10">
         <el-form-item label="已付金额" prop="oriPaidAmtBegin">
           <el-col :span="10" class="mon-range-start">
             <el-jx-input v-model="formInline.oriPaidAmtBegin" placeholder="起始金额"></el-jx-input>
@@ -85,10 +70,7 @@
           </el-col>
         </el-form-item>
       </el-col>
-      <el-col :span="1">
-        <el-form-item prop="oriPaidAmtEnd"></el-form-item>
-      </el-col>
-      <el-col :span="11">
+      <el-col :span="10">
         <el-form-item label="未付金额" prop="oriUnPaidAmtBegin">
           <el-col :span="10" class="mon-range-start">
             <el-jx-input v-model="formInline.oriUnPaidAmtBegin" placeholder="起始金额"></el-jx-input>
@@ -100,11 +82,14 @@
         </el-form-item>
       </el-col>
       <el-col :span="1">
+        <el-form-item prop="oriPaidAmtEnd"></el-form-item>
+      </el-col>
+      <el-col :span="1">
         <el-form-item prop="oriUnPaidAmtEnd"></el-form-item>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="8" :offset="10">
+      <el-col :span="7" :offset="10">
           <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
           <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
       </el-col>

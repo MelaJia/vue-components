@@ -1,5 +1,5 @@
 <template>
-<section id="print">
+<section >
   <!-- 预还款详情 -->
   <dialog-info :visible-p.sync="dialogRepayInfoVisible" :details-p="details" ></dialog-info>
   <el-dialog :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
@@ -8,7 +8,7 @@
         {{getTitle}}
       </span>
     </header>
-    <section>
+    <section ref="print">
       <ul>
         <li>
           <el-tooltip :content="'付款单位:'+this.detailsP.companyName" placement="bottom" effect="light">

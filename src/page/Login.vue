@@ -418,8 +418,10 @@ function dealMenuDev (array, prev) {
     array[index] = element
     // 存储菜单地址
     if (element.menuUrl && element.menuUrl.length > 0) {
-      let menuUrl = `${prev}/${element.menuUrl}`
-      menuArr.push(menuUrl)
+      if (element.menuUrl.indexOf('/') === -1) {
+        element.menuUrl = `${prev}/${element.menuUrl}`
+      }
+      menuArr.push(element.menuUrl)
       menuNameArr.push(oelement)
     }
   }

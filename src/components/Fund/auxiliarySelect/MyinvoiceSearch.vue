@@ -1,34 +1,17 @@
 <template>
   <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
-      <el-col :span="8">
-        <el-form-item label="供应商代码" prop="vendorCode">
-          <el-input v-model.trim="formInline.vendorCode" placeholder="" required="true"></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="发票单号" prop="invoiceNo">
           <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="7" offset="3">
         <el-form-item label="对账单号" prop="statementNo">
           <el-input v-model.trim="formInline.statementNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="8">
-        <el-form-item label="购方名称" prop="buyerName">
-          <el-input v-model.trim="formInline.buyerName" placeholder=""></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="8">
-        <el-form-item label="销方名称" prop="sellerName">
-          <el-input v-model.trim="formInline.sellerName" placeholder=""></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="状态" prop="status">
           <el-select v-model="formInline.status" clearable placeholder="全部">
             <el-option v-for="(item,index) in stateList" :key="index" :label="item.dataName" :value="item.dataType"></el-option>
@@ -37,29 +20,31 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="8">
+      <el-col :span="7">
+        <el-form-item label="购方名称" prop="buyerName">
+          <el-input v-model.trim="formInline.buyerName" placeholder=""></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="7" offset="3">
+        <el-form-item label="销方名称" prop="sellerName">
+          <el-input v-model.trim="formInline.sellerName" placeholder=""></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="7" v-if="this.$store.getters.roles!==2">
+        <el-form-item label="供应商代码" prop="vendorCode">
+          <el-input v-model.trim="formInline.vendorCode" placeholder="" required="true"></el-input>
+        </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="7">
         <el-form-item label="发票类型" prop="invoiceType">
           <el-select v-model="formInline.invoiceType" clearable placeholder="全部">
             <el-option v-for="(item,index) in invoiceList" :key="index" :label="item.dataName" :value="item.dataType"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
-      <!-- <el-col :span="16" style="height:50px;">
-        <el-form-item label="金额范围">
-          <el-col :span="11">
-            <el-form-item prop="taxTotalStart">
-              <el-jx-input v-model="formInline.taxTotalStart" clearable placeholder="起始金额"></el-jx-input>
-            </el-form-item>
-          </el-col>
-          <el-col class="line" :span="2">-</el-col>
-          <el-col :span="11">
-            <el-form-item prop="taxTotalEnd">
-              <el-jx-input v-model="formInline.taxTotalEnd" clearable placeholder="结束金额"></el-jx-input>
-            </el-form-item>
-          </el-col>
-        </el-form-item>
-      </el-col> -->
-      <el-col :span="14">
+      <el-col :span="10" offset="3">
         <el-form-item label="金额范围" prop="taxTotalStart">
           <el-col :span="10" class="mon-range-start">
             <el-jx-input v-model="formInline.taxTotalStart" placeholder="起始金额"></el-jx-input>
@@ -75,16 +60,16 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="12">
+      <el-col :span="10">
         <el-form-item label="开票日期" prop="entryDate">
           <el-date-picker :editable="false" v-model="formInline.entryDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
           </el-date-picker>
         </el-form-item>
       </el-col>
-      <el-col :span="12"></el-col>
+      <el-col :span="10"></el-col>
     </el-row>
     <el-row>
-      <el-col :span="8" :offset="10">
+      <el-col :span="7" :offset="10">
           <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
           <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
       </el-col>

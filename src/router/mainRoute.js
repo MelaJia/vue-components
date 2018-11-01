@@ -34,6 +34,16 @@ const routes = [{
     }
   },
   {
+    path: 'getarapi',
+    name: 'getarapi',
+    component: () =>
+      import(/* webpackChunkName: 'AR' */ '@/page/suplier/arApi/GetArApi'),
+    meta: {
+      title: '购入AR管理', // 名称
+      requireAuth: false // 需要登录验证
+    }
+  },
+  {
     path: 'transfer',
     name: 'transfer',
     component: () =>
@@ -77,7 +87,7 @@ const routes = [{
     path: 'ordersearch',
     name: 'ordersearch',
     component: () =>
-      import(/* webpackChunkName: 'AR' */ '@/page/suplier/auxiliarySelect/OrderSearch'),
+      import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/OrderSearch'),
     meta: {
       title: '我的订单', // 名称
       requireAuth: true // 需要登录验证
@@ -87,7 +97,7 @@ const routes = [{
     path: 'acceptsearch',
     name: 'acceptsearch',
     component: () =>
-      import(/* webpackChunkName: 'AR' */ '@/page/suplier/auxiliarySelect/AcceptanceSearch'),
+      import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/AcceptanceSearch'),
     meta: {
       title: '我的验收单', // 名称
       requireAuth: true // 需要登录验证
@@ -97,7 +107,7 @@ const routes = [{
     path: 'mybill',
     name: 'mybill',
     component: () =>
-      import(/* webpackChunkName: 'AR' */ '@/page/suplier/auxiliarySelect/MyBill'),
+      import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyBill'),
     meta: {
       title: '我的对账单', // 名称
       requireAuth: true // 需要登录验证
@@ -107,7 +117,7 @@ const routes = [{
     path: 'mypayer',
     name: 'mypayer',
     component: () =>
-      import(/* webpackChunkName: 'AR' */ '@/page/suplier/auxiliarySelect/MyPayer'),
+      import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyPayer'),
     meta: {
       title: '我的付款单', // 名称
       requireAuth: true // 需要登录验证
@@ -117,7 +127,7 @@ const routes = [{
     path: 'myinvoice',
     name: 'myinvoice',
     component: () =>
-      import(/* webpackChunkName: 'AR' */ '@/page/suplier/auxiliarySelect/MyInvoice'),
+      import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyInvoice'),
     meta: {
       title: '我的发票', // 名称
       requireAuth: true // 需要登录验证
@@ -127,7 +137,7 @@ const routes = [{
     path: 'mysubmit',
     name: 'mysubmit',
     component: () =>
-      import(/* webpackChunkName: 'AR' */ '@/page/suplier/auxiliarySelect/MySubmit'),
+      import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MySubmit'),
     meta: {
       title: '我的结报', // 名称
       requireAuth: true // 需要登录验证
@@ -137,7 +147,7 @@ const routes = [{
     path: 'myarrear',
     name: 'myarrear',
     component: () =>
-      import(/* webpackChunkName: 'AR' */ '@/page/suplier/auxiliarySelect/MyArrear'),
+      import(/* webpackChunkName: 'AR' */ '@/page/funder/auxiliarySelect/MyArrear'),
     meta: {
       title: '我的欠款', // 名称
       requireAuth: true // 需要登录验证

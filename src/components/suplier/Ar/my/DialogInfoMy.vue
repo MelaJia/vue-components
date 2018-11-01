@@ -84,7 +84,7 @@
       <ul class="height-auto">
           <span>合同:
           <div class="a-link-group inline-block">
-            <a v-for="item in detailsP.contractList" :key="item.contractId" :href="item.contractUrl" target="_blank" @click="constractHandle(item.contractUrl)">{{item.contractName}}</a>
+            <a v-for="item in detailsP.contractList" :key="item.contractId" :href="item.contractUrl" download="w3logo.jpg"  target="_blank" @click="constractHandle(item.contractUrl)">{{item.contractName}}</a>
           </div>
         </span>
       </ul>

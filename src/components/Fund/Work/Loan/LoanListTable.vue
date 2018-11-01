@@ -156,15 +156,15 @@ function handleContrac (idx, val) {
 // 发起确认
 function handleConfirm (idx, val) {
   console.log(new Date(val.billPayDate))
-  if (val.billPayDate === undefined || val.billPayDate === null || val.billPayDate === '') {
-    this.$alert(`预计回款日期不存在，不能发起确认!`, '系统提示', {
+  if (val.repayDate === undefined || val.repayDate === null || val.repayDate === '') {
+    this.$alert(`请先生成合同再进行合同确认!`, '系统提示', {
       confirmButtonText: '确定',
       callback: action => {
       }
     })
     return
-  } else if (new Date(val.billPayDate) <= new Date()) {
-    this.$alert(`抱歉，还款日期已过，无法进行此操作，请取消或拒绝该单`, '系统提示', {
+  } else if (new Date(val.repayDate) <= new Date()) {
+    this.$alert(`抱歉，还款日期已过，无法进行此操作，请重新确认`, '系统提示', {
       confirmButtonText: '确定',
       callback: action => {
       }

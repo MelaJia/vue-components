@@ -25,6 +25,8 @@
               </el-table-column>
               <el-table-column align="center" prop="dueDate" :width="widthArr.dueDate" :formatter="dateFormat">
               </el-table-column>
+              <el-table-column align="center" prop="actualDueDate" :width="widthArr.dueDate" :formatter="dateFormat">
+              </el-table-column>
               <el-table-column align="center" prop="currencyName" :width="widthArr.currencyName">
               </el-table-column>
               <el-table-column align="right" prop="oriAmt" :width="widthArr.oriAmt" :formatter="regexNum">
@@ -66,6 +68,8 @@
         <el-table-column align="center" label="法人单位" prop="corpName" width="180">
         </el-table-column>
         <el-table-column align="center" label="结报申请付款日期" prop="dueDate" width="120" :formatter="dateFormat">
+        </el-table-column>
+        <el-table-column align="center" label="实际付款日期" prop="actualDueDate" width="120" :formatter="dateFormat">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
@@ -137,6 +141,7 @@ export default {
         corpCode: '180',
         corpName: '180',
         dueDate: '120',
+        actualDueDate: '120',
         currencyName: '80',
         oriAmt: '120',
         oriPaidAmt: '120',

@@ -46,8 +46,8 @@
               </el-table-column>
               <el-table-column align="right" header-align="center" prop="prepayServiceAmt" :width="widthArr.prepayServiceAmt" :formatter="regexNum">
               </el-table-column>
-              <el-table-column align="right" header-align="center" prop="periodReliefAmt" :width="widthArr.periodReliefAmt" :formatter="regexNum">
-              </el-table-column>
+              <!-- <el-table-column align="right" header-align="center" prop="periodReliefAmt" :width="widthArr.periodReliefAmt" :formatter="regexNum">
+              </el-table-column> -->
               <el-table-column align="right" header-align="center" prop="payAmt" :width="widthArr.payAmt" :formatter="regexNum">
               </el-table-column>
               <el-table-column align="center" prop="billPayDate" :width="widthArr.billPayDate" :formatter="dateFormat">
@@ -94,8 +94,8 @@
         </el-table-column>
         <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepayServiceAmt" :formatter="regexNum">
         </el-table-column>
-         <el-table-column align="right" header-align="center" label="还款优惠金额" prop="periodReliefAmt" :formatter="regexNum">
-        </el-table-column>
+         <!-- <el-table-column align="right" header-align="center" label="还款优惠金额" prop="periodReliefAmt" :formatter="regexNum">
+        </el-table-column> -->
         <el-table-column align="right" header-align="center" label="还款总计" prop="payAmt" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120">
