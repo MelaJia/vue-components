@@ -114,7 +114,7 @@
     top: 3px;
     z-index: 2;
   }
-  .fileField{
+  .fileField {
     width: 245px;
     height: 30px;
     position: absolute;
@@ -239,6 +239,17 @@ export default {
     },
     // 上传文件
     uploadFile () {
+      const typeReg = /(\.gif|\.jpg|\.jpeg|\.GIF|\.JPG|\.JPEG|\.xls|\.pdf|\.doc|\.xlsx|\.docx)$/
+      const isIMG = typeReg.test(this.fileInfo.name)
+      const isLt4M = this.fileInfo.size / 1024 / 1024 < 4
+      if (!isIMG) {
+        this.$message.error('只能上传后缀为xls,pdf,doc,gif,JPG,jpeg,xlsx,docx的文件!')
+        return
+      }
+      if (!isLt4M) {
+        this.$message.error('上传图片大小不能超过 4MB!')
+        return
+      }
       var formData = new FormData(this.$refs.uploadForm)
       formData.append('contractUploadFile', this.fileInfo)
       formData.append('loanId', this.detailsP.loanId)

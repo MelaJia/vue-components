@@ -68,7 +68,7 @@ export default {
       console.log(index)
       const info = Object.assign({}, this.infos)
       this.getDetails = info
-      if (index === 4) {
+      if (index === 3) {
         this.currentTabComponent = this.compArr[index]
         this.paName = 'legalMail'
         this.dialogVisible = true
@@ -78,7 +78,7 @@ export default {
         // this.subEmail('/cust/toAuthenticateLegalMail.do', param, 'legalMail', '企业法人邮箱认证')
         return
       }
-      if (index === 7) {
+      if (index === 6) {
         this.currentTabComponent = this.compArr[index]
         this.paName = 'contactMail'
         this.dialogVisible = true
