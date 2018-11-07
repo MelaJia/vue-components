@@ -950,6 +950,9 @@ function sendMessage () {
   })
 }
 function handleCheckCode () {
+  if (this.verificationCode === '') {
+    return
+  }
   this.axios.post('/cust/registerCheckVerify', {
     contactPhone: this.getForm.contactPhone,
     verificationCode: this.verificationCode

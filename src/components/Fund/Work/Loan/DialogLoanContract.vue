@@ -16,7 +16,7 @@
           </el-col>
           <el-col :span="11" :offset="1" class="flex">
             <el-form-item label="放款比例(%): " prop="loanPer">
-             <el-input v-model="detailsP.loanPer"  placeholder="放款比例">
+             <el-input v-model="detailsP.loanPer"  placeholder="放款比例" @blur="loanPerComput">
              </el-input>
             </el-form-item>
           </el-col>
@@ -24,7 +24,7 @@
         <el-row>
           <el-col :span="11"  class="flex">
             <el-form-item label="实放金额(元): " prop="actualDiscountAmt">
-             <el-input v-model="actualDiscountAmt" placeholder="实放金额"></el-input>
+             <el-input v-model="detailsP.actualDiscountAmt" placeholder="实放金额" @blur="discountAmtComput"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -190,34 +190,42 @@ export default {
   },
   watch: {
     /** 修复只根据放款比例计算得到结果 输入的值无法获取  */
-    loanPer: debounce(function (val) {
-      this.detailsP.actualDiscountAmt = this.detailsP.billBookAmt * val / 100
-    }, 1000)
+    // loanPer: debounce(function (val) {
+    //   this.detailsP.actualDiscountAmt = this.detailsP.billBookAmt * val / 100
+    // }, 1000)
   },
   computed: {
     loanPer () {
       return this.detailsP.loanPer
     },
-    actualDiscountAmt: {
-      // getter
-      get: function () {
-        return (this.detailsP.billBookAmt * (this.detailsP.loanPer * 100) / 10000).toFixed(2)
-      },
-      // setter
-      set: debounce(function (newValue) {
-        this.detailsP.actualDiscountAmt = newValue
-        let val = Number((newValue / this.detailsP.billBookAmt * 100).toFixed(2))
-        console.log(typeof (val))
-        this.detailsP.loanPer = val
-        console.log(this.detailsP.loanPer)
-      }, 1000)
-    },
+    // actualDiscountAmt: {
+    //   // getter
+    //   get: function () {
+    //     return (this.detailsP.billBookAmt * (this.detailsP.loanPer * 100) / 10000).toFixed(2)
+    //   },
+    //   // setter
+    //   set: debounce(function (newValue) {
+    //     this.detailsP.actualDiscountAmt = newValue
+    //     let val = Number((newValue / this.detailsP.billBookAmt * 100).toFixed(2))
+    //     console.log(typeof (val))
+    //     this.detailsP.loanPer = val
+    //     console.log(this.detailsP.loanPer)
+    //   }, 1000)
+    // },
     getTitle () {
       return this.detailsP.masterChainId + '合同利益确认'
     }
   },
   methods: {
-    handleSubmit: debounce(submit, 1000, true)
+    handleSubmit: debounce(submit, 1000, true),
+    // 计算数额
+    loanPerComput () {
+      this.detailsP.actualDiscountAmt = (this.detailsP.billBookAmt * (this.detailsP.loanPer * 100) / 10000).toFixed(2)
+    },
+    // 计算比例
+    discountAmtComput () {
+      this.detailsP.loanPer = Number((this.detailsP.actualDiscountAmt / this.detailsP.billBookAmt * 100).toFixed(2))
+    }
   }
 }
 // 提交操作

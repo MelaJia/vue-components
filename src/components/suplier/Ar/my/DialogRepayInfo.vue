@@ -51,35 +51,35 @@
             <el-table-column
               align="right"
               header-align="center"
-              prop="periodPayAmt" :formatter="regexNum"
+              prop="periodPayAmt" :formatter="regexNum" min-width="127"
               label="期供（元）">
             </el-table-column>
             <el-table-column
               align="right"
               header-align="center"
               prop="principal"
-              :formatter="regexNum"
+              :formatter="regexNum" min-width="123"
               label="本金（元）">
             </el-table-column>
             <el-table-column
               align="right"
               header-align="center"
               prop="remainingPrincipal"
-              :formatter="regexNum"
+              :formatter="regexNum" min-width="123"
               label="剩余本金（元）">
             </el-table-column>
             <el-table-column
               align="right"
               header-align="center"
               prop="interest"
-              :formatter="regexNum"
+              :formatter="regexNum" min-width="123"
               label="利息（元）">
             </el-table-column>
             <el-table-column
               align="right"
               header-align="center"
               prop="serviceFee"
-              :formatter="regexNum"
+              :formatter="regexNum" min-width="123"
               label="服务费（元）">
             </el-table-column>
           </el-table>

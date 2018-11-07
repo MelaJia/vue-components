@@ -58,9 +58,26 @@
               </el-table-column>
               <el-table-column align="center" :width="widthArr.billPayStatus">
                 <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" content="会计确认->财务确认->财务已付款->付款单确认" placement="top">
-                    <span>{{scope.row.billPayStatus}}</span>
+                  <el-tooltip class="item" effect="light" placement="top-start">
+                      <div slot="content" class="status-tooltip">
+                        <ul>
+                          <li :style="scope.row.signStatusId===0?'color:red':''">会计确认</li><span>-></span>
+                          <li :style="scope.row.signStatusId===1?'color:red':''">财务确认</li><span>-></span>
+                          <li :style="scope.row.signStatusId===2?'color:red':''">财务已付款</li><span>-></span>
+                          <li :style="scope.row.signStatusId===3?'color:red':''">付款单确认</li>
+                        </ul>
+                        <ul>
+                          <li :style="scope.row.signStatusId===0?'color:red':''">{{scope.row.signStatusId===0&&scope.row.signStatusName?`(${scope.row.signStatusName})`: ''}}</li>
+                          <li :style="scope.row.signStatusId===1?'color:red':''">{{scope.row.signStatusId===1&&scope.row.signStatusName?`(${scope.row.signStatusName})`: ''}}</li>
+                          <li :style="scope.row.signStatusId===2?'color:red':''">{{scope.row.signStatusId===2&&scope.row.signStatusName?`(${scope.row.signStatusName})`: ''}}</li>
+                          <li :style="scope.row.signStatusId===3?'color:red':''">{{scope.row.signStatusId===3&&scope.row.signStatusName?`(${scope.row.signStatusName})`: ''}}</li>
+                        </ul>
+                      </div>
+                        <em>{{scope.row.billPayStatus}}</em>
                   </el-tooltip>
+                  <!-- <el-tooltip class="item" effect="dark" content="会计确认->财务确认->财务已付款->付款单确认" placement="top">
+                    <span>{{scope.row.billPayStatus}}</span>
+                  </el-tooltip> -->
                 </template>
               </el-table-column>
               <el-table-column align="center" width='80px'>
@@ -109,9 +126,26 @@
         </el-table-column>
         <el-table-column align="center" label="打款处理状态">
           <template slot-scope="scope">
-            <el-tooltip class="item" effect="dark" content="会计确认->财务确认->财务已付款->付款单确认" placement="top">
+            <el-tooltip class="item" effect="light" placement="top-start">
+                      <div slot="content" class="status-tooltip">
+                        <ul>
+                          <li :style="scope.row.signStatusId===0?'color:red':''">会计确认</li><span>-></span>
+                          <li :style="scope.row.signStatusId===1?'color:red':''">财务确认</li><span>-></span>
+                          <li :style="scope.row.signStatusId===2?'color:red':''">财务已付款</li><span>-></span>
+                          <li :style="scope.row.signStatusId===3?'color:red':''">付款单确认</li>
+                        </ul>
+                        <ul>
+                          <li :style="scope.row.signStatusId===0?'color:red':''">{{scope.row.signStatusId===0&&scope.row.signStatusName?`(${scope.row.signStatusName})`: ''}}</li>
+                          <li :style="scope.row.signStatusId===1?'color:red':''">{{scope.row.signStatusId===1&&scope.row.signStatusName?`(${scope.row.signStatusName})`: ''}}</li>
+                          <li :style="scope.row.signStatusId===2?'color:red':''">{{scope.row.signStatusId===2&&scope.row.signStatusName?`(${scope.row.signStatusName})`: ''}}</li>
+                          <li :style="scope.row.signStatusId===3?'color:red':''">{{scope.row.signStatusId===3&&scope.row.signStatusName?`(${scope.row.signStatusName})`: ''}}</li>
+                        </ul>
+                      </div>
+                        <em>{{scope.row.billPayStatus}}</em>
+                  </el-tooltip>
+            <!-- <el-tooltip class="item" effect="dark" content="会计确认->财务确认->财务已付款->付款单确认" placement="top">
               <span>{{scope.row.billPayStatus}}</span>
-            </el-tooltip>
+            </el-tooltip> -->
           </template>
         </el-table-column>
         <el-table-column align="center" header-align="center" label="操作" width='80px' class-name="" fixed="right" :resizable="false">
@@ -134,6 +168,7 @@
   </div>
 </template>
 <style scoped lang="scss">
+@import "@/assets/css/_dialog.scss";
 header {
   text-align: right;
 }
