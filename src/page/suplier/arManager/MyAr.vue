@@ -83,16 +83,7 @@ export default {
         to: to,
         billId: val.billId // 结报号
       }
-      if (this.total && this.currentPage !== 1) {
-        this.total = 0 // 分页的当前页数变动会触发 从而获取数据
-      } else {
-        this.getdata(1, this.psize).then(res => {
-          if (res) {
-            this.tableData5 = res.data[this.dataStr]
-            this.total = res.data[this.totalStr]
-          }
-        })
-      }
+      this.startSearch()
     },
     handleRefresh () {
       this.getdata(1, this.psize)

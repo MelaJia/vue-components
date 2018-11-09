@@ -85,18 +85,7 @@ export default {
         vendorCode: val.vendorCode // 供应商代码
       }
       console.log(this.param)
-      if (this.total && this.currentPage !== 1) {
-        console.log('2')
-        this.total = 0 // 分页的当前页数变动会触发 从而获取数据
-      } else {
-        console.log('3')
-        this.getdata(1, this.psize).then(res => {
-          if (res.data.status) {
-            this.tableData5 = res.data[this.dataStr]
-            this.total = res.data[this.totalStr]
-          }
-        })
-      }
+      this.startSearch()
     },
     handleRefresh () {
       const that = this

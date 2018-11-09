@@ -143,6 +143,23 @@ export default {
         console.log(error)
       }
     },
+    startSearch () {
+      this.currentPage = 1
+      this.getdata(1, this.psize).then(res => {
+        if (res) {
+          this.tableData5 = res.data[this.dataStr]
+          this.total = res.data[this.totalStr]
+        }
+        // if (res.data.status) {
+        //   this.tableData5 = res.data[this.dataStr]
+        //   this.total = res.data[this.totalStr]
+        // } else {
+        //   this.tableData5 = []
+        //   this.total = 0
+        //   this.$message.error(res.data.msg)
+        // }
+      })
+    },
     // 页数改变
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`)

@@ -30,15 +30,15 @@
 </template>
 
 <script>
-import ArList from '@/components/suplier/Ar/get/ArListApi'
-import Search from '@/components/suplier/Ar/get/SearchGet'
+import ArList from '@/components/suplier/Ar/api/ArTable'
+import Search from '@/components/suplier/Ar/api/SearchMyAr'
 import Table from '@/mixins/suplier/Ar/Table' // handleCurrentChange
 export default {
   mixins: [Table],
   props: ['query'],
   data () {
     return {
-      postUrl: '/onReceivingAr/getOnReceivingArListTable', // 请求地址
+      postUrl: '/multiArManager/getMultiMyArListTable.do', // 请求地址
       totalStr: 'recordsTotal', // 服务器返回总数参数名
       dataStr: 'data' // 服务器返回数据参数名
     }

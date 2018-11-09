@@ -89,17 +89,7 @@ export default {
         discountAmtScopeFrom: val.discountAmtScopeFrom, // 贴现金额起始
         discountAmtScopeTo: val.discountAmtScopeTo // 贴现金额结束
       }
-      console.log(this.param)
-      if (this.total && this.currentPage !== 1) {
-        this.total = 0 // 分页的当前页数变动会触发 从而获取数据
-      } else {
-        this.getdata(1, this.psize).then(res => {
-          if (res.data.status) {
-            this.tableData5 = res.data[this.dataStr]
-            this.total = res.data[this.totalStr]
-          }
-        })
-      }
+      this.startSearch()
     },
     handleRefresh () {
       const that = this

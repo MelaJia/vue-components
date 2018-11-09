@@ -41,7 +41,19 @@ const routes = [{
     meta: {
       title: '购入AR管理', // 名称
       requireAuth: false // 需要登录验证
-    }
+    },
+    props: (route) => ({query: {interfaceTransSerial: route.query.interfaceTransSerial}})
+  },
+  {
+    path: 'myarapi',
+    name: 'myarapi',
+    component: () =>
+      import(/* webpackChunkName: 'AR' */ '@/page/suplier/arApi/MyArApi'),
+    meta: {
+      title: 'AR管理', // 名称
+      requireAuth: false // 需要登录验证
+    },
+    props: (route) => ({query: {interfaceTransSerial: route.query.interfaceTransSerial}})
   },
   {
     path: 'transfer',

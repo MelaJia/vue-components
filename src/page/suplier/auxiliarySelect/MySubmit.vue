@@ -97,20 +97,7 @@ export default {
         oriUnPaidAmtBegin: val.oriUnPaidAmtBegin, // 未付开始金额
         oriUnPaidAmtEnd: val.oriUnPaidAmtEnd // 未付结束金额
       }
-      if (this.total && this.currentPage !== 1) {
-        this.total = 0 // 分页的当前页数变动会触发 从而获取数据
-      } else {
-        this.getdata(1, this.psize).then(res => {
-          if (res.data.status) {
-            this.tableData5 = res.data[this.dataStr]
-            this.total = res.data[this.totalStr]
-          } else {
-            this.tableData5 = []
-            this.total = 0
-            this.$message.error(res.data.msg)
-          }
-        })
-      }
+      this.startSearch()
     },
     // 刷新
     handleRefresh () {

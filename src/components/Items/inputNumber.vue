@@ -1,12 +1,14 @@
 <template>
-  <el-input v-model="valueProp" :placeholder="placeholder" :maxlength="maxLength" onKeyDown="if (event.keyCode >= 8 && event.keyCode < 32 | event.keyCode > 32 && event.keyCode <= 46 | event.keyCode >= 48 && event.keyCode <= 57 | event.keyCode >= 96 && event.keyCode <= 105 | event.keyCode === 110 | event.keyCode === 190) { return true }else {return false}" @input.native="handleInput">
+  <el-input v-model="valueProp" :placeholder="placeholder" :maxlength="maxLength"
+  :disabled="disabled" @blur="$emit('blur')"
+  onKeyDown="if (event.keyCode >= 8 && event.keyCode < 32 | event.keyCode > 32 && event.keyCode <= 46 | event.keyCode >= 48 && event.keyCode <= 57 | event.keyCode >= 96 && event.keyCode <= 105 | event.keyCode === 110 | event.keyCode === 190) { return true }else {return false}" @input.native="handleInput">
     <template slot="append"><slot name="append"></slot></template>
   </el-input>
 </template>
 <script>
 import { isIE } from '@/util/util'
 export default {
-  props: ['value', 'placeholder'],
+  props: ['value', 'placeholder', 'disabled'],
   data () {
     return { valueProp: this.value }
   },

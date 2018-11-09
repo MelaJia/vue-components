@@ -87,16 +87,7 @@ function searchSubmit (val) {
     status: val.status, // 状态
     roleId: val.roleId
   }
-  if (this.total && this.currentPage !== 1) {
-    this.total = 0 // 分页的当前页数变动会触发 从而获取数据
-  } else {
-    this.getdata(1, this.psize).then(res => {
-      if (res) {
-        this.tableData5 = res.data[this.dataStr]
-        this.total = res.data[this.totalStr]
-      }
-    })
-  }
+  this.startSearch()
 }
 // 刷新数据
 function handleRefresh () {
