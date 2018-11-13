@@ -246,7 +246,12 @@ function handleCheckedChange (value) {
   var arr = getSelect.call(this, value)
   // 2.计算勾选发票金额
   var sum = getSum(arr, 'afterTaxAmt')
-  this.maxSum = sum < this.detailsPC.discountTotalCreditAmt && sum !== 0 ? sum : this.detailsPC.discountTotalCreditAmt
+  var netSum = this.detailsPC.discountTotalCreditAmt ? this.detailsPC.discountTotalCreditAmt : 0
+  if (netSum === 0) {
+    this.maxSum = sum
+  } else {
+    this.maxSum = sum < netSum && sum !== 0 ? sum : netSum
+  }
   // 赋值
   this.arAmt = sum === 0 ? 0 : this.maxSum
 }
