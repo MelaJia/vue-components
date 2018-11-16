@@ -18,7 +18,7 @@
                     <span>币别: <em>{{detailsP.arInvoiceList[0].currencyDesc}}</em></span>
                   </li>
                   <li class="wd-3">
-                    <span>单位: <em>{{detailsP.arInvoiceList[0].arStatusTypeName}}</em></span>
+                    <span>单位: <em>{{detailsP.arInvoiceList[0].currencyUnitName}}</em></span>
                   </li>
                   <li class="wd-3">
                     <span>待转让金额: <em>{{detailsP.transAmt}}</em></span>
@@ -30,19 +30,19 @@
                   @select="select" style="width: 100%">
                   <el-table-column type="selection" width="40">
                   </el-table-column>
-                  <el-table-column align="center" prop="masterChainId" :formatter="nullDealWith" label="AR单号" width="100">
+                  <el-table-column align="center" prop="masterChainId" :formatter="nullDealWith" label="AR单号" width="180">
                   </el-table-column>
                   <el-table-column align="center" prop="billPayDate" :formatter="dateFormat" label="预计回款日期" width="110">
                   </el-table-column>
-                  <el-table-column align="center" prop="invoiceNo" :formatter="nullDealWith" label="发票号" width="100">
+                  <el-table-column align="center" prop="invoiceNo" :formatter="nullDealWith" label="发票号">
                   </el-table-column>
                   <el-table-column align="right" header-align="center" prop="afterTaxAmt" :formatter="regexNum" label="发票票面金额"
-                    width="180">
+                    width="120">
                   </el-table-column>
                   <el-table-column align="right" header-align="center" prop="availableAfterTaxAmt" :formatter="regexNum"
-                    label="发票可用金额">
+                    label="发票可用金额" width="120">
                   </el-table-column>
-                  <el-table-column align="center" label="转让金额">
+                  <el-table-column align="center" label="转让金额" width="120">
                     <template slot-scope="scope">
                       <el-jx-input :autofocus="true" ref="inputedit" v-model='scope.row.transferAfterTaxAmt' placeholder=''
                         :disabled="scope.row.disabled" @blur="blurIsClear(scope.row)" @input.native="handleInput('availableAfterTaxAmt',scope.row,$event,multipleSelectionTrans)"

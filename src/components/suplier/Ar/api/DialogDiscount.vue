@@ -35,7 +35,7 @@
                     </li>
                   </ul>
                   <ul>
-                    <span>贴现保理公司：{{detailsPC.arList[0].factorCompany}}</span>
+                    <span>贴现保理公司：{{detailsPC.arList[0].custToName}}</span>
                   </ul>
                   <ul class="height-auto">
                       <span>已用发票:
@@ -203,7 +203,8 @@ function handleSubmitDisc () {
   data.arList[0].arAmt = this.arAmt
   data.arList[0].selectedInvoiceList = arr
   console.log(JSON.stringify(data))
-  this.post('/multiArDiscountManager/multiInitiateDiscount.do', data, true).then(function (res) {
+  this.post('/multiArDiscountManager/multiInitiateDiscount.do', data, true).then((res) => {
+    console.log(res)
     // 操作成功 关闭弹窗
     if (res.data.status) {
       // 关闭弹窗

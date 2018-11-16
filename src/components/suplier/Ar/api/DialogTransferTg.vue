@@ -9,16 +9,16 @@
               <section>
                 <article>
                   <ul>
-                    <el-tooltip :content="'付款单位:'+detailsP.arList[0].companyName" placement="bottom" effect="light">
-                      <span>付款单位: <em>{{detailsP.arList[0].companyName}}</em></span>
+                    <el-tooltip :content="'付款单位:'+detailsP.arInvoiceList[0].companyName" placement="bottom" effect="light">
+                      <span>付款单位: <em>{{detailsP.arInvoiceList[0].companyName}}</em></span>
                     </el-tooltip>
                   </ul>
                   <ul>
                     <li class="wd-3">
-                      <span>币别: <em>{{detailsP.arList[0].currencyDesc}}</em></span>
+                      <span>币别: <em>{{detailsP.arInvoiceList[0].currencyDesc}}</em></span>
                     </li>
                     <li class="wd-3">
-                      <span>单位: <em>{{detailsP.arList[0].arStatusTypeName}}</em></span>
+                      <span>单位: <em>{{detailsP.arInvoiceList[0].currencyUnitName}}</em></span>
                     </li>
                     <li class="wd-3">
                       <span>待转让金额: <em>{{detailsP.transAmt}}</em></span>
@@ -26,21 +26,23 @@
                   </ul>
                 </article>
                 <article>
-                  <el-table ref="tableTransGou" :data="detailsP.arList" border style="width: 100%">
-                    <el-table-column align="center" prop="masterChainId" :formatter="nullDealWith" label="AR单号" width="100">
+                  <el-table ref="tableTransGou" :data="detailsP.arInvoiceList" border style="width: 100%">
+                    <el-table-column align="center" prop="masterChainId" :formatter="nullDealWith" label="AR单号" width="180">
                     </el-table-column>
                     <el-table-column align="center" prop="billPayDate" :formatter="dateFormat" label="预计回款日期" width="110">
                     </el-table-column>
-                    <el-table-column align="right" header-align="center" prop="billBookAmt" :formatter="regexNum" label="票面金额"
-                      width="180">
+                    <el-table-column align="center" prop="invoiceNo" :formatter="nullDealWith" label="发票号码">
                     </el-table-column>
-                    <el-table-column align="right" header-align="center" prop="loanAmt" :formatter="regexNum"
-                      label="可用金额">
+                    <el-table-column align="right" header-align="center" prop="afterTaxAmt" :formatter="regexNum" label="发票票面金额"
+                      width="120">
                     </el-table-column>
-                    <el-table-column align="center" label="转让金额">
+                    <el-table-column align="right" header-align="center" prop="availableAfterTaxAmt" :formatter="regexNum"
+                      label="发票可用金额" width="120">
+                    </el-table-column>
+                    <el-table-column align="center" label="转让金额" width="120">
                       <template slot-scope="scope">
-                        <el-jx-input :autofocus="true" v-model='scope.row.arTransferAmt' placeholder=''
-                          @input.native="handleInput('loanAmt',scope.row,$event,detailsP.arList)"
+                        <el-jx-input :autofocus="true" v-model='scope.row.transferAfterTaxAmt' placeholder=''
+                          @input.native="handleInput('availableAfterTaxAmt',scope.row,$event,detailsP.arInvoiceList)"
                           >
                         </el-jx-input>
                       </template>
@@ -84,7 +86,7 @@
                 </article>
               </section>
               <footer class="no-print" slot="footer" :style="'clear:both'">
-                <el-button type="primary" @click="transSub(0,detailsP,detailsP.arList)">确认</el-button>
+                <el-button type="primary" @click="transSub(0,detailsP,detailsP.arInvoiceList)">确认</el-button>
               </footer>
   </el-dialog>
 </template>
@@ -173,7 +175,7 @@ function transSub (type, originData, selection) {
   }
   // 2.将要发送的数据
   var data = {
-    arList: selection,
+    arInvoiceList: selection,
     transAmt: originData.transAmt,
     custToId: this.receiveCustId,
     custToName: this.rc.name,

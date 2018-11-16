@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import ArList from '@/components/suplier/Ar/get/ArListApi'
+import ArList from '@/components/suplier/Ar/transfer/ArListApi'
 import Search from '@/components/suplier/Ar/get/SearchGet'
 import Table from '@/mixins/suplier/Ar/Table' // handleCurrentChange
 export default {
@@ -38,7 +38,7 @@ export default {
   props: ['query'],
   data () {
     return {
-      postUrl: '/multiArTransferManager/getOnReceivingArListTable.do', // 请求地址
+      postUrl: '/multiArTransferManager/getTransferedArListTable.do', // 请求地址
       totalStr: 'recordsTotal', // 服务器返回总数参数名
       dataStr: 'data' // 服务器返回数据参数名
     }

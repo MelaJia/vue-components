@@ -158,7 +158,7 @@ function handleContrac (idx, val) {
     if (res.data.status) {
       // 放款比例初始化否则先输入实际放款金额会造成不联动
       res.data.data.loanPer = res.data.data.loanPer || 80
-      res.data.data.actualDiscountAmt = res.data.data.actualDiscountAmt || res.data.data.billBookAmt * res.data.data.loanPer / 100
+      res.data.data.actualDiscountAmt = res.data.data.actualDiscountAmt || ((parseInt(res.data.data.billBookAmt * 100) * parseInt(res.data.data.loanPer * 100)) / 1000000).toFixed(2)
       res.data.data.repaymentType = res.data.data.repaymentType ? parseInt(res.data.data.repaymentType) : null
       // 3.设置数据
       this.detailsContract = res.data.data

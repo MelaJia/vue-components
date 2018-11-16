@@ -220,7 +220,7 @@ export default {
     handleSubmit: debounce(submit, 1000, true),
     // 计算数额
     loanPerComput () {
-      this.detailsP.actualDiscountAmt = (this.detailsP.billBookAmt * (this.detailsP.loanPer * 100) / 10000).toFixed(2)
+      this.detailsP.actualDiscountAmt = (parseInt(this.detailsP.billBookAmt * 100) * parseInt(this.detailsP.loanPer * 100) / 1000000).toFixed(2)
     },
     // 计算比例
     discountAmtComput () {
