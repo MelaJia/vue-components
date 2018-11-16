@@ -36,6 +36,14 @@ const navs = {
         disabled: false,
         lClass: 'line',
         menuParent: 'circle'
+      },
+      {
+        menuId: 'financingbill',
+        menuUrl: 'financingbill',
+        menuName: '融资中单据',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
       }
       ]
     },
