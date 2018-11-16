@@ -65,9 +65,6 @@
     </article>
 </template>
 <style scoped lang="scss">
-header {
-  text-align: right;
-}
 .el-dropdown {
   margin-left: 20px;
 }
@@ -137,7 +134,7 @@ export default {
         }]
       }, // 转账数据
       detailsTG: {
-        arList: [{
+        arInvoiceList: [{
           masterChainId: '', // 唯一標識當前ar
           companyName: '', // 付款单位
           billPayDate: null, // 预计回款日期
@@ -218,7 +215,8 @@ function handleTrans () {
       setTimeout(function () {
         _this.$refs['dialog-trans'].$refs.tableTrans.toggleAllSelection()
         // 赋值总金额
-        _this.$refs['dialog-trans'].displaySumAmtTrans = thousandth(getSum(_this.tableTrans.arInvoiceList, 'transferAfterTaxAmt'))
+        setDialogSumAmt.call(_this, 'dialog-trans')
+        // _this.$refs['dialog-trans'].displaySumAmtTrans = thousandth(getSum(_this.tableTrans.arInvoiceList, 'transferAfterTaxAmt'))
       }, 500)
     }).catch(function (error) {
       console.log(error)
@@ -228,11 +226,20 @@ function handleTrans () {
     this.getLoanDetail('/multiArTransferManager/multiArTransViewPurchased.do', data).then(function (res) {
       _this.detailsTG = res
       _this.visibleTransGou = true
-      _this.$refs['dialog-trans-tg'].displaySumAmtTrans = thousandth(getSum(_this.detailsTG.arList, 'arTransferAmt'))
+      // 赋值总金额
+      setDialogSumAmt.call(_this, 'dialog-trans-tg')
+      // _this.$refs['dialog-trans-tg'].displaySumAmtTrans = thousandth(getSum(_this.detailsTG.arInvoiceList, 'arTransferAmt'))
     }).catch(function (error) {
       console.log(error)
     })
   }
+}
+function setDialogSumAmt (dialog) {
+  console.log(dialog)
+  console.log(this.tableTrans)
+  console.log(this.detailsTG)
+  let data = dialog === 'dialog-trans' ? this.tableTrans.arInvoiceList : this.detailsTG.arInvoiceList
+  this.$refs[dialog].displaySumAmtTrans = thousandth(getSum(data, 'transferAfterTaxAmt'))
 }
 // 贴现
 function handleDisc (idx, val) {

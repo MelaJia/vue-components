@@ -6,19 +6,25 @@ export default {
   }
 }
 // 转让金额输入框事件
+// type 可用金额
 function handleInput (type, row, e, selection) {
   if (row[type] < Number(e.target.value)) {
     this.$alert('转让金额不得大于可用金额', '警告', {
       confirmButtonText: '确定',
-      callback: function (action) {
+      callback: (action) => {
         if (type === 'availableAfterTaxAmt') {
           row.transferAfterTaxAmt = row.availableAfterTaxAmt
+          setSumAmt.call(this, type, selection)
         } else if (type === 'loanAmt') {
           row.arTransferAmt = row.loanAmt
+          setSumAmt.call(this, type, selection)
         }
       }
     })
   }
+  setSumAmt.call(this, type, selection)
+}
+function setSumAmt (type, selection) {
   var typrTag = type === 'availableAfterTaxAmt' ? 'transferAfterTaxAmt' : 'arTransferAmt'
   this.displaySumAmtTrans = thousandth(getSum(selection, typrTag))
 }

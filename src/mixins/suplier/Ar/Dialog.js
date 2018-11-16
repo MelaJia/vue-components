@@ -1,3 +1,5 @@
+import {getDataBase} from '@/util/util' // 发送数据函数
+
 export default {
   data () {
     return {
@@ -10,5 +12,20 @@ export default {
     }
   },
   methods: {
+    // 详情
+    handleInfo: handleInfo
   }
+}
+// 获取详情
+function handleInfo (idx, val) {
+  // 获取数据
+  let param = {
+    transSerialNo: val.transSerialNo
+  }
+  getDataBase.call(this, 'multiArTransferManager/multiArPayDetail.do', param, true).then(res => {
+    if (res) {
+      this.details = res
+      this.dialogInfoVisible = true
+    }
+  })
 }

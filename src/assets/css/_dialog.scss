@@ -18,6 +18,9 @@ section {
   padding: 0;
   text-align: left;
 }
+>ul.height-auto {
+  padding: 10px 0;
+}
 >ul:not(.height-auto) {
   height: 44px;
   line-height: 44px;
@@ -38,7 +41,7 @@ li {
   color: $title-color;
 }
 
-li:not(:first-of-type) {
+>ul>li:not(:first-of-type) {
   border-left: 0.5px solid #931719;
 }
 }

@@ -41,6 +41,36 @@ export default {
       searchShow: true // 搜索区
     }
   },
+  computed: {
+    rowMergeData () {
+      const t = this.dataTable
+      if (t.length > 0) {
+        let flag = null
+        let idx = 0
+        let idxSum = 1 // 合并后索引
+        let sumRow = 1
+        for (let index = 0; index < t.length; index++) {
+          const element = t[index]
+          element.rowSpan = 1 // 默认1行
+          element.index = idxSum // 索引
+          if (element.transSerialNo === flag) {
+            sumRow++
+            element.rowSpan = 0
+            if (index === t.length - 1) {
+              t[idx].rowSpan = sumRow
+            }
+          } else {
+            element.index = idxSum++ // 索引
+            t[idx].rowSpan = sumRow
+            idx = index
+            flag = element.transSerialNo
+            sumRow = 1
+          }
+        }
+      }
+      return t
+    }
+  },
   methods: {
     tableRowClassName ({row, rowIndex}) {
       if (row.pend) {
@@ -241,7 +271,9 @@ export default {
       data.invoiceList = list
       data.invoiceListSelected = listSelected
       return data
-    }
+    },
+    // 单元格合并规则
+    objectSpanMethod: objectSpanMethod
   }
 }
 function isIE () { // ie?
@@ -263,6 +295,15 @@ function ieAutoResize () {
       tNode.style.width = tNode.offsetWidth + 1 + 'px'
     } else {
       tNode.style.width = tNode.offsetWidth - 1 + 'px'
+    }
+  }
+}
+// 合并单元格
+function objectSpanMethod ({ row, column, rowIndex, columnIndex }) {
+  if (columnIndex >= 0 && columnIndex <= 5 | columnIndex === 10) {
+    return {
+      rowspan: row.rowSpan,
+      colspan: 1
     }
   }
 }

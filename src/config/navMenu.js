@@ -15,16 +15,41 @@ const navs = {
         menuParent: 'circle'
       },
       {
+        menuId: 'myarapi',
+        menuUrl: 'myarapi',
+        menuName: '我的AR(新)',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
+      },
+      {
         menuId: 'getar',
         menuUrl: 'getar',
         menuName: '购入AR管理',
         disabled: false,
         lClass: 'line',
         menuParent: 'circle'
-      }, {
+      },
+      {
+        menuId: 'getarapi',
+        menuUrl: 'getarapi',
+        menuName: '购入AR管理(新)',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
+      },
+      {
         menuId: 'transfer',
         menuUrl: 'transfer',
         menuName: '转让AR管理',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
+      },
+      {
+        menuId: 'transferapi',
+        menuUrl: 'transferapi',
+        menuName: '转让AR管理(新)',
         disabled: false,
         lClass: 'line',
         menuParent: 'circle'

@@ -66,6 +66,17 @@ const routes = [{
     }
   },
   {
+    path: 'transferapi',
+    name: 'transferapi',
+    component: () =>
+      import(/* webpackChunkName: 'AR' */ '@/page/suplier/arApi/TransArApi'),
+    meta: {
+      title: '转让AR管理', // 名称
+      requireAuth: false // 需要登录验证
+    },
+    props: (route) => ({query: {interfaceTransSerial: route.query.interfaceTransSerial}})
+  },
+  {
     path: 'historyar',
     name: 'historyar',
     component: () =>
