@@ -26,10 +26,16 @@ Vue.use(Router)
 const whiteList = ['/login', '/register', '/404', '/403', '/401', '/lock']
 const routes = [
   {
+    path: '/login2',
+    name: 'Login2',
+    component: () =>
+      import('@/page/Login')
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () =>
-      import('@/page/Login')
+      import('@/page/loginnew')
   },
   {
     path: '/register',
