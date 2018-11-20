@@ -56,6 +56,28 @@ const routes = [{
     props: (route) => ({query: {interfaceTransSerial: route.query.interfaceTransSerial}})
   },
   {
+    path: 'myartrans',
+    name: 'myartrans',
+    component: () =>
+      import(/* webpackChunkName: 'AR' */ '@/page/suplier/arApi/MyArTransAndDisc'),
+    meta: {
+      title: '我要转让', // 名称
+      requireAuth: false // 需要登录验证
+    },
+    props: (route) => ({query: {interfaceTransSerial: route.query.interfaceTransSerial, operateType: 1}})
+  },
+  {
+    path: 'myardisc',
+    name: 'myardisc',
+    component: () =>
+      import(/* webpackChunkName: 'AR' */ '@/page/suplier/arApi/MyArTransAndDisc'),
+    meta: {
+      title: '我要贴现', // 名称
+      requireAuth: false // 需要登录验证
+    },
+    props: (route) => ({query: {interfaceTransSerial: route.query.interfaceTransSerial, operateType: 2}})
+  },
+  {
     path: 'transfer',
     name: 'transfer',
     component: () =>

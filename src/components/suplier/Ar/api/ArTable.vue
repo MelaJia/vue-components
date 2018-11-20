@@ -1,7 +1,7 @@
 <template>
   <article class="body">
         <!-- 表格区域-头部区域 -->
-        <header>
+        <header v-if="operateType===1">
           <el-form ref="ordform" :inline="true" class="demo-form-inline">
             <el-form-item>
               <el-button round type="primary" @click="handleTrans">转让</el-button>
@@ -31,7 +31,7 @@
           <el-table ref="table" :data="comDatas" element-loading-text="拼命加载中"
             element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" border style="width: 100%"
             row-key="masterChainId" @selection-change="handleSelectionChange" @select-all="handleSelectAll">
-            <el-table-column type="selection" fixed width="40" :selectable="disableHandle" :reserve-selection="true">
+            <el-table-column v-if="operateType===1" type="selection" fixed width="40" :selectable="disableHandle" :reserve-selection="true">
             </el-table-column>
             <el-table-column type="index" label="序号" fixed width="40">
             </el-table-column>
@@ -57,7 +57,7 @@
               :resizable="false">
               <template slot-scope="scope">
                 <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-                <el-button size="mini" type="text" @click="handleDisc(scope.$index, scope.row)">贴现</el-button>
+                <el-button v-if="operateType===2" size="mini" type="text" @click="handleDisc(scope.$index, scope.row)">贴现</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -96,7 +96,7 @@ import Common from '@/mixins/common'
 import { thousandth, debounce } from '@/util/util' // 首字母大写 防抖函数
 /* 我的Ar列表 */
 export default {
-  props: ['dataLoading', 'dataTable'],
+  props: ['dataLoading', 'dataTable', 'operateType'], // operateType:1转让，2贴现
   mixins: [TableMixIn, Common],
   components: {
     'dialog-transfer': () =>
@@ -186,12 +186,11 @@ export default {
 // 详情函数
 function handleInfo (idx, val, isChild = false) {
   // 获取数据
-  this.getDetail(val).then(res => {
-    if (res) {
-      this.details = res
-      this.dialogInfoVisible = true
-    }
-  })
+  if (this.operateType === 1) {
+    getDetail.apply(this, ['multiArTransferManager/arInfoDetail.do', val.masterChainId]) // 转让
+  } else {
+    getDetail.apply(this, ['multiArTransferManager/arInfoDetail2Discount.do', val.masterChainId]) // 贴现
+  }
 }
 // 显示转让
 function handleTrans () {
@@ -316,5 +315,19 @@ function handleSelectAll (val) {
     })
   } else { // 2.未选择
   }
+}
+function getDetail (url, val) {
+  var param = {
+    masterChainId: val
+  }
+  // 获取数据
+  this.getLoanDetail(url, param).then((res) => {
+    if (res) {
+      this.details = res
+      this.dialogInfoVisible = true
+    }
+  }).catch(function (error) {
+    console.log(error)
+  })
 }
 </script>

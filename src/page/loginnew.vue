@@ -66,7 +66,7 @@
             <div class="center-container flex-between">
               <div class="info">
                 <img src="@/assets/img/img/PCindex22_08.png" />
-                <span>钜信网新版上线</span>
+                <span>钜信网新版上线啦</span>
               </div>
               <div class="info-more"><a href="#">更多></a></div>
             </div>

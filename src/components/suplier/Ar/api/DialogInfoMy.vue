@@ -11,20 +11,25 @@
             <section>
               <ul>
                 <li>
+                  <span>AR来源: <em>{{this.detailsP.arSourceDesc}}</em></span>
+                </li>
+                <li>
+                  <span>状态: <em>{{this.detailsP.arStatusTypeName}}</em></span>
+                </li>
+              </ul>
+              <ul>
+                <li>
                   <el-tooltip :content="'付款单位:'+this.detailsP.companyName" placement="bottom" effect="light">
                     <span>付款单位: <em>{{this.detailsP.companyName}}</em></span>
                   </el-tooltip>
                 </li>
                 <li>
-                  <span>AR来源: <em>{{this.detailsP.arSourceDesc}}</em></span>
+                  <span>结报单号: <em>{{this.detailsP.billId}}</em></span>
                 </li>
               </ul>
               <ul>
-                <span>对手单位: <em>{{this.detailsP.historyCustToName}}</em></span>
-              </ul>
-              <ul>
                 <li>
-                  <span>状态: <em>{{this.detailsP.arStatusTypeName}}</em></span>
+                  <span>保理方: <em>{{this.detailsP.custToName}}</em></span>
                 </li>
                 <li>
                   <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>
@@ -35,47 +40,55 @@
                   <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
                 </li>
                 <li>
-                  <span>还款日期: <em>{{this.detailsP.actualRepayDate | dateFormat}}</em></span>
+                  <span>结报状态:
+                    <el-tooltip class="item" effect="light" placement="top-start">
+                      <div slot="content" class="status-tooltip">
+                        <ul>
+                          <li :style="this.detailsP.signStatusId===0?'color:red':''">会计确认</li><span>-></span>
+                          <li :style="this.detailsP.signStatusId===1?'color:red':''">财务确认</li><span>-></span>
+                          <li :style="this.detailsP.signStatusId===2?'color:red':''">财务已付款</li><span>-></span>
+                          <li :style="this.detailsP.signStatusId===3?'color:red':''">付款单确认</li>
+                        </ul>
+                        <ul>
+                          <li :style="this.detailsP.signStatusId===0?'color:red':''">{{this.detailsP.signStatusId===0&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                          <li :style="this.detailsP.signStatusId===1?'color:red':''">{{this.detailsP.signStatusId===1&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                          <li :style="this.detailsP.signStatusId===2?'color:red':''">{{this.detailsP.signStatusId===2&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                          <li :style="this.detailsP.signStatusId===3?'color:red':''">{{this.detailsP.signStatusId===3&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                        </ul>
+                      </div>
+                        <em>{{this.detailsP.billPayStatus}}</em>
+                    </el-tooltip>
+                  </span>
                 </li>
               </ul>
               <ul>
                 <li>
-                  <span>可用金额: <em>{{this.detailsP.arAvailableAmt | regexNum}}</em></span>
+                  <span>票面金额: <em>{{this.detailsP.billBookAmt | regexNum}}</em></span>
                 </li>
                 <li>
-                  <span>入账金额: <em>{{this.detailsP.admissionAmt | regexNum}}</em></span>
-                </li>
-              </ul>
-              <ul>
-                <li>
-                  <span>还款本金: <em>{{this.detailsP.payPrincipalAmt | regexNum}}</em></span>
-                </li>
-                <li>
-                  <span>还款利息: <em>{{this.detailsP.payInterestAmt | regexNum}}</em></span>
-                </li>
-              </ul>
-              <ul>
-                <li>
-                  <span>服务费: <em>{{this.detailsP.payServiceAmt | regexNum}}</em></span>
-                </li>
-                <li>
-                  <span>还款罚息: <em>{{this.detailsP.payFineAmt | regexNum}}</em></span>
-                </li>
-              </ul>
-              <ul>
-                <li>
-                  <span>提前还款手续费: <em>{{this.detailsP.prepayServiceAmt | regexNum}}</em></span>
-                </li>
-                <li>
-                  <span>罚息天数: <em>{{this.detailsP.payFineDays}}</em></span>
+                  <span>可用余额: <em>{{this.detailsP.loanAmt | regexNum}}</em></span>
                 </li>
               </ul>
               <ul class="height-auto" v-if="detailsP.checkedStatus!==6&&detailsP.checkedStatus!==9">
-                <span>发票列表:
-                  <div class="a-link-group inline-block">
-                    <label v-for="(item,index) in detailsP.invoiceCustomList" :class="{'first-child':index===0}" :key="item.invoiceNo">{{item.invoiceNo}}</label>
-                  </div>
-                </span>
+                <span>发票清单:</span>
+                <article>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>发票号码</th>
+                        <th>票面金额</th>
+                        <th>可用余额</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in detailsP.invoiceCustomList" :key="item.invoiceNo">
+                        <td class="td-center">{{item.invoiceNo}}</td>
+                        <td class="td-right">{{item.invoiceAfterTaxAmt|thousandth}}</td>
+                        <td class="td-right">{{item.invoiceAvailableAmount|thousandth}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </article>
               </ul>
             </section>
             <footer class="no-print" slot="footer" :style="'clear:both'">
@@ -86,6 +99,41 @@
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+section{
+  > ul,>ul:last-of-type{
+    border: none;
+  }
+  > ul > li:not(:first-of-type) {
+    border-left: none;
+  }
+  li{
+    width: 68%;
+  }
+  li+li{
+    width: 30%;
+  }
+}
+article{
+  margin-left: 80px;
+}
+table{
+  border-collapse: collapse; // 表格边框合并
+}
+td, th {
+    width: 130px;
+    border: 1px solid;
+    padding: 10px 0;
+}
+th {
+    text-align: center;
+    background: #cccccc;
+}
+td.td-center{
+  text-align: center;
+}
+td.td-right{
+  text-align: right;
+}
 </style>
 
 <script>

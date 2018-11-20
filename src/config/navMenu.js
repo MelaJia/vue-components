@@ -1,6 +1,54 @@
 const navs = {
   suplier: {
     navItems: [{
+      menuId: '0',
+      menuName: '新功能',
+      disabled: false,
+      lClass: 'start-line',
+      hClass: 'header-circle bg-icon-1',
+      children: [{
+        menuId: 'myartrans',
+        menuUrl: 'myartrans',
+        menuName: '我要转让',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
+      },
+      {
+        menuId: 'myardisc',
+        menuUrl: 'myardisc',
+        menuName: '我要贴现',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
+      },
+      {
+        menuId: 'getarapi',
+        menuUrl: 'getarapi',
+        menuName: '购入AR管理(新)',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
+      },
+      {
+        menuId: 'transferapi',
+        menuUrl: 'transferapi',
+        menuName: '转让AR管理(新)',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
+      },
+      {
+        menuId: 'financingbill',
+        menuUrl: 'financingbill',
+        menuName: '融资中单据',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
+      }
+      ]
+    },
+    {
       menuId: '1',
       menuName: 'AR管理',
       disabled: false,
@@ -15,25 +63,9 @@ const navs = {
         menuParent: 'circle'
       },
       {
-        menuId: 'myarapi',
-        menuUrl: 'myarapi',
-        menuName: '我的AR(新)',
-        disabled: false,
-        lClass: 'line',
-        menuParent: 'circle'
-      },
-      {
         menuId: 'getar',
         menuUrl: 'getar',
         menuName: '购入AR管理',
-        disabled: false,
-        lClass: 'line',
-        menuParent: 'circle'
-      },
-      {
-        menuId: 'getarapi',
-        menuUrl: 'getarapi',
-        menuName: '购入AR管理(新)',
         disabled: false,
         lClass: 'line',
         menuParent: 'circle'
@@ -47,25 +79,9 @@ const navs = {
         menuParent: 'circle'
       },
       {
-        menuId: 'transferapi',
-        menuUrl: 'transferapi',
-        menuName: '转让AR管理(新)',
-        disabled: false,
-        lClass: 'line',
-        menuParent: 'circle'
-      },
-      {
         menuId: 'historyar',
         menuUrl: 'historyar',
         menuName: '历史AR',
-        disabled: false,
-        lClass: 'line',
-        menuParent: 'circle'
-      },
-      {
-        menuId: 'financingbill',
-        menuUrl: 'financingbill',
-        menuName: '融资中单据',
         disabled: false,
         lClass: 'line',
         menuParent: 'circle'

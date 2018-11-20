@@ -115,7 +115,11 @@ export default {
     originFormat: function (value) {
       return value === 1 ? '自有' : '购入'
     },
-    // 千分位
+    // 千分位转换
+    thousandth: function (val) {
+      return thousandth(val) === '- -' ? '0' : thousandth(val)
+    },
+    // 千分位待元单位
     regexNum: function (val) {
       return `${thousandth(val)}元`
     },

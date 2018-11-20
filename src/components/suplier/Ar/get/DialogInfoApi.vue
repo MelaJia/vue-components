@@ -85,7 +85,7 @@
           </span>
           </li>
         </ul>
-        <ul class="height-auto" style="padding-top: 10px;">
+        <ul class="height-auto" style="padding-bottom: 0px;">
           <span>待接收AR列表:</span>
           <article class="multi-detail-content">
           <el-table
