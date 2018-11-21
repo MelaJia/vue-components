@@ -66,7 +66,9 @@
             <div class="center-container flex-between">
               <div class="info">
                 <img src="@/assets/img/img/PCindex22_08.png" />
-                <span>钜信网新版上线啦</span>
+                <div class="scroll">
+                  <span>这里是要现实的滚动内容......</span>
+                </div>
               </div>
               <div class="info-more"><a href="#">更多></a></div>
             </div>
@@ -470,34 +472,45 @@ footer .flex-between .right img {
   float: right;
   cursor: pointer;
 }
-.ipt-group .imgviste span{
-    font-size: 12px;
-    color: #666;
-    cursor: pointer;
-    display: block;
+.ipt-group .imgviste span {
+  font-size: 12px;
+  color: #666;
+  cursor: pointer;
+  display: block;
 }
-.btnGroup{
-    text-align: center;
-    margin-top: 40px;
+.btnGroup {
+  text-align: center;
+  margin-top: 40px;
 }
-.btnGroup button{
-    background: #3f97f8;
-    width: 200px;
-    cursor: pointer;
-    color: #fff;
-    font-size: 24px;
-    font-weight: 400;
-    border-radius: 50px;
+.btnGroup button {
+  background: #3f97f8;
+  width: 200px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 400;
+  border-radius: 50px;
 }
 a.gray {
-    color: #6c757d;
+  color: #6c757d;
 }
 a.gray.register {
-    float: right;
+  float: right;
 }
 /* 底部logo */
-.logo{
+.logo {
   margin: 0 0 -7px 0;
+}
+.scroll {
+  width: 400px;
+  height: 23px;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: 40px;
+  position: relative;
+}
+.scroll > span {
+  position: absolute;
 }
 </style>
 <script>
@@ -545,8 +558,13 @@ export default {
     getImgUrl: getImgUrl
   },
   mounted () {
+    // 滚动字幕
+    bindMouseEvent()
+    roll()
     // 协议生成
     this.axios.post('/login/juXinProtocol').then(res => {
+    }).catch(err => {
+      console.log(err)
     })
   },
   methods: {
@@ -770,5 +788,42 @@ function dealMenuDev (array, prev) {
     }
   }
   return array
+}
+// 字幕滚动变量
+var scrollTime = null
+var LEN = 400 // 一个完整滚动条的长度
+var x = 0
+// 启动滚动定时器
+function roll () {
+  console.log('启动')
+  var tag1 = document.querySelector('.scroll>span')
+  var tag2 = tag1.nextSibling
+  var fun = function () {
+    tag1.style.left = x + 'px'
+    tag2.style.left = (x + LEN) + 'px'
+    x = x - 5
+    if ((x + LEN) <= 0) {
+      x = 0
+    }
+  }
+  if (scrollTime) {
+    clearInterval(scrollTime)
+  }
+  scrollTime = setInterval(fun, 300)
+}
+// 绑定鼠标事件
+function bindMouseEvent () {
+  var el = document.querySelector('.scroll>span')
+  var el2 = el.cloneNode(true)
+  LEN = el.clientWidth + 100 // 动态修改滚动条的长度
+  console.log(LEN)
+  el2.style.left = (x + LEN) + 'px'
+  el.parentElement.appendChild(el2)
+  el.addEventListener('mouseenter', function (e) {
+    clearInterval(scrollTime)
+  })
+  el.addEventListener('mouseleave', function (e) {
+    roll()
+  })
 }
 </script>
