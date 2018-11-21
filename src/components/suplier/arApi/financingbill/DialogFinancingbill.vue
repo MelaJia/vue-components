@@ -119,7 +119,7 @@ export default {
   },
   components: {
     'dialog-list': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/financingbill/DialogInvoicelist')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/financingbill/DialogInvoicelist')
   },
   methods: {
     handleShowRepay: handleShowRepay,

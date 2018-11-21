@@ -73,9 +73,9 @@ export default {
   mixins: [TableMixIn, Common],
   components: {
     'dialog-financingbill': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/financingbill/DialogFinancingbill'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/financingbill/DialogFinancingbill'),
     'dialog-contract': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/financingbill/DialogContract')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/financingbill/DialogContract')
   },
   data () {
     return {

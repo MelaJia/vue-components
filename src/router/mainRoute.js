@@ -255,7 +255,7 @@ const routes = [{
   {
     path: 'financingbill',
     name: 'financingbill',
-    component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/arManager/FinancingBill'),
+    component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/arApi/FinancingBill'),
     meta: {
       title: '融资中的单据', // 名称
       requireAuth: false // 需要登录验证

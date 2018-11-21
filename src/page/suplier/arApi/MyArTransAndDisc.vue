@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import ArList from '@/components/suplier/Ar/api/ArTable'
-import Search from '@/components/suplier/Ar/api/SearchMyAr'
+import ArList from '@/components/suplier/arApi/transAndDisc/ArTable'
+import Search from '@/components/suplier/arApi/transAndDisc/SearchMyAr'
 import Table from '@/mixins/suplier/Ar/Table' // handleCurrentChange
 export default {
   mixins: [Table],

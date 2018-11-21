@@ -100,13 +100,13 @@ export default {
   mixins: [TableMixIn, Common],
   components: {
     'dialog-transfer': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/api/DialogTransfer'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/transAndDisc/DialogTransfer'),
     'dialog-transfer-tg': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/api/DialogTransferTg'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/transAndDisc/DialogTransferTg'),
     'dialog-discount': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/api/DialogDiscount'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/transAndDisc/DialogDiscount'),
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/api/DialogInfoMy')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/transAndDisc/DialogInfoMy')
   },
   data () {
     return {

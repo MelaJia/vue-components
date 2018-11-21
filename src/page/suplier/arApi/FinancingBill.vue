@@ -40,8 +40,8 @@
 </style>
 
 <script>
-import FinancingTable from '@/components/suplier/Ar/financingbill/FinancingbillTable'
-import Search from '@/components/suplier/Ar/financingbill/FinancingbillSearch'
+import FinancingTable from '@/components/suplier/arApi/financingbill/FinancingbillTable'
+import Search from '@/components/suplier/arApi/financingbill/FinancingbillSearch'
 import Table from '@/mixins/suplier/Ar/Table'
 export default {
   // name: 'loanPage', // 我的待办
