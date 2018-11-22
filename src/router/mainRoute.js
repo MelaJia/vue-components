@@ -78,6 +78,36 @@ const routes = [{
     props: (route) => ({query: {interfaceTransSerial: route.query.interfaceTransSerial, operateType: 2}})
   },
   {
+    path: 'fundapply',
+    name: 'fundapply',
+    component: () =>
+      import(/* webpackChunkName: 'AR' */ '@/page/suplier/arApi/FundApply'),
+    meta: {
+      title: '保理方分配申请', // 名称
+      requireAuth: true // 需要登录验证
+    }
+  },
+  {
+    path: 'waitrepay',
+    name: 'waitrepay',
+    component: () =>
+      import(/* webpackChunkName: 'AR' */ '@/page/suplier/arApi/WaitRepay'),
+    meta: {
+      title: '待还款单据', // 名称
+      requireAuth: true // 需要登录验证
+    }
+  },
+  {
+    path: 'finishedbill',
+    name: 'finishedbill',
+    component: () =>
+      import(/* webpackChunkName: 'AR' */ '@/page/suplier/arApi/FinishedBill'),
+    meta: {
+      title: '已完结单据', // 名称
+      requireAuth: true // 需要登录验证
+    }
+  },
+  {
     path: 'transfer',
     name: 'transfer',
     component: () =>

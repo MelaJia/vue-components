@@ -40,7 +40,7 @@
               </el-row>
               <el-row>
                 <el-col :span="12">
-                  <el-form-item label="预计回款日期" prop="moneyDate">
+                  <el-form-item label="票据到期日" prop="moneyDate">
                     <el-date-picker :editable="false" v-model="formInline.moneyDate" type="daterange" unlink-panels
                       range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
                     </el-date-picker>

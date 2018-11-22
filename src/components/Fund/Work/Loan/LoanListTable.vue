@@ -23,7 +23,7 @@
       </el-table-column>
       <el-table-column align="right" header-align="center" label="实放金额" prop="discountAmt" :formatter="regexNum">
       </el-table-column>
-      <el-table-column align="center" label="预计回款日期" prop="billPayDate" min-width="120" :formatter="dateFormat">
+      <el-table-column align="center" label="票据到期日" prop="billPayDate" min-width="120" :formatter="dateFormat">
       </el-table-column>
       <el-table-column align="center" label="信用报告">
         <template slot-scope="scope">

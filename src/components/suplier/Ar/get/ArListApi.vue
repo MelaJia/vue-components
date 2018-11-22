@@ -23,7 +23,7 @@
       </el-table-column>
       <el-table-column align="right" header-align="center" label="转让金额" prop="transAmt" :formatter="regexNum">
       </el-table-column>
-      <el-table-column align="center" label="预计回款日期" prop="billPayDate" min-width="120" :formatter="dateFormat">
+      <el-table-column align="center" label="票据到期日" prop="billPayDate" min-width="120" :formatter="dateFormat">
       </el-table-column>
       <el-table-column align="center" label="操作" width='130px' fixed="right" :resizable="false">
         <template slot-scope="scope">

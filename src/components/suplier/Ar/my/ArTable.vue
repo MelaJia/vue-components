@@ -90,7 +90,7 @@
         </el-table-column>
         <el-table-column align="right" header-align="center" label="余额" prop="loanAmt" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120">
+        <el-table-column align="center" label="票据到期日" prop="billPayDate" :formatter="dateFormat" width="120">
         </el-table-column>
         <el-table-column align="left" header-align="center" label="操作" width='130px' class-name="" fixed="right">
           <template slot-scope="scope">

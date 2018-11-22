@@ -1,9 +1,9 @@
 <template>
   <div class="order-table">
     <!-- 详情 -->
-    <dialog-financingbill :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-financingbill>
-    <!--合同确认-->
-    <dialog-contract :visible-p.sync="dialogContractVisible" :details-p="details"></dialog-contract>
+    <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-info>
+    <!--还款计划-->
+    <dialog-repay :visible-p.sync="dialogRepayVisible" :details-p="details"></dialog-repay>
     <section>
       <el-table ref="table" :data="dataTable" v-loading.fullscreen="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([6,7])" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName"
@@ -25,7 +25,7 @@
         </el-table-column>
         <el-table-column align="right" header-align="center" label="申请金额" prop="applyAmt" width="100" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="实际金额" prop="loanAmt" width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" width="100" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="票据到期日" prop="billPayDate" :formatter="dateFormat" width="100">
         </el-table-column>
@@ -34,8 +34,7 @@
         <el-table-column align="center" label="操作" header-align="center" width='120' fixed="right" :resizable="false">
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-            <el-button size="mini" type="text" v-if="scope.row.checkedStatus === 23" @click="confirmContract(scope.$index, scope.row)">合同确认</el-button>
-            <el-button size="mini" type="text" v-if="scope.row.checkedStatus === 22" @click="cancel(scope.$index, scope.row)">取消</el-button>
+            <el-button v-if="scope.row.checkedStatus === 29" size="mini" type="text" @click="repayPlan(scope.$index, scope.row)">还款计划</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -72,15 +71,15 @@ export default {
   props: ['dataLoading', 'dataTable'],
   mixins: [TableMixIn, Common],
   components: {
-    'dialog-financingbill': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/financingbill/DialogFinancingbill'),
-    'dialog-contract': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/financingbill/DialogContract')
+    'dialog-info': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/waitRepay/DialogInfo'),
+    'dialog-repay': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/finishedBill/DialogRepay')
   },
   data () {
     return {
       dialogInfoVisible: false,
-      dialogContractVisible: false,
+      dialogRepayVisible: false,
       details: {}, // 详情数据
       filedetails: {}
     }
@@ -114,36 +113,20 @@ export default {
     fresh () {
       this.$emit('refresh')
     },
-    // 合同确认
-    confirmContract (idx, val) {
+    // 还款计划
+    repayPlan (idx, val) {
       let param = {
         transSerialNo: val.transSerialNo
       }
       // 获取数据
-      getDataBase.call(this, '/multiArManager/multiArLoanSigningDetail.do', param, true).then(res => {
+      getDataBase.call(this, '/loan/loanRepaymentScheduleInfo.do', param, true).then(res => {
         if (res) {
           console.log(res)
           // 标题赋值
           // res.masterChainId = val.loanId
           this.details = Object.assign(res, {transSerialNo: val.transSerialNo})
-          this.dialogContractVisible = true
+          this.dialogRepayVisible = true
         }
-      })
-    },
-    // 取消
-    cancel (idx, val) {
-      this.$confirm(`单号为${val.masterChainId}的确认取消融资?`, `提示`, {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-        center: true
-      }).then(() => {
-        this.postResultFresh('/multiArInFinancingManager/multiArCancelDiscount.do', {transSerialNo: val.transSerialNo}) // 调用common混合中公共方法
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '操作已取消'
-        })
       })
     }
   }

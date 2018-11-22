@@ -1,16 +1,9 @@
 <template>
   <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="mini" label-width="150px">
     <el-row>
-      <!-- <el-col :span="8">
-        <el-form-item label="AR来源">
-          <el-select v-model="formInline.isMasterAr" clearable placeholder="全部">
-            <el-option v-for="(item,index) in selectData.origin" :key="index" :label="item.lable" :value="item.value"></el-option>
-          </el-select>
-        </el-form-item>
-      </el-col> -->
       <el-col :span="8">
-        <el-form-item label="付款单位/对手单位" prop="companyName">
-          <el-input v-model.trim="formInline.companyName" placeholder=""></el-input>
+        <el-form-item label="AR单号" prop="masterChainId">
+          <el-input v-model.trim="formInline.masterChainId" placeholder=""></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="8">
@@ -30,8 +23,8 @@
     </el-row>
     <el-row>
       <el-col :span="8">
-        <el-form-item label="AR单号" prop="masterChainId">
-          <el-input v-model.trim="formInline.masterChainId" placeholder=""></el-input>
+        <el-form-item label="保理商" prop="custToName">
+          <el-input v-model.trim="formInline.custToName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="8">
@@ -39,13 +32,13 @@
           <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-    </el-row>
-    <el-row>
       <el-col :span="8">
         <el-form-item label="结报单号" prop="billId">
           <el-input v-model.trim="formInline.billId" placeholder=""></el-input>
         </el-form-item>
       </el-col>
+    </el-row>
+    <el-row>
       <el-col :span="12">
         <el-form-item label="票据到期日" style="white-space:nowrap" prop="billPayDate">
           <el-date-picker :editable="false" v-model="formInline.billPayDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
@@ -79,16 +72,15 @@ import SearchMixIn from '@/mixins/suplier/Ar/Search'
 import commonDatas from '@/mixins/commonDatas'
 /* 我的验收单查询搜索 */
 export default {
-  name: 'onDealSupplierPage', // 待办查询
+  name: 'finishedMultiArPage', // 融资中单据
   mixins: [SearchMixIn, commonDatas],
   data () {
     return {
       formInline: {
-        // isMasterAr: '', // AR来源
-        companyName: '', // 付款单位
-        checkedStatus: 23, // 状态
-        billBookCurr: '', // 币别
         masterChainId: '', // AR单号
+        checkedStatus: '', // 状态
+        billBookCurr: '', // 币别
+        custToName: '', // 保理商
         invoiceNo: '', // 发票号
         billId: '', // 结报单号
         billPayDate: null // 预计回款日期

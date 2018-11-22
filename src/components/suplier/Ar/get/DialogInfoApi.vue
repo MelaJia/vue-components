@@ -101,7 +101,7 @@
             </el-table-column>
             <el-table-column
               prop="billPayDate"
-              label="预计回款日期"
+              label="票据到期日"
               align="center"
               :formatter="dateFormat"
               width="130">

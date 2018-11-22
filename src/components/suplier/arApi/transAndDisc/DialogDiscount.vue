@@ -23,7 +23,7 @@
                       <span>币别: <em>{{detailsPC.arList[0].currencyDesc}}</em></span>
                     </li>
                     <li>
-                      <span>预计回款日期: <em>{{detailsPC.arList[0].billPayDate | dateFormat}}</em></span>
+                      <span>票据到期日: <em>{{detailsPC.arList[0].billPayDate | dateFormat}}</em></span>
                     </li>
                   </ul>
                   <ul>

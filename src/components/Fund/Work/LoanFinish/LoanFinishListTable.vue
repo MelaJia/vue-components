@@ -98,7 +98,7 @@
         </el-table-column> -->
         <el-table-column align="right" header-align="center" label="还款总计" prop="payAmt" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120">
+        <el-table-column align="center" label="票据到期日" prop="billPayDate" :formatter="dateFormat" width="120">
         </el-table-column>
         <el-table-column align="center" label="出借日期" prop="loanDate" :formatter="dateFormat" width="120">
         </el-table-column>

@@ -23,6 +23,30 @@ const navs = {
         menuParent: 'circle'
       },
       {
+        menuId: 'fundapply',
+        menuUrl: 'fundapply',
+        menuName: '保理方分配申请',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
+      },
+      {
+        menuId: 'waitrepay',
+        menuUrl: 'waitrepay',
+        menuName: '待还款单据',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
+      },
+      {
+        menuId: 'finishedbill',
+        menuUrl: 'finishedbill',
+        menuName: '已完结单据',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
+      },
+      {
         menuId: 'getarapi',
         menuUrl: 'getarapi',
         menuName: '购入AR管理(新)',

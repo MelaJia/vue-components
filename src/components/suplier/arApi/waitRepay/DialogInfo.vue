@@ -22,7 +22,23 @@
           <span>付款单位: <em>{{this.detailsP.custFromName}}</em></span>
         </li>
         <li>
-          <span>结报状态: <em v-if="this.detailsP.arList">{{this.detailsP.arList[0].billStatusName}}</em></span>
+          <span>结报状态: <el-tooltip class="item" effect="light" placement="top-start">
+                      <div slot="content" class="status-tooltip">
+                        <ul>
+                          <li :style="this.detailsP.signStatusId===0?'color:red':''">会计确认</li><span>-></span>
+                          <li :style="this.detailsP.signStatusId===1?'color:red':''">财务确认</li><span>-></span>
+                          <li :style="this.detailsP.signStatusId===2?'color:red':''">财务已付款</li><span>-></span>
+                          <li :style="this.detailsP.signStatusId===3?'color:red':''">付款单确认</li>
+                        </ul>
+                        <ul>
+                          <li :style="this.detailsP.signStatusId===0?'color:red':''">{{this.detailsP.signStatusId===0&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                          <li :style="this.detailsP.signStatusId===1?'color:red':''">{{this.detailsP.signStatusId===1&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                          <li :style="this.detailsP.signStatusId===2?'color:red':''">{{this.detailsP.signStatusId===2&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                          <li :style="this.detailsP.signStatusId===3?'color:red':''">{{this.detailsP.signStatusId===3&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                        </ul>
+                      </div>
+                        <em v-if="this.detailsP.arList">{{this.detailsP.arList[0].billStatusName}}</em>
+                    </el-tooltip></span>
         </li>
       </ul>
       <ul>

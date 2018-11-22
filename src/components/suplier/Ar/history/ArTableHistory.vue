@@ -86,7 +86,7 @@
         </el-table-column>
         <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepayServiceAmt" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat" width="120">
+        <el-table-column align="center" label="票据到期日" prop="billPayDate" :formatter="dateFormat" width="120">
         </el-table-column>
         <el-table-column align="center" label="还款日期" prop="actualRepayDate" :formatter="dateFormat" width="120">
         </el-table-column>

@@ -30,7 +30,7 @@
       </ul>
       <ul>
          <li>
-          <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
+          <span>票据到期日: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
         </li>
         <li>
           <span>还款日期: <em>{{this.detailsP.actualRepayDate | dateFormat}}</em></span>

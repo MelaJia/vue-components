@@ -31,7 +31,7 @@
       </ul>
       <ul>
         <li>
-          <span>预计回款日期: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
+          <span>票据到期日: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
         </li>
         <li v-if="this.detailsP.transType==='discount'">
           <span>贴现申请日期: <em>{{this.detailsP.discountApplyDate | dateFormat}}</em></span>

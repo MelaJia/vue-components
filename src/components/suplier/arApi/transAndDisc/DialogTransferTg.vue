@@ -29,7 +29,7 @@
                   <el-table ref="tableTransGou" :data="detailsP.arInvoiceList" border style="width: 100%">
                     <el-table-column align="center" prop="masterChainId" :formatter="nullDealWith" label="AR单号" width="180">
                     </el-table-column>
-                    <el-table-column align="center" prop="billPayDate" :formatter="dateFormat" label="预计回款日期" width="110">
+                    <el-table-column align="center" prop="billPayDate" :formatter="dateFormat" label="票据到期日" width="110">
                     </el-table-column>
                     <el-table-column align="center" prop="invoiceNo" :formatter="nullDealWith" label="发票号码">
                     </el-table-column>

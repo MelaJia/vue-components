@@ -71,7 +71,7 @@
         </el-row>
         <el-row>
           <el-col :span="11" class="flex">
-             <el-form-item label="预计回款日期: " prop="billDueDate">
+             <el-form-item label="票据到期日: " prop="billDueDate">
               <span>{{detailsP.billPayDate|dateFormat}}</span>
             </el-form-item>
           </el-col>
@@ -87,7 +87,7 @@
         </el-row>
         <el-row>
           <el-alert
-            title="声明:在预计回款日期存在的情况下将以预计回款日期为准,在预计回款日期没有的情况下,需和供应商商议合理的预计还款日期填写,此处平台不承担责任!"
+            title="声明:在票据到期日存在的情况下将以票据到期日为准,在票据到期日没有的情况下,需和供应商商议合理的预计还款日期填写,此处平台不承担责任!"
             type="warning"
             :closable="false"
             show-icon>
