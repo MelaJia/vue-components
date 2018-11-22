@@ -29,7 +29,7 @@
               </ul>
               <ul>
                 <li>
-                  <span>保理方: <em>{{this.detailsP.custToName}}</em></span>
+                  <span>保理方: <em>{{this.detailsP.factoringCustName}}</em></span>
                 </li>
                 <li>
                   <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>
@@ -56,7 +56,7 @@
                           <li :style="this.detailsP.signStatusId===3?'color:red':''">{{this.detailsP.signStatusId===3&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
                         </ul>
                       </div>
-                        <em>{{this.detailsP.billPayStatus}}</em>
+                        <em>{{this.detailsP.billStatusName}}</em>
                     </el-tooltip>
                   </span>
                 </li>

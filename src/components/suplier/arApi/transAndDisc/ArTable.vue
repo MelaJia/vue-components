@@ -51,7 +51,7 @@
             </el-table-column>
             <el-table-column align="center" label="可用余额" prop="loanAmt" :formatter="regexNum" width="120">
             </el-table-column>
-            <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat">
+            <el-table-column align="center" label="票据到期日" prop="billExpiringDate" :formatter="dateFormat">
             </el-table-column>
             <el-table-column align="center" header-align="center" label="操作" width='100px' class-name="" fixed="right"
               :resizable="false">
@@ -96,7 +96,13 @@ import Common from '@/mixins/common'
 import { thousandth, debounce } from '@/util/util' // 首字母大写 防抖函数
 /* 我的Ar列表 */
 export default {
-  props: ['dataLoading', 'dataTable', 'operateType'], // operateType:1转让，2贴现
+  props: {
+    dataLoading: Boolean,
+    dataTable: [Object, Array],
+    operateType: {// operateType:1转让，2贴现
+      type: Number,
+      default: 1
+    }},
   mixins: [TableMixIn, Common],
   components: {
     'dialog-transfer': () =>
@@ -187,9 +193,9 @@ export default {
 function handleInfo (idx, val, isChild = false) {
   // 获取数据
   if (this.operateType === 1) {
-    getDetail.apply(this, ['multiArTransferManager/arInfoDetail.do', val.masterChainId]) // 转让
+    getDetail.apply(this, ['multiArManager/arInfoDetail.do', val.masterChainId]) // 转让
   } else {
-    getDetail.apply(this, ['multiArTransferManager/arInfoDetail2Discount.do', val.masterChainId]) // 贴现
+    getDetail.apply(this, ['multiArManager/arInfoDetail2Discount.do', val.masterChainId]) // 贴现
   }
 }
 // 显示转让
