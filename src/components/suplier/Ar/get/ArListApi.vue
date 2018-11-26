@@ -83,7 +83,7 @@ function handleReject (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.postResultFresh('/onReceivingAr/rejectTranfer.do', {transSerialNo: val.transSerialNo})
+    this.postResultFresh('/multiArTransferManager/multiRejectArPay.do', {transSerialNo: val.transSerialNo})
   }).catch(() => {
     this.$message({
       type: 'info',

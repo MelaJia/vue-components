@@ -19,7 +19,7 @@ const routes = [{
     name: 'myar',
     component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/arManager/MyAr'),
     meta: {
-      title: '我的AR', // 名称
+      title: 'AR详情汇总', // 名称
       requireAuth: true // 需要登录验证
     }
   },
@@ -39,7 +39,7 @@ const routes = [{
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/arApi/GetArApi'),
     meta: {
-      title: '购入AR管理', // 名称
+      title: '转入单据', // 名称
       requireAuth: false // 需要登录验证
     },
     props: (route) => ({query: {interfaceTransSerial: route.query.interfaceTransSerial}})
@@ -123,7 +123,7 @@ const routes = [{
     component: () =>
       import(/* webpackChunkName: 'AR' */ '@/page/suplier/arApi/TransArApi'),
     meta: {
-      title: '转让AR管理', // 名称
+      title: '转出单据', // 名称
       requireAuth: false // 需要登录验证
     },
     props: (route) => ({query: {interfaceTransSerial: route.query.interfaceTransSerial}})

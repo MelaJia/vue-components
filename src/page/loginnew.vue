@@ -67,7 +67,7 @@
               <div class="info">
                 <img src="@/assets/img/img/PCindex22_08.png" />
                 <div class="scroll">
-                  <span>这里是要现实的滚动内容......</span>
+                  <span>钜信网新版上线啦  钜信网(供应链金融)是以商业银行...</span>
                 </div>
               </div>
               <div class="info-more"><a href="#">更多></a></div>

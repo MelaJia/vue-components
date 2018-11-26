@@ -49,7 +49,7 @@ const navs = {
       {
         menuId: 'getarapi',
         menuUrl: 'getarapi',
-        menuName: '购入AR管理(新)',
+        menuName: '转入单据',
         disabled: false,
         lClass: 'line',
         menuParent: 'circle'
@@ -57,7 +57,7 @@ const navs = {
       {
         menuId: 'transferapi',
         menuUrl: 'transferapi',
-        menuName: '转让AR管理(新)',
+        menuName: '转出单据',
         disabled: false,
         lClass: 'line',
         menuParent: 'circle'
@@ -81,7 +81,7 @@ const navs = {
       children: [{
         menuId: 'myar',
         menuUrl: 'myar',
-        menuName: '我的AR',
+        menuName: 'AR详情汇总',
         disabled: false,
         lClass: 'line',
         menuParent: 'circle'

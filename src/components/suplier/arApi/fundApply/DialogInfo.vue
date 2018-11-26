@@ -56,7 +56,7 @@
                           <li :style="this.detailsP.signStatusId===3?'color:red':''">{{this.detailsP.signStatusId===3&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
                         </ul>
                       </div>
-                        <em>{{this.detailsP.billStatusName}}</em>
+                        <em>{{this.detailsP.billPayStatus}}</em>
                     </el-tooltip>
                   </span>
                 </li>
