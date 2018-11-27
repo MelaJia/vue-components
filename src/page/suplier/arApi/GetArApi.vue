@@ -68,6 +68,8 @@ export default {
     searchSubmit (val) {
       let form = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
       let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
+      let billPayDateFrom = val.billPayDate ? val.billPayDate[0].Format('yyyy-MM-dd') : ''
+      let billPayDateTo = val.billPayDate ? val.billPayDate[1].Format('yyyy-MM-dd') : ''
       try {
         this.param = {
           masterChainId: val.masterChainId, // ar单号
@@ -78,6 +80,8 @@ export default {
           invoiceNo: val.invoiceNo, // 发票号
           from: form, // 日期
           to: to,
+          billPayDateFrom: billPayDateFrom,
+          billPayDateTo: billPayDateTo,
           transSerialNo: val.transSerialNo // 交易流水号
         }
       } catch (error) {

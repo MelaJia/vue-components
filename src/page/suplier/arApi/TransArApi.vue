@@ -31,7 +31,7 @@
 
 <script>
 import ArList from '@/components/suplier/Ar/transfer/ArListApi'
-import Search from '@/components/suplier/Ar/get/SearchGet'
+import Search from '@/components/suplier/Ar/transfer/Search'
 import Table from '@/mixins/suplier/Ar/Table' // handleCurrentChange
 export default {
   mixins: [Table],
@@ -72,7 +72,7 @@ export default {
         this.param = {
           masterChainId: val.masterChainId, // ar单号
           isMasterAr: val.isMasterAr, // ar来源
-          custFromName: val.custFromName, // 转让单位
+          custToName: val.custFromName, // 接收方
           checkedStatus: val.status, // 状态
           billBookCurr: val.billBookCurr, // 币别
           invoiceNo: val.invoiceNo, // 发票号

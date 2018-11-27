@@ -4,7 +4,7 @@
       <el-col :span="8"><el-form-item label="AR单号" prop="masterChainId">
       <el-input v-model.trim="formInline.masterChainId" placeholder=""></el-input>
     </el-form-item></el-col>
-      <el-col :span="8"> <el-form-item label="授让单位" prop="custFromName">
+      <el-col :span="8"> <el-form-item label="接收方" prop="custToName">
       <el-input v-model.trim="formInline.custFromName" placeholder=""></el-input>
     </el-form-item></el-col>
       <el-col :span="8"><el-form-item label="币别" prop="billBookCurr">
@@ -56,7 +56,7 @@ export default {
     return {
       formInline: {
         masterChainId: '', // ar单号
-        custFromName: '', // 转让单位
+        custToName: '', // 转让单位
         status: null, // 状态
         billBookCurr: '', // 币别
         invoiceNo: '', // 发票号
