@@ -87,7 +87,7 @@
         </ul>
         <ul class="height-auto" style="padding-bottom: 0px;">
           <span>待接收AR列表:</span>
-          <article class="multi-detail-content">
+          <!-- <article class="multi-detail-content">
           <el-table
             :data="this.detailsP.arList"
             border
@@ -125,6 +125,28 @@
               </template>
             </el-table-column>
           </el-table>
+        </article> -->
+        <article>
+          <table>
+            <thead>
+              <tr>
+                <th>AR单号</th>
+                <th>票据到期日</th>
+                <th>发票号</th>
+                <th>授让金额</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template v-for="item in detailsP.arList">
+                <tr v-for="(invoiceList,index) in item.usedInvoiceList" :key="index">
+                  <td class="td-center"><span v-if="index == 0">{{item.masterChainId}}</span></td>
+                  <td class="td-center"><span v-if="index == 0">{{item.billPayDate | dateFormat}}</span></td>
+                  <td class="td-center" >{{invoiceList.invoiceNo}}</td>
+                  <td class="td-right">{{invoiceList.invoiceAfterTaxAmt|thousandth}}</td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
         </article>
         </ul>
         <ul class="height-auto">
@@ -144,28 +166,49 @@
 span > lable.strong {
   color: #303133;
 }
+table {
+  width: 100%;
+  border-collapse: collapse; // 表格边框合并
+}
+td,
+th {
+  width: 130px;
+  border: 1px solid;
+  padding: 10px 0;
+}
+th {
+  text-align: center;
+  background: #cccccc;
+}
+td.td-center {
+  text-align: center;
+}
+td.td-right {
+  text-align: right;
+}
 </style>
 <style lang="scss">
-.multi-detail-content{
+.multi-detail-content {
   width: 99.9%;
   padding-left: 0.07%;
-  padding-bottom: .5px;
+  padding-bottom: 0.5px;
 }
 .multi-detail-content {
-  .el-table thead th,.el-table thead tr {
-      background: #ccc;
-      color: #333;
-      border-bottom: .5px solid #931719;
-      border-top: .5px solid #931719;
+  .el-table thead th,
+  .el-table thead tr {
+    background: #ccc;
+    color: #333;
+    border-bottom: 0.5px solid #931719;
+    border-top: 0.5px solid #931719;
   }
-  .el-table thead th+th{
-    border-left: .5px solid #931719;
+  .el-table thead th + th {
+    border-left: 0.5px solid #931719;
   }
-  .el-table tbody tr td{
-    border-bottom: .5px solid #931719;
+  .el-table tbody tr td {
+    border-bottom: 0.5px solid #931719;
   }
-  .el-table tbody tr td+td{
-    border-left: .5px solid #931719;
+  .el-table tbody tr td + td {
+    border-left: 0.5px solid #931719;
   }
 }
 </style>
@@ -190,5 +233,4 @@ export default {
   },
   methods: {}
 }
-
 </script>
