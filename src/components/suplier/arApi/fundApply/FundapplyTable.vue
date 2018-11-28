@@ -20,7 +20,7 @@
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="票面金额" prop="billBookAmt" :formatter="regexNum" width="120">
+        <el-table-column align="right" header-align="center" label="票面金额" prop="billBookAmt" :formatter="regexNum" width="120">
         </el-table-column>
         <el-table-column align="center" label="票据到期日" prop="billPayDate" :formatter="dateFormat">
         </el-table-column>

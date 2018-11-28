@@ -18,7 +18,7 @@
       </el-card>
     </div>
     <div class="body">
-      <el-card class="box-card">
+      <el-card class="box-card text-align-center">
         <ar-table :data-loading="loading" :data-table="tableData5" @refresh="handleRefresh"></ar-table>
         <el-pagination
       @size-change="handleSizeChange"
@@ -34,7 +34,11 @@
   </div>
 
 </template>
-
+<style scope>
+.text-align-center {
+  text-align: center;
+}
+</style>
 <script>
 import ArTable from '@/components/suplier/Ar/history/ArTableHistory'
 import Search from '@/components/suplier/Ar/history/Search'

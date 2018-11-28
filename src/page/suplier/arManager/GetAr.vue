@@ -18,7 +18,7 @@
       </el-card>
     </article>
     <article class="body">
-      <el-card class="box-card">
+      <el-card class="box-card text-align-center">
         <ar-list :data-table="tableData5" :data-loading="loading" @refresh="handleRefresh"></ar-list>
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="pageSizesArr" :page-size="psize"
           :current-page.sync="currentPage" layout="total, sizes, prev, pager, next, jumper" :total="total">
@@ -28,7 +28,11 @@
   </section>
 
 </template>
-
+<style scope>
+.text-align-center {
+  text-align: center;
+}
+</style>
 <script>
 import ArList from '@/components/suplier/Ar/get/ArList'
 import Search from '@/components/suplier/Ar/get/SearchGet'

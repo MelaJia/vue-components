@@ -98,7 +98,7 @@
         </el-table-column>
         <el-table-column align="center" label="罚息天数" prop="payFineDays" min-width="100">
         </el-table-column>
-        <el-table-column align="center" label="提前还款手续费" prop="prepaymentDeductInterest" min-width="100">
+        <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepaymentDeductInterest" :formatter="regexNum" min-width="100">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="还款合计" prop="totalRepayAmt" min-width="120" :formatter="regexNum">
         </el-table-column>
