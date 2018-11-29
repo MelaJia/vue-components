@@ -31,12 +31,12 @@
         <ul>
           <li>
             <span>状态:
-              <em>{{this.detailsP.arStatusTypeName}}</em>
+              <em v-if="this.detailsP.arList">{{this.detailsP.arList.arStatusTypeName}}</em>
             </span>
           </li>
           <li>
             <span>币别:
-              <em>{{this.detailsP.currencyDesc}}</em>
+              <em v-if="this.detailsP.arList">{{this.detailsP.arList.currencyDesc}}</em>
             </span>
           </li>
         </ul>
@@ -50,7 +50,7 @@
           </li>
           <li>
             <span>转让日期:
-              <em>{{this.detailsP.arGenerateDate | dateFormat}}</em>
+              <em>{{this.detailsP.transDate | dateFormat}}</em>
             </span>
           </li>
         </ul>
@@ -64,23 +64,23 @@
             <span>打款状态:
             <el-tooltip class="item" effect="light" placement="top-start">
               <div slot="content" class="status-tooltip">
-                <ul>
-                  <li :style="this.detailsP.signStatusId===0?'color:red':''">会计确认</li>
+                <ul v-if="this.detailsP.arList">
+                  <li :style="this.detailsP.arList.signStatusId===0?'color:red':''">会计确认</li>
                   <span>-></span>
-                  <li :style="this.detailsP.signStatusId===1?'color:red':''">财务确认</li>
+                  <li :style="this.detailsP.arList.signStatusId===1?'color:red':''">财务确认</li>
                   <span>-></span>
-                  <li :style="this.detailsP.signStatusId===2?'color:red':''">财务已付款</li>
+                  <li :style="this.detailsP.arList.signStatusId===2?'color:red':''">财务已付款</li>
                   <span>-></span>
-                  <li :style="this.detailsP.signStatusId===3?'color:red':''">付款单确认</li>
+                  <li :style="this.detailsP.arList.signStatusId===3?'color:red':''">付款单确认</li>
                 </ul>
-                <ul>
-                  <li :style="this.detailsP.signStatusId===0?'color:red':''">{{this.detailsP.signStatusId===0&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
-                  <li :style="this.detailsP.signStatusId===1?'color:red':''">{{this.detailsP.signStatusId===1&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
-                  <li :style="this.detailsP.signStatusId===2?'color:red':''">{{this.detailsP.signStatusId===2&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
-                  <li :style="this.detailsP.signStatusId===3?'color:red':''">{{this.detailsP.signStatusId===3&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                <ul v-if="this.detailsP.arList">
+                  <li :style="this.detailsP.arList.signStatusId===0?'color:red':''">{{this.detailsP.arList.signStatusId===0&&this.detailsP.arList.signStatusName?`(${this.detailsP.arList.signStatusName})`: ''}}</li>
+                  <li :style="this.detailsP.arList.signStatusId===1?'color:red':''">{{this.detailsP.arList.signStatusId===1&&this.detailsP.arList.signStatusName?`(${this.detailsP.arList.signStatusName})`: ''}}</li>
+                  <li :style="this.detailsP.arList.signStatusId===2?'color:red':''">{{this.detailsP.arList.signStatusId===2&&this.detailsP.arList.signStatusName?`(${this.detailsP.arList.signStatusName})`: ''}}</li>
+                  <li :style="this.detailsP.arList.signStatusId===3?'color:red':''">{{this.detailsP.arList.signStatusId===3&&this.detailsP.arList.signStatusName?`(${this.detailsP.arList.signStatusName})`: ''}}</li>
                 </ul>
               </div>
-              <em>{{this.detailsP.billPayStatus}}</em>
+              <em v-if="this.detailsP.arList">{{this.detailsP.arList.billPayStatus}}</em>
             </el-tooltip>
           </span>
           </li>
@@ -138,10 +138,10 @@
             </thead>
             <tbody>
               <template v-for="item in detailsP.arList">
-                <tr v-for="(invoiceList,index) in item.usedInvoiceList" :key="index">
-                  <td class="td-center"><span v-if="index == 0">{{item.masterChainId}}</span></td>
-                  <td class="td-center"><span v-if="index == 0">{{item.billPayDate | dateFormat}}</span></td>
-                  <td class="td-center" >{{invoiceList.invoiceNo}}</td>
+                <tr v-for="(invoiceList,index) in item.usedInvoiceList" :key="invoiceList.invoiceNo">
+                  <td class="td-center" :class="{'isHidden':index>0}" :rowspan="item.usedInvoiceList.length"><span>{{item.masterChainId}}</span></td>
+                  <td class="td-center" :class="{'isHidden':index>0}" :rowspan="item.usedInvoiceList.length"><span>{{item.billPayDate | dateFormat}}</span></td>
+                  <td class="td-center">{{invoiceList.invoiceNo}}</td>
                   <td class="td-right">{{invoiceList.invoiceAfterTaxAmt|thousandth}}</td>
                 </tr>
               </template>
@@ -185,6 +185,9 @@ td.td-center {
 }
 td.td-right {
   text-align: right;
+}
+.isHidden{
+  display:none;
 }
 </style>
 <style lang="scss">
