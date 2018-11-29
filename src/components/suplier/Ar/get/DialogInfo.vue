@@ -38,7 +38,7 @@
         <ul>
           <li>
             <span>转让日期:
-              <em>{{this.detailsP.arGenerateDate | dateFormat}}</em>
+              <em>{{this.detailsP.transDate | dateFormat}}</em>
             </span>
           </li>
           <li>
