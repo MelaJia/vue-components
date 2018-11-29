@@ -138,7 +138,7 @@
             </thead>
             <tbody>
               <template v-for="item in detailsP.arList">
-                <tr v-for="(invoiceList,index) in item.usedInvoiceList" :key="index">
+                <tr v-for="(invoiceList,index) in item.usedInvoiceList" :key="invoiceList.invoiceNo">
                   <td class="td-center"><span v-if="index == 0">{{item.masterChainId}}</span></td>
                   <td class="td-center"><span v-if="index == 0">{{item.billPayDate | dateFormat}}</span></td>
                   <td class="td-center" >{{invoiceList.invoiceNo}}</td>
