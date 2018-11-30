@@ -51,10 +51,14 @@ export default {
     'ar-list': ArList,
     'search': Search
   },
-  mounted () {
+  async mounted () {
     const _this = this
     // 获取url中参数
     this.param.interfaceTransSerial = this.query.interfaceTransSerial
+    if (this.query.interfaceTransSerial) {
+      // 模拟登陆
+      await this.monitorLogin(this.query.interfaceTransSerial)
+    }
     this.getdata(1, this.psize)
       .then(function (response) {
         console.log(response)

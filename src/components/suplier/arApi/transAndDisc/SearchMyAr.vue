@@ -6,7 +6,12 @@
                     <el-input v-model.trim="formInline.masterChainId" placeholder=""></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col v-if="operateType===1" :span="8">
+                      <el-form-item label="保理方" prop="factoringCustName">
+                        <el-input v-model.trim="formInline.factoringCustName" placeholder=""></el-input>
+                      </el-form-item>
+                </el-col>
+                <el-col v-else :span="8">
                     <el-form-item label="状态" prop="status">
                       <el-select v-model="formInline.status" clearable disabled placeholder="全部">
                         <el-option v-for="(item,index) in arStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
@@ -66,12 +71,19 @@ import commonDatas from '@/mixins/commonDatas'
 export default {
   name: 'myArPage',
   mixins: [SearchMixIn, commonDatas],
+  props: {
+    operateType: {// operateType:1转让，2贴现
+      type: Number,
+      default: 1
+    }
+  },
   data () {
     return {
       formInline: {
         masterChainId: '', // ar单号
         isMasterAr: '', // ar来源
         companyName: '', // 付款单位/对手单位
+        factoringCustName: '', // 保理方
         status: null, // 状态
         billBookCurr: '', // 币别
         invoiceNo: '', // 发票号
