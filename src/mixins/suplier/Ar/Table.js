@@ -273,7 +273,8 @@ export default {
       return data
     },
     // 单元格合并规则
-    objectSpanMethod: objectSpanMethod
+    objectSpanMethod: objectSpanMethod,
+    monitorLogin: monitorLogin
   }
 }
 function isIE () { // ie?
@@ -306,4 +307,20 @@ function objectSpanMethod ({ row, column, rowIndex, columnIndex }) {
       colspan: 1
     }
   }
+}
+function monitorLogin (id) {
+  return new Promise((resolve, reject) => {
+    let param = {
+      interfaceTransSerial: id
+    }
+    this.axios.post('/login/simulateLogin.do', param).then(res => {
+      if (res.data.status === 1) {
+        this.$store.commit('login', res.data.data.token)
+        resolve(1)
+      }
+      resolve(0)
+    }).catch(err => {
+      console.log(err)
+    })
+  })
 }

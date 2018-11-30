@@ -13,7 +13,7 @@
           </el-tooltip>
         </div>
         <transition name="custom-classes-transition" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
-        <search v-show="searchShow" @handle-search="searchSubmit"></search>
+        <search ref="search" v-show="searchShow" @handle-search="searchSubmit" :operate-type="this.query.operateType"></search>
         </transition>
       </el-card>
     </article>
@@ -51,9 +51,13 @@ export default {
     'ar-list': ArList,
     'search': Search
   },
-  mounted () {
+  async mounted () {
     // 获取url中参数
     this.param.interfaceTransSerial = this.query.interfaceTransSerial
+    if (this.query.interfaceTransSerial) {
+      // 模拟登陆
+      await this.monitorLogin(this.query.interfaceTransSerial)
+    }
     // 获取url地址 operateType:1 转让，2 贴现
     console.log('初始值', this.getOperateType)
     this.initData(this.getOperateType)
@@ -67,6 +71,7 @@ export default {
     getOperateType: function (val) {
       this.postUrl = val === 1 ? 'multiArManager/getMultiArTransferListTable.do' : 'multiArManager/getMultiArDiscountListTable.do'
       this.initData(val)
+      this.$refs.search.resetForm('formInline')
     }
   },
   methods: {
@@ -75,7 +80,7 @@ export default {
       let form = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
       let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
       try {
-        this.param = {
+        let param = {
           masterChainId: val.masterChainId, // ar单号
           isMasterAr: val.isMasterAr, // ar来源
           companyName: val.companyName, // 付款单位
@@ -87,6 +92,7 @@ export default {
           to: to,
           transSerialNo: val.transSerialNo // 交易流水号
         }
+        this.param = this.getOperateType === 1 ? Object.assign(param, {factoringCustName: val.factoringCustName}) : param
       } catch (error) {
         console.log(error)
       }

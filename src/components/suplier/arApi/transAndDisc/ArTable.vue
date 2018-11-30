@@ -43,7 +43,9 @@
             </el-table-column>
             <el-table-column align="center" label="付款单位" prop="companyName" :formatter="nullDealWith">
             </el-table-column>
-            <el-table-column align="right" header-align="center" label="状态" prop="arStatusTypeName" :formatter="nullDealWith">
+            <el-table-column v-if="operateType===1" align="center" label="保理方" prop="factoringCustName" :formatter="nullDealWith">
+            </el-table-column>
+            <el-table-column v-else align="right" header-align="center" label="状态" prop="arStatusTypeName" :formatter="nullDealWith">
             </el-table-column>
             <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
             </el-table-column>
@@ -102,7 +104,8 @@ export default {
     operateType: {// operateType:1转让，2贴现
       type: Number,
       default: 1
-    }},
+    }
+  },
   mixins: [TableMixIn, Common],
   components: {
     'dialog-transfer': () =>
@@ -212,39 +215,50 @@ function handleTrans () {
     arList: _this.multipleSelection,
     interfaceTransSerial: _this.param.interfaceTransSerial
   }
-  if (this.multipleSelection[0].isMasterAr === 1) {
-    // 获取自有数据
-    this.getLoanDetail('/multiArTransferManager/multiArTransViewOwn.do', data).then(function (res) {
-      _this.tableTrans = res
-      _this.visibleTrans = true
-      setTimeout(function () {
-        _this.$refs['dialog-trans'].$refs.tableTrans.toggleAllSelection()
-        // 赋值总金额
-        setDialogSumAmt.call(_this, 'dialog-trans')
-        // _this.$refs['dialog-trans'].displaySumAmtTrans = thousandth(getSum(_this.tableTrans.arInvoiceList, 'transferAfterTaxAmt'))
-      }, 500)
-    }).catch(function (error) {
-      console.log(error)
-    })
-  } else {
-    // 获取购入数据
-    this.getLoanDetail('/multiArTransferManager/multiArTransViewPurchased.do', data).then(function (res) {
-      _this.detailsTG = res
-      _this.visibleTransGou = true
-      // 赋值总金额
-      setDialogSumAmt.call(_this, 'dialog-trans-tg')
-      // _this.$refs['dialog-trans-tg'].displaySumAmtTrans = thousandth(getSum(_this.detailsTG.arInvoiceList, 'arTransferAmt'))
-    }).catch(function (error) {
-      console.log(error)
-    })
-  }
+  // 2018-11-30 by:xyl
+  this.getLoanDetail('/multiArTransferManager/multiArTransView.do', data).then(function (res) {
+    _this.detailsTG = res
+    _this.visibleTransGou = true
+    // 赋值总金额
+    setDialogSumAmt.call(_this, 'dialog-trans-tg')
+    // _this.$refs['dialog-trans-tg'].displaySumAmtTrans = thousandth(getSum(_this.detailsTG.arInvoiceList, 'arTransferAmt'))
+  }).catch(function (error) {
+    console.log(error)
+  })
+  // 2018-11-30 by:xyl
+  // if (this.multipleSelection[0].isMasterAr === 1) {
+  //   // 获取自有数据
+  //   this.getLoanDetail('/multiArTransferManager/multiArTransViewOwn.do', data).then(function (res) {
+  //     _this.tableTrans = res
+  //     _this.visibleTrans = true
+  //     setTimeout(function () {
+  //       _this.$refs['dialog-trans'].$refs.tableTrans.toggleAllSelection()
+  //       // 赋值总金额
+  //       setDialogSumAmt.call(_this, 'dialog-trans')
+  //       // _this.$refs['dialog-trans'].displaySumAmtTrans = thousandth(getSum(_this.tableTrans.arInvoiceList, 'transferAfterTaxAmt'))
+  //     }, 500)
+  //   }).catch(function (error) {
+  //     console.log(error)
+  //   })
+  // } else {
+  //   // 获取购入数据
+  //   this.getLoanDetail('/multiArTransferManager/multiArTransViewPurchased.do', data).then(function (res) {
+  //     _this.detailsTG = res
+  //     _this.visibleTransGou = true
+  //     // 赋值总金额
+  //     setDialogSumAmt.call(_this, 'dialog-trans-tg')
+  //     // _this.$refs['dialog-trans-tg'].displaySumAmtTrans = thousandth(getSum(_this.detailsTG.arInvoiceList, 'arTransferAmt'))
+  //   }).catch(function (error) {
+  //     console.log(error)
+  //   })
+  // }
 }
 function setDialogSumAmt (dialog) {
   console.log(dialog)
   console.log(this.tableTrans)
   console.log(this.detailsTG)
   let data = dialog === 'dialog-trans' ? this.tableTrans.arInvoiceList : this.detailsTG.arInvoiceList
-  this.$refs[dialog].displaySumAmtTrans = thousandth(getSum(data, 'transferAfterTaxAmt'))
+  this.$refs[dialog].displaySumAmtTrans = thousandth(getSum(data, 'availableAfterTaxAmt'))
 }
 // 贴现
 function handleDisc (idx, val) {
@@ -283,6 +297,7 @@ function getSum (val, tag) {
   // 遍历选择项
   // 2.计算勾选发票金额
   var sum = val.reduce(function (sum, currVal) {
+    currVal.transferAfterTaxAmt = currVal[tag] // 转让金额赋值
     var num = Number(currVal[tag])
     if (isNaN(num)) {
       return
@@ -301,8 +316,8 @@ function disableHandle (row, index) {
   if (this.multipleSelection.length === 0) {
     return true
   }
-  var result = row.isMasterAr === this.multipleSelection[0].isMasterAr && row.currency === this.multipleSelection[0].currency &&
-    row.companyName === this.multipleSelection[0].companyName
+  var result = row.currency === this.multipleSelection[0].currency &&
+    row.factoringCustId === this.multipleSelection[0].factoringCustId
   return result
 }
 // 全选中事件
