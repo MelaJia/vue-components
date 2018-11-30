@@ -9,7 +9,7 @@
       </el-table-column>
       <el-table-column align="center" fixed  label="交易流水号" prop="transSerialNo" min-width="120" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="center" label="转让日期"  prop="transDate" min-width="120" :formatter="dateFormat">
+      <el-table-column align="center" label="转让日期"  prop="transDate" min-width="120" :formatter="dateFormatToMinutes">
       </el-table-column>
       <el-table-column align="center" label="转让单位" prop="custFromName" :formatter="nullDealWith" >
       </el-table-column>
@@ -53,6 +53,14 @@ export default {
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/get/DialogInfoApi')
   },
   methods: {
+    // 申请时间精确到分格式化
+    dateFormatToMinutes: function (row, column) {
+      var date = row[column.property]
+      if (date === undefined || date === null || date === '') {
+        return '- -'
+      }
+      return new Date(date).Format('yyyy-MM-dd HH:mm')
+    },
     // 接受转让
     handleAccept: handleAccept,
     // 拒绝转让

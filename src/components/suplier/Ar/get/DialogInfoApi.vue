@@ -31,20 +31,20 @@
         <ul>
           <li>
             <span>状态:
-              <em v-if="this.detailsP.arList">{{this.detailsP.arList.arStatusTypeName}}</em>
+              <em v-if="this.detailsP.arList">{{this.detailsP.arList[0].checkedStatusName}}</em>
             </span>
           </li>
           <li>
             <span>币别:
-              <em v-if="this.detailsP.arList">{{this.detailsP.arList.currencyDesc}}</em>
+              <em v-if="this.detailsP.arList">{{this.detailsP.arList[0].currencyDesc}}</em>
             </span>
           </li>
         </ul>
         <ul>
-          <li>
-            <el-tooltip :content="'付款单位:'+this.detailsP.paymentUnitName" placement="bottom" effect="light">
+          <li v-if="this.detailsP.arList">
+            <el-tooltip :content="'付款单位:'+this.detailsP.arList[0].companyName" placement="bottom" effect="light">
               <span>付款单位:
-                <em>{{this.detailsP.paymentUnitName}}</em>
+                <em>{{this.detailsP.arList[0].companyName}}</em>
               </span>
             </el-tooltip>
           </li>
@@ -65,22 +65,22 @@
             <el-tooltip class="item" effect="light" placement="top-start">
               <div slot="content" class="status-tooltip">
                 <ul v-if="this.detailsP.arList">
-                  <li :style="this.detailsP.arList.signStatusId===0?'color:red':''">会计确认</li>
+                  <li :style="this.detailsP.arList[0].signStatusId===0?'color:red':''">会计确认</li>
                   <span>-></span>
-                  <li :style="this.detailsP.arList.signStatusId===1?'color:red':''">财务确认</li>
+                  <li :style="this.detailsP.arList[0].signStatusId===1?'color:red':''">财务确认</li>
                   <span>-></span>
-                  <li :style="this.detailsP.arList.signStatusId===2?'color:red':''">财务已付款</li>
+                  <li :style="this.detailsP.arList[0].signStatusId===2?'color:red':''">财务已付款</li>
                   <span>-></span>
-                  <li :style="this.detailsP.arList.signStatusId===3?'color:red':''">付款单确认</li>
+                  <li :style="this.detailsP.arList[0].signStatusId===3?'color:red':''">付款单确认</li>
                 </ul>
                 <ul v-if="this.detailsP.arList">
-                  <li :style="this.detailsP.arList.signStatusId===0?'color:red':''">{{this.detailsP.arList.signStatusId===0&&this.detailsP.arList.signStatusName?`(${this.detailsP.arList.signStatusName})`: ''}}</li>
-                  <li :style="this.detailsP.arList.signStatusId===1?'color:red':''">{{this.detailsP.arList.signStatusId===1&&this.detailsP.arList.signStatusName?`(${this.detailsP.arList.signStatusName})`: ''}}</li>
-                  <li :style="this.detailsP.arList.signStatusId===2?'color:red':''">{{this.detailsP.arList.signStatusId===2&&this.detailsP.arList.signStatusName?`(${this.detailsP.arList.signStatusName})`: ''}}</li>
-                  <li :style="this.detailsP.arList.signStatusId===3?'color:red':''">{{this.detailsP.arList.signStatusId===3&&this.detailsP.arList.signStatusName?`(${this.detailsP.arList.signStatusName})`: ''}}</li>
+                  <li :style="this.detailsP.arList[0].signStatusId===0?'color:red':''">{{this.detailsP.arList[0].signStatusId===0&&this.detailsP.arList[0].signStatusName?`(${this.detailsP.arList[0].signStatusName})`: ''}}</li>
+                  <li :style="this.detailsP.arList[0].signStatusId===1?'color:red':''">{{this.detailsP.arList[0].signStatusId===1&&this.detailsP.arList[0].signStatusName?`(${this.detailsP.arList[0].signStatusName})`: ''}}</li>
+                  <li :style="this.detailsP.arList[0].signStatusId===2?'color:red':''">{{this.detailsP.arList[0].signStatusId===2&&this.detailsP.arList[0].signStatusName?`(${this.detailsP.arList[0].signStatusName})`: ''}}</li>
+                  <li :style="this.detailsP.arList[0].signStatusId===3?'color:red':''">{{this.detailsP.arList[0].signStatusId===3&&this.detailsP.arList[0].signStatusName?`(${this.detailsP.arList[0].signStatusName})`: ''}}</li>
                 </ul>
               </div>
-              <em v-if="this.detailsP.arList">{{this.detailsP.arList.billPayStatus}}</em>
+              <em v-if="this.detailsP.arList">{{this.detailsP.arList[0].billPayStatus}}</em>
             </el-tooltip>
           </span>
           </li>
@@ -138,12 +138,22 @@
             </thead>
             <tbody>
               <template v-for="item in detailsP.arList">
-                <tr v-for="(invoiceList,index) in item.usedInvoiceList" :key="invoiceList.invoiceNo">
+               <template v-if="item.usedInvoiceList.length>0">
+                <tr  v-for="(invoiceList,index) in item.usedInvoiceList" :key="invoiceList.invoiceNo">
                   <td class="td-center" :class="{'isHidden':index>0}" :rowspan="item.usedInvoiceList.length"><span>{{item.masterChainId}}</span></td>
                   <td class="td-center" :class="{'isHidden':index>0}" :rowspan="item.usedInvoiceList.length"><span>{{item.billPayDate | dateFormat}}</span></td>
                   <td class="td-center">{{invoiceList.invoiceNo}}</td>
                   <td class="td-right">{{invoiceList.invoiceAfterTaxAmt|thousandth}}</td>
                 </tr>
+               </template>
+               <template v-else>
+                <tr :key="item.masterChainId">
+                  <td class="td-center"><span>{{item.masterChainId}}</span></td>
+                  <td class="td-center"><span>{{item.billPayDate | dateFormat}}</span></td>
+                  <td class="td-center">--</td>
+                  <td class="td-right">--</td>
+                </tr>
+               </template>
               </template>
             </tbody>
           </table>

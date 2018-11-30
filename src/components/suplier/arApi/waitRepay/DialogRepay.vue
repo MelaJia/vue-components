@@ -2,7 +2,7 @@
   <el-dialog :custom-class="'dia-class style-dia-repay'" :visible.sync="visibleP" :before-close="handleClose" center="">
     <section>
       <article>
-        <header class="repay-header">预还款计划表</header>
+        <header class="repay-header">还款计划表</header>
         <div class="repay-content">
           <table>
             <tr>
@@ -29,7 +29,7 @@
         </div>
       </article>
       <article>
-        <header class="repay-header">每月还款明细</header>
+        <header class="repay-header">还款明细</header>
         <div class="repay-detail-conten">
           <el-table
             :data="detailsP.repaymentScheduleList"
@@ -200,7 +200,7 @@ function getSummaries (param) {
       sums[index] = '合计'
       return
     }
-    if (index === 1 || index === 4 || index === 8 || index === 9 || index === 10) {
+    if (index === 1 || index === 4 || index === 8 || index === 9 || index === 10 || index === 11) {
       sums[index] = ''
       return
     }

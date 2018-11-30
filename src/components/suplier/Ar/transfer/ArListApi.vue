@@ -8,7 +8,7 @@
         </el-table-column>
         <el-table-column align="center" fixed label="交易流水号"  min-width="120" prop="transSerialNo" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="转让日期"  prop="transDate" :formatter="dateFormat" min-width="120">
+        <el-table-column align="center" label="转让日期"  prop="transDate" :formatter="dateFormatToMinutes" min-width="120">
         </el-table-column>
         <el-table-column align="center" label="接收方" prop="custToName" :formatter="nullDealWith">
         </el-table-column>
@@ -51,6 +51,14 @@ export default {
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/get/DialogInfoApi')
   },
   methods: {
+    // 时间精确到分格式化
+    dateFormatToMinutes: function (row, column) {
+      var date = row[column.property]
+      if (date === undefined || date === null || date === '') {
+        return '- -'
+      }
+      return new Date(date).Format('yyyy-MM-dd HH:mm')
+    },
     handleCancle (idx, val) {
       this.$confirm(`确认交易流水号${val.transSerialNo}是否取消授让?`, `提示`, {
         confirmButtonText: '确定',
