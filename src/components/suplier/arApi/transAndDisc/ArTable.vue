@@ -297,7 +297,6 @@ function getSum (val, tag) {
   // 遍历选择项
   // 2.计算勾选发票金额
   var sum = val.reduce(function (sum, currVal) {
-    currVal.transferAfterTaxAmt = currVal[tag] // 转让金额赋值
     var num = Number(currVal[tag])
     if (isNaN(num)) {
       return
