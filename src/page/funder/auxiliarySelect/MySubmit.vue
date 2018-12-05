@@ -77,8 +77,8 @@ export default {
   methods: {
     // 查询
     searchSubmit (val) {
-      let dueDatefrom = val.dueDate ? val.dueDate[0].Format('yyyy-MM-dd') : ''
-      let dueDateto = val.dueDate ? val.dueDate[1].Format('yyyy-MM-dd') : ''
+      let dueDatefrom = val.dueDate && val.dueDate[0] ? val.dueDate[0].Format('yyyy-MM-dd') : ''
+      let dueDateto = val.dueDate && val.dueDate[1] ? val.dueDate[1].Format('yyyy-MM-dd') : ''
       /* 修改请求参数 */
       this.param = {
         iDisplayStart: 1,

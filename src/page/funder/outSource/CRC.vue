@@ -186,8 +186,8 @@ export default {
   }
 }
 function handleSearchFirst (val) {
-  let from = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
-  let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
+  let from = val.moneyDate && val.moneyDate[0] ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
+  let to = val.moneyDate && val.moneyDate[1] ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
   this.param = {
     currency: val.currency, // 币别
     beginDate: from, // 日期

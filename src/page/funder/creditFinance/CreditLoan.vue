@@ -77,10 +77,10 @@ export default {
   methods: {
     // 查询
     searchSubmit (val) {
-      let repayDatefrom = val.repayDate ? val.repayDate[0].Format('yyyy-MM-dd') : ''
-      let repayDateto = val.repayDate ? val.repayDate[1].Format('yyyy-MM-dd') : ''
-      let contractSignedDatefrom = val.contractSignedDate ? val.contractSignedDate[0].Format('yyyy-MM-dd') : ''
-      let contractSignedDateto = val.contractSignedDate ? val.contractSignedDate[1].Format('yyyy-MM-dd') : ''
+      let repayDatefrom = val.repayDate && val.repayDate[0] ? val.repayDate[0].Format('yyyy-MM-dd') : ''
+      let repayDateto = val.repayDate && val.repayDate[1] ? val.repayDate[1].Format('yyyy-MM-dd') : ''
+      let contractSignedDatefrom = val.contractSignedDate && val.contractSignedDate[0] ? val.contractSignedDate[0].Format('yyyy-MM-dd') : ''
+      let contractSignedDateto = val.contractSignedDate && val.contractSignedDate[1] ? val.contractSignedDate[1].Format('yyyy-MM-dd') : ''
       /* 修改请求参数 */
       this.param = {
         iDisplayStart: 1,

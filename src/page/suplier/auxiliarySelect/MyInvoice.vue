@@ -77,8 +77,8 @@ export default {
   methods: {
     // 查询
     searchSubmit (val) {
-      let entryfrom = val.entryDate ? val.entryDate[0].Format('yyyy-MM-dd') : ''
-      let entryto = val.entryDate ? val.entryDate[1].Format('yyyy-MM-dd') : ''
+      let entryfrom = val.entryDate && val.entryDate[0] ? val.entryDate[0].Format('yyyy-MM-dd') : ''
+      let entryto = val.entryDate && val.entryDate[1] ? val.entryDate[1].Format('yyyy-MM-dd') : ''
       /* 修改请求参数 */
       this.param = {
         iDisplayStart: 1,
