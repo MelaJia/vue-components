@@ -570,7 +570,7 @@ export const postDataBase = function (url, param, showLoading, auto) {
     }else {
       this.$message({
         showClose: true,
-        message: res.data.data.message ? res.data.data.message : res.data.msg,
+        message: res.data.data&&res.data.data.message ? res.data.data.message : res.data.msg,
         type: type
       })
     }
