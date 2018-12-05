@@ -28,6 +28,16 @@ axios.defaults.baseURL = apiUrl
 if (process.env.NODE_ENV === 'development') {
   axios.defaults.withCredentials = true // 允许远端跨域cookie
   // monitorInit() // 模拟数据初始化
+  axios.interceptors.request.use(
+    config => {
+      if (store.getters.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token
+        config.headers.Authorization = config.data && config.data['interfaceTransSerial'] ? store.getters.monitorToken : store.getters.token
+      }
+      return config
+    },
+    err => {
+      return Promise.reject(err)
+    })
 }
 // 设置请求拦截器
 if (process.env.NODE_ENV === 'production') {

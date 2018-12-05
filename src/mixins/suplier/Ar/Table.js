@@ -315,7 +315,8 @@ function monitorLogin (id) {
     }
     this.axios.post('/login/simulateLogin.do', param).then(res => {
       if (res.data.status === 1) {
-        this.$store.commit('login', res.data.data.token)
+        console.log(res.data.data.token)
+        this.$store.commit('monitorLogIn', res.data.data.token)
         resolve(1)
       }
       resolve(0)

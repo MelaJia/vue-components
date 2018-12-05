@@ -6,6 +6,7 @@ import {
 export default {
   state: {
     token: null,
+    monitorToken: null, // 接口用户token
     roles: null,
     userinfos: null,
     // scheduleNumber: 0
@@ -94,6 +95,20 @@ export default {
         name: 'menuName',
         content: state.menuName
       })
+    },
+    monitorLogIn: (state, data) => {
+      state.monitorToken = data
+      setStore({
+        name: 'monitorToken',
+        content: state.monitorToken
+      })
+    },
+    monitorLogOut: (state, data) => {
+      // 清除token
+      removeStore({
+        name: 'monitorToken'
+      })
+      state.monitorToken = null
     }
 
   }

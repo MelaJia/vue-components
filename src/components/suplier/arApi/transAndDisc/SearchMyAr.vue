@@ -28,7 +28,7 @@
               </el-row>
               <el-row>
                 <el-col :span="8">
-                      <el-form-item label="付款单位/对手单位" prop="companyName">
+                      <el-form-item label="付款单位" prop="companyName">
                         <el-input v-model.trim="formInline.companyName" placeholder=""></el-input>
                       </el-form-item>
                 </el-col>

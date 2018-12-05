@@ -19,7 +19,7 @@
     </article>
     <article class="body">
       <el-card class="box-card text-align-center">
-        <ar-list :data-table="tableData5" :data-loading="loading" @refresh="handleRefresh"></ar-list>
+        <ar-list :data-table="tableData5" :data-loading="loading" :query="query" @refresh="handleRefresh"></ar-list>
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="pageSizesArr" :page-size="psize"
           :current-page.sync="currentPage" layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
@@ -79,7 +79,7 @@ export default {
       let billPayDateFrom = val.billPayDate ? val.billPayDate[0].Format('yyyy-MM-dd') : ''
       let billPayDateTo = val.billPayDate ? val.billPayDate[1].Format('yyyy-MM-dd') : ''
       try {
-        this.param = {
+        Object.assign(this.param, {
           masterChainId: val.masterChainId, // ar单号
           isMasterAr: val.isMasterAr, // ar来源
           custFromName: val.custFromName, // 转让单位
@@ -91,7 +91,7 @@ export default {
           billPayDateFrom: billPayDateFrom,
           billPayDateTo: billPayDateTo,
           transSerialNo: val.transSerialNo // 交易流水号
-        }
+        })
       } catch (error) {
         console.log(error)
       }

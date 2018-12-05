@@ -652,3 +652,16 @@ export const isIE = function()  {
    else
    return false;
   }
+  /**
+   *获取请求参数
+   *？name=123
+   * @export
+   * @param {*} name 参数名
+   * @returns
+   */
+  export const GetQueryString = function (name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+    var r = window.location.hash.split('?')[1] ? window.location.hash.split('?')[1].match(reg) : null // hash,查询？后面的参数，并匹配正则
+    if (r != null) return unescape(r[2])
+    return null
+  }

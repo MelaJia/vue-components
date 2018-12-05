@@ -3,16 +3,11 @@
   <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
               <span class="title">
-                自有转让
+                转让
               </span>
             </header>
             <section>
               <article>
-                <ul>
-                  <el-tooltip :content="'付款单位:'+detailsP.arInvoiceList[0].companyName" placement="bottom" effect="light">
-                    <span>付款单位: <em>{{detailsP.arInvoiceList[0].companyName}}</em></span>
-                  </el-tooltip>
-                </ul>
                 <ul>
                   <li class="wd-3">
                     <span>币别: <em>{{detailsP.arInvoiceList[0].currencyDesc}}</em></span>
@@ -206,7 +201,7 @@ function transSub (type, originData, selection) {
     custToName: this.rc.name,
     remark: this.remark
   }
-  let url = '/multiArTransferManager/multiInitiateTransferOwn.do'
+  let url = '/multiArTransferManager/multiInitiateTransfer.do'
   this.post(url, data, true).then(res => {
     // 操作成功 关闭弹窗
     if (res.data.status) {

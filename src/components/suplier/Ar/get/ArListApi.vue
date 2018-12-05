@@ -27,9 +27,9 @@
       </el-table-column>
       <el-table-column align="center" label="操作" width='130px' fixed="right" :resizable="false">
         <template slot-scope="scope">
-          <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-          <el-button size="mini" type="text" v-if="scope.row.checkedStatus==3" @click="handleAccept(scope.$index, scope.row)">接受</el-button>
-          <el-button size="mini" type="text" v-if="scope.row.checkedStatus==3" @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
+          <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row, query.interfaceTransSerial)">详情</el-button>
+          <el-button size="mini" type="text" v-if="scope.row.checkedStatus==3&&(!query.interfaceTransSerial|(query.interfaceTransSerial&&query.type==3))" @click="handleAccept(scope.$index, scope.row)">接受</el-button>
+          <el-button size="mini" type="text" v-if="scope.row.checkedStatus==3&&(!query.interfaceTransSerial|(query.interfaceTransSerial&&query.type==4))" @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -41,12 +41,12 @@
 </style>
 
 <script>
-import ListMinxIn from '@/mixins/suplier/Ar/Table' // handleInfo
+import ListMinxIn from '@/mixins/suplier/Ar/Table'
 import Common from '@/mixins/common'
-import Dialog from '@/mixins/suplier/Ar/Dialog'
+import Dialog from '@/mixins/suplier/Ar/Dialog' // handleInfo
 /* 待收Ar列表 */
 export default {
-  props: ['dataLoading', 'dataTable'],
+  props: ['dataLoading', 'dataTable', 'query'],
   mixins: [ListMinxIn, Common, Dialog],
   components: {
     'dialog-info': () =>
@@ -75,7 +75,7 @@ function handleAccept (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.postResultFresh('/multiArTransferManager/multiReceptionArPay.do', {transSerialNo: val.transSerialNo})
+    this.postResultFresh('/multiArTransferManager/multiReceptionArPay.do', {transSerialNo: val.transSerialNo, interfaceTransSerial: this.query.interfaceTransSerial})
   }).catch(() => {
     this.$message({
       type: 'info',
@@ -91,7 +91,7 @@ function handleReject (idx, val) {
     type: 'warning',
     center: true
   }).then(() => {
-    this.postResultFresh('/multiArTransferManager/multiRejectArPay.do', {transSerialNo: val.transSerialNo})
+    this.postResultFresh('/multiArTransferManager/multiRejectArPay.do', {transSerialNo: val.transSerialNo, interfaceTransSerial: this.query.interfaceTransSerial})
   }).catch(() => {
     this.$message({
       type: 'info',

@@ -19,7 +19,7 @@
     </article>
     <article class="body">
       <el-card class="box-card text-align-center">
-        <ar-list :data-table="tableData5" :data-loading="loading" @refresh="handleRefresh"></ar-list>
+        <ar-list :data-table="tableData5" :data-loading="loading" :query="query" @refresh="handleRefresh"></ar-list>
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="pageSizesArr" :page-size="psize"
           :current-page.sync="currentPage" layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
@@ -77,7 +77,7 @@ export default {
       let form = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
       let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
       try {
-        this.param = {
+        Object.assign(this.param, {
           masterChainId: val.masterChainId, // ar单号
           isMasterAr: val.isMasterAr, // ar来源
           custToName: val.custFromName, // 接收方
@@ -87,7 +87,7 @@ export default {
           from: form, // 日期
           to: to,
           transSerialNo: val.transSerialNo // 交易流水号
-        }
+        })
       } catch (error) {
         console.log(error)
       }
