@@ -2,23 +2,35 @@
   <div class="header-section">
     <div class="width-50">
       <div class="header-left">
-        <img src="@/assets/img/logo.png" style="height:85px" alt="">
+        <img src="@/assets/img/logo.png" style="height:85px" alt>
       </div>
     </div>
     <div class="width-50">
       <div class="header-right">
-        <el-button v-if="this.$store.getters.roles=='2'" type="danger" size="medium" :class="'process'" icon="el-icon-caret-right" @click="goPage">我的待办</el-button>
+        <el-button
+          v-if="this.$store.getters.roles=='2'"
+          type="danger"
+          size="medium"
+          :class="'process'"
+          icon="el-icon-caret-right"
+          @click="goPage"
+        >我的待办</el-button>
         <el-dropdown @command="handleCommand">
           <!-- <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}<img src="@/assets/img/juxin_18.png" alt=""></span> -->
-          <span style="color:#fff">你好，{{custNickname}}  <span id="img" src="@/assets/img/juxin_18.png" alt=""></span></span>
+          <span style="color:#fff">
+            你好，{{custNickname}}
+            <span id="img" src="@/assets/img/juxin_18.png" alt></span>
+          </span>
           <el-dropdown-menu slot="dropdown">
             <template v-if="this.$store.getters.token">
               <el-dropdown-item v-if="this.$store.state.user.roles" command="pwdChange">密码修改</el-dropdown-item>
-              <el-dropdown-item command="logout"
-              v-loading.fullscreen.lock="fullscreenLoading"
-              element-loading-text="登出中，请稍候"
-              element-loading-spinner="el-icon-loading"
-              element-loading-background="rgba(0, 0, 0, 0.8)">登出</el-dropdown-item>
+              <el-dropdown-item
+                command="logout"
+                v-loading.fullscreen.lock="fullscreenLoading"
+                element-loading-text="登出中，请稍候"
+                element-loading-spinner="el-icon-loading"
+                element-loading-background="rgba(0, 0, 0, 0.8)"
+              >登出</el-dropdown-item>
             </template>
             <el-dropdown-item v-else command="login">登录</el-dropdown-item>
           </el-dropdown-menu>
@@ -104,16 +116,21 @@
 </style>
 <script>
 import * as types from '@/store/types'
+import { GetQueryString } from '@/util/util'
 export default {
   data () {
     return {
       dialogPassVisible: false,
-      fullscreenLoading: false
+      fullscreenLoading: false,
+      interfaceTransSerial: null
     }
+  },
+  created () {
+    this.interfaceTransSerial = GetQueryString('interfaceTransSerial')
   },
   computed: {
     custNickname () {
-      return this.$store.state.user.userinfos ? this.$store.state.user.userinfos.custNickname : ''
+      return this.$store.state.user.userinfos && !this.interfaceTransSerial ? this.$store.state.user.userinfos.custNickname : '保理方'
     }
   },
   methods: {

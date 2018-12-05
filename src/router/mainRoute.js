@@ -42,7 +42,7 @@ const routes = [{
       title: '转入单据', // 名称
       requireAuth: false // 需要登录验证
     },
-    props: (route) => ({query: {interfaceTransSerial: route.query.interfaceTransSerial}})
+    props: (route) => ({query: {interfaceTransSerial: route.query.interfaceTransSerial, type: route.query.type}})
   },
   {
     path: 'myarapi',
@@ -126,7 +126,7 @@ const routes = [{
       title: '转出单据', // 名称
       requireAuth: false // 需要登录验证
     },
-    props: (route) => ({query: {interfaceTransSerial: route.query.interfaceTransSerial}})
+    props: (route) => ({query: {interfaceTransSerial: route.query.interfaceTransSerial, type: route.query.type}})
   },
   {
     path: 'historyar',

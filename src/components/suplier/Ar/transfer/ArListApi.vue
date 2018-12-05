@@ -26,7 +26,7 @@
         </el-table-column>
         <el-table-column align="center" fixed="right" label="操作" width='80px'>
           <template slot-scope="scope">
-            <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+            <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row, query.interfaceTransSerial)">详情</el-button>
             <el-button size="mini" type="text" @click="handleCancle(scope.$index, scope.row)" v-if="scope.row.checkedStatus==3">取消授让</el-button>
           </template>
         </el-table-column>
@@ -44,7 +44,7 @@ import Common from '@/mixins/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 /* 取消转让列表 */
 export default {
-  props: ['dataLoading', 'dataTable'],
+  props: ['dataLoading', 'dataTable', 'query'],
   mixins: [Common, ListMinxIn, Dialog],
   components: {
     'dialog-info': () =>
@@ -66,7 +66,7 @@ export default {
         type: 'warning',
         center: true
       }).then(() => {
-        this.postResultFresh('/multiArTransferManager/multiCancelArPay.do', {transSerialNo: val.transSerialNo})
+        this.postResultFresh('/multiArTransferManager/multiCancelArPay.do', {transSerialNo: val.transSerialNo, interfaceTransSerial: this.query.interfaceTransSerial})
       }).catch(() => {
         this.$message({
           type: 'info',

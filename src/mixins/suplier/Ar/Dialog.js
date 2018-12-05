@@ -17,10 +17,12 @@ export default {
   }
 }
 // 获取详情
-function handleInfo (idx, val) {
+function handleInfo (idx, val, interfaceTransSerial) {
   // 获取数据
+  console.log(interfaceTransSerial)
   let param = {
-    transSerialNo: val.transSerialNo
+    transSerialNo: val.transSerialNo,
+    interfaceTransSerial: interfaceTransSerial
   }
   getDataBase.call(this, 'multiArTransferManager/multiArPayDetail.do', param, true).then(res => {
     if (res) {

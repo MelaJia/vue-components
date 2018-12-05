@@ -8,6 +8,7 @@ const getters = {
   tagCurrent: state => state.tags.tagCurrent,
   tagWel: state => state.tags.tagWel,
   token: state => state.user.token,
+  monitorToken: state => state.user.monitorToken,
   roles: state => state.user.roles,
   userInfos: state => state.user.userinfos,
   roleBelong: state => state.user.roleBelong,
