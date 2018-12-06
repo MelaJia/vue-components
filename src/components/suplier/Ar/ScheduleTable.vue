@@ -122,7 +122,7 @@ export default {
     // 详情
     handleInfo (idx, val) {
       val.infoLoading = true
-      this.getLoanDetail('/myAr/queryAr.do', { masterChainId: val.masterChainId }).then(res => {
+      this.getLoanDetail('/multiArManager/multiArLoanDetail.do', { transSerialNo: val.transSerialNo }).then(res => {
         this.details = res
         this.dialogInfoVisible = true
         val.infoLoading = false
@@ -142,15 +142,15 @@ export default {
     // }
     confirmContract (idx, val) {
       let param = {
-        masterChainId: val.masterChainId
+        transSerialNo: val.transSerialNo
       }
       // 获取数据
-      getDataBase.call(this, '/myAr/queryAr.do', param, true).then(res => {
+      getDataBase.call(this, '/multiArManager/multiArLoanSigningDetail.do', param, true).then(res => {
         if (res) {
           console.log(res)
           // 标题赋值
           // res.masterChainId = val.loanId
-          this.details = Object.assign(res, {factoringCustName: val.factoringCustName})
+          this.details = Object.assign(res, {transSerialNo: val.transSerialNo})
           this.dialogContractVisible = true
         }
       })

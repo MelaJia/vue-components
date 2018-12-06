@@ -7,7 +7,7 @@
     </header>
     <section v-if="step===1">
       <span class="note">温馨提示</span>
-      <p>该协议内容由保理方{{this.detailsP.factoringCustName}}拟定，不由本平台提供，确认签署前需自行对协议内容进行审核</p>
+      <p>该协议内容由保理方{{this.detailsP.custToName}}拟定，不由本平台提供，确认签署前需自行对协议内容进行审核</p>
     </section>
     <section v-if="step===2">
       <el-checkbox-group v-model="checkList">
@@ -68,7 +68,9 @@ export default {
   },
   computed: {
     getTitle () {
-      return this.detailsP.masterChainId + '合同签署'
+      if (this.detailsP.arList) {
+        return this.detailsP.arList[0].masterChainId + '合同签署'
+      }
     }
   }
 }
@@ -89,7 +91,7 @@ function submit () {
   }
   // 显示加载图标
   const loading = this.$loading(loadingConf.sub())
-  this.axios.post('/multiArInFinancingManager/multiArCompleteSigningDiscount.do', { masterChainId: this.detailsP.masterChainId, verificationCode: this.captcha }).then(res => {
+  this.axios.post('/multiArInFinancingManager/multiArCompleteSigningDiscount.do', { transSerialNo: this.detailsP.transSerialNo, verificationCode: this.captcha }).then(res => {
     let type = res.data.status ? 'success' : 'error'
     this.$message({
       message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',
@@ -118,7 +120,7 @@ function reject () {
   // }
   // 显示加载图标
   const loading = this.$loading(loadingConf.sub())
-  this.axios.post('/myAr/cancelSigningDiscount.do', { masterChainId: this.detailsP.masterChainId }).then(res => {
+  this.axios.post('/multiArInFinancingManager/multiArCancelSigningDiscount.do', { transSerialNo: this.detailsP.transSerialNo }).then(res => {
     let type = res.data.status ? 'success' : 'error'
     this.$message({
       message: res.data.data ? res.data.data : '返回结果错误，请联系管理员',

@@ -1,6 +1,7 @@
 <template>
 <section id="print">
-  <dialog-info :visible-p.sync="dialogRepayInfoVisible" :details-p="details" ></dialog-info>
+  <!-- 发票详情 -->
+  <dialog-list :visible-p.sync="dialogListVisible" :details-p="detailsList" ></dialog-list>
   <el-dialog  :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title">
       <span class="title">
@@ -10,40 +11,49 @@
     <section>
       <ul>
         <li>
-          <span>付款单位: <em>{{this.detailsP.companyName}}</em></span>
+          <span>AR来源: <em v-if="this.detailsP.arList">{{this.detailsP.arList[0].arSourceDesc}}</em></span>
         </li>
         <li>
-          <span>对手单位: <em>{{this.detailsP.custToName}}</em></span>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <span>状态: <em>{{this.detailsP.arStatusTypeName}}</em></span>
-        </li>
-        <li>
-          <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>
+          <span>状态: <em v-if="this.detailsP.arList">{{this.detailsP.arList[0].checkedStatusName}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>票据到期日: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
+          <span>付款单位: <em>{{this.detailsP.custFromName}}</em></span>
         </li>
         <li>
-          <span>贴现申请日期: <em>{{this.detailsP.discountApplyDate | dateFormat}}</em></span>
+          <span>结报状态: <em v-if="this.detailsP.arList">{{this.detailsP.arList[0].billStatusName}}</em></span>
         </li>
       </ul>
       <ul>
         <li>
-          <span>贴现申请金额: <em>{{this.detailsP.discountApplyAmt | regexNum}}</em></span>
+          <span>保理方: <em>{{this.detailsP.custToName}}</em></span>
         </li>
         <li>
-          <span>贴现确认金额: <em>{{this.detailsP.discountLoanAmt | regexNum}}</em></span>
+          <span>币别: <em v-if="this.detailsP.arList">{{this.detailsP.arList[0].currencyDesc}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>票据到期日: <em v-if="this.detailsP.arList">{{this.detailsP.arList[0].billPayDate | dateFormat}}</em></span>
+        </li>
+        <li>
+          <span>申请时间: <em>{{this.detailsP.applyDate | dateFormatToMinutes}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>申请金额: <em>{{this.detailsP.applyAmt | regexNum}}</em></span>
+        </li>
+        <li>
+          <span>实放金额: <em>{{this.detailsP.loanAmt | regexNum}}</em></span>
         </li>
       </ul>
       <ul class="height-auto">
         <span>使用发票:
-          <div class="a-link-group inline-block">
-            <label v-for="(item,index) in this.detailsP.invoiceCustomList" :key="index">{{item.invoiceNo}}</label>
+          <div class="a-link-group inline-block" v-if="this.detailsP.arList">
+            <!-- <label v-for="(item,index) in this.detailsP.arList.usedInvoiceList" :key="index">{{item.invoiceNo}}(金额:{{item.invoiceAfterTaxAmt | regexNum}})</label> -->
+            <a href="javascript:;" v-for="item in this.detailsP.arList[0].usedInvoiceList" :key="item.invoiceNo" @click.prevent="checkInvoice(item)">{{item.invoiceNo}}(金额:{{item.invoiceAfterTaxAmt|regexNum}})</a>
           </div>
         </span>
       </ul>
@@ -59,7 +69,7 @@
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose">确认</el-button>
       <el-button @click="print('print')">打印</el-button>
-      <el-button v-if="isShowRepayBtn" @click="handleShowRepay">预还款计划</el-button>
+      <!-- <el-button v-if="isShowRepayBtn" @click="handleShowRepay">预还款计划</el-button> -->
     </footer>
   </el-dialog>
 </section>
@@ -83,23 +93,53 @@ export default {
     return {
       radio2: 3,
       dialogRepayInfoVisible: false,
+      dialogListVisible: false,
+      detailsList: {},
       details: {} // 详情数据
     }
   },
   computed: {
     getTitle () {
-      return this.detailsP.masterChainId + '详情'
+      if (this.detailsP.arList) {
+        return this.detailsP.arList[0].masterChainId + '详情'
+      }
     },
     isShowRepayBtn () {
       return this.detailsP.checkedStatus === 22 || this.detailsP.checkedStatus === 23 || this.detailsP.checkedStatus === 24 || this.detailsP.checkedStatus === 26 || this.detailsP.checkedStatus === 29
     }
   },
+  filters: {
+    // 申请时间格式化
+    dateFormatToMinutes: function (value) {
+      if (value === null || value === undefined || value === '') {
+        return '- -'
+      }
+      return new Date(value).Format('yyyy-MM-dd HH:mm')
+    }
+  },
   components: {
-    'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogRepayInfo')
+    'dialog-list': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/financingbill/DialogInvoicelist')
   },
   methods: {
-    handleShowRepay: handleShowRepay
+    handleShowRepay: handleShowRepay,
+    checkInvoice (item) {
+      this.axios.post('/loan2/queryInvoicePic.do', {
+        billId: this.detailsP.arList ? this.detailsP.arList[0].billId : '',
+        invoiceNo: item.invoiceNo,
+        hostCode: this.detailsP.arList ? this.detailsP.arList[0].hostCode : ''
+      }).then(res => {
+        if (res.data.status) {
+          this.detailsList = res.data.data
+          this.dialogListVisible = true
+          // window.open(fileUrl)
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
   }
 }
 function handleShowRepay () {
