@@ -1,91 +1,127 @@
 <template>
-
-  <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
+  <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center>
     <header slot="title">
-              <span class="title">
-                转让
-              </span>
-            </header>
-            <section>
-              <article>
-                <ul>
-                  <li class="wd-3">
-                    <span>币别: <em>{{detailsP.arInvoiceList[0].currencyDesc}}</em></span>
-                  </li>
-                  <li class="wd-3">
-                    <span>单位: <em>{{detailsP.arInvoiceList[0].currencyUnitName}}</em></span>
-                  </li>
-                  <li class="wd-3">
-                    <span>待转让金额: <em>{{detailsP.transAmt}}</em></span>
-                  </li>
-                </ul>
-              </article>
-              <article>
-                <el-table ref="tableTrans" :data="detailsP.arInvoiceList" border @selection-change="handleTransSelectionChange"
-                  @select="select" style="width: 100%">
-                  <el-table-column type="selection" width="40">
-                  </el-table-column>
-                  <el-table-column align="center" prop="masterChainId" :formatter="nullDealWith" label="AR单号" width="180">
-                  </el-table-column>
-                  <el-table-column align="center" prop="billPayDate" :formatter="dateFormat" label="票据到期日" width="110">
-                  </el-table-column>
-                  <el-table-column align="center" prop="invoiceNo" :formatter="nullDealWith" label="发票号">
-                  </el-table-column>
-                  <el-table-column align="right" header-align="center" prop="afterTaxAmt" :formatter="regexNum" label="发票票面金额"
-                    width="120">
-                  </el-table-column>
-                  <el-table-column align="right" header-align="center" prop="availableAfterTaxAmt" :formatter="regexNum"
-                    label="发票可用金额" width="120">
-                  </el-table-column>
-                  <el-table-column align="center" label="转让金额" width="120">
-                    <template slot-scope="scope">
-                      <el-jx-input :autofocus="true" ref="inputedit" v-model='scope.row.transferAfterTaxAmt' placeholder=''
-                        :disabled="scope.row.disabled" @blur="blurIsClear(scope.row)" @input.native="handleInput('availableAfterTaxAmt',scope.row,$event,multipleSelectionTrans)"
-                        >
-                      </el-jx-input>
-                    </template>
-                  </el-table-column>
-                </el-table>
-              </article>
-              <article>
-                <el-form class="layout form text-align-left" label-width="100px">
-                  <el-row>
-                    <el-col :span="9"></el-col>
-                    <el-form-item label="转让总金额:">
-                      <span>{{displaySumAmtTrans}}</span>
-                    </el-form-item>
-                  </el-row>
-                  <el-row>
-                      <el-col :span="9" class="flex">
-                          <el-form-item label="授让公司Id:" prop="receiveCustId">
-                            <el-input v-model.trim="receiveCustId" placeholder="请输入授让公司Id"></el-input>
-                          </el-form-item>
-                        </el-col>
-                        <el-col :span="9" class="flex">
-                          <el-form-item label="授让公司名:">
-                            {{this.rc.name}}
-                          </el-form-item>
-                        </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="18" class="flex">
-                      <el-form-item label="备注:">
-                        <el-input type="textarea" v-model.trim="remark" :maxlength="255" :autosize="{ minRows: 3, maxRows: 6}"></el-input>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                      <el-checkbox-group v-model="agreeCheckList">
-                          <el-checkbox label="agree1">我确认本次债券可以被转让</el-checkbox>
-                          <el-checkbox label="agree2">我确认本次债券真实有效无任何纠纷</el-checkbox>
-                      </el-checkbox-group>
-                  </el-row>
-                </el-form>
-              </article>
-            </section>
-            <footer class="no-print" slot="footer" :style="'clear:both'">
-              <el-button type="primary" @click="transSub(1,detailsP,multipleSelectionTrans)">确认</el-button>
-            </footer>
+      <span class="title">转让</span>
+    </header>
+    <section>
+      <article>
+        <ul>
+          <li class="wd-3">
+            <span>币别:
+              <em>{{detailsP.arInvoiceList[0].currencyDesc}}</em>
+            </span>
+          </li>
+          <li class="wd-3">
+            <span>单位:
+              <em>{{detailsP.arInvoiceList[0].currencyUnitName}}</em>
+            </span>
+          </li>
+          <li class="wd-3">
+            <span>待转让金额:
+              <em>{{detailsP.transAmt}}</em>
+            </span>
+          </li>
+        </ul>
+      </article>
+      <article>
+        <el-table
+          ref="tableTrans"
+          :data="detailsP.arInvoiceList"
+          border
+          @selection-change="handleTransSelectionChange"
+          @select-all="handleSelectAll"
+          @select="select"
+          style="width: 100%"
+        >
+          <el-table-column type="selection" width="40"></el-table-column>
+          <el-table-column
+            align="center"
+            prop="masterChainId"
+            :formatter="nullDealWith"
+            label="AR单号"
+            width="180"
+          ></el-table-column>
+          <el-table-column
+            align="center"
+            prop="billPayDate"
+            :formatter="dateFormat"
+            label="票据到期日"
+            width="110"
+          ></el-table-column>
+          <el-table-column align="center" prop="invoiceNo" :formatter="nullDealWith" label="发票号"></el-table-column>
+          <el-table-column
+            align="right"
+            header-align="center"
+            prop="afterTaxAmt"
+            :formatter="regexNum"
+            label="发票票面金额"
+            width="120"
+          ></el-table-column>
+          <el-table-column
+            align="right"
+            header-align="center"
+            prop="availableAfterTaxAmt"
+            :formatter="regexNum"
+            label="发票可用金额"
+            width="120"
+          ></el-table-column>
+          <el-table-column align="center" label="转让金额" width="120">
+            <template slot-scope="scope">
+              <el-jx-input
+                :autofocus="true"
+                ref="inputedit"
+                v-model="scope.row.transferAfterTaxAmt"
+                placeholder
+                :disabled="scope.row.disabled"
+                @blur="blurIsClear(scope.row)"
+                @input.native="handleInput('availableAfterTaxAmt',scope.row,$event,multipleSelectionTrans)"
+              ></el-jx-input>
+            </template>
+          </el-table-column>
+        </el-table>
+      </article>
+      <article>
+        <el-form class="layout form text-align-left" label-width="100px">
+          <el-row>
+            <el-col :span="9"></el-col>
+            <el-form-item label="转让总金额:">
+              <span>{{displaySumAmtTrans}}</span>
+            </el-form-item>
+          </el-row>
+          <el-row>
+            <el-col :span="9" class="flex">
+              <el-form-item label="授让公司Id:" prop="receiveCustId">
+                <el-input v-model.trim="receiveCustId" placeholder="请输入授让公司Id"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="9" class="flex">
+              <el-form-item label="授让公司名:">{{this.rc.name}}</el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="18" class="flex">
+              <el-form-item label="备注:">
+                <el-input
+                  type="textarea"
+                  v-model.trim="remark"
+                  :maxlength="255"
+                  :autosize="{ minRows: 3, maxRows: 6}"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-checkbox-group v-model="agreeCheckList">
+              <el-checkbox label="agree1">我确认本次债券可以被转让</el-checkbox>
+              <el-checkbox label="agree2">我确认本次债券真实有效无任何纠纷</el-checkbox>
+            </el-checkbox-group>
+          </el-row>
+        </el-form>
+      </article>
+    </section>
+    <footer class="no-print" slot="footer" :style="'clear:both'">
+      <el-button type="primary" @click="transSub(1,detailsP,multipleSelectionTrans)">确认</el-button>
+    </footer>
   </el-dialog>
 </template>
 <style scoped lang="scss">
@@ -151,6 +187,8 @@ export default {
     }
   },
   methods: {
+    // 全选
+    handleSelectAll: handleSelectAll,
     // 转让选择
     handleTransSelectionChange: handleTransSelectionChange,
     // 转让确认
@@ -182,6 +220,14 @@ function transSub (type, originData, selection) {
     this.$message({
       type: 'error',
       message: '请填写正确授让公司id'
+    })
+    return
+  }
+  // 判断是否勾选发票
+  if (this.multipleSelectionTrans.length === 0) {
+    this.$message({
+      type: 'error',
+      message: '请勾选至少一张发票'
     })
     return
   }
@@ -262,5 +308,11 @@ function getSum (val, tag) {
   console.log(sum)
   return sum // 返回
 }
-
+// 全选按钮点击事件
+function handleSelectAll (selection) {
+  // 1.遍历所有项
+  this.detailsP.arInvoiceList.forEach(element => {
+    this.select(selection, element)
+  })
+}
 </script>

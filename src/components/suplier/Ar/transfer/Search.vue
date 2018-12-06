@@ -5,7 +5,7 @@
       <el-input v-model.trim="formInline.masterChainId" placeholder=""></el-input>
     </el-form-item></el-col>
       <el-col :span="8"> <el-form-item label="接收方" prop="custToName">
-      <el-input v-model.trim="formInline.custFromName" placeholder=""></el-input>
+      <el-input v-model.trim="formInline.custToName" placeholder=""></el-input>
     </el-form-item></el-col>
       <el-col :span="8"><el-form-item label="币别" prop="billBookCurr">
       <el-select v-model="formInline.billBookCurr" placeholder="全部">
@@ -46,8 +46,8 @@
 </style>
 
 <script>
-import SearchMixIn from '@/mixins/suplier/Ar/Search'
-import commonDatas from '@/mixins/commonDatas'
+import SearchMixIn from '@/mixins/suplier/Ar/Search' // onSubmit、resetForm
+import commonDatas from '@/mixins/commonDatas' // 获取通用数据
 /* 取消转让搜索 */
 export default {
   name: 'onReceivingArPage',
