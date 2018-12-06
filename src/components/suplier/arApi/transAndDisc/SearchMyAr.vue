@@ -1,24 +1,19 @@
 <template>
-  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="130px">
+  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
-                <el-col :span="8">
+                <el-col :span="7">
                   <el-form-item label="AR单号" prop="masterChainId">
                     <el-input v-model.trim="formInline.masterChainId" placeholder=""></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col v-if="operateType===1" :span="8">
-                      <el-form-item label="保理方" prop="factoringCustName">
-                        <el-input v-model.trim="formInline.factoringCustName" placeholder=""></el-input>
+                <el-col :span="7" :offset="3">
+                     <el-form-item label="AR来源" prop="isMasterAr">
+                        <el-select v-model="formInline.isMasterAr" clearable placeholder="全部">
+                          <el-option v-for="(item,index) in selectData.origin" :key="index" :label="item.lable" :value="item.value"></el-option>
+                        </el-select>
                       </el-form-item>
                 </el-col>
-                <el-col v-else :span="8">
-                    <el-form-item label="状态" prop="status">
-                      <el-select v-model="formInline.status" clearable disabled placeholder="全部">
-                        <el-option v-for="(item,index) in arStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
-                      </el-select>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="8">
+                <el-col :span="7">
                     <el-form-item label="币别" prop="billBookCurr">
                       <el-select v-model="formInline.billBookCurr" clearable placeholder="全部">
                         <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
@@ -27,24 +22,29 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="8">
+                <el-col :span="7">
                       <el-form-item label="付款单位" prop="companyName">
                         <el-input v-model.trim="formInline.companyName" placeholder=""></el-input>
                       </el-form-item>
                 </el-col>
-                <el-col :span="8">
-                  <el-form-item label="发票号" prop="invoiceNo">
-                    <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
-                  </el-form-item>
+                <el-col :span="7" :offset="3">
+                      <el-form-item label="保理方" prop="factoringCustName">
+                        <el-input v-model.trim="formInline.factoringCustName" placeholder=""></el-input>
+                      </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="7">
                     <el-form-item label="结报单号" prop="billId">
                       <el-input v-model.trim="formInline.billId" placeholder=""></el-input>
                     </el-form-item>
                   </el-col>
               </el-row>
               <el-row>
-                <el-col :span="12">
+                <el-col :span="7">
+                  <el-form-item label="发票号" prop="invoiceNo">
+                    <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="10" :offset="3">
                   <el-form-item label="票据到期日" prop="moneyDate">
                     <el-date-picker :editable="false" v-model="formInline.moneyDate" type="daterange" unlink-panels
                       range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
@@ -62,6 +62,7 @@
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
+@import "@/assets/css/_loanSearch.scss";
 </style>
 
 <script>

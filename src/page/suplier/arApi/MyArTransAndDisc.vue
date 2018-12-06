@@ -84,6 +84,7 @@ export default {
         let param = {
           masterChainId: val.masterChainId, // ar单号
           isMasterAr: val.isMasterAr, // ar来源
+          factoringCustName: val.factoringCustName, // 供应商
           companyName: val.companyName, // 付款单位
           checkedStatus: val.status, // 状态
           billBookCurr: val.billBookCurr, // 币别
