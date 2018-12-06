@@ -77,8 +77,8 @@ export default {
   methods: {
     // 查询
     searchSubmit (val) {
-      let agingDatefrom = val.agingDate ? val.agingDate[0].Format('yyyy-MM-dd') : ''
-      let agingDateto = val.agingDate ? val.agingDate[1].Format('yyyy-MM-dd') : ''
+      let agingDatefrom = val.agingDate && val.agingDate[0] ? val.agingDate[0].Format('yyyy-MM-dd') : ''
+      let agingDateto = val.agingDate && val.agingDate[1] ? val.agingDate[1].Format('yyyy-MM-dd') : ''
       /* 修改请求参数 */
       this.param = {
         iDisplayStart: 1,

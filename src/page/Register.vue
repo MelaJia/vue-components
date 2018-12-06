@@ -335,9 +335,10 @@
             <el-row>
               <div class="iptChoose">
                 <label for="agree">
-                  <el-checkbox v-model="checked" @change="handleCheck"></el-checkbox>&nbsp;我已阅读并同意
+                  <el-checkbox v-model="checked" @change="handleCheck">我已阅读并同意
                   <a :href="pdfUrl" target="_pdf" id="agreement"
                     class="red">《钜信网服务协议》</a>
+                    </el-checkbox>
                 <el-alert v-if="checkShow"
                   title="请同意相关协议"
                   type="error">
@@ -462,6 +463,10 @@
 // 服务协议样式
 .iptChoose {
   padding: 20px 50px;
+}
+// 同意协议按钮
+.iptChoose .el-checkbox__inner{
+  border: 1px solid #5795e2
 }
 </style>
 
@@ -679,14 +684,12 @@ export default {
     },
     // 协议弹框提醒点击确认
     confirmBtn () {
-      this.DialogVisible = false
-      this.checked = true
-      this.checkShow = false
+      this.DialogVisible = false // 关闭弹窗
+      this.checked = true // 确认勾选
+      this.checkShow = false // 协议提示隐藏
     },
     closeDialog () {
-      this.DialogVisible = false
-      this.checked = true
-      this.checkShow = false
+      this.DialogVisible = false // 关闭弹窗
     },
     sendMessage: debounce(sendMessage, 1000, true),
     handleCheckCode: handleCheckCode,
@@ -730,10 +733,8 @@ function passBlur () {
 }
 // 阅读协议
 function handleCheck (val) {
-  console.log(val)
+  this.DialogVisible = val
   this.checked = false
-  this.DialogVisible = true
-  this.checkShow = !val
 }
 // 提交
 function subHandle (formName) {

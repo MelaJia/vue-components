@@ -92,8 +92,8 @@ export default {
   methods: {
     // 查询
     searchSubmit (val) {
-      let billPayDatefrom = val.billPayDate ? val.billPayDate[0].Format('yyyy-MM-dd') : ''
-      let billPayDateto = val.billPayDate ? val.billPayDate[1].Format('yyyy-MM-dd') : ''
+      let billPayDatefrom = val.billPayDate && val.billPayDate[0] ? val.billPayDate[0].Format('yyyy-MM-dd') : ''
+      let billPayDateto = val.billPayDate && val.billPayDate[1] ? val.billPayDate[1].Format('yyyy-MM-dd') : ''
       /* 修改请求参数 */
       this.param = {
         iDisplayStart: 1,

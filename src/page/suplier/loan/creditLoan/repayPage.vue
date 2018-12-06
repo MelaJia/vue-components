@@ -84,10 +84,10 @@ export default {
   }
 }
 function searchSubmit (val) {
-  let repayDateBegin = val.repayDate ? val.repayDate[0].Format('yyyy-MM-dd') : ''
-  let repayDateEnd = val.repayDate ? val.repayDate[1].Format('yyyy-MM-dd') : ''
-  let contractSignedDateBegin = val.contractDate ? val.contractDate[0].Format('yyyy-MM-dd') : ''
-  let contractSignedDateEnd = val.contractDate ? val.contractDate[1].Format('yyyy-MM-dd') : ''
+  let repayDateBegin = val.repayDate && val.repayDate[0] ? val.repayDate[0].Format('yyyy-MM-dd') : ''
+  let repayDateEnd = val.repayDate && val.repayDate[1] ? val.repayDate[1].Format('yyyy-MM-dd') : ''
+  let contractSignedDateBegin = val.contractDate && val.contractDate[0] ? val.contractDate[0].Format('yyyy-MM-dd') : ''
+  let contractSignedDateEnd = val.contractDate && val.contractDate[1] ? val.contractDate[1].Format('yyyy-MM-dd') : ''
   /* 修改请求参数 */
   this.param = {
     loanId: val.loanId, // 融资编号

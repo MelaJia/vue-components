@@ -77,8 +77,8 @@ export default {
   methods: {
     // 查询
     searchSubmit (val) {
-      let payfrom = val.payDate ? val.payDate[0].Format('yyyy-MM-dd') : ''
-      let payto = val.payDate ? val.payDate[1].Format('yyyy-MM-dd') : ''
+      let payfrom = val.payDate && val.payDate[0] ? val.payDate[0].Format('yyyy-MM-dd') : ''
+      let payto = val.payDate && val.payDate[1] ? val.payDate[1].Format('yyyy-MM-dd') : ''
       /* 修改请求参数 */
       this.param = {
         iDisplayStart: 1,

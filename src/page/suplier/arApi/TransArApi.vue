@@ -74,8 +74,8 @@ export default {
   methods: {
     // 条件查询
     searchSubmit (val) {
-      let form = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
-      let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
+      let form = val.moneyDate && val.moneyDate[0] ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
+      let to = val.moneyDate && val.moneyDate[1] ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
       try {
         Object.assign(this.param, {
           masterChainId: val.masterChainId, // ar单号

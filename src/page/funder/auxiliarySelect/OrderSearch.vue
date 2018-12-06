@@ -77,10 +77,10 @@ export default {
   methods: {
     // 查询
     searchSubmit (val) {
-      let confirmfrom = val.confirmDate ? val.confirmDate[0].Format('yyyy-MM-dd') : ''
-      let confirmto = val.confirmDate ? val.confirmDate[1].Format('yyyy-MM-dd') : ''
-      let deliveryfrom = val.deliveryDate ? val.deliveryDate[0].Format('yyyy-MM-dd') : ''
-      let deliveryto = val.deliveryDate ? val.deliveryDate[1].Format('yyyy-MM-dd') : ''
+      let confirmfrom = val.confirmDate && val.confirmDate[0] ? val.confirmDate[0].Format('yyyy-MM-dd') : ''
+      let confirmto = val.confirmDate && val.confirmDate[1] ? val.confirmDate[1].Format('yyyy-MM-dd') : ''
+      let deliveryfrom = val.deliveryDate && val.deliveryDate[0] ? val.deliveryDate[0].Format('yyyy-MM-dd') : ''
+      let deliveryto = val.deliveryDate && val.deliveryDate[1] ? val.deliveryDate[1].Format('yyyy-MM-dd') : ''
       /* 修改请求参数 */
       this.param = {
         iDisplayStart: 1,

@@ -77,12 +77,14 @@ export default {
   methods: {
     // 条件查询
     searchSubmit (val) {
-      let form = val.moneyDate ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
-      let to = val.moneyDate ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
+      console.log('chongzhi')
+      let form = val.moneyDate && val.moneyDate[0] ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
+      let to = val.moneyDate && val.moneyDate[1] ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
       try {
         let param = {
           masterChainId: val.masterChainId, // ar单号
           isMasterAr: val.isMasterAr, // ar来源
+          factoringCustName: val.factoringCustName, // 供应商
           companyName: val.companyName, // 付款单位
           checkedStatus: val.status, // 状态
           billBookCurr: val.billBookCurr, // 币别

@@ -79,10 +79,10 @@ export default {
   }
 }
 function searchSubmit (val) {
-  let confirmDateBegin = val.confirmDate ? val.confirmDate[0].Format('yyyy-MM-dd') : ''
-  let confirmDateEnd = val.confirmDate ? val.confirmDate[1].Format('yyyy-MM-dd') : ''
-  let deliveryDateBegin = val.deliveryDate ? val.deliveryDate[0].Format('yyyy-MM-dd') : ''
-  let deliveryDateEnd = val.deliveryDate ? val.deliveryDate[1].Format('yyyy-MM-dd') : ''
+  let confirmDateBegin = val.confirmDate && val.confirmDate[0] ? val.confirmDate[0].Format('yyyy-MM-dd') : ''
+  let confirmDateEnd = val.confirmDate && val.confirmDate[1] ? val.confirmDate[1].Format('yyyy-MM-dd') : ''
+  let deliveryDateBegin = val.deliveryDate && val.deliveryDate[0] ? val.deliveryDate[0].Format('yyyy-MM-dd') : ''
+  let deliveryDateEnd = val.deliveryDate && val.deliveryDate[1] ? val.deliveryDate[1].Format('yyyy-MM-dd') : ''
   /* 修改请求参数 */
   this.param = {
     corpCode: val.corpCode, // 法人代码
