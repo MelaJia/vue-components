@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>钜信网-对外接口</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="./css/element-ui/lib/index.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <style>
+    article{
+  margin-left: 80px;
+}
+.dia-info table{
+  border-collapse: collapse; /* 表格边框合并 */
+}
+.dia-info td,.dia-info th {
+    width: 130px;
+    border: 1px solid;
+    padding: 10px 0;
+}
+.dia-info th {
+    text-align: center;
+    background: #cccccc;
+}
+.dia-info td.td-center{
+  text-align: center;
+}
+.dia-info td.td-right{
+  text-align: right;
+}
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 搜索区域 -->
+    <article class="body">
+      <el-card class="box-card search-box-card" :class="{'hideBox':!searchShow}">
+        <div slot="header" class="clearfix" style="position:relative">
+          <i class="el-icon-search"></i>
+          <span>查询条件</span>
+          <el-tooltip class="item" effect="dark" content="点我收起" placement="right-start">
+            <i class="el-icon-arrow-down" v-show="searchShow" @click="searchShow=!searchShow" style="position: absolute;right: 0;color:#409EFF;top:3px;cursor:pointer;"></i>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="点我展开" placement="right-start">
+            <i class="el-icon-arrow-right" v-show="!searchShow" @click="searchShow=!searchShow" style="position: absolute;right: 0;color:#409EFF;top:3px;cursor:pointer;"></i>
+          </el-tooltip>
+        </div>
+        <transition name="custom-classes-transition" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
+          <template v-show="searchShow">
+            <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small"
+              label-width="150px">
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item label="AR单号" prop="masterChainId">
+                    <el-input v-model.trim="formInline.masterChainId" placeholder=""></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col v-if="operateType===1" :span="8">
+                  <el-form-item label="保理方" prop="factoringCustName">
+                    <el-input v-model.trim="formInline.factoringCustName" placeholder=""></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col v-else :span="8">
+                    <el-form-item label="状态" prop="status">
+                      <el-select v-model="formInline.status" clearable disabled placeholder="全部">
+                        <el-option v-for="(item,index) in arStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
+                      </el-select>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                    <el-form-item label="币别" prop="billBookCurr">
+                      <el-select v-model="formInline.billBookCurr" clearable placeholder="全部">
+                        <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
+                      </el-select>
+                    </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                      <el-form-item label="付款单位" prop="companyName">
+                        <el-input v-model.trim="formInline.companyName" placeholder=""></el-input>
+                      </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="发票号" prop="invoiceNo">
+                    <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                    <el-form-item label="结报单号" prop="billId">
+                      <el-input v-model.trim="formInline.billId" placeholder=""></el-input>
+                    </el-form-item>
+                  </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="票据到期日" prop="moneyDate">
+                    <el-date-picker :editable="false" v-model="formInline.moneyDate" type="daterange" unlink-panels
+                      range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+                    </el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="4" :offset="10">
+                  <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
+                  <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
+                </el-col>
+              </el-row>
+            </el-form>
+          </template>
+        </transition>
+      </el-card>
+    </article>
+    <!-- 表格区域 -->
+    <article class="body">
+      <el-card class="box-card main-content-box-card text-align-center">
+        <!-- 表格区域-头部区域 -->
+        <header v-if="operateType===1">
+          <el-form ref="ordform" :inline="true" class="demo-form-inline">
+            <el-form-item>
+              <el-button round type="primary" @click="handleTrans">转让</el-button>
+            </el-form-item>
+            <el-form-item label="待转让金额(元)">
+              {{displayTransAmt}}
+            </el-form-item>
+            <el-form-item label="当前已选金额(元)">
+              {{displaySumAmt}}
+            </el-form-item>
+            <el-form-item>
+              <el-button round size="small" @click="handleClearSelection">取消已勾选</el-button>
+            </el-form-item>
+          </el-form>
+        </header>
+        <!-- 弹出窗-详情 -->
+        <section>
+          <el-dialog custom-class="dia-class dia-info" :visible.sync="visibleInfo" :before-close="handleClose('visibleInfo')"
+            center="">
+            <header slot="title">
+              <span class="title">
+                详情
+              </span>
+            </header>
+            <section>
+              <ul>
+                <li>
+                  <span>AR来源: <em>{{this.detailsP.arSourceDesc}}</em></span>
+                </li>
+                <li>
+                  <span>状态: <em>{{this.detailsP.arStatusTypeName}}</em></span>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <el-tooltip :content="'付款单位:'+this.detailsP.companyName" placement="bottom" effect="light">
+                    <span>付款单位: <em>{{this.detailsP.companyName}}</em></span>
+                  </el-tooltip>
+                </li>
+                <li>
+                  <span>结报单号: <em>{{this.detailsP.billId}}</em></span>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <span>保理方: <em>{{this.detailsP.factoringCustName}}</em></span>
+                </li>
+                <li>
+                  <span>币别: <em>{{this.detailsP.currencyDesc}}</em></span>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <span>票据到期日: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
+                </li>
+                <li>
+                  <span>结报状态:
+                    <el-tooltip class="item" effect="light" placement="top-start">
+                      <div slot="content" class="status-tooltip">
+                        <ul>
+                          <li :style="this.detailsP.signStatusId===0?'color:red':''">会计确认</li><span>-></span>
+                          <li :style="this.detailsP.signStatusId===1?'color:red':''">财务确认</li><span>-></span>
+                          <li :style="this.detailsP.signStatusId===2?'color:red':''">财务已付款</li><span>-></span>
+                          <li :style="this.detailsP.signStatusId===3?'color:red':''">付款单确认</li>
+                        </ul>
+                        <ul>
+                          <li :style="this.detailsP.signStatusId===0?'color:red':''">{{this.detailsP.signStatusId===0&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                          <li :style="this.detailsP.signStatusId===1?'color:red':''">{{this.detailsP.signStatusId===1&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                          <li :style="this.detailsP.signStatusId===2?'color:red':''">{{this.detailsP.signStatusId===2&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                          <li :style="this.detailsP.signStatusId===3?'color:red':''">{{this.detailsP.signStatusId===3&&this.detailsP.signStatusName?`(${this.detailsP.signStatusName})`: ''}}</li>
+                        </ul>
+                      </div>
+                        <em>{{this.detailsP.billPayStatus}}</em>
+                    </el-tooltip>
+                  </span>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <span>票面金额: <em>{{this.detailsP.billBookAmt | regexNum}}</em></span>
+                </li>
+                <li>
+                  <span>可用余额: <em>{{this.detailsP.loanAmt | regexNum}}</em></span>
+                </li>
+              </ul>
+              <ul class="height-auto" v-if="detailsP.checkedStatus!==6&&detailsP.checkedStatus!==9">
+                <span>发票清单:</span>
+                <article>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>发票号码</th>
+                        <th>票面金额</th>
+                        <th>可用余额</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in detailsP.invoiceCustomList" :key="item.invoiceNo">
+                        <td class="td-center">{{item.invoiceNo}}</td>
+                        <td class="td-right">{{item.invoiceAfterTaxAmt|thousandth}}</td>
+                        <td class="td-right">{{item.invoiceAvailableAmount|thousandth}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </article>
+              </ul>
+            </section>
+            <footer class="no-print" slot="footer" :style="'clear:both'">
+              <el-button type="primary" @click="handleClose('visibleInfo')()">确认</el-button>
+            </footer>
+          </el-dialog>
+        </section>
+        <!-- 弹出窗-自有转让 -->
+        <section>
+          <el-dialog custom-class="dia-class" :visible.sync="visibleTrans" :before-close="handleClose('visibleTrans')":close-on-click-modal="false"
+            center="">
+            <header slot="title">
+              <span class="title">
+                转让
+              </span>
+            </header>
+            <section>
+              <article>
+                <ul>
+                  <li class="wd-3">
+                    <span>币别: <em>{{this.transDatas.arInvoiceList[0].currencyDesc}}</em></span>
+                  </li>
+                  <li class="wd-3">
+                    <span>单位: <em>{{this.transDatas.arInvoiceList[0].currencyUnitName}}</em></span>
+                  </li>
+                  <li class="wd-3">
+                    <span>待转让金额: <em>{{this.transDatas.transAmt}}</em></span>
+                  </li>
+                </ul>
+              </article>
+              <article>
+                <el-table ref="tableTrans" :data="transDatas.arInvoiceList" border @selection-change="handleTransSelectionChange"
+                  @select="select" style="width: 100%">
+                  <el-table-column type="selection" width="40">
+                  </el-table-column>
+                  <el-table-column align="center" prop="masterChainId" :formatter="nullDealWith" label="AR单号" width="100">
+                  </el-table-column>
+                  <el-table-column align="center" prop="billPayDate" :formatter="dateFormat" label="预计回款日期" width="110">
+                  </el-table-column>
+                  <el-table-column align="center" prop="invoiceNo" :formatter="nullDealWith" label="发票号" width="100">
+                  </el-table-column>
+                  <el-table-column align="right" header-align="center" prop="afterTaxAmt" :formatter="regexNum" label="发票票面金额"
+                    width="180">
+                  </el-table-column>
+                  <el-table-column align="right" header-align="center" prop="availableAfterTaxAmt" :formatter="regexNum"
+                    label="发票可用金额">
+                  </el-table-column>
+                  <el-table-column align="center" label="转让金额">
+                    <template slot-scope="scope">
+                      <el-input :autofocus="true" ref="inputedit" v-model='scope.row.transferAfterTaxAmt' placeholder=''
+                        :disabled="scope.row.disabled" @blur="blurIsClear(scope.row)" @input.native="handleInput('availableAfterTaxAmt',scope.row,$event,multipleSelectionTrans)"
+                        onKeyDown="return inputCan()">
+                      </el-input>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </article>
+              <article>
+                <el-form class="layout form text-align-left" label-width="100px">
+                  <el-row>
+                    <el-col :span="9"></el-col>
+                    <el-form-item label="转让总金额:">
+                      <span>{{displaySumAmtTrans}}</span>
+                    </el-form-item>
+                  </el-row>
+                  <el-row v-if="param.interfaceTransSerial">
+                      <el-col :span="9" class="flex">
+                          <el-form-item label="授让公司Id:">
+                            {{transDatas.custToId}}
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="9" class="flex">
+                          <el-form-item label="授让公司名:">
+                            {{transDatas.custToName}}
+                          </el-form-item>
+                        </el-col>
+                  </el-row>
+                  <el-row v-else>
+                      <el-col :span="9" class="flex">
+                          <el-form-item label="授让公司Id:" prop="receiveCustId">
+                            <el-input v-model.trim="receiveCustId" placeholder="请输入授让公司Id"></el-input>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="9" class="flex">
+                          <el-form-item label="授让公司名:">
+                            {{this.rc.name}}
+                          </el-form-item>
+                        </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="18" class="flex">
+                      <el-form-item label="备注:">
+                        <el-input type="textarea" v-model.trim="remark" :maxlength="255" :autosize="{ minRows: 3, maxRows: 6}"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                      <el-checkbox-group v-model="agreeCheckList">
+                          <el-checkbox label="agree1">我确认本次债券可以被转让</el-checkbox>
+                          <el-checkbox label="agree2">我确认本次债券真实有效无任何纠纷</el-checkbox>
+                      </el-checkbox-group>
+                  </el-row>
+                </el-form>
+              </article>
+            </section>
+            <footer class="no-print" slot="footer" :style="'clear:both'">
+              <el-button type="primary" @click="transSub(1,transDatas,multipleSelectionTrans)">确认</el-button>
+            </footer>
+          </el-dialog>
+        </section>
+        <!-- 弹出窗-购入转让 -->
+        <section>
+            <el-dialog custom-class="dia-class" :visible.sync="visibleTransGou" :before-close="handleClose('visibleTransGou')":close-on-click-modal="false"
+              center="">
+              <header slot="title">
+                <span class="title">
+                  购入转让
+                </span>
+              </header>
+              <section>
+                <article>
+                  <ul>
+                    <li class="wd-3">
+                      <span>币别: <em>{{this.detailsTG.arInvoiceList[0].currencyDesc}}</em></span>
+                    </li>
+                    <li class="wd-3">
+                      <span>单位: <em>{{this.detailsTG.arInvoiceList[0].currencyUnitName}}</em></span>
+                    </li>
+                    <li class="wd-3">
+                      <span>待转让金额: <em>{{this.detailsTG.transAmt}}</em></span>
+                    </li>
+                  </ul>
+                </article>
+                <article>
+                  <el-table ref="tableTransGou" :data="detailsTG.arInvoiceList" border style="width: 100%">
+                    <el-table-column align="center" prop="masterChainId" :formatter="nullDealWith" label="AR单号" width="100">
+                    </el-table-column>
+                    <el-table-column align="center" prop="billPayDate" :formatter="dateFormat" label="票据到期日" width="110">
+                    </el-table-column>
+                    <el-table-column align="center" prop="invoiceNo" :formatter="nullDealWith" label="发票号码">
+                      </el-table-column>
+                    <el-table-column align="right" header-align="center" prop="afterTaxAmt" :formatter="regexNum" label="发票票面金额"
+                      width="180">
+                    </el-table-column>
+                    <el-table-column align="right" header-align="center" prop="availableAfterTaxAmt" :formatter="regexNum"
+                      label="发票可用金额">
+                    </el-table-column>
+                    <el-table-column align="center" label="转让金额">
+                      <template slot-scope="scope">
+                        <el-input :autofocus="true" v-model='scope.row.transferAfterTaxAmt' placeholder=''
+                          @input.native="handleInput('availableAfterTaxAmt',scope.row,$event,detailsTG.arInvoiceList)"
+                          onKeyDown="return inputCan()">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </article>
+                <article>
+                  <el-form class="layout form text-align-left" label-width="100px">
+                    <el-row>
+                      <el-col :span="9"></el-col>
+                      <el-form-item label="转让总金额:">
+                        {{displaySumAmtTrans}}
+                      </el-form-item>
+                    </el-row>
+                    <el-row v-if="param.interfaceTransSerial">
+                        <el-col :span="9" class="flex">
+                            <el-form-item label="授让公司Id:">
+                              {{detailsTG.custToId}}
+                            </el-form-item>
+                          </el-col>
+                          <el-col :span="9" class="flex">
+                            <el-form-item label="授让公司名:">
+                              {{detailsTG.custToName}}
+                            </el-form-item>
+                          </el-col>
+                    </el-row>
+                    <el-row v-else>
+                        <el-col :span="9" class="flex">
+                            <el-form-item label="授让公司Id:" prop="receiveCustId">
+                              <el-input v-model.trim="receiveCustId" placeholder="请输入授让公司Id"></el-input>
+                            </el-form-item>
+                          </el-col>
+                          <el-col :span="9" class="flex">
+                            <el-form-item label="授让公司名:">
+                              {{this.rc.name}}
+                            </el-form-item>
+                          </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-col :span="18" class="flex">
+                        <el-form-item label="备注:">
+                          <el-input type="textarea" v-model.trim="remark" :maxlength="255" :autosize="{ minRows: 3, maxRows: 6}"></el-input>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-checkbox-group v-model="agreeCheckList">
+                            <el-checkbox label="agree1">我确认本次债券可以被转让</el-checkbox>
+                            <el-checkbox label="agree2">我确认本次债券真实有效无任何纠纷</el-checkbox>
+                        </el-checkbox-group>
+                    </el-row>
+                  </el-form>
+                </article>
+              </section>
+              <footer class="no-print" slot="footer" :style="'clear:both'">
+                <el-button type="primary" @click="transSub(0,detailsTG,detailsTG.arInvoiceList)">确认</el-button>
+              </footer>
+            </el-dialog>
+        </section>
+        <!-- 弹出窗-贴现 -->
+        <section>
+            <el-dialog custom-class="dia-class dia-disc" :visible.sync="visibleDisc" :before-close="handleClose('visibleDisc')" center="">
+                <header slot="title">
+                  <span class="title">
+                      贴现
+                  </span>
+                </header>
+                <section>
+                  <ul>
+                    <span>付款单位: <em>{{this.detailsDisc.arList[0].companyName}}</em></span>
+                  </ul>
+                  <ul>
+                    <li>
+                      <span>AR来源: <em>{{this.detailsDisc.arList[0].arSourceDesc}}</em></span>
+                    </li>
+                    <li>
+                      <span>状态: <em>{{this.detailsDisc.arList[0].arStatusTypeName}}</em></span>
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <span>币别: <em>{{this.detailsDisc.arList[0].currencyDesc}}</em></span>
+                    </li>
+                    <li>
+                      <span>预计回款日期: <em>{{this.detailsDisc.arList[0].billPayDate | dateFormat}}</em></span>
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <span>票面金额: <em>{{this.detailsDisc.arList[0].billBookAmt | regexNum}}</em></span>
+                    </li>
+                    <li>
+                      <span>可用金额: <em>{{this.detailsDisc.arList[0].loanAmt | regexNum}}</em></span>
+                    </li>
+                  </ul>
+                  <ul>
+                    <span>贴现保理公司：{{this.detailsDisc.arList[0].factorCompany}}</span>
+                  </ul>
+                  <ul class="height-auto">
+                      <span>已用发票:
+                        <div class="el-check-group inline-block">
+                          <el-checkbox v-for="item in detailsDisc.arList[0].usedInvoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}(金额：{{item.afterTaxAmt |regexNum}})</el-checkbox>
+                        </div>
+                      </span>
+                  </ul>
+                  <ul class="height-auto">
+                      <span>可用发票:
+                        <el-checkbox-group v-model="checkList" class="inline-blox" @change="handleCheckedChange">
+                          <el-checkbox v-for="item in detailsDisc.arList[0].availableInvoiceList" :key="item.invoiceNo" :label="item.invoiceNo">{{item.invoiceNo}}(金额：{{item.afterTaxAmt |regexNum}})</el-checkbox>
+                        </el-checkbox-group>
+                        <!-- <el-checkbox v-for="item in detailsP.invoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected">{{item.invoiceNo}}</el-checkbox> -->
+                      </span>
+                  </ul>
+                </section>
+                <el-form class="layout form text-align-left" label-width="100px">
+                  <el-row>
+                    <el-col :span="8" class="flex">
+                      <el-form-item label="贴现金额(元):" prop="receiveCustId">
+                        <el-input :autofocus="true" v-model='arAmt' placeholder=''
+                          @input.native="handleInputDisc"
+                          onKeyDown="return inputCan()">
+                        </el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="6" v-if="maxSum">
+                      
+                        <label class="sum-content">金额上限:{{maxSum | regexNum}}</label>
+               
+                    </el-col>
+                  </el-row>
+                </el-form>
+                <footer slot="footer" :style="'clear:both'">
+                  <el-button type="primary" @click="handleSubmitDisc">确认</el-button>
+                  <el-button type="default" @click="handleClose('visibleDisc')()">取消</el-button>
+                </footer>
+              </el-dialog>
+        </section>
+        <!-- 表格区域-主体区域 -->
+        <section>
+          <!-- 表格区 -->
+          <el-table ref="table" :data="comDatas" element-loading-text="拼命加载中"
+            element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" border style="width: 100%"
+            row-key="masterChainId" @selection-change="handleSelectionChange" @select-all="handleSelectAll">
+            <el-table-column type="selection" fixed width="40" :selectable="disableHandle" :reserve-selection="true">
+            </el-table-column>
+            <el-table-column type="index" label="序号" fixed width="40">
+            </el-table-column>
+            <el-table-column align="center" label="AR单号" fixed prop="masterChainId" width="150" :formatter="nullDealWith">
+            </el-table-column>
+            <el-table-column align="center" label="结报单号" prop="billId" width="150" :formatter="nullDealWith">
+            </el-table-column>
+            <el-table-column align="center" label="来源" prop="arSourceDesc" :formatter="nullDealWith">
+            </el-table-column>
+            <el-table-column align="center" label="付款单位" prop="companyName" :formatter="nullDealWith">
+            </el-table-column>
+            <el-table-column align="right" header-align="center" label="状态" prop="arStatusTypeName" :formatter="nullDealWith">
+            </el-table-column>
+            <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
+            </el-table-column>
+            <el-table-column align="center" label="票面金额" prop="billBookAmt" :formatter="regexNum" width="120">
+            </el-table-column>
+            <el-table-column align="center" label="可用余额" prop="loanAmt" :formatter="regexNum" width="120">
+            </el-table-column>
+            <el-table-column align="center" label="预计回款日期" prop="billPayDate" :formatter="dateFormat">
+            </el-table-column>
+            <el-table-column align="center" header-align="center" label="操作" width='100px' class-name="" fixed="right"
+              :resizable="false">
+              <template slot-scope="scope">
+                <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
+                <el-button v-if="operateType===2" size="mini" type="text" @click="handleDisc(scope.$index, scope.row)">贴现</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <!-- 分页区 -->
+          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="pageSizesArr"
+            :page-size="psize" :current-page.sync="currentPage" layout="total, sizes, prev, pager, next, jumper" :total="total">
+          </el-pagination>
+        </section>
+      </el-card>
+    </article>
+  </div>
+</body>
+<!-- 引入vue -->
+<script src="./js/vue/dist/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="./css/element-ui/lib/index.js"></script>
+<script src="./js/axios/dist/axios.min.js"></script>
+<!-- 引入babel -->
+<script src="./js/polyfill.min.js"></script>
+<!-- 引入配置文件 -->
+<script src="./js/config/config.js"></script>
+<!-- 引入键盘可输入文件 -->
+<script src="./js/keyCode.js"></script>
+<script src="./js/index.js"></script>
+<script>
+  // function getContextPath () {
+  //   var pathName = document.location.pathname
+  //   var index = pathName.substr(1).indexOf('/')
+  //   var result = pathName.substr(0, index + 1)
+  //   return result
+  // }
+  // function getBaseUrl () {
+  //   return document.location.protocol + '//' + document.location.host + getContextPath()
+  // }
+  // window.onload = function(){
+  //   var baseUrl = getBaseUrl()
+  //   var src1 = document.createElement('script')
+  //   var src2 = document.createElement('script')
+  //   var src3 = document.createElement('script')
+  //   var style = document.createElement('link')
+  //   style.setAttribute('rel', 'stylesheet')
+  //   style.setAttribute('href', baseUrl+'/css/style.css')
+  //   document.querySelector('body').appendChild(style)
+  //   src1.src=baseUrl+'/js/polyfill.min.js'
+  //   document.querySelector('body').appendChild(src1)
+  //   src2.src=baseUrl+'/js/keyCode.js'
+  //   document.querySelector('body').appendChild(src2)
+  //   src3.src=baseUrl+'/js/index.js'
+  //   document.querySelector('body').appendChild(src3)
+  // }
+
+</script>
+
+</html>

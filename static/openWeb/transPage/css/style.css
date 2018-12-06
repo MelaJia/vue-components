@@ -1,0 +1,90 @@
+/* 弹出框样式 */
+.dia-class ul {
+  position: relative;
+  border-top: .5px solid #931719;
+  border-left: .5px solid #931719;
+  margin: 0;
+  border-right: .5px solid #931719;
+  padding: 0;
+  text-align: left;
+}
+.dia-class ul:not(.height-auto) {
+  height: 44px;
+  line-height: 44px;
+}
+.dia-class ul:last-of-type {
+  border-bottom: 0.5px solid #931719;
+}
+
+.dia-class li {
+  width: 48%;
+  list-style: none;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 44px;
+  padding-left: 5px;
+  color: #303133;
+}
+.dia-class li.wd-3{
+  width: 32%;
+}
+
+.dia-class li:not(:first-of-type) {
+  border-left: 0.5px solid #931719;
+}
+.dia-class ul>span {
+  padding-left: 5px;
+  color: #303133;
+}
+
+.dia-class .a-link-group>a {
+  margin-left: 30px;
+}
+
+.dia-class .a-link-group>label {
+  margin-left: 5px;
+  color: #606266;
+}
+.dia-class .a-link-group>label.first-child {
+  margin-left: 30px;
+}
+
+.dia-class .a-link-group>label:not(:last-of-type)::after {
+  content: ','
+}
+
+.dia-class span>em {
+  color: #606266;
+  font-style: normal;
+}
+.dia-disc .el-checkbox {
+  margin-left: 30px;
+}
+.dia-class .sum-content{
+  height: 40px;
+  line-height: 40px;
+  padding-left: 8px;
+}
+/* 其他样式 */
+.line {
+  text-align: center;
+}
+form {
+        min-width: 950px;
+        margin-top: 8px;
+    }
+.el-date-editor.el-range-editor.el-input__inner.el-date-editor--daterange.el-range-editor--small{
+  width: 275px;
+  margin-right: 10px;
+}
+.el-input.el-input--small,.el-select.el-select--small {
+  width: 175px;
+}
+.el-col-10>.el-input.el-input--small {
+  width: 100%;
+}
+.dia-class .form.text-align-left{
+  text-align: left
+}

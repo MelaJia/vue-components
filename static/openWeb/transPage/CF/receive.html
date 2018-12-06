@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>保理方支付贴现功能</title>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <style>
+      *{padding:0;margin:0;}   
+      body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;overflow: hidden;}
+      #iframe{width:100%;height:100%;}
+    </style>
+</head>
+<body>
+  <div id="iframe">
+    <iframe :src="src" ref="ifd" id="myiframe" width="100%" frameborder="0"></iframe>
+  </div>
+  <!-- <script src="mock/jquery.min.js"></script>
+  <script src="mock/mock.js"></script>
+  <script src="mock/data.js"></script> -->
+  <script src="../js/config/config.js"></script>
+  <script src="../js/vue/dist/vue.js"></script>
+  <script src="../js/axios/dist/axios.min.js"></script>
+  <script>
+    new Vue({
+      el:'#iframe',
+      data:{
+        src:'', // 请求外部系统返回回来的地址
+        transSerialNo:'',  // 交易流水号
+        operateType:'', // 操作类型
+        operateResult:[false,true,false], // 操作结果: '0' 代表失败 '1'代表成功 '2' 代表失败
+        resultList:['未操作','操作成功','操作失败'] // 操作结果信息:  '0' 代表未操作 '1' 代表操作成功 '2' 代表操作失败
+      },
+      created(){
+        this.transSerialNo = this.getQueryString('transSerialNo') // 获取交易流水号
+        this.operateType = this.getQueryString('operateType') // 获取操作类型
+      },
+      mounted(){
+        var _this=this
+        this.getData()
+        this.changeFrameHeight() // 调用自适应高度方法
+        window.onresize=function(){
+          _this.changeFrameHeight()
+        }
+      },
+      methods:{
+        // 自适应高度
+        changeFrameHeight() {
+          var fm = this.$refs.ifd
+          fm.height=document.documentElement.clientHeight
+        },
+        // 获取数据
+        getData(){
+          var _this = this
+          let param = {
+            transSerialNo: this.transSerialNo, // 交易流水号
+            proxyUrl: 'proxy.html'+'#' // 钜融网代理地址
+          }
+          console.log(param)
+          // 请求接口
+          axios.post(window.webConfig.apiUrl+'/multiArDiscountManager/multiSignDiscount.do', {
+            params:param
+          }).then(res => {
+            if(res.status) {
+              var data = res.data.data
+              this.src = data.signingURL
+              // 定时检查hash
+              var checkHash = setInterval(function(){
+                if(location.hash){
+                  var factoringResult = location.hash.substring(1)
+                  clearInterval(checkHash)
+                  _this.transactionBack(factoringResult)
+                }
+              },2000)
+            } else {
+              alert(res.data.msg)
+            }
+          }).catch(err => {
+            console.log(err)
+          })
+        },
+        // 获取父级页面传过来的地址后面参数方法
+        getQueryString(name){
+          var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
+          var r = window.location.search.substr(1).match(reg); 
+          if(r!=null)return unescape(r[2]); return null; 
+        },
+        // 交易回调函数
+        transactionBack(factoringResult){
+          let param = {
+            transSerialNo: this.transSerialNo, // 交易流水号
+            operateType: this.operateType, // 操作类型
+            result: this.operateResult[Number(factoringResult)], // 调用外部的合同签署页面返回来的操作结果
+            message: this.resultList[Number(factoringResult)] // 调用外部的合同签署页面返回来的操作结果信息
+          }
+          // 请求交易回调接口
+          axios.post(window.webConfig.apiUrl+'/multiArManager/multiOperateCallBackECommercePlatform.do', {params:param
+          }).then(res => {
+            if(res.status) {
+              var data = res.data.data
+              window.location.href=data.callBackUrl
+            }else {
+              alert(res.data.msg)
+            }
+          }).catch(err => {
+            console.log(err)
+          })
+        }
+      }
+    })
+  </script>
+</body>
+</html>
