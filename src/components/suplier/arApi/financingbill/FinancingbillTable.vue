@@ -33,9 +33,9 @@
         </el-table-column>
         <el-table-column align="center" label="操作" header-align="center" width='120' fixed="right" :resizable="false">
           <template slot-scope="scope">
-            <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-            <el-button size="mini" type="text" v-if="scope.row.checkedStatus === 23" @click="confirmContract(scope.$index, scope.row)">合同确认</el-button>
-            <el-button size="mini" type="text" v-if="scope.row.checkedStatus === 22" @click="cancel(scope.$index, scope.row)">取消</el-button>
+            <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row, query.interfaceTransSerial)">详情</el-button>
+            <el-button size="mini" type="text" v-if="scope.row.checkedStatus === 23&&(!query.interfaceTransSerial|(query.interfaceTransSerial&&query.type==12))" @click="confirmContract(scope.$index, scope.row)">合同确认</el-button>
+            <el-button size="mini" type="text" v-if="scope.row.checkedStatus === 22&&(!query.interfaceTransSerial|(query.interfaceTransSerial&&query.type==11))" @click="cancel(scope.$index, scope.row)">取消</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -69,7 +69,7 @@ import Common from '@/mixins/common'
 import { getDataBase } from '@/util/util' // 首字母大写 防抖函数
 /* 我的Ar列表 */
 export default {
-  props: ['dataLoading', 'dataTable'],
+  props: ['dataLoading', 'dataTable', 'query'],
   mixins: [TableMixIn, Common],
   components: {
     'dialog-financingbill': () =>
@@ -117,7 +117,8 @@ export default {
     // 合同确认
     confirmContract (idx, val) {
       let param = {
-        transSerialNo: val.transSerialNo
+        transSerialNo: val.transSerialNo,
+        interfaceTransSerial: this.query.interfaceTransSerial
       }
       // 获取数据
       getDataBase.call(this, '/multiArManager/multiArLoanSigningDetail.do', param, true).then(res => {
@@ -125,7 +126,7 @@ export default {
           console.log(res)
           // 标题赋值
           // res.masterChainId = val.loanId
-          this.details = Object.assign(res, {transSerialNo: val.transSerialNo})
+          this.details = Object.assign(res, {transSerialNo: val.transSerialNo, interfaceTransSerial: this.query.interfaceTransSerial})
           this.dialogContractVisible = true
         }
       })
@@ -138,7 +139,7 @@ export default {
         type: 'warning',
         center: true
       }).then(() => {
-        this.postResultFresh('/multiArInFinancingManager/multiArCancelDiscount.do', {transSerialNo: val.transSerialNo}) // 调用common混合中公共方法
+        this.postResultFresh('/multiArInFinancingManager/multiArCancelDiscount.do', {transSerialNo: val.transSerialNo, interfaceTransSerial: this.query.interfaceTransSerial}) // 调用common混合中公共方法
       }).catch(() => {
         this.$message({
           type: 'info',
