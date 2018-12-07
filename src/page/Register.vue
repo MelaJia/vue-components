@@ -355,7 +355,7 @@
           <el-col :span="6" :offset="10">
             <el-button v-if="step!=0" type="primary" size="mini" @click="prevHandle()">上一步</el-button>
             <el-button v-if="step!=2" type="primary" size="mini" @click="nextHandle(`form-${step+1}`)">下一步</el-button>
-            <el-button v-if="step==2" type="primary" size="mini" @click="subHandle('form-3')">提交</el-button>
+            <el-button v-if="step==2" type="primary" size="mini" @click="subHandle('form-3')" :loading="registing">提交</el-button>
           </el-col>
         </el-row>
       </footer>
@@ -366,7 +366,7 @@
     <p style="text-align:justify;line-height:1.5;"><span style="color:#000">【审慎阅读】</span>您在申请注册流程中点击同意本协议之前，应当认真阅读本协议。请您务必审慎阅读、充分理解各条款内容，特别是免除或者限制责任的条款、法律适用和争议解决条款。免除或者限制责任的条款将以粗体下划线标识，您应重点阅读。如您对协议有任何疑问，可向钜信网平台客服咨询。</p>
     <p style="text-align:justify;line-height:1.5;"><span style="color:#000">【签约动作】</span>当您按照注册页面提示填写信息、阅读并同意本协议且完成全部注册程序后，即表示您已充分阅读、理解并接受本协议的全部内容，并与平台达成一致，成为钜信平台“用户”。阅读本协议的过程中，如果您不同意本协议或其中任何条款约定，您应立即停止注册程序；弹出内容不影响原有勾选注册协议流程</p>
     <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="confirmBtn">确 定</el-button>
+      <el-button type="primary" @click="confirmBtn" >确 定</el-button>
     </span>
   </el-dialog>
   <section class="footer"></section>
@@ -567,7 +567,8 @@ export default {
       verificationCodeStatus: 0, // 验证状态
       word: '获取验证码',
       isOvertime: false,
-      btntype: 'primary' // 验证码按钮样式
+      btntype: 'primary', // 验证码按钮样式
+      registing: false // 注册中
     }
   },
   watch: {
@@ -664,7 +665,7 @@ export default {
     // 密码框失去焦点时隐藏提示信息
     passBlur: passBlur,
     // 提交
-    subHandle: subHandle,
+    subHandle: debounce(subHandle, 1000, true),
     handleCheck: handleCheck,
     // 格式化银行账号
     formatBankNo: formatBankNo,
@@ -769,7 +770,9 @@ function subHandle (formName) {
       // }
       // 5.传送数据
       console.log(Object.keys(this.userInfo).length)
+      this.registing = true
       this.axios.post('/cust/userRegister.do', this.userInfo).then(res => {
+        this.registing = false
         let _this = this
         let type = res.data.status ? 'success' : 'error'
         this.$message({
@@ -782,6 +785,7 @@ function subHandle (formName) {
           }
         }, 2000)
       }).catch(err => {
+        this.registing = false
         console.log(err)
         this.$message({
           type: 'info',

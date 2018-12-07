@@ -17,6 +17,7 @@ const getters = {
   menuName: state => state.user.menuName,
   errLog: state => state.errLog.errLog,
   activeidx: state => state.tags.tag.value,
-  ssoId: state => state.user.ssoId
+  ssoId: state => state.user.ssoId,
+  interfaceTransSerial: state => state.user.interfaceTransSerial
 }
 export default getters

@@ -174,7 +174,8 @@ function transSub (type, originData, selection) {
     transAmt: originData.transAmt,
     custToId: this.receiveCustId,
     custToName: this.rc.name,
-    remark: this.remark
+    remark: this.remark,
+    interfaceTransSerial: this.$store.getters.interfaceTransSerial
   }
   let url = '/multiArTransferManager/multiInitiateTransfer.do'
   this.post(url, data, true).then(res => {

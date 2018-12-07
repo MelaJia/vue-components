@@ -58,6 +58,7 @@ export default {
     } else {
       // storage中无数据
       // 获取ar状态并保存
+      console.log('子组件请求')
       this.axios.get('/commonTrans/queryLoanType.do').then(res => {
         if (res.data.status) {
           setStore({

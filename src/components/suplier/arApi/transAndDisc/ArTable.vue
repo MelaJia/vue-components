@@ -67,18 +67,9 @@
         <el-table-column align="center" label="来源" prop="arSourceDesc" :formatter="nullDealWith"></el-table-column>
         <el-table-column align="center" label="付款单位" prop="companyName" :formatter="nullDealWith"></el-table-column>
         <el-table-column
-          v-if="operateType===1"
           align="center"
           label="保理方"
           prop="factoringCustName"
-          :formatter="nullDealWith"
-        ></el-table-column>
-        <el-table-column
-          v-else
-          align="right"
-          header-align="center"
-          label="状态"
-          prop="arStatusTypeName"
           :formatter="nullDealWith"
         ></el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith"></el-table-column>
@@ -160,7 +151,8 @@ export default {
     operateType: {// operateType:1转让，2贴现
       type: Number,
       default: 1
-    }
+    },
+    query: Object // 外部标识等参数
   },
   mixins: [TableMixIn, Common],
   components: {
@@ -269,7 +261,7 @@ function handleTrans () {
   var _this = this
   var data = {
     arList: _this.multipleSelection,
-    interfaceTransSerial: _this.param.interfaceTransSerial
+    interfaceTransSerial: _this.query.interfaceTransSerial
   }
   // 2018-12-4 by:xyl
   this.getLoanDetail('/multiArTransferManager/multiArTransView.do', data).then(function (res) {
@@ -334,7 +326,7 @@ function handleDisc (idx, val) {
   var _this = this
   var param = {
     arList: [val],
-    interfaceTransSerial: _this.param.interfaceTransSerial
+    interfaceTransSerial: _this.query.interfaceTransSerial
   }
   // 获取数据
   this.getLoanDetail('/multiArDiscountManager/multiArDiscountView.do', param).then(function (res) {
@@ -407,7 +399,8 @@ function handleSelectAll (val) {
 }
 function getDetail (url, val) {
   var param = {
-    masterChainId: val
+    masterChainId: val,
+    interfaceTransSerial: this.query.interfaceTransSerial
   }
   // 获取数据
   this.getLoanDetail(url, param).then((res) => {

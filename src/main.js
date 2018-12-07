@@ -22,7 +22,7 @@ import preview from 'vue-photo-preview'
 import 'vue-photo-preview/dist/skin.css'
 import Print from '@/plugs/print'
 Vue.use(Print) // 注册
-Vue.use(preview)// 图片预览
+Vue.use(preview) // 图片预览
 Vue.use(dateInit) // 格式化日期注册
 axios.defaults.baseURL = apiUrl
 if (process.env.NODE_ENV === 'development') {
@@ -30,7 +30,9 @@ if (process.env.NODE_ENV === 'development') {
   // monitorInit() // 模拟数据初始化
   axios.interceptors.request.use(
     config => {
-      if (store.getters.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token
+      console.log('token:', store.getters.token, store.getters.monitorToken)
+      console.log((store.getters.token !== null | store.getters.monitorToken != null))
+      if (store.getters.token !== null | store.getters.monitorToken != null) { // 判断是否存在token，如果存在的话，则每个http header都加上token
         config.headers.Authorization = config.data && config.data['interfaceTransSerial'] ? store.getters.monitorToken : store.getters.token
       }
       return config
@@ -45,8 +47,8 @@ if (process.env.NODE_ENV === 'production') {
   axios.interceptors.request.use(
     config => {
       console.log(store.getters.token)
-      if (store.getters.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token
-        config.headers.Authorization = store.getters.token
+      if (store.getters.token !== null | store.getters.monitorToken !== null) { // 判断是否存在token，如果存在的话，则每个http header都加上token
+        config.headers.Authorization = config.data && config.data['interfaceTransSerial'] ? store.getters.monitorToken : store.getters.token
       }
       return config
     },

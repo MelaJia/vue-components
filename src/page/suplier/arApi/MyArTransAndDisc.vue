@@ -19,7 +19,7 @@
     </article>
     <article class="body">
       <el-card class="box-card">
-        <ar-list :data-table="tableData5" :data-loading="loading" :operate-type="this.query.operateType" @refresh="handleRefresh"></ar-list>
+        <ar-list :data-table="tableData5" :data-loading="loading" :operate-type="this.query.operateType" :query="query" @refresh="handleRefresh"></ar-list>
         <el-pagination class="text-align-center" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="pageSizesArr" :page-size="psize"
           :current-page.sync="currentPage" layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
@@ -51,12 +51,17 @@ export default {
     'ar-list': ArList,
     'search': Search
   },
-  async mounted () {
+  async created () {
     // 获取url中参数
+    console.log('父组件请求')
+
     this.param.interfaceTransSerial = this.query.interfaceTransSerial
     if (this.query.interfaceTransSerial) {
       // 模拟登陆
-      await this.monitorLogin(this.query.interfaceTransSerial)
+      console.log('父组件请求1')
+
+      let res = await this.monitorLogin(this.query.interfaceTransSerial)
+      console.log('父组件请求2', res)
     }
     // 获取url地址 operateType:1 转让，2 贴现
     console.log('初始值', this.getOperateType)
@@ -81,7 +86,7 @@ export default {
       let form = val.moneyDate && val.moneyDate[0] ? val.moneyDate[0].Format('yyyy-MM-dd') : ''
       let to = val.moneyDate && val.moneyDate[1] ? val.moneyDate[1].Format('yyyy-MM-dd') : ''
       try {
-        let param = {
+        let param = Object.assign(this.param, {
           masterChainId: val.masterChainId, // ar单号
           isMasterAr: val.isMasterAr, // ar来源
           factoringCustName: val.factoringCustName, // 供应商
@@ -93,7 +98,7 @@ export default {
           from: form, // 日期
           to: to,
           transSerialNo: val.transSerialNo // 交易流水号
-        }
+        })
         this.param = this.getOperateType === 1 ? Object.assign(param, {factoringCustName: val.factoringCustName}) : param
       } catch (error) {
         console.log(error)

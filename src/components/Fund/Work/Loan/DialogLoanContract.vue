@@ -264,7 +264,7 @@ function submit () {
 // 利率规则
 var checkRate = (rule, value, callback) => {
   console.log(rule)
-  if (!value) {
+  if (value === null | value === undefined) {
     return callback(new Error('不能为空'))
   }
   let re = /^([1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/
@@ -282,7 +282,7 @@ var checkRate = (rule, value, callback) => {
 }
 // 数字规则
 var checkNumber = (rule, value, callback) => {
-  if (!value) {
+  if (value === null | value === undefined) {
     return callback(new Error('不能为空'))
   }
   let re = /^([1-9]\d*\.\d*|0\.\d+|[1-9]\d*|0)$/

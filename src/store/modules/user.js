@@ -5,6 +5,7 @@ import {
 } from '@/util/store'
 export default {
   state: {
+    interfaceTransSerial: '', // 外部标识
     token: null,
     monitorToken: null, // 接口用户token
     roles: null,
@@ -109,6 +110,10 @@ export default {
         name: 'monitorToken'
       })
       state.monitorToken = null
+    },
+    // 设置外部标识
+    setInterfaceTransSerial: (state, data) => {
+      state.interfaceTransSerial = data
     }
 
   }

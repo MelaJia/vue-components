@@ -313,6 +313,7 @@ function monitorLogin (id) {
     let param = {
       interfaceTransSerial: id
     }
+    this.$store.commit('setInterfaceTransSerial', id) // 保存外部标识
     this.axios.post('/login/simulateLogin.do', param).then(res => {
       if (res.data.status === 1) {
         console.log(res.data.data.token)

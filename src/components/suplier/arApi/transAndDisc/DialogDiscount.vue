@@ -176,7 +176,8 @@ function handleSubmitDisc () {
     arList: [{
       masterChainId: this.detailsPC.arList[0].masterChainId
     }],
-    remark: ''
+    remark: '',
+    interfaceTransSerial: this.$store.getters.interfaceTransSerial
   }
   if (arr.length === 0) {
     this.$message({
