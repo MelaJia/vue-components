@@ -11,6 +11,7 @@ const getters = {
   monitorToken: state => state.user.monitorToken,
   roles: state => state.user.roles,
   userInfos: state => state.user.userinfos,
+  moniUserinfo: state => state.user.moniUserinfo,
   roleBelong: state => state.user.roleBelong,
   permission: state => state.user.permission,
   menu: state => state.user.menu,

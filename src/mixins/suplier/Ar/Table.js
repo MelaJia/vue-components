@@ -317,7 +317,9 @@ function monitorLogin (id) {
     this.axios.post('/login/simulateLogin.do', param).then(res => {
       if (res.data.status === 1) {
         console.log(res.data.data.token)
+        console.log(res.data.data.contactPhone)
         this.$store.commit('monitorLogIn', res.data.data.token)
+        this.$store.commit('SET_MONIUERINFO', res.data.data.contactPhone)
         resolve(1)
       }
       resolve(0)

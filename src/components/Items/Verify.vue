@@ -43,7 +43,8 @@ export default {
   },
   computed: {
     getPhones () {
-      return this.$store.state.user.userinfos.contactPhone
+      console.log(this.$store.state.user.moniUserinfo.contactPhone)
+      return this.$store.state.user.userinfos && !this.interfaceTransSerial ? this.$store.getters.userinfos.contactPhone : this.$store.getters.moniUserinfo.contactPhone
     }
   },
   methods: {
