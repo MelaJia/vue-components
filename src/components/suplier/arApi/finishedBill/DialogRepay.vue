@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :custom-class="'dia-class style-dia-repay'" :visible.sync="visibleP" :before-close="handleClose" center="">
+  <el-dialog :custom-class="'dia-class style-dia-repay report'" :visible.sync="visibleP" :before-close="handleClose" center="">
     <section>
       <article>
         <header class="repay-header">预还款计划表</header>
@@ -7,7 +7,7 @@
           <table>
             <tr>
               <td class="td-left">客户名称</td>
-              <td class="pad-left-10 align-left" colspan="5">{{detailsP.companyName}}</td>
+              <td class="pad-left-10 align-left" colspan="7">{{detailsP.companyName}}</td>
             </tr>
             <tr>
               <td class="td-left">期数</td>
@@ -16,14 +16,8 @@
               <td class="td-right">{{detailsP.interestRate |addPercent}}</td>
               <td class="td-left">贷款金额</td>
               <td class="td-right">{{detailsP.loanAmt | regexNum}}</td>
-            </tr>
-            <tr>
               <td class="td-left">放款日期</td>
               <td class="td-right">{{detailsP.loanDate | dateFormat}}</td>
-              <td class="td-left"></td>
-              <td class="td-right"></td>
-              <td class="td-right"></td>
-              <td class="td-right"></td>
             </tr>
           </table>
         </div>
@@ -127,8 +121,8 @@
   </el-dialog>
 </template>
 <style>
-.style-dia-repay {
-  width: 1200px;
+.report {
+  width: 1200px!important;
 }
 .style-dia-repay .repay-detail-conten tbody.has-gutter td.is-center {
     text-align: right;

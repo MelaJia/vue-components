@@ -102,9 +102,9 @@ export default {
       console.log(this.multipleSelection)
     },
     // 详情
-    handleInfo (idx, val) {
+    handleInfo (idx, val, interfaceTransSerial) {
       val.infoLoading = true
-      this.getLoanDetail('/multiArManager/multiArLoanDetail.do', { transSerialNo: val.transSerialNo }).then(res => {
+      this.getLoanDetail('/multiArManager/multiArLoanDetail.do', { transSerialNo: val.transSerialNo, interfaceTransSerial: interfaceTransSerial }).then(res => {
         this.details = res
         console.log(this.details)
         this.dialogInfoVisible = true
