@@ -17,7 +17,7 @@
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-info>
     <!-- 子详情 -->
     <dialog-info-1 :visible-p.sync="dialogChildInfoVisible" :details-p="details"></dialog-info-1>
-    <dialog-child-info-dic :visible-p.sync="dialogChildInfoDicVisible" :details-p="details"></dialog-child-info-dic>
+    <dialog-child-info-disc :visible-p.sync="dialogChildInfoDicVisible" :details-p="details"></dialog-child-info-disc>
     <section>
       <el-table
         ref="table"
@@ -321,7 +321,8 @@ function handleInfo (idx, val, isChild = false) {
       this.getDetail(val).then(res => {
         if (res) {
           this.details = res
-          this.dialogChildInfoVisible = true
+          // this.dialogChildInfoVisible = true
+          this.dialogChildInfoDicVisible = true
         }
       })
     } else {

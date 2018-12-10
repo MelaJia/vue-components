@@ -179,7 +179,7 @@ export default {
         ],
         prepaymentDeductInterest: [
           { required: true, message: '请输入提前还款手续费', trigger: 'blur' },
-          { validator: checkNumber, trigger: 'blur' }
+          { validator: checkRate, trigger: 'blur' }
         ],
         fineGraceDays: [
           { required: true, message: '请输入宽容天数', trigger: 'blur' },

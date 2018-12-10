@@ -7,17 +7,20 @@
       <article>
         <ul>
           <li class="wd-3">
-            <span>币别:
+            <span>
+              币别:
               <em>{{detailsP.arInvoiceList[0].currencyDesc}}</em>
             </span>
           </li>
           <li class="wd-3">
-            <span>单位:
+            <span>
+              单位:
               <em>{{detailsP.arInvoiceList[0].currencyUnitName}}</em>
             </span>
           </li>
           <li class="wd-3">
-            <span>待转让金额:
+            <span>
+              待转让金额:
               <em>{{detailsP.transAmt}}</em>
             </span>
           </li>
@@ -254,6 +257,12 @@ function transSub (type, originData, selection) {
     if (res.data.status) {
       // 关闭弹窗
       this.handleClose()
+      // 跳转页面
+      if (res.data.data.isSignNow === 'true') {
+        var operateType = 'transfer'
+        window.location.href = `./static/openWeb/transPage/CF/receive.html?transSerialNo=${res.data.data.transSerialNo}&operateType=${operateType}`
+        return
+      }
       // 刷新数据
       this.$parent.fresh()
     }
