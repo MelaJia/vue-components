@@ -6,27 +6,58 @@
           <i class="el-icon-search"></i>
           <span>查询条件</span>
           <el-tooltip class="item" effect="dark" content="点我收起" placement="right-start">
-            <i class="el-icon-arrow-down" v-show="searchShow" @click="searchShow=!searchShow" style="position: absolute;right: 0;color:#409EFF;top:3px;cursor:pointer;"></i>
+            <i
+              class="el-icon-arrow-down"
+              v-show="searchShow"
+              @click="searchShow=!searchShow"
+              style="position: absolute;right: 0;color:#409EFF;top:3px;cursor:pointer;"
+            ></i>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="点我展开" placement="right-start">
-            <i class="el-icon-arrow-right" v-show="!searchShow" @click="searchShow=!searchShow" style="position: absolute;right: 0;color:#409EFF;top:3px;cursor:pointer;"></i>
+            <i
+              class="el-icon-arrow-right"
+              v-show="!searchShow"
+              @click="searchShow=!searchShow"
+              style="position: absolute;right: 0;color:#409EFF;top:3px;cursor:pointer;"
+            ></i>
           </el-tooltip>
         </div>
-        <transition name="custom-classes-transition" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
-        <search ref="search" v-show="searchShow" @handle-search="searchSubmit" :operate-type="this.query.operateType"></search>
+        <transition
+          name="custom-classes-transition"
+          enter-active-class="animated fadeInDown"
+          leave-active-class="animated fadeOutUp"
+        >
+          <search
+            ref="search"
+            v-show="searchShow"
+            @handle-search="searchSubmit"
+            :operate-type="this.query.operateType"
+          ></search>
         </transition>
       </el-card>
     </article>
     <article class="body">
       <el-card class="box-card">
-        <ar-list :data-table="tableData5" :data-loading="loading" :operate-type="this.query.operateType" :query="query" @refresh="handleRefresh"></ar-list>
-        <el-pagination class="text-align-center" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="pageSizesArr" :page-size="psize"
-          :current-page.sync="currentPage" layout="total, sizes, prev, pager, next, jumper" :total="total">
-        </el-pagination>
+        <ar-list
+          :data-table="tableData5"
+          :data-loading="loading"
+          :operate-type="this.query.operateType"
+          :query="query"
+          @refresh="handleRefresh"
+        ></ar-list>
+        <el-pagination
+          class="text-align-center"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :page-sizes="pageSizesArr"
+          :page-size="psize"
+          :current-page.sync="currentPage"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total"
+        ></el-pagination>
       </el-card>
     </article>
   </section>
-
 </template>
 <style scope>
 .text-align-center {
@@ -75,6 +106,7 @@ export default {
   watch: {
     getOperateType: function (val) {
       this.postUrl = val === 1 ? 'multiArManager/getMultiArTransferListTable.do' : 'multiArManager/getMultiArDiscountListTable.do'
+      this.resetSearch()
       this.initData(val)
       this.$refs.search.resetForm('formInline')
     }
@@ -99,7 +131,7 @@ export default {
           to: to,
           transSerialNo: val.transSerialNo // 交易流水号
         })
-        this.param = this.getOperateType === 1 ? Object.assign(param, {factoringCustName: val.factoringCustName}) : param
+        this.param = this.getOperateType === 1 ? Object.assign(param, { factoringCustName: val.factoringCustName }) : param
       } catch (error) {
         console.log(error)
       }
@@ -118,7 +150,8 @@ export default {
           console.log(error)
         })
     },
-    initData: initData
+    initData: initData,
+    resetSearch: resetSearch
   }
 }
 function initData (type) {
@@ -136,5 +169,20 @@ function initData (type) {
     .catch(function (error) {
       console.log(error)
     })
+}
+function resetSearch () {
+  Object.assign(this.param, {
+    masterChainId: '', // ar单号
+    isMasterAr: '', // ar来源
+    factoringCustName: '', // 供应商
+    companyName: '', // 付款单位
+    checkedStatus: '', // 状态
+    billBookCurr: '', // 币别
+    invoiceNo: '', // 发票号
+    billId: '', // 结报单号
+    from: '', // 日期
+    to: '',
+    transSerialNo: '' // 交易流水号
+  })
 }
 </script>

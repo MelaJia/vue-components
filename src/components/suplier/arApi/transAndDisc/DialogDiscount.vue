@@ -1,77 +1,99 @@
 <template>
-
-  <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
+  <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center>
     <header slot="title">
-                  <span class="title">
-                      贴现
-                  </span>
-                </header>
-                <section>
-                  <ul>
-                    <span>付款单位: <em>{{detailsPC.arList[0].companyName}}</em></span>
-                  </ul>
-                  <ul>
-                    <li>
-                      <span>AR来源: <em>{{detailsPC.arList[0].arSourceDesc}}</em></span>
-                    </li>
-                    <li>
-                      <span>状态: <em>{{detailsPC.arList[0].arStatusTypeName}}</em></span>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <span>币别: <em>{{detailsPC.arList[0].currencyDesc}}</em></span>
-                    </li>
-                    <li>
-                      <span>票据到期日: <em>{{detailsPC.arList[0].billPayDate | dateFormat}}</em></span>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <span>票面金额: <em>{{detailsPC.arList[0].billBookAmt | regexNum}}</em></span>
-                    </li>
-                    <li>
-                      <span>可用金额: <em>{{detailsPC.arList[0].loanAmt | regexNum}}</em></span>
-                    </li>
-                  </ul>
-                  <ul>
-                    <span>贴现保理公司：{{detailsPC.arList[0].custToName}}</span>
-                  </ul>
-                  <ul class="height-auto">
-                      <span>已用发票:
-                        <div class="el-check-group inline-block">
-                          <el-checkbox v-for="item in detailsPC.arList[0].usedInvoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}(金额：{{item.afterTaxAmt |regexNum}})</el-checkbox>
-                        </div>
-                      </span>
-                  </ul>
-                  <ul class="height-auto">
-                      <span>可用发票:
-                        <el-checkbox-group v-model="checkList" class="inline-blox" @change="handleCheckedChange">
-                          <el-checkbox v-for="item in detailsPC.arList[0].availableInvoiceList" :key="item.invoiceNo" :label="item.invoiceNo">{{item.invoiceNo}}(金额：{{item.afterTaxAmt |regexNum}})</el-checkbox>
-                        </el-checkbox-group>
-                        <!-- <el-checkbox v-for="item in detailsPC.invoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected">{{item.invoiceNo}}</el-checkbox> -->
-                      </span>
-                  </ul>
-                </section>
-                <el-form class="layout form text-align-left" label-width="100px">
-                  <el-row>
-                    <el-col :span="8" class="flex">
-                      <el-form-item label="贴现金额(元):" prop="receiveCustId">
-                        <el-jx-input :autofocus="true" v-model='arAmt' placeholder=''
-                          @input.native="handleInputDisc"
-                          >
-                        </el-jx-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="6" v-if="maxSum">
-                        <label class="sum-content">金额上限:{{maxSum | regexNum}}</label>
-                    </el-col>
-                  </el-row>
-                </el-form>
-                <footer slot="footer" :style="'clear:both'">
-                  <el-button type="primary" @click="handleSubmitDisc">确认</el-button>
-                  <el-button type="default" @click="handleClose">取消</el-button>
-                </footer>
+      <span class="title">贴现</span>
+    </header>
+    <section>
+      <ul>
+        <span>付款单位:
+          <em>{{detailsPC.arList[0].companyName}}</em>
+        </span>
+      </ul>
+      <ul>
+        <li>
+          <span>AR来源:
+            <em>{{detailsPC.arList[0].arSourceDesc}}</em>
+          </span>
+        </li>
+        <li>
+          <span>状态:
+            <em>{{detailsPC.arList[0].arStatusTypeName}}</em>
+          </span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>币别:
+            <em>{{detailsPC.arList[0].currencyDesc}}</em>
+          </span>
+        </li>
+        <li>
+          <span>票据到期日:
+            <em>{{detailsPC.arList[0].billPayDate | dateFormat}}</em>
+          </span>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <span>票面金额:
+            <em>{{detailsPC.arList[0].billBookAmt | regexNum}}</em>
+          </span>
+        </li>
+        <li>
+          <span>可用金额:
+            <em>{{detailsPC.arList[0].loanAmt | regexNum}}</em>
+          </span>
+        </li>
+      </ul>
+      <ul>
+        <span>贴现保理公司：{{detailsPC.arList[0].custToName}}</span>
+      </ul>
+      <ul class="height-auto">
+        <span>已用发票:
+          <div class="el-check-group inline-block">
+            <el-checkbox
+              v-for="item in detailsPC.arList[0].usedInvoiceList"
+              :key="item.invoiceNo"
+              v-model="item.invoiceIsSelected"
+              disabled
+            >{{item.invoiceNo}}(金额：{{item.afterTaxAmt |regexNum}})</el-checkbox>
+          </div>
+        </span>
+      </ul>
+      <ul class="height-auto">
+        <span>可用发票:
+          <el-checkbox-group v-model="checkList" class="inline-blox" @change="handleCheckedChange">
+            <el-checkbox
+              v-for="item in detailsPC.arList[0].availableInvoiceList"
+              :key="item.invoiceNo"
+              :label="item.invoiceNo"
+            >{{item.invoiceNo}}(金额：{{item.afterTaxAmt |regexNum}})</el-checkbox>
+          </el-checkbox-group>
+          <!-- <el-checkbox v-for="item in detailsPC.invoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected">{{item.invoiceNo}}</el-checkbox> -->
+        </span>
+      </ul>
+    </section>
+    <el-form class="layout form text-align-left" label-width="100px">
+      <el-row>
+        <el-col :span="8" class="flex">
+          <el-form-item label="贴现金额(元):" prop="receiveCustId">
+            <el-jx-input
+              :autofocus="true"
+              v-model="arAmt"
+              placeholder
+              @input.native="handleInputDisc"
+            ></el-jx-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6" v-if="maxSum">
+          <label class="sum-content">金额上限:{{maxSum | regexNum}}</label>
+        </el-col>
+      </el-row>
+    </el-form>
+    <footer slot="footer" :style="'clear:both'">
+      <el-button type="primary" @click="handleSubmitDisc">确认</el-button>
+      <el-button type="default" @click="handleClose">取消</el-button>
+    </footer>
   </el-dialog>
 </template>
 <style scoped lang="scss">
@@ -210,6 +232,12 @@ function handleSubmitDisc () {
     if (res.data.status) {
       // 关闭弹窗
       this.handleClose()
+      // 跳转
+      if (res.data.data.isSignNow === 'true') {
+        var operateType = 'discount'
+        window.location.href = `./static/openWeb/transPage/CF/receive.html?transSerialNo=${res.data.data.transSerialNo}&operateType=${operateType}`
+        return
+      }
       // 刷新数据
       this.$parent.fresh()
     }

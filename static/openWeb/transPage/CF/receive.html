@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -15,9 +15,6 @@
   <div id="iframe">
     <iframe :src="src" ref="ifd" id="myiframe" width="100%" frameborder="0"></iframe>
   </div>
-  <!-- <script src="mock/jquery.min.js"></script>
-  <script src="mock/mock.js"></script>
-  <script src="mock/data.js"></script> -->
   <script src="../js/config/config.js"></script>
   <script src="../js/vue/dist/vue.js"></script>
   <script src="../js/axios/dist/axios.min.js"></script>
@@ -56,28 +53,54 @@
             transSerialNo: this.transSerialNo, // 交易流水号
             proxyUrl: 'proxy.html'+'#' // 钜融网代理地址
           }
-          console.log(param)
-          // 请求接口
-          axios.post(window.webConfig.apiUrl+'/multiArDiscountManager/multiSignDiscount.do', {
-            params:param
-          }).then(res => {
-            if(res.status) {
-              var data = res.data.data
-              this.src = data.signingURL
-              // 定时检查hash
-              var checkHash = setInterval(function(){
-                if(location.hash){
-                  var factoringResult = location.hash.substring(1)
-                  clearInterval(checkHash)
-                  _this.transactionBack(factoringResult)
-                }
-              },2000)
-            } else {
-              alert(res.data.msg)
-            }
-          }).catch(err => {
-            console.log(err)
-          })
+          if(this.operateType == 'transfer'){
+            // 转让请求接口
+            axios.post(window.webConfig.apiUrl+'/multiArTransferManager/multiArPaySigning.do', {
+              params:param,
+              headers:{Authorization: localStorage.getItem("token")}
+            }).then(res => {
+              if(res.status) {
+                var data = res.data.data
+                this.src = data.signingURL
+                // 定时检查hash
+                var checkHash = setInterval(function(){
+                  if(location.hash){
+                    var factoringResult = location.hash.substring(1)
+                    clearInterval(checkHash)
+                    _this.transactionBack(factoringResult)
+                  }
+                },2000)
+              } else {
+                alert(res.data.msg)
+              }
+            }).catch(err => {
+              console.log(err)
+            })
+          } else {
+            // 贴现请求接口
+            axios.post(window.webConfig.apiUrl+'/multiArDiscountManager/multiSignDiscount.do', {
+              params:param,
+              headers:{Authorization: localStorage.getItem("token")}
+            }).then(res => {
+              if(res.status) {
+                var data = res.data.data
+                this.src = data.signingURL
+                // 定时检查hash
+                var checkHasher = setInterval(function(){
+                  if(location.hash){
+                    var factoringResult = location.hash.substring(1)
+                    clearInterval(checkHasher)
+                    _this.transactionBack(factoringResult)
+                  }
+                },2000)
+              } else {
+                alert(res.data.msg)
+              }
+            }).catch(err => {
+              console.log(err)
+            })
+          }
+          
         },
         // 获取父级页面传过来的地址后面参数方法
         getQueryString(name){
@@ -94,7 +117,9 @@
             message: this.resultList[Number(factoringResult)] // 调用外部的合同签署页面返回来的操作结果信息
           }
           // 请求交易回调接口
-          axios.post(window.webConfig.apiUrl+'/multiArManager/multiOperateCallBackECommercePlatform.do', {params:param
+          axios.post(window.webConfig.apiUrl+'/multiArManager/multiOperateCallBackECommercePlatform.do', {
+            params:param,
+            headers:{Authorization: localStorage.getItem("token")}
           }).then(res => {
             if(res.status) {
               var data = res.data.data
