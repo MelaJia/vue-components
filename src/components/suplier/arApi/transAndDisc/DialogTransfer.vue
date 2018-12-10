@@ -94,11 +94,14 @@
           <el-row>
             <el-col :span="9" class="flex">
               <el-form-item label="授让公司Id:" prop="receiveCustId">
-                <el-input v-model.trim="receiveCustId" placeholder="请输入授让公司Id"></el-input>
+                <el-input v-if="!this.$store.getters.interfaceTransSerial" v-model.trim="receiveCustId" placeholder="请输入授让公司Id"></el-input>
+                <template v-else>
+                  {{detailsP.custToId}}
+                </template>
               </el-form-item>
             </el-col>
             <el-col :span="9" class="flex">
-              <el-form-item label="授让公司名:">{{this.rc.name}}</el-form-item>
+              <el-form-item label="授让公司名:">{{!this.$store.getters.interfaceTransSerial? this.rc.name : detailsP.custToName}}</el-form-item>
             </el-col>
           </el-row>
           <el-row>

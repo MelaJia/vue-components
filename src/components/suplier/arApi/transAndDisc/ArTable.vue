@@ -143,6 +143,7 @@
 import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
 import Common from '@/mixins/common'
 import { thousandth, debounce } from '@/util/util' // 首字母大写 防抖函数
+import { cloneDeep } from 'lodash/fp'
 /* 我的Ar列表 */
 export default {
   props: {
@@ -265,12 +266,20 @@ function handleTrans () {
   }
   // 2018-12-4 by:xyl
   this.getLoanDetail('/multiArTransferManager/multiArTransView.do', data).then(function (res) {
-    _this.tableTrans = res
+    _this.tableTrans = cloneDeep(res)
     _this.visibleTrans = true
     setTimeout(function () {
       _this.$refs['dialog-trans'].$refs.tableTrans.toggleAllSelection()
-      // 赋值总金额
-      setDialogSumAmt.call(_this, 'dialog-trans')
+      // 全选改变转让金额恢复
+      setTimeout(() => {
+        debugger
+        console.log(res)
+        _this.tableTrans.arInvoiceList.forEach((val, idx) => {
+          val.transferAfterTaxAmt = res.arInvoiceList[idx].transferAfterTaxAmt
+        })
+        // 赋值总金额
+        setDialogSumAmt.call(_this, 'dialog-trans', res)
+      }, 300)
       // _this.$refs['dialog-trans'].displaySumAmtTrans = thousandth(getSum(_this.tableTrans.arInvoiceList, 'transferAfterTaxAmt'))
     }, 500)
   }).catch(function (error) {
@@ -319,7 +328,7 @@ function setDialogSumAmt (dialog) {
   console.log(this.tableTrans)
   console.log(this.detailsTG)
   let data = dialog === 'dialog-trans' ? this.tableTrans.arInvoiceList : this.detailsTG.arInvoiceList
-  this.$refs[dialog].displaySumAmtTrans = thousandth(getSum(data, 'availableAfterTaxAmt'))
+  this.$refs[dialog].displaySumAmtTrans = thousandth(getSum(data, 'transferAfterTaxAmt'))
 }
 // 贴现
 function handleDisc (idx, val) {

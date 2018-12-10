@@ -67,7 +67,7 @@
 <script>
 import ArList from '@/components/suplier/arApi/transAndDisc/ArTable'
 import Search from '@/components/suplier/arApi/transAndDisc/SearchMyAr'
-import Table from '@/mixins/suplier/Ar/Table' // handleCurrentChange
+import Table from '@/mixins/suplier/Ar/Table' // handleCurrentChange,monitorLogin
 export default {
   mixins: [Table],
   props: ['query'],
