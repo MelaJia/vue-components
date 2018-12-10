@@ -272,8 +272,6 @@ function handleTrans () {
       _this.$refs['dialog-trans'].$refs.tableTrans.toggleAllSelection()
       // 全选改变转让金额恢复
       setTimeout(() => {
-        debugger
-        console.log(res)
         _this.tableTrans.arInvoiceList.forEach((val, idx) => {
           val.transferAfterTaxAmt = res.arInvoiceList[idx].transferAfterTaxAmt
         })
