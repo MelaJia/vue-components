@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="width-50">
-      <div class="header-right">
+      <div v-if="!this.$store.getters.interfaceTransSerial" class="header-right">
         <el-button
           v-if="this.$store.getters.roles=='2'"
           type="danger"
