@@ -98,7 +98,7 @@
       <ul class="height-auto">
           <span>使用发票:
             <div class="el-check-group inline-block">
-            <el-checkbox v-for="item in detailsP.invoiceListSelected" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}</el-checkbox>
+            <el-checkbox v-for="item in detailsP.invoiceCustomList" :key="item.invoiceNo" v-model="item.invoiceIsSelected" disabled>{{item.invoiceNo}}</el-checkbox>
             </div>
           </span>
       </ul>

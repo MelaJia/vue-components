@@ -317,12 +317,11 @@ export default {
 function handleInfo (idx, val, isChild = false) {
   // 获取数据
   if (isChild) { // 子ar
-    if (val.checkedStatus === 2 | val.checkedStatus === 3 | val.checkedStatus === 6 | val.checkedStatus === 9) { // 子ar转让详情
+    if (val.transType === 'arpay') { // 子ar转让详情
       this.getDetail(val).then(res => {
         if (res) {
           this.details = res
-          // this.dialogChildInfoVisible = true
-          this.dialogChildInfoDicVisible = true
+          this.dialogChildInfoVisible = true
         }
       })
     } else {
