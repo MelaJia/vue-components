@@ -279,7 +279,7 @@ const routes = [{
     component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/myschedule'),
     meta: {
       title: '我的待办', // 名称
-      requireAuth: false // 需要登录验证
+      requireAuth: true // 需要登录验证
     }
   },
   {
@@ -289,7 +289,8 @@ const routes = [{
     meta: {
       title: '融资中的单据', // 名称
       requireAuth: false // 需要登录验证
-    }
+    },
+    props: (route) => ({query: {interfaceTransSerial: route.query.interfaceTransSerial, type: route.query.type}})
   }
   ]
 }

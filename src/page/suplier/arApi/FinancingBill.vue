@@ -19,7 +19,7 @@
     </div>
     <div class="body">
       <el-card class="box-card text-align-center">
-        <financing-table :data-loading="loading" :data-table="tableData5" @refresh="handleRefresh"></financing-table>
+        <financing-table :data-loading="loading" :data-table="tableData5" :query="query" @refresh="handleRefresh"></financing-table>
         <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -46,6 +46,7 @@ import Table from '@/mixins/suplier/Ar/Table'
 export default {
   // name: 'loanPage', // 我的待办
   mixins: [Table],
+  props: ['query'],
   data () {
     return {
       loading: false,
@@ -58,18 +59,20 @@ export default {
     'financing-table': FinancingTable,
     'search': Search
   },
-  mounted () {
+  async mounted () {
+    const _this = this
+    // 获取url中参数
+    this.param.interfaceTransSerial = this.query.interfaceTransSerial
+    if (this.query.interfaceTransSerial) {
+      // 模拟登陆
+      await this.monitorLogin(this.query.interfaceTransSerial)
+    }
     this.getdata(1, this.psize)
-      .then(res => {
-        if (res.data.status) {
-          this.tableData5 = res.data[this.dataStr]
-          this.total = res.data[this.totalStr]
-          // console.log(this.tableData5.length)
-          // this.$store.commit('getScheduleNumber', this.total)
-        } else {
-          this.tableData5 = []
-          this.total = 0
-          this.$message.error(res.data.msg)
+      .then(function (response) {
+        console.log(response)
+        if (response) {
+          _this.tableData5 = response.data[_this.dataStr]
+          _this.total = response.data[_this.totalStr]
         }
       })
       .catch(function (error) {
@@ -82,18 +85,20 @@ export default {
       let billPayDatefrom = val.billPayDate && val.billPayDate[0] ? val.billPayDate[0].Format('yyyy-MM-dd') : ''
       let billPayDateto = val.billPayDate && val.billPayDate[1] ? val.billPayDate[1].Format('yyyy-MM-dd') : ''
       /* 修改请求参数 */
-      this.param = {
-        iDisplayStart: 1,
-        iDisplayLength: 10,
-        checkedStatus: val.checkedStatus,
-        billBookCurr: val.billBookCurr,
-        masterChainId: val.masterChainId,
-        custToName: val.custToName,
-        invoiceNo: val.invoiceNo,
-        billId: val.billId,
-        from: billPayDatefrom,
-        to: billPayDateto,
-        interfaceTransSerial: ''
+      try {
+        Object.assign(this.param, {
+          checkedStatus: val.checkedStatus,
+          billBookCurr: val.billBookCurr,
+          masterChainId: val.masterChainId,
+          custToName: val.custToName,
+          invoiceNo: val.invoiceNo,
+          billId: val.billId,
+          from: billPayDatefrom,
+          to: billPayDateto,
+          transSerialNo: val.transSerialNo // 交易流水号
+        })
+      } catch (error) {
+        console.log(error)
       }
       this.startSearch()
     },
@@ -102,13 +107,9 @@ export default {
       const that = this
       this.getdata(that.currentPage, that.psize)
         .then(res => {
-          if (res.data.status) {
+          if (res) {
             this.tableData5 = res.data[this.dataStr]
             this.total = res.data[this.totalStr]
-          } else {
-            this.tableData5 = []
-            this.total = 0
-            this.$message.error(res.data.msg)
           }
         })
         .catch(function (error) {
