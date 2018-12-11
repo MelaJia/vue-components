@@ -10,6 +10,7 @@ export default {
     monitorToken: null, // 接口用户token
     roles: null,
     userinfos: null,
+    moniUserinfo: null,
     // scheduleNumber: 0
     roleBelong: [], // 角色所属
     navitems: [], // 导航菜单数组
@@ -97,6 +98,13 @@ export default {
         content: state.menuName
       })
     },
+    SET_MONIUERINFO: (state, data) => {
+      state.moniUserinfo = data
+      setStore({
+        name: 'moniUserinfo',
+        content: state.moniUserinfo
+      })
+    },
     monitorLogIn: (state, data) => {
       state.monitorToken = data
       setStore({
@@ -110,6 +118,12 @@ export default {
         name: 'monitorToken'
       })
       state.monitorToken = null
+
+      // 清除模拟用户信息
+      removeStore({
+        name: 'moniUserinfo'
+      })
+      state.moniUserinfo = null
     },
     // 设置外部标识
     setInterfaceTransSerial: (state, data) => {

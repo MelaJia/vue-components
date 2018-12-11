@@ -22,7 +22,7 @@ form.el-form {
 </style>
 
 <script>
-import { erroShow } from '@/util/util' // 防抖函数
+import { erroShow, GetQueryString } from '@/util/util' // 防抖函数
 export default {
   data () {
     return {
@@ -32,6 +32,7 @@ export default {
       showCheckBtn: false,
       btntype: 'primary', // 验证码按钮样式
       verify: '', // 验证码
+      interfaceTransSerial: null,
       isInput: true // 是否可输入
     }
   },
@@ -41,9 +42,12 @@ export default {
       this.$emit('update:captcha', newValue)
     }
   },
+  created () {
+    this.interfaceTransSerial = GetQueryString('interfaceTransSerial')
+  },
   computed: {
     getPhones () {
-      return this.$store.state.user.userinfos.contactPhone
+      return !this.interfaceTransSerial ? this.$store.getters.userinfos.contactPhone : this.$store.getters.moniUserinfo.contactPhone
     }
   },
   methods: {
