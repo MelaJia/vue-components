@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     getPhones () {
-      return !this.interfaceTransSerial ? this.$store.getters.userinfos.contactPhone : this.$store.getters.moniUserinfo.contactPhone
+      return this.$store.state.user.userinfos && !this.interfaceTransSerial ? this.$store.state.user.userinfos.contactPhone : this.$store.getters.moniUserinfo
     }
   },
   methods: {
@@ -67,7 +67,8 @@ function sendMessage () {
   }
   this.isOvertime = true // 验证码获取中
   this.axios.post('/commonCust/getContractPlatformVerificationCode.do', {
-    contactPhone: this.getPhones
+    contactPhone: this.getPhones,
+    interfaceTransSerial: this.interfaceTransSerial
   }).then(res => {
     if (res.data.status) {
       this.$message({
