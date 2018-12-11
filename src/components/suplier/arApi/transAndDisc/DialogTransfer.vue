@@ -222,7 +222,7 @@ function handleTransSelectionChange (val) {
 // 转让确认
 function transSub (type, originData, selection) {
   // 1.判断是否填写正确授让公司
-  if (!this.rc.status) {
+  if (!this.rc.status && !this.$store.getters.interfaceTransSerial) {
     this.$message({
       type: 'error',
       message: '请填写正确授让公司id'
@@ -249,8 +249,8 @@ function transSub (type, originData, selection) {
   var data = {
     arInvoiceList: selection,
     transAmt: originData.transAmt,
-    custToId: this.receiveCustId,
-    custToName: this.rc.name,
+    custToId: !this.$store.getters.interfaceTransSerial ? this.receiveCustId : this.detailsP.custToId,
+    custToName: !this.$store.getters.interfaceTransSerial ? this.rc.name : this.detailsP.custToName,
     remark: this.remark,
     interfaceTransSerial: this.$store.getters.interfaceTransSerial
   }

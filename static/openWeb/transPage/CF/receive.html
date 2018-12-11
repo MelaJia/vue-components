@@ -49,15 +49,15 @@
         // 获取数据
         getData(){
           var _this = this
-          let param = {
-            transSerialNo: this.transSerialNo, // 交易流水号
-            proxyUrl: 'proxy.html'+'#' // 钜融网代理地址
-          }
+          // let param = {
+          //   transSerialNo: this.transSerialNo, // 交易流水号
+          //   proxyUrl: 'proxy.html'+'#' // 钜融网代理地址
+          // }
           if(this.operateType == 'transfer'){
             // 转让请求接口
             axios.post(window.webConfig.apiUrl+'/multiArTransferManager/multiArPaySigning.do', {
-              params:param,
-              headers:{Authorization: localStorage.getItem("token")}
+              transSerialNo: this.transSerialNo, // 交易流水号
+              proxyUrl: 'proxy.html'+'#' // 钜融网代理地址
             }).then(res => {
               if(res.status) {
                 var data = res.data.data
@@ -79,8 +79,8 @@
           } else {
             // 贴现请求接口
             axios.post(window.webConfig.apiUrl+'/multiArDiscountManager/multiSignDiscount.do', {
-              params:param,
-              headers:{Authorization: localStorage.getItem("token")}
+              transSerialNo: this.transSerialNo, // 交易流水号
+              proxyUrl: 'proxy.html'+'#' // 钜融网代理地址
             }).then(res => {
               if(res.status) {
                 var data = res.data.data
