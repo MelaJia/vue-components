@@ -66,7 +66,7 @@
                   <span>票面金额: <em>{{this.detailsP.billBookAmt | regexNum}}</em></span>
                 </li>
                 <li>
-                  <span>可用余额: <em>{{this.detailsP.loanAmt | regexNum}}</em></span>
+                  <span>可用余额: <em>{{this.detailsP.arAvailableAmt | regexNum}}</em></span>
                 </li>
               </ul>
               <ul class="height-auto" v-if="detailsP.checkedStatus!==6&&detailsP.checkedStatus!==9">
@@ -77,6 +77,7 @@
                       <tr>
                         <th>发票号码</th>
                         <th>票面金额</th>
+                        <th>不可用金额</th>
                         <th>可用余额</th>
                       </tr>
                     </thead>
@@ -84,6 +85,7 @@
                       <tr v-for="item in detailsP.invoiceCustomList" :key="item.invoiceNo">
                         <td class="td-center">{{item.invoiceNo}}</td>
                         <td class="td-right">{{item.invoiceAfterTaxAmt|thousandth}}</td>
+                        <td class="td-right">{{item.invoiceDisabledAmount|thousandth}}</td>
                         <td class="td-right">{{item.invoiceAvailableAmount|thousandth}}</td>
                       </tr>
                     </tbody>
