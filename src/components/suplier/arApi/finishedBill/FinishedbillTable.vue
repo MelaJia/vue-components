@@ -116,7 +116,7 @@ export default {
     // 还款计划
     repayPlan (idx, val) {
       let param = {
-        transSerialNo: val.transSerialNo
+        loanId: val.transSerialNo
       }
       // 获取数据
       getDataBase.call(this, '/loan/loanRepaymentScheduleInfo.do', param, true).then(res => {

@@ -49,16 +49,12 @@
         // 获取数据
         getData(){
           var _this = this
-          // let param = {
-          //   transSerialNo: this.transSerialNo, // 交易流水号
-          //   proxyUrl: 'proxy.html'+'#' // 钜融网代理地址
-          // }
           if(this.operateType == 'transfer'){
             // 转让请求接口
             axios.post(window.webConfig.apiUrl+'/multiArTransferManager/multiArPaySigning.do', {
               transSerialNo: this.transSerialNo, // 交易流水号
               proxyUrl: 'proxy.html'+'#' // 钜融网代理地址
-            }).then(res => {
+            },{headers:{Authorization: JSON.parse(localStorage.getItem("monitorToken")).content}}).then(res => {
               if(res.status) {
                 var data = res.data.data
                 this.src = data.signingURL
@@ -81,7 +77,7 @@
             axios.post(window.webConfig.apiUrl+'/multiArDiscountManager/multiSignDiscount.do', {
               transSerialNo: this.transSerialNo, // 交易流水号
               proxyUrl: 'proxy.html'+'#' // 钜融网代理地址
-            }).then(res => {
+            },{headers:{Authorization: JSON.parse(localStorage.getItem("monitorToken")).content}}).then(res => {
               if(res.status) {
                 var data = res.data.data
                 this.src = data.signingURL
@@ -110,17 +106,13 @@
         },
         // 交易回调函数
         transactionBack(factoringResult){
-          let param = {
+          // 请求交易回调接口
+          axios.post(window.webConfig.apiUrl+'/multiArManager/multiOperateCallBackECommercePlatform.do', {
             transSerialNo: this.transSerialNo, // 交易流水号
             operateType: this.operateType, // 操作类型
             result: this.operateResult[Number(factoringResult)], // 调用外部的合同签署页面返回来的操作结果
             message: this.resultList[Number(factoringResult)] // 调用外部的合同签署页面返回来的操作结果信息
-          }
-          // 请求交易回调接口
-          axios.post(window.webConfig.apiUrl+'/multiArManager/multiOperateCallBackECommercePlatform.do', {
-            params:param,
-            headers:{Authorization: localStorage.getItem("token")}
-          }).then(res => {
+          },{headers:{Authorization: JSON.parse(localStorage.getItem("monitorToken")).content}}).then(res => {
             if(res.status) {
               var data = res.data.data
               window.location.href=data.callBackUrl

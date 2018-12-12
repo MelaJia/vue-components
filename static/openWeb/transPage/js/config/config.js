@@ -6,8 +6,10 @@
 (function (global, factory) {
   global.webConfig = factory()
 })(this, (function () {
+  let protocol = document.location.protocol
+  let host = document.location.host
   var gloabConfig = {
-    apiUrl: 'http://10.130.2.220:3000'
+    apiUrl: protocol + '//' + host + 'http://10.130.2.220:3000'
   }
   return gloabConfig
 }))
