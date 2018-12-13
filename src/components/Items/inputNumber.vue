@@ -39,9 +39,11 @@ function handleInput (e) {
     console.log(result)
     this.$emit('input', result)
   } else if (re.test(e.target.value) || e.target.value.length === 0 || e.inputType === 'deleteContentForward' || e.inputType === 'deleteContentBackward') {
-    console.log('可输入')
-    let result = String(this.value).indexOf('.') > 0 ? Math.floor(e.target.value * 100) / 100 : e.target.value
-    console.log(result)
+    console.log('可输入', this.value)
+    // 按.分离
+    let arr = e.target.value.toString().split('.')
+    // 小数点大于3位去除最后一位
+    let result = arr.length > 1 && arr[1].length > 2 ? Math.floor(e.target.value * 100) / 100 : e.target.value
     this.$emit('input', result)
   }
 }
