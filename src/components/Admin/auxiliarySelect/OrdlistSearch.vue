@@ -44,21 +44,6 @@
           </el-col>
         </el-form-item>
       </el-col>
-      <!-- <el-col :span="12" style="height:50px;">
-        <el-form-item label="金额范围">
-          <el-col :span="11">
-            <el-form-item prop="amountBegin">
-              <el-jx-input v-model="formInline.amountBegin" clearable placeholder="起始金额"></el-jx-input>
-            </el-form-item>
-          </el-col>
-          <el-col class="line" :span="2">-</el-col>
-          <el-col :span="11">
-            <el-form-item prop="amountEnd">
-              <el-jx-input v-model="formInline.amountEnd" clearable placeholder="结束金额"></el-jx-input>
-            </el-form-item>
-          </el-col>
-        </el-form-item>
-      </el-col> -->
       <el-col :span="1">
         <el-form-item prop="amountEnd"></el-form-item>
       </el-col>

@@ -9,7 +9,8 @@
   let protocol = document.location.protocol
   let host = document.location.host
   var gloabConfig = {
-    apiUrl: protocol + '//' + host + 'http://10.130.2.220:3000'
+    apiUrl: protocol + '//' + host + '/JuXin/openapi',
+    distUrl: protocol + '//' + host
   }
   return gloabConfig
 }))

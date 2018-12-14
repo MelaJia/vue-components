@@ -77,6 +77,13 @@ export default {
   methods: {
     // 查询
     searchSubmit (val) {
+      if (val.vendorCode === '') {
+        this.$message({
+          message: '请输入您要查询的供应商代码',
+          type: 'error'
+        })
+        return
+      }
       let dueDatefrom = val.dueDate && val.dueDate[0] ? val.dueDate[0].Format('yyyy-MM-dd') : ''
       let dueDateto = val.dueDate && val.dueDate[1] ? val.dueDate[1].Format('yyyy-MM-dd') : ''
       /* 修改请求参数 */

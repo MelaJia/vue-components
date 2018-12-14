@@ -53,16 +53,15 @@
             // 转让请求接口
             axios.post(window.webConfig.apiUrl+'/multiArTransferManager/multiArPaySigning.do', {
               transSerialNo: this.transSerialNo, // 交易流水号
-              proxyUrl: 'proxy.html'+'#' // 钜融网代理地址
+              proxyUrl: window.webConfig.distUrl+'/dist/static/openWeb/transPage/CF/proxy.html'+'#' // 钜融网代理地址
             },{headers:{Authorization: JSON.parse(localStorage.getItem("monitorToken")).content}}).then(res => {
               if(res.status) {
                 var data = res.data.data
-                this.src = data.signingURL
+                this.src = data
                 // 定时检查hash
                 var checkHash = setInterval(function(){
                   if(location.hash){
                     var factoringResult = location.hash.substring(1)
-                    clearInterval(checkHash)
                     _this.transactionBack(factoringResult)
                   }
                 },2000)
@@ -76,16 +75,15 @@
             // 贴现请求接口
             axios.post(window.webConfig.apiUrl+'/multiArDiscountManager/multiSignDiscount.do', {
               transSerialNo: this.transSerialNo, // 交易流水号
-              proxyUrl: 'proxy.html'+'#' // 钜融网代理地址
+              proxyUrl: window.webConfig.distUrl+'/dist/static/openWeb/transPage/CF/proxy.html'+'#' // 钜融网代理地址
             },{headers:{Authorization: JSON.parse(localStorage.getItem("monitorToken")).content}}).then(res => {
               if(res.status) {
                 var data = res.data.data
-                this.src = data.signingURL
+                this.src = data
                 // 定时检查hash
                 var checkHasher = setInterval(function(){
                   if(location.hash){
                     var factoringResult = location.hash.substring(1)
-                    clearInterval(checkHasher)
                     _this.transactionBack(factoringResult)
                   }
                 },2000)
@@ -115,7 +113,9 @@
           },{headers:{Authorization: JSON.parse(localStorage.getItem("monitorToken")).content}}).then(res => {
             if(res.status) {
               var data = res.data.data
-              window.location.href=data.callBackUrl
+              if(data.callBackUrl) {
+                window.location.href=data.callBackUrl
+              }
             }else {
               alert(res.data.msg)
             }

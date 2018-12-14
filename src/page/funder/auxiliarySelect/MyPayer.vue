@@ -77,6 +77,13 @@ export default {
   methods: {
     // 查询
     searchSubmit (val) {
+      if (val.vendorCode === '') {
+        this.$message({
+          message: '请输入您要查询的供应商代码',
+          type: 'error'
+        })
+        return
+      }
       let payfrom = val.payDate && val.payDate[0] ? val.payDate[0].Format('yyyy-MM-dd') : ''
       let payto = val.payDate && val.payDate[1] ? val.payDate[1].Format('yyyy-MM-dd') : ''
       /* 修改请求参数 */

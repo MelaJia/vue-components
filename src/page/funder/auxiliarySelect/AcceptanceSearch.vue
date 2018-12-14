@@ -77,6 +77,13 @@ export default {
   methods: {
     // 查询
     searchSubmit (val) {
+      if (val.vendorCode === '') {
+        this.$message({
+          message: '请输入您要查询的供应商代码',
+          type: 'error'
+        })
+        return
+      }
       let sendfrom = val.deliveryDate && val.deliveryDate[0] ? val.deliveryDate[0].Format('yyyy-MM-dd') : ''
       let sendto = val.deliveryDate && val.deliveryDate[1] ? val.deliveryDate[1].Format('yyyy-MM-dd') : ''
       let checkfrom = val.confirmDate && val.confirmDate[0] ? val.confirmDate[0].Format('yyyy-MM-dd') : ''

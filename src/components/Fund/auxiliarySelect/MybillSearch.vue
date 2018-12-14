@@ -1,21 +1,19 @@
 <template>
   <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="120px">
     <el-row>
-      <el-col :span="7">
+      <el-col :span="7" v-if="this.$store.getters.roles!==2">
+        <el-form-item label="供应商代码" prop="vendorCode">
+          <el-input v-model.trim="formInline.vendorCode" placeholder=""></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="7" offset="3">
         <el-form-item label="对账单号" prop="statementNo">
           <el-input v-model.trim="formInline.statementNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="7" offset="3">
+      <el-col :span="7">
         <el-form-item label="进货验收单号" prop="grnNumber">
           <el-input v-model.trim="formInline.grnNumber" placeholder=""></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="7">
-        <el-form-item label="状态" prop="status">
-          <el-select v-model="formInline.status" clearable placeholder="">
-            <el-option v-for="(item,index) in stateList" :key="index" :label="item.dataName" :value="item.dataType"></el-option>
-          </el-select>
         </el-form-item>
       </el-col>
     </el-row>
@@ -30,9 +28,11 @@
           <el-input v-model.trim="formInline.sellerName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="7" v-if="this.$store.getters.roles!==2">
-        <el-form-item label="供应商代码" prop="vendorCode">
-          <el-input v-model.trim="formInline.vendorCode" placeholder=""></el-input>
+      <el-col :span="7">
+        <el-form-item label="状态" prop="status">
+          <el-select v-model="formInline.status" clearable placeholder="">
+            <el-option v-for="(item,index) in stateList" :key="index" :label="item.dataName" :value="item.dataType"></el-option>
+          </el-select>
         </el-form-item>
       </el-col>
     </el-row>

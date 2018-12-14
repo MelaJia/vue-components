@@ -145,4 +145,9 @@ router.beforeEach((to, from, next) => {
     NProgress.done()
   }
 })
+
+// 如果在操作页面中滚动条拉下来了，跳其他页面的时候让滚动条直接在最上面
+router.afterEach((to, from, next) => {
+  window.scrollTo(0, 0)
+})
 export default router
