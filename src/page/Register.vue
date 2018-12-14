@@ -772,7 +772,6 @@ function subHandle (formName) {
       console.log(Object.keys(this.userInfo).length)
       this.registing = true
       this.axios.post('/cust/userRegister.do', this.userInfo).then(res => {
-        this.registing = false
         let _this = this
         let type = res.data.status ? 'success' : 'error'
         this.$message({
@@ -780,10 +779,11 @@ function subHandle (formName) {
           type: type
         })
         setTimeout(function () {
+          this.registing = false
           if (res.data.status) {
             _this.$router.push('/login')
           }
-        }, 2000)
+        }, 1000)
       }).catch(err => {
         this.registing = false
         console.log(err)
