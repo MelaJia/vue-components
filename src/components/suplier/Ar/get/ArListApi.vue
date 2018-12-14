@@ -135,9 +135,9 @@ function handleAccept (idx, val) {
   }).then(async () => {
     let res = await this.post('/multiArTransferManager/multiReceptionArPay.do', { transSerialNo: val.transSerialNo, interfaceTransSerial: this.query.interfaceTransSerial }, true)
     // 跳转页面
-    if (this.query.interfaceTransSerial !== null) {
-      var operateType = 'transfer'
-      window.location.href = `./static/openWeb/transPage/CF/receive.html?transSerialNo=${res.data.data.transSerialNo}&operateType=${operateType}`
+    if (res && res.data.status && this.query.interfaceTransSerial !== null) {
+      var operateType = 'receivedConfirm'
+      window.location.href = `./static/openWeb/transPage/CF/receive.html?transSerialNo=${val.transSerialNo}&operateType=${operateType}`
     }
   }).catch(() => {
     this.$message({
