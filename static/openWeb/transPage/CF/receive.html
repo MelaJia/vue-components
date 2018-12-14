@@ -71,6 +71,28 @@
             }).catch(err => {
               console.log(err)
             })
+          }else if(this.operateType == 'receivedConfirm'){  
+            // 确认接收接口
+            axios.post(window.webConfig.apiUrl+'/multiArTransferManager/multiReceptionArPaySigning.do', {
+              transSerialNo: this.transSerialNo, // 交易流水号
+              proxyUrl: window.webConfig.distUrl+'/dist/static/openWeb/transPage/CF/proxy.html'+'#' // 钜融网代理地址
+            },{headers:{Authorization: JSON.parse(localStorage.getItem("monitorToken")).content}}).then(res => {
+              if(res.status) {
+                var data = res.data.data
+                this.src = data
+                // 定时检查hash
+                var checkHashed = setInterval(function(){
+                  if(location.hash){
+                    var factoringResult = location.hash.substring(1)
+                    _this.transactionBack(factoringResult)
+                  }
+                },2000)
+              } else {
+                alert(res.data.msg)
+              }
+            }).catch(err => {
+              console.log(err)
+            })
           } else {
             // 贴现请求接口
             axios.post(window.webConfig.apiUrl+'/multiArDiscountManager/multiSignDiscount.do', {
