@@ -83,6 +83,7 @@ export default {
       if (res && res.data.status) {
         this.fresh()
       }
+      return res
     },
     /*
     *发送post请求

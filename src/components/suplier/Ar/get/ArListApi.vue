@@ -153,8 +153,11 @@ function handleReject (idx, val) {
     cancelButtonText: '取消',
     type: 'warning',
     center: true
-  }).then(() => {
-    this.postResultFresh('/multiArTransferManager/multiRejectArPay.do', { transSerialNo: val.transSerialNo, interfaceTransSerial: this.query.interfaceTransSerial })
+  }).then(async () => {
+    const res = await this.postResultFresh('/multiArTransferManager/multiRejectArPay.do', { transSerialNo: val.transSerialNo, interfaceTransSerial: this.query.interfaceTransSerial })
+    if (res && res.data.status && this.query.interfaceTransSerial !== null && res.data.data.callBackUrl.length > 0) {
+      window.location.href = res.data.data.callBackUrl
+    }
   }).catch(() => {
     this.$message({
       type: 'info',
