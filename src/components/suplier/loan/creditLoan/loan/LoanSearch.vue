@@ -28,14 +28,6 @@
             </el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col :span="10">
-          <el-form-item label="合同签署日期" prop="contractDate">
-            <el-date-picker :editable="false" v-model="formInline.contractDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-    </el-row>
-    <el-row>
       <el-col :span="10">
         <el-form-item label="金额申请金额" prop="amountBegin">
           <el-col :span="10" class="mon-range-start">
@@ -52,9 +44,17 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="4" :offset="10">
-        <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
-        <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
+      <el-col :span="10">
+          <el-form-item label="合同签署日期" prop="contractDate">
+            <el-date-picker :editable="false" v-model="formInline.contractDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+      <el-col :span="7" :offset="7">
+                  <el-form-item label=" " >
+                    <el-button type="primary" @click="onSubmit" size="mini">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</el-button>
+                    <el-button type="default" @click="resetForm('formInline')" size="mini">&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;</el-button>
+                  </el-form-item>
       </el-col>
     </el-row>
   </el-form>

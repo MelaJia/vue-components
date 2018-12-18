@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-container>
+    <el-container style="background: #f0f0f0;">
       <el-header height="84px" style="position: fixed;width: 100%;z-index: 9;top:0px;">
         <header>
           <header-section @pwd-chage="pwdChange"></header-section>
@@ -12,10 +12,10 @@
         <template v-if="navItems!==null&&navItems.length>0&&!interfaceTransSerial">
           <i
             class="iconfont"
-            :class="width===0?'icon-open':'icon-close'"
+            :class="width===65?'icon-open':'icon-close'"
             style="position: fixed;font-size:24px;z-index: 99;top: 50%; transition: all 1s;color:#409EFF;cursor:pointer;"
             :style="{'left': width+'px'}"
-            @click="width=width===0?180:0"
+            @click="width=width===65?180:65"
           ></i>
           <transition
             name="custom-classes-transition"
@@ -23,16 +23,16 @@
             leave-active-class="animated slideOutLeft"
           >
             <el-aside
-              v-show="width>0"
-              style="position: fixed;width:180px;height: 100%;overflow-y: auto;z-index:9;"
+              style="position: fixed;height: 100%;overflow-y: auto;z-index:9;background: #fff;transition: all 1s;"
+              :style="{'width':width+'px'}"
             >
-              <nav-t :nav-items="navItems"></nav-t>
+              <nav-t :nav-items="navItems" :is-collapse="width===65"></nav-t>
             </el-aside>
           </transition>
         </template>
-        <el-main style="padding-top:0px; transition: all 1s;" :style="{'margin-left': width +'px'}">
+        <el-main style="padding-top:0px; transition: all 1s;overflow: hidden;" :style="{'margin-left': width +'px'}">
           <tags v-if="navItems!==null&&navItems.length>0&&!interfaceTransSerial" ref="nav" class="nav"></tags>
-          <section :style="'background-color:#fff;height:auto;margin-top: 40px;'">
+          <section :style="'height:auto;margin-top: 40px;'">
             <slot></slot>
           </section>
         </el-main>

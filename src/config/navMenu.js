@@ -177,14 +177,6 @@ const navs = {
       ]
     },
     {
-      menuId: '3',
-      menuUrl: '3',
-      menuName: '资金管理',
-      disabled: true,
-      lClass: 'line',
-      hClass: 'header-circle bg-icon-2'
-    },
-    {
       menuId: '4',
       menuName: '辅助查询',
       disabled: true,

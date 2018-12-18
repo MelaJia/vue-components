@@ -1,7 +1,13 @@
 <template>
   <div class="user-info" style="padding: 0px 10px;">
-    <info-list :infos="userInfo"></info-list>
-    <info-table :auth-arr="authArr" :infos="userInfo" @refresh="handleRefresh"></info-table>
+    <el-row :gutter="20">
+      <el-col :xl="14" :lg="14" :md="24">
+         <info-list :infos="userInfo"></info-list>
+      </el-col>
+      <el-col :xl="10" :lg="10" :md="24">
+          <info-table :auth-arr="authArr" :infos="userInfo" @refresh="handleRefresh"></info-table>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script>

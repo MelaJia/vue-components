@@ -5,7 +5,9 @@ $bg-color-success:#f0f9eb !default;
 $bg-color-warning:rgb(240, 200, 125) !default;
 //左侧导航变量
 $navbg:#fff!default;
-$navbg-item-active:#ededed!default;
-$navbg-item-hover:#ededed!default;//按钮聚焦色
+$navbg-item-active:#daeeff!default;
+$navbg-item-hover:#daeeff!default;//按钮聚焦色
 $navbg-line-color:#c0c4cc!default; //线条色
-$navbg-circle:#043c81 !default;//圆背景色
+$navbg-circle:#3f99f7 !default;//圆背景色
+// 表格变量
+$style-table-header-bg:#3f99f7 !default;//表格头背景色

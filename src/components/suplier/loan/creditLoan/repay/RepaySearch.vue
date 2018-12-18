@@ -6,22 +6,22 @@
           <el-input class="wd-190" v-model.trim="formInline.loanId" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-        <el-col :span="7" :offset="3">
+      <el-col :span="10" :offset="3">
+          <el-form-item label="还款日期" prop="repayDate">
+            <el-date-picker :editable="false" v-model="formInline.repayDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="7">
            <el-form-item label="币别" prop="currency">
               <el-select class="wd-190" v-model="formInline.currency" clearable placeholder="全部">
                 <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
               </el-select>
             </el-form-item>
         </el-col>
-    </el-row>
-    <el-row>
-        <el-col :span="10">
-          <el-form-item label="还款日期" prop="repayDate">
-            <el-date-picker :editable="false" v-model="formInline.repayDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="10">
+        <el-col :span="10" :offset="3">
           <el-form-item label="合同签署日期" prop="contractDate">
             <el-date-picker :editable="false" v-model="formInline.contractDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
             </el-date-picker>
@@ -43,12 +43,12 @@
       <el-col :span="1">
         <el-form-item prop="amountEnd"></el-form-item>
       </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="4" :offset="10">
-        <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
-        <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
-      </el-col>
+      <el-col :span="7" :offset="6">
+            <el-form-item label=" " >
+              <el-button type="primary" @click="onSubmit" size="mini">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</el-button>
+              <el-button type="default" @click="resetForm('formInline')" size="mini">&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;</el-button>
+            </el-form-item>
+       </el-col>
     </el-row>
   </el-form>
 </template>

@@ -1,6 +1,7 @@
+@import "../assets/css/base";
 // 头部样式
 .el-header{
-  background:url("~@/assets/img/head_01.jpg");
+  background:url("~@/assets/img/images/header_bg_01.png");
 }
 .layout.flex .cell {
   display: flex;
@@ -39,6 +40,7 @@
 .el-table thead {
   th,
   tr {
+<<<<<<< HEAD
     // background: #033c81;
     background: #3F97F8;
   }
@@ -46,6 +48,9 @@
 .el-dialog--center {
   .el-dialog__body{
     padding:0 25px;
+=======
+    background:$style-table-header-bg;
+>>>>>>> 50feb7539a65247a8759600af7b543c1639fa99b
   }
 }
 
@@ -100,4 +105,9 @@
 // 弹窗最小样式
 .dia-class{
   min-width: 850px;
+}
+// 按钮样式
+.el-button--default{
+  border: 1px solid #65b6fa;
+  color: #65b6fa;
 }

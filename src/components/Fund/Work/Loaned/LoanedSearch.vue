@@ -6,12 +6,12 @@
           <el-input v-model.trim="formInline.masterChainId" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="7" :offset="3">
+      <el-col :span="7">
         <el-form-item label="贴现客户" prop="custFromName">
           <el-input v-model.trim="formInline.custFromName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="7">
+      <el-col :span="7" :offset="3">
         <el-form-item label="付款单位" prop="companyName">
           <el-input v-model.trim="formInline.companyName" placeholder=""></el-input>
         </el-form-item>
@@ -25,14 +25,6 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :span="7" :offset="3">
-        <el-form-item label="发票号" prop="invoiceNo">
-          <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="7"></el-col>
-    </el-row>
-    <el-row>
       <el-col :span="10">
         <el-form-item label="贴现金额" prop="discountAmtScopeFrom">
           <el-col :span="10" class="mon-range-start">
@@ -44,6 +36,16 @@
           </el-col>
         </el-form-item>
       </el-col>
+      <el-col :span="0">
+        <el-form-item prop="discountAmtScopeTo"></el-form-item>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="7">
+        <el-form-item label="发票号" prop="invoiceNo">
+          <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
+        </el-form-item>
+      </el-col>
       <el-col :span="10">
         <el-form-item label="票据到期日" prop="moneyDate">
           <el-date-picker :editable="false" v-model="formInline.moneyDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期"
@@ -51,15 +53,12 @@
           </el-date-picker>
         </el-form-item>
       </el-col>
-      <el-col :span="1">
-        <el-form-item prop="discountAmtScopeTo"></el-form-item>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="4" :offset="10">
-        <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
-        <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
-      </el-col>
+      <el-col :span="7">
+          <el-form-item label=" " >
+            <el-button type="primary" @click="onSubmit" size="mini">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</el-button>
+            <el-button type="default" @click="resetForm('formInline')" size="mini">&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;</el-button>
+          </el-form-item>
+        </el-col>
     </el-row>
   </el-form>
 </template>

@@ -5,11 +5,19 @@
       <el-form ref="ordform" :inline="true" class="demo-form-inline">
         <el-form-item label="当前已选金额(元)">{{displaySumAmt}}</el-form-item>
         <el-form-item>
+<<<<<<< HEAD
           <el-button size="small" type="primary" plain @click="handleClearSelection">取消已勾选</el-button>
         </el-form-item>
         <el-form-item label="待转让金额(元)">{{displayTransAmt}}</el-form-item>
         <el-form-item>
           <el-button type="primary" class="searchBtn" size="small" @click="handleTrans">转让</el-button>
+=======
+          <el-button plain size="mini" @click="handleClearSelection">取消已勾选</el-button>
+        </el-form-item>
+        <el-form-item label="待转让金额(元)">{{displayTransAmt}}</el-form-item>
+        <el-form-item>
+          <el-button type="primary" size="mini" @click="handleTrans">&nbsp;&nbsp;&nbsp;转让&nbsp;&nbsp;&nbsp;</el-button>
+>>>>>>> 50feb7539a65247a8759600af7b543c1639fa99b
         </el-form-item>
       </el-form>
     </header>

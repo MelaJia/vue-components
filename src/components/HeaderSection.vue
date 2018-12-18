@@ -7,6 +7,7 @@
     </div>
     <div class="width-50">
       <div v-if="!this.$store.getters.interfaceTransSerial" class="header-right">
+<<<<<<< HEAD
         <!-- <el-button
           v-if="this.$store.getters.roles=='2'"
           type="danger"
@@ -18,9 +19,19 @@
         <el-dropdown @command="handleCommand">
           <!-- <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}<img src="@/assets/img/juxin_18.png" alt=""></span> -->
           <span style="color:#fff">
+=======
+        <span id="img" src="@/assets/img/juxin_18.png" alt></span>
+        <div class="text-content">
+          <p>
+>>>>>>> 50feb7539a65247a8759600af7b543c1639fa99b
             你好，{{custNickname}}
-            <span id="img" src="@/assets/img/juxin_18.png" alt></span>
-          </span>
+          </p>
+          <p>上次登录时间:YY/MM/DD</p>
+        </div>
+        <section>
+          <img src="@/assets/img/images/header_icon01.png" alt="">
+        <el-dropdown @command="handleCommand">
+          <img src="@/assets/img/images/header_icon02.png" alt="">
           <el-dropdown-menu slot="dropdown">
             <template v-if="this.$store.getters.token">
               <el-dropdown-item v-if="this.$store.state.user.roles" command="pwdChange">密码修改</el-dropdown-item>
@@ -35,6 +46,9 @@
             <el-dropdown-item v-else command="login">登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
+          <img src="@/assets/img/images/header_icon03.png" alt="">
+
+        </section>
       </div>
     </div>
   </div>
@@ -61,14 +75,15 @@
   align-items: center;
   float: right;
   height: 100%;
+  position: relative;
 }
 
 .header-left {
 }
 
 .header-right img {
-  width: 60px;
-  height: 60px;
+  width: 28px;
+  height: 28px;
 }
 .header-right #img {
   background: url("~@/assets/img/juxin_18.png");
@@ -76,12 +91,24 @@
   height: 60px;
   border-radius: 50%;
   display: block;
-  position: absolute;
-  right: 0;
-  top: -5px;
+  /* position: absolute;
+  left: 0;
+  top: -5px; */
   background-position: -5px -7px;
   background-repeat: no-repeat;
   background-size: 70px 70px;
+}
+/* 文字区域 */
+.header-right>.text-content{
+  margin: 0 20px;
+}
+.header-right>.text-content p{
+  color: #fff;
+  margin: 0;
+}
+.header-right>.text-content p+p{
+  color: #dee8fb;
+  font-size: 12px;
 }
 .header-right > span {
   color: #fff;
@@ -106,6 +133,7 @@
 /* 右侧图标 */
 .el-dropdown {
   padding-top: 30px;
+  margin: 0 20px;
 }
 .el-dropdown > span {
   padding-right: 80px;

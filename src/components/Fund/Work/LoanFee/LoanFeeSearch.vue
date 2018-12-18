@@ -7,8 +7,8 @@
       <el-input v-model.trim="formInline.vendorCode" placeholder=""></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
-      <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
+      <el-button type="primary" @click="onSubmit" size="mini">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</el-button>
+      <el-button type="default" @click="resetForm('formInline')" size="mini">&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;</el-button>
     </el-form-item>
   </el-form>
 </template>
