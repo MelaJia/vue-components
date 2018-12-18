@@ -1,17 +1,18 @@
 <template>
-  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="mini" label-width="150px">
+  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="融资编号" prop="loanId">
           <el-input v-model.trim="formInline.loanId" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="8">
-        <el-form-item label="融资客户" prop="companyName">
-          <el-input v-model.trim="formInline.companyName" placeholder=""></el-input>
+      <el-col :span="10">
+        <el-form-item label="还款日期" prop="repayDate">
+          <el-date-picker :editable="false" v-model="formInline.repayDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+          </el-date-picker>
         </el-form-item>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="融资类型" prop="loanType">
           <el-select v-model="formInline.loanType" clearable placeholder="全部">
             <el-option v-for="(item,index) in loanTypes" :key="index" :label="item.loanTypeName" :value="item.loanType"></el-option>
@@ -20,58 +21,52 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="状态" prop="status">
           <el-select v-model="formInline.status" clearable placeholder="全部">
             <el-option v-for="(item,index) in arStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="10">
+        <el-form-item label="合同签署日期" prop="contractSignedDate">
+          <el-date-picker :editable="false" v-model="formInline.contractSignedDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+          </el-date-picker>
+        </el-form-item>
+      </el-col>
+      <el-col :span="7">
         <el-form-item label="币别" prop="currency">
           <el-select v-model="formInline.currency" clearable placeholder="全部">
             <el-option v-for="(item,index) in moneyTypes" :key="index" :label="item.currencyDesc" :value="item.currencyId"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :span="8"></el-col>
     </el-row>
     <el-row>
-      <el-col :span="12">
-        <el-form-item label="还款日期" prop="repayDate">
-          <el-date-picker :editable="false" v-model="formInline.repayDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-          </el-date-picker>
+       <el-col :span="7">
+        <el-form-item label="融资客户" prop="companyName">
+          <el-input v-model.trim="formInline.companyName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="12" style="height:50px;">
-        <el-form-item label="金额范围">
-          <el-col :span="11">
-            <el-form-item prop="amountBegin">
+      <el-col :span="10" style="height:50px;">
+        <el-form-item label="金额范围"  prop="amountBegin">
+          <el-col :span="10" class="mon-range-start">
             <el-jx-input v-model="formInline.amountBegin" clearable placeholder="起始金额"></el-jx-input>
-          </el-form-item>
           </el-col>
           <el-col class="line" :span="2">-</el-col>
-          <el-col :span="11">
-            <el-form-item prop="amountEnd">
+          <el-col :span="10" class="mon-range-end">
             <el-jx-input v-model="formInline.amountEnd" clearable placeholder="结束金额"></el-jx-input>
-            </el-form-item>
           </el-col>
         </el-form-item>
       </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12">
-        <el-form-item label="合同签署日期" prop="contractSignedDate">
-          <el-date-picker :editable="false" v-model="formInline.contractSignedDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-          </el-date-picker>
-        </el-form-item>
+      <el-col :span="0">
+        <el-form-item prop="amountEnd"></el-form-item>
       </el-col>
-      <el-col :span="12"></el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="8" :offset="10">
-        <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
-        <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
+      <el-col :span="7">
+          <el-form-item label=" " >
+            <el-button type="primary" @click="onSubmit" size="mini">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</el-button>
+            <el-button type="default" @click="resetForm('formInline')" size="mini">&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;</el-button>
+          </el-form-item>
       </el-col>
     </el-row>
   </el-form>
@@ -79,9 +74,7 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
-.el-select.el-select--mini{
-  width:178px;
-}
+@import "@/assets/css/_loanSearch.scss";
 </style>
 
 <script>

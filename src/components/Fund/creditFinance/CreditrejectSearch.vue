@@ -31,6 +31,9 @@
           </el-col>
         </el-form-item>
       </el-col>
+      <el-col :span="0">
+            <el-form-item prop="amountEnd"></el-form-item>
+      </el-col>
       <el-col :span="7">
         <el-form-item label="币别" prop="currency">
           <el-select v-model="formInline.currency" clearable placeholder="全部">
@@ -46,15 +49,12 @@
           </el-date-picker>
         </el-form-item>
       </el-col>
-      <el-col :span="1">
-            <el-form-item prop="amountEnd"></el-form-item>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="7" :offset="10">
-        <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
-        <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
-      </el-col>
+      <el-col :span="7" :offset="7">
+          <el-form-item label=" " >
+            <el-button type="primary" @click="onSubmit" size="mini">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</el-button>
+            <el-button type="default" @click="resetForm('formInline')" size="mini">&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;</el-button>
+          </el-form-item>
+        </el-col>
     </el-row>
   </el-form>
 </template>

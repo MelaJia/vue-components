@@ -41,7 +41,7 @@
 
 <script>
 import CreditendTable from '@/components/Fund/creditFinance/CreditendTable'
-import Search from '@/components/Fund/creditFinance/CreditendSearch'
+import Search from '@/components/Fund/creditFinance/CreditloanedSearch'
 import Table from '@/mixins/suplier/Ar/Table'
 export default {
   name: 'creditend', // 信用已完结查询

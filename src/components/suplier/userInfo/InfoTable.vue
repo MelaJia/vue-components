@@ -1,31 +1,37 @@
 <template>
   <div>
     <component v-bind:is="currentTabComponent" :visible-p.sync="dialogVisible" :form="getDetails" :param-name="paName"></component>
-    <el-table
-      :data="authArr"
-      border
-      style="width: 100%">
-      <el-table-column
-        prop="idtType"
-        label="认证类型"
-        align="center"
-        min-width="280">
-      </el-table-column>
-      <el-table-column
-        prop="idtResult"
-        label="认证结果"
-        align="center"
-        min-width="280">
-      </el-table-column>
-      <el-table-column
-      min-width="180"
-        align="center"
-        label="操作">
-        <template slot-scope="scope">
-        <el-button @click="handleClick(scope.$index,scope.row,scope.store)" type="text">{{operaNames[scope.$index]}}</el-button>
-      </template>
-      </el-table-column>
-    </el-table>
+    <el-card class="box-card-userinfo">
+      <div slot="header" class="clearfix">
+        <i class="el-icon-document"></i>
+        <span>企业认证信息</span>
+      </div>
+      <el-table
+        :data="authArr"
+        border
+        style="width: 100%">
+        <el-table-column
+          prop="idtType"
+          label="认证类型"
+          align="center"
+          min-width="120">
+        </el-table-column>
+        <el-table-column
+          prop="idtResult"
+          label="认证结果"
+          align="center"
+          min-width="120">
+        </el-table-column>
+        <el-table-column
+        min-width="80"
+          align="center"
+          label="操作">
+          <template slot-scope="scope">
+          <el-button @click="handleClick(scope.$index,scope.row,scope.store)" type="text">{{operaNames[scope.$index]}}</el-button>
+        </template>
+        </el-table-column>
+      </el-table>
+    </el-card>
   </div>
 </template>
 <script>

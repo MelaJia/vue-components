@@ -30,7 +30,7 @@
             </el-aside>
           </transition>
         </template>
-        <el-main style="padding-top:0px; transition: all 1s;" :style="{'margin-left': width +'px'}">
+        <el-main style="padding-top:0px; transition: all 1s;overflow: hidden;" :style="{'margin-left': width +'px'}">
           <tags v-if="navItems!==null&&navItems.length>0&&!interfaceTransSerial" ref="nav" class="nav"></tags>
           <section :style="'height:auto;margin-top: 40px;'">
             <slot></slot>

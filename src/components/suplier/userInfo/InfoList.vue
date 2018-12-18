@@ -1,49 +1,55 @@
 <template>
   <div>
-    <el-card class="box-card">
+    <el-card class="box-card-userinfo">
       <div slot="header" class="clearfix">
         <i class="el-icon-document"></i>
         <span>企业基础信息</span>
       </div>
-      <ul>
-        <li :span="8"><span>企业名称：</span>{{infos.companyName}}</li>
-      </ul>
-      <ul>
-        <li :span="8"><span>企业状态：</span>
+      <el-row>
+        <el-col :span="12"><span>企业名称：</span>{{infos.companyName}}</el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12"><span>企业状态：</span>
           <span class="iconfont icon-yuan tag-item-icon" :class="[infos.isUsableDesc === '可用' ? 'status-success' : 'status-danger']"></span>
           {{infos.isUsableDesc}}
-        </li>
-        <li :span="8"><span>所属客户经理：</span>{{infos.sourceName}}</li>
-        <li :span="8" style="cursor:pointer" @click="handleCopy">
+        </el-col>
+        <el-col :span="12"><span>所属客户经理：</span>{{infos.sourceName}}</el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12" style="cursor:pointer" @click="handleCopy">
           <el-tooltip :content="'单击复制'+infos.custId" placement="top" effect="dark">
             <span>公司ID: <em>{{infos.custId}}</em></span>
           </el-tooltip>
-        </li>
-      </ul>
-      <ul>
-        <li :span="8"><span>企业电话：</span>{{infos.companyPhone}}</li>
-        <li :span="8">
+        </el-col>
+        <el-col :span="12"><span>企业电话：</span>{{infos.companyPhone}}</el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
           <el-tooltip :content="'企业地址:'+infos.companyAddress" placement="top" effect="light">
             <span>企业地址: <em>{{infos.companyAddress}}</em></span>
           </el-tooltip>
-        </li>
-        <li :span="8"><span>统一社会信用代码: </span>{{infos.creditCode}}</li>
-      </ul>
-      <ul>
-        <li :span="8"><span>纳税人识別号：</span>{{infos.payTaxesNumber}}</li>
-        <li :span="8"><span>供应商代码：</span>{{infos.vendorCodes}}</li>
-        <li :span="8"><span>注册资本: </span>{{infos.registeredCapital | regexNum}} ({{getRegisteredCurrencyType}})</li>
-      </ul>
-      <ul>
-        <li :span="8"><span>实收资本：</span>{{infos.paidinCapital | regexNum}} ({{getPaidinCurrencyType}})</li>
-        <li :span="8"><span>公司成立日期：</span>{{infos.establishDate | dateFormat}}</li>
-        <li :span="8"><span>营业执照开始日期：</span>{{infos.businessStartDate | dateFormat}}</li>
-      </ul>
-      <ul>
-        <li :span="8"><span>营业执照结束日期：</span>{{infos.businessEndDate | dateFormat}}</li>
-        <li :span="8"><span>公司登记日期：</span>{{infos.companyRegisterDate | dateFormat}}</li>
-        <li :span="8"><span>经营范围：</span>{{infos.mainProducts}}</li>
-      </ul>
+        </el-col>
+        <el-col :span="12"><span>统一社会信用代码: </span>{{infos.creditCode}}</el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12"><span>纳税人识別号：</span>{{infos.payTaxesNumber}}</el-col>
+        <el-col :span="12"><span>供应商代码：</span>{{infos.vendorCodes}}</el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12"><span>注册资本: </span>{{infos.registeredCapital | regexNum}} ({{getRegisteredCurrencyType}})</el-col>
+        <el-col :span="12"><span>实收资本：</span>{{infos.paidinCapital | regexNum}} ({{getPaidinCurrencyType}})</el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12"><span>公司成立日期：</span>{{infos.establishDate | dateFormat}}</el-col>
+        <el-col :span="12"><span>营业执照开始日期：</span>{{infos.businessStartDate | dateFormat}}</el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12"><span>营业执照结束日期：</span>{{infos.businessEndDate | dateFormat}}</el-col>
+        <el-col :span="12"><span>公司登记日期：</span>{{infos.companyRegisterDate | dateFormat}}</el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12"><span>经营范围：</span>{{infos.mainProducts}}</el-col>
+      </el-row>
     </el-card>
     <!-- <table>
       <tr>企业基础信息</tr>
@@ -81,7 +87,7 @@
 </template>
 <style lang="scss" scoped>
 @import "@/assets/css/_status.scss";
-ul {
+el-row {
   margin: 2px 0px;
 }
 </style>
@@ -135,15 +141,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-li {
-  list-style: none;
-  width: 31%;
-  display: inline-block;
+.el-col {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   line-height: 32px;
-  text-align: left;
   padding-left: 5px;
 }
 </style>

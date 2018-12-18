@@ -1,31 +1,32 @@
 <template>
-  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="120px">
+  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
-      <el-col :span="7" v-if="this.$store.getters.roles!==2">
-        <el-form-item label="供应商代码" prop="vendorCode">
-          <el-input v-model.trim="formInline.vendorCode" placeholder=""></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="7" offset="3">
+      <el-col :span="7">
         <el-form-item label="对账单号" prop="statementNo">
           <el-input v-model.trim="formInline.statementNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="7">
-        <el-form-item label="进货验收单号" prop="grnNumber">
-          <el-input v-model.trim="formInline.grnNumber" placeholder=""></el-input>
+        <el-form-item label="购方名称" prop="buyerName">
+          <el-input v-model.trim="formInline.buyerName" placeholder=""></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="7" :offset="3">
+        <el-form-item label="销方名称" prop="sellerName">
+          <el-input v-model.trim="formInline.sellerName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="7">
-        <el-form-item label="购方名称" prop="buyerName">
-          <el-input v-model.trim="formInline.buyerName" placeholder=""></el-input>
+        <el-form-item label="进货验收单号" prop="grnNumber">
+          <el-input v-model.trim="formInline.grnNumber" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="7" offset="3">
-        <el-form-item label="销方名称" prop="sellerName">
-          <el-input v-model.trim="formInline.sellerName" placeholder=""></el-input>
+      <el-col :span="10">
+        <el-form-item label="录入日期" prop="entryDate">
+          <el-date-picker :editable="false" v-model="formInline.entryDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+          </el-date-picker>
         </el-form-item>
       </el-col>
       <el-col :span="7">
@@ -44,7 +45,7 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :span="10" offset="3">
+      <el-col :span="10">
         <el-form-item label="金额范围" prop="amountStart">
           <el-col :span="10" class="mon-range-start">
             <el-jx-input v-model="formInline.amountStart" placeholder="起始金额"></el-jx-input>
@@ -55,24 +56,21 @@
           </el-col>
         </el-form-item>
       </el-col>
-      <el-col :span="1">
+      <el-col :span="0">
         <el-form-item prop="amountEnd"></el-form-item>
       </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="10">
-        <el-form-item label="录入日期" prop="entryDate">
-          <el-date-picker :editable="false" v-model="formInline.entryDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-          </el-date-picker>
+      <el-col :span="7" v-if="this.$store.getters.roles!==2">
+        <el-form-item label="供应商代码" prop="vendorCode">
+          <el-input v-model.trim="formInline.vendorCode" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="10">
-      </el-col>
     </el-row>
     <el-row>
-      <el-col :span="7" :offset="10">
-          <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
-          <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
+      <el-col :span="7" :offset="17">
+        <el-form-item label=" " >
+          <el-button type="primary" @click="onSubmit" size="mini">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</el-button>
+          <el-button type="default" @click="resetForm('formInline')" size="mini">&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;</el-button>
+        </el-form-item>
       </el-col>
     </el-row>
   </el-form>
