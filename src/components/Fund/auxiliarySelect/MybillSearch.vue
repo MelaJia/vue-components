@@ -1,25 +1,11 @@
 <template>
   <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
-<<<<<<< HEAD
-      <el-col :span="7" v-if="this.$store.getters.roles!==2">
-        <el-form-item label="供应商代码" prop="vendorCode">
-          <el-input v-model.trim="formInline.vendorCode" placeholder=""></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="7" :offset="this.$store.getters.roles!==2 ? 3 : 0">
-=======
       <el-col :span="7">
->>>>>>> 50feb7539a65247a8759600af7b543c1639fa99b
         <el-form-item label="对账单号" prop="statementNo">
           <el-input v-model.trim="formInline.statementNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-<<<<<<< HEAD
-      <el-col :span="7" :offset="this.$store.getters.roles!==2 ? 0 : 3">
-        <el-form-item label="进货验收单号" prop="grnNumber">
-          <el-input v-model.trim="formInline.grnNumber" placeholder=""></el-input>
-=======
       <el-col :span="7">
         <el-form-item label="购方名称" prop="buyerName">
           <el-input v-model.trim="formInline.buyerName" placeholder=""></el-input>
@@ -28,7 +14,6 @@
       <el-col :span="7" :offset="3">
         <el-form-item label="销方名称" prop="sellerName">
           <el-input v-model.trim="formInline.sellerName" placeholder=""></el-input>
->>>>>>> 50feb7539a65247a8759600af7b543c1639fa99b
         </el-form-item>
       </el-col>
     </el-row>
