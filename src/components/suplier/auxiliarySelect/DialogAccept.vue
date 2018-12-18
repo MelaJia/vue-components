@@ -57,6 +57,21 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+@import "@/assets/css/_newUI.scss";
+section{
+  > ul,>ul:last-of-type{
+    border: none;
+  }
+  > ul > li:not(:first-of-type) {
+    border-left: none;
+  }
+  li{
+    width: 68%;
+  }
+  li+li{
+    width: 30%;
+  }
+}
 .tableList{
   width: 100%;
   border: 0.5px solid #931719;

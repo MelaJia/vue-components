@@ -1,12 +1,12 @@
 <template>
 <section id="print">
   <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
-    <header slot="title">
+    <header slot="title" class="headerTitle">
       <span class="title">
         {{getTitle}}
       </span>
     </header>
-    <section>
+    <section class="section">
       <ul>
         <li>
           <span>申请金额: <em>{{this.detailsP.applyAmt | regexNum}}</em></span>
@@ -23,6 +23,8 @@
           <span>币别: <em>{{this.detailsP.currencyName}}</em></span>
         </li>
       </ul>
+    </section>
+    <section class="section">
       <ul>
         <li>
           <span>利率: <em>{{this.detailsP.interestRate | addPercent}}</em></span>
@@ -47,14 +49,9 @@
           <span>还款方式: <em>{{this.detailsP.repaymentType}}</em></span>
         </li>
       </ul>
-      <ul class="height-auto">
-        <span>
-          <div class="a-link-group inline-block">
-            订单号:<label v-for="(item, index) in this.detailsP.poLoanInfoList" :key="index"><span v-for="(itemList, index) in item.poLoanDetailInfoList" :key="index" class="poList">{{itemList.poNumber}}</span></label>
-          </div>
-        </span>
-      </ul>
-      <table class="tableList" border="1" style="border:1px solid #931719">
+    </section>
+    <section class="section">
+      <table class="tableList" border="1" style="border:1px solid #E4E4E4;margin-top:10px;">
         <thead>
           <tr>
             <th>法人代码</th>
@@ -70,13 +67,18 @@
           </tr>
         </tbody>
       </table>
-      <ul class="height-auto">
-          <span>
-          <div class="a-link-group inline-block">
-            合同:<a v-for="item in this.detailsP.contractList" :key="item.contractId" :href="item.contractUrl" target="_blank" @click="constractHandle(item.contractUrl)">{{item.contractName}}</a>
+      <ul class="height-auto" style="display:flex;">
+        <span style="width:80px;">订单号:</span>
+          <div class="a-link-group inline-block" style="background:#ECECEC;flex:1;height:80px;max-height:80px;overflow-y:auto;">
+            <label v-for="(item, index) in this.detailsP.poLoanInfoList" :key="index"><span v-for="(itemList, index) in item.poLoanDetailInfoList" :key="index" class="poList">{{itemList.poNumber}}</span></label>
+          </div>
+      </ul>
+      <ul class="height-auto" style="display:flex;">
+          <span style="width:80px;">合同:</span>
+          <div class="a-link-group inline-block" style="background:#ECECEC;flex:1;height:80px;max-height:80px;overflow-y:auto;">
+            <a v-for="item in this.detailsP.contractList" :key="item.contractId" :href="item.contractUrl" target="_blank" @click="constractHandle(item.contractUrl)">{{item.contractName}}</a>
             <!-- <a v-for="item in detailsP.contractList" :key="item.contractId" href="http://" @click.prevent="constractHandle(item.contractId)">{{item.contractName}}</a> -->
           </div>
-        </span>
       </ul>
       <!-- <ul>
         <span>
@@ -87,7 +89,7 @@
       </ul> -->
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleClose">确认</el-button>
+      <el-button type="primary" @click="handleClose" class="searchBtn" size="small">确认</el-button>
     </footer>
   </el-dialog>
 </section>
@@ -95,6 +97,21 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+@import "@/assets/css/_newUI.scss";
+section{
+  > ul,>ul:last-of-type{
+    border: none;
+  }
+  > ul > li:not(:first-of-type) {
+    border-left: none;
+  }
+  li{
+    width: 68%;
+  }
+  li+li{
+    width: 30%;
+  }
+}
 .a-link-group>label>span:not(:last-of-type)::after {
   content: ','
 }
@@ -103,10 +120,10 @@
   border-collapse: collapse;
   thead tr{
     height: 30px;
-    border-color: #931719;
     th{
       font-weight: normal;
-      border-color: #931719;
+      background:#3F97F8;
+      color:#fff;
     }
   }
   tbody tr{
@@ -116,7 +133,6 @@
       border-bottom: none;
       td{
         border-bottom: none;
-        border-color: #931719;
         span{
           margin-right: 10px;
         }

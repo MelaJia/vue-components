@@ -15,11 +15,14 @@ var apiUrl = baseUrl + '/openapi'
 var codeUrl = baseUrl + '/code'
 var protocol = document.location.protocol
 var host = document.location.host
+var distUrl = ''
 // let basePath = document.location.hostname === 'localhost' ? '/JuXin' : getContextPath()
 var basePath = '/JuXin'
 apiUrl = basePath + '/openapi'
+distUrl = protocol + '//' + host + '/JuXin-Web'
 window.g = {
   baseUrl: baseUrl,
   apiUrl: apiUrl,
-  codeUrl: codeUrl
+  codeUrl: codeUrl,
+  distUrl: distUrl
 }

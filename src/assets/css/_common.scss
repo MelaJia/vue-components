@@ -39,7 +39,13 @@
 .el-table thead {
   th,
   tr {
-    background: #033c81;
+    // background: #033c81;
+    background: #3F97F8;
+  }
+}
+.el-dialog--center {
+  .el-dialog__body{
+    padding:0 25px;
   }
 }
 

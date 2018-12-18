@@ -1,12 +1,12 @@
 <template>
 <section id="print">
   <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
-    <header slot="title">
+    <header slot="title" class="headerTitle">
       <span class="title">
         {{getTitle}}
       </span>
     </header>
-    <section>
+    <section class="section">
       <ul>
         <li>
           <span>企业状态: <em>{{this.detailsP.isUsableDesc}}</em></span>
@@ -35,6 +35,8 @@
           <span>纳税人识別号: <em>{{this.detailsP.payTaxesNumber}}</em></span>
         </li>
       </ul>
+    </section>
+    <section class="section">
       <ul>
         <li class="wd-3">
           <span>供应商代码: <em>{{this.detailsP.vendorCodes}}</em></span>
@@ -57,6 +59,8 @@
           <span>营业执照结束日期: <em>{{this.detailsP.businessEndDate|dateFormat}}</em></span>
         </li>
       </ul>
+    </section>
+    <section class="section">
       <ul>
         <li>
           <span>经营范围: <em>{{this.detailsP.mainProducts}}</em></span>
@@ -132,13 +136,28 @@
         </el-row>
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleClose">确认</el-button>
+      <el-button type="primary" @click="handleClose" class="searchBtn" size="small">确认</el-button>
     </footer>
   </el-dialog>
   </section>
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+@import "@/assets/css/_newUI.scss";
+section{
+  > ul,>ul:last-of-type{
+    border: none;
+  }
+  > ul > li:not(:first-of-type) {
+    border-left: none;
+  }
+  li{
+    width: 68%;
+  }
+  li+li{
+    width: 30%;
+  }
+}
 </style>
 
 <script>

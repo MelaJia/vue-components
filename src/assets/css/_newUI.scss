@@ -1,0 +1,50 @@
+.searchBtn{
+  background:#3F97F8;
+}
+.rejectBtn{
+  background:#FF5353;
+}
+
+//详情弹框样式
+.headerTitle{
+  border-bottom:1px solid #4499F6;
+  text-align: left;
+  padding-bottom:10px;
+}
+.section{
+  border-bottom:1px solid #B0B0B0;
+}
+.section:last-child{
+  border-bottom:none;
+}
+.section{
+  ul{
+    li{
+      span{
+        color:#9D9D9D;
+      }
+      em{
+        color:#333;
+      }
+    }
+  }
+}
+.section{
+  .height-auto{
+    span{
+      color:#9D9D9D;
+    }
+  }
+}
+.section{
+  ul{
+    >span{
+      color:#9D9D9D;
+    }
+  }
+}
+.section{
+  .el-form-item__label{
+    color:#9D9D9D;
+  }
+}

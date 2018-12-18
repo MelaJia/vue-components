@@ -1,6 +1,6 @@
 <template>
 
-  <el-dialog custom-class="my-dialog" :visible.sync="visibleP" :before-close="handleClose" center="">
+  <el-dialog custom-class="my-dialog" :visible.sync="visibleP" :before-close="handleClose" center="" class="footerBtn">
     <header slot="title">
       <span class="title">
         {{getTitle}}
@@ -37,11 +37,19 @@
       </el-form>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="subHandle('phoneForm')">提交</el-button>
-      <el-button @click="handleClose">取消</el-button>
+      <el-button type="primary" @click="subHandle('phoneForm')" class="searchBtn" size="small">提交</el-button>
+      <el-button @click="handleClose" type="primary" size="small" plain>取消</el-button>
     </footer>
   </el-dialog>
 </template>
+<style scoped lang="scss">
+@import "@/assets/css/_newUI.scss";
+</style>
+<style>
+.footerBtn .el-dialog__footer{
+  background:#F0F0F0;
+}
+</style>
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
 /* 法人手机号修改 */

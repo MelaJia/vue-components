@@ -1,12 +1,12 @@
 <template>
 <section id="print">
   <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
-    <header slot="title">
+    <header slot="title" class="headerTitle">
       <span class="title">
         {{getTitle}}
       </span>
     </header>
-    <section>
+    <section class="section">
       <ul>
         <li>
           <span>销方名称: <em>{{this.detailsP.sellerName}}</em></span>
@@ -35,6 +35,8 @@
       <ul>
           <span>购方联系方式: <em>{{this.detailsP.buyerPhone}}</em></span>
       </ul>
+    </section>
+    <section class="section">
       <ul>
         <li>
           <span>金额: <em>{{this.detailsP.amount | regexNum}}</em></span>
@@ -59,6 +61,8 @@
           <span>发送状态: <em>{{this.detailsP.postStatusName}}</em></span>
         </li>
       </ul>
+    </section>
+    <section class="section">
       <table class="tableList" border="1">
         <thead>
           <tr>
@@ -75,16 +79,15 @@
           </tr>
         </tbody>
       </table>
-      <ul>
-        <span>
-          <div class="a-link-group inline-block">
-            附件:<a v-for="(item, index) in filelist" ref="fileBtn" :key="index" href="http://" @click.prevent="downLoadFile(item.fileDownLoadUrl)">{{item.fileName}}</a>
+      <ul class="height-auto" style="display:flex">
+        <span style="width:80px;">附件:</span>
+        <div class="a-link-group inline-block" style="background:#ECECEC;flex:1;height:80px;max-height:80px;overflow-y:auto;">
+            <a v-for="(item, index) in filelist" ref="fileBtn" :key="index" href="http://" @click.prevent="downLoadFile(item.fileDownLoadUrl)">{{item.fileName}}</a>
           </div>
-        </span>
       </ul>
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleClose">确认</el-button>
+      <el-button type="primary" class="searchBtn" size="small" @click="handleClose">确认</el-button>
     </footer>
   </el-dialog>
 </section>
@@ -92,14 +95,32 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+@import "@/assets/css/_newUI.scss";
+section{
+  > ul,>ul:last-of-type{
+    border: none;
+  }
+  > ul > li:not(:first-of-type) {
+    border-left: none;
+  }
+  li{
+    width: 68%;
+  }
+  li+li{
+    width: 30%;
+  }
+}
 .tableList{
   width: 100%;
-  border: 0.5px solid #931719;
   border-collapse: collapse;
+  border:1px solid #E4E4E4;
+  margin:20px 0;
   thead tr{
     height: 30px;
     th{
       font-weight: normal;
+      background:#3F97F8;
+      color:#fff;
     }
   }
   tbody tr{

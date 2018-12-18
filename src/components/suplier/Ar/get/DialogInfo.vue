@@ -1,12 +1,12 @@
 <template>
   <section id="print">
     <el-dialog :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
-      <header slot="title">
+      <header slot="title" class="headerTitle">
         <span class="title">
           {{getTitle}}
         </span>
       </header>
-      <section>
+      <section class="section">
         <ul>
           <li>
             <el-tooltip :content="'付款单位:'+this.detailsP.companyName" placement="bottom" effect="light">
@@ -35,6 +35,8 @@
             </span>
           </li>
         </ul>
+      </section>
+      <section class="section">
         <ul>
           <li>
             <span>转让日期:
@@ -49,16 +51,16 @@
         </ul>
         <ul>
           <li>
-            <span>币别:
-              <em>{{this.detailsP.currencyDesc}}</em>
-            </span>
-          </li>
-          <li>
             <el-tooltip :content="'交易流水:'+this.detailsP.transSerialNo" placement="bottom" effect="light">
               <span>交易流水:
                 <em>{{this.detailsP.transSerialNo}}</em>
               </span>
             </el-tooltip>
+          </li>
+          <li>
+            <span>币别:
+              <em>{{this.detailsP.currencyDesc}}</em>
+            </span>
           </li>
         </ul>
         <ul>
@@ -85,20 +87,20 @@
             </el-tooltip>
           </span>
         </ul>
-        <ul class="height-auto">
-          <span>AR单号:
-            <div class="a-link-group inline-block">
+      </section>
+      <section class="section">
+        <ul class="height-auto" style="display:flex;">
+          <span style="width:80px;">AR单号:</span>
+          <div class="a-link-group inline-block" style="background:#ECECEC;flex:1;height:80px;max-height:80px;overflow-y:auto;">
               <label class="first-child">{{this.detailsP.masterChainId}}</label>
               <!-- <label v-for="item in detailsP.arIdList" :key="item.arId">{{item.arId}}</label> -->
             </div>
-          </span>
         </ul>
-        <ul class="height-auto" v-if="detailsP.checkedStatus!==6&&detailsP.checkedStatus!==9">
-          <span>对应发票号:
-            <div class="a-link-group inline-block">
+        <ul class="height-auto" v-if="detailsP.checkedStatus!==6&&detailsP.checkedStatus!==9" style="display:flex;">
+          <span style="width:80px;">对应发票号:</span>
+          <div class="a-link-group inline-block" style="background:#ECECEC;flex:1;height:80px;max-height:80px;overflow-y:auto;">
               <label v-for="(item,index) in detailsP.invoiceListSelected" :class="{'first-child':index===0}" :key="item.invoiceNo">{{item.invoiceNo}}(金额:{{item.invoiceAfterTaxAmt|regexNum}})</label>
             </div>
-          </span>
         </ul>
         <ul class="height-auto">
           <span>备注:
@@ -107,14 +109,29 @@
         </ul>
       </section>
       <footer class="no-print" slot="footer" :style="'clear:both'">
-        <el-button type="primary" @click="handleClose">确认</el-button>
-        <el-button @click="print('print')">打印</el-button>
+        <el-button type="primary" class="searchBtn" size="small" @click="handleClose">确认</el-button>
+        <el-button type="primary" size="small" plain @click="print('print')">打印</el-button>
       </footer>
     </el-dialog>
   </section>
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+@import "@/assets/css/_newUI.scss";
+section{
+  > ul,>ul:last-of-type{
+    border: none;
+  }
+  > ul > li:not(:first-of-type) {
+    border-left: none;
+  }
+  li{
+    width: 68%;
+  }
+  li+li{
+    width: 30%;
+  }
+}
 span > lable.strong {
   color: #303133;
 }

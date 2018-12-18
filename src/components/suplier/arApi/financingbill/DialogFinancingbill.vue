@@ -3,12 +3,12 @@
   <!-- 发票详情 -->
   <dialog-list :visible-p.sync="dialogListVisible" :details-p="detailsList" ></dialog-list>
   <el-dialog  :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
-    <header slot="title">
+    <header slot="title" class="headerTitle">
       <span class="title">
         {{getTitle}}
       </span>
     </header>
-    <section>
+    <section class="section">
       <ul>
         <li>
           <span>AR来源: <em v-if="this.detailsP.arList">{{this.detailsP.arList[0].arSourceDesc}}</em></span>
@@ -33,6 +33,8 @@
           <span>币别: <em v-if="this.detailsP.arList">{{this.detailsP.arList[0].currencyDesc}}</em></span>
         </li>
       </ul>
+    </section>
+    <section class="section">
       <ul>
         <li>
           <span>票据到期日: <em v-if="this.detailsP.arList">{{this.detailsP.arList[0].billPayDate | dateFormat}}</em></span>
@@ -49,26 +51,27 @@
           <span>实放金额: <em>{{this.detailsP.loanAmt | regexNum}}</em></span>
         </li>
       </ul>
-      <ul class="height-auto">
-        <span>使用发票:
-          <div class="a-link-group inline-block" v-if="this.detailsP.arList">
+    </section>
+    <section class="section">
+      <ul class="height-auto" style="display:flex">
+        <span style="width:80px;">使用发票:
+        </span>
+        <div class="a-link-group inline-block" v-if="this.detailsP.arList" style="background:#ECECEC;flex:1;height:80px;max-height:80px;overflow-y:auto;">
             <!-- <label v-for="(item,index) in this.detailsP.arList.usedInvoiceList" :key="index">{{item.invoiceNo}}(金额:{{item.invoiceAfterTaxAmt | regexNum}})</label> -->
             <a href="javascript:;" v-for="item in this.detailsP.arList[0].usedInvoiceList" :key="item.invoiceNo" @click.prevent="checkInvoice(item)">{{item.invoiceNo}}(金额:{{item.invoiceAfterTaxAmt|regexNum}})</a>
           </div>
-        </span>
       </ul>
-      <ul class="height-auto">
-          <span>合同:
-          <div class="a-link-group inline-block">
+      <ul class="height-auto" style="display:flex">
+          <span style="width:80px;">合同:</span>
+          <div class="a-link-group inline-block" style="background:#ECECEC;flex:1;height:80px;max-height:80px;overflow-y:auto;">
             <a v-for="item in detailsP.contractList" :key="item.contractId" :href="item.contractUrl" target="_blank" @click="constractHandle(item.contractUrl)">{{item.contractName}}</a>
             <!-- <a v-for="item in detailsP.contractList" :key="item.contractId" href="http://" @click.prevent="constractHandle(item.contractId)">{{item.contractName}}</a> -->
           </div>
-        </span>
       </ul>
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleClose">确认</el-button>
-      <el-button @click="print('print')">打印</el-button>
+      <el-button type="primary" class="searchBtn" size="small" @click="handleClose">确认</el-button>
+      <el-button type="primary" size="small" plain @click="print('print')">打印</el-button>
       <!-- <el-button v-if="isShowRepayBtn" @click="handleShowRepay">预还款计划</el-button> -->
     </footer>
   </el-dialog>
@@ -76,6 +79,21 @@
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+@import "@/assets/css/_newUI.scss";
+section{
+  > ul,>ul:last-of-type{
+    border: none;
+  }
+  > ul > li:not(:first-of-type) {
+    border-left: none;
+  }
+  li{
+    width: 68%;
+  }
+  li+li{
+    width: 30%;
+  }
+}
 span>lable.strong{
   color: #303133;
 }

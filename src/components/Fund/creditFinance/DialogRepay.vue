@@ -1,7 +1,7 @@
 <template>
 <section id="print">
   <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
-    <header slot="title">
+    <header slot="title" class="headerTitle">
       <span class="title">
         {{getTitle}}
       </span>
@@ -82,9 +82,9 @@
       </el-form>
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
-      <el-button type="primary" :disabled="this.confirmCheck === true ? true : false" @click="handleRepay">还款</el-button>
-      <el-button type="danger" :disabled="this.confirmCheck === false ? true : false" @click="advanceRepay">提前还清</el-button>
-      <el-button type="default" @click="handleClose">取消</el-button>
+      <el-button type="primary" :disabled="this.confirmCheck === true ? true : false" @click="handleRepay" class="searchBtn" size="small">还款</el-button>
+      <el-button type="danger" :disabled="this.confirmCheck === false ? true : false" @click="advanceRepay" size="small" plain>提前还清</el-button>
+      <el-button @click="handleClose" type="primary" size="small" plain>取消</el-button>
     </footer>
   </el-dialog>
 </section>
@@ -92,6 +92,7 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+@import "@/assets/css/_newUI.scss";
 ul:last-child {
   height: auto;
   span {

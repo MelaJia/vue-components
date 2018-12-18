@@ -2,7 +2,7 @@
   <el-dialog :custom-class="'dia-class style-dia-custlist'" :visible.sync="visibleP" :before-close="handleClose" center="">
     <section>
       <article>
-        <header class="repay-header">发票列表</header>
+        <header class="repay-header headerTitle">发票列表</header>
         <div class="list">
           <ul>
             <li v-for="(item,index) in detailsP.invoiceDetail" :key="index">
@@ -13,13 +13,20 @@
       </article>
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleClose">关闭</el-button>
+      <el-button type="primary" @click="handleClose" class="searchBtn" size="small">关闭</el-button>
     </footer>
   </el-dialog>
 </template>
+<style scoped lang="scss">
+@import "@/assets/css/_newUI.scss";
+</style>
+
 <style>
 .style-dia-custlist {
   width: 850px;
+}
+.list ul li{
+  margin-bottom:6px;
 }
 </style>
 

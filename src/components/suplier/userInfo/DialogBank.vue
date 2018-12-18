@@ -1,6 +1,6 @@
 <template>
 
-  <el-dialog custom-class="user-info-dialog" :visible.sync="visibleP" :before-close="handleClose" center="" :close-on-click-modal="false">
+  <el-dialog custom-class="user-info-dialog" :visible.sync="visibleP" :before-close="handleClose" center="" :close-on-click-modal="false" class="footerBtn">
     <header slot="title">
       <span class="title">
         {{getTitle}}
@@ -8,6 +8,17 @@
     </header>
     <section v-if="step===1">
       <el-form ref="bankForm" :model="getInfo" :rules="rules"  label-width="130px">
+        <el-row>
+          <el-col :span="18" :offset="3">
+            <p style="color:#F85A4F;"><i class="el-icon-warning">为了您的资金安全，请自行确认银行账户信息准确性，如发现有误请及时修改。</i></p>
+            <!-- <el-alert
+              title="为了您的资金安全，请自行确认银行账户信息准确性，如发现有误请及时修改。"
+              type="error"
+              :closable="false"
+              show-icon>
+            </el-alert> -->
+          </el-col>
+        </el-row>
         <el-row>
           <el-col :span="12" :offset="4">
             <el-form-item label="开户省市:">
@@ -48,16 +59,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
-          <el-col :span="18" :offset="3">
-            <el-alert
-              title="为了您的资金安全，请自行确认银行账户信息准确性，如发现有误请及时修改。"
-              type="warning"
-              :closable="false"
-              show-icon>
-            </el-alert>
-          </el-col>
-        </el-row>
       </el-form>
     </section>
     <section style="padding-left:200px" v-if="step===2">
@@ -78,13 +79,23 @@
           </el-form>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button v-if="step===1" @click="handleNext" type="primary" >提交</el-button>
-      <el-button v-if="step===2" type="primary" @click="subHandle('bankForm')">确定</el-button>
-      <el-button v-if="step===1" @click="handleClose">取消</el-button>
-      <el-button v-if="step===2" @click="handleBack">返回</el-button>
+      <el-button v-if="step===1" @click="handleNext" type="primary" class="searchBtn" size="small">提交</el-button>
+      <el-button v-if="step===2" type="primary" @click="subHandle('bankForm')" class="searchBtn" size="small">确定</el-button>
+      <el-button v-if="step===1" @click="handleClose" type="primary" size="small" plain>取消</el-button>
+      <el-button v-if="step===2" @click="handleBack" type="primary" size="small" plain>返回</el-button>
     </footer>
   </el-dialog>
 </template>
+<style scoped lang="scss">
+@import "@/assets/css/_newUI.scss";
+</style>
+
+<style>
+.footerBtn .el-dialog__footer{
+  background:#F0F0F0;
+}
+</style>
+
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
 import CityData from '@/mixins/CityData' // 关闭弹窗handleClose

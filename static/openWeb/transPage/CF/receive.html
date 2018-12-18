@@ -15,7 +15,7 @@
   <div id="iframe">
     <iframe :src="src" ref="ifd" id="myiframe" width="100%" frameborder="0"></iframe>
   </div>
-  <script src="../js/config/config.js"></script>
+  <script src="../../../config/env.js"></script>
   <script src="../js/vue/dist/vue.js"></script>
   <script src="../js/axios/dist/axios.min.js"></script>
   <script>
@@ -51,9 +51,9 @@
           var _this = this
           if(this.operateType == 'transfer'){
             // 转让请求接口
-            axios.post(window.webConfig.apiUrl+'/multiArTransferManager/multiArPaySigning.do', {
+            axios.post(window.g.apiUrl+'/multiArTransferManager/multiArPaySigning.do', {
               transSerialNo: this.transSerialNo, // 交易流水号
-              proxyUrl: window.webConfig.distUrl+'/dist/static/openWeb/transPage/CF/proxy.html'+'#' // 钜融网代理地址
+              proxyUrl: window.g.distUrl+'/static/openWeb/transPage/CF/proxy.html'+'#' // 钜融网代理地址
             },{headers:{Authorization: JSON.parse(localStorage.getItem("monitorToken")).content}}).then(res => {
               if(res.status) {
                 var data = res.data.data
@@ -73,9 +73,9 @@
             })
           }else if(this.operateType == 'receivedConfirm'){  
             // 确认接收接口
-            axios.post(window.webConfig.apiUrl+'/multiArTransferManager/multiReceptionArPaySigning.do', {
+            axios.post(window.g.apiUrl+'/multiArTransferManager/multiReceptionArPaySigning.do', {
               transSerialNo: this.transSerialNo, // 交易流水号
-              proxyUrl: window.webConfig.distUrl+'/dist/static/openWeb/transPage/CF/proxy.html'+'#' // 钜融网代理地址
+              proxyUrl: window.g.distUrl+'/static/openWeb/transPage/CF/proxy.html'+'#' // 钜融网代理地址
             },{headers:{Authorization: JSON.parse(localStorage.getItem("monitorToken")).content}}).then(res => {
               if(res.status) {
                 var data = res.data.data
@@ -95,9 +95,9 @@
             })
           } else {
             // 贴现请求接口
-            axios.post(window.webConfig.apiUrl+'/multiArDiscountManager/multiSignDiscount.do', {
+            axios.post(window.g.apiUrl+'/multiArDiscountManager/multiSignDiscount.do', {
               transSerialNo: this.transSerialNo, // 交易流水号
-              proxyUrl: window.webConfig.distUrl+'/dist/static/openWeb/transPage/CF/proxy.html'+'#' // 钜融网代理地址
+              proxyUrl: window.g.distUrl+'/static/openWeb/transPage/CF/proxy.html'+'#' // 钜融网代理地址
             },{headers:{Authorization: JSON.parse(localStorage.getItem("monitorToken")).content}}).then(res => {
               if(res.status) {
                 var data = res.data.data
@@ -127,7 +127,7 @@
         // 交易回调函数
         transactionBack(factoringResult){
           // 请求交易回调接口
-          axios.post(window.webConfig.apiUrl+'/multiArManager/multiOperateCallBackECommercePlatform.do', {
+          axios.post(window.g.apiUrl+'/multiArManager/multiOperateCallBackECommercePlatform.do', {
             transSerialNo: this.transSerialNo, // 交易流水号
             operateType: this.operateType, // 操作类型
             result: this.operateResult[Number(factoringResult)], // 调用外部的合同签署页面返回来的操作结果

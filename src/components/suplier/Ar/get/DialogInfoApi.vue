@@ -1,12 +1,12 @@
 <template>
   <section id="print">
     <el-dialog :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
-      <header slot="title">
+      <header slot="title" class="headerTitle">
         <span class="title">
           {{getTitle}}
         </span>
       </header>
-      <section>
+      <section class="section">
         <ul>
           <span>交易流水号:
                 <em>{{this.detailsP.transSerialNo}}</em>
@@ -40,6 +40,8 @@
             </span>
           </li>
         </ul>
+      </section>
+      <section class="section">
         <ul>
           <li v-if="this.detailsP.arList">
             <el-tooltip :content="'付款单位:'+this.detailsP.arList[0].companyName" placement="bottom" effect="light">
@@ -85,47 +87,10 @@
           </span>
           </li>
         </ul>
+      </section>
+      <section class="section">
         <ul class="height-auto" style="padding-bottom: 0px;">
           <span>待接收AR列表:</span>
-          <!-- <article class="multi-detail-content">
-          <el-table
-            :data="this.detailsP.arList"
-            border
-            style="width: 100%;">
-            <el-table-column
-              prop="masterChainId"
-              label="Ar单号"
-              align="center"
-              :formatter="nullDealWith"
-              width="130">
-            </el-table-column>
-            <el-table-column
-              prop="billPayDate"
-              label="票据到期日"
-              align="center"
-              :formatter="dateFormat"
-              width="130">
-            </el-table-column>
-            <el-table-column
-              prop="loanAmt"
-              label="授让金额"
-              align="right" header-align="center"
-              :formatter="regexNum"
-              width="130">
-            </el-table-column>
-            <el-table-column
-              align="left" header-align="center"
-              label="发票列表">
-              <template slot-scope="scope">
-                <el-tooltip v-for="(item,index) in scope.row.usedInvoiceList" :key="item.invoiceNo" :content="'金额:'+item.invoiceAfterTaxAmt|regexNum" placement="bottom" effect="light">
-                  <label>
-                    {{item.invoiceNo}}<template v-if="index<scope.row.usedInvoiceList.length-1">;</template>
-                  </label>
-                </el-tooltip>
-              </template>
-            </el-table-column>
-          </el-table>
-        </article> -->
         <article>
           <table>
             <thead>
@@ -166,13 +131,28 @@
         </ul>
       </section>
       <footer class="no-print" slot="footer" :style="'clear:both'">
-        <el-button type="primary" @click="handleClose">确认</el-button>
+        <el-button type="primary" class="searchBtn" size="small" @click="handleClose">确认</el-button>
       </footer>
     </el-dialog>
   </section>
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+@import "@/assets/css/_newUI.scss";
+section{
+  > ul,>ul:last-of-type{
+    border: none;
+  }
+  > ul > li:not(:first-of-type) {
+    border-left: none;
+  }
+  li{
+    width: 68%;
+  }
+  li+li{
+    width: 30%;
+  }
+}
 span > lable.strong {
   color: #303133;
 }
@@ -183,12 +163,13 @@ table {
 td,
 th {
   width: 130px;
-  border: 1px solid;
+  border: 1px solid #DEDEDE;
   padding: 10px 0;
 }
 th {
   text-align: center;
-  background: #cccccc;
+  background: #3F97F8;
+  color:#fff;
 }
 td.td-center {
   text-align: center;

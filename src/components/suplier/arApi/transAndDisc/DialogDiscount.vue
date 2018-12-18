@@ -1,9 +1,9 @@
 <template>
   <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center>
-    <header slot="title">
+    <header slot="title" class="headerTitle">
       <span class="title">贴现</span>
     </header>
-    <section>
+    <section class="section">
       <ul>
         <span>付款单位:
           <em>{{detailsPC.arList[0].companyName}}</em>
@@ -27,12 +27,12 @@
             <em>{{detailsPC.arList[0].currencyDesc}}</em>
           </span>
         </li>
-        <li>
-          <span>票据到期日:
-            <em>{{detailsPC.arList[0].billPayDate | dateFormat}}</em>
-          </span>
-        </li>
       </ul>
+      <ul>
+        <span>贴现保理公司：{{detailsPC.arList[0].custToName}}</span>
+      </ul>
+    </section>
+    <section class="section">
       <ul>
         <li>
           <span>票面金额:
@@ -46,22 +46,28 @@
         </li>
       </ul>
       <ul>
-        <span>贴现保理公司：{{detailsPC.arList[0].custToName}}</span>
+        <li>
+          <span>票据到期日:
+            <em>{{detailsPC.arList[0].billPayDate | dateFormat}}</em>
+          </span>
+        </li>
       </ul>
-      <ul class="height-auto">
-        <span>已用发票:
-          <div class="el-check-group inline-block">
-            <el-checkbox
-              v-for="item in detailsPC.arList[0].usedInvoiceList"
-              :key="item.invoiceNo"
-              v-model="item.invoiceIsSelected"
-              disabled
-            >{{item.invoiceNo}}(金额：{{item.afterTaxAmt |regexNum}})</el-checkbox>
-          </div>
-        </span>
+    </section>
+    <section class="section">
+      <ul class="height-auto" style="display:flex;">
+        <span style="width:80px;">已用发票: </span>
+        <div class="el-check-group inline-block" style="background:#ECECEC;flex:1;height:80px;max-height:80px;overflow-y:auto;">
+          <el-checkbox
+            v-for="item in detailsPC.arList[0].usedInvoiceList"
+            :key="item.invoiceNo"
+            v-model="item.invoiceIsSelected"
+            disabled
+          style="color:#6E6E6E;">{{item.invoiceNo}}(金额：{{item.afterTaxAmt |regexNum}})</el-checkbox>
+        </div>
       </ul>
-      <ul class="height-auto">
-        <span>可用发票:
+      <ul class="height-auto" style="display:flex;">
+        <span style="width:80px;">可用发票:</span>
+        <div style="background:#ECECEC;flex:1;height:80px;max-height:80px;overflow-y:auto;">
           <el-checkbox-group v-model="checkList" class="inline-blox" @change="handleCheckedChange">
             <el-checkbox
               v-for="item in detailsPC.arList[0].availableInvoiceList"
@@ -69,11 +75,9 @@
               :label="item.invoiceNo"
             >{{item.invoiceNo}}(金额：{{item.afterTaxAmt |regexNum}})</el-checkbox>
           </el-checkbox-group>
-          <!-- <el-checkbox v-for="item in detailsPC.invoiceList" :key="item.invoiceNo" v-model="item.invoiceIsSelected">{{item.invoiceNo}}</el-checkbox> -->
-        </span>
+        </div>
       </ul>
-    </section>
-    <el-form class="layout form text-align-left" label-width="100px">
+      <el-form class="layout form text-align-left" label-width="100px">
       <el-row>
         <el-col :span="8" class="flex">
           <el-form-item label="贴现金额(元):" prop="receiveCustId">
@@ -90,21 +94,39 @@
         </el-col>
       </el-row>
     </el-form>
+    </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleSubmitDisc">确认</el-button>
-      <el-button type="default" @click="handleClose">取消</el-button>
+      <el-button type="primary" size="small" class="searchBtn" @click="handleSubmitDisc">确认</el-button>
+      <el-button type="primary" size="small" plain @click="handleClose">取消</el-button>
     </footer>
   </el-dialog>
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+@import "@/assets/css/_newUI.scss";
+section{
+  > ul,>ul:last-of-type{
+    border: none;
+  }
+  > ul > li:not(:first-of-type) {
+    border-left: none;
+  }
+  li{
+    width: 68%;
+  }
+  li+li{
+    width: 30%;
+  }
+}
 .layout.form {
   margin-top: 20px;
-  padding-left: 15px;
   .el-row {
     margin-bottom: 20px;
-    padding-left: 5px;
   }
+}
+.el-checkbox {
+  margin-top:10px;
+  margin-left: 10px;
 }
 .layout.form .flex {
   display: flex;

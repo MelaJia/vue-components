@@ -3,12 +3,12 @@
   <!-- 发票详情 -->
   <dialog-list :visible-p.sync="dialogListVisible" :details-p="detailsList" ></dialog-list>
   <el-dialog :custom-class="'dia-class p'+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
-    <header slot="title">
+    <header slot="title" class="headerTitle">
               <span class="title">
                 {{getTitle}}
               </span>
             </header>
-            <section>
+            <section class="section">
               <ul>
                 <li>
                   <span>AR来源: <em>{{this.detailsP.arSourceDesc}}</em></span>
@@ -35,6 +35,8 @@
                   <span>单位: <em>{{this.detailsP.currencyUnitName}}</em></span>
                 </li>
               </ul>
+            </section>
+            <section class="section">
               <ul>
                 <li>
                   <span>票据到期日: <em>{{this.detailsP.billPayDate | dateFormat}}</em></span>
@@ -69,9 +71,11 @@
                   <span>可用余额: <em>{{this.detailsP.loanAmt | regexNum}}</em></span>
                 </li>
               </ul>
-              <ul class="height-auto" v-if="detailsP.checkedStatus!==6&&detailsP.checkedStatus!==9">
-                <span>发票清单:</span>
-                <article>
+            </section>
+            <section class="section">
+              <ul class="height-auto" v-if="detailsP.checkedStatus!==6&&detailsP.checkedStatus!==9" style="display:flex;">
+                <span style="width:80px;">发票清单:</span>
+                <article style="flex:1;">
                   <table>
                     <thead>
                       <tr>
@@ -92,13 +96,14 @@
               </ul>
             </section>
             <footer class="no-print" slot="footer" :style="'clear:both'">
-              <el-button type="primary" @click="handleClose">确认</el-button>
+              <el-button type="primary" size="small" class="searchBtn" @click="handleClose">确认</el-button>
             </footer>
   </el-dialog>
   </section>
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+@import "@/assets/css/_newUI.scss";
 section{
   > ul,>ul:last-of-type{
     border: none;
@@ -113,26 +118,28 @@ section{
     width: 30%;
   }
 }
-article{
-  margin-left: 80px;
-}
 table{
   border-collapse: collapse; // 表格边框合并
+  width:100%;
 }
 td, th {
     width: 130px;
-    border: 1px solid;
+    border: 1px solid #E4E4E4;
     padding: 10px 0;
 }
 th {
     text-align: center;
-    background: #cccccc;
+    background: #3F97F8;
+    color:#fff;
 }
 td.td-center{
   text-align: center;
 }
 td.td-right{
   text-align: right;
+}
+tbody tr:nth-child(even){
+  background:#ECECEC;
 }
 </style>
 

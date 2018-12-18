@@ -72,7 +72,7 @@ export default {
   mixins: [TableMixIn, Common],
   components: {
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/waitRepay/DialogInfo'),
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/finishedBill/DialogInfo'),
     'dialog-repay': () =>
       import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/arApi/finishedBill/DialogRepay')
   },

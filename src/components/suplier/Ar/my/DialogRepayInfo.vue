@@ -2,9 +2,49 @@
   <el-dialog :custom-class="'dia-class style-dia-repay'" :visible.sync="visibleP" :before-close="handleClose" center="">
     <section>
       <article>
-        <header class="repay-header">预还款计划表</header>
+        <header class="repay-header headerTitle">预还款计划表</header>
         <div class="repay-content">
-          <table>
+          <ul>
+          <li class="wd-3">
+            <span>
+              客户名称:
+              <em>{{detailsP.companyName}}</em>
+            </span>
+          </li>
+          <li class="wd-3">
+            <span>
+              期数:
+              <em>{{detailsP.periodNo}}</em>
+            </span>
+          </li>
+          <li class="wd-3">
+            <span>
+              年利率:
+              <em>{{detailsP.interestRate |addPercent}}</em>
+            </span>
+          </li>
+        </ul>
+        <ul>
+          <li class="wd-3">
+            <span>
+              贷款金额:
+              <em>{{detailsP.loanAmt | regexNum}}</em>
+            </span>
+          </li>
+          <li class="wd-3">
+            <span>
+              月还本金:
+              <em>{{detailsP.periodPrincipal | regexNum}}</em>
+            </span>
+          </li>
+          <li class="wd-3">
+            <span>
+              月还利息:
+              <em>{{detailsP.periodInterest | regexNum}}</em>
+            </span>
+          </li>
+        </ul>
+          <!-- <table>
             <tr>
               <td class="td-left">客户名称</td>
               <td class="pad-left-10 align-left" colspan="5">{{detailsP.companyName}}</td>
@@ -25,11 +65,11 @@
               <td class="td-right"></td>
               <td class="td-right"></td>
             </tr>
-          </table>
+          </table> -->
         </div>
       </article>
       <article>
-        <header class="repay-header">每月还款明细</header>
+        <header class="repay-header headerTitle" style="margin-bottom:10px;">每月还款明细</header>
         <div class="repay-detail-conten">
           <el-table
             :data="detailsP.repaymentScheduleList"
@@ -87,10 +127,34 @@
       </article>
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleClose">关闭</el-button>
+      <el-button type="primary" class="searchBtn" size="small" @click="handleClose">关闭</el-button>
     </footer>
   </el-dialog>
 </template>
+<style scoped lang="scss">
+@import "@/assets/css/_newUI.scss";
+li {
+  list-style: none;
+  width: 48%;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 44px;
+  padding-left: 5px;
+  span{
+    color:#9D9D9D;
+  }
+}
+span>em {
+  font-style: normal;
+  color:#333;
+}
+.wd-3 {
+  width: 31%;
+}
+</style>
+
 <style>
 .style-dia-repay {
   width: 850px;
@@ -129,8 +193,8 @@
   text-align: center;
 }
 .repay-detail-conten .el-table thead th,.repay-detail-conten .el-table thead tr {
-    background: #ccc;
-    color: #333;
+    background: #3F97F8;
+    color: #fff;
 }
 </style>
 

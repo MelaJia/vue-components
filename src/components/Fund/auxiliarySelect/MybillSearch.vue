@@ -6,12 +6,12 @@
           <el-input v-model.trim="formInline.vendorCode" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="7" offset="3">
+      <el-col :span="7" :offset="this.$store.getters.roles!==2 ? 3 : 0">
         <el-form-item label="对账单号" prop="statementNo">
           <el-input v-model.trim="formInline.statementNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="7">
+      <el-col :span="7" :offset="this.$store.getters.roles!==2 ? 0 : 3">
         <el-form-item label="进货验收单号" prop="grnNumber">
           <el-input v-model.trim="formInline.grnNumber" placeholder=""></el-input>
         </el-form-item>

@@ -1,9 +1,9 @@
 <template>
   <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center>
-    <header slot="title">
+    <header slot="title" class="headerTitle">
       <span class="title">转让</span>
     </header>
-    <section>
+    <section class="section">
       <article>
         <ul>
           <li class="wd-3">
@@ -21,11 +21,13 @@
           <li class="wd-3">
             <span>
               待转让金额:
-              <em>{{detailsP.transAmt}}</em>
+              <em>{{detailsP.transAmt | thousandth}}</em>
             </span>
           </li>
         </ul>
       </article>
+    </section>
+    <section class="section" style="margin-top:10px;">
       <article>
         <el-table
           ref="tableTrans"
@@ -126,12 +128,33 @@
       </article>
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="transSub(1,detailsP,multipleSelectionTrans)">确认</el-button>
+      <el-button type="primary" class="searchBtn" size="small" @click="transSub(1,detailsP,multipleSelectionTrans)">确认</el-button>
     </footer>
   </el-dialog>
 </template>
 <style scoped lang="scss">
-@import "@/assets/css/_dialog.scss";
+// @import "@/assets/css/_dialog.scss";
+@import "@/assets/css/_newUI.scss";
+li {
+  list-style: none;
+  width: 48%;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 44px;
+  padding-left: 5px;
+  span{
+    color:#9D9D9D;
+  }
+}
+span>em {
+  font-style: normal;
+  color:#333;
+}
+.wd-3 {
+  width: 31%;
+}
 .layout.form {
   margin-top: 20px;
   padding-left: 10px;
@@ -143,6 +166,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+</style>
+<style>
+.el-form-item__label{
+  color:#9D9D9D;
 }
 </style>
 

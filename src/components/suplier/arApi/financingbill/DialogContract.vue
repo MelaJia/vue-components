@@ -1,12 +1,12 @@
 <template>
-  <el-dialog :visible.sync="visibleP" :before-close="handleClose" :close-on-click-modal="false">
+  <el-dialog :visible.sync="visibleP" :before-close="handleClose" :close-on-click-modal="false" class="contractDialog">
      <header slot="title" v-show="step!==1">
       <span class="title">
         {{getTitle}}
       </span>
     </header>
     <section v-if="step===1">
-      <span class="note">温馨提示</span>
+      <i class="el-icon-warning" style="color:#F54F41;font-size:24px;"></i>
       <p>该协议内容由保理方{{this.detailsP.custToName}}拟定，不由本平台提供，确认签署前需自行对协议内容进行审核</p>
     </section>
     <section v-if="step===2">
@@ -17,24 +17,31 @@
     <section style="padding-left:200px" v-if="step===3">
       <verify :captcha.sync="captcha"></verify>
     </section>
-    <footer slot="footer" v-if="step===1">
-        <el-button round @click="handleNext" type="primary" >我知道了</el-button>
+    <footer slot="footer" v-if="step===1" style="padding:0">
+        <el-button @click="handleNext" class="searchBtn" type="primary" size="small">我知道了</el-button>
     </footer>
     <footer slot="footer" v-if="step===2">
-        <el-button round @click="beforeSubmit" type="primary" >同意签署</el-button>
-        <el-button round @click="handleReject" type="warning" >拒绝退回</el-button>
+        <el-button @click="beforeSubmit" class="searchBtn" type="primary" size="small" >同意签署</el-button>
+        <el-button @click="handleReject" class="rejectBtn" type="warning" size="small">拒绝退回</el-button>
     </footer>
     <footer slot="footer" v-if="step===3">
-        <el-button round @click="handleSubmit" type="primary" >确认</el-button>
+        <el-button @click="handleSubmit" class="searchBtn" type="primary" size="small">确认</el-button>
     </footer>
   </el-dialog>
 </template>
-<style scoped>
+<style scoped lang="scss">
+@import "@/assets/css/_newUI.scss";
+
 footer {
   text-align: center;
 }
 .note {
   color:#f00;
+}
+</style>
+<style>
+.contractDialog .el-dialog__footer{
+  background:#F0F0F0;
 }
 </style>
 

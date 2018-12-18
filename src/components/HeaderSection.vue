@@ -7,14 +7,14 @@
     </div>
     <div class="width-50">
       <div v-if="!this.$store.getters.interfaceTransSerial" class="header-right">
-        <el-button
+        <!-- <el-button
           v-if="this.$store.getters.roles=='2'"
           type="danger"
           size="medium"
           :class="'process'"
           icon="el-icon-caret-right"
           @click="goPage"
-        >我的待办</el-button>
+        >我的待办</el-button> -->
         <el-dropdown @command="handleCommand">
           <!-- <span style="color:#fff">你好，{{this.$store.state.user.userinfos.custNickname}}<img src="@/assets/img/juxin_18.png" alt=""></span> -->
           <span style="color:#fff">

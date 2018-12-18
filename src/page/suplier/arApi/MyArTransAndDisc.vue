@@ -61,7 +61,7 @@
 </template>
 <style scope>
 .text-align-center {
-  text-align: center;
+  text-align: right;
 }
 </style>
 <script>

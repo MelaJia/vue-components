@@ -1,12 +1,12 @@
 <template>
 <section id="print">
   <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
-    <header slot="title">
+    <header slot="title" class="headerTitle">
       <span class="title">
         {{getTitle}}
       </span>
     </header>
-    <section>
+    <section class="section">
       <ul>
         <li>
           <span>供应商代码: <em>{{this.detailsP.vendorCode}}</em></span>
@@ -47,6 +47,8 @@
           <span>结账日期: <em>{{this.detailsP.agingDate | dateFormat}}</em></span>
         </li>
       </ul>
+    </section>
+    <section>
       <table class="tableList" border="1">
         <caption>逾期欠款信息:</caption>
         <thead>
@@ -154,7 +156,7 @@
       </table>
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleClose">确认</el-button>
+      <el-button type="primary" class="searchBtn" size="small" @click="handleClose">确认</el-button>
     </footer>
   </el-dialog>
 </section>
@@ -162,12 +164,26 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+@import "@/assets/css/_newUI.scss";
+section{
+  > ul,>ul:last-of-type{
+    border: none;
+  }
+  > ul > li:not(:first-of-type) {
+    border-left: none;
+  }
+  li{
+    width: 68%;
+  }
+  li+li{
+    width: 30%;
+  }
+}
 .tableList{
   width: 100%;
-  border: 0.5px solid #931719;
+  border: 0.5px solid #E4E4E4;
   border-collapse: collapse;
   caption{
-    border: 0.5px solid #931719;
     border-top: none;
     border-bottom: none;
     line-height: 32px;
@@ -177,6 +193,8 @@
     height: 30px;
     th{
       font-weight: normal;
+      background:#3F97F8;
+      color:#fff;
     }
   }
   tbody tr{

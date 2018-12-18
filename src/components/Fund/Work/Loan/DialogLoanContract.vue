@@ -9,6 +9,15 @@
     <section class="layout loan-contract-form">
       <el-form ref="form" :model="detailsP" status-icon :rules="rules" label-width="160px">
         <el-row>
+          <p style="color:#F85A4F;"><i class="el-icon-warning">声明:在票据到期日存在的情况下将以票据到期日为准,在票据到期日没有的情况下,需和供应商商议合理的预计还款日期填写,此处平台不承担责任!</i></p>
+          <!-- <el-alert
+            title="声明:在票据到期日存在的情况下将以票据到期日为准,在票据到期日没有的情况下,需和供应商商议合理的预计还款日期填写,此处平台不承担责任!"
+            type="warning"
+            :closable="false"
+            show-icon>
+          </el-alert> -->
+        </el-row>
+        <el-row>
           <el-col :span="11" class="flex">
             <el-form-item label="贴现金额: " prop="billBookAmt">
               <span>{{detailsP.billBookAmt | regexNum}}</span>
@@ -85,23 +94,16 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
-          <el-alert
-            title="声明:在票据到期日存在的情况下将以票据到期日为准,在票据到期日没有的情况下,需和供应商商议合理的预计还款日期填写,此处平台不承担责任!"
-            type="warning"
-            :closable="false"
-            show-icon>
-          </el-alert>
-        </el-row>
       </el-form>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleSubmit">确认</el-button>
-      <el-button @click="handleClose">取消</el-button>
+      <el-button type="primary" @click="handleSubmit" class="searchBtn" size="small">确认</el-button>
+      <el-button @click="handleClose" type="primary" size="small" plain>取消</el-button>
     </footer>
   </el-dialog>
 </template>
 <style lang="scss">
+@import "@/assets/css/_newUI.scss";
 .layout.loan-contract-form {
   margin-top: 10px;
   .el-row {
@@ -130,7 +132,6 @@
   }
 }
 </style>
-
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common'

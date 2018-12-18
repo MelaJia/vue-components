@@ -1,7 +1,7 @@
 <template>
 
   <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
-    <header slot="title">
+    <header slot="title" class="headerTitle">
       <span class="title">
         {{getTitle}}
       </span>
@@ -79,11 +79,15 @@
       </el-form>
     </section>
     <footer slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleSubmit">生成</el-button>
-      <el-button type="default" @click="handleClose">取消</el-button>
+      <el-button type="primary" @click="handleSubmit" class="searchBtn" size="small">生成</el-button>
+      <el-button @click="handleClose" type="primary" size="small" plain>取消</el-button>
     </footer>
   </el-dialog>
 </template>
+<style scoped lang="scss">
+@import "@/assets/css/_newUI.scss";
+</style>
+
 <style lang="scss">
 .layout.loan-contract-form {
   margin-top: 10px;

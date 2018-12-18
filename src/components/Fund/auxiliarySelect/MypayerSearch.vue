@@ -6,12 +6,12 @@
           <el-input v-model.trim="formInline.vendorCode" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="7" offset="3">
+      <el-col :span="7" :offset="this.$store.getters.roles!==2?3:0">
         <el-form-item label="付款编号" prop="payNo">
           <el-input v-model.trim="formInline.payNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="7">
+      <el-col :span="7" :offset="this.$store.getters.roles!==2?0:3">
         <el-form-item label="法人代码" prop="corpCode">
           <el-input v-model.trim="formInline.corpCode" placeholder=""></el-input>
         </el-form-item>

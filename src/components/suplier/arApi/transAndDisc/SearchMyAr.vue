@@ -54,8 +54,8 @@
               </el-row>
               <el-row>
                 <el-col :span="4" :offset="10">
-                  <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
-                  <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
+                  <el-button type="primary" class="searchBtn" @click="onSubmit" size="small">查询</el-button>
+                  <el-button type="primary" @click="resetForm('formInline')" plain size="small">重置</el-button>
                 </el-col>
               </el-row>
   </el-form>
@@ -63,6 +63,7 @@
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
 @import "@/assets/css/_loanSearch.scss";
+@import "@/assets/css/_newUI.scss";
 </style>
 
 <script>
