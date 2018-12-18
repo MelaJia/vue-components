@@ -1,42 +1,15 @@
 <template>
   <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
-<<<<<<< HEAD
-      <el-col :span="7" v-if="this.$store.getters.roles!==2">
-        <el-form-item label="供应商代码" prop="vendorCode">
-          <el-input v-model.trim="formInline.vendorCode" placeholder=""></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="7" :offset="this.$store.getters.roles!==2?3:0">
-=======
       <el-col :span="7" >
->>>>>>> 50feb7539a65247a8759600af7b543c1639fa99b
         <el-form-item label="结报单号" prop="billNo">
           <el-input v-model.trim="formInline.billNo" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-<<<<<<< HEAD
-      <el-col :span="7" :offset="this.$store.getters.roles!==2?0:3">
-        <el-form-item label="发票单号" prop="invoiceNo">
-          <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
-        </el-form-item>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="7">
-        <el-form-item label="法人单位" prop="corpName">
-          <el-input v-model.trim="formInline.corpName" placeholder=""></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="7" offset="3">
-        <el-form-item label="法人代码" prop="corpCode">
-          <el-input v-model.trim="formInline.corpCode" placeholder=""></el-input>
-=======
       <el-col :span="10">
         <el-form-item label="结报申请付款日期" style="text-align:left;" prop="dueDate">
           <el-date-picker :editable="false" v-model="formInline.dueDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
           </el-date-picker>
->>>>>>> 50feb7539a65247a8759600af7b543c1639fa99b
         </el-form-item>
       </el-col>
       <el-col :span="7">

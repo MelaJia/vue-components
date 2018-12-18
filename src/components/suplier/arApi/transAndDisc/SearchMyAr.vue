@@ -46,13 +46,6 @@
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
-<<<<<<< HEAD
-              </el-row>
-              <el-row>
-                <el-col :span="4" :offset="10">
-                  <el-button type="primary" class="searchBtn" @click="onSubmit" size="small">查询</el-button>
-                  <el-button type="primary" @click="resetForm('formInline')" plain size="small">重置</el-button>
-=======
                 <el-col :span="7">
                   <el-form-item label="发票号" prop="invoiceNo">
                     <el-input v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
@@ -63,7 +56,6 @@
                     <el-button type="primary" @click="onSubmit" size="mini">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</el-button>
                     <el-button type="default" @click="resetForm('formInline')" size="mini">&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;</el-button>
                   </el-form-item>
->>>>>>> 50feb7539a65247a8759600af7b543c1639fa99b
                 </el-col>
               </el-row>
   </el-form>
