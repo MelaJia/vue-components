@@ -6,7 +6,7 @@
           {{displaySumAmt}}
         </el-form-item>
         <el-form-item>
-          <el-button round size="small" @click="handleClearSelection">取消已勾选</el-button>
+          <el-button plain="" size="small" @click="handleClearSelection">取消已勾选</el-button>
         </el-form-item>
         <el-form-item label="融资金额合计(元)" :rules="amtRule" prop="applyAmt">
           <el-input class="wd-200" v-model.number="displayApplyAmt" @blur="handleChange" @focus="handleFocus"></el-input>
@@ -15,7 +15,7 @@
           <el-date-picker :editable="false" v-model="formInline.repayDate"  :picker-options="pickerOptions" type="date" placeholder="选择日期"></el-date-picker>
         </el-form-item>
         <el-form-item>
-          <el-button round @click="handleSub" type="primary" :disabled="isover">融资确认</el-button>
+          <el-button size="small" @click="handleSub" type="primary" :disabled="isover">融资确认</el-button>
         </el-form-item>
       </el-form>
     </header>

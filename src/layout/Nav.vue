@@ -1,31 +1,17 @@
 <template>
   <nav class="nav-menu" style="padding-bottom: 100px">
-    <el-menu :default-active="activeidx" :router="true" unique-opened text-color="#000" active-text-color="#005ac8" class="el-menu-demo" mode="vertical"
-      @select="handleSelect">
+    <el-menu
+      :default-active="activeidx"
+      :router="true"
+      unique-opened
+      text-color="#000"
+      active-text-color="#005ac8"
+      class="el-menu-demo"
+      mode="vertical"
+      :collapse="isCollapse"
+      @select="handleSelect"
+    >
       <tree-menu :list="navItems"></tree-menu>
-      <!-- <section v-for="item in navItems" :key="item.idx">
-        <el-submenu v-if="item.children" :index="item.idx">
-          <template slot="title">
-            <div :class="item.lClass"></div>
-            <div :class="item.hClass"></div>
-            <span>{{item.text}}</span>
-          </template>
-          <el-menu-item v-for="item in item.children" :key="item.idx" :index="item.idx" :disabled="item.disabled">
-            <template slot="title">
-              <div :class="item.lClass"></div>
-              <div :class="item.hClass"></div>
-              <span>{{item.text}}</span>
-            </template>
-          </el-menu-item>
-        </el-submenu>
-        <el-menu-item v-else :index="item.idx" :disabled="item.disabled">
-          <template slot="title">
-            <div :class="item.lClass"></div>
-            <div :class="item.hClass"></div>
-            <span>{{item.text}}</span>
-          </template>
-        </el-menu-item>
-      </section> -->
     </el-menu>
   </nav>
 </template>
@@ -42,48 +28,36 @@
     // height: 100%;
   }
   ul li.el-menu-item.is-active {
-    &::before{
+    color:#3F99F7 !important;
+    &::before {
       background: $navbg-item-hover;
-      width: 136px;
+      width: 165px;
     }
     .circle {
-      border: 1px solid white;
-      width: 3px;
+      width: 8px;
       height: 100%;
       position: absolute;
-      left: 3px;
+      left: 0px;
       background: $navbg-circle;
     }
   }
-  >ul>section{
-    padding-left: 10px;
-  }
-  .el-submenu__title::before,
-  .el-menu-item::before {
+  .el-submenu__title::before {
     content: " ";
-    height: 100%;
-    width: 3px;
+    height: 1px;
+    width: calc(100% - 20px);
+    background: #e1e1e1;
     position: absolute;
-    left: 3px;
-    top: 0;
+    left: 0px;
+    bottom: 0;
     transition: width 0.2s;
   }
-  .el-menu-item:focus,
-  .el-menu-item:hover {
-    background-color: transparent;
-  }
   .el-submenu__title:hover,
-  .el-menu-item:hover{
-    &::before {
-      background: $navbg-item-hover;
-      width: 136px;
-    }
+  .el-menu-item:hover {
     .circle {
-      border: 1px solid white;
-      width: 3px;
+      width: 8px;
       height: 100%;
       position: absolute;
-      left: 3px;
+      left: 0px;
       background: $navbg-circle;
     }
   }
@@ -96,61 +70,92 @@
   .el-submenu .el-menu-item {
     min-width: 100px;
   }
-  .line {
-    width: 1px;
-    top: 0;
-    bottom: 0;
-    left: 5px;
-    position: absolute;
-    border-color: inherit;
-    background-color: $navbg-line-color;
-  }
-  .start-line {
-    @extend .line;
-    top: 20px;
-  }
-  .end-line {
-    @extend .line;
-    bottom: 25px;
-  }
-  .is-opened > div > .end-line {
-    @extend .line;
-    bottom: 0px;
-  }
   .header-circle {
-    border: 1px solid white;
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    left: -5px;
-    top: 50%;
-    margin-top: -5px;
+    display: inline-block;
     background: $navbg-circle;
     width: 20px;
     height: 20px;
-    margin-top: -11px;
+  }
+  // 默认图标
+  .header-circle{
+    background: url(~@/assets/img/juxin_11.png) center
+      no-repeat;
   }
   .bg-icon-1 {
-    background: url(~@/assets/img/juxin_13.png) center no-repeat;
-    background-color: $navbg-circle;
+    background: url(~@/assets/img/images/left_bar_icon01_default.png) center
+      no-repeat;
   }
   .bg-icon-2 {
-    background: url(~@/assets/img/juxin_14.png) center no-repeat;
-    background-color: $navbg-circle;
+    background: url(~@/assets/img/images/left_bar_icon02_default.png) center
+      no-repeat;
   }
   .bg-icon-3 {
-    background: url(~@/assets/img/juxin_15.png) center no-repeat;
-    background-color: $navbg-circle;
+    background: url(~@/assets/img/images/left_bar_icon03_default.png) center
+      no-repeat;
   }
+  .bg-icon-4 {
+    background: url(~@/assets/img/images/left_bar_icon04_default.png) center
+      no-repeat;
+  }
+  // 激活图标
+  .is-active {
+    .el-submenu__title>.line>span{
+      color:#61a9ff;
+    }
+    .bg-icon-1 {
+      background: url(~@/assets/img/images/left_bar_icon01_highlight.png) center
+        no-repeat;
+    }
+    .bg-icon-2 {
+      background: url(~@/assets/img/images/left_bar_icon02_highlight.png) center
+        no-repeat;
+    }
+    .bg-icon-3 {
+      background: url(~@/assets/img/images/left_bar_icon03_highlight.png) center
+        no-repeat;
+    }
+    .bg-icon-4 {
+      background: url(~@/assets/img/images/left_bar_icon04_highlight.png) center
+        no-repeat;
+    }
+  }
+}
+// 隐藏样式
+.el-menu--collapse .header-circle {
+  display: block;
+}
+// 缩放隐藏右箭头
+.el-menu--collapse .el-submenu > .el-submenu__title .el-submenu__icon-arrow {
+  display: none;
+}
+// 包裹层
+.el-menu--collapse .line {
+  line-height: 30px;
+  display: block;
+  margin-top: 10px;
+}
+// 菜单标题居中
+.el-menu--collapse .line > span {
+  margin-left: -50%;
+}
+// 底部线
+.el-menu--collapse .el-submenu__title::before {
+  width: 100%;
 }
 </style>
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 import treeMenu from '@/components/Items/navItem'
 export default {
   name: 'Nav',
-  props: ['navItems'],
+  props: {
+    navItems: Array,
+    isCollapse: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       activeIndex: 'myar'

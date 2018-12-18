@@ -769,7 +769,7 @@ function dealMenuDev (array, prev) {
     const oelement = Object.assign({}, array[index])
     /** 头部样式 */
     if (!element.menuParent) {
-      element.hClass = 'header-circle bg-icon-1'
+      element.hClass = 'header-circle bg-icon-' + index
     } else {
       element.hClass = 'circle'
     }

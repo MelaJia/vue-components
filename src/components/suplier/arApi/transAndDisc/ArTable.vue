@@ -3,13 +3,13 @@
     <!-- 表格区域-头部区域 -->
     <header v-if="operateType===1">
       <el-form ref="ordform" :inline="true" class="demo-form-inline">
-        <el-form-item>
-          <el-button round type="primary" @click="handleTrans">转让</el-button>
-        </el-form-item>
-        <el-form-item label="待转让金额(元)">{{displayTransAmt}}</el-form-item>
         <el-form-item label="当前已选金额(元)">{{displaySumAmt}}</el-form-item>
         <el-form-item>
-          <el-button round size="small" @click="handleClearSelection">取消已勾选</el-button>
+          <el-button plain size="mini" @click="handleClearSelection">取消已勾选</el-button>
+        </el-form-item>
+        <el-form-item label="待转让金额(元)">{{displayTransAmt}}</el-form-item>
+        <el-form-item>
+          <el-button type="primary" size="mini" @click="handleTrans">&nbsp;&nbsp;&nbsp;转让&nbsp;&nbsp;&nbsp;</el-button>
         </el-form-item>
       </el-form>
     </header>

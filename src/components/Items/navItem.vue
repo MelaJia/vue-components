@@ -4,9 +4,10 @@
         <!-- root -->
         <el-submenu v-if="item.children&&item.children.length>0" :index="item.menuId">
           <template slot="title">
-            <div :class="item.lClass"></div>
-            <div :class="item.hClass"></div>
-            <span>{{item.menuName}}</span>
+            <div class="line">
+              <div :class="item.hClass"></div>
+              <span>{{item.menuName}}</span>
+            </div>
           </template>
           <!-- child-1 -->
           <tree-menu :list="item.children"></tree-menu>
@@ -14,9 +15,10 @@
         <!-- root -->
         <el-menu-item v-else :index="item.menuUrl" :disabled="item.disabled">
           <template slot="title">
-            <div :class="item.lClass"></div>
-            <div :class="item.hClass"></div>
-            <span>{{item.menuName}}</span>
+            <div class="line">
+              <div :class="item.hClass"></div>
+              <span><span class="iconfont icon-yuanhuan tag-item-icon"></span> {{item.menuName}}</span>
+            </div>
           </template>
         </el-menu-item>
   </section>
