@@ -1,19 +1,19 @@
 <template>
-  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="mini" label-width="150px">
+  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="角色名称" prop="roleName">
           <el-input v-model.trim="formInline.roleName" placeholder=""></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="状态" prop="status">
           <el-select v-model="formInline.status" clearable placeholder="">
             <el-option v-for="(item,index) in statusTypes" :key="index" :label="item.statusName" :value="item.status"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="角色所属" prop="roleType">
           <el-select v-model="formInline.roleType" clearable placeholder="">
             <el-option v-for="(item,index) in roleTypes" :key="index" :label="item.roleTypeName" :value="item.roleType"></el-option>
@@ -22,9 +22,11 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="8" :offset="10">
-          <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
-          <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
+      <el-col :span="7" :offset="14">
+          <el-form-item label=" " >
+            <el-button type="primary" @click="onSubmit" size="mini">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</el-button>
+            <el-button type="default" @click="resetForm('formInline')" size="mini">&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;</el-button>
+          </el-form-item>
       </el-col>
     </el-row>
   </el-form>
@@ -32,9 +34,8 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
-.el-select.el-select--mini{
-  width:178px;
-}
+@import "@/assets/css/_loanSearch.scss";
+
 </style>
 
 <script>

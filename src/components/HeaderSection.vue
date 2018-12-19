@@ -32,7 +32,7 @@
             <el-dropdown-item v-else command="login">登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-          <img src="@/assets/img/images/header_icon03.png" alt="">
+          <img src="@/assets/img/images/header_icon03.png" alt="登出" @click="logout">
 
         </section>
       </div>

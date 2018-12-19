@@ -78,7 +78,7 @@
   }
   // 默认图标
   .header-circle{
-    background: url(~@/assets/img/juxin_11.png) center
+    background: url(~@/assets/img/images/left_bar_icon06_default.png) center
       no-repeat;
   }
   .bg-icon-1 {
@@ -101,6 +101,10 @@
   .is-active {
     .el-submenu__title>.line>span{
       color:#61a9ff;
+    }
+     .header-circle{
+      background: url(~@/assets/img/images/left_bar_icon06_highlight.png) center
+        no-repeat;
     }
     .bg-icon-1 {
       background: url(~@/assets/img/images/left_bar_icon01_highlight.png) center
@@ -136,7 +140,7 @@
 }
 // 菜单标题居中
 .el-menu--collapse .line > span {
-  margin-left: -50%;
+  margin-left: calc(-50% - 5px);
 }
 // 底部线
 .el-menu--collapse .el-submenu__title::before {

@@ -1,15 +1,17 @@
 <template>
-  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="mini" label-width="150px">
+  <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
-      <el-col :span="10">
+      <el-col :span="7">
         <el-form-item label="角色所属" prop="roleType">
           <el-select v-model="formInline.roleTypeId" placeholder="">
             <el-option v-for="(item,index) in roleTypes" :key="index" :label="item.roleTypeName" :value="item.roleType"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :span="2" >
-          <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
+      <el-col :span="7">
+          <el-form-item label=" " >
+            <el-button type="primary" @click="onSubmit" size="mini">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</el-button>
+          </el-form-item>
       </el-col>
     </el-row>
   </el-form>
@@ -17,9 +19,8 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
-.el-select.el-select--mini {
-  width: 178px;
-}
+@import "@/assets/css/_loanSearch.scss";
+
 </style>
 
 <script>

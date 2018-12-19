@@ -1,48 +1,50 @@
 <template>
   <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" size="small" label-width="100px">
     <el-row>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="公司名称" prop="companyName">
           <el-input v-model.trim="formInline.companyName" placeholder="公司名称"></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="公司法人代表" prop="legalPerson">
           <el-input v-model.trim="formInline.legalPerson" placeholder="公司法人代表"></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="公司联系人" prop="contactPerson">
           <el-input v-model.trim="formInline.contactPerson" placeholder="公司联系人"></el-input>
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="状态" prop="status">
           <el-select v-model="formInline.status" clearable placeholder="全部">
             <el-option v-for="(item,index) in arStatus" :key="index" :label="item.auditStatusName" :value="item.auditStatusId"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="7">
         <el-form-item label="角色" prop="roleId">
           <el-select v-model="formInline.roleId" clearable placeholder="全部">
             <el-option v-for="(item,index) in roleTypes" :key="index" :label="item.roleName" :value="item.roleId"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="4" :offset="10">
-        <el-button type="primary" @click="onSubmit" round size="small">查询</el-button>
-        <el-button type="default" @click="resetForm('formInline')" round size="small">重置</el-button>
-      </el-col>
+      <el-col :span="7">
+          <el-form-item label=" " >
+            <el-button type="primary" @click="onSubmit" size="mini">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</el-button>
+            <el-button type="default" @click="resetForm('formInline')" size="mini">&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;</el-button>
+          </el-form-item>
+        </el-col>
     </el-row>
   </el-form>
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_searchBase.scss";
+@import "@/assets/css/_loanSearch.scss";
+
 </style>
 
 <script>
