@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="idx-process-left">
-      <el-progress type="circle" :width="100" :percentage="(data.value/total*100).toFixed(2)" :color="data.bcolor"></el-progress>
+      <el-progress type="circle" :width="100" :percentage="getPersent(data.value)" :color="data.bcolor"></el-progress>
     </div>
     <div class="idx-process-right">
       <div class="idx-process-title">{{data.title}}</div>
@@ -16,10 +16,18 @@
           </tr>
 
           <tr>
-            <el-tooltip effect="light" :content="data.data.firData.value+'万元'" placement="right-end">
+            <el-tooltip
+              effect="light"
+              :content="data.data.firData.value+'万元'"
+              placement="right-end"
+            >
               <td class="first" align="left">{{data.data.firData.value| regexNum}}万元</td>
             </el-tooltip>
-             <el-tooltip effect="light" :content="data.data.secData.value+'万元'" placement="right-end">
+            <el-tooltip
+              effect="light"
+              :content="data.data.secData.value+'万元'"
+              placement="right-end"
+            >
               <td class="first" align="left">{{data.data.secData.value| regexNum}}万元</td>
             </el-tooltip>
           </tr>
@@ -34,7 +42,6 @@
   padding: 0;
 }
 section {
-  width: 380px;
   overflow: hidden;
 }
 .idx-process-left {
@@ -45,13 +52,13 @@ section {
   float: left;
   margin: 10px 0 0 10px;
   .idx-process-title {
-    font-size: 18px;
+    font-size: 16px;
     color: #7f7f7f;
   }
   .idx-process-content_center {
-    font-size: 18px;
+    font-size: 16px;
     strong {
-      font-size: 26px;
+      font-size: 24px;
     }
   }
   li {
@@ -66,6 +73,9 @@ section {
   .first {
     padding-right: 5px;
   }
+  th,td{
+    font-size: 14px;
+  }
   th + th,
   td + td {
     padding-left: 5px;
@@ -75,7 +85,7 @@ section {
 </style>
 
 <script>
-import {thousandth} from '@/util/util'
+import { thousandth } from '@/util/util'
 export default {
   props: {
     data: Object,
@@ -86,7 +96,8 @@ export default {
   },
   methods: {
     // 计算总额
-    sumAdd: sumAdd
+    sumAdd: sumAdd,
+    getPersent: getPersent
   },
   filters: {
     // 千分位
@@ -103,5 +114,14 @@ function sumAdd (object) {
     }
   }
   return result / 100
+}
+// 计算百分比
+function getPersent (val) {
+  if (typeof val === 'number' && this.total !== 0) {
+    let re = (val / this.total * 100).toFixed(2)
+    return Number(re)
+  } else {
+    return 0
+  }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="top-style">
-      <info @refresh="handleRefresh"></info>
+      <info @refresh="handleRefresh" :show-button="true"></info>
     </div>
     <div class="body">
       <el-card class="box-card search-box-card" :class="{'hideBox':!searchShow}">
@@ -52,7 +52,7 @@ export default {
   data () {
     return {
       loading: false,
-      postUrl: '/creditLoan/creditLoanManageList.do',
+      postUrl: '/creditLoan/getCreditLoanListTable.do',
       dataStr: 'data',
       totalStr: 'recordsTotal'
     }

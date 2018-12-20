@@ -7,7 +7,7 @@
       <!-- 左侧部分 -->
       <section class="float-left" style="position:relative;margin-top: -100px;">
         <!-- 图表区域 -->
-        <pie ref="pie" :data="echartData" :sort-arr="sortArr"></pie>
+        <pie ref="pie" :data="echartData" :sort-arr="sortArr" :width="500"></pie>
         <!-- 底部链接区域 -->
         <div class="url-section">
             <div class="bg-style bg-blue">
@@ -16,13 +16,13 @@
         </div>
       </section>
       <!-- 右侧部分 -->
-      <section class="float-left" style="width: calc(100% - 600px);margin-top: 50px;">
+      <section class="float-left" style="width: calc(100% - 500px);margin-top: 50px;">
         <el-row>
-          <el-col :span="16">
+          <el-col class="style-flex-circle" :span="14">
             <process-text :data="dataArr.used" :total="rightSum"></process-text>
             <process-text :data="dataArr.unUsed" :total="rightSum"></process-text>
           </el-col>
-          <el-col class="style-flex-order" :span="8">
+          <el-col class="style-flex-order" :span="10">
             <div class="orderList first">
               <header class="title">{{dataTArr.order.data.firData.name}}</header>
               <p class="text-body">{{dataTArr.order.data.firData.value}}</p>
@@ -41,14 +41,20 @@
 * {
   margin: 0;
 }
-@media only screen and (min-width: 1200px){
+@media only screen and (min-width: 960px){
   .style-flex-order{
     width: 50%;
   }
+  .style-flex-circle{
+    width: 100%;
+  }
 }
-@media only screen and (min-width: 1800px){
+@media only screen and (min-width: 1552px){
   .style-flex-order{
     width: 33%;
+  }
+  .style-flex-circle{
+    width: 58.33%;
   }
 }
 .box-card {
@@ -65,9 +71,9 @@
 .u-line > div {
   display: block;
 }
-.content.left-right {
-  margin: auto;
-}
+// .content.left-right {
+//   margin: auto;
+// }
 .float-left {
   float: left;
 }
@@ -116,7 +122,7 @@
 
 .orderList {
     text-align: center;
-    width: 180px;
+    width: 100%;
     padding: 35px 5px;
     &.first{
     border-left: 1px solid #dfdfdf;

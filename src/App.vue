@@ -36,7 +36,7 @@ export default {
 }
 body{
   margin: 0px;
-  min-width: 1500px;
+  min-width: 1200px;
 }
 html,body,#app,#app>div,#app>div>main,.main-section,.main-section>div{
   height: 100%;
