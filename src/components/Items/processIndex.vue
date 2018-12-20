@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="idx-process-left">
-      <el-progress type="circle" :width="100" :percentage="80" :color="data.bcolor"></el-progress>
+      <el-progress type="circle" :width="100" :percentage="(data.value/total*100).toFixed(2)" :color="data.bcolor"></el-progress>
     </div>
     <div class="idx-process-right">
       <div class="idx-process-title">{{data.title}}</div>
@@ -16,7 +16,7 @@
           </tr>
 
           <tr>
-            <el-tooltip effect="light" :content="data.data.secData.value+'万元'" placement="right-end">
+            <el-tooltip effect="light" :content="data.data.firData.value+'万元'" placement="right-end">
               <td class="first" align="left">{{data.data.firData.value| regexNum}}万元</td>
             </el-tooltip>
              <el-tooltip effect="light" :content="data.data.secData.value+'万元'" placement="right-end">
@@ -78,7 +78,11 @@ section {
 import {thousandth} from '@/util/util'
 export default {
   props: {
-    data: Object
+    data: Object,
+    total: {
+      type: Number,
+      default: 0
+    }
   },
   methods: {
     // 计算总额

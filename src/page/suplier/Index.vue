@@ -13,7 +13,6 @@
 * {
   margin: 0;
 }
-
 .box-card {
   min-width: 1200px;
   padding-bottom: 20px;

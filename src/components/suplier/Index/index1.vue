@@ -4,25 +4,29 @@
       <h3>AR融资概况</h3>
     </div>
     <div class="content left-right">
-      <section class="float-left" style="width:600px;position:relative;margin-top: -100px;">
+      <section class="float-left" style="position:relative;margin-top: -100px;">
         <!-- 图形区域 -->
         <pie-2 ref="pie2" :data="echartData" :sort-arr="sortArr"></pie-2>
         <!-- 底部链接区域 -->
         <div class="url-section">
           <div class="bg-style bg-blue">
-            <router-link to="myar">去贴现/转让></router-link>
-          </div>
-          <div class="bg-style bg-gray">
-            <router-link to="transfer">往来明细></router-link>
+            <router-link to="myar">去融资<img src="@/assets/img/images/index_icon02.png" alt="" srcset=""></router-link>
           </div>
         </div>
       </section>
       <section class="float-left count-circle" style="
-    width: calc(100% - 600px);
+    width: calc(100% - 600px);margin-top: 50px;
 ">
         <el-row>
-          <el-col class="flex-circle" :xl="8" :md="24" :xs="24" v-for="(item,idx) in rightDataArr" :key="idx" >
-            <process-text :data="item"></process-text>
+          <el-col
+            class="flex-circle"
+            :xl="8"
+            :md="24"
+            :xs="24"
+            v-for="(item,idx) in rightDataArr"
+            :key="idx"
+          >
+            <process-text :data="item" :total="rightSum"></process-text>
           </el-col>
         </el-row>
       </section>
@@ -34,15 +38,15 @@
   margin: 0;
 }
 /* 流式布局左边圆圈图 */
-@media only screen and (min-width: 1520px){
-.flex-circle{
-  width: 50%
+@media only screen and (min-width: 1520px) {
+  .flex-circle {
+    width: 50%;
+  }
 }
-}
-@media only screen and (min-width: 1800px){
-.flex-circle{
-  width: 33%
-}
+@media only screen and (min-width: 1800px) {
+  .flex-circle {
+    width: 33%;
+  }
 }
 .box-card {
   min-width: 1200px;
@@ -51,9 +55,9 @@
 .header {
   text-align: left;
 }
-.header>h3{
-    width: 105px;
-    border-bottom: 1px solid #e8ecef;
+.header > h3 {
+  width: 105px;
+  border-bottom: 1px solid #e8ecef;
 }
 .content.left-right {
   width: 100%;
@@ -73,22 +77,23 @@
 
 .url-section {
   position: absolute;
-  bottom: 0px;
+  bottom: 100px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
 }
 
 .bg-style {
-  display: inline-block;
-  width: 200px;
-  margin: auto;
-  text-align: center;
-  padding: 5px 0px;
+    display: inline-block;
+    margin: auto;
+    text-align: center;
+    padding: 5px 40px 5px 30px;
+    font-size: 18px;
+    border-radius: 5px;
 }
 
 .bg-blue {
-  background: #2e75b6;
+  background: #3f97f8;
 }
 
 .bg-gray {
@@ -98,6 +103,14 @@
 .bg-blue > a,
 .bg-gray > a {
   color: #fff;
+  text-decoration: none;
+}
+.bg-blue>a>img{
+    /* margin-top: 5px; */
+    position: absolute;
+    top: 12px;
+    height: 12px;
+    margin-left: 5px;
 }
 </style>
 
@@ -249,6 +262,7 @@ export default {
       sortArr: sortArr,
       // 右侧数据
       rightDataArr: rightDataArr,
+      rightSum: 0,
       // 右侧圆饼图颜色组
       color: {
         unOperate: ['#fff', '#ff0000'],
@@ -308,9 +322,20 @@ function dealRightData (res) {
       if (element.key !== 'onReceiveAmout') {
         this.rightDataArr[element.key].data.firData.value = res.data[`${element.key}AvailableAmout`] || 0
         this.rightDataArr[element.key].data.secData.value = element.key === 'unOperate' || element.key === 'received' ? res.data[`${element.key}UnavailableAmout`] || 0 : res.data[`${element.key}ExpiredAmout`] || 0
+        // 总和
+        this.rightDataArr[element.key].value = this.rightDataArr[element.key].data.firData.value + this.rightDataArr[element.key].data.secData.value
       }
     }
   }
-  console.log(this.rightDataArr)
+  this.rightSum = sumAdd(this.rightDataArr)
+}
+function sumAdd (object) {
+  let result = 0
+  for (const key in object) {
+    if (object.hasOwnProperty(key) && object[key].value) {
+      result += object[key].value * 100
+    }
+  }
+  return result / 100
 }
 </script>

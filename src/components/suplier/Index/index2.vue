@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row>
+    <el-row :gutter="20">
       <el-col :span="18">
         <index-left></index-left>
       </el-col>

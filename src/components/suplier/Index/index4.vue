@@ -5,24 +5,22 @@
     </div>
     <div class="content left-right">
       <!-- 左侧部分 -->
-      <section class="float-left" style="position:relative">
+      <section class="float-left" style="position:relative;margin-top: -100px;">
         <!-- 图表区域 -->
         <pie ref="pie" :data="echartData" :sort-arr="sortArr"></pie>
         <!-- 底部链接区域 -->
         <div class="url-section">
-          <div class="u-line">
             <div class="bg-style bg-blue">
-              <router-link to="creditLoanSituation">去贴现></router-link>
+              <router-link to="creditLoanSituation">去贴现<img src="@/assets/img/images/index_icon02.png" alt="" srcset=""></router-link>
             </div>
-          </div>
         </div>
       </section>
       <!-- 右侧部分 -->
-      <section class="float-left" style="width: calc(100% - 600px);">
+      <section class="float-left" style="width: calc(100% - 600px);margin-top: 50px;">
         <el-row>
           <el-col :span="16">
-            <process-text :data="dataArr.used"></process-text>
-            <process-text :data="dataArr.unUsed"></process-text>
+            <process-text :data="dataArr.used" :total="rightSum"></process-text>
+            <process-text :data="dataArr.unUsed" :total="rightSum"></process-text>
           </el-col>
           <el-col class="style-flex-order" :span="8">
             <div class="orderList first">
@@ -77,31 +75,42 @@
   float: right;
 }
 /* 链接样式 */
-.bg-style {
-  width: 200px;
-  margin: auto;
+.url-section {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
-  padding: 5px 0px;
 }
+
+.bg-style {
+    display: inline-block;
+    margin: auto;
+    text-align: center;
+    padding: 5px 40px 5px 30px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
 .bg-blue {
-  background: #2e75b6;
+  background: #3f97f8;
 }
+
 .bg-gray {
   background: #7f7f7f;
 }
+
 .bg-blue > a,
 .bg-gray > a {
   color: #fff;
+  text-decoration: none;
 }
-.bg-none > a {
-  color: #9e400f;
-}
-.url-section {
-  position: absolute;
-  bottom: 0px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 500px;
+.bg-blue>a>img{
+    /* margin-top: 5px; */
+    position: absolute;
+    top: 12px;
+    height: 12px;
+    margin-left: 5px;
 }
 // 最右侧样式
 
@@ -132,7 +141,9 @@ export default {
   data () {
     return {
       echartData: {},
-      sortArr: [{ key: 'used', text: '已使用额度', bcolor: '#ed7d31' }, { key: 'unUsed', text: '未使用额度', bcolor: '#5b9bd5' }],
+      sortArr: [{ key: 'used', text: '已使用额度', bcolor: '#fd5353' }, { key: 'unUsed', text: '未使用额度', bcolor: '#3f97f8' }],
+      // 右侧数据总和
+      rightSum: 0,
       dataArr: {
         used: {
           title: '已使用额度', // 标题
@@ -235,11 +246,23 @@ function dealRightData (res) {
       if (element.key === 'used') { // 已使用额度详情
         this.dataArr[element.key].data.firData.value = res.data[`creditLoan${firstToUpperCase(element.key)}Amout`]
         this.dataArr[element.key].data.secData.value = res.data[`poLoan${firstToUpperCase(element.key)}Amout`]
+        // 总和
+        this.dataArr[element.key].value = this.dataArr[element.key].data.firData.value + this.dataArr[element.key].data.secData.value
       }
     }
     // 设置订单金额
     this.dataTArr.order.data.firData.value = res.data[`poLoanUsedHistorySumAmout`]
     this.dataTArr.order.data.secData.value = res.data[`availablePoAmout`]
   }
+  this.rightSum = sumAdd(this.dataArr)
+}
+function sumAdd (object) {
+  let result = 0
+  for (const key in object) {
+    if (object.hasOwnProperty(key) && object[key].value) {
+      result += object[key].value * 100
+    }
+  }
+  return result / 100
 }
 </script>
