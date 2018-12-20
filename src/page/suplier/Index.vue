@@ -1,12 +1,12 @@
 <template>
   <div class="main index-style">
     <el-card class="box-card">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="AR融资概况" name="dialog-index1"></el-tab-pane>
-        <el-tab-pane label="信用融资概况" name="dialog-index2"></el-tab-pane>
-      </el-tabs>
-      <component v-bind:is="currentTabComponent"></component>
+      <title>AR融资概况</title>
+      <component v-bind:is="'dialog-index1'"></component>
     </el-card>
+    <div style="margin-top: 40px;">
+    <component v-bind:is="'dialog-index2'"></component>
+    </div>
   </div>
 </template>
 <style scoped>
