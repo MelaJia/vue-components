@@ -6,7 +6,7 @@
     <div class="content left-right">
       <section class="float-left" style="position:relative;margin-top: -100px;">
         <!-- 图形区域 -->
-        <pie-2 ref="pie2" :data="echartData" :sort-arr="sortArr"></pie-2>
+        <pie-2 ref="pie2" :data="echartData" :sort-arr="sortArr" :width="500"></pie-2>
         <!-- 底部链接区域 -->
         <div class="url-section">
           <div class="bg-style bg-blue">
@@ -38,7 +38,7 @@
   margin: 0;
 }
 /* 流式布局左边圆圈图 */
-@media only screen and (min-width: 1520px) {
+@media only screen and (min-width: 1370px) {
   .flex-circle {
     width: 50%;
   }

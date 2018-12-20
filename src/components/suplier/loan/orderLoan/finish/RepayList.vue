@@ -15,6 +15,8 @@
         </el-table-column>
         <el-table-column align="center" label="状态" prop="statusName" :formatter="nullDealWith">
         </el-table-column>
+        <el-table-column align="center" label="保理商" prop="factoringCustName" :formatter="nullDealWith">
+        </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="申请金额" prop="applyAmt" :formatter="regexNum" min-width="150">
@@ -27,10 +29,12 @@
         </el-table-column>
         <el-table-column align="center" label="最后还款日期" prop="repayDate" :formatter="dateFormat" width="120">
         </el-table-column>
+        <el-table-column align="right" header-align="center" label="还款合计" prop="totalRepayAmt" :formatter="regexNum" min-width="120">
+        </el-table-column>
         <el-table-column align="center" label="操作" width='150px' class-name="" fixed="right" :resizable="false">
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">还款计划表</el-button>
+             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">还款表</el-button>
             </template>
         </el-table-column>
       </el-table>

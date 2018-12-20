@@ -11,27 +11,29 @@
           label="序号"
           fixed width="40">
         </el-table-column>
-        <el-table-column align="center" label="融资编号" fixed sortable prop="loanId" min-width="150" :formatter="nullDealWith">
+        <el-table-column align="center" label="融资编号" fixed sortable prop="loanId" width="150" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="center" label="状态" prop="statusName" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="申请金额" prop="applyAmt" :formatter="regexNum" min-width="150">
+        <el-table-column align="right" header-align="center" label="申请金额" prop="applyAmt" :formatter="regexNum" width="150">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" :formatter="regexNum"  min-width="120">
+        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" :formatter="regexNum" width="120">
         </el-table-column>
         <el-table-column align="center" label="申请日期" prop="applyDate" :formatter="dateFormat" min-width="120">
         </el-table-column>
-        <el-table-column align="center" label="放款日期" prop="loanDate" :formatter="dateFormat" min-width="120">
+        <el-table-column align="center" label="放款日期" prop="loanDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="center" label="最后还款日期" prop="repayDate" :formatter="dateFormat" width="120">
+        <el-table-column align="center" label="还款日期" prop="repayDate" :formatter="dateFormat" width="120">
+        </el-table-column>
+        <el-table-column align="right" header-align="center" label="还款合计" prop="totalRepayAmt" :formatter="regexNum" width="120">
         </el-table-column>
         <el-table-column align="center" label="操作" width='150px' class-name="" fixed="right" :resizable="false">
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">还款计划表</el-button>
-            </template>
+            <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">还款表</el-button>
+          </template>
         </el-table-column>
       </el-table>
     </section>
@@ -57,7 +59,7 @@ export default {
   },
   components: {
     'dialog-info': () =>
-      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/orderLoan/loan/DialogInfo')
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/loan/creditLoan/loan/DialogInfo')
   },
   methods: {
     // 详情
@@ -66,6 +68,7 @@ export default {
 }
 // 详情函数
 function handleInfo (idx, val) {
+  // 设置数据
   let param = {
     loanId: val.loanId
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="top-style">
-      <info @refresh="handleRefresh"></info>
+      <info @refresh="handleRefresh" :show-button="true"></info>
     </div>
     <div class="body">
       <el-card class="box-card search-box-card" :class="{'hideBox':!searchShow}">
@@ -44,15 +44,15 @@
 
 <script>
 import Info from '@/page/suplier/loan/creditLoan/creditLayout' // 顶部信息以及操作
-import ArTable from '@/components/suplier/loan/orderLoan/order/OrderList'
-import Search from '@/components/suplier/loan/orderLoan/order/OrderSearch'
+import ArTable from '@/components/suplier/loan/creditLoan/finish/RepayList'
+import Search from '@/components/suplier/loan/creditLoan/finish/RepaySearch'
 import Table from '@/mixins/suplier/Ar/Table'
 export default {
   mixins: [Table],
   data () {
     return {
       loading: false,
-      postUrl: '/supplierOrderLoan/getInOrderFinancingListTable.do',
+      postUrl: '/creditLoan/getFinishedCreditListTable.do',
       dataStr: 'data',
       totalStr: 'recordsTotal'
     }
@@ -84,22 +84,21 @@ export default {
   }
 }
 function searchSubmit (val) {
-  let confirmDateBegin = val.confirmDate && val.confirmDate[0] ? val.confirmDate[0].Format('yyyy-MM-dd') : ''
-  let confirmDateEnd = val.confirmDate && val.confirmDate[1] ? val.confirmDate[1].Format('yyyy-MM-dd') : ''
-  let deliveryDateBegin = val.deliveryDate && val.deliveryDate[0] ? val.deliveryDate[0].Format('yyyy-MM-dd') : ''
-  let deliveryDateEnd = val.deliveryDate && val.deliveryDate[1] ? val.deliveryDate[1].Format('yyyy-MM-dd') : ''
+  let repayDateBegin = val.repayDate && val.repayDate[0] ? val.repayDate[0].Format('yyyy-MM-dd') : ''
+  let repayDateEnd = val.repayDate && val.repayDate[1] ? val.repayDate[1].Format('yyyy-MM-dd') : ''
+  let contractSignedDateBegin = val.contractDate && val.contractDate[0] ? val.contractDate[0].Format('yyyy-MM-dd') : ''
+  let contractSignedDateEnd = val.contractDate && val.contractDate[1] ? val.contractDate[1].Format('yyyy-MM-dd') : ''
   /* 修改请求参数 */
   this.param = {
-    corpCode: val.corpCode, // 法人代码
-    corpName: val.corpName, // 法人单位
-    poNumber: val.poNumber, // 订单号
+    loanId: val.loanId, // 融资编号
     currency: val.currency, // 币别
     amountBegin: val.amountBegin, // 金额范围开始
     amountEnd: val.amountEnd, // 金额范围结束
-    confirmDateBegin: confirmDateBegin, // 订单确认日期开始
-    confirmDateEnd: confirmDateEnd, // 订单确认日期结束
-    deliveryDateBegin: deliveryDateBegin, // 约定交货日期开始
-    deliveryDateEnd: deliveryDateEnd // 约定交货日期结束
+    status: val.status, // 状态
+    repayDateBegin: repayDateBegin, // 还款日期开始
+    repayDateEnd: repayDateEnd, // 还款日期结束
+    contractSignedDateBegin: contractSignedDateBegin, // 合同签署日期开始
+    contractSignedDateEnd: contractSignedDateEnd // 合同签署日期结束
   }
   if (this.total && this.currentPage !== 1) {
     this.total = 0// 分页的当前页数变动会触发 从而获取数据

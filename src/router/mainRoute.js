@@ -233,7 +233,7 @@ const routes = [{
     name: 'creditLoanSituation',
     component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/loan/creditLoan/loanPage'),
     meta: {
-      title: '融资情况', // 名称
+      title: '信用融资', // 名称
       requireAuth: true // 需要登录验证
     }
   },
@@ -242,7 +242,16 @@ const routes = [{
     name: 'creditRepaySituation',
     component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/loan/creditLoan/repayPage'),
     meta: {
-      title: '还款情况', // 名称
+      title: '待还款单据', // 名称
+      requireAuth: true // 需要登录验证
+    }
+  },
+  {
+    path: 'creditFinishSituation',
+    name: 'creditFinishSituation',
+    component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/loan/creditLoan/finishPage'),
+    meta: {
+      title: '已完结单据', // 名称
       requireAuth: true // 需要登录验证
     }
   },
@@ -251,7 +260,7 @@ const routes = [{
     name: 'orderLoanAble',
     component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/loan/orderLoan/loanAblePage'),
     meta: {
-      title: '可用订单', // 名称
+      title: '订单融资', // 名称
       requireAuth: true // 需要登录验证
     }
   },
@@ -260,7 +269,7 @@ const routes = [{
     name: 'orderLoanSituation',
     component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/loan/orderLoan/loanPage'),
     meta: {
-      title: '融资情况', // 名称
+      title: '融资中单据', // 名称
       requireAuth: true // 需要登录验证
     }
   },
@@ -269,7 +278,16 @@ const routes = [{
     name: 'orderRepaySituation',
     component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/loan/orderLoan/repayPage'),
     meta: {
-      title: '还款情况', // 名称
+      title: '待还款单据', // 名称
+      requireAuth: true // 需要登录验证
+    }
+  },
+  {
+    path: 'orderFinishSituation',
+    name: 'orderFinishSituation',
+    component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/loan/orderLoan/finishPage'),
+    meta: {
+      title: '已完结单据', // 名称
       requireAuth: true // 需要登录验证
     }
   },

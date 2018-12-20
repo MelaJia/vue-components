@@ -51,7 +51,7 @@
                       <em class="error">{{visteError}}</em>
                     </div>
                     <div class="btnGroup">
-                      <el-button type="button" id="register" class="btnRed" @click.stop="submitForm('ruleForm')" :loading="loginLoading">立即登录</el-button>
+                      <el-button type="button" id="register" class="btnRed" @click.stop="submitForm()" :loading="loginLoading">立即登录</el-button>
                     </div>
                     <p class="account">
                       <router-link to="/forget" class="gray forgetPassword">忘记密码</router-link>
@@ -609,7 +609,7 @@ async function handleCheckViste () {
     console.log(error)
   }
 }
-async function submitForm (formName) {
+async function submitForm (formData = null) {
   if (this.loginLoading === true) {
     return
   }
@@ -625,7 +625,8 @@ async function submitForm (formName) {
   // 登录前清除信息
   this.$store.commit(types.LOGOUT)
   this.$store.commit('DEL_ALL_TAG')
-  let param = {
+  debugger
+  let param = formData && typeof formData === 'object' ? formData : {
     phone: this.ruleForm.phone,
     password: this.ruleForm.pass,
     kaptcha: this.verify

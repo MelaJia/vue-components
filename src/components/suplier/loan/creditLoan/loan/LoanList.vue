@@ -10,96 +10,23 @@
       <el-table ref="table" :data="comDatas" v-loading.fullscreen="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%"
         @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle" @mousedown.native="mouseDown">
-        <el-table-column type="expand" fixed>
-          <template slot-scope="props">
-            <el-table :data="props.row.tableData" border style="width: 100%" :show-header="false" :row-class-name="getPendedColor">
-              <el-table-column width="48">
-
-              </el-table-column>
-              <el-table-column align="center" width="40">
-              </el-table-column>
-              <el-table-column align="center" prop="loanId" :width="widthArr.loanId" :formatter="nullDealWith">
-              </el-table-column>
-              <el-table-column align="right" header-align="center" prop="applyAmt" :width="widthArr.applyAmt" :formatter="regexNum">
-              </el-table-column>
-              <el-table-column align="center" prop="currencyName" :width="widthArr.currencyName" :formatter="nullDealWith">
-              </el-table-column>
-              <el-table-column align="center" prop="statusName" :width="widthArr.statusName" :formatter="nullDealWith">
-              </el-table-column>
-              <el-table-column align="center" prop="repaymentType" :width="widthArr.repaymentType" :formatter="nullDealWith">
-              </el-table-column>
-              <el-table-column align="right" header-align="center" prop="loanAmt" :width="widthArr.loanAmt" :formatter="regexNum">
-              </el-table-column>
-              <el-table-column align="right" header-align="center" prop="payPrincipalAmt" :width="widthArr.payPrincipalAmt" :formatter="regexNum">
-              </el-table-column>
-              <el-table-column align="right" header-align="center" prop="payInterestAmt" :width="widthArr.payInterestAmt" :formatter="regexNum">
-              </el-table-column>
-              <el-table-column align="right" header-align="center" prop="payServiceAmt" :width="widthArr.payServiceAmt" :formatter="regexNum">
-              </el-table-column>
-              <el-table-column align="right" header-align="center" prop="payFineAmt" :width="widthArr.payFineAmt" :formatter="regexNum">
-              </el-table-column>
-              <el-table-column align="center" prop="payFineDays" :width="widthArr.payFineDays" :formatter="nullDealWith">
-              </el-table-column>
-              <el-table-column align="right" prop="prepaymentDeductInterest" :width="widthArr.prepaymentDeductInterest" :formatter="regexNum">
-              </el-table-column>
-              <el-table-column align="right" prop="totalRepayAmt" :width="widthArr.totalRepayAmt" :formatter="regexNum">
-              </el-table-column>
-              <el-table-column align="center" prop="contractSignedDate" :width="widthArr.contractSignedDate" :formatter="dateFormat">
-              </el-table-column>
-              <el-table-column align="center" prop="repayDate" :width="widthArr.repayDate" :formatter="dateFormat">
-              </el-table-column>
-              <el-table-column align="left" label-align="center" width='112px'>
-                <!-- <template slot-scope="scope">
-                  <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row, true)" >详情</el-button>
-                  <el-dropdown :hide-on-click="false" v-if="scope.row.operateArr.length>0">
-                    <span class="el-dropdown-link">
-                      更多<i class="el-icon-arrow-down el-icon--right"></i>
-                    </span>
-                    <el-dropdown-menu slot="dropdown">
-                      <el-dropdown-item v-for="(item, index) in scope.row.operateArr" :key="index" ><el-button class="full-width" type="primary" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button></el-dropdown-item>
-                    </el-dropdown-menu>
-                  </el-dropdown>
-                </template> -->
-              </el-table-column>
-            </el-table>
-          </template>
-        </el-table-column>
-        <!-- <el-table-column type="selection" fixed width="40">
-        </el-table-column> -->
         <el-table-column
           type="index"
+          align="center"
           label="序号"
-          fixed width="40">
+          fixed width="60">
         </el-table-column>
-        <el-table-column align="center" label="融资编号" fixed sortable prop="loanId" width="150" :formatter="nullDealWith">
+        <el-table-column align="center" label="融资编号" fixed sortable prop="loanId" min-width="150" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="融资申请金额" prop="applyAmt" :formatter="regexNum" width="150">
+        <el-table-column align="right" header-align="center" label="融资申请金额" prop="applyAmt" :formatter="regexNum" min-width="150">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
+        <el-table-column align="center" label="状态" prop="statusName" :formatter="nullDealWith" width="120">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="statusName" :formatter="nullDealWith">
+        <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith" width="120">
         </el-table-column>
-        <el-table-column align="center" label="还款方式" prop="repaymentType" :formatter="nullDealWith">
+        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" :formatter="regexNum" min-width="120">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" :formatter="regexNum" width="120">
-        </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款本金" prop="payPrincipalAmt" :formatter="regexNum" width="120">
-        </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款利息" prop="payInterestAmt" :formatter="regexNum" width="120">
-        </el-table-column>
-         <el-table-column align="right" header-align="center" label="还款服务费" prop="payServiceAmt" :formatter="regexNum" width="120">
-        </el-table-column>
-        <el-table-column align="right" header-align="center" label="罚息" prop="payFineAmt" :formatter="regexNum" width="120">
-        </el-table-column>
-        <el-table-column align="center" label="罚息天数" prop="payFineDays" :formatter="nullDealWith">
-        </el-table-column>
-        <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepaymentDeductInterest" :formatter="regexNum" width="120">
-        </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款合计" prop="totalRepayAmt" :formatter="regexNum" width="120">
-        </el-table-column>
-        <el-table-column align="center" label="合同签署日期" prop="contractSignedDate" :formatter="dateFormat" width="120">
-        </el-table-column>
-        <el-table-column align="center" label="还款日期" prop="repayDate" :formatter="dateFormat" width="120">
+        <el-table-column align="center" label="申请日期" prop="applyDate" :formatter="dateFormat" min-width="120">
         </el-table-column>
         <el-table-column align="left" header-align="center" label="操作" width='112px' class-name="" fixed="right" :resizable="false">
           <template slot-scope="scope">

@@ -113,66 +113,74 @@ const navs = {
       ]
     },
     {
-      menuId: '2',
-      menuName: '其它融资',
+      menuId: '2-1',
+      menuName: '信用融资',
       disabled: false,
       lClass: 'line',
       hClass: 'header-circle bg-icon-1',
       children: [{
-        menuId: '2-1',
+        menuId: 'creditLoanSituation',
+        menuUrl: 'creditLoanSituation',
         menuName: '信用融资',
         disabled: false,
         lClass: 'line',
-        menuParent: 'circle',
-        children: [{
-          menuId: 'creditLoanSituation',
-          menuUrl: 'creditLoanSituation',
-          menuName: '融资情况',
-          disabled: false,
-          lClass: 'line',
-          menuParent: 'circle'
-        },
-        {
-          menuId: 'creditRepaySituation',
-          menuUrl: 'creditRepaySituation',
-          menuName: '还款情况',
-          disabled: false,
-          lClass: 'line',
-          menuParent: 'circle'
-        }
-        ]
+        menuParent: 'circle'
       },
       {
-        menuId: '2-2',
+        menuId: 'creditRepaySituation',
+        menuUrl: 'creditRepaySituation',
+        menuName: '待还款单据',
+        disabled: false,
+        Class: 'line',
+        menuParent: 'circle'
+      },
+      {
+        menuId: 'creditFinishSituation',
+        menuUrl: 'creditFinishSituation',
+        menuName: '已完结单据',
+        disabled: false,
+        Class: 'line',
+        menuParent: 'circle'
+      }
+      ]
+    },
+    {
+      menuId: '2-2',
+      menuName: '订单融资',
+      disabled: false,
+      lClass: 'line',
+      hClass: 'header-circle bg-icon-1',
+      children: [{
+        menuId: 'orderLoanAble',
+        menuUrl: 'orderLoanAble',
         menuName: '订单融资',
         disabled: false,
         lClass: 'line',
-        menuParent: 'circle',
-        children: [{
-          menuId: 'orderLoanAble',
-          menuUrl: 'orderLoanAble',
-          menuName: '可用订单',
-          disabled: false,
-          lClass: 'line',
-          menuParent: 'circle'
-        },
-        {
-          menuId: 'orderLoanSituation',
-          menuUrl: 'orderLoanSituation',
-          menuName: '融资情况',
-          disabled: false,
-          lClass: 'line',
-          menuParent: 'circle'
-        },
-        {
-          menuId: 'orderRepaySituation',
-          menuUrl: 'orderRepaySituation',
-          menuName: '还款情况',
-          disabled: false,
-          lClass: 'line',
-          menuParent: 'circle'
-        }
-        ]
+        menuParent: 'circle'
+      },
+      {
+        menuId: 'orderLoanSituation',
+        menuUrl: 'orderLoanSituation',
+        menuName: '融资中单据',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
+      },
+      {
+        menuId: 'orderRepaySituation',
+        menuUrl: 'orderRepaySituation',
+        menuName: '待还款单据',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
+      },
+      {
+        menuId: 'orderFinishSituation',
+        menuUrl: 'orderFinishSituation',
+        menuName: '已完结单据',
+        disabled: false,
+        lClass: 'line',
+        menuParent: 'circle'
       }
       ]
     },

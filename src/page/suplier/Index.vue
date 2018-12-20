@@ -14,7 +14,7 @@
   margin: 0;
 }
 .box-card {
-  min-width: 1200px;
+  min-width: 978px;
   padding-bottom: 20px;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .index-style {
-  min-width: 1102px;
+  min-width: 960px;
 }
 
 .index-style > .header {

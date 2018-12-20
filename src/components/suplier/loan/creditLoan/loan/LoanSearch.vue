@@ -22,12 +22,12 @@
         </el-col>
     </el-row>
     <el-row>
-        <el-col :span="10">
+        <!-- <el-col :span="10">
           <el-form-item label="还款日期" prop="repayDate">
             <el-date-picker :editable="false" v-model="formInline.repayDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
             </el-date-picker>
           </el-form-item>
-        </el-col>
+        </el-col> -->
       <el-col :span="10">
         <el-form-item label="金额申请金额" prop="amountBegin">
           <el-col :span="10" class="mon-range-start">
@@ -39,11 +39,17 @@
           </el-col>
         </el-form-item>
       </el-col>
-      <el-col :span="1">
+      <el-col :span="0">
         <el-form-item prop="amountEnd"></el-form-item>
       </el-col>
+      <el-col :span="7" :offset="7">
+                  <el-form-item label=" " >
+                    <el-button type="primary" @click="onSubmit" size="mini">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</el-button>
+                    <el-button type="default" @click="resetForm('formInline')" size="mini">&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;</el-button>
+                  </el-form-item>
+      </el-col>
     </el-row>
-    <el-row>
+    <!-- <el-row>
       <el-col :span="10">
           <el-form-item label="合同签署日期" prop="contractDate">
             <el-date-picker :editable="false" v-model="formInline.contractDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
@@ -56,7 +62,7 @@
                     <el-button type="default" @click="resetForm('formInline')" size="mini">&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;</el-button>
                   </el-form-item>
       </el-col>
-    </el-row>
+    </el-row> -->
   </el-form>
 </template>
 

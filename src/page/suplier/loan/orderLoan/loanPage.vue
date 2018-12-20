@@ -1,5 +1,8 @@
 <template>
   <div class="main">
+    <div class="top-style">
+      <info @refresh="handleRefresh"></info>
+    </div>
     <div class="body">
       <el-card class="box-card search-box-card" :class="{'hideBox':!searchShow}">
         <div slot="header" class="clearfix" style="position:relative">
@@ -40,6 +43,7 @@
 </style>
 
 <script>
+import Info from '@/page/suplier/loan/creditLoan/creditLayout' // 顶部信息以及操作
 import ArTable from '@/components/suplier/loan/orderLoan/loan/LoanList'
 import Search from '@/components/suplier/loan/orderLoan/loan/LoanSearch'
 import Table from '@/mixins/suplier/Ar/Table'
@@ -48,12 +52,13 @@ export default {
   data () {
     return {
       loading: false,
-      postUrl: '/supplierOrderLoan/supplierCreditLoanManagerList.do',
+      postUrl: '/supplierOrderLoan/getInOrderFinancingListTable.do',
       dataStr: 'data',
       totalStr: 'recordsTotal'
     }
   },
   components: {
+    Info,
     'ar-table': ArTable,
     'search': Search
   },

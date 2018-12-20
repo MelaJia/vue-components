@@ -14,8 +14,14 @@
         已融资金额:
         <span class="red">{{details.usedCreditAmount |regexNum}}</span>
       </el-col>
-      <el-col :span="3">
+      <el-col v-if="showButton" :span="3">
         <el-button type="danger" @click="handleInfo">申请融资</el-button>
+      </el-col>
+    </el-row>
+    <el-row :style="{fontSize: fontSize + 'px'}">
+      <el-col :span="7">
+        当前保理商:
+        <span class="black">{{details.totalCreditAmount |regexNum}}</span>
       </el-col>
     </el-row>
   </section>
@@ -37,6 +43,12 @@ import Dialog from '@/mixins/suplier/Ar/Dialog'
 import Common from '@/mixins/common'
 import { getDataBase } from '@/util/util'
 export default {
+  props: {
+    showButton: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       fontSize: '24',

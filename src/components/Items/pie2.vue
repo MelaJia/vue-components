@@ -1,13 +1,12 @@
 <template>
-  <section style="width: 600px;height:600px;">
-    <div ref="pie" id="pie" style="width: 600px;height:600px;"></div>
-    <img class="icon-money" src="@/assets/img/images/index_icon_money.png" alt>
+  <section style="height:600px;" :style="{width:width+'px'}">
+    <div ref="pie" id="pie" style="height:600px;" :style="{width:width+'px'}"></div>
+    <img class="icon-money" src="@/assets/img/images/index_icon_money.png" :style="{left: (width/2)-47.5 + 'px'}" alt>
   </section>
 </template>
 <style scoped>
 .icon-money {
   position: absolute;
-  left: 252.5px;
   top: 252.5px;
 }
 </style>
@@ -25,7 +24,11 @@ require('echarts/lib/component/title')
 export default {
   props: {
     data: Object,
-    sortArr: Array
+    sortArr: Array,
+    width: {
+      type: Number,
+      default: 600
+    }
   },
   data () {
     return {
@@ -141,7 +144,7 @@ function dealData2 (res) {
 }
 // 配置option
 function getOptions (echartData) {
-  let scale = 1
+  let scale = this.width / 600
   let rich = {
     yellow: {
       color: '#ffc72b',

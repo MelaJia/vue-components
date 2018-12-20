@@ -32,18 +32,17 @@
         </el-table-column>
         <el-table-column
           type="index"
+          align="center"
           label="序号"
-          fixed width="40">
+          fixed width="60">
         </el-table-column>
         <el-table-column align="center" label="订单号" fixed prop="poNumber" width="150" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="项次" prop="poItem" width="150" :formatter="nullDealWith">
+        <el-table-column align="center" label="下单法人代码" prop="corpCode" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="法人代码" prop="corpCode" :formatter="nullDealWith">
+        <el-table-column align="center" label="下单法人名称" prop="corpName" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="法人单位" prop="corpName" :formatter="nullDealWith">
-        </el-table-column>
-        <el-table-column align="right" header-align="center" label="金额" prop="poAmount" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="订单金额" prop="poAmount" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
         </el-table-column>
