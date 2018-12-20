@@ -55,6 +55,7 @@ export default {
     const _this = this
     // 获取url中参数
     this.param.interfaceTransSerial = this.query.interfaceTransSerial
+    this.param.checkedStatus = this.$route.query.checkedStatus ? this.$route.query.checkedStatus : '' // 判断是否是有参数传递
     if (this.query.interfaceTransSerial) {
       // 模拟登陆
       await this.monitorLogin(this.query.interfaceTransSerial)

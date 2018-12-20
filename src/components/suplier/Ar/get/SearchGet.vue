@@ -31,7 +31,7 @@
       <el-input class="wd-190" v-model.trim="formInline.invoiceNo" placeholder=""></el-input>
     </el-form-item></el-col>
       <el-col :span="7"><el-form-item label="状态" prop="status">
-      <el-select class="wd-190" v-model="formInline.status" clearable placeholder="全部">
+      <el-select class="wd-190" v-model="formInline.status" clearable placeholder="全部" :disabled="this.$route.query.checkedStatus?true:false">
         <el-option v-for="(item,index) in arStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
       </el-select>
     </el-form-item></el-col>
@@ -62,7 +62,7 @@ export default {
         masterChainId: '', // ar单号
         isMasterAr: '', // ar来源
         custFromName: '', // 转让单位
-        status: null, // 状态
+        status: this.$route.query.checkedStatus ? this.$route.query.checkedStatus : '', // 状态
         billBookCurr: '', // 币别
         invoiceNo: '', // 发票号
         moneyDate: null, // 转让日期

@@ -8,7 +8,7 @@
       </el-col>
       <el-col :span="7" :offset="3">
         <el-form-item label="状态" prop="checkedStatus">
-          <el-select v-model="formInline.checkedStatus" placeholder="">
+          <el-select v-model="formInline.checkedStatus" placeholder="" :disabled="this.$route.query.checkedStatus?true:false">
             <el-option v-for="(item,index) in arStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
           </el-select>
         </el-form-item>
@@ -80,7 +80,7 @@ export default {
     return {
       formInline: {
         masterChainId: '', // AR单号
-        checkedStatus: '', // 状态
+        checkedStatus: this.$route.query.checkedStatus ? this.$route.query.checkedStatus : '', // 状态
         billBookCurr: '', // 币别
         custToName: '', // 保理商
         invoiceNo: '', // 发票号

@@ -103,7 +103,7 @@ export default {
     return {
       formInline: {
         masterChainId: '', // AR单号
-        checkedStatus: '', // 状态
+        checkedStatus: this.$route.query.checkedStatus ? this.$route.query.checkedStatus : '', // 状态
         billBookCurr: '', // 币别
         custToName: '', // 保理商
         invoiceNo: '', // 发票号
