@@ -34,7 +34,7 @@
         <el-table-column align="center" label="操作" header-align="center" width='120' fixed="right" :resizable="false">
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-            <el-button v-if="scope.row.checkedStatus === 29" size="mini" type="text" @click="repayPlan(scope.$index, scope.row)">还款计划</el-button>
+            <el-button v-if="scope.row.checkedStatus === 29" size="mini" type="text" @click="repayPlan(scope.$index, scope.row)">还款表</el-button>
           </template>
         </el-table-column>
       </el-table>

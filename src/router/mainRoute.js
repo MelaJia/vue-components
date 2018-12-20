@@ -273,15 +273,15 @@ const routes = [{
       requireAuth: true // 需要登录验证
     }
   },
-  {
-    path: 'myschedule',
-    name: 'myschedule',
-    component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/myschedule'),
-    meta: {
-      title: '我的待办', // 名称
-      requireAuth: false // 需要登录验证
-    }
-  },
+  // {
+  //   path: 'myschedule',
+  //   name: 'myschedule',
+  //   component: () => import(/* webpackChunkName: 'AR' */ '@/page/suplier/myschedule'),
+  //   meta: {
+  //     title: '我的待办', // 名称
+  //     requireAuth: false // 需要登录验证
+  //   }
+  // },
   {
     path: 'financingbill',
     name: 'financingbill',

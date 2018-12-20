@@ -203,8 +203,8 @@ span>em {
   text-align: center;
 }
 .repay-detail-conten .el-table thead th,.repay-detail-conten .el-table thead tr {
-    background: #ccc;
-    color: #333;
+    background: #3F97F8;
+    color: #fff;
 }
 </style>
 

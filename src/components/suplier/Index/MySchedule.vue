@@ -60,16 +60,6 @@
   vertical-align:middle;
   margin-right:6px;
 }
-.item.float ul{
-  display:flex;
-  justify-content: space-between;
-}
-.item.float ul li{
-  display:flex;
-  flex:1;
-  justify-content: space-between;
-  margin-right:20px;
-}
 .item ul li a{
   position: relative;
   color:#749CD0;
