@@ -2,9 +2,9 @@
   <div class="schedule">
     <div class="body">
       <el-card class="text-align-center">
-        <div slot="header" class="clearfix">
-          <span style="background:#4396F6;height:40px;color:#fff;line-height:40px;padding:0 20px;border-radius:0 20px 20px 0;">待处理单据</span>
-          <span style="margin-left:20px;">总共有<span style="color:#C4141E;margin:0 2px;">{{getTotal}}</span>条单据待处理，请及时处理</span>
+        <div slot="header" class="title">
+          <span style="background:#4396F6;height:40px;color:#fff;line-height:40px;padding:0 10px 0 10px;border-radius:0 20px 20px 0;font-size:14px;width:80px;">待处理单据</span>
+          <span style="margin-left:20px;flex:1;">总共有<span style="color:#C4141E;margin:0 2px;">{{getTotal}}</span>条单据待处理，请及时处理</span>
         </div>
         <div class="item" style="background:#EBF3FE;">
           <p class="listTitle">AR业务</p>
@@ -17,15 +17,15 @@
         <div class="item float">
           <p class="listTitle">信用融资业务</p>
           <ul>
-            <li><span><img src="@/assets/img/images/index_icon04.png">待合同签署</span><router-link :to="{path:'',query:{checkedStatus:23}}" tag="a">{{creditSignList}}笔<i v-if="creditSignList > 0"></i></router-link></li>
-            <li><span><img src="@/assets/img/images/index_icon05.png">待还款</span><router-link :to="{path:'',query:{checkedStatus:26}}" tag="a">{{creditRepayList}}笔<i v-if="creditRepayList > 0"></i></router-link></li>
+            <li><span><img src="@/assets/img/images/index_icon04.png">待合同签署</span><router-link :to="{path:'/suplier/creditLoanSituation',query:{checkedStatus:23}}" tag="a">{{creditSignList}}笔<i v-if="creditSignList > 0"></i></router-link></li>
+            <li><span><img src="@/assets/img/images/index_icon05.png">待还款</span><router-link :to="{path:'/suplier/creditRepaySituation',query:{checkedStatus:26}}" tag="a">{{creditRepayList}}笔<i v-if="creditRepayList > 0"></i></router-link></li>
           </ul>
         </div>
         <div class="item float">
           <p class="listTitle">订单融资业务</p>
           <ul>
-            <li><span><img src="@/assets/img/images/index_icon04.png">待合同签署</span><router-link :to="{path:'',query:{checkedStatus:23}}" tag="a">{{orderSignList}}笔<i v-if="orderSignList > 0"></i></router-link></li>
-            <li><span><img src="@/assets/img/images/index_icon05.png">待还款</span><router-link :to="{path:'',query:{checkedStatus:26}}" tag="a">{{orderRepayList}}笔<i v-if="orderRepayList > 0"></i></router-link></li>
+            <li><span><img src="@/assets/img/images/index_icon04.png">待合同签署</span><router-link :to="{path:'/suplier/orderLoanSituation',query:{checkedStatus:23}}" tag="a">{{orderSignList}}笔<i v-if="orderSignList > 0"></i></router-link></li>
+            <li><span><img src="@/assets/img/images/index_icon05.png">待还款</span><router-link :to="{path:'/suplier/orderRepaySituation',query:{checkedStatus:26}}" tag="a">{{orderRepayList}}笔<i v-if="orderRepayList > 0"></i></router-link></li>
           </ul>
         </div>
       </el-card>
@@ -38,6 +38,9 @@
 }
 .body .el-card__body{
   padding:0 20px;
+}
+.title{
+  display:flex;
 }
 .item .listTitle{
   text-align:left;

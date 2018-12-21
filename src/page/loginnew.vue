@@ -1,5 +1,7 @@
 <template>
   <article>
+    <!--亿签网弹框-->
+    <third-login :visi.sync="dialogVisible" @thirdLogin="getThirdLogin"></third-login>
       <header class="top-container flex-between">
           <img src="@/assets/img/img/PCindex_03.png" />
           <ul class="nav flex-self">
@@ -56,6 +58,10 @@
                     <p class="account">
                       <router-link to="/forget" class="gray forgetPassword">忘记密码</router-link>
                       <router-link to="/register" class="gray register">注册</router-link>
+                    </p>
+                    <p class="cooperation">
+                      <span class="gray" style="color:#666;">&gt;使用合作账号登录:</span>
+                      <a href="javascript:;"><img src="@/assets/img/login/1.png" width="45" height="30" alt="" @click="thirdLogin"></a>
                     </p>
                   </section>
                 </form>
@@ -517,6 +523,7 @@ a.gray.register {
 import * as types from '@/store/types'
 import InputPhone from '@/components/Items/InputPhone'
 import InputPass from '@/components/Items/InputPass'
+import ThirdLogin from '@/page/ThirdLogin'
 import Roles from '@/config/roles'
 import { apiUrl } from '@/config/env.js'
 import { randomLenNum, debounce } from '@/util/util'
@@ -532,6 +539,7 @@ export default {
       loginErrorInfo: '', // 登录信息失败提示
       iptPhoneLight: false, // 用户名高亮
       iptPWDLight: false, // 密码高亮
+      dialogVisible: false, // 亿签网弹框
       ruleForm: {
         phone: '',
         pass: ''
@@ -540,7 +548,8 @@ export default {
   },
   components: {
     InputPhone,
-    InputPass
+    InputPass,
+    ThirdLogin
   },
   computed: {
     // 获取年
@@ -576,7 +585,15 @@ export default {
     // 验证码编辑
     visteChange: visteReset,
     // 删除验证码
-    handleDelete: visteDelete
+    handleDelete: visteDelete,
+    // 亿签网登陆
+    thirdLogin () {
+      this.dialogVisible = true
+    },
+    getThirdLogin (dataInfo) {
+      console.log(dataInfo)
+      this.submitForm(dataInfo)
+    }
   }
 }
 let menuArr = [] // 菜单数组
@@ -625,7 +642,6 @@ async function submitForm (formData = null) {
   // 登录前清除信息
   this.$store.commit(types.LOGOUT)
   this.$store.commit('DEL_ALL_TAG')
-  debugger
   let param = formData && typeof formData === 'object' ? formData : {
     phone: this.ruleForm.phone,
     password: this.ruleForm.pass,

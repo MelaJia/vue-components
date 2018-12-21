@@ -6,6 +6,7 @@ export default {
   methods: {
     handleClose (done) {
       this.$emit('update:visibleP', false)
+      this.$emit('update:visi', false)
     },
     constractHandle (url, event) { // 打开合同窗口
       if (navigator.userAgent.indexOf('Firefox') >= 0) {
