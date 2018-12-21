@@ -134,7 +134,7 @@ function submit () {
       // 提交数据
       postDataBase.call(this, '/creditLoan/creditApplyDiscount.do', param, true).then(res => {
         // 操作成功关闭弹窗刷新数据
-        if (res.data.status) {
+        if (res && res.data.status) {
           this.init()
           this.$parent.fresh()
           this.handleClose()
@@ -164,7 +164,8 @@ function getUrl (obj) {
 }
 function init () {
   this.fileList = []
-  Object.assign(this.formInline, { applyAmt: '', repayDate: null })
+  this.displayMoney = ''
+  Object.assign(this.formInline, { money: '', repayDate: null })
 }
 // 输入金额事件
 function handleBlur () {

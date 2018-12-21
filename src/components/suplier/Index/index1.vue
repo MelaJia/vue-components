@@ -43,9 +43,9 @@
     width: 50%;
   }
 }
-@media only screen and (min-width: 1800px) {
+@media only screen and (min-width: 1772px) {
   .flex-circle {
-    width: 33%;
+    width: 33.33%;
   }
 }
 .box-card {

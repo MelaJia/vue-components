@@ -130,6 +130,13 @@ export default {
         return '- -'
       }
       return `${val}%`
+    },
+    // 空值处理
+    nullDealWith: function (val) {
+      if (val === undefined || val === null || val === '') {
+        return '- -'
+      }
+      return val
     }
   }
 }

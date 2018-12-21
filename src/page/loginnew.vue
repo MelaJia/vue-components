@@ -625,7 +625,6 @@ async function submitForm (formData = null) {
   // 登录前清除信息
   this.$store.commit(types.LOGOUT)
   this.$store.commit('DEL_ALL_TAG')
-  debugger
   let param = formData && typeof formData === 'object' ? formData : {
     phone: this.ruleForm.phone,
     password: this.ruleForm.pass,

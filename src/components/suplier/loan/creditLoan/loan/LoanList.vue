@@ -1,38 +1,93 @@
 <template>
   <div class="ar-table" ref="resizeContext">
-    <header>
-    </header>
+    <header></header>
     <!-- 合同确认 -->
     <dialog-contract :visible-p.sync="dialogContractVisible" :details-p="detailsContract"></dialog-contract>
     <!-- 详情 -->
-    <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-info>
+    <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-info>
     <section>
-      <el-table ref="table" :data="comDatas" v-loading.fullscreen="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
-        element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%"
-        @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle" @mousedown.native="mouseDown">
+      <el-table
+        ref="table"
+        :data="comDatas"
+        v-loading.fullscreen="dataLoading"
+        element-loading-text="拼命加载中"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
+        :summary-method="sumHandle([7,8])"
+        border
+        style="width: 100%"
+        @selection-change="handleSelectionChange"
+        :row-class-name="tableRowClassName"
+        @expand-change="expendhandle"
+        @header-dragend="widthHandle"
+        @mousedown.native="mouseDown"
+      >
+        <el-table-column type="index" align="center" label="序号" fixed width="60"></el-table-column>
         <el-table-column
-          type="index"
           align="center"
-          label="序号"
-          fixed width="60">
-        </el-table-column>
-        <el-table-column align="center" label="融资编号" fixed sortable prop="loanId" min-width="150" :formatter="nullDealWith">
-        </el-table-column>
-        <el-table-column align="right" header-align="center" label="融资申请金额" prop="applyAmt" :formatter="regexNum" min-width="150">
-        </el-table-column>
-        <el-table-column align="center" label="状态" prop="statusName" :formatter="nullDealWith" width="120">
-        </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith" width="120">
-        </el-table-column>
-        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" :formatter="regexNum" min-width="120">
-        </el-table-column>
-        <el-table-column align="center" label="申请日期" prop="applyDate" :formatter="dateFormat" min-width="120">
-        </el-table-column>
-        <el-table-column align="left" header-align="center" label="操作" width='112px' class-name="" fixed="right" :resizable="false">
+          label="融资编号"
+          fixed
+          sortable
+          prop="loanId"
+          min-width="150"
+          :formatter="nullDealWith"
+        ></el-table-column>
+        <el-table-column
+          align="right"
+          header-align="center"
+          label="融资申请金额"
+          prop="applyAmt"
+          :formatter="regexNum"
+          min-width="150"
+        ></el-table-column>
+        <el-table-column
+          align="center"
+          label="状态"
+          prop="statusName"
+          :formatter="nullDealWith"
+          width="120"
+        ></el-table-column>
+        <el-table-column
+          align="center"
+          label="币别"
+          prop="currencyName"
+          :formatter="nullDealWith"
+          width="120"
+        ></el-table-column>
+        <el-table-column
+          align="right"
+          header-align="center"
+          label="实放金额"
+          prop="loanAmt"
+          :formatter="regexNum"
+          min-width="120"
+        ></el-table-column>
+        <el-table-column
+          align="center"
+          label="申请日期"
+          prop="applyDate"
+          :formatter="dateFormat"
+          min-width="120"
+        ></el-table-column>
+        <el-table-column
+          align="left"
+          header-align="center"
+          label="操作"
+          width="112px"
+          class-name
+          fixed="right"
+          :resizable="false"
+        >
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="handleInfo(scope.$index, scope.row)">详情</el-button>
-            <el-button size="mini" type="text" v-for="(item, index) in scope.row.operateArr" :key="index" @click="handleCommand({key:item.key, idx:index, val:scope.row})">{{item.name}}</el-button>
-            </template>
+            <el-button
+              size="mini"
+              type="text"
+              v-for="(item, index) in scope.row.operateArr"
+              :key="index"
+              @click="handleCommand({key:item.key, idx:index, val:scope.row})"
+            >{{item.name}}</el-button>
+          </template>
         </el-table-column>
       </el-table>
     </section>
@@ -185,7 +240,7 @@ function handleContract (idx, val) {
       console.log(res)
       // 标题赋值
       res.masterChainId = val.loanId
-      this.detailsContract = Object.assign(res, {factoringCustName: val.factoringCustName})
+      this.detailsContract = Object.assign(res, { factoringCustName: val.factoringCustName })
       this.dialogContractVisible = true
     }
   })
