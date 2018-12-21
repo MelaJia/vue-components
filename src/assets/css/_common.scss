@@ -34,13 +34,10 @@
 }
 
 .el-table thead {
-  color: white;
-}
-
-.el-table thead {
   th,
   tr {
     background:$style-table-header-bg;
+    color: white;
   }
 }
 
