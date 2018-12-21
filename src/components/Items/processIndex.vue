@@ -1,14 +1,19 @@
 <template>
   <section>
     <div class="idx-process-left">
-      <el-progress type="circle" :width="100" :percentage="getPersent(data.value)" :color="data.bcolor"></el-progress>
+      <el-progress
+        type="circle"
+        :width="100"
+        :percentage="getPersent(data.value)"
+        :color="data.bcolor"
+      ></el-progress>
     </div>
     <div class="idx-process-right">
       <div class="idx-process-title">{{data.title}}</div>
       <div class="idx-process-content_center">
-        <strong>{{ sumAdd(data.data) | regexNum}}</strong> 万元
+        <strong>{{ data.value | regexNum}}</strong> 万元
       </div>
-      <div class="idx-process-bottom">
+      <div v-if="isDetail" class="idx-process-bottom">
         <table>
           <tr>
             <th class="first" align="left">{{data.data.firData.name}}</th>
@@ -73,7 +78,8 @@ section {
   .first {
     padding-right: 5px;
   }
-  th,td{
+  th,
+  td {
     font-size: 14px;
   }
   th + th,
@@ -92,6 +98,10 @@ export default {
     total: {
       type: Number,
       default: 0
+    },
+    isDetail: { // 是否显示详细
+      type: Boolean,
+      default: true
     }
   },
   methods: {

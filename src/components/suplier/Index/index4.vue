@@ -19,8 +19,8 @@
       <section class="float-left" style="width: calc(100% - 500px);margin-top: 50px;">
         <el-row>
           <el-col class="style-flex-circle" :span="14">
+            <process-text :data="dataArr.unUsed" :total="rightSum" :is-detail="false"></process-text>
             <process-text :data="dataArr.used" :total="rightSum"></process-text>
-            <process-text :data="dataArr.unUsed" :total="rightSum"></process-text>
           </el-col>
           <el-col class="style-flex-order" :span="10">
             <div class="orderList first">
@@ -147,7 +147,7 @@ export default {
   data () {
     return {
       echartData: {},
-      sortArr: [{ key: 'used', text: '已使用额度', bcolor: '#fd5353' }, { key: 'unUsed', text: '未使用额度', bcolor: '#3f97f8' }],
+      sortArr: [{ key: 'unUsed', text: '未使用额度', bcolor: '#3f97f8' }, { key: 'used', text: '已使用额度', bcolor: '#fd5353' }],
       // 右侧数据总和
       rightSum: 0,
       dataArr: {

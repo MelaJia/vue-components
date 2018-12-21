@@ -73,8 +73,8 @@
   .header-circle {
     display: inline-block;
     background: $navbg-circle;
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
   }
   // 默认图标
   .header-circle{
