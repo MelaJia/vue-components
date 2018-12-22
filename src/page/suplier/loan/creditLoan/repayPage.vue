@@ -63,6 +63,7 @@ export default {
     'search': Search
   },
   mounted () {
+    this.param.status = this.$route.query.checkedStatus ? this.$route.query.checkedStatus : '' // 判断是否是有参数传递
     this.getdata(1, this.psize)
       .then(res => {
         if (res.data.status) {

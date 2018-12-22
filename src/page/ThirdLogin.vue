@@ -147,7 +147,7 @@
 <style lang="scss">
 .contractDialog{
   .el-dialog{
-    width:25%;
+    width:350px;
     border-radius:14px;
     .el-dialog__body{
       padding: 0 20px 10px;
@@ -162,10 +162,10 @@
 </style>
 
 <script>
-import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+// import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 /* 合同确认 */
 export default {
-  mixins: [DialogClose],
+  // mixins: [DialogClose],
   props: ['visi'],
   data () {
     return {
@@ -192,6 +192,15 @@ export default {
     // 点击协议弹框
     confirmBtn () {
       this.innerVisible = false
+    },
+    // 关闭弹窗
+    handleClose () {
+      this.$emit('update:visibleP', false)
+      this.$emit('update:visi', false)
+      this.step = 1
+      this.thirdPhone = ''
+      this.thirdPass = ''
+      this.checked = false
     },
     // 点击修改密码跳到修改页面
     goToModifyPass () {

@@ -14,7 +14,7 @@
       </el-col>
         <el-col :span="7">
            <el-form-item label="状态" prop="status">
-              <el-select class="wd-190" v-model="formInline.status" clearable placeholder="全部">
+              <el-select class="wd-190" v-model="formInline.status" clearable placeholder="全部" :disabled="this.$route.query.checkedStatus?true:false">
                 <el-option v-for="(item,index) in arStatus" :key="index" :label="item.arStatusTypeName" :value="item.arStatusTypeId"></el-option>
               </el-select>
             </el-form-item>
@@ -81,7 +81,7 @@ export default {
       formInline: {
         loanId: '', // 融资编号
         poNumber: '', // 订单号
-        status: null, // 状态
+        status: this.$route.query.checkedStatus ? this.$route.query.checkedStatus : '', // 状态
         currency: '', // 币别
         repayDate: '', // 还款日期
         contractDate: null, // 合同签署日期
