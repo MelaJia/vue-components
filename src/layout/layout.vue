@@ -11,10 +11,10 @@
         <dialog-pass-update :visible-p.sync="dialogPassVisible"></dialog-pass-update>
         <template v-if="navItems!==null&&navItems.length>0&&!interfaceTransSerial">
           <i
-            class="iconfont"
-            :class="width===65?'icon-open':'icon-close'"
+            class="nav-icon"
+            :class="width===65?'nav-icon_right':'nav-icon_left'"
             style="position: fixed;font-size:24px;z-index: 99;top: 50%; transition: all 1s;color:#409EFF;cursor:pointer;"
-            :style="{'left': width+'px'}"
+            :style="{'left': width===65 ? width+'px' : width-12+'px'}"
             @click="width=width===65?180:65"
           ></i>
           <transition
@@ -43,6 +43,18 @@
 </template>
 <style lang="scss">
 @import "../assets/css/common";
+.nav-icon{
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAzCAYAAACjWemfAAAAGXRFW…BkNHwmVcMZUjX0k6phMxC3kurpGiD2B+L9QPwVnwaAAAMAFHwqsX7ho60AAAAASUVORK5CYII=) no-repeat;
+    background-size: contain;
+    width: 12px;
+    height: 51px;
+}
+.nav-icon_left{
+  background: url('~@/assets/img/images/icon_left.png')
+}
+.nav-icon_right{
+  background: url('~@/assets/img/images/icon_right.png')
+}
 </style>
 
 <script>

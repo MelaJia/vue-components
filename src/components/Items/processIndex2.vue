@@ -11,32 +11,16 @@
     <div class="idx-process-right">
       <div class="idx-process-title">{{data.title}}</div>
       <div class="idx-process-content_center">
-        <strong>{{ data.value | regexNum}}</strong> 万元
+        <template v-if="isDetail">
+          <p>{{data.data.firData.name}}<strong>{{ data.data.firData.value | regexNum}}</strong> 万元</p>
+          <p class="color_green">{{data.data.secData.name}}<strong>{{ data.data.secData.value | regexNum}}</strong> 万元</p>
+        </template>
+        <p v-else><strong>{{ data.value | regexNum}}</strong> 万元</p>
       </div>
-      <div v-if="isDetail" class="idx-process-bottom">
-        <table>
-          <tr>
-            <th class="first" align="left">{{data.data.firData.name}}</th>
-            <th align="left">{{data.data.secData.name}}</th>
-          </tr>
-
-          <tr>
-            <el-tooltip
-              effect="light"
-              :content="data.data.firData.value+'万元'"
-              placement="right-end"
-            >
-              <td class="first" align="left">{{data.data.firData.value| regexNum}}万元</td>
-            </el-tooltip>
-            <el-tooltip
-              effect="light"
-              :content="data.data.secData.value+'万元'"
-              placement="right-end"
-            >
-              <td class="first" align="left">{{data.data.secData.value| regexNum}}万元</td>
-            </el-tooltip>
-          </tr>
-        </table>
+      <div class="idx-process-bottom">
+        <div class="url">
+            <router-link :to="data.path">查看明细></router-link>
+        </div>
       </div>
     </div>
   </section>
@@ -63,30 +47,25 @@ section {
   }
   .idx-process-content_center {
     font-size: 14px;
+    color: #7f7f7f;
     strong {
       font-size: 20px;
+      color:#303133;
     }
+    p.color_green{
+    &,>strong{
+      color: #5dc850;
+    }
+  }
   }
   li {
     list-style: none;
   }
 }
 .idx-process-bottom {
-  table {
-    border-collapse: collapse; /*边框合并*/
+  font-size: 14px;
+  .url > a {
     color: #7f7f7f;
-  }
-  .first {
-    padding-right: 5px;
-  }
-  th,
-  td {
-    font-size: 12px;
-  }
-  th + th,
-  td + td {
-    padding-left: 5px;
-    border-left: 1px solid #eaeaea;
   }
 }
 </style>

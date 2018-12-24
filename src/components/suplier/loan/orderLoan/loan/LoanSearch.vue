@@ -74,7 +74,7 @@ import SearchMixIn from '@/mixins/suplier/Ar/Search'
 import commonDatas from '@/mixins/commonDatas'
 /* 我的Ar搜索 */
 export default {
-  name: 'financingSituationPage',
+  name: 'inFinancingPage', // 同融资中单据状态查询
   mixins: [SearchMixIn, commonDatas],
   data () {
     return {

@@ -6,14 +6,17 @@
         <i class="el-icon-search"></i>
         <span>查询条件</span>
       </div>
-      <el-row :style="{fontSize: fontSize-4 + 'px'}">
-        <el-col :span="7">
+      <el-row :style="{fontSize: fontSize-1 + 'px'}">
+        <el-col :span="7" style="margin-bottom: 55px;">
           <div class="style-left">
             <pie ref="pie1" :data="pieArr[0]"></pie>
           </div>
           <div class="style-right">
             <p class="text-title">总限额：</p>
-            <span class="text-money" :style="{fontSize: fontSize + 'px'}">{{details.totalCreditAmount |regexNum}}</span>
+            <span
+              class="text-money"
+              :style="{fontSize: fontSize + 'px'}"
+            >{{details.totalCreditAmount |regexNum}}</span>
           </div>
         </el-col>
         <el-col :span="7">
@@ -22,10 +25,11 @@
           </div>
           <div class="style-right">
             <div>
-            <p class="text-title">
-              已融资金额:
-            </p>
-            <span class="text-money" :style="{fontSize: fontSize + 'px'}">{{details.usedCreditAmount |regexNum}}</span>
+              <p class="text-title">已融资金额:</p>
+              <span
+                class="text-money"
+                :style="{fontSize: fontSize + 'px'}"
+              >{{details.usedCreditAmount |regexNum}}</span>
             </div>
           </div>
         </el-col>
@@ -34,18 +38,19 @@
             <pie ref="pie1" :data="pieArr[1]"></pie>
           </div>
           <div class="style-right">
-            <p class="text-title">
-              可融资金额:
-            </p>
-            <span class="text-money" :style="{fontSize: fontSize + 'px'}">{{details.availableCreditAmount |regexNum}}</span>
+            <p class="text-title">可融资金额:</p>
+            <span
+              class="text-money"
+              :style="{fontSize: fontSize + 'px'}"
+            >{{details.availableCreditAmount |regexNum}}</span>
           </div>
         </el-col>
         <el-col v-if="showButton" :span="3">
           <el-button class="button-apply" type="danger" @click="handleInfo">申请融资</el-button>
-          <img class="icon-apply" src="@/assets/img/images/index_icon02.png" alt="" srcset="">
+          <img class="icon-apply" src="@/assets/img/images/index_icon02.png" alt srcset>
         </el-col>
       </el-row>
-      <el-row :style="{fontSize: fontSize-4 + 'px'}" style="margin: 30px 20px 5px;color: #a5a5a5;">
+      <el-row :style="{fontSize: fontSize-1 + 'px'}" style="margin: 0px 20px 5px;color: #a5a5a5;">
         <el-col :span="24">
           当前保理商:
           <span class="black">{{details.factoringCustName | nullDealName}}</span>
@@ -62,19 +67,27 @@ section {
   font-weight: 500;
 }
 .style-right {
-    margin: -105px 0 0px 160px;
+  margin: -105px 0 0px 160px;
 }
 .text-title {
-    color: #5a5a5a;
-    margin: 0 0 10px 0;
+  color: #5a5a5a;
+  margin: 0 0 10px 0;
 }
-.button-apply{
+.button-apply {
   margin-top: 60px;
   padding-right: 30px;
 }
-.icon-apply{
+.icon-apply {
   margin: 0 0 -1px -30px;
   height: 12px;
+}
+.el-col-7+.el-col-7 .style-left:before {
+  content: "";
+  width: 1px;
+  height: 120px;
+  background: #c0c0c0;
+  position: absolute;
+  top: 10%;
 }
 </style>
 
@@ -106,8 +119,8 @@ export default {
     window.onresize = setHtmlFontSize
     const _this = this
     function setHtmlFontSize () {
-      const htmlWidth = document.documentElement.clientWidth || document.body.clientWidth
-      _this.fontSize = htmlWidth > 1380 ? 24 : 20
+      const htmlWidth = document.body.clientWidth || document.documentElement.clientWidth
+      _this.fontSize = htmlWidth / 100 + 2
     }
     setHtmlFontSize()
     getDataBase.call(this, 'creditLoan/queryCreditAmount.do').then(res => {
