@@ -1,13 +1,13 @@
 <template>
-  <section style="height:600px;" :style="{width:width+'px'}">
-    <div ref="pie" id="pie" style="height:600px;" :style="{width:width+'px'}"></div>
+  <section style="height:450px;" :style="{width:width+'px'}">
+    <div ref="pie" id="pie" style="height:500px;" :style="{width:width+'px'}"></div>
     <img class="icon-money" src="@/assets/img/images/index_icon_money.png" :style="{left: (width/2)-47.5 + 'px'}" alt>
   </section>
 </template>
 <style scoped>
 .icon-money {
   position: absolute;
-  top: 252.5px;
+  top: 202.5px;
 }
 </style>
 

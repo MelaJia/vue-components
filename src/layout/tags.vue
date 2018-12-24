@@ -5,7 +5,7 @@
       <div class="tags-list" ref="tagsList" @mousewheel="hadelMousewheel" @mouseup="hadelMouseUp" @mousemove="hadelMouse" @mousedown="hadelMousestart"
         @touchup="hadelMouseUp" @touchmove="hadelMouse" @touchstart="hadelMousestart">
         <transition-group name="list" enter-active-class="animated rollIn" leave-active-class="animated hinge" tag="div">
-          <div ref="tagsPageOpened" class="tag-item" :class="{'is-active':nowTagValue==item.value}" :name="item.value" @contextmenu.prevent="openMenu(item,$event)"
+          <div ref="tagsPageOpened" class="tag-item" :class="{'is-active':nowTagValue==item.value}" :name="item.value" @contextmenu.prevent=""
             v-for="item in tagList" :key="item.value" @click="openUrl(item)">
             <span class="iconfont icon-yuan tag-item-icon" :class="{'is-active':nowTagValue==item.value}"></span>
             <span class="tag-text">{{item.label}}</span>

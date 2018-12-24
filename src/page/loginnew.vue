@@ -48,20 +48,20 @@
                       <div class="imgviste" @click="visteFresh">
                         <i hidden :src="getImgUrl"></i>
                         <img class="renewal" :src="verImgUrl" id="imgCode" alt="点击刷新">
-                        <span class="renewal">看不清，换一张</span>
+                        <span class="renewal">换一张</span>
                       </div>
                       <em class="error">{{visteError}}</em>
-                    </div>
-                    <div class="btnGroup">
-                      <el-button type="button" id="register" class="btnRed" @click.stop="submitForm()" :loading="loginLoading">立即登录</el-button>
                     </div>
                     <p class="account">
                       <router-link to="/forget" class="gray forgetPassword">忘记密码</router-link>
                       <router-link to="/register" class="gray register">注册</router-link>
                     </p>
+                    <div class="btnGroup">
+                      <el-button type="button" id="register" class="btnRed" @click.stop="submitForm()" :loading="loginLoading">立即登录</el-button>
+                    </div>
                     <p class="cooperation">
-                      <span class="gray" style="color:#666;">&gt;使用合作账号登录:</span>
-                      <a href="javascript:;"><img src="@/assets/img/login/1.png" width="45" height="30" alt="" @click="thirdLogin"></a>
+                      <span class="gray2">&gt;使用合作账号登录:</span>
+                      <a href="javascript:;"><img src="@/assets/img/login/1.png" alt="" @click="thirdLogin"></a>
                     </p>
                   </section>
                 </form>
@@ -463,12 +463,12 @@ footer .flex-between .right img {
 }
 /* 验证码 */
 .ipt-group .iptviste {
-  width: 156px !important;
+  width: 136px !important;
   background: url("~@/assets/img/img/code-img.png") no-repeat;
   background-position: 10px 8px;
 }
 .ipt-group .imgviste img {
-  width: 100px;
+  width: 80px;
   height: 41px;
   border: 1px solid #e5e5e5;
   border-radius: 8px;
@@ -480,28 +480,42 @@ footer .flex-between .right img {
 }
 .ipt-group .imgviste span {
   font-size: 12px;
-  color: #666;
+  color: #4298f8;
   cursor: pointer;
   display: block;
+  float: right;
+  margin-top: 13px;
+  margin-left: 5px;
+}
+.account{
+    padding: 10px 15px;
+    margin: 0;
 }
 .btnGroup {
   text-align: center;
-  margin-top: 40px;
 }
 .btnGroup button {
   background: #3f97f8;
-  width: 200px;
+  width: 300px;
   cursor: pointer;
   color: #fff;
   font-size: 24px;
   font-weight: 400;
-  border-radius: 50px;
+  border-radius: 10px;
+}
+.gray2{
+  color:#a1a1a1;
 }
 a.gray {
   color: #6c757d;
+  text-decoration: none;
 }
 a.gray.register {
   float: right;
+}
+/* 第三方登录图标 */
+.cooperation img{
+  margin-bottom: -20px;
 }
 /* 底部logo */
 .logo {

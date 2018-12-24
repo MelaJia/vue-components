@@ -23,14 +23,14 @@
     </el-row>
     <el-row>
       <el-col :span="10">
-          <el-form-item label="还款日期" prop="repayDate">
+          <el-form-item label="最后还款日期" prop="repayDate">
             <el-date-picker :editable="false" v-model="formInline.repayDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
             </el-date-picker>
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="合同签署日期" prop="contractDate">
-            <el-date-picker :editable="false" v-model="formInline.contractDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+          <el-form-item label="申请日期" prop="applyDate">
+            <el-date-picker :editable="false" v-model="formInline.applyDate" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
             </el-date-picker>
           </el-form-item>
         </el-col>
@@ -78,7 +78,7 @@ export default {
         status: null, // 状态
         currency: '', // 币别
         repayDate: '', // 还款日期
-        contractDate: null, // 合同签署日期
+        applyDate: null, // 申请日期
         amountBegin: '', // 起始金额
         amountEnd: '' // 结束金额
       }

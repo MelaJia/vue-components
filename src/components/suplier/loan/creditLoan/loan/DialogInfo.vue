@@ -9,6 +9,14 @@
     <section class="section">
       <ul>
         <li>
+          <span>申请方: <em>{{this.detailsP.applySupplierName  | nullDealWith}}</em></span>
+        </li>
+        <li>
+         <span>保理商: <em>{{this.detailsP.factoringCustName  | nullDealWith}}</em></span>
+        </li>
+      </ul>
+      <ul>
+        <li>
           <span>申请金额: <em>{{this.detailsP.applyAmt  | regexNum}}</em></span>
         </li>
         <li>

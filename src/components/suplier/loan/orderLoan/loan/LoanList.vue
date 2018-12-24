@@ -5,7 +5,7 @@
     <!-- 合同确认 -->
     <dialog-contract :visible-p.sync="dialogContractVisible" :details-p="detailsContract"></dialog-contract>
     <!-- 详情 -->
-    <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" ></dialog-info>
+    <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" :show-repay-btn="true"></dialog-info>
     <section>
       <el-table ref="table" :data="comDatas" v-loading.fullscreen="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%"
