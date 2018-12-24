@@ -65,7 +65,7 @@ import SearchMixIn from '@/mixins/suplier/Ar/Search'
 import commonDatas from '@/mixins/commonDatas'
 /* 我的验收单查询搜索 */
 export default {
-  name: 'finishedMultiArPage', // 融资中单据
+  name: 'finishedMultiArPage', // 已完结单据状态
   mixins: [SearchMixIn, commonDatas],
   data () {
     return {

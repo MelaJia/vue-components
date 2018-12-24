@@ -656,7 +656,7 @@ async function submitForm (formData = null) {
     // 菜单处理-开始
     menuArr = []
     menuNameArr = []
-    nav = dealMenuDev(nav, Roles[res.data.custType].layout)
+    nav = dealMenuDev(nav, Roles[res.data.custType].layout, res.data.custType)
     nav[0].lClass = 'start-line'
     nav[nav.length - 1].lClass = 'end-line'
     console.log(Roles[res.data.custType].layout)
@@ -758,12 +758,12 @@ function visteDelete () {
   this.verify = ''
   this.visteError = ''
 }
-function dealMenu (array) {
+function dealMenu (array, type) {
   for (let index = 0; index < array.length; index++) {
     const element = array[index]
     /** 头部样式 */
     if (!element.menuParent) {
-      element.hClass = 'header-circle bg-icon-1'
+      element.hClass = 'header-circle bg-icon-' + type + '_' + index
     } else {
       element.hClass = 'circle'
     }
@@ -780,13 +780,13 @@ function dealMenu (array) {
   return array
 }
 // 开发环境
-function dealMenuDev (array, prev) {
+function dealMenuDev (array, prev, type) {
   for (let index = 0; index < array.length; index++) {
     const element = array[index]
     const oelement = Object.assign({}, array[index])
     /** 头部样式 */
     if (!element.menuParent) {
-      element.hClass = 'header-circle bg-icon-' + index
+      element.hClass = 'header-circle bg-icon-' + type + '_' + index
     } else {
       element.hClass = 'circle'
     }

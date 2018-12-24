@@ -15,7 +15,7 @@
         </div>
       </section>
       <section class="float-left count-circle" style="
-    width: calc(100% - 600px);margin-top: 50px;
+    width: calc(100% - 500px);margin-top: 50px;
 ">
         <el-row>
           <el-col
@@ -43,7 +43,7 @@
     width: 50%;
   }
 }
-@media only screen and (min-width: 1772px) {
+@media only screen and (min-width: 1600px) {
   .flex-circle {
     width: 33.33%;
   }

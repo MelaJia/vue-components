@@ -81,20 +81,40 @@
     background: url(~@/assets/img/images/left_bar_icon06_default.png) center
       no-repeat;
   }
-  .bg-icon-1 {
+  .bg-icon-2_0 {
     background: url(~@/assets/img/images/left_bar_icon01_default.png) center
       no-repeat;
   }
-  .bg-icon-2 {
+  .bg-icon-2_1 {
     background: url(~@/assets/img/images/left_bar_icon02_default.png) center
       no-repeat;
   }
-  .bg-icon-3 {
+  .bg-icon-2_2 {
     background: url(~@/assets/img/images/left_bar_icon03_default.png) center
       no-repeat;
   }
-  .bg-icon-4 {
+  .bg-icon-2_3 {
     background: url(~@/assets/img/images/left_bar_icon04_default.png) center
+      no-repeat;
+  }
+  .bg-icon-3_0 {
+    background: url(~@/assets/img/imagesfund/nav_icon_00.png) center
+      no-repeat;
+  }
+  .bg-icon-3_1 {
+    background: url(~@/assets/img/imagesfund/nav_icon_01.png) center
+      no-repeat;
+  }
+  .bg-icon-3_2 {
+    background: url(~@/assets/img/imagesfund/nav_icon_02.png) center
+      no-repeat;
+  }
+  .bg-icon-3_3 {
+    background: url(~@/assets/img/imagesfund/nav_icon_03.png) center
+      no-repeat;
+  }
+  .bg-icon-3_4 {
+    background: url(~@/assets/img/imagesfund/nav_icon_04.png) center
       no-repeat;
   }
   // 激活图标
@@ -106,19 +126,19 @@
       background: url(~@/assets/img/images/left_bar_icon06_highlight.png) center
         no-repeat;
     }
-    .bg-icon-1 {
+    .bg-icon-2_1 {
       background: url(~@/assets/img/images/left_bar_icon01_highlight.png) center
         no-repeat;
     }
-    .bg-icon-2 {
+    .bg-icon-2_2 {
       background: url(~@/assets/img/images/left_bar_icon02_highlight.png) center
         no-repeat;
     }
-    .bg-icon-3 {
+    .bg-icon-2_3 {
       background: url(~@/assets/img/images/left_bar_icon03_highlight.png) center
         no-repeat;
     }
-    .bg-icon-4 {
+    .bg-icon-2_4 {
       background: url(~@/assets/img/images/left_bar_icon04_highlight.png) center
         no-repeat;
     }
