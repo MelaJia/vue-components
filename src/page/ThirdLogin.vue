@@ -1,76 +1,79 @@
 <template>
-  <el-dialog :visible.sync="visi" :before-close="handleClose" :close-on-click-modal="false" class="contractDialog">
-     <!--登录界面信息-->
-     <section v-if="step==1">
-       <header class="title">
-        <img src="@/assets/img/login/2.png" alt="">
-      </header>
-      <section>
-        <div class="ipt-group">
-            <input type="text" autocomplete="off" v-model="thirdPhone" class="text iptphone" placeholder="用户名">
-          </div>
+  <div>
+    <!--修改密码-->
+    <modify-pass :visibleP.sync="modifyVisible" :info="details"></modify-pass>
+    <el-dialog :visible.sync="visi" :before-close="handleClose" :close-on-click-modal="false" class="contractDialog">
+      <!--登录界面信息-->
+      <section v-if="step==1">
+        <header class="title">
+          <img src="@/assets/img/login/2.png" alt="">
+        </header>
+        <section>
           <div class="ipt-group">
-            <input type="password" autocomplete="new-password" v-model="thirdPass" maxlength="20"  class="text iptpassword" ref="input" placeholder="密码">
-          </div>
+              <input type="text" autocomplete="off" v-model="thirdPhone" class="text iptphone" placeholder="用户名">
+            </div>
+            <div class="ipt-group">
+              <input type="password" autocomplete="new-password" v-model="thirdPass" maxlength="20"  class="text iptpassword" ref="input" placeholder="密码">
+            </div>
+        </section>
+        <footer>
+          <el-button type="danger" class="thirdLogin" :loading="loginLoading" @click="thirdLoginBtn">授权并登陆</el-button>
+        </footer>
       </section>
-      <footer>
-        <el-button type="danger" class="thirdLogin" :loading="loginLoading" @click="thirdLoginBtn">授权并登陆</el-button>
-      </footer>
-     </section>
-     <!--公司信息弹框-->
-     <section v-if="step==2" class="logininfo">
-       <header class="title">
-         <h4>登录成功,请选择您要登录的公司</h4>
-       </header>
-      <div class="cmpList">
-        <el-radio-group v-model="singleCompany" v-for="(item, index) in companyList" :key="index" @change="singelCheck(item)">
-          <el-radio :label="item.Name"></el-radio>
-        </el-radio-group>
-      </div>
-     </section>
-     <!--用户供应商名不存在弹出框创建账号密码-->
-     <section v-if="step==3" class="loginInfo">
-       <p>未查到供应商代码,请输入账号名称,为您创建账号</p>
-       <div class="ipt-group">
-        <label for="">账号:</label><input type="text" autocomplete="off" v-model="inputUser" class="text" placeholder="请输入账户">
-      </div>
-      <footer>
-        <el-button type="danger" class="thirdLogin" :loading="loginLoading2" @click="confirmButton">确定</el-button>
-      </footer>
-     </section>
-     <!--登录成功弹出我知道了的信息-->
-     <section v-if="step==4" class="loginInfo">
-       <header class="title">
-         <h4>登录成功</h4>
-       </header>
-       <section>
-         <div class="list">
-           <p>已自动为您产生钜信网账号密码:</p>
-           <p>账号:<span>{{returnThirdPhone}}</span></p>
-           <p>密码:<span>{{returnThirdPass}}</span></p>
-         </div>
-         <div class="protocol">
-           <label for="agree">
-              <el-checkbox v-model="checked" @change="selectCheck">我已阅读并同意</el-checkbox>
-            </label>
-            <a :href="pdfUrl" target="_pdf" id="agreement">《用户注册协议》</a>
-         </div>
-         <div class="modify">
-           <p>请记住该密码或立即<span @click="goToModifyPass">修改密码</span></p>
-         </div>
-       </section>
-       <footer>
-        <el-button type="danger" class="thirdLogin" :loading="loginLoading1" @click="knowBtn">我知道了</el-button>
-      </footer>
-     </section>
-
-     <!--协议弹框-->
-     <el-dialog :visible.sync="innerVisible" append-to-body class="protocolAlert">
-        <p><strong>【审慎阅读】</strong>您在申请注册流程中点击同意本协议之前，应当认真阅读本协议。<strong>请您务必审慎阅读、充分理解各条款内容，特别是免除或者限制责任的条款、法律适用和争议解决条款。免除或者限制责任的条款将以粗体下划线标识，您应重点阅读。</strong>如您对协议有任何疑问，可向钜信网平台客服咨询。</p>
-        <p><strong>【签约动作】</strong>当您按照注册页面提示填写信息、阅读并同意本协议且完成全部注册程序后，即表示您已充分阅读、理解并接受本协议的全部内容，并与平台达成一致，成为钜信平台“用户”。<strong>阅读本协议的过程中，如果您不同意本协议或其中任何条款约定，您应立即停止注册程序。</strong></p>
-        <el-button type="primary" class="confirm" @click="confirmBtn">确定</el-button>
-     </el-dialog>
-  </el-dialog>
+      <!--公司信息弹框-->
+      <section v-if="step==2" class="logininfo">
+        <header class="title">
+          <h4>登录成功,请选择您要登录的公司</h4>
+        </header>
+        <div class="cmpList">
+          <el-radio-group v-model="singleCompany" v-for="(item, index) in companyList" :key="index" @change="singelCheck(item)">
+            <el-radio :label="item.Name"></el-radio>
+          </el-radio-group>
+        </div>
+      </section>
+      <!--用户供应商名不存在弹出框创建账号密码-->
+      <section v-if="step==3" class="loginInfo">
+        <p>未查到供应商代码,请输入账号名称,为您创建账号</p>
+        <div class="ipt-group">
+          <label for="">账号:</label><input type="text" autocomplete="off" v-model="inputUser" class="text" placeholder="请输入账户">
+        </div>
+        <footer>
+          <el-button type="danger" class="thirdLogin" :loading="loginLoading2" @click="confirmButton">确定</el-button>
+        </footer>
+      </section>
+      <!--登录成功弹出我知道了的信息-->
+      <section v-if="step==4" class="loginInfo">
+        <header class="title">
+          <h4>登录成功</h4>
+        </header>
+        <section>
+          <div class="list">
+            <p>已自动为您产生钜信网账号密码:</p>
+            <p>账号:<span>{{returnThirdPhone}}</span></p>
+            <p>密码:<span>{{returnThirdPass}}</span></p>
+          </div>
+          <div class="protocol">
+            <label for="agree">
+                <el-checkbox v-model="checked" @change="selectCheck">我已阅读并同意</el-checkbox>
+              </label>
+              <a :href="pdfUrl" target="_pdf" id="agreement">《用户注册协议》</a>
+          </div>
+          <div class="modify">
+            <p>请记住该密码或立即<span @click="goToModifyPass">修改密码</span></p>
+          </div>
+        </section>
+        <footer>
+          <el-button type="danger" class="thirdLogin" :loading="loginLoading1" @click="knowBtn">我知道了</el-button>
+        </footer>
+      </section>
+      <!--协议弹框-->
+      <el-dialog :visible.sync="innerVisible" append-to-body class="protocolAlert">
+          <p><strong>【审慎阅读】</strong>您在申请注册流程中点击同意本协议之前，应当认真阅读本协议。<strong>请您务必审慎阅读、充分理解各条款内容，特别是免除或者限制责任的条款、法律适用和争议解决条款。免除或者限制责任的条款将以粗体下划线标识，您应重点阅读。</strong>如您对协议有任何疑问，可向钜信网平台客服咨询。</p>
+          <p><strong>【签约动作】</strong>当您按照注册页面提示填写信息、阅读并同意本协议且完成全部注册程序后，即表示您已充分阅读、理解并接受本协议的全部内容，并与平台达成一致，成为钜信平台“用户”。<strong>阅读本协议的过程中，如果您不同意本协议或其中任何条款约定，您应立即停止注册程序。</strong></p>
+          <el-button type="primary" class="confirm" @click="confirmBtn">确定</el-button>
+      </el-dialog>
+    </el-dialog>
+  </div>
 </template>
 <style scoped lang="scss">
 .title{
@@ -204,6 +207,7 @@
 
 <script>
 // import DialogClose from '@/mixins/suplier/Ar/DialogClose'
+import ModifyPass from '@/page/ModifyPass'
 /* 合同确认 */
 export default {
   // mixins: [DialogClose],
@@ -220,7 +224,8 @@ export default {
       loginLoading1: false, // 登陆状态
       loginLoading2: false,
       checked: false, // 协议是否选中
-      innerVisible: false, // 点击我已阅读协议的弹框s
+      innerVisible: false, // 点击我已阅读协议的弹框
+      modifyVisible: false,
       userInfo: {}, // 用户信息
       companyInfo: {}, // 公司信息
       singleCompany: '',
@@ -228,6 +233,7 @@ export default {
       inputUser: '', // 输入的账号
       dataInfo: {},
       secretPwd: '', // 加密密码
+      details: {},
       step: 1,
       company: {
         corp: '',
@@ -237,6 +243,9 @@ export default {
       },
       pdfUrl: `/upload/pdf/JuXinProtocol/JuXinProtocolService.pdf` // 服务协议文件地址
     }
+  },
+  components: {
+    ModifyPass
   },
   methods: {
     // 点击我已同意阅读弹框
@@ -261,10 +270,7 @@ export default {
     // 点击修改密码跳到修改页面
     goToModifyPass () {
       if (this.checked) {
-        this.visibleP = false
-        this.$router.push({
-          name: 'Forgetpassword' // 跳到修改密码页面
-        })
+        this.modifyVisible = true
       } else {
         this.$message({
           type: 'warning',
@@ -333,6 +339,7 @@ export default {
             let vendorCode2 = res.data.data.vendorCode
             this.establishUser(corp2, custName2, user2, vendorCode2)
           }
+          this.details = res.data.data.user
         } else {
           this.$message.error(res.data.msg)
         }
@@ -376,6 +383,7 @@ export default {
             this.flags = res.data.data.flag
             this.secretPwd = res.data.data.secretPwd
             this.exists = res.data.data.exist
+            this.details = Object.assign(this.details, res.data.data)
           }
           this.loginLoading2 = false
         } else {

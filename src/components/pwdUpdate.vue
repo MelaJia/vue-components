@@ -71,7 +71,7 @@ import * as types from '@/store/types' // 存储类型
 import Eye from '@/components/Items/eye'
 /* 合同确认 */
 export default {
-  props: ['visibleP'],
+  props: ['visibleP', 'info'],
   mixins: [DialogClose],
   components: {
     Eye
@@ -172,6 +172,7 @@ export default {
       opShow: false, // 原密码是否可见
       pShow: false, // 密码是否可见
       pcShow: false, // 密码确认是是否可见
+      passWord: '',
       ruleForm2: {
         originalCustPassword: '', // 原密码
         custPassword: '',

@@ -121,7 +121,7 @@ export default {
     // AR业务待合同签署笔数获取
     getArSignTotal () {
       this.axios.post('/multiArInFinancingManager/getInFinancingListTable.do', {
-        iDisplayStart: 0,
+        iDisplayStart: 1,
         iDisplayLength: 10,
         checkedStatus: 23
       }).then(res => {
@@ -135,7 +135,7 @@ export default {
     // AR业务待还款笔数
     getArRepayTotal () {
       this.axios.post('/multiArOnRepaymentManager/getOnRepaymentArListTable.do', {
-        iDisplayStart: 0,
+        iDisplayStart: 1,
         iDisplayLength: 10,
         checkedStatus: 26
       }).then(res => {
@@ -149,7 +149,7 @@ export default {
     // AR业务待接收笔数
     getArReceiveTotal () {
       this.axios.post('/multiArTransferManager/getOnReceivingArListTable.do', {
-        iDisplayStart: 0,
+        iDisplayStart: 1,
         iDisplayLength: 10,
         checkedStatus: 3
       }).then(res => {
@@ -163,7 +163,7 @@ export default {
     // 信用融资业务待合同签署
     getCreditSignTotal () {
       this.axios.post('/creditLoan/getCreditLoanListTable.do', {
-        iDisplayStart: 0,
+        iDisplayStart: 1,
         iDisplayLength: 10,
         checkedStatus: 23
       }).then(res => {
@@ -177,7 +177,7 @@ export default {
     // 信用融资业务待还款
     getCreditRepayTotal () {
       this.axios.post('/creditLoan/getOnRepaymentCreditListTable.do', {
-        iDisplayStart: 0,
+        iDisplayStart: 1,
         iDisplayLength: 10,
         checkedStatus: 26
       }).then(res => {
@@ -191,7 +191,7 @@ export default {
     // 订单融资业务待合同签署
     getOrderSignTotal () {
       this.axios.post('/supplierOrderLoan/getInOrderFinancingListTable.do', {
-        iDisplayStart: 0,
+        iDisplayStart: 1,
         iDisplayLength: 10,
         checkedStatus: 23
       }).then(res => {
@@ -205,7 +205,7 @@ export default {
     // 订单融资业务待还款
     getOrderRepayTotal () {
       this.axios.post('/supplierOrderLoan/getOnRepaymentOrderListTable.do', {
-        iDisplayStart: 0,
+        iDisplayStart: 1,
         iDisplayLength: 10,
         checkedStatus: 26
       }).then(res => {
