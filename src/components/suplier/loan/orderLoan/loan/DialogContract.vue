@@ -6,7 +6,7 @@
       </span>
     </header>
     <section v-if="step===1">
-      <span class="note">温馨提示</span>
+      <i class="el-icon-warning" style="color:#F54F41;font-size:24px;"></i>
       <p>该协议内容由保理方{{this.detailsP.factoringCustName}}拟定，不由本平台提供，确认签署前需自行对协议内容进行审核</p>
     </section>
    <section v-if="step===2">
@@ -18,19 +18,20 @@
       <verify :captcha.sync="captcha"></verify>
     </section>
     <footer slot="footer" v-if="step===1">
-        <el-button round @click="handleNext" type="primary" >我知道了</el-button>
+        <el-button @click="handleNext" class="searchBtn" type="primary" size="small" >我知道了</el-button>
     </footer>
     <footer slot="footer" v-if="step===2">
-        <el-button v-if="detailsP.contractSignType === 1" round @click="beforeSubmit" type="primary" v-loading.fullscreen.lock="isLoading">同意签署</el-button>
-        <el-button v-else round @click="handleSubmit" type="primary" v-loading.fullscreen.lock="isLoading">同意签署</el-button>
-        <el-button round @click="handleReject" type="warning" v-loading.fullscreen.lock="isLoading">拒绝退回</el-button>
+        <el-button v-if="detailsP.contractSignType === 1" @click="beforeSubmit" class="searchBtn" type="primary" size="small" v-loading.fullscreen.lock="isLoading">同意签署</el-button>
+        <el-button v-else @click="handleSubmit" class="searchBtn" type="primary" size="small" v-loading.fullscreen.lock="isLoading">同意签署</el-button>
+        <el-button  @click="handleReject" class="rejectBtn" type="warning" size="small" v-loading.fullscreen.lock="isLoading">拒绝退回</el-button>
     </footer>
     <footer slot="footer" v-if="step===3">
-        <el-button round @click="handleSubmit" type="primary" >确认</el-button>
+        <el-button @click="handleSubmit" type="primary" >确认</el-button>
     </footer>
   </el-dialog>
 </template>
-<style scoped>
+<style scoped lang="scss">
+@import "@/assets/css/_newUI.scss";
 footer {
   text-align: center;
 }

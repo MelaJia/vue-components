@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :custom-class="'dia-class style-dia-repay'" :visible.sync="visibleP" :before-close="handleClose" center="">
+  <el-dialog :custom-class="'dia-class style-dia-repay report'" :visible.sync="visibleP" :before-close="handleClose" center="">
     <section>
       <article>
         <header class="repay-header headerTitle">{{detailsP.title}}</header>
@@ -184,6 +184,9 @@ span>em {
 </style>
 
 <style>
+.report {
+  width: 1200px;
+}
 .style-dia-repay .repay-detail-conten tbody.has-gutter td.is-center {
     text-align: right;
 }

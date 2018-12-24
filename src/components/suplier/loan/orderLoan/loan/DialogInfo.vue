@@ -1,12 +1,12 @@
 <template>
 <section id="print">
   <el-dialog  :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
-    <header slot="title">
+    <header slot="title" class="headerTitle">
       <span class="title">
         {{getTitle}}
       </span>
     </header>
-    <section>
+    <section class="section">
       <ul>
         <li>
           <span>申请金额: <em>{{this.detailsP.applyAmt | regexNum}}</em></span>
@@ -23,6 +23,8 @@
           <span>币别: <em>{{this.detailsP.currencyName}}</em></span>
         </li>
       </ul>
+    </section>
+    <section class="section">
       <ul>
         <li>
           <span>年利率: <em>{{this.detailsP.interestRate | addPercent}}</em></span>
@@ -47,6 +49,8 @@
           <span>还款方式: <em>{{this.detailsP.repaymentType}}</em></span>
         </li>
       </ul>
+    </section>
+    <section class="section">
       <ul class="height-auto">
         <el-table
           :data="detailsP.poLoanInfoList"
@@ -71,23 +75,37 @@
           </el-table-column>
         </el-table>
       </ul>
-      <ul class="height-auto">
-          <span>合同:
-          <div class="a-link-group inline-block">
+      <ul class="height-auto" style="display:flex;">
+          <span style="width:80px;">合同:</span>
+          <div class="a-link-group inline-block" style="background:#ECECEC;flex:1;height:80px;max-height:80px;overflow-y:auto;">
             <a v-for="item in detailsP.contractList" :key="item.contractId" :href="item.contractUrl" target="_blank" @click="constractHandle(item.contractUrl)">{{item.contractName}}</a>
             <!-- <a v-for="item in detailsP.contractList" :key="item.contractId" href="http://" @click.prevent="constractHandle(item.contractId)">{{item.contractName}}</a> -->
           </div>
-        </span>
       </ul>
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
-      <el-button type="primary" @click="handleClose">确认</el-button>
+      <el-button type="primary" class="searchBtn" size="small" @click="handleClose">确认</el-button>
     </footer>
   </el-dialog>
 </section>
 </template>
 <style scoped lang="scss">
 @import "@/assets/css/_dialog.scss";
+@import "@/assets/css/_newUI.scss";
+section{
+  > ul,>ul:last-of-type{
+    border: none;
+  }
+  > ul > li:not(:first-of-type) {
+    border-left: none;
+  }
+  li{
+    width: 68%;
+  }
+  li+li{
+    width: 30%;
+  }
+}
 span>lable.strong{
   color: #303133;
 }

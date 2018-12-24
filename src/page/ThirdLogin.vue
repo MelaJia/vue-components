@@ -17,8 +17,29 @@
         <el-button type="danger" class="thirdLogin" :loading="loginLoading" @click="thirdLoginBtn">授权并登陆</el-button>
       </footer>
      </section>
-     <!--登录成功的信息-->
-     <section v-if="step==2" class="loginInfo">
+     <!--公司信息弹框-->
+     <section v-if="step==2" class="logininfo">
+       <header class="title">
+         <h4>登录成功,请选择您要登录的公司</h4>
+       </header>
+      <div class="cmpList">
+        <el-radio-group v-model="singleCompany" v-for="(item, index) in companyList" :key="index" @change="singelCheck(item)">
+          <el-radio :label="item.Name"></el-radio>
+        </el-radio-group>
+      </div>
+     </section>
+     <!--用户供应商名不存在弹出框创建账号密码-->
+     <section v-if="step==3" class="loginInfo">
+       <p>未查到供应商代码,请输入账号名称,为您创建账号</p>
+       <div class="ipt-group">
+        <label for="">账号:</label><input type="text" autocomplete="off" v-model="inputUser" class="text" placeholder="请输入账户">
+      </div>
+      <footer>
+        <el-button type="danger" class="thirdLogin" :loading="loginLoading2" @click="confirmButton">确定</el-button>
+      </footer>
+     </section>
+     <!--登录成功弹出我知道了的信息-->
+     <section v-if="step==4" class="loginInfo">
        <header class="title">
          <h4>登录成功</h4>
        </header>
@@ -143,6 +164,18 @@
     margin:0 auto;
   }
 }
+
+.loginInfo .ipt-group input.text {
+  padding: 17px 15px;
+  margin-left: 4px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  height: 15px;
+  line-height: 15px;
+  color: #666;
+  width: 230px;
+  text-indent: 0;
+}
 </style>
 <style lang="scss">
 .contractDialog{
@@ -157,6 +190,14 @@
 .protocolAlert{
   .el-dialog__body{
     padding: 0 20px 10px;
+  }
+}
+.cmpList {
+  .el-radio {
+    margin-bottom: 10px;
+  }
+  .el-radio-group{
+    display:block;
   }
 }
 </style>
@@ -177,10 +218,23 @@ export default {
       exists: '',
       loginLoading: false, // 登陆状态
       loginLoading1: false, // 登陆状态
+      loginLoading2: false,
       checked: false, // 协议是否选中
       innerVisible: false, // 点击我已阅读协议的弹框s
+      userInfo: {}, // 用户信息
+      companyInfo: {}, // 公司信息
+      singleCompany: '',
+      companyList: [],
+      inputUser: '', // 输入的账号
       dataInfo: {},
+      secretPwd: '', // 加密密码
       step: 1,
+      company: {
+        corp: '',
+        custName: '',
+        user: '',
+        vendorCode: ''
+      },
       pdfUrl: `/upload/pdf/JuXinProtocol/JuXinProtocolService.pdf` // 服务协议文件地址
     }
   },
@@ -201,6 +255,8 @@ export default {
       this.thirdPhone = ''
       this.thirdPass = ''
       this.checked = false
+      this.singleCompany = ''
+      this.inputUser = ''
     },
     // 点击修改密码跳到修改页面
     goToModifyPass () {
@@ -226,24 +282,23 @@ export default {
           phone: this.thirdPhone,
           password: this.thirdPass
         }).then(res => {
-          if (res.status) {
-            if (res.data.data.exist) {
-              this.dataInfo = {
-                phone: this.thirdPhone,
-                password: this.thirdPass,
-                flag: res.data.data.flag
-              }
-              this.$emit('thirdLogin', this.dataInfo)
+          if (res.data.status) {
+            if (res.data.data.thirdLoginRes.length === 0) { // 返回的公司信息是0,则报弹框信息
+              this.$message.error(res.data.msg)
+            } else if (res.data.data.thirdLoginRes.length === 1) { // 返回的公司为一，则获取公司信息
+              let companylist = res.data.data.thirdLoginRes
+              this.companyInfo = companylist[0]
+              this.userInfo = res.data.data.user
+              this.checkCompany(this.companyInfo, this.userInfo)
             } else {
+              this.companyList = res.data.data.thirdLoginRes
+              this.userInfo = res.data.data.user
               this.step = 2
-              this.returnThirdPhone = res.data.data.phone
-              this.returnThirdPass = res.data.data.password
-              this.flags = res.data.data.flag
-              this.exists = res.data.data.exist
             }
             this.loginLoading = false
           } else {
             this.$message.error(res.data.msg)
+            this.loginLoading = false
           }
         }).catch(err => {
           this.loginLoading = false
@@ -254,18 +309,96 @@ export default {
         })
       }
     },
+    // 点击单选,选择公司
+    singelCheck (item) {
+      this.companyInfo = item
+      this.checkCompany(this.companyInfo, this.userInfo)
+    },
+    // 调用检查供应商代码是否存在接口
+    checkCompany (company, user) {
+      this.axios.post('/login/checkVendorCode', {
+        user: user,
+        corp: company
+      }).then(res => {
+        if (res.data.status) {
+          if (res.data.data.custName === '' || res.data.data.custName === null || res.data.data.custName === undefined) {
+            this.step = 3
+            this.company.corp = res.data.data.corp
+            this.company.user = res.data.data.user
+            this.company.vendorCode = res.data.data.vendorCode
+          } else {
+            let corp2 = res.data.data.corp
+            let custName2 = res.data.data.custName
+            let user2 = res.data.data.user
+            let vendorCode2 = res.data.data.vendorCode
+            this.establishUser(corp2, custName2, user2, vendorCode2)
+          }
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    // 点击确定
+    confirmButton () {
+      if (this.inputUser === '') {
+        this.$message({
+          type: 'warning',
+          message: '账号不能为空'
+        })
+      } else {
+        this.company.custName = this.inputUser
+        this.establishUser(this.company.corp, this.company.custName, this.company.user, this.company.vendorCode)
+      }
+    },
+    // 创建账号密码
+    establishUser (corp, custName, user, vendorCode) {
+      this.loginLoading2 = true
+      this.axios.post('/login/choosedCompanyLogin', {
+        corp: corp,
+        custName: custName,
+        user: user,
+        vendorCode: vendorCode
+      }).then(res => {
+        if (res.data.status) {
+          if (res.data.data.exist) {
+            this.dataInfo = {
+              flag: res.data.data.flag,
+              phone: res.data.data.phone,
+              secretPwd: res.data.data.secretPwd
+            }
+            this.$emit('thirdLogin', this.dataInfo)
+          } else {
+            this.step = 4
+            this.returnThirdPhone = res.data.data.phone
+            this.returnThirdPass = res.data.data.password
+            this.flags = res.data.data.flag
+            this.secretPwd = res.data.data.secretPwd
+            this.exists = res.data.data.exist
+          }
+          this.loginLoading2 = false
+        } else {
+          this.loginLoading2 = false
+          this.$message.error(res.data.msg)
+        }
+      }).catch(err => {
+        this.loginLoading2 = false
+        console.log(err)
+      })
+    },
     // 我知道了点击跳转到首页
     knowBtn () {
       if (this.checked) {
         this.visibleP = false
         this.loginLoading1 = true
         this.dataInfo = {
-          phone: this.returnThirdPhone,
-          password: this.returnThirdPass,
           flag: this.flags,
-          exist: this.exists
+          phone: this.returnThirdPhone,
+          secretPwd: this.secretPwd
         }
         this.$emit('thirdLogin', this.dataInfo)
+        this.loginLoading1 = false
       } else {
         this.$message({
           type: 'warning',
