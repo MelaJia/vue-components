@@ -77,7 +77,7 @@
 
 .url-section {
   position: absolute;
-  bottom: 100px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;

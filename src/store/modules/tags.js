@@ -19,6 +19,7 @@ function setFistTag (list) {
     list.some(a => {
       a.close = true
     })
+    list[0].close = false
   }
   return list
 }

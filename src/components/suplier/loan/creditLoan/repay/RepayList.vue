@@ -63,7 +63,7 @@
         ></el-table-column>
         <el-table-column
           align="center"
-          label="还款日期"
+          label="最后还款日期"
           prop="repayDate"
           :formatter="dateFormat"
           width="120"

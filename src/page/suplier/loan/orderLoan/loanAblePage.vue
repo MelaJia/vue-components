@@ -52,7 +52,7 @@ export default {
   data () {
     return {
       loading: false,
-      postUrl: '/supplierOrderLoan/getInOrderFinancingListTable.do',
+      postUrl: '/supplierOrderLoan/availableSupplierOrderList.do',
       dataStr: 'data',
       totalStr: 'recordsTotal'
     }
