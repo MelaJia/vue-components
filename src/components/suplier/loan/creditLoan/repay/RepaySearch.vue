@@ -68,7 +68,7 @@ export default {
     return {
       formInline: {
         loanId: '', // 融资编号
-        status: null, // 状态
+        status: this.$route.query.checkedStatus ? this.$route.query.checkedStatus : '', // 状态
         currency: '', // 币别
         repayDate: '', // 还款日期
         contractDate: null, // 合同签署日期
