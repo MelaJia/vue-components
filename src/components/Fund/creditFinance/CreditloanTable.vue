@@ -70,7 +70,7 @@
 
 <script>
 import ListMinxIn from '@/mixins/suplier/Ar/Table' // handleInfo
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 import { apiUrl } from '@/config/env.js'
 import { firstToUpperCase, debounce, erroShow } from '@/util/util' // 首字母大写 防抖函数

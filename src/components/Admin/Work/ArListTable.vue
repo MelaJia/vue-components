@@ -40,7 +40,7 @@
 
 <script>
 import ListMinxIn from '@/mixins/suplier/Ar/Table'
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 import { firstToUpperCase, debounce, erroShow } from '@/util/util' // 首字母大写 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置

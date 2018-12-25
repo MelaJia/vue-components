@@ -48,7 +48,7 @@
 
 <script>
 import SearchMixIn from '@/mixins/suplier/Ar/Search' // onSubmit、resetForm
-import commonDatas from '@/mixins/commonDatas' // 获取通用数据
+import commonDatas from '@/mixins/common/searchDatas' // 查询条件获取公共参数列表 // 获取通用数据
 /* 取消转让搜索 */
 export default {
   name: 'onReceivingArPage',

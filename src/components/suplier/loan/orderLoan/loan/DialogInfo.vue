@@ -165,7 +165,7 @@ span.po-number-style:not(:last-child)::after {
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 // 导入时间格式化过滤器
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 /* 待收Ar详情 */
 export default {
   props: {

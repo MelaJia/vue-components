@@ -98,9 +98,9 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
-import CityData from '@/mixins/CityData' // 关闭弹窗handleClose
+import CityData from '@/mixins/monitorData/cityData' // 关闭弹窗handleClose
 import citys from './city'
-import commmon from '@/mixins/common'
+import commmon from '@/mixins/common/common'
 import { debounce, erroShow } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置
 /* 修改银行信息 */

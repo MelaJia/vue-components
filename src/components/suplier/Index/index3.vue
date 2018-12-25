@@ -193,7 +193,7 @@ li {
 import Pie from '@/components/items/pie'
 import Pie2 from '@/components/items/pie2'
 import {thousandth} from '@/util/util'
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 
 // 引入 ECharts 主模块
 const echarts = require('echarts/lib/echarts')

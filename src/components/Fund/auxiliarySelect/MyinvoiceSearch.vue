@@ -86,7 +86,7 @@
 
 <script>
 import SearchMixIn from '@/mixins/suplier/Ar/Search'
-import commonDatas from '@/mixins/commonDatas'
+import commonDatas from '@/mixins/common/searchDatas' // 查询条件获取公共参数列表
 /* 我的发票单查询搜索 */
 export default {
   name: 'myinvoice', // 我的发票

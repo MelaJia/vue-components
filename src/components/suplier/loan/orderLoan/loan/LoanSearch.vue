@@ -42,7 +42,7 @@
             </el-form-item>
       </el-col>
       <el-col :span="10">
-          <el-form-item label="贴现申请金额" prop="amountBegin">
+          <el-form-item label="申请金额" prop="amountBegin">
             <el-col :span="10" class="mon-range-start">
               <el-jx-input class="ipt" v-model="formInline.amountBegin" placeholder="起始金额"></el-jx-input>
             </el-col>
@@ -71,7 +71,7 @@
 
 <script>
 import SearchMixIn from '@/mixins/suplier/Ar/Search'
-import commonDatas from '@/mixins/commonDatas'
+import commonDatas from '@/mixins/common/searchDatas' // 查询条件获取公共参数列表
 /* 我的Ar搜索 */
 export default {
   name: 'inFinancingPage', // 同融资中单据状态查询

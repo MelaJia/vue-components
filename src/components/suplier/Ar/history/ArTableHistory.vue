@@ -103,7 +103,7 @@
 
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 /* 历史Ar列表 */
 export default {
   props: ['dataLoading', 'dataTable'],

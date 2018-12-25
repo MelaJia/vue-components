@@ -1,0 +1,72 @@
+// 第一种
+{
+  result: {
+    userinfo: {
+      name: '123',
+      age: 16,
+      arr: [
+        ...
+      ]
+    }
+  },
+  msg: '操作成功', // 状态信息
+  statuCode: 1 // 状态码
+}
+
+// 第二种
+{
+  result:{
+    list:[
+      {
+        id: 001,
+        name: '第一条',
+        ...
+      },
+      {
+        id: '002,
+        name: '第二条',
+        ...
+      },
+    ],
+    listCount:200 // 列表总数
+  },
+  msg: '操作成功', // 状态信息
+  statuCode: 1 // 状态码
+}
+// 第三种
+{
+  result:{
+    list:[
+      {
+        id: 001,
+        name: '第一条',
+        childList:[
+          {
+            id:001_01,
+            name:'1-1'
+            childList:[
+              {
+                id:001_01_1,
+                name:'1-1-1'
+              }
+            ]
+          },
+          {
+            id:001_02,
+            name:'1-2'
+          }
+          ...
+        ],
+        ...
+      },
+      {
+        id: '002,
+        name: '第二条',
+        ...
+      },
+    ],
+    listCount:200 // 列表总数
+  },
+  msg: '用户名错误', // 状态信息
+  statuCode: 0 // 状态码
+}

@@ -94,7 +94,7 @@ section {
 <script>
 import Pie from '@/components/items/pie'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 import { getDataBase } from '@/util/util'
 export default {
   props: {

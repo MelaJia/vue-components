@@ -177,7 +177,7 @@ span>em {
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 import DialogTrans from '@/mixins/suplier/arApi/dialogTrans'
 import { debounce, thousandth } from '@/util/util' // 防抖函数
 import Input from '@/components/Items/inputNumber'

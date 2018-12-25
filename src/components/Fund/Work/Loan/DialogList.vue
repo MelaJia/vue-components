@@ -32,7 +32,7 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 /* 我的Ar详情 */
 export default {
   props: ['visibleP', 'detailsP'],

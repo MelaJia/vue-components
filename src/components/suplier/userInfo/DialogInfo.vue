@@ -127,7 +127,7 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
-import commonDatas from '@/mixins/commonDatas' // 货币类型
+import commonDatas from '@/mixins/common/searchDatas' // 查询条件获取公共参数列表 // 货币类型
 import Upload from '@/components/Items/upload'
 import {
   getStore,

@@ -33,7 +33,7 @@
 
 <script>
 import ListMinxIn from '@/mixins/suplier/Ar/Table'
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 export default {
   props: ['dataLoading', 'dataTable'],

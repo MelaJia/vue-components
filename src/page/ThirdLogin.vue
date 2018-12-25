@@ -269,10 +269,18 @@ export default {
       this.singleCompany = ''
       this.inputUser = ''
     },
+    showModity () {
+      this.modifyVisible = true
+    },
     // 点击修改密码跳到修改页面
     goToModifyPass () {
       if (this.checked) {
-        this.modifyVisible = true
+        let dataInfo = {
+          flag: this.flags,
+          phone: this.returnThirdPhone,
+          secretPwd: this.secretPwd
+        }
+        this.$emit('thirdLogin', dataInfo, true)
       } else {
         this.$message({
           type: 'warning',

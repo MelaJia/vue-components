@@ -4,7 +4,7 @@
     <!-- 合同确认 -->
     <dialog-contract :visible-p.sync="dialogContractVisible" :details-p="detailsContract"></dialog-contract>
     <!-- 详情 -->
-    <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-info>
+    <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details" :show-repay-btn="true"></dialog-info>
     <section>
       <el-table
         ref="table"
@@ -35,7 +35,7 @@
         <el-table-column
           align="right"
           header-align="center"
-          label="融资申请金额"
+          label="申请金额"
           prop="applyAmt"
           :formatter="regexNum"
           min-width="150"
@@ -124,7 +124,7 @@ header {
 
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 import { firstToUpperCase, debounce, getDataBase } from '@/util/util' // 首字母大写 防抖函数
 import widhConf from '@/config/width' // 宽度配置
 /* 我的Ar列表 */

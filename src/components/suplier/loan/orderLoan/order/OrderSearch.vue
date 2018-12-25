@@ -71,7 +71,7 @@
 
 <script>
 import SearchMixIn from '@/mixins/suplier/Ar/Search'
-import commonDatas from '@/mixins/commonDatas'
+import commonDatas from '@/mixins/common/searchDatas' // 查询条件获取公共参数列表
 /* 我的Ar搜索 */
 export default {
   name: 'myArPage',

@@ -59,25 +59,38 @@
 
 <script>
 import Nav from './Nav'
-import ComponentsInit from '@/mixins/ComponentsInit'
+import HeaderSection from '@/components/HeaderSection' // 头部
 import Tags from './tags'
 import {GetQueryString} from '@/util/util'
 export default {
   name: 'suplier',
-  mixins: [ComponentsInit],
   data () {
     return {
       height: '900',
-      interfaceTransSerial: null
+      interfaceTransSerial: null, // 外部标识
+      dialogPassVisible: false, // 密码修改
+      navItems: this.$store.state.user.navitems, // 获取菜单
+      width: 180 // 左边导航栏宽度
     }
   },
   components: {
     'nav-t': Nav,
-    Tags
+    Tags,
+    HeaderSection,
+    'dialog-pass-update': () =>
+      import(/* webpackChunkName: 'DialogCommon' */ '@/components/pwdUpdate') // 密码修改窗
   },
   created () {
     this.interfaceTransSerial = GetQueryString('interfaceTransSerial')
     this.width = this.navItems !== null && this.navItems.length > 0 && !this.interfaceTransSerial ? 180 : 0
+  },
+  methods: {
+    pwdChange: pwdChange
   }
+}
+// 密码修改
+function pwdChange () {
+  console.log('修改密码')
+  this.dialogPassVisible = true
 }
 </script>

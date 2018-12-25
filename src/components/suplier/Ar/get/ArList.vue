@@ -41,7 +41,7 @@
 
 <script>
 import ListMinxIn from '@/mixins/suplier/Ar/Table' // handleInfo
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 /* 待收Ar列表 */
 export default {

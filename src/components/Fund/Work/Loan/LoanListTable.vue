@@ -80,7 +80,7 @@
 
 <script>
 import ListMinxIn from '@/mixins/suplier/Ar/Table'
-import Common from '@/mixins/common' // getLoanDetail 刷新数据fresh函数
+import Common from '@/mixins/common/common' // getLoanDetail 刷新数据fresh函数
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 import { firstToUpperCase, debounce, erroShow } from '@/util/util' // 首字母大写 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置

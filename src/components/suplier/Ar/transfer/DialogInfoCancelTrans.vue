@@ -95,7 +95,7 @@ section{
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 /* 取消转让详情 */
 export default {
   props: ['visibleP', 'detailsP'],

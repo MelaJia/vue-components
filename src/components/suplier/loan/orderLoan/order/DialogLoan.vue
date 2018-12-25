@@ -121,7 +121,7 @@ tr {
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 // 导入时间格式化过滤器
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 import { thousandth, postDataBase } from '@/util/util' // 发送数据函数
 /* 待收Ar详情 */
 export default {

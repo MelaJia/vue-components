@@ -61,7 +61,7 @@
 </style>
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // 关闭弹窗handleClose
-import Common from '@/mixins/common' // 关闭弹窗handleClose
+import Common from '@/mixins/common/common' // 关闭弹窗handleClose
 import { debounce, postDataBase, thousandth } from '@/util/util' // 防抖函数
 import { checkNumberPire } from '@/util/validate' // 校验数字
 import Upload from '@/components/Items/uploadFile'

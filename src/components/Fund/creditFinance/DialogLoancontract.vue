@@ -120,8 +120,8 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-import Common from '@/mixins/common'
-import commonDatas from '@/mixins/commonDatas'
+import Common from '@/mixins/common/common'
+import commonDatas from '@/mixins/common/searchDatas' // 查询条件获取公共参数列表
 import { debounce } from '@/util/util' // 防抖函数
 import { validatenum } from '@/util/validate'
 import { loadingConf } from '@/config/common' // 获取加载配置

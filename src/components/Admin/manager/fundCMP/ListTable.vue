@@ -50,7 +50,7 @@
 
 <script>
 import ListMinxIn from '@/mixins/suplier/Ar/Table'
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 import Dialog from '@/mixins/suplier/Ar/Dialog'
 import { debounce, getDataBase } from '@/util/util' // 首字母大写 防抖函数
 export default {

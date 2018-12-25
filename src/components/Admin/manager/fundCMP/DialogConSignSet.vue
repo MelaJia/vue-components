@@ -64,7 +64,7 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 import { debounce, getDataBase } from '@/util/util' // 防抖函数
 export default {
   props: ['visibleP', 'detailsP', 'contract'],

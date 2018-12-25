@@ -142,7 +142,7 @@
 
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table' // handleInfo
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 import { thousandth, debounce } from '@/util/util' // 首字母大写 防抖函数
 import { cloneDeep } from 'lodash/fp'
 /* 我的Ar列表 */

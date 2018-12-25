@@ -211,7 +211,7 @@ span>em {
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import { thousandth } from '@/util/util' // 发送数据函数
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 /* 我的Ar详情 */
 export default {
   props: ['visibleP', 'detailsP'],

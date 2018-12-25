@@ -98,7 +98,7 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 import { debounce, postDataBase } from '@/util/util' // 防抖函数 发送函数
 import { validatenumber } from '@/util/validate'
 export default {

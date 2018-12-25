@@ -1,182 +1,232 @@
 <template>
   <article>
     <!--亿签网弹框-->
-    <third-login :visi.sync="dialogVisible" @thirdLogin="getThirdLogin"></third-login>
-      <header class="top-container flex-between">
-          <img src="@/assets/img/img/PCindex_03.png" />
-          <ul class="nav flex-self">
-            <li class="nav-item">
-                <a class="nav-link" href="#">首页</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">平台优势</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">平台业务</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">平台特点</a>
-              </li>
-          </ul>
-        </header>
-        <div>
-          <div class="content-one">
-            <div class="content-container">
-              <div class="login-box">
-                <form>
-                  <!--登录失败提示-->
-                  <section>
-                    <el-alert class="loginError" v-if="loginError"
-                        :title="loginErrorInfo"
-                        type="error"
-                        :closable="false"
-                        show-icon>
-                    </el-alert>
-                  </section>
-                  <section>
-                    <div class="ipt-group">
-                      <!-- <i class="icon-ipt-phone iconfont icon-yonghuming" :class="iptPhoneLight?'light': ''"></i> -->
-                      <input type="text" autocomplete="off" v-model="ruleForm.phone" class="text iptphone" placeholder="用户名" @focus="iptPhoneLight=true" @blur="loginError=iptPhoneLight=false">
-                    </div>
-                    <div class="ipt-group">
-                      <!-- <i class="icon-ipt-pwd iconfont icon-mimaicon" :class="iptPWDLight?'light': ''"></i> -->
-                      <input type="password" autocomplete="new-password" maxlength="20" v-model="ruleForm.pass" class="text iptpassword" ref="input" placeholder="8-20位数字与字母组合的密码" @focus="iptPWDLight=true" @blur="loginError=iptPWDLight=false">
-                    </div>
-                    <div class="ipt-group picture">
-                      <input type="text" autocomplete="off" class="text iptviste" name="ipt_renewal" v-model="verify" id="ipt_renewal" onKeyDown="if(event.keyCode===32) return false" @keyup.enter="submitForm('ruleForm')"  placeholder="验证码" maxlength="4" @input="visteChange">
-                      <i class="icon-viste" :class="getVisteClass" @click="handleDelete"></i>
-                      <div class="imgviste" @click="visteFresh">
-                        <i hidden :src="getImgUrl"></i>
-                        <img class="renewal" :src="verImgUrl" id="imgCode" alt="点击刷新">
-                        <span class="renewal">换一张</span>
-                      </div>
-                      <em class="error">{{visteError}}</em>
-                    </div>
-                    <p class="account">
-                      <router-link to="/forget" class="gray forgetPassword">忘记密码</router-link>
-                      <router-link to="/register" class="gray register">注册</router-link>
-                    </p>
-                    <div class="btnGroup">
-                      <el-button type="button" id="register" class="btnRed" @click.stop="submitForm()" :loading="loginLoading">立即登录</el-button>
-                    </div>
-                    <p class="cooperation">
-                      <span class="gray2">&gt;使用合作账号登录:</span>
-                      <a href="javascript:;"><img src="@/assets/img/login/1.png" alt="" @click="thirdLogin"></a>
-                    </p>
-                  </section>
-                </form>
-              </div>
+    <third-login ref="thirdLogin" :visi.sync="dialogVisible" @thirdLogin="getThirdLogin"></third-login>
+    <header class="top-container flex-between">
+      <img src="@/assets/img/img/PCindex_03.png">
+      <ul class="nav flex-self">
+        <li class="nav-item">
+          <a class="nav-link" href="#">首页</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">平台优势</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">平台业务</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">平台特点</a>
+        </li>
+      </ul>
+    </header>
+    <div>
+      <div class="content-one">
+        <div class="content-container">
+          <div class="login-box">
+            <form>
+              <!--登录失败提示-->
+              <section>
+                <el-alert
+                  class="loginError"
+                  v-if="loginError"
+                  :title="loginErrorInfo"
+                  type="error"
+                  :closable="false"
+                  show-icon
+                ></el-alert>
+              </section>
+              <section>
+                <div class="ipt-group">
+                  <!-- <i class="icon-ipt-phone iconfont icon-yonghuming" :class="iptPhoneLight?'light': ''"></i> -->
+                  <input
+                    type="text"
+                    autocomplete="off"
+                    v-model="ruleForm.phone"
+                    class="text iptphone"
+                    placeholder="用户名"
+                    @focus="iptPhoneLight=true"
+                    @blur="loginError=iptPhoneLight=false"
+                  >
+                </div>
+                <div class="ipt-group">
+                  <!-- <i class="icon-ipt-pwd iconfont icon-mimaicon" :class="iptPWDLight?'light': ''"></i> -->
+                  <input
+                    type="password"
+                    autocomplete="new-password"
+                    maxlength="20"
+                    v-model="ruleForm.pass"
+                    class="text iptpassword"
+                    ref="input"
+                    placeholder="8-20位数字与字母组合的密码"
+                    @focus="iptPWDLight=true"
+                    @blur="loginError=iptPWDLight=false"
+                  >
+                </div>
+                <div class="ipt-group picture">
+                  <input
+                    type="text"
+                    autocomplete="off"
+                    class="text iptviste"
+                    name="ipt_renewal"
+                    v-model="verify"
+                    id="ipt_renewal"
+                    onKeyDown="if(event.keyCode===32) return false"
+                    @keyup.enter="submitForm('ruleForm')"
+                    placeholder="验证码"
+                    maxlength="4"
+                    @input="visteChange"
+                  >
+                  <i class="icon-viste" :class="getVisteClass" @click="handleDelete"></i>
+                  <div class="imgviste" @click="visteFresh">
+                    <i hidden :src="getImgUrl"></i>
+                    <img class="renewal" :src="verImgUrl" id="imgCode" alt="点击刷新">
+                    <span class="renewal">换一张</span>
+                  </div>
+                  <em class="error">{{visteError}}</em>
+                </div>
+                <p class="account">
+                  <router-link to="/forget" class="gray forgetPassword">忘记密码</router-link>
+                  <router-link to="/register" class="gray register">注册</router-link>
+                </p>
+                <div class="btnGroup">
+                  <el-button
+                    type="button"
+                    id="register"
+                    class="btnRed"
+                    @click.stop="submitForm()"
+                    :loading="loginLoading"
+                  >立即登录</el-button>
+                </div>
+                <p class="cooperation">
+                  <span class="gray2">&gt;使用合作账号登录:</span>
+                  <a href="javascript:;">
+                    <img src="@/assets/img/login/1.png" alt @click="thirdLogin">
+                  </a>
+                </p>
+              </section>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="content-two">
+        <div class="center-container flex-between">
+          <div class="info">
+            <img src="@/assets/img/img/PCindex22_08.png">
+            <div class="scroll">
+              <span>钜信网新版上线啦 钜信网(供应链金融)是以商业银行...</span>
             </div>
           </div>
-          <div class="content-two">
-            <div class="center-container flex-between">
-              <div class="info">
-                <img src="@/assets/img/img/PCindex22_08.png" />
-                <div class="scroll">
-                  <span>钜信网新版上线啦  钜信网(供应链金融)是以商业银行...</span>
-                </div>
-              </div>
-              <div class="info-more"><a href="#">更多></a></div>
+          <div class="info-more">
+            <a href="#">更多></a>
+          </div>
+        </div>
+      </div>
+      <div class="content-three center-container">
+        <div class="flex-around">
+          <div class="flex-left">
+            <img class="img-total" src="@/assets/img/img/PCindex_08.png">
+            <div>
+              <div class="num-total">133亿+</div>
+              <div class="text-total">累计成交</div>
             </div>
           </div>
-          <div class="content-three center-container">
-            <div class="flex-around">
-              <div class="flex-left">
-                <img class="img-total" src="@/assets/img/img/PCindex_08.png" />
-                <div>
-                  <div class="num-total">133亿+</div>
-                  <div class="text-total">累计成交</div>
-                </div>
-              </div>
-              <div class="flex-left">
-                <img class="img-total" src="@/assets/img/img/PCindex_08.png" />
-                <div>
-                  <div class="num-total">48万+</div>
-                  <div class="text-total">累计注册人数</div>
-                </div>
-              </div>
-              <div class="flex-left">
-                <img class="img-total" src="@/assets/img/img/PCindex_08.png" />
-                <div>
-                  <div class="num-total">1450天+</div>
-                  <div class="text-total">运营天数</div>
-                </div>
-              </div>
-            </div>
-            <div class="text-info">
-              <p>钜信网(供应链金融)是以商业银行根据产业特点，围绕供应链上核心企业，<br/>
-                基于交易过程向核心企业和其上下游相关企业提供的综合金融服务。<br/>
-                以核心企业为基准创建"１＋Ｎ"或"Ｍ＋１＋Ｎ"的金融服务模式；<br/>
-                关注交易过程，整合物流、信息流和资金流；根据产业特点，跨行业的提供金融服务。</p>
+          <div class="flex-left">
+            <img class="img-total" src="@/assets/img/img/PCindex_08.png">
+            <div>
+              <div class="num-total">48万+</div>
+              <div class="text-total">累计注册人数</div>
             </div>
           </div>
-          <div class="content-four">
-            <div class="center-container">
-              <div class="flex-between">
-                <img src="@/assets/img/img/PCindex_18.jpg" />
-                <img src="@/assets/img/img/PCindex_20.jpg" />
-                <img src="@/assets/img/img/PCindex_22.jpg" />
-              </div>
-            </div>
-          </div>
-          <div class="content-five">
-            <div class="center-container">
-              <div class="title-item">平台业务
-                <div class="underline">__</div>
-              </div>
-              <div class="flex-between-start">
-                <div class="item">
-                  <img src="@/assets/img/img/PCindex_28.png" />
-                  <div class="text-introduce">信用融资</div>
-                  <div class="text-info">根据供应商历史交易数据大数据分析对供应商进行评级，由资金方确认后给予该公司一定的授信额度，供应商可根据额度进行融资申请，资金方审核后放款。</div>
-                </div>
-                <div class="item">
-                  <img src="@/assets/img/img/PCindex_30.png" />
-                  <div class="text-introduce">订单融资</div>
-                  <div class="text-info">与信用融资类似，根据供应商历史交易数据大数据分析对供应商进行评级，由资金方确认后给予该公司一定的授信额度，供应商可根据额度进行融资申请，资金方审核后放款。</div>
-                </div>
-                <div class="item">
-                  <img src="@/assets/img/img/index_32.png" />
-                  <div class="text-introduce">结报融资</div>
-                  <div class="text-info">使用应收账款进行融资申请，钜信网提供应收账款凭证并出具对应信用报告，资金方根据系统数据对供应商融资申请进行核实放款，并在线签署合约。</div>
-                </div>
-                <div class="item">
-                  <img src="@/assets/img/img/PCindex_34.png" />
-                  <div class="text-introduce">票据转让</div>
-                  <div class="text-info">传统供应链金融仅勉强解决一级供应商融资需求，所以其它供应商怎么办？钜信网可实现债权转让付款承诺，分别是可拆分、可流转、可融资、可持有到期。</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="content-six">
-            <div class="center-container">
-              钜信网引入区块链&nbsp;共同维护&nbsp;多中心 &nbsp;不可篡改 &nbsp;安全可信  &nbsp;可编程
-            </div>
-          </div>
-          <div class="content-seven">
-            <div class="center-container">
-              为什么选择我们
-              <div class="underline">__</div>
+          <div class="flex-left">
+            <img class="img-total" src="@/assets/img/img/PCindex_08.png">
+            <div>
+              <div class="num-total">1450天+</div>
+              <div class="text-total">运营天数</div>
             </div>
           </div>
         </div>
-        <footer>
-          <div class="center-container flex-between">
-            <div>
-                <h2>钜信网 让企业融资更高效</h2>
-                <h3>财富热线：13424348719</h3>
-                <h4>联系我们： 广东省 深圳市 龙华新区东环二路富士康园区</h4>
-                <h4>Phone:   +86 186-1719-5438</h4>
-                <h4>Email:   joe.kj.ho@minmaxtec.com</h4>
-            </div>
-            <div class="right"><img src="@/assets/img/img/PCindex_44.jpg" /></div>
+        <div class="text-info">
+          <p>钜信网(供应链金融)是以商业银行根据产业特点，围绕供应链上核心企业，
+            <br>基于交易过程向核心企业和其上下游相关企业提供的综合金融服务。
+            <br>以核心企业为基准创建"１＋Ｎ"或"Ｍ＋１＋Ｎ"的金融服务模式；
+            <br>关注交易过程，整合物流、信息流和资金流；根据产业特点，跨行业的提供金融服务。
+          </p>
+        </div>
+      </div>
+      <div class="content-four">
+        <div class="center-container">
+          <div class="flex-between">
+            <img src="@/assets/img/img/PCindex_18.jpg">
+            <img src="@/assets/img/img/PCindex_20.jpg">
+            <img src="@/assets/img/img/PCindex_22.jpg">
           </div>
-          <div class="last-footer">
-            <div class="center-container">
-              <img class="logo" src="@/assets/img/img/iconJY.png" />钜亿科技(深圳)有限公司 版权所有 © Copyright 2018. All Rights Reserved. 粤ICP备13021698号 深圳市龙华新区 服务热线：0755-66838888-25806
+        </div>
+      </div>
+      <div class="content-five">
+        <div class="center-container">
+          <div class="title-item">平台业务
+            <div class="underline">__</div>
+          </div>
+          <div class="flex-between-start">
+            <div class="item">
+              <img src="@/assets/img/img/PCindex_28.png">
+              <div class="text-introduce">信用融资</div>
+              <div
+                class="text-info"
+              >根据供应商历史交易数据大数据分析对供应商进行评级，由资金方确认后给予该公司一定的授信额度，供应商可根据额度进行融资申请，资金方审核后放款。</div>
+            </div>
+            <div class="item">
+              <img src="@/assets/img/img/PCindex_30.png">
+              <div class="text-introduce">订单融资</div>
+              <div
+                class="text-info"
+              >与信用融资类似，根据供应商历史交易数据大数据分析对供应商进行评级，由资金方确认后给予该公司一定的授信额度，供应商可根据额度进行融资申请，资金方审核后放款。</div>
+            </div>
+            <div class="item">
+              <img src="@/assets/img/img/index_32.png">
+              <div class="text-introduce">结报融资</div>
+              <div
+                class="text-info"
+              >使用应收账款进行融资申请，钜信网提供应收账款凭证并出具对应信用报告，资金方根据系统数据对供应商融资申请进行核实放款，并在线签署合约。</div>
+            </div>
+            <div class="item">
+              <img src="@/assets/img/img/PCindex_34.png">
+              <div class="text-introduce">票据转让</div>
+              <div
+                class="text-info"
+              >传统供应链金融仅勉强解决一级供应商融资需求，所以其它供应商怎么办？钜信网可实现债权转让付款承诺，分别是可拆分、可流转、可融资、可持有到期。</div>
             </div>
           </div>
-        </footer>
+        </div>
+      </div>
+      <div class="content-six">
+        <div class="center-container">钜信网引入区块链&nbsp;共同维护&nbsp;多中心 &nbsp;不可篡改 &nbsp;安全可信 &nbsp;可编程</div>
+      </div>
+      <div class="content-seven">
+        <div class="center-container">为什么选择我们
+          <div class="underline">__</div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="center-container flex-between">
+        <div>
+          <h2>钜信网 让企业融资更高效</h2>
+          <h3>财富热线：13424348719</h3>
+          <h4>联系我们： 广东省 深圳市 龙华新区东环二路富士康园区</h4>
+          <h4>Phone: +86 186-1719-5438</h4>
+          <h4>Email: joe.kj.ho@minmaxtec.com</h4>
+        </div>
+        <div class="right">
+          <img src="@/assets/img/img/PCindex_44.jpg">
+        </div>
+      </div>
+      <div class="last-footer">
+        <div class="center-container">
+          <img class="logo" src="@/assets/img/img/iconJY.png">钜亿科技(深圳)有限公司 版权所有 © Copyright 2018. All Rights Reserved. 粤ICP备13021698号 深圳市龙华新区 服务热线：0755-66838888-25806
+        </div>
+      </div>
+    </footer>
   </article>
 </template>
 <style  scoped>
@@ -487,9 +537,9 @@ footer .flex-between .right img {
   margin-top: 13px;
   margin-left: 5px;
 }
-.account{
-    padding: 10px 15px;
-    margin: 0;
+.account {
+  padding: 10px 15px;
+  margin: 0;
 }
 .btnGroup {
   text-align: center;
@@ -503,8 +553,8 @@ footer .flex-between .right img {
   font-weight: 400;
   border-radius: 10px;
 }
-.gray2{
-  color:#a1a1a1;
+.gray2 {
+  color: #a1a1a1;
 }
 a.gray {
   color: #6c757d;
@@ -514,7 +564,7 @@ a.gray.register {
   float: right;
 }
 /* 第三方登录图标 */
-.cooperation img{
+.cooperation img {
   margin-bottom: -20px;
 }
 /* 底部logo */
@@ -604,9 +654,9 @@ export default {
     thirdLogin () {
       this.dialogVisible = true
     },
-    getThirdLogin (dataInfo) {
+    getThirdLogin (dataInfo, modiPass) {
       console.log(dataInfo)
-      this.submitForm(dataInfo)
+      this.submitForm(dataInfo, modiPass)
     }
   }
 }
@@ -640,7 +690,7 @@ async function handleCheckViste () {
     console.log(error)
   }
 }
-async function submitForm (formData = null) {
+async function submitForm (formData = null, modipass) {
   if (this.loginLoading === true) {
     return
   }
@@ -690,6 +740,11 @@ async function submitForm (formData = null) {
       })
       console.log(Roles[datas.custType].layout)
       let redirect = decodeURIComponent(Roles[datas.custType].layout || '/')
+      this.loginLoading = false // 登录完成
+      if (modipass) {
+        this.$refs.thirdLogin.showModity()
+        return
+      }
       this.$router.push({
         path: redirect
       })
@@ -726,6 +781,11 @@ async function submitForm (formData = null) {
         })
         let redirect = decodeURIComponent(Roles[datas.custType].layout || '/')
         console.log(redirect)
+        this.loginLoading = false // 登录完成
+        if (modipass) {
+          this.$refs.thirdLogin.showModity()
+          return
+        }
         this.$router.push({
           path: redirect
         })

@@ -142,7 +142,7 @@
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 // import { checkNumberPire } from '@/util/validate' // 校验数字
 import { debounce } from '@/util/util' // 防抖函数
 import { loadingConf } from '@/config/common' // 获取加载配置

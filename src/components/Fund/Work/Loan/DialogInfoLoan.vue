@@ -112,7 +112,7 @@ section{
 
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose' // constractHandle、handleClose、print
-import common from '@/mixins/common' //
+import common from '@/mixins/common/common' //
 export default {
   props: ['visibleP', 'detailsP'],
   mixins: [DialogClose, common],

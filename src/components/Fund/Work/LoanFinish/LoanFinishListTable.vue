@@ -142,7 +142,7 @@ header {
 
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table'
-import Common from '@/mixins/common' // fresh刷新数据函数
+import Common from '@/mixins/common/common' // fresh刷新数据函数
 import Width from '@/mixins/Fund/width' // 宽度
 export default {
   props: ['dataLoading', 'dataTable'],

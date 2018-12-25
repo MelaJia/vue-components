@@ -25,7 +25,7 @@
 
 <script>
 import ListMinxIn from '@/mixins/suplier/Ar/Table'
-import Common from '@/mixins/common' // getLoanDetail 刷新数据fresh函数
+import Common from '@/mixins/common/common' // getLoanDetail 刷新数据fresh函数
 export default {
   name: 'loan', // 放款列表页面
   props: ['dataLoading', 'dataTable'],

@@ -171,7 +171,7 @@
 import Pie from '@/components/items/pie3'
 import processText from '@/components/items/processIndex2'
 import { thousandth } from '@/util/util'
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 export default {
   components: { Pie, processText },
   mixins: [Common],

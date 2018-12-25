@@ -474,7 +474,7 @@
 import Upload from '@/components/Items/uploadReg'
 import Eye from '@/components/Items/eye'
 import validConf from '@/config/validateConfig'
-import CityData from '@/mixins/CityData' // 省市数据
+import CityData from '@/mixins/monitorData/cityData' // 省市数据
 import { getStore, setStore } from '@/util/store'
 import { debounce, erroShow } from '@/util/util'
 /* 企业认证 */

@@ -107,10 +107,17 @@ span>lable.strong{
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 // 导入时间格式化过滤器
-import Common from '@/mixins/common'
+import Common from '@/mixins/common/common'
 /* 待收Ar详情 */
 export default {
-  props: ['visibleP', 'detailsP'],
+  props: {
+    visibleP: String,
+    detailsP: Object,
+    showRepayBtn: {
+      type: Boolean,
+      default: false
+    }
+  },
   mixins: [DialogClose, Common],
   data () {
     return {
@@ -121,6 +128,10 @@ export default {
     getTitle () {
       return '融资编号' + this.detailsP.loanId
     }
+  },
+  components: {
+    'dialog-info': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogRepayInfo')
   },
   methods: {
     handleShowRepay: handleShowRepay
