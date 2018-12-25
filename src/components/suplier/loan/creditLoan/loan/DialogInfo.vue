@@ -1,5 +1,7 @@
 <template>
 <section id="print">
+   <!-- 预还款详情 -->
+  <dialog-info :visible-p.sync="dialogRepayInfoVisible" :details-p="details"></dialog-info>
   <el-dialog  :custom-class="'dia-class '+detailsP.masterChainId" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title" class="headerTitle">
       <span class="title">
@@ -75,6 +77,7 @@
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" class="searchBtn" size="small" @click="handleClose">确认</el-button>
+      <el-button v-if="showRepayBtn" @click="handleShowRepay" type="primary" size="small" plain>预还款计划</el-button>
     </footer>
   </el-dialog>
 </section>
@@ -120,7 +123,15 @@ export default {
     }
   },
   methods: {
+    handleShowRepay: handleShowRepay
   }
 }
-
+function handleShowRepay () {
+  this.getLoanDetail('/loan/loanTrialRepaymentScheduleInfo.do', { loanId: this.detailsP.loanId }).then(res => {
+    if (res) {
+      this.details = res
+      this.dialogRepayInfoVisible = true
+    }
+  })
+}
 </script>
