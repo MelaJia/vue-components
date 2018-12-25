@@ -118,7 +118,7 @@
         </el-table-column>
         <!-- <el-table-column type="selection" fixed width="40">
         </el-table-column>-->
-        <el-table-column type="index" label="序号" fixed width="40"></el-table-column>
+        <el-table-column type="index" align="center" label="No."  fixed width="50"></el-table-column>
         <el-table-column
           align="center"
           label="AR单号"

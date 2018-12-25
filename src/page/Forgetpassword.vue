@@ -105,7 +105,7 @@
   <section class="footer"></section>
   </section>
 </template>
-<style lang="scss">
+<style scoped lang="scss">
 .section {
   margin-top: 40px;
 }

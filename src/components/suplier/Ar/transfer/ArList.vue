@@ -3,7 +3,7 @@
     <dialog-info :visible-p.sync="dialogInfoVisible" :details-p="details"></dialog-info>
     <el-table :data="dataTable" border sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
       @expand-change="expendhandle" @mousedown.native="mouseDown">
-      <el-table-column align="center" fixed type="index" label="序号">
+      <el-table-column  type="index" align="center"  label="No."  fixed width="50">
       </el-table-column>
       <el-table-column align="center" fixed label="AR单号" prop="masterChainId" sortable min-width="130" :formatter="nullDealWith">
       </el-table-column>

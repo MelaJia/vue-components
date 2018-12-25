@@ -9,8 +9,7 @@
         <el-table-column
           type="index"
           align="center"
-          label="序号"
-          fixed width="60">
+          label="No."  fixed width="50">
         </el-table-column>
         <el-table-column align="center" label="结账日期" fixed sortable prop="agingDate" width="150" :formatter="dateFormat">
         </el-table-column>

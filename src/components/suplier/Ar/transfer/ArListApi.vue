@@ -4,7 +4,7 @@
     <article class="row-merge">
       <el-table :data="rowMergeData" border sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
         @expand-change="expendhandle" :span-method="objectSpanMethod" @mousedown.native="mouseDown">
-        <el-table-column align="center" fixed type="index" label="序号">
+        <el-table-column  type="index" align="center"  label="No."  fixed width="50">
         </el-table-column>
         <el-table-column align="center" fixed label="交易流水号"  min-width="120" prop="transSerialNo" :formatter="nullDealWith">
         </el-table-column>

@@ -5,7 +5,7 @@
     <el-table :data="dataTable" v-loading.fullscreen="dataLoading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)" border  :summary-method="sumHandle([7])" sum-text="本页合计" style="width: 100%" :row-class-name="tableRowClassName"
       @expand-change="expendhandle" :span-method="objectSpanMethod" @mousedown.native="mouseDown">
-      <el-table-column align="center" fixed type="index" label="序号" width="60">
+      <el-table-column align="center" fixed type="index" label="No." width="50">
       </el-table-column>
       <el-table-column align="center" fixed sortable label="AR单号" prop="masterChainId" width="130" :formatter="nullDealWith" >
       </el-table-column>
