@@ -40,7 +40,7 @@ footer {
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common/common'
 import { debounce, postDataBase } from '@/util/util' // 防抖函数
-import mixVerify from '@/mixins/common/common/dialogContract'
+import mixVerify from '@/mixins/common/dialogContract'
 /* 合同确认 */
 export default {
   props: ['visibleP', 'detailsP'],

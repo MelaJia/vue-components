@@ -46,7 +46,7 @@
 <script>
 import TableMixIn from '@/mixins/suplier/Ar/Table' // expendhandle、widthHandle等方法
 import Common from '@/mixins/common/common' // dateFormat等
-import dialogRepay from '@/mixins/common/common/dialogRepay' // 还款计划表混合方法
+import dialogRepay from '@/mixins/common/dialogRepay' // 还款计划表混合方法
 import widhConf from '@/config/width' // 宽度配置
 import { debounce, getDataBase } from '@/util/util' // 首字母大写 防抖函数
 /* 历史Ar列表 */
