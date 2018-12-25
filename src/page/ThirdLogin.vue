@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--修改密码-->
-    <modify-pass :visibleP.sync="modifyVisible" :info="details"></modify-pass>
+    <modify-pass :visibleP.sync="modifyVisible" :tel="tel" :pass="pass"></modify-pass>
     <el-dialog :visible.sync="visi" :before-close="handleClose" :close-on-click-modal="false" class="contractDialog">
       <!--登录界面信息-->
       <section v-if="step==1">
@@ -234,6 +234,8 @@ export default {
       dataInfo: {},
       secretPwd: '', // 加密密码
       details: {},
+      tel: null, // 账号
+      pass: null, // 密码
       step: 1,
       company: {
         corp: '',
@@ -383,7 +385,8 @@ export default {
             this.flags = res.data.data.flag
             this.secretPwd = res.data.data.secretPwd
             this.exists = res.data.data.exist
-            this.details = Object.assign(this.details, res.data.data)
+            this.tel = Object.assign(this.details, res.data.data).tel
+            this.pass = Object.assign(this.details, res.data.data).password
           }
           this.loginLoading2 = false
         } else {
