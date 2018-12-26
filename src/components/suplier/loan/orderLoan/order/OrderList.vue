@@ -33,8 +33,7 @@
         <el-table-column
           type="index"
           align="center"
-          label="序号"
-          fixed width="60">
+          label="No."  fixed width="50">
         </el-table-column>
         <el-table-column align="center" label="订单号" fixed prop="poNumber" width="150" :formatter="nullDealWith">
         </el-table-column>

@@ -17,7 +17,7 @@
         :span-method="objectSpanMethod"
         @mousedown.native="mouseDown"
       >
-        <el-table-column align="center" fixed prop="index" label="序号" width="60"></el-table-column>
+        <el-table-column align="center" fixed prop="index" label="No." width="50"></el-table-column>
         <el-table-column
           align="center"
           fixed

@@ -48,7 +48,7 @@
           :selectable="disableHandle"
           :reserve-selection="true"
         ></el-table-column>
-        <el-table-column type="index" label="序号" fixed width="40"></el-table-column>
+        <el-table-column type="index" label="No." align="center" fixed width="50"></el-table-column>
         <el-table-column
           align="center"
           label="AR单号"
@@ -64,7 +64,7 @@
           width="150"
           :formatter="nullDealWith"
         ></el-table-column>
-        <el-table-column align="center" label="来源" prop="arSourceDesc" :formatter="nullDealWith"></el-table-column>
+        <el-table-column align="center" label="来源" width="80" prop="arSourceDesc" :formatter="nullDealWith"></el-table-column>
         <el-table-column align="center" label="付款单位" prop="companyName" :formatter="nullDealWith"></el-table-column>
         <el-table-column
           align="center"

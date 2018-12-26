@@ -10,8 +10,7 @@
         :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle" @mousedown.native="mouseDown">
         <el-table-column
           type="index"
-          label="序号"
-          fixed width="40">
+          label="No."  fixed width="50">
         </el-table-column>
         <el-table-column align="center" label="融资编号" fixed sortable prop="loanId" min-width="150" :formatter="nullDealWith">
         </el-table-column>

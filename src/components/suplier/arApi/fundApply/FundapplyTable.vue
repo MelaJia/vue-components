@@ -6,13 +6,13 @@
       <el-table ref="table" :data="dataTable" v-loading.fullscreen="dataLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"  :summary-method="sumHandle([7,8])" border style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName" @expand-change="expendhandle" @header-dragend="widthHandle" @mousedown.native="mouseDown"
         >
-        <el-table-column type="index" label="序号" fixed width="40">
+        <el-table-column type="index" align="center" label="No."  fixed width="50">
         </el-table-column>
         <el-table-column align="center" label="AR单号" fixed prop="masterChainId" width="150" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="结报单号" prop="billId" width="100" :formatter="nullDealWith">
+        <el-table-column align="center" label="结报单号" prop="billId" width="150" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="来源" prop="arSourceDesc" :formatter="nullDealWith">
+        <el-table-column align="center" label="来源" prop="arSourceDesc" width="80" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="center" label="付款单位" prop="companyName" :formatter="nullDealWith">
         </el-table-column>
@@ -20,7 +20,7 @@
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="票面金额" prop="billBookAmt" :formatter="regexNum" width="120">
+        <el-table-column align="right" header-align="center" label="票面金额" prop="billBookAmt" :formatter="regexNum" width="150">
         </el-table-column>
         <el-table-column align="center" label="票据到期日" prop="billPayDate" :formatter="dateFormat">
         </el-table-column>
