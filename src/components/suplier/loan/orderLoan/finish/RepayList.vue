@@ -12,17 +12,17 @@
           type="index"
           label="No."  fixed width="50">
         </el-table-column>
-        <el-table-column align="center" label="融资编号" fixed sortable prop="loanId" min-width="150" :formatter="nullDealWith">
+        <el-table-column align="center" label="融资编号" fixed  prop="loanId" min-width="150" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="statusName" :formatter="nullDealWith">
+        <el-table-column align="center" label="状态" prop="statusName" width="80" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="center" label="保理商" prop="factoringCustName" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
+        <el-table-column align="center" label="币别" prop="currencyName" width="80" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="申请金额" prop="applyAmt" :formatter="regexNum" min-width="150">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" :formatter="regexNum"  min-width="120">
+        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" :formatter="regexNum"  min-width="150">
         </el-table-column>
         <el-table-column align="center" label="申请日期" prop="applyDate" :formatter="dateFormat" min-width="120">
         </el-table-column>
@@ -30,7 +30,7 @@
         </el-table-column>
         <el-table-column align="center" label="最后还款日期" prop="repayDate" :formatter="dateFormat" width="120">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款合计" prop="totalRepayAmt" :formatter="regexNum" min-width="120">
+        <el-table-column align="right" header-align="center" label="还款合计" prop="totalRepayAmt" :formatter="regexNum" min-width="150">
         </el-table-column>
         <el-table-column align="center" label="操作" width='150px' class-name="" fixed="right" :resizable="false">
           <template slot-scope="scope">

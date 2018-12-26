@@ -16,10 +16,7 @@
     width: 90%;
   }
   .style-index-right {
-    width: 90%;
-    img{
-      float: right;
-    }
+    display:none;
   }
 }
 @media only screen and (min-width: 1340px) {
@@ -27,11 +24,25 @@
     width: 75%;
   }
   .style-index-right {
+    display:block;
     width: 25%;
     >img {
-      height: 550px;
-      width: 100%;
     }
+  }
+}
+@media only screen and (min-width: 1400px) {
+  .style-index-left {
+    width: 72%;
+  }
+}
+@media only screen and (min-width: 1460px) {
+  .style-index-left {
+    width: 69%;
+  }
+}
+@media only screen and (min-width: 1460px) {
+  .style-index-left {
+    width: 72%;
   }
 }
 </style>

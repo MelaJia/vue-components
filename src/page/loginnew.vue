@@ -712,9 +712,9 @@ async function submitForm (formData = null, modipass) {
     kaptcha: this.verify
   }
   console.log('登录', param)
-  if (process.env.NODE_ENV !== 'development') { // 调试环境
+  if (process.env.NODE_ENV === 'development') { // 调试环境
     let res = {
-      data: { status: 1, msg: '验证码错误', token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 2, custNickname: '阿拉斯加大型犬', legalPhone: '+86-15112663977', contactPhone: '15112663977' }
+      data: { status: 1, msg: '验证码错误', token: 'af49abde71a27624164324aedf29f8d4f2de915c2ebff6b214db9ee34c215abd', custType: 3, custNickname: '阿拉斯加大型犬', legalPhone: '+86-15112663977', contactPhone: '15112663977' }
     }
     let nav = require('@/config/navMenu')[Roles[res.data.custType].model].navItems
     // 菜单处理-开始

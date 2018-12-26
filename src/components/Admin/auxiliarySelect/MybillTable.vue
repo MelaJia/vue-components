@@ -63,7 +63,7 @@
           type="index"
           align="center" label="No."  fixed width="50">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="150">
+        <el-table-column align="center" label="供应商代码" fixed  prop="vendorCode" width="150">
         </el-table-column>
         <el-table-column align="center" label="对账单号" prop="statementNo" width="">
         </el-table-column>
@@ -81,9 +81,9 @@
         </el-table-column>
         <el-table-column align="center" label="购方银行账号" prop="buyerBankNo" width="200">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="金额" prop="amount" width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="金额" prop="amount" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="税额" prop="taxAmount" width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="税额" prop="taxAmount" width="150" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="税价合计" prop="total" width="120" :formatter="regexNum">
         </el-table-column>

@@ -10,7 +10,7 @@
           type="index"
           align="center" label="No."  fixed width="50">
         </el-table-column>
-        <el-table-column align="center" label="结账日期" fixed sortable prop="agingDate" width="150" :formatter="dateFormat">
+        <el-table-column align="center" label="结账日期" fixed  prop="agingDate" width="150" :formatter="dateFormat">
         </el-table-column>
         <el-table-column align="center" label="供应商代码" prop="vendorCode" width="150">
         </el-table-column>
@@ -30,15 +30,15 @@
         </el-table-column>
         <el-table-column align="center" label="关系单位" prop="isRelativePartyName" width="100">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="逾期欠款金额" prop="totalDueARAmount" width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="逾期欠款金额" prop="totalDueARAmount" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="未到期欠款金额" prop="totalUndueARAmount" width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="未到期欠款金额" prop="totalUndueARAmount" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="欠款总金额" prop="totalARAmount" width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="欠款总金额" prop="totalARAmount" width="150" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="报表日的预付款余额" prop="advanceReceiptsAmount" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" width="100">
+        <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
         <el-table-column align="center" label="创建日期" prop="createTime" width="100" :formatter="dateFormat">
         </el-table-column>

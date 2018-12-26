@@ -27,7 +27,6 @@
           align="center"
           label="融资编号"
           fixed
-          sortable
           prop="loanId"
           min-width="150"
           :formatter="nullDealWith"
@@ -45,14 +44,14 @@
           label="状态"
           prop="statusName"
           :formatter="nullDealWith"
-          width="120"
+          width="80"
         ></el-table-column>
         <el-table-column
           align="center"
           label="币别"
           prop="currencyName"
           :formatter="nullDealWith"
-          width="120"
+          width="80"
         ></el-table-column>
         <el-table-column
           align="right"
@@ -60,7 +59,7 @@
           label="实放金额"
           prop="loanAmt"
           :formatter="regexNum"
-          min-width="120"
+          min-width="150"
         ></el-table-column>
         <el-table-column
           align="center"

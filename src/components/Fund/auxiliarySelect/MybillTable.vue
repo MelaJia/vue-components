@@ -64,7 +64,7 @@
           align="center"
           label="No."  fixed width="50">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" min-width="150">
+        <el-table-column align="center" label="供应商代码" fixed  prop="vendorCode" min-width="150">
         </el-table-column>
         <el-table-column align="center" label="对账单号" prop="statementNo" min-width="150">
         </el-table-column>
@@ -82,13 +82,13 @@
         </el-table-column>
         <el-table-column align="center" label="购方银行账号" prop="buyerBankNo" min-width="200">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="金额" prop="amount" min-width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="金额" prop="amount" min-width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="税额" prop="taxAmount" min-width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="税额" prop="taxAmount" min-width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="税价合计" prop="total" min-width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="税价合计" prop="total" min-width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="statusName" min-width="80">
+        <el-table-column align="center" label="状态" prop="statusName" width="80">
         </el-table-column>
         <el-table-column align="center" label="发送状态" prop="postStatusName" min-width="80">
         </el-table-column>

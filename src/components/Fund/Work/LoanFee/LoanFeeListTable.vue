@@ -7,7 +7,7 @@
       @expand-change="expendhandle" @mousedown.native="mouseDown">
       <el-table-column align="center" fixed type="index" label="No." width="50">
       </el-table-column>
-      <el-table-column align="center" fixed sortable label="客户名称" prop="companyName" min-width="130">
+      <el-table-column align="center" fixed  label="客户名称" prop="companyName" min-width="130">
       </el-table-column>
       <el-table-column align="center" label="供应商代码" prop="vendorCode">
       </el-table-column>

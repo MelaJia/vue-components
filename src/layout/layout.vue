@@ -1,12 +1,12 @@
 <template>
   <div>
     <el-container style="background: #f0f0f0;">
-      <el-header height="84px" style="position: fixed;width: 100%;z-index: 9;top:0px;">
+      <el-header height="70px" style="position: fixed;width: 100%;z-index: 9;top:0px;">
         <header>
           <header-section @pwd-chage="pwdChange"></header-section>
         </header>
       </el-header>
-      <el-container style="margin-top: 84px;">
+      <el-container style="margin-top: 70px;">
         <!-- 密码修改 -->
         <dialog-pass-update :visible-p.sync="dialogPassVisible"></dialog-pass-update>
         <template v-if="navItems!==null&&navItems.length>0&&!interfaceTransSerial">
@@ -32,7 +32,7 @@
         </template>
         <el-main style="padding-top:0px; transition: all 1s;overflow: hidden;" :style="{'margin-left': width +'px'}">
           <tags v-if="navItems!==null&&navItems.length>0&&!interfaceTransSerial" ref="nav" class="nav"></tags>
-          <section :style="'height:auto;margin-top: 40px;'">
+          <section :style="'height:auto;margin-top: 47px;'">
             <slot></slot>
           </section>
         </el-main>
@@ -82,7 +82,7 @@ export default {
   },
   created () {
     this.interfaceTransSerial = GetQueryString('interfaceTransSerial')
-    this.width = this.navItems !== null && this.navItems.length > 0 && !this.interfaceTransSerial ? 180 : 0
+    this.width = this.navItems !== null && this.navItems.length > 0 && !this.interfaceTransSerial ? getElWidth() < 1400 ? 65 : 180 : 0
   },
   methods: {
     pwdChange: pwdChange
@@ -92,5 +92,8 @@ export default {
 function pwdChange () {
   console.log('修改密码')
   this.dialogPassVisible = true
+}
+function getElWidth () {
+  return document.documentElement.clientWidth
 }
 </script>

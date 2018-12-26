@@ -12,15 +12,15 @@
         </el-table-column>
         <el-table-column align="center" label="接收方" prop="custToName" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="arStatusTypeName" :formatter="nullDealWith">
+        <el-table-column align="center" label="状态" prop="arStatusTypeName" width="80" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyDesc" :formatter="nullDealWith">
+        <el-table-column align="center" label="币别" prop="currencyDesc" width="80" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="center" label="AR单号" prop="masterChainId"  min-width="130" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="center" label="结报单号" prop="billId" width="130" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="转让金额" prop="transAmt" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="转让金额" prop="transAmt" min-width="150"  :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="票据到期日" prop="billPayDate" :formatter="dateFormat" min-width="120">
         </el-table-column>

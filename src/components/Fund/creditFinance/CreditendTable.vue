@@ -81,41 +81,41 @@
         </el-table-column>
         <el-table-column align="center" label="融资客户" fixed prop="companyName" min-width="120">
         </el-table-column>
-        <el-table-column align="center" label="融资编号" sortable prop="loanId" min-width="120">
+        <el-table-column align="center" label="融资编号"  prop="loanId" min-width="120">
         </el-table-column>
         <el-table-column align="center" label="融资类型" prop="loanTypeName" min-width="100">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="贴现申请金额" prop="applyAmt" min-width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="贴现申请金额" prop="applyAmt" min-width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" min-width="80">
+        <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="statusName" min-width="80">
+        <el-table-column align="center" label="状态" prop="statusName" width="80">
         </el-table-column>
         <el-table-column align="center" label="还款方式" prop="repaymentType" min-width="150">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" min-width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" min-width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款本金" prop="payPrincipalAmt" min-width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="还款本金" prop="payPrincipalAmt" min-width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款利息" prop="payInterestAmt" min-width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="还款利息" prop="payInterestAmt" min-width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款服务费" prop="payServiceAmt" min-width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="还款服务费" prop="payServiceAmt" min-width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="罚息" prop="payFineAmt" min-width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="罚息" prop="payFineAmt" min-width="150" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="罚息天数" prop="payFineDays" min-width="100">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepaymentDeductInterest" :formatter="regexNum" min-width="100">
+        <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepaymentDeductInterest" :formatter="regexNum" min-width="150">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款优惠金额" prop="periodReliefAmt" width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="还款优惠金额" prop="periodReliefAmt" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款合计" prop="totalRepayAmt" min-width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="还款合计" prop="totalRepayAmt" min-width="150" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="合同签署日期" prop="contractSignedDate" min-width="100" :formatter="dateFormat">
         </el-table-column>
         <el-table-column align="center" label="还款日期" prop="repayDate" min-width="100" :formatter="dateFormat">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="实际还款金额" prop="actualRepayAmt" min-width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="实际还款金额" prop="actualRepayAmt" min-width="150" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="实际还款日期" prop="actualRepayDate" min-width="100" :formatter="dateFormat">
         </el-table-column>

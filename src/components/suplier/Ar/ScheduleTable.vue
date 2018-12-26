@@ -24,13 +24,13 @@
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyDesc" width="80">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="票面金额" prop="billBookAmt" width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="票面金额" prop="billBookAmt" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="实际放款金额" prop="loanAmt" width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="实际放款金额" prop="loanAmt" width="150" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="票据到期日" prop="billPayDate" :formatter="dateFormat" width="100">
         </el-table-column>
-        <el-table-column align="center" label="打款处理状态" prop="billPayStatus" width="140">
+        <el-table-column align="center" label="结报状态" prop="billPayStatus" width="140">
           <template slot-scope="scope">
             <el-tooltip class="item" effect="light" placement="top-start">
               <div slot="content" class="status-tooltip">

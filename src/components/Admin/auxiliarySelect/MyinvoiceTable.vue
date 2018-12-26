@@ -59,7 +59,7 @@
           type="index"
           align="center" label="No."  fixed width="50">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="150">
+        <el-table-column align="center" label="供应商代码" fixed  prop="vendorCode" width="150">
         </el-table-column>
         <el-table-column align="center" label="发票单号" prop="invoiceNo" width="">
         </el-table-column>
@@ -75,7 +75,7 @@
         </el-table-column>
         <el-table-column align="right" header-align="center" label="税价合计" prop="total" width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" width="100">
+        <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
         <el-table-column align="center" label="发票类型" prop="invoiceTypeName" width="100">
         </el-table-column>

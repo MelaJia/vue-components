@@ -111,7 +111,7 @@ import Common from '@/mixins/common/common'
 /* 待收Ar详情 */
 export default {
   props: {
-    visibleP: String,
+    visibleP: Boolean,
     detailsP: Object,
     showRepayBtn: {
       type: Boolean,
@@ -121,7 +121,8 @@ export default {
   mixins: [DialogClose, Common],
   data () {
     return {
-      radio2: 3
+      dialogRepayInfoVisible: false,
+      details: {}
     }
   },
   computed: {

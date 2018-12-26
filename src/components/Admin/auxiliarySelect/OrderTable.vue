@@ -10,7 +10,7 @@
           type="index"
           align="center" label="No."  fixed width="50">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="120">
+        <el-table-column align="center" label="供应商代码" fixed  prop="vendorCode" width="120">
         </el-table-column>
         <el-table-column align="center" fixed label="法人代码" prop="corpCode" width="120">
         </el-table-column>
@@ -20,7 +20,7 @@
         </el-table-column>
         <el-table-column align="center" label="项次" prop="poItem" width="80">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="金额" prop="poAmount" width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="金额" prop="poAmount" width="150" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>

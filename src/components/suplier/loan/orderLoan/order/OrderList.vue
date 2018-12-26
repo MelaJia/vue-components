@@ -41,9 +41,9 @@
         </el-table-column>
         <el-table-column align="center" label="下单法人名称" prop="corpName" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="订单金额" prop="poAmount" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="订单金额" prop="poAmount" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith">
+        <el-table-column align="center" label="币别" prop="currencyName" width="80" :formatter="nullDealWith">
         </el-table-column>
         <el-table-column align="center" label="订单确认日期" prop="confirmDate" :formatter="dateFormat" width="120">
         </el-table-column>

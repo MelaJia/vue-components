@@ -43,7 +43,7 @@
       </ul>
       <ul>
         <li>
-          <span>打款处理状态: <em>{{this.detailsP.statusName}}</em></span>
+          <span>结报状态: <em>{{this.detailsP.statusName}}</em></span>
         </li>
       </ul>
     </section>

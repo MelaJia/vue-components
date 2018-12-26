@@ -7,7 +7,7 @@
       @expand-change="expendhandle" @mousedown.native="mouseDown">
       <el-table-column align="center" fixed type="index" label="No." width="50">
       </el-table-column>
-      <el-table-column align="center" fixed sortable label="AR单号" prop="masterChainId" width="130">
+      <el-table-column align="center" fixed  label="AR单号" prop="masterChainId" width="130">
       </el-table-column>
       <el-table-column align="center" label="结报单号" prop="billId">
       </el-table-column>
