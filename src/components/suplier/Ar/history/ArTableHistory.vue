@@ -58,7 +58,7 @@
         </el-table-column>
         <el-table-column type="index" align="center" label="No."  fixed width="50">
         </el-table-column>
-        <el-table-column align="center" label="AR单号" fixed sortable prop="masterChainId" width="150">
+        <el-table-column align="center" label="AR单号" fixed  prop="masterChainId" width="150">
         </el-table-column>
         <el-table-column align="center" label="结报单号" prop="billId" width="150">
         </el-table-column>

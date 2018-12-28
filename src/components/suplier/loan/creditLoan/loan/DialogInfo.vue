@@ -111,7 +111,7 @@ import Common from '@/mixins/common/common'
 /* 待收Ar详情 */
 export default {
   props: {
-    visibleP: String,
+    visibleP: Boolean,
     detailsP: Object,
     showRepayBtn: {
       type: Boolean,

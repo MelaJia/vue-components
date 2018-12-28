@@ -9,7 +9,7 @@
       @expand-change="expendhandle" @mousedown.native="mouseDown">
       <el-table-column align="center" fixed type="index" label="No." width="50">
       </el-table-column>
-      <el-table-column align="center" fixed sortable label="贴现客户" prop="custFromName" width="130" :formatter="nullDealWith" >
+      <el-table-column align="center" fixed  label="贴现客户" prop="custFromName" width="130" :formatter="nullDealWith" >
       </el-table-column>
       <el-table-column align="center" label="一级供应商" prop="companyNameOfL1" :formatter="nullDealWith" >
       </el-table-column>

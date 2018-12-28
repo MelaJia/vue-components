@@ -60,6 +60,7 @@
           header-align="center"
           label="转让金额"
           prop="transAmt"
+          width="150"
           :formatter="regexNum"
         ></el-table-column>
         <el-table-column

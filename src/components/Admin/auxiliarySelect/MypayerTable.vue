@@ -53,7 +53,7 @@
           type="index"
           align="center" label="No."  fixed width="50">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="150">
+        <el-table-column align="center" label="供应商代码" fixed  prop="vendorCode" width="150">
         </el-table-column>
         <el-table-column align="center" label="付款编号" prop="payNo" width="">
         </el-table-column>
@@ -67,7 +67,7 @@
         </el-table-column>
         <el-table-column align="right" header-align="center" label="实际付款金额" prop="rcvAmtOrigin" width="120" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" width="100">
+        <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
         <el-table-column align="center" label="付款日期" prop="payDate" width="100" :formatter="dateFormat">
         </el-table-column>

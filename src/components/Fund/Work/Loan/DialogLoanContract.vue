@@ -239,11 +239,11 @@ function submit () {
         supplierCustId: this.detailsP.supplierCustId,
         billBookAmt: this.detailsP.billBookAmt, // 贴现金额
         loanPer: this.loanPer, // 放款比例
-        actualDiscountAmt: this.detailsP.actualDiscountAmt || '', // 实放金額 修复只根据放款比例计算得到结果
-        interestRate: this.detailsP.interestRate || '', // 贴现利率
-        serviceFeeRate: this.detailsP.serviceFeeRate || '', // 服务费率
-        overdueRate: this.detailsP.overdueRate || '', // 逾期利率
-        prepaymentDeductInterest: this.detailsP.prepaymentDeductInterest || '', // 提前还款手续费
+        actualDiscountAmt: this.detailsP.actualDiscountAmt || 0, // 实放金額 修复只根据放款比例计算得到结果
+        interestRate: this.detailsP.interestRate || 0, // 贴现利率
+        serviceFeeRate: this.detailsP.serviceFeeRate || 0, // 服务费率
+        overdueRate: this.detailsP.overdueRate || 0, // 逾期利率
+        prepaymentDeductInterest: this.detailsP.prepaymentDeductInterest || 0, // 提前还款手续费
         repaymentType: this.detailsP.repaymentType || '', // 还款方式
         fineGraceDays: this.detailsP.fineGraceDays || '', // 宽容天数
         billPayDate: this.detailsP.billPayDate, // 预计回款日期

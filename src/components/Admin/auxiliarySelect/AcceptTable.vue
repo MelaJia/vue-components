@@ -55,7 +55,7 @@
           type="index"
           align="center" label="No."  fixed width="50">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="120">
+        <el-table-column align="center" label="供应商代码" fixed  prop="vendorCode" width="120">
         </el-table-column>
         <el-table-column align="center" label="法人代码" prop="corpCode" width="100">
         </el-table-column>

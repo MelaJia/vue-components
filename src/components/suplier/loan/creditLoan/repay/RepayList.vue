@@ -24,13 +24,12 @@
           align="center"
           label="融资编号"
           fixed
-          sortable
           prop="loanId"
           width="150"
           :formatter="nullDealWith"
         ></el-table-column>
-        <el-table-column align="center" label="状态" prop="statusName" :formatter="nullDealWith"></el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith"></el-table-column>
+        <el-table-column align="center" label="状态" prop="statusName" width="80" :formatter="nullDealWith"></el-table-column>
+        <el-table-column align="center" label="币别" prop="currencyName" width="80" :formatter="nullDealWith"></el-table-column>
         <el-table-column
           align="right"
           header-align="center"
@@ -45,7 +44,7 @@
           label="实放金额"
           prop="loanAmt"
           :formatter="regexNum"
-          width="120"
+          width="150"
         ></el-table-column>
         <el-table-column
           align="center"

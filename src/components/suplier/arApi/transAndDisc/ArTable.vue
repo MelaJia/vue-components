@@ -79,7 +79,7 @@
           label="票面金额"
           prop="billBookAmt"
           :formatter="regexNum"
-          width="120"
+          width="150"
         ></el-table-column>
         <el-table-column
           align="right"
@@ -87,7 +87,7 @@
           label="可用余额"
           prop="loanAmt"
           :formatter="regexNum"
-          width="120"
+          width="150"
         ></el-table-column>
         <el-table-column align="center" label="票据到期日" prop="billPayDate" :formatter="dateFormat"></el-table-column>
         <el-table-column

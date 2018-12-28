@@ -88,7 +88,7 @@
             </el-table>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="AR单号" fixed sortable prop="masterChainId" width="150">
+        <el-table-column align="center" label="AR单号" fixed  prop="masterChainId" width="150">
         </el-table-column>
         <el-table-column align="center" label="结报单号" prop="billId" width="150">
         </el-table-column>
@@ -124,7 +124,7 @@
         </el-table-column>
         <el-table-column align="center" label="预计还款日期" prop="periodPayDate" :formatter="dateFormat" width="110">
         </el-table-column>
-        <el-table-column align="center" label="打款处理状态">
+        <el-table-column align="center" label="结报状态">
           <template slot-scope="scope">
             <el-tooltip class="item" effect="light" placement="top-start">
                       <div slot="content" class="status-tooltip">

@@ -53,7 +53,7 @@
           type="index"
           align="center" label="No."  fixed width="50">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="150">
+        <el-table-column align="center" label="供应商代码" fixed  prop="vendorCode" width="150">
         </el-table-column>
         <el-table-column align="center" label="结报单号" prop="billNo" width="150">
         </el-table-column>
@@ -67,11 +67,11 @@
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="应付金额" prop="oriAmt" width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="应付金额" prop="oriAmt" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="已付金额" prop="oriPaidAmt" width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="已付金额" prop="oriPaidAmt" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="未付金额" prop="oriUnPaidAmt" width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="未付金额" prop="oriUnPaidAmt" width="150" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" fixed="right" label="操作" header-align="center" width="60">
           <template slot-scope="scope">

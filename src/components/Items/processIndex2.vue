@@ -32,6 +32,7 @@
 }
 section {
   overflow: hidden;
+  margin-bottom: 40px;
 }
 .idx-process-left {
   float: left;

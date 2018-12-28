@@ -1,8 +1,8 @@
 <template>
-  <div class="header-section">
+  <div class="header-section" style="margin-top: 7px;">
     <div class="width-50">
       <div class="header-left">
-        <img src="@/assets/img/logo.png" style="height:85px" alt>
+        <img src="@/assets/img/images/header_logo.png" alt>
       </div>
     </div>
     <div class="width-50">
@@ -73,20 +73,20 @@
 }
 .header-right #img {
   background: url("~@/assets/img/juxin_18.png");
-  width: 60px;
-  height: 60px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   display: block;
   /* position: absolute;
   left: 0;
   top: -5px; */
-  background-position: -5px -7px;
+  background-position: -9px -12px;
   background-repeat: no-repeat;
   background-size: 70px 70px;
 }
 /* 文字区域 */
 .header-right>.text-content{
-  margin: 0 20px;
+  margin: 0 15px;
 }
 .header-right>.text-content p{
   color: #fff;
@@ -118,7 +118,7 @@
 }
 /* 右侧图标 */
 .el-dropdown {
-  padding-top: 30px;
+  padding-top: 5px;
   margin: 0 20px;
 }
 .el-dropdown > span {

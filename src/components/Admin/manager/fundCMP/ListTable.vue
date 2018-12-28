@@ -11,7 +11,7 @@
       </el-table-column>
       <el-table-column align="center" label="角色" prop="roleDes" :formatter="nullDealWith" >
       </el-table-column>
-      <el-table-column align="center" sortable label="公司名称" prop="companyName" width="220" :formatter="nullDealWith" >
+      <el-table-column align="center"  label="公司名称" prop="companyName" width="220" :formatter="nullDealWith" >
       </el-table-column>
       <el-table-column align="center" label="法人代表" prop="legalPerson" :formatter="nullDealWith" >
       </el-table-column>

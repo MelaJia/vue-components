@@ -56,7 +56,7 @@
           align="center"
           label="No."  fixed width="50">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="120">
+        <el-table-column align="center" label="供应商代码" fixed  prop="vendorCode" width="120">
         </el-table-column>
         <el-table-column align="center" label="法人代码" prop="corpCode" width="">
         </el-table-column>
@@ -70,7 +70,7 @@
         </el-table-column>
         <el-table-column align="center" label="类型" prop="dataType" width="80">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="金额" prop="amount" width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="金额" prop="amount" width="150" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
@@ -141,7 +141,7 @@ export default {
         grnItem: '80',
         poNumber: '120',
         dataType: '80',
-        amount: '120',
+        amount: '150',
         currencyName: '80',
         deliveryDate: '100',
         confirmDate: '100',

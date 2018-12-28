@@ -18,13 +18,13 @@
         </el-table-column>
         <el-table-column align="center" label="保理商" prop="custToName" width="">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="checkedStatusName" width="90">
+        <el-table-column align="center" label="状态" prop="checkedStatusName" width="80">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyDesc" width="80">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="申请金额" prop="applyAmt" width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="申请金额" prop="applyAmt" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" width="100" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" width="150" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="票据到期日" prop="billPayDate" :formatter="dateFormat" width="100">
         </el-table-column>

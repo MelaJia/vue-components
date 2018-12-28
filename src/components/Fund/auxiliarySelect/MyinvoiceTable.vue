@@ -60,7 +60,7 @@
           align="center"
           label="No."  fixed width="50">
         </el-table-column>
-        <el-table-column align="center" label="供应商代码" fixed sortable prop="vendorCode" width="150">
+        <el-table-column align="center" label="供应商代码" fixed  prop="vendorCode" width="150">
         </el-table-column>
         <el-table-column align="center" label="发票单号" prop="invoiceNo" width="">
         </el-table-column>
@@ -70,17 +70,17 @@
         </el-table-column>
         <el-table-column align="center" label="购方名称" prop="buyerName" width="180">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="金额" prop="amount" width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="金额" prop="amount" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="税额" prop="taxAmount" width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="税额" prop="taxAmount" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="税价合计" prop="total" width="120" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="税价合计" prop="total" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" header-align="center" label="币别" prop="currencyName" width="100">
+        <el-table-column align="center" header-align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
         <el-table-column align="center" label="发票类型" prop="invoiceTypeName" width="100">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="statusName" width="100">
+        <el-table-column align="center" label="状态" prop="statusName" width="80">
         </el-table-column>
         <el-table-column align="center" label="开票日期" prop="entryDate" width="100" :formatter="dateFormat">
         </el-table-column>
@@ -147,12 +147,12 @@ export default {
         statementNo: '150',
         sellerName: '180',
         buyerName: '180',
-        amount: '120',
-        taxAmount: '120',
-        total: '120',
-        currencyName: '100',
+        amount: '150',
+        taxAmount: '150',
+        total: '150',
+        currencyName: '80',
         invoiceTypeName: '100',
-        statusName: '100',
+        statusName: '80',
         entryDate: '100',
         creationDate: '100'
       }

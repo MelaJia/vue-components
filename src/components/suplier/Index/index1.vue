@@ -6,7 +6,7 @@
     <div class="content left-right">
       <section class="float-left" style="position:relative;margin-top: -100px;">
         <!-- 图形区域 -->
-        <pie-2 ref="pie2" :data="echartData" :sort-arr="sortArr" :width="500"></pie-2>
+        <pie-2 ref="pie2" :data="echartData" :sort-arr="sortArr" :width="500" :height="500"></pie-2>
         <!-- 底部链接区域 -->
         <div class="url-section">
           <div class="bg-style bg-blue">
@@ -20,9 +20,8 @@
         <el-row>
           <el-col
             class="flex-circle"
+            :span="8"
             :xl="8"
-            :md="24"
-            :xs="24"
             v-for="(item,idx) in rightDataArr"
             :key="idx"
           >
@@ -38,9 +37,9 @@
   margin: 0;
 }
 /* 流式布局左边圆圈图 */
-@media only screen and (min-width: 1370px) {
+@media only screen and (min-width: 980px) {
   .flex-circle {
-    width: 50%;
+    width: 40%;
   }
 }
 @media only screen and (min-width: 1600px) {
@@ -77,7 +76,7 @@
 
 .url-section {
   position: absolute;
-  bottom: 20px;
+  bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;

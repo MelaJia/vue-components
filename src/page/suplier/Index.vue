@@ -4,7 +4,7 @@
       <title>AR融资概况</title>
       <component v-bind:is="'dialog-index1'"></component>
     </el-card>
-    <div style="margin-top: 40px;">
+    <div style="margin-top: 20px;">
     <component v-bind:is="'dialog-index2'"></component>
     </div>
   </div>

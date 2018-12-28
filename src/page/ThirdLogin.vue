@@ -2,7 +2,7 @@
   <div>
     <!--修改密码-->
     <modify-pass :visibleP.sync="modifyVisible" :tel="tel" :pass="pass"></modify-pass>
-    <el-dialog :visible.sync="visi" :before-close="handleClose" :close-on-click-modal="false" class="contractDialog">
+    <el-dialog :visible.sync="visi" :before-close="handleClose" :close-on-click-modal="false" class="third-contractDialog">
       <!--登录界面信息-->
       <section v-if="step==1">
         <header class="title">
@@ -181,7 +181,7 @@
 }
 </style>
 <style lang="scss">
-.contractDialog{
+.third-contractDialog{
   .el-dialog{
     width:350px;
     border-radius:14px;

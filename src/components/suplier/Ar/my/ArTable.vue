@@ -123,7 +123,6 @@
           align="center"
           label="AR单号"
           fixed
-          sortable
           prop="masterChainId"
           width="150"
         ></el-table-column>

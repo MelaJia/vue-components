@@ -5,23 +5,23 @@
       @expand-change="expendhandle" @mousedown.native="mouseDown">
       <el-table-column  type="index" align="center"  label="No."  fixed width="50">
       </el-table-column>
-      <el-table-column align="center" fixed label="AR单号" prop="masterChainId" sortable min-width="130" :formatter="nullDealWith">
+      <el-table-column align="center" fixed label="AR单号" prop="masterChainId"  min-width="130" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" fixed sortable label="结报单号" prop="billId" width="130" :formatter="nullDealWith">
+      <el-table-column align="center" fixed  label="结报单号" prop="billId" width="130" :formatter="nullDealWith">
       </el-table-column>
       <el-table-column align="center" label="付款单位" prop="company" :formatter="nullDealWith">
       </el-table-column>
       <el-table-column align="center" label="授让单位" prop="custFromName" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="交易流水号" sortable min-width="120" prop="transSerialNo" :formatter="nullDealWith">
+      <el-table-column align="center" label="交易流水号"  min-width="120" prop="transSerialNo" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="状态" prop="arStatusTypeName" :formatter="nullDealWith">
+      <el-table-column align="center" label="状态" prop="arStatusTypeName" width="80" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="center" label="币别" prop="currencyDesc" :formatter="nullDealWith">
+      <el-table-column align="center" label="币别" prop="currencyDesc" width="80" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="right" header-align="center" label="转让金额" prop="transAmt" :formatter="regexNum">
+      <el-table-column align="right" header-align="center" label="转让金额" prop="transAmt" width="150" :formatter="regexNum">
       </el-table-column>
-      <el-table-column align="center" label="授让日期" sortable prop="transDate" :formatter="dateFormat" min-width="120">
+      <el-table-column align="center" label="授让日期"  prop="transDate" :formatter="dateFormat" min-width="120">
       </el-table-column>
       <el-table-column align="center" label="票据到期日" prop="billPayDate" :formatter="dateFormat" min-width="120">
       </el-table-column>

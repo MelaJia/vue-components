@@ -5,18 +5,20 @@
     </div>
     <div class="content left-right">
       <!-- 左侧部分 -->
-      <section class="float-left" style="position:relative;margin-top: -100px;">
+      <section class="float-left" style="position:relative;margin-top: -100px;" :style="{'margin-left': !isShowTool ?'-120px' : '0px'}">
         <!-- 图表区域 -->
-        <pie ref="pie" :data="echartData" :sort-arr="sortArr" :width="500"></pie>
+        <pie ref="pie" :data="echartData" :sort-arr="sortArr" :width="450" :height="500" :show-tool="isShowTool"></pie>
         <!-- 底部链接区域 -->
         <div class="url-section">
           <div class="bg-style bg-blue">
-            <router-link to="loan">去放款<img src="@/assets/img/images/index_icon02.png" alt="" srcset=""></router-link>
+            <router-link to="loan">去放款
+              <img src="@/assets/img/images/index_icon02.png" alt srcset>
+            </router-link>
           </div>
         </div>
       </section>
       <!-- 右侧部分 -->
-      <section class="float-left" style="width: calc(100% - 500px);margin-top: 50px;">
+      <section class="float-left" style="width: 446px;margin-top: 50px;">
         <el-row>
           <el-col class="style-flex-circle" :span="14">
             <process-text :data="dataArr.loanedNo" :total="rightSum" :is-detail="true"></process-text>
@@ -26,8 +28,14 @@
             <div class="orderList first">
               <header class="title">{{dataArr.loaned.title}}</header>
               <div class="text-body">
-                <p>{{dataArr.loaned.data.firData.name}}<strong>{{ dataArr.loaned.data.firData.value | regexNum}}</strong> 万元</p>
-                <p class="color_green">{{dataArr.loaned.data.secData.name}}<strong>{{ dataArr.loaned.data.secData.value | regexNum}}</strong> 万元</p>
+                <p>
+                  {{dataArr.loaned.data.firData.name}}
+                  <strong>{{ dataArr.loaned.data.firData.value | regexNum}}</strong> 万元
+                </p>
+                <p class="color_green">
+                  {{dataArr.loaned.data.secData.name}}
+                  <strong>{{ dataArr.loaned.data.secData.value | regexNum}}</strong> 万元
+                </p>
               </div>
               <div class="url">
                 <router-link :to="dataArr.loaned.path">查看明细></router-link>
@@ -52,12 +60,15 @@
 * {
   margin: 0;
 }
+.el-card.is-always-shadow, .el-card.is-hover-shadow:focus, .el-card.is-hover-shadow:hover{
+  box-shadow:none;
+}
 @media only screen and (min-width: 960px) {
   .style-flex-order {
-    width: 50%;
+    // width: 50%;
   }
   .style-flex-circle {
-    width: 100%;
+    // width: 100%;
   }
 }
 @media only screen and (min-width: 1552px) {
@@ -94,7 +105,7 @@
 /* 链接样式 */
 .url-section {
   position: absolute;
-  bottom: 100px;
+  bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -135,36 +146,37 @@
   text-align: left;
   font-size: 14px;
   color: #7f7f7f;
-  width: 100%;
+  width: 150px;
   padding: 20px 15px;
   & {
     border-left: 1px solid #dfdfdf;
     border-right: 1px solid #dfdfdf;
     border-top: 1px solid #dfdfdf;
   }
-  &.second{
+  &.second {
     border-bottom: 1px solid #dfdfdf;
   }
-  p>strong{
+  p > strong {
     margin-left: 5px;
     font-size: 20px;
-    color:#303133;
+    color: #303133;
   }
-  p.color_green{
-    &,>strong{
+  p.color_green {
+    &,
+    > strong {
       color: #5dc850;
     }
   }
   .url > a {
     color: #7f7f7f;
   }
-  .red{
-    &,&>strong{
+  .red {
+    &,
+    & > strong {
       color: #db2e1b;
     }
   }
 }
-
 </style>
 
 <script>
@@ -236,8 +248,12 @@ export default {
           path: 'loanreject', // 路径
           bcolor: '#6daf40' // 背景色
         }
-      }
+      },
+      isShowTool: false
     }
+  },
+  created () {
+    this.isShowTool = !(getElWidth() > 1325 && getElWidth() < 1565)
   },
   mounted () {
     // 获取数据
@@ -305,5 +321,8 @@ function sumAdd (object) {
     }
   }
   return result / 100
+}
+function getElWidth () {
+  return document.documentElement.clientWidth
 }
 </script>

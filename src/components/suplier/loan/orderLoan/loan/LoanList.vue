@@ -15,11 +15,11 @@
           align="center"
           label="No."  fixed width="50">
         </el-table-column>
-        <el-table-column align="center" label="融资编号" fixed sortable prop="loanId" min-width="150" :formatter="nullDealWith">
+        <el-table-column align="center" label="融资编号" fixed  prop="loanId" min-width="150" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="statusName" :formatter="nullDealWith" width="120">
+        <el-table-column align="center" label="状态" prop="statusName" :formatter="nullDealWith" width="80">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith" width="120">
+        <el-table-column align="center" label="币别" prop="currencyName" :formatter="nullDealWith" width="80">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="申请金额" prop="applyAmt" min-width="150" :formatter="regexNum">
         </el-table-column>

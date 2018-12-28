@@ -11,7 +11,7 @@
       @expand-change="expendhandle" @mousedown.native="mouseDown">
       <el-table-column align="center" fixed type="index" label="No." width="50">
       </el-table-column>
-      <el-table-column align="center" fixed sortable label="AR单号" prop="masterChainId" width="130" :formatter="nullDealWith">
+      <el-table-column align="center" fixed  label="AR单号" prop="masterChainId" width="130" :formatter="nullDealWith">
       </el-table-column>
       <el-table-column align="center" label="结报单号" prop="billId" :formatter="nullDealWith">
       </el-table-column>
@@ -19,9 +19,9 @@
       </el-table-column>
       <el-table-column align="center" label="币别" prop="currencyDesc" :formatter="nullDealWith">
       </el-table-column>
-      <el-table-column align="right" header-align="center" label="贴现金额" prop="billBookAmt" :formatter="regexNum">
+      <el-table-column align="right" header-align="center" label="贴现金额" prop="billBookAmt" width="150" :formatter="regexNum">
       </el-table-column>
-      <el-table-column align="right" header-align="center" label="实放金额" prop="discountAmt" :formatter="regexNum">
+      <el-table-column align="right" header-align="center" label="实放金额" prop="discountAmt" width="150" :formatter="regexNum">
       </el-table-column>
       <el-table-column align="center" label="票据到期日" prop="billPayDate" min-width="120" :formatter="dateFormat">
       </el-table-column>
@@ -32,7 +32,7 @@
       </el-table-column>
       <el-table-column align="center" label="贴现状态" prop="arStatusTypeName">
       </el-table-column>
-      <el-table-column align="center" label="打款处理状态" min-width="100">
+      <el-table-column align="center" label="结报状态" min-width="100">
           <template slot-scope="scope">
             <el-tooltip class="item" effect="light" placement="top-start">
                 <div slot="content" class="status-tooltip">

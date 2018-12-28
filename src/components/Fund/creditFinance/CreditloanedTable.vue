@@ -75,13 +75,13 @@
         </el-table-column>
         <el-table-column align="center" label="融资客户" fixed prop="companyName" min-width="120">
         </el-table-column>
-        <el-table-column align="center" label="融资编号" fixed sortable prop="loanId" min-width="120">
+        <el-table-column align="center" label="融资编号" fixed  prop="loanId" min-width="120">
         </el-table-column>
         <el-table-column align="center" label="融资类型" prop="loanTypeName" min-width="100">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="贴现申请金额" prop="applyAmt" min-width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="币别" prop="currencyName" min-width="80">
+        <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
         <el-table-column align="center" label="还款方式" prop="repaymentType" min-width="150">
         </el-table-column>
