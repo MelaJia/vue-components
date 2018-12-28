@@ -10,7 +10,7 @@
           <p class="listTitle">AR业务</p>
           <ul>
             <li><span><img src="@/assets/img/images/index_icon04.png">待合同签署</span><router-link :to="{path:'/suplier/financingbill',query:{checkedStatus:23}}" tag="a">{{aRWaitSignList}}笔<i v-if="aRWaitSignList > 0"></i></router-link></li>
-            <li><span><img src="@/assets/img/images/index_icon05.png">待还款</span><router-link :to="{path:'/suplier/waitrepay',query:{checkedStatus:26}}" tag="a">{{aRWaitRepayList}}笔<i v-if="aRWaitRepayList > 0"></i></router-link></li>
+            <li><span><img src="@/assets/img/images/index_icon05.png">待还款</span><router-link :to="{path:'/suplier/WaitRepay',query:{checkedStatus:26}}" tag="a">{{aRWaitRepayList}}笔<i v-if="aRWaitRepayList > 0"></i></router-link></li>
             <li><span><img src="@/assets/img/images/index_icon03.png">待接收</span><router-link :to="{path:'/suplier/getarapi',query:{checkedStatus:3}}" tag="a">{{aRWaitReceiveList}}笔<i v-if="aRWaitReceiveList > 0"></i></router-link></li>
           </ul>
         </div>
@@ -164,7 +164,7 @@ export default {
       this.axios.post('/creditLoan/getCreditLoanListTable.do', {
         iDisplayStart: 1,
         iDisplayLength: 10,
-        checkedStatus: 23
+        status: 23
       }).then(res => {
         if (res.status) {
           this.creditSignList = res.data.recordsTotal
@@ -178,7 +178,7 @@ export default {
       this.axios.post('/creditLoan/getOnRepaymentCreditListTable.do', {
         iDisplayStart: 1,
         iDisplayLength: 10,
-        checkedStatus: 26
+        status: 26
       }).then(res => {
         if (res.status) {
           this.creditRepayList = res.data.recordsTotal
@@ -192,7 +192,7 @@ export default {
       this.axios.post('/supplierOrderLoan/getInOrderFinancingListTable.do', {
         iDisplayStart: 1,
         iDisplayLength: 10,
-        checkedStatus: 23
+        status: 23
       }).then(res => {
         if (res.status) {
           this.orderSignList = res.data.recordsTotal
@@ -206,7 +206,7 @@ export default {
       this.axios.post('/supplierOrderLoan/getOnRepaymentOrderListTable.do', {
         iDisplayStart: 1,
         iDisplayLength: 10,
-        checkedStatus: 26
+        status: 26
       }).then(res => {
         if (res.status) {
           this.orderRepayList = res.data.recordsTotal

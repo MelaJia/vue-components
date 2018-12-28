@@ -1,5 +1,7 @@
 <template>
 <section id="print">
+  <!-- 预还款详情 -->
+  <dialog-info :visible-p.sync="dialogRepayInfoVisible" :details-p="details" ></dialog-info>
   <el-dialog custom-class="dia-class" :visible.sync="visibleP" :before-close="handleClose" center="">
     <header slot="title" class="headerTitle">
       <span class="title">
@@ -66,6 +68,7 @@
     </section>
     <footer class="no-print" slot="footer" :style="'clear:both'">
       <el-button type="primary" @click="handleClose" class="searchBtn" size="small">确认</el-button>
+      <el-button @click="handleShowRepay" type="primary" size="small" plain>预还款计划</el-button>
     </footer>
   </el-dialog>
 </section>
@@ -107,6 +110,26 @@ export default {
     getTitle () {
       return '融资编号' + this.detailsP.loanId
     }
+  },
+  data () {
+    return {
+      dialogRepayInfoVisible: false
+    }
+  },
+  components: {
+    'dialog-info': () =>
+      import(/* webpackChunkName: 'Dialog' */ '@/components/suplier/Ar/my/DialogRepayInfo')
+  },
+  methods: {
+    handleShowRepay: handleShowRepay
   }
+}
+function handleShowRepay () {
+  this.getLoanDetail('/loan/loanTrialRepaymentScheduleInfo.do', { loanId: this.detailsP.masterChainId }).then(res => {
+    if (res) {
+      this.details = res
+      this.dialogRepayInfoVisible = true
+    }
+  })
 }
 </script>

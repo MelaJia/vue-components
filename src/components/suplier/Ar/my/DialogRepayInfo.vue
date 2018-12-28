@@ -31,7 +31,7 @@
               <em>{{detailsP.loanAmt | regexNum}}</em>
             </span>
           </li>
-          <li class="wd-3">
+          <!-- <li class="wd-3">
             <span>
               月还本金:
               <em>{{detailsP.periodPrincipal | regexNum}}</em>
@@ -42,7 +42,7 @@
               月还利息:
               <em>{{detailsP.periodInterest | regexNum}}</em>
             </span>
-          </li>
+          </li> -->
         </ul>
           <!-- <table>
             <tr>

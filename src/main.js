@@ -17,7 +17,7 @@ import dateInit from '@/plugs/date'
 import {
   apiUrl
 } from '@/config/env.js'
-// import { monitorInit } from '@/monitorDatas'
+import { monitorInit } from '@/monitorDatas'
 import preview from 'vue-photo-preview'
 import 'vue-photo-preview/dist/skin.css'
 import Print from '@/plugs/print'
@@ -27,7 +27,7 @@ Vue.use(dateInit) // 格式化日期注册
 axios.defaults.baseURL = apiUrl
 if (process.env.NODE_ENV === 'development') {
   axios.defaults.withCredentials = true // 允许远端跨域cookie
-  // monitorInit() // 模拟数据初始化
+  monitorInit() // 模拟数据初始化
   axios.interceptors.request.use(
     config => {
       console.log('token:', store.getters.token, store.getters.monitorToken)

@@ -100,7 +100,7 @@
                 <p class="cooperation">
                   <span class="gray2">&gt;使用合作账号登录:</span>
                   <a href="javascript:;">
-                    <img src="@/assets/img/login/1.png" alt @click="thirdLogin">
+                    <img src="@/assets/img/login/1.png" alt @click="thirdLogin" style="border:none;">
                   </a>
                 </p>
               </section>
