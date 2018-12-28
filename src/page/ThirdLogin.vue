@@ -366,7 +366,18 @@ export default {
         })
       } else {
         this.company.custName = this.inputUser
-        this.establishUser(this.company.corp, this.company.custName, this.company.user, this.company.vendorCode)
+        this.axios.post('/cust/check', {
+          key: 'custUsername',
+          value: this.inputUser
+        }).then(res => {
+          if (res.data.status) {
+            this.establishUser(this.company.corp, this.company.custName, this.company.user, this.company.vendorCode)
+          } else {
+            this.$message.error(res.data.msg)
+          }
+        }).catch(err => {
+          console.log(err)
+        })
       }
     },
     // 创建账号密码

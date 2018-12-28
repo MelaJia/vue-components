@@ -17,7 +17,7 @@
         </el-table-column>
         <el-table-column align="center" label="融资类型" prop="loanTypeName">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="贴现申请金额" prop="applyAmt" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="贴现申请金额" width="150" prop="applyAmt" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName">
         </el-table-column>

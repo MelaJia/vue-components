@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="visibleP" :before-close="handleClose" :close-on-click-modal="false" class="contractDialog">
+  <el-dialog :visible.sync="visibleP" :before-close="handleClose" :close-on-click-modal="false" class="Dialog">
      <header slot="title" v-show="step!==1">
       <span class="title">
         {{getTitle}}
@@ -40,7 +40,7 @@ footer {
 }
 </style>
 <style>
-.contractDialog .el-dialog__footer{
+.Dialog .el-dialog__footer{
   background:#F0F0F0;
 }
 </style>

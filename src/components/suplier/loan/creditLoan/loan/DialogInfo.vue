@@ -121,6 +121,7 @@ export default {
   mixins: [DialogClose, Common],
   data () {
     return {
+      radio2: 3,
       dialogRepayInfoVisible: false,
       details: {}
     }

@@ -91,7 +91,7 @@
         </el-table-column>
         <el-table-column align="center" label="状态" prop="statusName" width="80">
         </el-table-column>
-        <el-table-column align="center" label="还款方式" prop="repaymentType" min-width="150">
+        <el-table-column align="center" label="还款方式" prop="repaymentType" min-width="100">
         </el-table-column>
         <el-table-column align="right" header-align="center" label="实放金额" prop="loanAmt" min-width="150" :formatter="regexNum">
         </el-table-column>

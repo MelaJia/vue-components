@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="visibleP" :before-close="handleClose" :close-on-click-modal="false">
+  <el-dialog :visible.sync="visibleP" :before-close="handleClose" :close-on-click-modal="false" class="Dialog">
      <header slot="title" v-show="step!==1">
       <span class="title">
         {{getTitle}}
@@ -39,7 +39,11 @@ footer {
   color: #f00;
 }
 </style>
-
+<style>
+.Dialog .el-dialog__footer{
+  background:#F0F0F0;
+}
+</style>
 <script>
 import DialogClose from '@/mixins/suplier/Ar/DialogClose'
 import Common from '@/mixins/common/common'

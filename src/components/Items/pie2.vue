@@ -1,7 +1,7 @@
 <template>
-  <section style="height:450px;" :style="{width:width+'px'}">
-    <div ref="pie" id="pie" style="height:500px;" :style="{width:width+'px'}"></div>
-    <img class="icon-money" src="@/assets/img/images/index_icon_money.png" :style="{left: (width/2)-47.5 + 'px'}" alt>
+  <section :style="{height: height+'px',width:width+'px'}">
+    <div ref="pie" id="pie" :style="{height: height+'px',width:width+'px'}"></div>
+    <img class="icon-money" src="@/assets/img/images/index_icon_money.png" :style="{left: (width/2)-47.5 + 'px',top: (height/2)-47.5 + 'px'}" alt>
   </section>
 </template>
 <style scoped>
@@ -25,9 +25,17 @@ export default {
   props: {
     data: Object,
     sortArr: Array,
+    height: {
+      type: Number,
+      default: 600
+    },
     width: {
       type: Number,
       default: 600
+    },
+    showTool: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -144,6 +152,7 @@ function dealData2 (res) {
 }
 // 配置option
 function getOptions (echartData) {
+  const _this = this
   let scale = this.width / 600
   let rich = {
     yellow: {
@@ -263,6 +272,7 @@ function getOptions (echartData) {
         color: echartData.bColor,
         label: {
           normal: {
+            show: _this.showTool,
             formatter: function (params, ticket, callback) {
               return params.name !== '__other' ? `{white|${thousandth(params.value)}万元 }\n{per|${(params.percent * 4 / 3).toFixed(2)}%}` : ''
             },

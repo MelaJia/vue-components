@@ -2,11 +2,11 @@
   <div class="schedule">
     <div class="body">
       <el-card class="text-align-center">
-        <div slot="header" class="title">
-          <span style="background:#4396F6;height:40px;color:#fff;line-height:40px;padding:0 10px 0 10px;border-radius:0 20px 20px 0;font-size:14px;width:80px;">待处理单据</span>
+        <div slot="header" class="title" style="margin-top:10px;">
+          <span style="background:#4396F6;height:30px;color:#fff;line-height:30px;padding:0 10px 0 10px;border-radius:0 20px 20px 0;font-size:14px;width:80px;">待处理单据</span>
           <span style="margin-left:20px;flex:1;">总共有<span style="color:#C4141E;margin:0 2px;">{{getTotal}}</span>条单据待处理，请及时处理</span>
         </div>
-        <div class="item" style="background:#EBF3FE;">
+        <div class="item">
           <p class="listTitle">AR业务</p>
           <ul>
             <li><span><img src="@/assets/img/images/index_icon04.png">待合同签署</span><router-link :to="{path:'/suplier/financingbill',query:{checkedStatus:23}}" tag="a">{{aRWaitSignList}}笔<i v-if="aRWaitSignList > 0"></i></router-link></li>
@@ -33,12 +33,12 @@
   </div>
 </template>
 <style scoped lang="scss">
-.body .el-card__header{
-  padding:8px 0;
-}
-.body .el-card__body{
-  padding:0 20px;
-}
+// .body .el-card__header{
+//   padding:8px 0;
+// }
+// .body .el-card__body{
+//   padding:0 20px;
+// }
 .title{
   display:flex;
 }
@@ -47,14 +47,13 @@
   border-bottom:1px dashed #ACACAC;
   padding-bottom:4px;
   padding-left:10px;
-  padding-top:10px;
 }
 .item ul{
-  padding:10px;
+  padding:0 10px;
 }
 .item ul li{
   display:flex;
-  margin-bottom:10px;
+  margin-bottom:4px;
   justify-content: space-between;
 }
 .item ul li img{

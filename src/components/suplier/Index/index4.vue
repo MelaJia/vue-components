@@ -5,9 +5,9 @@
     </div>
     <div class="content left-right">
       <!-- 左侧部分 -->
-      <section class="float-left" style="position:relative;margin-top: -100px;">
+      <section class="float-left" style="position:relative;margin-top: -100px;" :style="{'margin-left': !isShowTool ?'-120px' : '0px'}">
         <!-- 图表区域 -->
-        <pie ref="pie" :data="echartData" :sort-arr="sortArr" :width="500"></pie>
+        <pie ref="pie" :data="echartData" :sort-arr="sortArr" :width="isShowTool?450:400" :height="485" :show-tool="isShowTool"></pie>
         <!-- 底部链接区域 -->
         <div class="url-section">
             <div class="bg-style bg-blue">
@@ -16,7 +16,7 @@
         </div>
       </section>
       <!-- 右侧部分 -->
-      <section class="float-left" style="width: calc(100% - 500px);margin-top: 50px;">
+      <section class="float-left" style="width: 446px;margin-top: 50px;">
         <el-row>
           <el-col class="style-flex-circle" :span="14">
             <process-text :data="dataArr.unUsed" :total="rightSum" :is-detail="false"></process-text>
@@ -43,10 +43,8 @@
 }
 @media only screen and (min-width: 960px){
   .style-flex-order{
-    width: 50%;
   }
   .style-flex-circle{
-    width: 100%;
   }
 }
 @media only screen and (min-width: 1552px){
@@ -83,7 +81,7 @@
 /* 链接样式 */
 .url-section {
   position: absolute;
-  bottom: 20px;
+  bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -122,8 +120,8 @@
 
 .orderList {
     text-align: center;
-    width: 100%;
-    padding: 35px 5px;
+    width: 150px;
+    padding: 20px 15px;
     &.first{
     border-left: 1px solid #dfdfdf;
     border-right: 1px solid #dfdfdf;
@@ -200,8 +198,12 @@ export default {
           path: 'loan', // 路径
           bcolor: '#f8c200' // 背景色
         }
-      }
+      },
+      isShowTool: false
     }
+  },
+  created () {
+    this.isShowTool = !(getElWidth() >= 1203 && getElWidth() < 1565)
   },
   mounted () {
     // 获取数据
@@ -270,5 +272,8 @@ function sumAdd (object) {
     }
   }
   return result / 100
+}
+function getElWidth () {
+  return document.documentElement.clientWidth
 }
 </script>

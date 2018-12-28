@@ -96,7 +96,7 @@
         </el-table-column>
         <el-table-column align="center" label="贴现客户" prop="custFromName" width="150">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="贴现放款金额" prop="billBookAmt" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="贴现放款金额" prop="billBookAmt" width="150" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyDesc">
         </el-table-column>
@@ -104,25 +104,25 @@
         </el-table-column>
         <el-table-column align="center" label="宽容天数" prop="fineGraceDays" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款本金" prop="payPrincipalAmt" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="还款本金" prop="payPrincipalAmt" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款利息" prop="payInterestAmt" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="还款利息" prop="payInterestAmt" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="服务费" prop="payServiceAmt" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="服务费" prop="payServiceAmt" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款罚息" prop="payFineAmt" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="还款罚息" prop="payFineAmt" width="150" :formatter="regexNum">
         </el-table-column>
         <el-table-column align="center" label="罚息天数" prop="payFineDays" :formatter="nullDealWith">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepayServiceAmt" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="提前还款手续费" prop="prepayServiceAmt" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="right" header-align="center" label="还款总计" prop="payAmt" :formatter="regexNum">
+        <el-table-column align="right" header-align="center" label="还款总计" prop="payAmt" width="150" :formatter="regexNum">
         </el-table-column>
-        <el-table-column align="center" label="票据到期日" prop="billPayDate" :formatter="dateFormat" width="120">
+        <el-table-column align="center" label="票据到期日" prop="billPayDate" :formatter="dateFormat" width="110">
         </el-table-column>
-        <el-table-column align="center" label="出借日期" prop="loanDate" :formatter="dateFormat" width="120">
+        <el-table-column align="center" label="出借日期" prop="loanDate" :formatter="dateFormat" width="110">
         </el-table-column>
-        <el-table-column align="center" label="预计还款日期" prop="periodPayDate" :formatter="dateFormat" width="120">
+        <el-table-column align="center" label="预计还款日期" prop="periodPayDate" :formatter="dateFormat" width="110">
         </el-table-column>
         <el-table-column align="center" label="结报状态">
           <template slot-scope="scope">

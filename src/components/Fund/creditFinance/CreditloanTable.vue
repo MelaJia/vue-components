@@ -33,7 +33,7 @@
         </el-table-column>
         <el-table-column align="center" label="币别" prop="currencyName" width="80">
         </el-table-column>
-        <el-table-column align="center" label="状态" prop="status" min-width="100">
+        <el-table-column align="center" label="状态" prop="status" min-width="80">
         </el-table-column>
         <el-table-column align="center" label="还款方式" prop="repaymentType" min-width="140">
         </el-table-column>
